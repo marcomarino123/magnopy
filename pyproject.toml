@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "magnopy"
-version = "0.0.0"
+dynamic = ["version"]
 description = "Magnopy is a Python package for magnons."
 authors = [{ name = "Andrey Rybakov", email = "rybakov.ad@icloud.com" }]
 requires-python = ">=3.8"
@@ -26,3 +26,9 @@ classifiers = [
     'Topic :: Scientific/Engineering',
     "Operating System :: OS Independent",
 ]
+
+[tool.setuptools]
+py-modules = ["magnopy"]
+
+[tool.setuptools.dynamic]
+version = { attr = "magnopy.__version__" }

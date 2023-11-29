@@ -1,0 +1,17 @@
+# MacOS
+.DS_Store
+
+# Virtual environments
+.venv
+.env*
+
+# Unit tests
+.hypothesis
+
+# Build
+**/build
+dist
+*.egg-info
+
+# Python cache
+__pycache__

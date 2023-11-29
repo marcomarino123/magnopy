@@ -1,0 +1,7 @@
+# Package dependencies
+numpy
+
+# Developments tools
+pre-commit
+black
+isort

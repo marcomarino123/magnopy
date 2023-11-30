@@ -12,3 +12,5 @@ Getting started
 
     start/about
     start/installation
+
+    methods/index

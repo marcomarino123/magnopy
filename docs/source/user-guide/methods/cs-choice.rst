@@ -30,7 +30,7 @@ coordinate system.
 
 where :math:`\vec{d}` is a vector between cite :math:`a` and :math:`b`.
 
-Ground state, corresponding to those matrices, can be describe by the
+We assume that ground state, corresponding to those matrices, can be describe by the
 single-:math:`\vec{Q}` spin spiral with the global rotation axis
 :math:`\vec{v}` and a set of spin directions in one unit cell
 
@@ -55,7 +55,7 @@ to the :math:`\hat{u}\hat{v}\hat{n}` coordinate system.
 Where :math:`\hat{v}` is the global rotation axis and
 :math:`\hat{u}`, :math:`\hat{n}` are chosen by the following rule:
 
-* If :math:`\hat{v} = \hat{y}`, than
+* If :math:`\hat{v} = \hat{y}`
 
   .. math::
 
@@ -65,7 +65,7 @@ Where :math:`\hat{v}` is the global rotation axis and
           \hat{n} &= \hat{z} \\
       \end{aligned}
 
-* If :math:`\hat{v} = -\hat{y}`, than
+* If :math:`\hat{v} = -\hat{y}`
 
   .. math::
 
@@ -75,7 +75,8 @@ Where :math:`\hat{v}` is the global rotation axis and
           \hat{n} &= -\hat{x} \\
       \end{aligned}
 
-* Else, :math:`\hat{x}\hat{y}\hat{z}` is rotated by the angle
+* In other cases
+  :math:`\hat{x}\hat{y}\hat{z}` is rotated by the angle
   :math:`\alpha` around the axis :math:`\hat{r}_v`
 
   .. math::
@@ -107,6 +108,10 @@ Where :math:`\hat{v}` is the global rotation axis and
         = (-\dfrac{v_xv_z}{1+v_y}, -v_z, 1 - \dfrac{v_z^2}{1+v_y})^T\\
       \end{aligned}
 
+.. image:: ../../../images/cs-choice.png
+  :alt: Examples of coordinate system choices
+  :target: ../../_images/cs-choice.png
+
 The spin vectors and exchange matrices under the change of the coordinate system:
 
 .. math::
@@ -116,12 +121,12 @@ The spin vectors and exchange matrices under the change of the coordinate system
 .. math::
 
     J_{a,b}(\vec{d})
-    = (R_{\alpha}^{\hat{r}_v})^T
+    = R_{\alpha}^{\hat{r}_v}
     \begin{pmatrix}
         J_{xx} & J_{xy} & J_{xz} \\
         J_{yx} & J_{yy} & J_{yz} \\
         J_{zx} & J_{zy} & J_{zz}
-    \end{pmatrix}_{xyz} R_{\alpha}^{\hat{r}_v}
+    \end{pmatrix}_{xyz} (R_{\alpha}^{\hat{r}_v})^T
     = \begin{pmatrix}
         J_{uu} & J_{uv} & J_{un} \\
         J_{vu} & J_{vv} & J_{vn} \\
@@ -129,5 +134,5 @@ The spin vectors and exchange matrices under the change of the coordinate system
     \end{pmatrix}_{uvn}
 
 .. note::
-    All properties of the exchange matrix are preserved by the coordinate
-    system change, since it corresponds to the symple basis change.
+    The properties of the exchange matrix should be preserved by the coordinate
+    system change.

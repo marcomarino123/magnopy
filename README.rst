@@ -10,3 +10,5 @@ Magnopy is a Python package for the magnon-related properties:
 * Correlations
 
 In development. To be released soon.
+
+Update from the web.

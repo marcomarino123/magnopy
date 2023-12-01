@@ -90,9 +90,12 @@ def main(root_directory):
             -n[1],
         )
     )
-    plot_vector(axs[2], u, R"$\hat{u}$", color=color)
+    print(np.linalg.norm(u), np.linalg.norm(v), np.linalg.norm(n))
+    print(u, v, n, sep="\n")
+    plot_vector(axs[2], u, R"$\hat{u}$", color=color, label_shift=0.2 * u)
     plot_vector(axs[2], v, R"$\hat{v}$", color=color)
-    plot_vector(axs[2], n, R"$\hat{n}$", color=color)
+    plot_vector(axs[2], n, R"$\hat{n}$", color=color, label_shift=0.2 * n)
+    axs[2].view_init(azim=-45, elev=28)
 
     plt.savefig(
         os.path.join(root_directory, "docs", "images", "cs-choice.png"), dpi=400

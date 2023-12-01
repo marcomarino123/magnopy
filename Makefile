@@ -48,3 +48,6 @@ install:
 
 test:
 	@pytest -s
+
+plot-docs-pictures:
+	@python3 docs/images/scripts/cs-choice.py -rd .

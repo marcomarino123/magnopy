@@ -50,7 +50,7 @@ def main(root_directory):
     dis = (1 - 3 * width - right_fix) / 6
     limit = 0.6
     axs = []
-    titles = ["$\hat{v} = \hat{y}$", "$\hat{v} = -\hat{y}$", "Other"]
+    titles = ["$\hat{n} = \hat{z}$", "$\hat{n} = -\hat{z}$", "Other"]
     color = "#AE1968"
     for i in range(3):
         axs.append(
@@ -75,22 +75,22 @@ def main(root_directory):
         axs[-1].set_title(titles[i], fontsize=20, pad=20)
 
     # Plot v = -y
-    plot_vector(axs[1], (0, 0, -1), R"$\hat{u}$", color=color, label_shift=(0, 0, -0.2))
-    plot_vector(axs[1], (0, -1, 0), R"$\hat{v}$", color=color, label_shift=(0, -0.4, 0))
-    plot_vector(axs[1], (-1, 0, 0), R"$\hat{n}$", color=color, label_shift=(-0.2, 0, 0))
+    plot_vector(axs[1], (0, 0, -1), R"$\hat{n}$", color=color, label_shift=(0, 0, -0.2))
+    plot_vector(axs[1], (0, -1, 0), R"$\hat{u}$", color=color, label_shift=(0, -0.4, 0))
+    plot_vector(axs[1], (-1, 0, 0), R"$\hat{v}$", color=color, label_shift=(-0.2, 0, 0))
 
     # Plot example of other cases
-    v = np.array([7, 2, 4], dtype=float)
-    v /= np.linalg.norm(v)
-    u = np.array((1 - (v[0] ** 2) / (1 + v[1]), -v[0], -v[0] * v[2] / (1 + v[1])))
-    n = np.array(
+    n = np.array([-1, -1, -1], dtype=float)
+    n /= np.linalg.norm(n)
+    u = np.array((1 - (n[0] ** 2) / (1 + n[2]), -n[0] * n[1] / (1 + n[2]), -n[0]))
+    v = np.array(
         (
-            -v[0] * v[2] / (1 + v[1]),
-            -v[2],
-            1 - (v[2] ** 2) / (1 + v[1]),
+            -n[0] * n[1] / (1 + n[2]),
+            1 - (n[1] ** 2) / (1 + n[2]),
+            -n[1],
         )
     )
-    plot_vector(axs[2], u, R"$\hat{u}$", color=color, label_shift=0.1 * u)
+    plot_vector(axs[2], u, R"$\hat{u}$", color=color)
     plot_vector(axs[2], v, R"$\hat{v}$", color=color)
     plot_vector(axs[2], n, R"$\hat{n}$", color=color)
 

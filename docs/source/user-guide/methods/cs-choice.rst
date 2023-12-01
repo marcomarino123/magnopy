@@ -82,30 +82,30 @@ Where :math:`\hat{n}` is the global rotation axis and
   .. math::
 
       \begin{aligned}
-        \cos\alpha &= \hat{z}\cdot\hat{n} = v_z \\
-        \sin\alpha &= \sqrt{1 - v_z^2} \\
+        \cos\alpha &= \hat{z}\cdot\hat{n} = n_z \\
+        \sin\alpha &= \sqrt{1 - n_z^2} \\
         \hat{r}_n &= \hat{z}\times\hat{n} =
-        \dfrac{1}{\sqrt{v_x^2+v_z^2}}(v_z, 0, -v_x)_{xyz}^T \\
+        \dfrac{1}{\sqrt{n_x^2+n_y^2}}(-n_y, n_x, 0)_{xyz}^T \\
       \end{aligned}
 
   .. math::
 
-      R_{\alpha}^{\hat{r}_v} =
+      R_{\alpha}^{\hat{r}_n} =
       \begin{pmatrix}
-        1 - \dfrac{v_x^2}{1+v_y} & v_x & -\dfrac{v_xv_z}{1+v_y}   \\
-        -v_x                     & v_y & -v_z                     \\
-        -\dfrac{v_xv_z}{1+v_y}   & v_z & 1 - \dfrac{v_z^2}{1+v_y} \\
+        1 - \dfrac{n_x^2}{1+n_z} & -\dfrac{n_xn_y}{1+n_z}   & n_x  \\
+        -\dfrac{n_xn_y}{1+n_z}   & 1 - \dfrac{n_y^2}{1+n_z} & n_y  \\
+        -n_x                     & -n_y                     & n_z \\
       \end{pmatrix}
 
   .. math::
 
       \begin{aligned}
-        \hat{u}_{xyz} &= R_{\alpha}^{\hat{r}_v} (1,0,0)^T
-        = (1 - \dfrac{v_x^2}{1+v_y}, -v_x, -\dfrac{v_xv_z}{1+v_y})^T\\
-        \hat{v}_{xyz} &= R_{\alpha}^{\hat{r}_v} (0,1,0)^T
-        = (v_x, v_y, v_z)^T\\
-        \hat{n}_{xyz} &= R_{\alpha}^{\hat{r}_v} (0,0,1)^T
-        = (-\dfrac{v_xv_z}{1+v_y}, -v_z, 1 - \dfrac{v_z^2}{1+v_y})^T\\
+        \hat{u}_{xyz} &= R_{\alpha}^{\hat{r}_n} (1,0,0)^T
+        = (1 - \dfrac{n_x^2}{1+n_z}, -\dfrac{n_xn_y}{1+n_z}, -n_x)^T \\
+        \hat{v}_{xyz} &= R_{\alpha}^{\hat{r}_n} (0,1,0)^T
+        =  (-\dfrac{n_xn_y}{1+n_z}, 1 - \dfrac{n_y^2}{1+n_z}, -n_y)^T \\
+        \hat{n}_{xyz} &= R_{\alpha}^{\hat{r}_n} (0,0,1)^T
+        = (n_x, n_y, n_z)^T \\
       \end{aligned}
 
 .. image:: ../../../images/cs-choice.png
@@ -115,18 +115,18 @@ Where :math:`\hat{n}` is the global rotation axis and
 The spin vectors and exchange matrices under the change of the coordinate system:
 
 .. math::
-    \vec{S}^a = R_{\alpha}^{\hat{r}_v}(S_x^a, S_y^a, S_z^a)_{xyz}^T
+    \vec{S}^a = R_{\alpha}^{\hat{r}_n}(S_x^a, S_y^a, S_z^a)_{xyz}^T
     = (S_u^a, S_v^a, S_n^a)_{uvn}^T
 
 .. math::
 
     J_{a,b}(\vec{d})
-    = R_{\alpha}^{\hat{r}_v}
+    = R_{\alpha}^{\hat{r}_n}
     \begin{pmatrix}
         J_{xx} & J_{xy} & J_{xz} \\
         J_{yx} & J_{yy} & J_{yz} \\
         J_{zx} & J_{zy} & J_{zz}
-    \end{pmatrix}_{xyz} (R_{\alpha}^{\hat{r}_v})^T
+    \end{pmatrix}_{xyz} (R_{\alpha}^{\hat{r}_n})^T
     = \begin{pmatrix}
         J_{uu} & J_{uv} & J_{un} \\
         J_{vu} & J_{vv} & J_{vn} \\

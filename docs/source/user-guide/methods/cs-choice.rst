@@ -32,7 +32,7 @@ where :math:`\vec{d}` is a vector between cite :math:`a` and :math:`b`.
 
 We assume that ground state, corresponding to those matrices, can be describe by the
 single-:math:`\vec{Q}` spin spiral with the global rotation axis
-:math:`\vec{v}` and a set of spin directions in one unit cell
+:math:`\vec{n}` and a set of spin directions in one unit cell
 
 .. math::
 
@@ -40,8 +40,8 @@ single-:math:`\vec{Q}` spin spiral with the global rotation axis
 
 .. math::
 
-    \hat{v} = (v_x, v_y, \sqrt{1 - v_x^2 - v_y^2})_{xyz}
-    = (v_x, v_y, v_z)_{xyz}^T
+    \hat{n} = (n_x, n_y, \sqrt{1 - n_x^2 - n_y^2})_{xyz}
+    = (n_x, n_y, n_z)_{xyz}^T
 
 .. math::
 
@@ -52,10 +52,10 @@ unit cell.
 
 At first we change from :math:`\hat{x}\hat{y}\hat{z}` coordinate system
 to the :math:`\hat{u}\hat{v}\hat{n}` coordinate system.
-Where :math:`\hat{v}` is the global rotation axis and
-:math:`\hat{u}`, :math:`\hat{n}` are chosen by the following rule:
+Where :math:`\hat{n}` is the global rotation axis and
+:math:`\hat{u}`, :math:`\hat{v}` are chosen by the following rule:
 
-* If :math:`\hat{v} = \hat{y}`
+* If :math:`\hat{n} = \hat{z}`
 
   .. math::
 
@@ -65,26 +65,26 @@ Where :math:`\hat{v}` is the global rotation axis and
           \hat{n} &= \hat{z} \\
       \end{aligned}
 
-* If :math:`\hat{v} = -\hat{y}`
+* If :math:`\hat{n} = -\hat{z}`
 
   .. math::
 
       \begin{aligned}
-          \hat{u} &= -\hat{z} \\
-          \hat{v} &= -\hat{y} \\
-          \hat{n} &= -\hat{x} \\
+          \hat{u} &= -\hat{y} \\
+          \hat{v} &= -\hat{x} \\
+          \hat{n} &= -\hat{z} \\
       \end{aligned}
 
 * In other cases
   :math:`\hat{x}\hat{y}\hat{z}` is rotated by the angle
-  :math:`\alpha` around the axis :math:`\hat{r}_v`
+  :math:`\alpha` around the axis :math:`\hat{r}_n`
 
   .. math::
 
       \begin{aligned}
-        \cos\alpha &= \hat{y}\cdot\hat{v} = v_y \\
-        \sin\alpha &= \sqrt{1 - v_y^2} \\
-        \hat{r}_v &= \hat{y}\times\hat{v} =
+        \cos\alpha &= \hat{z}\cdot\hat{n} = v_z \\
+        \sin\alpha &= \sqrt{1 - v_z^2} \\
+        \hat{r}_n &= \hat{z}\times\hat{n} =
         \dfrac{1}{\sqrt{v_x^2+v_z^2}}(v_z, 0, -v_x)_{xyz}^T \\
       \end{aligned}
 

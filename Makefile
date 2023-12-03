@@ -18,6 +18,7 @@ help:
 	@echo "    clean - clean all files from docs and pip routines"
 	@echo "    install - install the package"
 	@echo "    test - execute unit tests"
+	@echo "    pictures-for-docs - plot all pictures for the documentation"
 
 html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
@@ -49,5 +50,5 @@ install:
 test:
 	@pytest -s
 
-plot-docs-pictures:
+pictures-for-docs:
 	@python3 docs/images/scripts/cs-choice.py -rd .

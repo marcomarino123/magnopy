@@ -4,129 +4,195 @@
 Coordinate system choice
 ************************
 
-.. hint::
+.. dropdown:: Notation used on this page
 
     * :math:`\vec{v}` - is a vector.
     * :math:`\hat{v}` - is a unit vector, corresponding to the
       vector :math:`\vec{v}`.
     * :math:`(...)_{e_1e_2e_3}` - denotes the coordinate representation
-      expressed in the :math:`\hat{e}_1\hat{e}_2\hat{e}_3` coordinate system.
-    * :math:`A_{{e_1e_2e_3}}` - denotes the vector/matrix, expressed in the
-      :math:`\hat{e}_1\hat{e}_2\hat{e}_3` coordinate system.
+      with respect to the :math:`\hat{e}_1\hat{e}_2\hat{e}_3` reference frame.
     * :math:`\times` - means cross product for vectors.
-    * Vectors are represented by columns: :math:`(,,)^T`
+    * "reference frame" = "coordinate system" = "basis"
 
-We are given a set of matrices in the global :math:`\hat{x}\hat{y}\hat{z}`
-coordinate system.
+The exchange and on-site anisotropy matrices are usually given in
+some global reference frame :math:`\hat{x}\hat{y}\hat{z}`.
+However, majority of the derivation happens in the
+:math:`\hat{u}\hat{v}\hat{n}` reference frame, which is defined by the cone
+axis :math:`\hat{v}`. The unit vectors :math:`\hat{u}` and
+:math:`v` can be defined in a several ways due to the rotational freedom
+around :math:`\hat{v}` axis.
+
+Here we explain which reference frame we choose given one unit vector
+:math:`\hat{n}`. The idea behind the choice is to rotate the :math:`\hat{z}`
+axis of the global reference frame to the direction of the given unit vector:
 
 .. math::
 
-    J_{a,b}(\vec{d}) =
+    \hat{n} =
     \begin{pmatrix}
-        J_{xx} & J_{xy} & J_{xz} \\
-        J_{yx} & J_{yy} & J_{yz} \\
-        J_{zx} & J_{zy} & J_{zz}
+      n_x \\
+      n_y \\
+      n_z \\
+    \end{pmatrix}_{xyz} =
+    \begin{pmatrix}
+      \cos\beta\sin\alpha \\
+      \sin\beta\sin\alpha \\
+      \cos\alpha          \\
     \end{pmatrix}_{xyz}
 
-where :math:`\vec{d}` is a vector between cite :math:`a` and :math:`b`.
+.. raw:: html
+  :file: ../../../images/cs-choice-n-angles.html
 
-We assume that ground state, corresponding to those matrices, can be describe by the
-single-:math:`\vec{Q}` spin spiral with the global rotation axis
-:math:`\vec{n}` and a set of spin directions in one unit cell
+.. note::
+    * The given unit vector is called :math:`\hat{n}`, because in the
+      context of magnopy we will use the cone axis as a given vector.
+    * We rotate the :math:`\hat{z}` (not :math:`\hat{x}` or :math:`\hat{y}`)
+      to match :math:`\hat{n}`, because in the context of magnopy we
+      choose the cone axis to be the quantization axis.
+    * When :math:`\hat{n} = \pm\hat{z}` the angle :math:`\beta` is not well defined,
+      therefore, these two cases are treated separately below.
 
-.. math::
-
-    \vec{Q} = (Q_x, Q_y, Q_z)_{xyz}^T
-
-.. math::
-
-    \hat{n} = (n_x, n_y, \sqrt{1 - n_x^2 - n_y^2})_{xyz}
-    = (n_x, n_y, n_z)_{xyz}^T
-
-.. math::
-
-    \vec{S}^a = (S_x^a, S_y^a, S_z^a)_{xyz}^T = S^a\hat{S}^a
-
-where :math:`a = 1, ..., N` and :math:`N` is a number of spins in the
-unit cell.
-
-At first we change from :math:`\hat{x}\hat{y}\hat{z}` coordinate system
-to the :math:`\hat{u}\hat{v}\hat{n}` coordinate system.
-Where :math:`\hat{n}` is the global rotation axis and
-:math:`\hat{u}`, :math:`\hat{v}` are chosen by the following rule:
-
-* If :math:`\hat{n} = \hat{z}`
-
-  .. math::
-
-      \begin{aligned}
-          \hat{u} &= \hat{x} \\
-          \hat{v} &= \hat{y} \\
-          \hat{n} &= \hat{z} \\
-      \end{aligned}
-
-* If :math:`\hat{n} = -\hat{z}`
-
-  .. math::
-
-      \begin{aligned}
-          \hat{u} &= -\hat{y} \\
-          \hat{v} &= -\hat{x} \\
-          \hat{n} &= -\hat{z} \\
-      \end{aligned}
-
-* In other cases
+* If :math:`\hat{n} \ne \pm \hat{z}`, than
   :math:`\hat{x}\hat{y}\hat{z}` is rotated by the angle
-  :math:`\alpha` around the axis :math:`\hat{r}_n`
+  :math:`\alpha` around the axis :math:`\hat{r}`
 
   .. math::
 
       \begin{aligned}
-        \cos\alpha &= \hat{z}\cdot\hat{n} = n_z \\
-        \sin\alpha &= \sqrt{1 - n_z^2} \\
-        \hat{r}_n &= \hat{z}\times\hat{n} =
-        \dfrac{1}{\sqrt{n_x^2+n_y^2}}(-n_y, n_x, 0)_{xyz}^T \\
+        \hat{r} &= \hat{z}\times\hat{n} =
+        \begin{pmatrix}
+          -\sin\beta \\
+          \cos\beta \\
+          0
+        \end{pmatrix}_{xyz}
       \end{aligned}
 
   .. math::
 
-      R_{\alpha}^{\hat{r}_n} =
+      R =
+      \begin{pmatrix}
+        \cos\alpha + \sin^2\beta(1-\cos\alpha) &
+        -\sin\beta\cos\beta(1-\cos\alpha) &
+        \cos\beta\sin\alpha  \\
+        -\sin\beta\cos\beta(1-\cos\alpha) &
+        \cos\alpha + \cos^2\beta(1-\cos\alpha) &
+        \sin\beta\sin\alpha  \\
+        -\cos\beta\sin\alpha &
+        -\sin\beta\sin\alpha &
+        \cos\alpha \\
+      \end{pmatrix}
+      =
       \begin{pmatrix}
         1 - \dfrac{n_x^2}{1+n_z} & -\dfrac{n_xn_y}{1+n_z}   & n_x  \\
         -\dfrac{n_xn_y}{1+n_z}   & 1 - \dfrac{n_y^2}{1+n_z} & n_y  \\
-        -n_x                     & -n_y                     & n_z \\
+        -n_x                     & -n_y                     & n_z  \\
       \end{pmatrix}
 
   .. math::
 
       \begin{aligned}
-        \hat{u}_{xyz} &= R_{\alpha}^{\hat{r}_n} (1,0,0)^T
-        = (1 - \dfrac{n_x^2}{1+n_z}, -\dfrac{n_xn_y}{1+n_z}, -n_x)^T \\
-        \hat{v}_{xyz} &= R_{\alpha}^{\hat{r}_n} (0,1,0)^T
-        =  (-\dfrac{n_xn_y}{1+n_z}, 1 - \dfrac{n_y^2}{1+n_z}, -n_y)^T \\
-        \hat{n}_{xyz} &= R_{\alpha}^{\hat{r}_n} (0,0,1)^T
-        = (n_x, n_y, n_z)^T \\
+        \hat{u}_{xyz} &= R \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+        =
+        \begin{pmatrix}
+          \cos\alpha + \sin^2\beta(1-\cos\alpha) \\
+          -\sin\beta\cos\beta(1-\cos\alpha) \\
+          -\cos\beta\sin\alpha \\
+        \end{pmatrix}_{xyz}
+        =
+        \begin{pmatrix}
+          1 - \dfrac{n_x^2}{1+n_z} \\
+          -\dfrac{n_xn_y}{1+n_z} \\
+          -n_x
+        \end{pmatrix}_{xyz} \\
+        \hat{v}_{xyz} &= R \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+        =
+        \begin{pmatrix}
+          -\sin\beta\cos\beta(1-\cos\alpha) \\
+          \cos\alpha + \cos^2\beta(1-\cos\alpha) \\
+          -\sin\beta\sin\alpha
+        \end{pmatrix}_{xyz}
+        =
+        \begin{pmatrix}
+          -\dfrac{n_xn_y}{1+n_z} \\
+          1 - \dfrac{n_y^2}{1+n_z} \\
+          -n_y
+        \end{pmatrix}_{xyz} \\
+        \hat{n}_{xyz} &= R \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+        =
+        \begin{pmatrix}
+          \cos\beta\sin\alpha \\
+          \sin\beta\sin\alpha \\
+          \cos\alpha
+        \end{pmatrix}_{xyz}
+        =
+        \begin{pmatrix}
+          n_x \\
+          n_y \\
+          n_z
+        \end{pmatrix}_{xyz}
       \end{aligned}
 
-.. image:: ../../../images/cs-choice.png
-  :alt: Examples of coordinate system choices
-  :target: ../../_images/cs-choice.png
 
-The spin vectors and exchange matrices under the change of the coordinate system:
+.. raw:: html
+  :file: ../../../images/cs-choice-case-3.html
+
+* If :math:`\hat{n} = \hat{z}`
+
+  .. math::
+    \begin{matrix}
+      \begin{aligned}
+        \hat{u} &= \hat{x} \\
+        \hat{v} &= \hat{y} \\
+        \hat{n} &= \hat{z} \\
+      \end{aligned} & \text{ and } &
+      R =
+      \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+      \end{pmatrix}
+    \end{matrix}
+
+.. raw:: html
+  :file: ../../../images/cs-choice-case-1.html
+
+* If :math:`\hat{n} = -\hat{z}`
+
+  .. math::
+    \begin{matrix}
+      \begin{aligned}
+        \hat{u} &= -\hat{y} \\
+        \hat{v} &= -\hat{x} \\
+        \hat{n} &= -\hat{z} \\
+      \end{aligned} & \text{ and } &
+      R =
+      \begin{pmatrix}
+        0  & -1 & 0  \\
+        -1 & 0  & 0  \\
+        0  & 0  & -1 \\
+      \end{pmatrix}
+    \end{matrix}
+
+.. raw:: html
+  :file: ../../../images/cs-choice-case-2.html
+
+
+The spin vectors and exchange matrices under the change of the reference frame:
 
 .. math::
-    \vec{S}^a = R_{\alpha}^{\hat{r}_n}(S_x^a, S_y^a, S_z^a)_{xyz}^T
-    = (S_u^a, S_v^a, S_n^a)_{uvn}^T
+    \vec{S}^a =
+    R\begin{pmatrix} S_x^a \\ S_y^a \\ S_z^a \end{pmatrix}_{xyz}
+    = \begin{pmatrix} S_u^a \\ S_v^a \\ S_n^a \end{pmatrix}_{uvn}
 
 .. math::
 
     J_{a,b}(\vec{d})
-    = R_{\alpha}^{\hat{r}_n}
+    = R
     \begin{pmatrix}
         J_{xx} & J_{xy} & J_{xz} \\
         J_{yx} & J_{yy} & J_{yz} \\
         J_{zx} & J_{zy} & J_{zz}
-    \end{pmatrix}_{xyz} (R_{\alpha}^{\hat{r}_n})^T
+    \end{pmatrix}_{xyz} R^{-1}
     = \begin{pmatrix}
         J_{uu} & J_{uv} & J_{un} \\
         J_{vu} & J_{vv} & J_{vn} \\

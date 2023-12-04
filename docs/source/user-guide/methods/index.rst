@@ -7,7 +7,8 @@ Methods and algorithms
 .. toctree::
     :maxdepth: 1
 
-    cs-choice
+    rf-choice
+    rf-change
     spin-rotations
     single-q
     spinham-symmetries

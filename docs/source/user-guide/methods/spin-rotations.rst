@@ -62,7 +62,7 @@ With the rotation matrices defined as:
     \end{pmatrix}
 
 Alternatively we can define one rotation, as it was done for the reference
-frame change in :ref:`user-guide_methods_cs-choice`:
+frame change in :ref:`user-guide_methods_rf-choice`:
 
 .. math::
 

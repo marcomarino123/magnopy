@@ -2,7 +2,9 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-def plot_vector(fig, vector, color="black", label=None, label_shift=(0, 0, 0)):
+def plot_vector(
+    fig, vector, origin=(0, 0, 0), color="black", label=None, label_shift=(0, 0, 0)
+):
     r"""
     Plot a vector on the given figure.
 
@@ -12,6 +14,8 @@ def plot_vector(fig, vector, color="black", label=None, label_shift=(0, 0, 0)):
         Figure object.
     vector : (3,) array-like
         Vector, to be plotted.
+    origin : (3,) array-like, default (0,0,0)
+        Origin of the vector.
     color : str, default black
         Color for the vector and label.
     label : str, optional
@@ -19,15 +23,18 @@ def plot_vector(fig, vector, color="black", label=None, label_shift=(0, 0, 0)):
     label_shift : (3,) array-like, default (0,0,0)
         Shift of the label in data coordinates.
     """
-    x = np.array([0, vector[0]])
-    y = np.array([0, vector[1]])
-    z = np.array([0, vector[2]])
+    x = np.array([origin[0], origin[0] + 0.85 * vector[0]])
+    y = np.array([origin[1], origin[1] + 0.85 * vector[1]])
+    z = np.array([origin[2], origin[2] + 0.85 * vector[2]])
+    cone_x = np.array([origin[0], origin[0] + vector[0]])
+    cone_y = np.array([origin[1], origin[1] + vector[1]])
+    cone_z = np.array([origin[2], origin[2] + vector[2]])
     fig.add_traces(
         data=[
             {
-                "x": 0.85 * x,
-                "y": 0.85 * y,
-                "z": 0.85 * z,
+                "x": x,
+                "y": y,
+                "z": z,
                 "mode": "lines",
                 "type": "scatter3d",
                 "hoverinfo": "none",
@@ -36,12 +43,12 @@ def plot_vector(fig, vector, color="black", label=None, label_shift=(0, 0, 0)):
             },
             {
                 "type": "cone",
-                "x": [x[1]],
-                "y": [y[1]],
-                "z": [z[1]],
-                "u": [0.3 * (x[1] - x[0])],
-                "v": [0.3 * (y[1] - y[0])],
-                "w": [0.3 * (z[1] - z[0])],
+                "x": [cone_x[1]],
+                "y": [cone_y[1]],
+                "z": [cone_z[1]],
+                "u": [0.3 * (vector[0])],
+                "v": [0.3 * (vector[1])],
+                "w": [0.3 * (vector[2])],
                 "anchor": "tip",
                 "hoverinfo": "none",
                 "colorscale": [[0, color], [1, color]],

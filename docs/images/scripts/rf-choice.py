@@ -48,7 +48,7 @@ def main(root_directory):
     plot_n_angles(fig, n, "#00B508")
     save_figure(
         fig,
-        os.path.join(images_dir, "cs-choice-n-angles.html"),
+        os.path.join(images_dir, "rf-choice-n-angles.html"),
         camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.5)),
     )
 
@@ -59,19 +59,19 @@ def main(root_directory):
     plot_vector(
         fig, (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0), label="r", color="#FF8800"
     )
-    save_figure(fig, os.path.join(images_dir, "cs-choice-case-1.html"))
+    save_figure(fig, os.path.join(images_dir, "rf-choice-case-1.html"))
 
     fig = get_figure()
-    plot_vector(fig, (0, -1, 0), label="u", color="#00B508")
-    plot_vector(fig, (-1, 0, 0), label="v", color="#00B508")
+    plot_vector(fig, (1, 0, 0), label="u", color="#00B508")
+    plot_vector(fig, (0, -1, 0), label="v", color="#00B508")
     plot_vector(fig, (0, 0, -1), label="n", color="#00B508", label_shift=(0, 0, -0.4))
     plot_vector(
-        fig, (-np.sin(np.pi / 4), np.cos(np.pi / 4), 0), label="r", color="#FF8800"
+        fig, (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0), label="r", color="#FF8800"
     )
     arc = np.linspace(0, np.pi, 50)
     arc = [
-        np.cos(np.pi / 4) * np.sin(arc),
-        np.sin(np.pi / 4) * np.sin(arc),
+        np.cos(np.pi / 2) * np.sin(arc),
+        np.sin(np.pi / 2) * np.sin(arc),
         np.cos(arc),
     ]
     plot_arc(
@@ -85,7 +85,7 @@ def main(root_directory):
     )
     save_figure(
         fig,
-        os.path.join(images_dir, "cs-choice-case-2.html"),
+        os.path.join(images_dir, "rf-choice-case-2.html"),
         camera_keywords=dict(eye=dict(x=1.25, y=0.7, z=1.25)),
     )
 
@@ -109,7 +109,7 @@ def main(root_directory):
     plot_arc(fig, arc=alpha_arc, label="α", color="#FF8800")
     save_figure(
         fig,
-        os.path.join(images_dir, "cs-choice-case-3.html"),
+        os.path.join(images_dir, "rf-choice-case-3.html"),
         camera_keywords=dict(eye=dict(x=1.25, y=1, z=0.2)),
     )
 

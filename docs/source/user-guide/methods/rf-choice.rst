@@ -1,18 +1,19 @@
-.. _user-guide_methods_cs-choice:
+.. _user-guide_methods_rf-choice:
 
-************************
-Coordinate system choice
-************************
+*****************************
+Choice of the reference frame
+*****************************
 
 .. dropdown:: Notation used on this page
 
   * :math:`\vec{v}` - is a vector.
   * :math:`\hat{v}` - is a unit vector, corresponding to the
     vector :math:`\vec{v}`.
-  * :math:`(...)_{e_1e_2e_3}` - denotes the coordinate representation
-    with respect to the :math:`\hat{e}_1\hat{e}_2\hat{e}_3` reference frame.
   * :math:`\times` - means cross product for vectors.
   * "reference frame" = "coordinate system" = "basis"
+  * On this page all vectors and matrices are written in the
+    :math:`\hat{x}\hat{y}\hat{z}` reference frame.
+
 
 The exchange and on-site anisotropy matrices are usually given in
 some global reference frame :math:`\hat{x}\hat{y}\hat{z}`.
@@ -33,15 +34,15 @@ axis of the global reference frame to the direction of the given unit vector:
     n_x \\
     n_y \\
     n_z \\
-  \end{pmatrix}_{xyz} =
+  \end{pmatrix} =
   \begin{pmatrix}
     \cos\beta\sin\alpha \\
     \sin\beta\sin\alpha \\
     \cos\alpha          \\
-  \end{pmatrix}_{xyz}
+  \end{pmatrix}
 
 .. raw:: html
-  :file: ../../../images/cs-choice-n-angles.html
+  :file: ../../../images/rf-choice-n-angles.html
 
 .. note::
   * The given unit vector is called :math:`\hat{n}`, because in the
@@ -64,10 +65,11 @@ axis of the global reference frame to the direction of the given unit vector:
         -\sin\beta \\
         \cos\beta \\
         0
-      \end{pmatrix}_{xyz}
+      \end{pmatrix}
     \end{aligned}
 
   .. math::
+    :name: eq:rf-choice-rot-matrix
 
     R = R(\alpha,\beta) =
     \begin{pmatrix}
@@ -91,50 +93,50 @@ axis of the global reference frame to the direction of the given unit vector:
   .. math::
 
     \begin{aligned}
-      \hat{u}_{xyz} &= R \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+      \hat{u} &= R \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
       =
       \begin{pmatrix}
         \cos\alpha + \sin^2\beta(1-\cos\alpha) \\
         -\sin\beta\cos\beta(1-\cos\alpha) \\
         -\cos\beta\sin\alpha \\
-      \end{pmatrix}_{xyz}
+      \end{pmatrix}
       =
       \begin{pmatrix}
         1 - \dfrac{n_x^2}{1+n_z} \\
         -\dfrac{n_xn_y}{1+n_z} \\
         -n_x
-      \end{pmatrix}_{xyz} \\
-      \hat{v}_{xyz} &= R \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+      \end{pmatrix} \\
+      \hat{v} &= R \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
       =
       \begin{pmatrix}
         -\sin\beta\cos\beta(1-\cos\alpha) \\
         \cos\alpha + \cos^2\beta(1-\cos\alpha) \\
         -\sin\beta\sin\alpha
-      \end{pmatrix}_{xyz}
+      \end{pmatrix}
       =
       \begin{pmatrix}
         -\dfrac{n_xn_y}{1+n_z} \\
         1 - \dfrac{n_y^2}{1+n_z} \\
         -n_y
-      \end{pmatrix}_{xyz} \\
-      \hat{n}_{xyz} &= R \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+      \end{pmatrix} \\
+      \hat{n} &= R \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
       =
       \begin{pmatrix}
         \cos\beta\sin\alpha \\
         \sin\beta\sin\alpha \\
         \cos\alpha
-      \end{pmatrix}_{xyz}
+      \end{pmatrix}
       =
       \begin{pmatrix}
         n_x \\
         n_y \\
         n_z
-      \end{pmatrix}_{xyz}
+      \end{pmatrix}
     \end{aligned}
 
 
 .. raw:: html
-  :file: ../../../images/cs-choice-case-3.html
+  :file: ../../../images/rf-choice-case-3.html
 
 * If :math:`\hat{n} = \hat{z}`
 
@@ -155,52 +157,25 @@ axis of the global reference frame to the direction of the given unit vector:
     \end{matrix}
 
 .. raw:: html
-  :file: ../../../images/cs-choice-case-1.html
+  :file: ../../../images/rf-choice-case-1.html
 
 * If :math:`\hat{n} = -\hat{z}`
 
   .. math::
     \begin{matrix}
       \begin{aligned}
-        \hat{u} &= -\hat{y} \\
-        \hat{v} &= -\hat{x} \\
+        \hat{u} &= \hat{x} \\
+        \hat{v} &= -\hat{y} \\
         \hat{n} &= -\hat{z} \\
       \end{aligned} & \text{ and } &
       R =
       \begin{pmatrix}
+        1  & 0  & 0  \\
         0  & -1 & 0  \\
-        -1 & 0  & 0  \\
         0  & 0  & -1 \\
       \end{pmatrix}
-      = R(\alpha = \pi, \beta = \pi/4)
+      = R(\alpha = \pi, \beta = \pi/2)
     \end{matrix}
 
 .. raw:: html
-  :file: ../../../images/cs-choice-case-2.html
-
-
-The spin vectors and exchange matrices under the change of the reference frame:
-
-.. math::
-  \vec{S}^a =
-  R\begin{pmatrix} S_x^a \\ S_y^a \\ S_z^a \end{pmatrix}_{xyz}
-  = \begin{pmatrix} S_u^a \\ S_v^a \\ S_n^a \end{pmatrix}_{uvn}
-
-.. math::
-
-  J_{a,b}(\vec{d})
-  = R
-  \begin{pmatrix}
-      J_{xx} & J_{xy} & J_{xz} \\
-      J_{yx} & J_{yy} & J_{yz} \\
-      J_{zx} & J_{zy} & J_{zz}
-  \end{pmatrix}_{xyz} R^{-1}
-  = \begin{pmatrix}
-      J_{uu} & J_{uv} & J_{un} \\
-      J_{vu} & J_{vv} & J_{vn} \\
-      J_{nu} & J_{nv} & J_{nn}
-  \end{pmatrix}_{uvn}
-
-.. important::
-  In the following pages the reference frame :math:`\hat{u}\hat{v}\hat{n}`
-  is often used, where :math:`\hat{n}` is a cone axis.
+  :file: ../../../images/rf-choice-case-2.html

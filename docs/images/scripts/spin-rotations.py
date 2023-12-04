@@ -43,6 +43,8 @@ def prepare_figure(fig, theta, phi, S):
     ]
     plot_arc(fig, arc=phi_arc, color="#FF8800", label="φ", label_shift=(0.2, 0, -0.1))
 
+    return Svec
+
 
 def main(root_directory, theta, phi, S):
     theta = theta / 180 * np.pi
@@ -90,7 +92,7 @@ def main(root_directory, theta, phi, S):
     )
 
     fig = go.Figure()
-    prepare_figure(fig, theta, phi, S)
+    Svec = prepare_figure(fig, theta, phi, S)
     arc = np.linspace(0, theta, 50)
     arc = [
         S * np.cos(phi) * np.sin(arc),
@@ -98,11 +100,14 @@ def main(root_directory, theta, phi, S):
         S * np.cos(arc),
     ]
     plot_arc(fig, arc=arc, color="#9E77F0", label="R'(θ, φ)", arrow=True)
+    r = np.cross((0, 0, 1), Svec)
+    r /= np.linalg.norm(r)
+    plot_vector(fig, vector=r, color="#9E77F0", label="r")
 
     save_figure(
         fig,
         os.path.join(images_dir, "spin-rotations-2.html"),
-        camera_keywords=dict(eye=dict(x=1.25, y=0.3, z=0.75)),
+        camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.5)),
     )
 
 

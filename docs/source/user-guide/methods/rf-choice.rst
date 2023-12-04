@@ -60,7 +60,8 @@ axis of the global reference frame to the direction of the given unit vector:
   .. math::
 
     \begin{aligned}
-      \hat{r}(\alpha,\beta) &= \hat{z}\times\hat{n} =
+      \hat{r}(\alpha,\beta) &= \dfrac{\hat{z}\times\hat{n}}
+      {\vert\hat{z}\times\hat{n}\vert} =
       \begin{pmatrix}
         -\sin\beta \\
         \cos\beta \\

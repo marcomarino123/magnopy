@@ -54,15 +54,24 @@ With the rotation matrices defined as:
   \end{matrix}
 
 .. math::
-    R = R(\phi)R(\theta) =
+    R(\theta,\phi) = R(\phi)R(\theta) =
     \begin{pmatrix}
       \cos\phi\cdot\cos\theta & -\sin\phi & \cos\phi\cdot\sin\theta \\
       \sin\phi\cdot\cos\theta & \cos\phi  & \sin\phi\cdot\sin\theta \\
       -\sin\theta             & 0         & \cos\theta              \\
     \end{pmatrix}
 
-Alternatively we can define one rotation, as it was done for the reference
+Alternatively we can define one rotation around the vector :math:`r`
+by the angle :math:`\theta`, similary to how it was done for the reference
 frame change in :ref:`user-guide_methods_rf-choice`:
+
+.. math::
+  \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}
+  = \begin{pmatrix}
+    -\cos\phi \\
+    \sin\phi \\
+    0
+  \end{pmatrix}
 
 .. math::
 

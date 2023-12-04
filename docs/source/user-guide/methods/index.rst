@@ -7,10 +7,10 @@ Methods and algorithms
 .. toctree::
     :maxdepth: 1
 
-    spin-rotations
-    spinham-symmetries
     cs-choice
+    spin-rotations
     single-q
+    spinham-symmetries
     energy-classic
 
 .. toctree::

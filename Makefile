@@ -52,3 +52,4 @@ test:
 
 pictures-for-docs:
 	@python3 docs/images/scripts/cs-choice.py -rd .
+	@python3 docs/images/scripts/spin-rotations.py -rd .

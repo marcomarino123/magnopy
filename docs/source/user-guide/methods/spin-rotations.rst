@@ -1,4 +1,4 @@
-.. _user-guide_methods_spin-roations:
+.. _user-guide_methods_spin-rotations:
 
 **************
 Spin rotations

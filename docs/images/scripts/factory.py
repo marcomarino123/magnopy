@@ -10,6 +10,8 @@ def plot_vector(
     label=None,
     label_shift=(0, 0, 0),
     kwargs=None,
+    cone_scale=0.3,
+    line_width=5,
 ):
     r"""
     Plot a vector on the given figure.
@@ -31,9 +33,9 @@ def plot_vector(
     """
     if kwargs is None:
         kwargs = {}
-    x = np.array([origin[0], origin[0] + 0.85 * vector[0]])
-    y = np.array([origin[1], origin[1] + 0.85 * vector[1]])
-    z = np.array([origin[2], origin[2] + 0.85 * vector[2]])
+    x = np.array([origin[0], origin[0] + (1 - cone_scale / 2) * vector[0]])
+    y = np.array([origin[1], origin[1] + (1 - cone_scale / 2) * vector[1]])
+    z = np.array([origin[2], origin[2] + (1 - cone_scale / 2) * vector[2]])
     cone_x = np.array([origin[0], origin[0] + vector[0]])
     cone_y = np.array([origin[1], origin[1] + vector[1]])
     cone_z = np.array([origin[2], origin[2] + vector[2]])
@@ -45,7 +47,7 @@ def plot_vector(
             "mode": "lines",
             "type": "scatter3d",
             "hoverinfo": "none",
-            "line": {"color": color, "width": 5},
+            "line": {"color": color, "width": line_width},
             "showlegend": False,
         },
         **kwargs,
@@ -56,9 +58,9 @@ def plot_vector(
             "x": [cone_x[1]],
             "y": [cone_y[1]],
             "z": [cone_z[1]],
-            "u": [0.3 * (vector[0])],
-            "v": [0.3 * (vector[1])],
-            "w": [0.3 * (vector[2])],
+            "u": [cone_scale * (vector[0])],
+            "v": [cone_scale * (vector[1])],
+            "w": [cone_scale * (vector[2])],
             "anchor": "tip",
             "hoverinfo": "none",
             "colorscale": [[0, color], [1, color]],
@@ -231,6 +233,7 @@ def save_figure(
         camera[key] = camera_keywords[key]
     scene = dict(
         camera=camera,
+        aspectmode="data",
         aspectratio=dict(x=1, y=1, z=1),
     )
     for key in scene_keywords:

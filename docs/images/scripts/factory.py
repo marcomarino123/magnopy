@@ -67,7 +67,15 @@ def plot_vector(fig, vector, color="black", label=None, label_shift=(0, 0, 0)):
         )
 
 
-def plot_arc(fig, arc, label=None, arrow=False, color="black", label_shift=(0, 0, 0)):
+def plot_arc(
+    fig,
+    arc,
+    label=None,
+    arrow=False,
+    color="black",
+    label_shift=(0, 0, 0),
+    arrow_scale=0.25,
+):
     r"""
     Plot an arc.
 
@@ -83,6 +91,8 @@ def plot_arc(fig, arc, label=None, arrow=False, color="black", label_shift=(0, 0
         Label for the arc.
     label_shift : (3,) array-like, default (0,0,0)
         Shift of the label in data coordinates.
+    arrow_scale : float, default 0.25
+        Scale of the arrow head with respect to the arc length.
     """
 
     fig.add_traces(
@@ -114,6 +124,7 @@ def plot_arc(fig, arc, label=None, arrow=False, color="black", label_shift=(0, 0
         )
     )
     if arrow:
+        index = int(-len(arc[0]) * arrow_scale)
         fig.add_traces(
             data=[
                 {
@@ -121,9 +132,9 @@ def plot_arc(fig, arc, label=None, arrow=False, color="black", label_shift=(0, 0
                     "x": [arc[0][-1]],
                     "y": [arc[1][-1]],
                     "z": [arc[2][-1]],
-                    "u": [(2 * arc[0][-1] - 2 * arc[0][-len(arc[0]) // 5])],
-                    "v": [(2 * arc[1][-1] - 2 * arc[1][-len(arc[0]) // 5])],
-                    "w": [(2 * arc[2][-1] - 2 * arc[2][-len(arc[0]) // 5])],
+                    "u": [(2 * arc[0][-1] - 2 * arc[0][index])],
+                    "v": [(2 * arc[1][-1] - 2 * arc[1][index])],
+                    "w": [(2 * arc[2][-1] - 2 * arc[2][index])],
                     "anchor": "tip",
                     "hoverinfo": "none",
                     "colorscale": [[0, color], [1, color]],
@@ -172,11 +183,8 @@ def plot_line(fig, x, y, z, color="black", width=3):
 def save_figure(
     fig,
     name,
-    scene=dict(
-        up=dict(x=0, y=0, z=1),
-        center=dict(x=0, y=0, z=0),
-        eye=dict(x=1.25, y=1.25, z=1.25),
-    ),
+    scene_keywords=None,
+    camera_keywords=None,
 ):
     r"""
     Save figure as lightweight html file, ready to be included into the sphinx docs.
@@ -193,7 +201,24 @@ def save_figure(
     fig.update_scenes(
         aspectmode="data", xaxis_visible=False, yaxis_visible=False, zaxis_visible=False
     )
+    if camera_keywords is None:
+        camera_keywords = {}
+    if scene_keywords is None:
+        scene_keywords = {}
+    camera = dict(
+        up=dict(x=0, y=0, z=1),
+        center=dict(x=0, y=0, z=0),
+        eye=dict(x=1.25, y=1.25, z=1.25),
+    )
+    for key in camera_keywords:
+        camera[key] = camera_keywords[key]
+    scene = dict(
+        camera=camera,
+        aspectratio=dict(x=1, y=1, z=1),
+    )
+    for key in scene_keywords:
+        scene[key] = scene_keywords[key]
     fig.update_layout(
-        width=600, height=500, margin=dict(l=0, r=0, t=0, b=0), scene_camera=scene
+        width=600, height=500, margin=dict(l=0, r=0, t=0, b=0), scene=scene
     )
     fig.write_html(name, full_html=False, include_plotlyjs=False)

@@ -49,24 +49,45 @@ def main(root_directory):
     save_figure(
         fig,
         os.path.join(images_dir, "cs-choice-n-angles.html"),
-        scene=dict(
-            up=dict(x=0, y=0, z=1),
-            center=dict(x=0, y=0, z=0),
-            eye=dict(x=1.25, y=0.2, z=0.5),
-        ),
+        camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.5)),
     )
 
     fig = go.Figure()
     plot_vector(fig, (1, 0, 0), label="x, u")
     plot_vector(fig, (0, 1, 0), label="y, v")
     plot_vector(fig, (0, 0, 1), label="z, n")
+    plot_vector(
+        fig, (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0), label="r", color="#FF8800"
+    )
     save_figure(fig, os.path.join(images_dir, "cs-choice-case-1.html"))
 
     fig = get_figure()
     plot_vector(fig, (0, -1, 0), label="u", color="#00B508")
     plot_vector(fig, (-1, 0, 0), label="v", color="#00B508")
     plot_vector(fig, (0, 0, -1), label="n", color="#00B508", label_shift=(0, 0, -0.4))
-    save_figure(fig, os.path.join(images_dir, "cs-choice-case-2.html"))
+    plot_vector(
+        fig, (-np.sin(np.pi / 4), np.cos(np.pi / 4), 0), label="r", color="#FF8800"
+    )
+    arc = np.linspace(0, np.pi, 50)
+    arc = [
+        np.cos(np.pi / 4) * np.sin(arc),
+        np.sin(np.pi / 4) * np.sin(arc),
+        np.cos(arc),
+    ]
+    plot_arc(
+        fig,
+        arc,
+        color="#FF8800",
+        label="α",
+        arrow=True,
+        arrow_scale=0.1,
+        label_shift=(0.2, 0.2, 0),
+    )
+    save_figure(
+        fig,
+        os.path.join(images_dir, "cs-choice-case-2.html"),
+        camera_keywords=dict(eye=dict(x=1.25, y=0.7, z=1.25)),
+    )
 
     fig = get_figure()
     n = np.array([1, 3, 2], dtype=float)
@@ -89,11 +110,7 @@ def main(root_directory):
     save_figure(
         fig,
         os.path.join(images_dir, "cs-choice-case-3.html"),
-        scene=dict(
-            up=dict(x=0, y=0, z=1),
-            center=dict(x=0, y=0, z=0),
-            eye=dict(x=1.25, y=1, z=0.2),
-        ),
+        camera_keywords=dict(eye=dict(x=1.25, y=1, z=0.2)),
     )
 
 

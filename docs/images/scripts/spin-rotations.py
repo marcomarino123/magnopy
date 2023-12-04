@@ -6,11 +6,7 @@ import plotly.graph_objects as go
 from factory import plot_arc, plot_line, plot_vector, save_figure
 
 
-def main(root_directory, theta, phi, S):
-    theta = theta / 180 * np.pi
-    phi = phi / 180 * np.pi
-    images_dir = os.path.join(root_directory, "docs", "images")
-    fig = go.Figure()
+def prepare_figure(fig, theta, phi, S):
     Svec = (
         np.array(
             [np.sin(theta) * np.cos(phi), np.sin(theta) * np.sin(phi), np.cos(theta)],
@@ -22,10 +18,7 @@ def main(root_directory, theta, phi, S):
     plot_vector(fig, (0, 1, 0), label=R"v")
     plot_vector(fig, (0, 0, 1), label=R"n")
     plot_vector(fig, Svec, label=R"S", color="#9E77F0")
-    plot_vector(fig, (0, 0, S), label="S0", color="#4EB436", label_shift=(0, 0.1, 0))
-    plot_vector(
-        fig, (S * np.sin(theta), 0, S * np.cos(theta)), label="S'", color="#AB4740"
-    )
+    plot_vector(fig, (0, 0, S), label="S0", color="#4EB436", label_shift=(0.1, -0.1, 0))
     traces = [
         ([Svec[0], Svec[0]], [Svec[1], Svec[1]], [0, Svec[2]]),
         ([0, Svec[0]], [0, Svec[1]], [0, 0]),
@@ -48,8 +41,18 @@ def main(root_directory, theta, phi, S):
         S * np.sin(theta) * np.sin(phi_arc) / 2,
         np.zeros_like(phi_arc),
     ]
-    plot_arc(fig, arc=phi_arc, color="#FF8800", label="φ", label_shift=(0.1, 0, -0.1))
+    plot_arc(fig, arc=phi_arc, color="#FF8800", label="φ", label_shift=(0.2, 0, -0.1))
 
+
+def main(root_directory, theta, phi, S):
+    theta = theta / 180 * np.pi
+    phi = phi / 180 * np.pi
+    images_dir = os.path.join(root_directory, "docs", "images")
+    fig = go.Figure()
+    prepare_figure(fig, theta, phi, S)
+    plot_vector(
+        fig, (S * np.sin(theta), 0, S * np.cos(theta)), label="S'", color="#AB4740"
+    )
     theta_arc = np.linspace(0, theta, 50)
     theta_arc = [
         S * np.sin(theta_arc) * 0.6,
@@ -83,11 +86,23 @@ def main(root_directory, theta, phi, S):
     save_figure(
         fig,
         os.path.join(images_dir, "spin-rotations-1.html"),
-        scene=dict(
-            up=dict(x=0, y=0, z=1),
-            center=dict(x=0, y=0, z=0),
-            eye=dict(x=1.25, y=0.5, z=0.75),
-        ),
+        camera_keywords=dict(eye=dict(x=1.25, y=0.5, z=0.75)),
+    )
+
+    fig = go.Figure()
+    prepare_figure(fig, theta, phi, S)
+    arc = np.linspace(0, theta, 50)
+    arc = [
+        S * np.cos(phi) * np.sin(arc),
+        S * np.sin(phi) * np.sin(arc),
+        S * np.cos(arc),
+    ]
+    plot_arc(fig, arc=arc, color="#9E77F0", label="R'(θ, φ)", arrow=True)
+
+    save_figure(
+        fig,
+        os.path.join(images_dir, "spin-rotations-2.html"),
+        camera_keywords=dict(eye=dict(x=1.25, y=0.3, z=0.75)),
     )
 
 

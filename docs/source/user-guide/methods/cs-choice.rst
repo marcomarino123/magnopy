@@ -59,7 +59,7 @@ axis of the global reference frame to the direction of the given unit vector:
   .. math::
 
     \begin{aligned}
-      \hat{r} &= \hat{z}\times\hat{n} =
+      \hat{r}(\alpha,\beta) &= \hat{z}\times\hat{n} =
       \begin{pmatrix}
         -\sin\beta \\
         \cos\beta \\
@@ -69,7 +69,7 @@ axis of the global reference frame to the direction of the given unit vector:
 
   .. math::
 
-    R =
+    R = R(\alpha,\beta) =
     \begin{pmatrix}
       \cos\alpha + \sin^2\beta(1-\cos\alpha) &
       -\sin\beta\cos\beta(1-\cos\alpha) &
@@ -151,6 +151,7 @@ axis of the global reference frame to the direction of the given unit vector:
         0 & 1 & 0 \\
         0 & 0 & 1 \\
       \end{pmatrix}
+      = R(\alpha = 0, \beta = \pi/2)
     \end{matrix}
 
 .. raw:: html
@@ -171,6 +172,7 @@ axis of the global reference frame to the direction of the given unit vector:
         -1 & 0  & 0  \\
         0  & 0  & -1 \\
       \end{pmatrix}
+      = R(\alpha = \pi, \beta = \pi/4)
     \end{matrix}
 
 .. raw:: html

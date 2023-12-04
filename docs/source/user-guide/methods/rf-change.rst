@@ -6,13 +6,7 @@ Change of the reference frame
 
 .. dropdown:: Notation used on this page
 
-  * :math:`\vec{v}` - is a vector.
-  * :math:`\hat{v}` - is a unit vector, corresponding to the
-    vector :math:`\vec{v}`.
-  * :math:`\times` - means cross product for vectors.
   * "reference frame" = "coordinate system" = "basis"
-  * On this page all vectors and matrices are written in the
-    :math:`\hat{x}\hat{y}\hat{z}` reference frame.
   * For this page we adopt bra-ket notation.
 
 

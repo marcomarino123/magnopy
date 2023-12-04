@@ -137,46 +137,25 @@ axis of the global reference frame to the direction of the given unit vector:
 
 
 .. raw:: html
-  :file: ../../../images/rf-choice-case-3.html
+  :file: ../../../images/rf-choice-main-case.html
 
-* If :math:`\hat{n} = \hat{z}`
-
-  .. math::
-    \begin{matrix}
-      \begin{aligned}
-        \hat{u} &= \hat{x} \\
-        \hat{v} &= \hat{y} \\
-        \hat{n} &= \hat{z} \\
-      \end{aligned} & \text{ and } &
-      R =
-      \begin{pmatrix}
-        1 & 0 & 0 \\
-        0 & 1 & 0 \\
-        0 & 0 & 1 \\
-      \end{pmatrix}
-      = R(\alpha = 0, \beta = \pi/2)
-    \end{matrix}
-
-.. raw:: html
-  :file: ../../../images/rf-choice-case-1.html
-
-* If :math:`\hat{n} = -\hat{z}`
+* If :math:`\hat{n} = \pm\hat{z}`
 
   .. math::
     \begin{matrix}
       \begin{aligned}
         \hat{u} &= \hat{x} \\
-        \hat{v} &= -\hat{y} \\
-        \hat{n} &= -\hat{z} \\
+        \hat{v} &= \pm\hat{y} \\
+        \hat{n} &= \pm\hat{z} \\
       \end{aligned} & \text{ and } &
       R =
       \begin{pmatrix}
-        1  & 0  & 0  \\
-        0  & -1 & 0  \\
-        0  & 0  & -1 \\
+        1 & 0     & 0 \\
+        0 & \pm 1 & 0 \\
+        0 & 0     & \pm 1 \\
       \end{pmatrix}
-      = R(\alpha = \pi, \beta = \pi/2)
+      = R(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
     \end{matrix}
 
 .. raw:: html
-  :file: ../../../images/rf-choice-case-2.html
+  :file: ../../../images/rf-choice-special-cases.html

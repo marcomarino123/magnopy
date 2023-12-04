@@ -4,13 +4,14 @@ from argparse import ArgumentParser
 import numpy as np
 import plotly.graph_objects as go
 from factory import plot_arc, plot_line, plot_vector, save_figure
+from plotly.subplots import make_subplots
 
 
 def get_figure():
     fig = go.Figure()
     plot_vector(fig, (1, 0, 0), label="x")
     plot_vector(fig, (0, 1, 0), label="y")
-    plot_vector(fig, (0, 0, 1), label="z")
+    plot_vector(fig, (0, 0, 1), label="z", label_shift=(0, 0, 0.2))
     return fig
 
 
@@ -52,21 +53,44 @@ def main(root_directory):
         camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.5)),
     )
 
-    fig = go.Figure()
-    plot_vector(fig, (1, 0, 0), label="x, u")
-    plot_vector(fig, (0, 1, 0), label="y, v")
-    plot_vector(fig, (0, 0, 1), label="z, n")
+    fig = make_subplots(rows=1, cols=2, specs=[[{"type": "scene"}, {"type": "scene"}]])
+    plot_vector(fig, (1, 0, 0), label="x, u", kwargs=dict(row=1, col=1))
+    plot_vector(fig, (0, 1, 0), label="y, v", kwargs=dict(row=1, col=1))
+    plot_vector(fig, (0, 0, 1), label="z, n", kwargs=dict(row=1, col=1))
     plot_vector(
-        fig, (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0), label="r", color="#FF8800"
+        fig,
+        (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0),
+        label="r",
+        color="#FF8800",
+        kwargs=dict(row=1, col=1),
     )
-    save_figure(fig, os.path.join(images_dir, "rf-choice-case-1.html"))
 
-    fig = get_figure()
-    plot_vector(fig, (1, 0, 0), label="u", color="#00B508")
-    plot_vector(fig, (0, -1, 0), label="v", color="#00B508")
-    plot_vector(fig, (0, 0, -1), label="n", color="#00B508", label_shift=(0, 0, -0.4))
+    plot_vector(fig, (1, 0, 0), label="x", kwargs=dict(row=1, col=2))
+    plot_vector(fig, (0, 1, 0), label="y", kwargs=dict(row=1, col=2))
+    plot_vector(fig, (0, 0, 1), label="z", kwargs=dict(row=1, col=2))
     plot_vector(
-        fig, (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0), label="r", color="#FF8800"
+        fig,
+        (1, 0, 0),
+        label="u",
+        color="#00B508",
+        kwargs=dict(row=1, col=2),
+        label_shift=(0.2, 0, 0),
+    )
+    plot_vector(fig, (0, -1, 0), label="v", color="#00B508", kwargs=dict(row=1, col=2))
+    plot_vector(
+        fig,
+        (0, 0, -1),
+        label="n",
+        color="#00B508",
+        label_shift=(0, 0.2, 0),
+        kwargs=dict(row=1, col=2),
+    )
+    plot_vector(
+        fig,
+        (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0),
+        label="r",
+        color="#FF8800",
+        kwargs=dict(row=1, col=2),
     )
     arc = np.linspace(0, np.pi, 50)
     arc = [
@@ -82,10 +106,11 @@ def main(root_directory):
         arrow=True,
         arrow_scale=0.1,
         label_shift=(0.2, 0.2, 0),
+        kwargs=dict(row=1, col=2),
     )
     save_figure(
         fig,
-        os.path.join(images_dir, "rf-choice-case-2.html"),
+        os.path.join(images_dir, "rf-choice-special-cases.html"),
         camera_keywords=dict(eye=dict(x=1.25, y=0.7, z=1.25)),
     )
 
@@ -96,7 +121,7 @@ def main(root_directory):
     v = (-n[0] * n[1] / (1 + n[2]), 1 - n[1] ** 2 / (1 + n[2]), -n[1])
     plot_vector(fig, u, label="u", color="#00B508")
     plot_vector(fig, v, label="v", color="#00B508")
-    plot_vector(fig, n, label="n", color="#00B508", label_shift=(0, 0, -0.4))
+    plot_vector(fig, n, label="n", color="#00B508", label_shift=(0, 0, -0.2))
     r = np.cross((0, 0, 1), n)
     r /= np.linalg.norm(r)
     plot_vector(fig, r, label="r", color="#FF8800")
@@ -111,7 +136,7 @@ def main(root_directory):
     plot_arc(fig, arc=alpha_arc, label="α", color="#FF8800")
     save_figure(
         fig,
-        os.path.join(images_dir, "rf-choice-case-3.html"),
+        os.path.join(images_dir, "rf-choice-main-case.html"),
         camera_keywords=dict(eye=dict(x=1.25, y=1, z=0.2)),
     )
 

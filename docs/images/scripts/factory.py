@@ -3,7 +3,13 @@ import plotly.graph_objects as go
 
 
 def plot_vector(
-    fig, vector, origin=(0, 0, 0), color="black", label=None, label_shift=(0, 0, 0)
+    fig,
+    vector,
+    origin=(0, 0, 0),
+    color="black",
+    label=None,
+    label_shift=(0, 0, 0),
+    kwargs=None,
 ):
     r"""
     Plot a vector on the given figure.
@@ -23,43 +29,47 @@ def plot_vector(
     label_shift : (3,) array-like, default (0,0,0)
         Shift of the label in data coordinates.
     """
+    if kwargs is None:
+        kwargs = {}
     x = np.array([origin[0], origin[0] + 0.85 * vector[0]])
     y = np.array([origin[1], origin[1] + 0.85 * vector[1]])
     z = np.array([origin[2], origin[2] + 0.85 * vector[2]])
     cone_x = np.array([origin[0], origin[0] + vector[0]])
     cone_y = np.array([origin[1], origin[1] + vector[1]])
     cone_z = np.array([origin[2], origin[2] + vector[2]])
-    fig.add_traces(
-        data=[
-            {
-                "x": x,
-                "y": y,
-                "z": z,
-                "mode": "lines",
-                "type": "scatter3d",
-                "hoverinfo": "none",
-                "line": {"color": color, "width": 5},
-                "showlegend": False,
-            },
-            {
-                "type": "cone",
-                "x": [cone_x[1]],
-                "y": [cone_y[1]],
-                "z": [cone_z[1]],
-                "u": [0.3 * (vector[0])],
-                "v": [0.3 * (vector[1])],
-                "w": [0.3 * (vector[2])],
-                "anchor": "tip",
-                "hoverinfo": "none",
-                "colorscale": [[0, color], [1, color]],
-                "showscale": False,
-                "showlegend": False,
-            },
-        ]
+    fig.add_trace(
+        {
+            "x": x,
+            "y": y,
+            "z": z,
+            "mode": "lines",
+            "type": "scatter3d",
+            "hoverinfo": "none",
+            "line": {"color": color, "width": 5},
+            "showlegend": False,
+        },
+        **kwargs,
+    )
+    fig.add_trace(
+        {
+            "type": "cone",
+            "x": [cone_x[1]],
+            "y": [cone_y[1]],
+            "z": [cone_z[1]],
+            "u": [0.3 * (vector[0])],
+            "v": [0.3 * (vector[1])],
+            "w": [0.3 * (vector[2])],
+            "anchor": "tip",
+            "hoverinfo": "none",
+            "colorscale": [[0, color], [1, color]],
+            "showscale": False,
+            "showlegend": False,
+        },
+        **kwargs,
     )
     if label is not None:
-        fig.add_traces(
-            data=go.Scatter3d(
+        fig.add_trace(
+            go.Scatter3d(
                 mode="text",
                 x=[x[1] + label_shift[0]],
                 y=[y[1] + label_shift[1]],
@@ -70,7 +80,8 @@ def plot_vector(
                 textposition="top center",
                 textfont=dict(size=20, color=color),
                 showlegend=False,
-            )
+            ),
+            **kwargs,
         )
 
 
@@ -82,6 +93,7 @@ def plot_arc(
     color="black",
     label_shift=(0, 0, 0),
     arrow_scale=0.25,
+    kwargs=None,
 ):
     r"""
     Plot an arc.
@@ -101,23 +113,23 @@ def plot_arc(
     arrow_scale : float, default 0.25
         Scale of the arrow head with respect to the arc length.
     """
-
-    fig.add_traces(
-        data=[
-            {
-                "x": arc[0],
-                "y": arc[1],
-                "z": arc[2],
-                "mode": "lines",
-                "type": "scatter3d",
-                "hoverinfo": "none",
-                "line": {"color": color, "width": 2},
-                "showlegend": False,
-            },
-        ]
+    if kwargs is None:
+        kwargs = {}
+    fig.add_trace(
+        {
+            "x": arc[0],
+            "y": arc[1],
+            "z": arc[2],
+            "mode": "lines",
+            "type": "scatter3d",
+            "hoverinfo": "none",
+            "line": {"color": color, "width": 2},
+            "showlegend": False,
+        },
+        **kwargs,
     )
-    fig.add_traces(
-        data=go.Scatter3d(
+    fig.add_trace(
+        go.Scatter3d(
             mode="text",
             x=[arc[0][len(arc[0]) // 2] + label_shift[0]],
             y=[arc[1][len(arc[0]) // 2] + label_shift[1]],
@@ -128,27 +140,27 @@ def plot_arc(
             textposition="top center",
             textfont=dict(size=20, color=color),
             showlegend=False,
-        )
+        ),
+        **kwargs,
     )
     if arrow:
         index = int(-len(arc[0]) * arrow_scale)
-        fig.add_traces(
-            data=[
-                {
-                    "type": "cone",
-                    "x": [arc[0][-1]],
-                    "y": [arc[1][-1]],
-                    "z": [arc[2][-1]],
-                    "u": [(2 * arc[0][-1] - 2 * arc[0][index])],
-                    "v": [(2 * arc[1][-1] - 2 * arc[1][index])],
-                    "w": [(2 * arc[2][-1] - 2 * arc[2][index])],
-                    "anchor": "tip",
-                    "hoverinfo": "none",
-                    "colorscale": [[0, color], [1, color]],
-                    "showscale": False,
-                    "showlegend": False,
-                },
-            ]
+        fig.add_trace(
+            {
+                "type": "cone",
+                "x": [arc[0][-1]],
+                "y": [arc[1][-1]],
+                "z": [arc[2][-1]],
+                "u": [(2 * arc[0][-1] - 2 * arc[0][index])],
+                "v": [(2 * arc[1][-1] - 2 * arc[1][index])],
+                "w": [(2 * arc[2][-1] - 2 * arc[2][index])],
+                "anchor": "tip",
+                "hoverinfo": "none",
+                "colorscale": [[0, color], [1, color]],
+                "showscale": False,
+                "showlegend": False,
+            },
+            **kwargs,
         )
 
 
@@ -171,19 +183,17 @@ def plot_line(fig, x, y, z, color="black", width=3):
     width : float
         Width of the line.
     """
-    fig.add_traces(
-        data=[
-            {
-                "x": x,
-                "y": y,
-                "z": z,
-                "mode": "lines",
-                "type": "scatter3d",
-                "hoverinfo": "none",
-                "line": {"color": color, "width": width},
-                "showlegend": False,
-            },
-        ]
+    fig.add_trace(
+        {
+            "x": x,
+            "y": y,
+            "z": z,
+            "mode": "lines",
+            "type": "scatter3d",
+            "hoverinfo": "none",
+            "line": {"color": color, "width": width},
+            "showlegend": False,
+        },
     )
 
 

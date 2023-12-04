@@ -3,122 +3,7 @@ from argparse import ArgumentParser
 
 import numpy as np
 import plotly.graph_objects as go
-
-
-def plot_vector(fig, vector, label, color="black", label_shift=(0, 0, 0)):
-    x = np.array([0, vector[0]])
-    y = np.array([0, vector[1]])
-    z = np.array([0, vector[2]])
-    fig.add_traces(
-        data=[
-            {
-                "x": 0.85 * x,
-                "y": 0.85 * y,
-                "z": 0.85 * z,
-                "mode": "lines",
-                "type": "scatter3d",
-                "hoverinfo": "none",
-                "line": {"color": color, "width": 5},
-                "showlegend": False,
-            },
-            {
-                "type": "cone",
-                "x": [x[1]],
-                "y": [y[1]],
-                "z": [z[1]],
-                "u": [0.3 * (x[1] - x[0])],
-                "v": [0.3 * (y[1] - y[0])],
-                "w": [0.3 * (z[1] - z[0])],
-                "anchor": "tip",
-                "hoverinfo": "none",
-                "colorscale": [[0, color], [1, color]],
-                "showscale": False,
-                "showlegend": False,
-            },
-        ]
-    )
-    fig.add_traces(
-        data=go.Scatter3d(
-            mode="text",
-            x=[x[1] + label_shift[0]],
-            y=[y[1] + label_shift[1]],
-            z=[z[1] + label_shift[2]],
-            marker=dict(size=0),
-            text=label,
-            hoverinfo="none",
-            textposition="top center",
-            textfont=dict(size=20, color=color),
-            showlegend=False,
-        )
-    )
-
-
-def save_figure(
-    fig,
-    name,
-    scene=dict(
-        up=dict(x=0, y=0, z=1),
-        center=dict(x=0, y=0, z=0),
-        eye=dict(x=1.25, y=1.25, z=1.25),
-    ),
-):
-    fig.update_scenes(
-        aspectmode="data", xaxis_visible=False, yaxis_visible=False, zaxis_visible=False
-    )
-    fig.update_layout(
-        width=600, height=500, margin=dict(l=0, r=0, t=0, b=0), scene_camera=scene
-    )
-    fig.write_html(name, full_html=False, include_plotlyjs=False)
-
-
-def plot_arc(fig, arc, label=None, arrow=False, color="black", label_shift=(0, 0, 0)):
-    fig.add_traces(
-        data=[
-            {
-                "x": arc[0],
-                "y": arc[1],
-                "z": arc[2],
-                "mode": "lines",
-                "type": "scatter3d",
-                "hoverinfo": "none",
-                "line": {"color": color, "width": 2},
-                "showlegend": False,
-            },
-        ]
-    )
-    fig.add_traces(
-        data=go.Scatter3d(
-            mode="text",
-            x=[arc[0][len(arc[0]) // 2] + label_shift[0]],
-            y=[arc[1][len(arc[0]) // 2] + label_shift[1]],
-            z=[arc[2][len(arc[0]) // 2] + label_shift[2]],
-            marker=dict(size=0),
-            text=label,
-            hoverinfo="none",
-            textposition="top center",
-            textfont=dict(size=20, color=color),
-            showlegend=False,
-        )
-    )
-    if arrow:
-        fig.add_traces(
-            data=[
-                {
-                    "type": "cone",
-                    "x": [arc[0][-1]],
-                    "y": [arc[1][-1]],
-                    "z": [arc[2][-1]],
-                    "u": [(2 * arc[0][-1] - 2 * arc[0][-len(arc[0]) // 5])],
-                    "v": [(2 * arc[1][-1] - 2 * arc[1][-len(arc[0]) // 5])],
-                    "w": [(2 * arc[2][-1] - 2 * arc[2][-len(arc[0]) // 5])],
-                    "anchor": "tip",
-                    "hoverinfo": "none",
-                    "colorscale": [[0, color], [1, color]],
-                    "showscale": False,
-                    "showlegend": False,
-                },
-            ]
-        )
+from factory import plot_arc, plot_line, plot_vector, save_figure
 
 
 def main(root_directory, theta, phi, S):
@@ -148,20 +33,7 @@ def main(root_directory, theta, phi, S):
         ([0, Svec[0]], [Svec[1], Svec[1]], [0, 0]),
     ]
     for x, y, z in traces:
-        fig.add_traces(
-            data=[
-                {
-                    "x": x,
-                    "y": y,
-                    "z": z,
-                    "mode": "lines",
-                    "type": "scatter3d",
-                    "hoverinfo": "none",
-                    "line": {"color": "#FF8800", "width": 3},
-                    "showlegend": False,
-                },
-            ]
-        )
+        plot_line(fig, x, y, z, color="#FF8800")
 
     theta_arc = np.linspace(0, theta, 50)
     theta_arc = [

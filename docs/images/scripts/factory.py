@@ -235,7 +235,11 @@ def save_figure(
     )
     for key in scene_keywords:
         scene[key] = scene_keywords[key]
-    fig.update_layout(
-        width=600, height=500, margin=dict(l=0, r=0, t=0, b=0), scene=scene
+    fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), scene=scene)
+    fig.write_html(
+        name,
+        full_html=False,
+        default_width="80%",
+        default_height="80%",
+        include_plotlyjs=False,
     )
-    fig.write_html(name, full_html=False, include_plotlyjs=False)

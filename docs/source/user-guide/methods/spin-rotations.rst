@@ -25,7 +25,7 @@ with two angles: :math:`\theta` and :math:`\phi`.
   \end{pmatrix}
 
 .. raw:: html
-  :file: ../../../images/spin-rotations-1.html
+  :file: ../../../images/spin-rotations-simple.html
 
 Any direction of the spin vector can be achieved from the direction of the
 vector :math:`\hat{v}` by two consecutive rotations:
@@ -89,4 +89,4 @@ frame change in :ref:`user-guide_methods_rf-choice`:
     \end{pmatrix}
 
 .. raw:: html
-  :file: ../../../images/spin-rotations-2.html
+  :file: ../../../images/spin-rotations-symmetric.html

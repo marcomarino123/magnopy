@@ -16,8 +16,8 @@ def prepare_figure(fig, theta, phi, S):
     )
     plot_vector(fig, (1, 0, 0), label=R"u")
     plot_vector(fig, (0, 1, 0), label=R"v")
-    plot_vector(fig, (0, 0, 1), label=R"n")
-    plot_vector(fig, Svec, label=R"S", color="#9E77F0")
+    plot_vector(fig, (0, 0, 1), label=R"n", label_shift=(0, 0, 0.2))
+    plot_vector(fig, Svec, label=R"S", color="#9E77F0", label_shift=(-0.05, 0.1, 0))
     plot_vector(fig, (0, 0, S), label="S0", color="#4EB436", label_shift=(0.1, -0.1, 0))
     traces = [
         ([Svec[0], Svec[0]], [Svec[1], Svec[1]], [0, Svec[2]]),
@@ -53,7 +53,11 @@ def main(root_directory, theta, phi, S):
     fig = go.Figure()
     prepare_figure(fig, theta, phi, S)
     plot_vector(
-        fig, (S * np.sin(theta), 0, S * np.cos(theta)), label="S'", color="#AB4740"
+        fig,
+        (S * np.sin(theta), 0, S * np.cos(theta)),
+        label="S'",
+        color="#AB4740",
+        label_shift=(0.2, 0, 0),
     )
     theta_arc = np.linspace(0, theta, 50)
     theta_arc = [
@@ -82,12 +86,12 @@ def main(root_directory, theta, phi, S):
         color="#9E77F0",
         label="R(φ)",
         arrow=True,
-        label_shift=(0.1, 0.09, -0.1),
+        label_shift=(0, 0, -0.2),
     )
 
     save_figure(
         fig,
-        os.path.join(images_dir, "spin-rotations-1.html"),
+        os.path.join(images_dir, "spin-rotations-simple.html"),
         camera_keywords=dict(eye=dict(x=1.25, y=0.5, z=0.75)),
     )
 
@@ -106,8 +110,8 @@ def main(root_directory, theta, phi, S):
 
     save_figure(
         fig,
-        os.path.join(images_dir, "spin-rotations-2.html"),
-        camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.5)),
+        os.path.join(images_dir, "spin-rotations-symmetric.html"),
+        camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.1)),
     )
 
 

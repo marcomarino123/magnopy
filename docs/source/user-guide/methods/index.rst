@@ -11,6 +11,7 @@ Methods and algorithms
     rf-change
     spin-rotations
     single-q
+    spin-fourier
     spinham-symmetries
     energy-classic
 

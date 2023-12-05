@@ -8,7 +8,7 @@ Single-Q conical state
 
   * The reference frame is :math:`\hat{u}\hat{v}\hat{n}` for the whole page.
   * :math:`\vec{v}` - is a vector.
-  * Parenthesis () and braquets [] are equivalent in this section.
+  * Parenthesis () and braquets [] are equivalent.
 
 Single-:math:`Q` conical state can be described by two vectors:
 

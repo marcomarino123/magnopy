@@ -12,6 +12,7 @@ def plot_vector(
     kwargs=None,
     cone_scale=0.3,
     line_width=5,
+    origin_pont=False,
 ):
     r"""
     Plot a vector on the given figure.
@@ -52,6 +53,20 @@ def plot_vector(
         },
         **kwargs,
     )
+    if origin_pont:
+        fig.add_trace(
+            {
+                "x": [x[0]],
+                "y": [y[0]],
+                "z": [z[0]],
+                "mode": "markers",
+                "type": "scatter3d",
+                "hoverinfo": "none",
+                "marker": {"color": color, "size": 6},
+                "showlegend": False,
+            },
+            **kwargs,
+        )
     fig.add_trace(
         {
             "type": "cone",

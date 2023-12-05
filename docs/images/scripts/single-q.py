@@ -56,7 +56,11 @@ def plot_example_2(output_name):
             color="#E7676B",
         )
         arc = np.linspace(0, 2 * np.pi, 100)
-        arc = [np.ones_like(arc) * X[i] + np.cos(theta), np.cos(arc), np.sin(arc)]
+        arc = [
+            np.ones_like(arc) * X[i] + np.cos(theta),
+            np.cos(arc) * np.sin(theta),
+            np.sin(arc) * np.sin(theta),
+        ]
         plot_arc(fig, arc=arc, color="#63C06F")
     zoom = 0.9
     save_figure(

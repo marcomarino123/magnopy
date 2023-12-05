@@ -6,6 +6,45 @@ import plotly.graph_objects as go
 from factory import plot_arc, plot_line, plot_vector, save_figure
 
 
+def plot_example(spins, Q, N, output_name):
+    r"""
+    Plot example spin spiral for the cubic crystal.
+
+    Lattice parameters are: a = b = c = 1 in the uvn
+    reference frame. abc is oriented along uvn.
+
+    Parameters
+    ----------
+    spins : (M, 5) array-like
+        M spins in the unit cell. Each spin is a list of
+        five floats: (Sx, Sy, Sz, theta, phi).
+    Q : (3,) array-like
+        Spin spiral vector.
+    N : (3,) array-like
+        (Na, Nb, Nc) - number of unit cells to be drawn.
+    output_name : str
+        Output name. Including the extension.
+
+    Return
+    ------
+    fig : plotly.graph_obfect.Figure
+        Figure with the plotted spiral.
+    """
+    fig = go.Figure()
+    plot_vector(fig, (N[0] + 1, 0, 0), label="u", arrow_scale=0.3 / N[0])
+    plot_vector(fig, (0, N[1] + 1, 0), label="v", arrow_scale=0.3 / N[1])
+    plot_vector(fig, (0, 0, N[2] + 1), label="n", arrow_scale=0.3 / N[2])
+
+    for i in range(N[0]):
+        for j in range(N[1]):
+            for k in range(N[2]):
+                for a in range(len(spins)):
+                    R = [i + spins[0], j + spins[1], k + spins[2]]
+                    vector = 1
+
+    return fig
+
+
 def plot_example_1(output_name):
     fig = go.Figure()
     plot_vector(fig, (8, 0, 0), label="n", cone_scale=0.1)
@@ -13,7 +52,7 @@ def plot_example_1(output_name):
     theta = np.pi / 2
     for i in range(len(X)):
         vector = [
-            0,
+            np.sin(theta),
             np.cos(X[i]),
             np.sin(X[i]),
         ]

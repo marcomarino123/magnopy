@@ -17,21 +17,8 @@ Single-:math:`Q` conical state can be described by two vectors:
   :ref:`user-guide_methods_rf-choice`, therefore, the cone axis :math:`\hat{n}`
   is one of the reference frame axes.
 * Spiral vector :math:`\vec{Q}`. It defines the phase as:
-  :math:`\theta_m = \vec{Q}\cdot\vec{R_m}`.
+  :math:`\theta_m = \vec{Q}\cdot\vec{r_m}`.
 
-Several examples of the conical structures are shown in the pictures below.
-
-.. raw:: html
-  :file: ../../../images/single-q-1.html
-
-.. raw:: html
-  :file: ../../../images/single-q-2.html
-
-.. raw:: html
-  :file: ../../../images/single-q-3.html
-
-.. raw:: html
-  :file: ../../../images/single-q-4.html
 
 Spiral rotation matrix
 ======================
@@ -115,3 +102,45 @@ And the spin :math:`\vec{S}_{ma}` is
     \sin\theta_a(\sin(\vec{Q}\cdot\vec{r}_m)\cos\phi_a + \cos(\vec{Q}\cdot\vec{r}_m)\sin\phi_a) \\
     \cos\theta_a \\
   \end{pmatrix}
+  = \begin{pmatrix}
+    \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
+    \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
+    \cos\theta_a                                     \\
+  \end{pmatrix}
+
+.. dropdown:: All elements of the matrix  :math:`\text{ }R_{ma}`
+
+  For simplicity of the notation we call the matrix :math:`R_{ma}`
+  as :math:`R`:
+
+  .. math::
+    R_{ma} = R =
+    \begin{pmatrix}
+      R_{11} & R_{12} & R_{13} \\
+      R_{21} & R_{22} & R_{23} \\
+      R_{31} & R_{32} & R_{33} \\
+    \end{pmatrix}
+
+  .. math::
+    R_{11} =
+
+
+
+
+Examples
+========
+
+* One spin in the unit cell: :math:``
+
+
+.. raw:: html
+  :file: ../../../images/single-q-1.html
+
+.. raw:: html
+  :file: ../../../images/single-q-2.html
+
+.. raw:: html
+  :file: ../../../images/single-q-3.html
+
+.. raw:: html
+  :file: ../../../images/single-q-4.html

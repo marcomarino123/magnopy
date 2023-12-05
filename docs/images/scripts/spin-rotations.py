@@ -103,7 +103,7 @@ def main(root_directory, theta, phi, S):
         S * np.sin(phi) * np.sin(arc),
         S * np.cos(arc),
     ]
-    plot_arc(fig, arc=arc, color="#9E77F0", label="R'(θ, φ)", arrow=True)
+    plot_arc(fig, arc=arc, color="#9E77F0", label="R(θ, φ)", arrow=True)
     r = np.cross((0, 0, 1), Svec)
     r /= np.linalg.norm(r)
     plot_vector(fig, vector=r, color="#9E77F0", label="r")

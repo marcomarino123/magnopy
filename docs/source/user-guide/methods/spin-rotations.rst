@@ -27,8 +27,38 @@ with two angles: :math:`\theta` and :math:`\phi`.
 .. raw:: html
   :file: ../../../images/spin-rotations-simple.html
 
-Any direction of the spin vector can be achieved from the direction of the
-vector :math:`\hat{v}` by two consecutive rotations:
+Any direction of the spin vector can be produced from the direction of the
+vector :math:`\vec{n}` by a rotation around the vector :math:`r` with
+the angle :math:`\theta`, similary to how it was done for the reference
+frame change in :ref:`user-guide_methods_rf-choice`:
+
+.. math::
+  \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}
+  = \begin{pmatrix}
+    -\cos\phi \\
+    \sin\phi \\
+    0
+  \end{pmatrix}
+
+.. math::
+
+    R(\theta, \phi) =
+    \begin{pmatrix}
+      \cos\theta + \sin^2\phi(1-\cos\theta) &
+      -\sin\phi\cos\phi(1-\cos\theta) &
+      \cos\phi\sin\theta  \\
+      -\sin\phi\cos\phi(1-\cos\theta) &
+      \cos\theta + \cos^2\phi(1-\cos\theta) &
+      \sin\phi\sin\theta  \\
+      -\cos\phi\sin\theta &
+      -\sin\phi\sin\theta &
+      \cos\theta \\
+    \end{pmatrix}
+
+.. raw:: html
+  :file: ../../../images/spin-rotations-symmetric.html
+
+Alternatively one can define two consecutive rotations:
 
 .. math::
   \vec{S} = R(\phi)R(\theta)\vec{S}^0
@@ -54,39 +84,12 @@ With the rotation matrices defined as:
   \end{matrix}
 
 .. math::
-    R(\theta,\phi) = R(\phi)R(\theta) =
+    R^{\prime}(\theta,\phi) = R(\phi)R(\theta) =
     \begin{pmatrix}
       \cos\phi\cdot\cos\theta & -\sin\phi & \cos\phi\cdot\sin\theta \\
       \sin\phi\cdot\cos\theta & \cos\phi  & \sin\phi\cdot\sin\theta \\
       -\sin\theta             & 0         & \cos\theta              \\
     \end{pmatrix}
 
-Alternatively we can define one rotation around the vector :math:`r`
-by the angle :math:`\theta`, similary to how it was done for the reference
-frame change in :ref:`user-guide_methods_rf-choice`:
-
-.. math::
-  \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}
-  = \begin{pmatrix}
-    -\cos\phi \\
-    \sin\phi \\
-    0
-  \end{pmatrix}
-
-.. math::
-
-    R^{\prime}(\theta, \phi) =
-    \begin{pmatrix}
-      \cos\theta + \sin^2\phi(1-\cos\theta) &
-      -\sin\phi\cos\phi(1-\cos\theta) &
-      \cos\phi\sin\theta  \\
-      -\sin\phi\cos\phi(1-\cos\theta) &
-      \cos\theta + \cos^2\phi(1-\cos\theta) &
-      \sin\phi\sin\theta  \\
-      -\cos\phi\sin\theta &
-      -\sin\phi\sin\theta &
-      \cos\theta \\
-    \end{pmatrix}
-
-.. raw:: html
-  :file: ../../../images/spin-rotations-symmetric.html
+.. note::
+  We will not use the latter rotation in the following pages.

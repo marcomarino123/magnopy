@@ -35,7 +35,7 @@ a global :math:`\vert xyz \rangle` frame. Than the Hamiltonian is given by:
     + \mu_B\langle H\vert xyz\rangle\sum_{m,a} g_a
     \langle xyz \vert S_{ma}\rangle
 
-where vector :math:`\vec{d}_{ab} = \vec{R}_{m+d} - \vec{r}_m` - runs over the neighbors.
+where vector :math:`\vec{d}_{ab} = \vec{r}_{m+d} - \vec{r}_m` - runs over the neighbors.
 :math:`J_{ab}(d_{ab})` is a :math:`3\times3` exchange matrix.
 :math:`A_a` is a :math:`3\times3` on-site anisotropy matrix.
 The third term describe the Zeeman interaction with the external magnetic field.

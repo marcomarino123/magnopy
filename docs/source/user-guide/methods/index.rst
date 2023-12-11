@@ -14,6 +14,7 @@ Methods and algorithms
     single-q
     spherical-rf
     spin-fourier
+    spinham-spherical
     energy-classic
 
 .. toctree::

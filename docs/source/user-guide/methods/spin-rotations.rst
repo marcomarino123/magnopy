@@ -36,7 +36,7 @@ frame change in :ref:`user-guide_methods_rf-choice`:
 .. math::
   \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}
   = \begin{pmatrix}
-    -sin\phi \\
+    -\sin\phi \\
     \cos\phi \\
     0
   \end{pmatrix}

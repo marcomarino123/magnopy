@@ -1,0 +1,5 @@
+# Developments tools
+pre-commit
+black
+isort
+matplotlib

@@ -30,6 +30,7 @@ the corresponding links below.
 
    * Go to the |repository|_ and click on the "Fork" button.
      Now you have your own copy of the Magnopy repository in your GitHub account.
+
    * Clone your copy of the repository to your local machine:
 
      - If you are using ssh-key::
@@ -43,6 +44,7 @@ the corresponding links below.
    * Change the directory::
 
       cd magnopy
+
    * Add the upstream repository::
 
       git remote add upstream https://github.com/magnopy/magnopy.git
@@ -52,12 +54,18 @@ the corresponding links below.
    We recommend to use virtual environment. Once the virtual environment is created,
    you can install requirements:
 
-   * For the package development::
+   * Package dependencies::
 
       pip install -r requirements.txt
+
+   * For the package development::
+
+      pip install -r requirements-dev.txt
+
    * For the docs::
 
       pip install -r docs/requirements.txt
+
    * For the tests::
 
       pip install -r utest/requirements.txt

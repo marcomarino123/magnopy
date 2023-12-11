@@ -7,6 +7,7 @@
 .. dropdown:: Notation used on this page
 
   * The reference frame is :math:`\hat{u}\hat{v}\hat{n}` for the whole page.
+    Unless specified otherwise.
   * Bra-ket notation for vectors. With one exception:
 
     - :math:`\vec{v_1}\cdot\vec{v}_2 = \langle v_1\vert v_2\rangle`
@@ -29,7 +30,7 @@ From the :ref:`previous section <user-guide_methods_single-q>` we recall:
   = R_{ma}\vert S_{ma}^{ferro}\rangle
 
 .. math::
-  \langle uvn\vert S_{ma}\rangle =
+  \langle uvn\vert S_{ma}\rangle =S_a\cdot
   \begin{pmatrix}
       \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
       \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
@@ -162,11 +163,11 @@ reference frame:
   .. math::
     \begin{multline}
       S_{ma}^{\pm} = \dfrac{S_{ma}^u \pm iS_{ma}^v}{\sqrt{2}} =
-      \dfrac{\sin\theta_a[\cos(\vec{Q}\cdot\vec{r}_m + \phi_a)
+      S_a\cdot\dfrac{\sin\theta_a[\cos(\vec{Q}\cdot\vec{r}_m + \phi_a)
       \pm i\sin(\vec{Q}\cdot\vec{r}_m + \phi_a)]}{\sqrt{2}} \\
-      =\dfrac{\sin\theta_a[\cos(\pm\vec{Q}\cdot\vec{r}_m \pm \phi_a)
+      =S_a\cdot\dfrac{\sin\theta_a[\cos(\pm\vec{Q}\cdot\vec{r}_m \pm \phi_a)
       + i\sin(\pm\vec{Q}\cdot\vec{r}_m \pm \phi_a)]}{\sqrt{2}}
-      = \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{\pm i (\vec{Q}\cdot\vec{r}_m + \phi_a)}
+      = S_a\cdot\dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{\pm i (\vec{Q}\cdot\vec{r}_m + \phi_a)}
     \end{multline}
 
 .. math::
@@ -177,7 +178,7 @@ reference frame:
     S_{ma}^{+} \\
     S_{ma}^{n}
   \end{pmatrix}
-  =
+  =S_a\cdot
   \begin{pmatrix}
      \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{- i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
      \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{+ i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
@@ -292,7 +293,7 @@ Rotation matrix :math:`R(\theta_a,\phi_a)`
     \end{multline}
 
 Rotation matrix :math:`R(\theta_m)`
-===================================
+-----------------------------------
 
 .. math::
   \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle =

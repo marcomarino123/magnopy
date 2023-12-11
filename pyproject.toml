@@ -27,8 +27,15 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
-[tool.setuptools]
-py-modules = ["magnopy"]
+[project.scripts]
+wulfric = "magnopy.__main__:main"
+
+[project.urls]
+Homepage = "https://magnopy.org"
+Documentation = "https://magnopy.org"
+Repository = "https://github.com/magnopy/magnopy.git"
+Issues = "https://github.com/magnopy/magnopy/issues"
+Changelog = "https://magnopy.org/en/latest/release-notes/index.html"
 
 [tool.setuptools.dynamic]
 version = { attr = "magnopy.__version__" }

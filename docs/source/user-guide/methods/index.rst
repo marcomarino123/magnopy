@@ -7,13 +7,13 @@ Methods and algorithms
 .. toctree::
     :maxdepth: 1
 
+    spinham-symmetries
     rf-choice
     rf-change
     spin-rotations
     single-q
     spherical-rf
     spin-fourier
-    spinham-symmetries
     energy-classic
 
 .. toctree::

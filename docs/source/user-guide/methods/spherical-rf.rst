@@ -114,6 +114,12 @@ Which results in the unitary transformation matrix:
     \Rightarrow
     T^{\dagger} = T^{-1}
 
+Cahnge to the spherical basis
+==============================
+
+Spin vector
+-----------
+
 Now we write the :math:`\vert S_{ma}\rangle` in the :math:`\vert u^+u^-n\rangle`
 reference frame:
 

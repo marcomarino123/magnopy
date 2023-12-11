@@ -24,8 +24,9 @@ with two angles: :math:`\theta` and :math:`\phi`.
     \cos\theta
   \end{pmatrix}
 
+
 .. raw:: html
-  :file: ../../../images/spin-rotations-simple.html
+  :file: ../../../images/spin-rotations-symmetric.html
 
 Any direction of the spin vector can be produced from the direction of the
 vector :math:`\vec{n}` by a rotation around the vector :math:`r` with
@@ -55,41 +56,61 @@ frame change in :ref:`user-guide_methods_rf-choice`:
       \cos\theta \\
     \end{pmatrix}
 
-.. raw:: html
-  :file: ../../../images/spin-rotations-symmetric.html
 
-Alternatively one can define two consecutive rotations:
+Than the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
 
 .. math::
-  \vec{S} = R(\phi)R(\theta)\vec{S}^0
-  = e^{\phi\hat{n}\times}e^{\theta\hat{v}\times}\vec{S}^0
+  \vec{S} = R(\theta, \phi)\vec{S}^{ferro}
+  = S\cdot R(\theta, \phi)\hat{S}^{ferro}
+  = S\cdot R(\theta, \phi)\hat{n}
 
-With the rotation matrices defined as:
+.. dropdown:: Bra-ket notation
 
-.. math::
-  \begin{matrix}
-    R(\theta) =
-    \begin{pmatrix}
-      \cos\theta  & 0 & \sin\theta \\
-      0           & 1 & 0          \\
-      -\sin\theta & 0 & \cos\theta \\
-    \end{pmatrix};
-    &
-    R(\phi) =
-    \begin{pmatrix}
-      \cos\phi & -\sin\phi & 0 \\
-      \sin\phi & \cos\phi  & 0 \\
-      0        & 0         & 1 \\
-    \end{pmatrix}
-  \end{matrix}
+  .. math::
+    \langle uvn\vert S\rangle = \langle uvn\vert R(\theta, \phi) \vert S^{ferro}\rangle
+    = \langle uvn\vert R(\theta, \phi)\vert uvn \rangle
+    \langle uvn \vert S^{ferro}\rangle
+    = S\cdot\langle uvn\vert R(\theta, \phi)\vert uvn \rangle
+    \langle uvn \vert n\rangle
 
-.. math::
-    R^{\prime}(\theta,\phi) = R(\phi)R(\theta) =
-    \begin{pmatrix}
-      \cos\phi\cdot\cos\theta & -\sin\phi & \cos\phi\cdot\sin\theta \\
-      \sin\phi\cdot\cos\theta & \cos\phi  & \sin\phi\cdot\sin\theta \\
-      -\sin\theta             & 0         & \cos\theta              \\
-    \end{pmatrix}
 
-.. note::
-  We will not use the latter rotation in the following pages.
+.. dropdown:: Alternative rotation
+
+  Alternatively one can define two consecutive rotations:
+
+  .. math::
+    \vec{S} = R(\phi)R(\theta)\vec{S}^{ferro}
+    = e^{\phi\hat{n}\times}e^{\theta\hat{v}\times}\vec{S}^{ferro}
+
+  With the rotation matrices defined as:
+
+  .. math::
+    \begin{matrix}
+      R(\theta) =
+      \begin{pmatrix}
+        \cos\theta  & 0 & \sin\theta \\
+        0           & 1 & 0          \\
+        -\sin\theta & 0 & \cos\theta \\
+      \end{pmatrix};
+      &
+      R(\phi) =
+      \begin{pmatrix}
+        \cos\phi & -\sin\phi & 0 \\
+        \sin\phi & \cos\phi  & 0 \\
+        0        & 0         & 1 \\
+      \end{pmatrix}
+    \end{matrix}
+
+  .. math::
+      R^{\prime}(\theta,\phi) = R(\phi)R(\theta) =
+      \begin{pmatrix}
+        \cos\phi\cdot\cos\theta & -\sin\phi & \cos\phi\cdot\sin\theta \\
+        \sin\phi\cdot\cos\theta & \cos\phi  & \sin\phi\cdot\sin\theta \\
+        -\sin\theta             & 0         & \cos\theta              \\
+      \end{pmatrix}
+
+  .. raw:: html
+    :file: ../../../images/spin-rotations-simple.html
+
+  .. note::
+    We will not use the latter rotation in the following pages.

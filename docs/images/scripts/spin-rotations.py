@@ -18,7 +18,9 @@ def prepare_figure(fig, theta, phi, S):
     plot_vector(fig, (0, 1, 0), label=R"v")
     plot_vector(fig, (0, 0, 1), label=R"n", label_shift=(0, 0, 0.2))
     plot_vector(fig, Svec, label=R"S", color="#9E77F0", label_shift=(-0.05, 0.1, 0))
-    plot_vector(fig, (0, 0, S), label="S0", color="#4EB436", label_shift=(0.1, -0.1, 0))
+    plot_vector(
+        fig, (0, 0, S), label="Sferro", color="#4EB436", label_shift=(0.1, -0.1, 0)
+    )
     traces = [
         ([Svec[0], Svec[0]], [Svec[1], Svec[1]], [0, Svec[2]]),
         ([0, Svec[0]], [0, Svec[1]], [0, 0]),

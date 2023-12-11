@@ -20,8 +20,8 @@ some global reference frame :math:`\hat{x}\hat{y}\hat{z}`.
 However, majority of the derivation happens in the
 :math:`\hat{u}\hat{v}\hat{n}` reference frame, which is defined by the cone
 axis :math:`\hat{v}`. The unit vectors :math:`\hat{u}` and
-:math:`v` can be defined in a several ways due to the rotational freedom
-around :math:`\hat{v}` axis.
+:math:`\hat{v}` can be defined in a several ways due to the rotational freedom
+around :math:`\hat{n}` axis.
 
 Here we explain which reference frame we choose given one unit vector
 :math:`\hat{n}`. The idea behind the choice is to rotate the :math:`\hat{z}`
@@ -72,7 +72,7 @@ axis of the global reference frame to the direction of the given unit vector:
   .. math::
     :name: eq:rf-choice-rot-matrix
 
-    R = R(\alpha,\beta) =
+    R_{rf} = R_{rf}(\alpha,\beta) =
     \begin{pmatrix}
       \cos\alpha + \sin^2\beta(1-\cos\alpha) &
       -\sin\beta\cos\beta(1-\cos\alpha) &
@@ -94,7 +94,7 @@ axis of the global reference frame to the direction of the given unit vector:
   .. math::
 
     \begin{aligned}
-      \hat{u} &= R \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+      \hat{u} &= R_{rf} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
       =
       \begin{pmatrix}
         \cos\alpha + \sin^2\beta(1-\cos\alpha) \\
@@ -107,7 +107,7 @@ axis of the global reference frame to the direction of the given unit vector:
         -\dfrac{n_xn_y}{1+n_z} \\
         -n_x
       \end{pmatrix} \\
-      \hat{v} &= R \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+      \hat{v} &= R_{rf} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
       =
       \begin{pmatrix}
         -\sin\beta\cos\beta(1-\cos\alpha) \\
@@ -120,7 +120,7 @@ axis of the global reference frame to the direction of the given unit vector:
         1 - \dfrac{n_y^2}{1+n_z} \\
         -n_y
       \end{pmatrix} \\
-      \hat{n} &= R \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+      \hat{n} &= R_{rf} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
       =
       \begin{pmatrix}
         \cos\beta\sin\alpha \\
@@ -148,13 +148,13 @@ axis of the global reference frame to the direction of the given unit vector:
         \hat{v} &= \pm\hat{y} \\
         \hat{n} &= \pm\hat{z} \\
       \end{aligned} & \text{ and } &
-      R =
+      R_{rf} =
       \begin{pmatrix}
         1 & 0     & 0 \\
         0 & \pm 1 & 0 \\
         0 & 0     & \pm 1 \\
       \end{pmatrix}
-      = R(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
+      = R_{rf}(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
     \end{matrix}
 
 .. raw:: html

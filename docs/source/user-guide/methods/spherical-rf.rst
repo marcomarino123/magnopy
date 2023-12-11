@@ -20,6 +20,7 @@
         0 \\
         S_a \\
       \end{pmatrix}
+  * :math:`R_a = R(\theta_a, \phi_a)`
 
 From the :ref:`previous section <user-guide_methods_single-q>` we recall:
 
@@ -114,8 +115,8 @@ Which results in the unitary transformation matrix:
     \Rightarrow
     T^{\dagger} = T^{-1}
 
-Cahnge to the spherical basis
-==============================
+Change to the spherical basis
+=============================
 
 Spin vector
 -----------
@@ -182,3 +183,202 @@ reference frame:
      \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{+ i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
      \cos\theta_a
   \end{pmatrix}
+
+Rotation matrix :math:`R(\theta_a,\phi_a)`
+------------------------------------------
+
+.. math::
+  \langle u^+u^-n\vert R_a \vert u^+u^-n\rangle =
+  \begin{pmatrix}
+    \dfrac{1+\cos\theta_a}{2}                  &
+    \dfrac{(\cos\theta_a-1)e^{-2i\phi_a}}{2}     &
+    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}}  \\
+    \dfrac{(\cos\theta_a - 1)e^{2i\phi_a}}{2}    &
+    \dfrac{1 + \cos\theta_a}{2}                &
+    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}    \\
+    \dfrac{-\sin\theta_a e^{i\phi_a} }{\sqrt{2}} &
+    \dfrac{-\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} &
+    \cos\theta_a                               \\
+  \end{pmatrix}
+
+
+.. dropdown:: Details
+
+  First we recall the rotation matrix in the :math:`\vert uvn\rangle` reference frame:
+
+  .. math::
+    R_a = R(\theta_a, \phi_a) =
+    \begin{pmatrix}
+      \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
+      -\sin\phi_a\cos\phi_a(1-\cos\theta_a) &
+      \cos\phi_a\sin\theta_a  \\
+      -\sin\phi_a\cos\phi_a(1-\cos\theta_a) &
+      \cos\theta_a + \cos^2\phi_a(1-\cos\theta_a) &
+      \sin\phi_a\sin\theta_a  \\
+      -\cos\phi_a\sin\theta_a &
+      -\sin\phi_a\sin\theta_a &
+      \cos\theta_a \\
+    \end{pmatrix}
+
+  Than we compute the transformation:
+
+  .. math::
+    \langle u^+u^-n\vert R_a \vert u^+u^-n\rangle
+    = \langle u^+u^-n\vert uvn\rangle
+    \langle uvn \vert R_a \vert uvn\rangle
+    \langle uvn \vert u^+u^-n\rangle
+    = \langle uvn \vert T^{\dagger}\vert uvn\rangle
+    \langle uvn \vert R_a \vert uvn\rangle
+    \langle uvn \vert T\vert uvn\rangle
+
+  The exact form of this matrix will be useful later:
+
+  .. math::
+    \begin{multline}
+      \langle u^+u^-n\vert R_a \vert u^+u^-n\rangle =\\
+      \dfrac{1}{2}
+      \begin{pmatrix}
+        1 & -i & 0        \\
+        1 &  i & 0        \\
+        0 &  0 & \sqrt{2} \\
+      \end{pmatrix}
+      \begin{pmatrix}
+        \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
+        -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
+        \cos\phi_a\sin\theta_a                      \\
+        -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
+        \cos\theta_a + \cos^2\phi_a(1-\cos\theta_a) &
+        \sin\phi_a\sin\theta_a                      \\
+        -\cos\phi_a\sin\theta_a                     &
+        -\sin\phi_a\sin\theta_a                     &
+        \cos\theta_a                                \\
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 1 & 0         \\
+        i & -i & 0        \\
+        0 &  0 & \sqrt{2} \\
+      \end{pmatrix}
+      = \\
+      \dfrac{1}{2}
+      \begin{pmatrix}
+        \cos\theta_a + \sin\phi_a(1-\cos\theta_a)(\sin\phi_a + i\cos\phi_a)   &
+        -i\cos\theta_a - \cos\phi_a(1-\cos\theta_a)(\sin\phi_a + i\cos\phi_a) &
+        \sin\theta_a(\cos\phi_a - i\sin\phi_a)                                \\
+        \cos\theta_a + \sin\phi_a(1-\cos\theta_a)(\sin\phi_a - i\cos\phi_a)   &
+        i\cos\theta_a - \cos\phi_a(1-\cos\theta_a)(\sin\phi_a - i\cos\phi_a)  &
+        \sin\theta_a(\cos\phi_a + i\sin\phi_a)                                \\
+        -\sqrt{2}\sin\theta_a\cos\phi_a                                       &
+        -\sqrt{2}\sin\theta_a\sin\phi_a                                       &
+        \sqrt{2}\cos\theta_a                                                  \\
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 1 & 0         \\
+        i & -i & 0        \\
+        0 &  0 & \sqrt{2} \\
+      \end{pmatrix}
+      = \\
+      \dfrac{1}{2}
+      \begin{pmatrix}
+        1+\cos\theta_a                     &
+        (\cos\theta_a-1)e^{-2i\phi_a}      &
+        \sqrt{2}\sin\theta_a e^{-i\phi_a}  \\
+        (\cos\theta_a - 1)e^{2i\phi_a}     &
+        1 + \cos\theta_a                   &
+        \sqrt{2}\sin\theta_a e^{i\phi_a}   \\
+        -\sqrt{2}\sin\theta_a e^{i\phi_a}  &
+        -\sqrt{2}\sin\theta_a e^{-i\phi_a} &
+        2\cos\theta_a                      \\
+      \end{pmatrix}
+    \end{multline}
+
+Rotation matrix :math:`R(\theta_m)`
+===================================
+
+.. math::
+  \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle =
+  \begin{pmatrix}
+    e^{-i\theta_m} & 0              & 0 \\
+    0              & e^{i\theta_m}  & 0 \\
+    0              & 0              & 1 \\
+  \end{pmatrix}=
+  \begin{pmatrix}
+    e^{-i\vec{Q}\cdot\vec{r}_m} & 0                          & 0 \\
+    0                           & e^{i\vec{Q}\cdot\vec{r}_m} & 0 \\
+    0                           & 0                          & 1 \\
+  \end{pmatrix}
+
+.. dropdown:: Details
+
+  First we recall the rotation matrix in the :math:`\vert uvn\rangle` reference frame:
+
+  .. math::
+    c = R(\vec{Q}\cdot\vec{r}_m) =
+    \begin{pmatrix}
+      \cos(\vec{Q}\cdot\vec{r}_m) & -\sin(\vec{Q}\cdot\vec{r}_m) & 0 \\
+      \sin(\vec{Q}\cdot\vec{r}_m) & \cos(\vec{Q}\cdot\vec{r}_m)  & 0 \\
+      0                           & 0                            & 1 \\
+    \end{pmatrix}=
+    \begin{pmatrix}
+      \cos(\theta_m) & -\sin(\theta_m) & 0 \\
+      \sin(\theta_m) & \cos(\theta_m)  & 0 \\
+      0              & 0               & 1 \\
+    \end{pmatrix}
+
+  Than we compute the transformation:
+
+  .. math::
+    \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle
+    = \langle u^+u^-n\vert uvn\rangle
+    \langle uvn \vert R(\theta_m) \vert uvn\rangle
+    \langle uvn \vert u^+u^-n\rangle
+    = \langle uvn \vert T^{\dagger}\vert uvn\rangle
+    \langle uvn \vert R(\theta_m) \vert uvn\rangle
+    \langle uvn \vert T\vert uvn\rangle
+
+  The exact form of this matrix will be useful later:
+
+  .. math::
+    \begin{multline}
+      \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle =\\
+      \dfrac{1}{2}
+      \begin{pmatrix}
+        1 & -i & 0        \\
+        1 &  i & 0        \\
+        0 &  0 & \sqrt{2} \\
+      \end{pmatrix}
+      \begin{pmatrix}
+        \cos(\theta_m) & -\sin(\theta_m) & 0 \\
+        \sin(\theta_m) & \cos(\theta_m)  & 0 \\
+        0              & 0               & 1 \\
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 1 & 0         \\
+        i & -i & 0        \\
+        0 &  0 & \sqrt{2} \\
+      \end{pmatrix}
+      = \\
+      \dfrac{1}{2}
+      \begin{pmatrix}
+      \cos\theta_m - i\sin\theta_m  &
+      -\sin\theta_m - i\cos\theta_m &
+      0                             \\
+      \cos\theta_m + i\sin\theta_m  &
+      -\sin\theta_m + i\cos\theta_m &
+      0                             \\
+      0                             &
+      0                             &
+      \sqrt{2}                      \\
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 1 & 0         \\
+        i & -i & 0        \\
+        0 &  0 & \sqrt{2} \\
+      \end{pmatrix}
+      = \\
+      \dfrac{1}{2}
+      \begin{pmatrix}
+        2e^{-i\theta_m} & 0              & 0 \\
+        0               & 2e^{i\theta_m} & 0 \\
+        0               & 0              & 2 \\
+      \end{pmatrix}
+    \end{multline}

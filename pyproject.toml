@@ -28,7 +28,8 @@ classifiers = [
 ]
 
 [project.scripts]
-wulfric = "magnopy.__main__:main"
+magnopy = "magnopy.__main__:main"
+magnopy-dispersion-tb2j = "magnopy.score.plot_tb2j_magnons:main"
 
 [project.urls]
 Homepage = "https://magnopy.org"

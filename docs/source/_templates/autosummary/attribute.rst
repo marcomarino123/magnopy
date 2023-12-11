@@ -6,4 +6,4 @@
 
 attribute
 
-.. auto{{ objtype }}:: {{ fullname | replace("radtools.", "radtools::") }}
+.. auto{{ objtype }}:: {{ fullname | replace("magnopy.", "magnopy::") }}

@@ -11,7 +11,7 @@ from magnopy import __version__ as version
 ##                                   Project metadata                                   ##
 ##########################################################################################
 project = "magnopy"
-copyright = f"2023-{datetime.now().year}, Magnopy organization"
+copyright = f"2023-{datetime.now().year}, Magnopy Team"
 author = "Magnopy"
 if ".dev" in version:
     switcher_version = "dev"

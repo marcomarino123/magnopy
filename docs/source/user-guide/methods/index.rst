@@ -15,7 +15,7 @@ Methods and algorithms
     spherical-rf
     spin-fourier
     spinham-spherical
-    energy-classic
+    energy-classic/index
 
 .. toctree::
     :maxdepth: 1

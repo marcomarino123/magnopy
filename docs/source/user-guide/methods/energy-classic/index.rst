@@ -158,9 +158,9 @@ Next we write back the sum over :math:`m`, and using the facts that:
 
 * :math:`\vec{d} = \sum_{i}\vec{a}_in_i`
 * :math:`J` does not depend on the index :math:`m`
-* :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{0}}`
+* :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{G}}`
   and
-  :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}}`
+  :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}`
   and
   :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = \sum_{r_m}e^{\pm i\vec{Q}(\vec{r}_m+\vec{d})}`
 
@@ -199,27 +199,30 @@ Next we write back the sum over :math:`m`, and using the facts that:
 
     where :math:`n_i \in \mathbb{Z}`.
 
-    With respect to the spiral cone state, that we are looking into this condition means
-    ferromagnetic ordering between the unit cells. The choice of the :math:`n_i`
-    does not change the energy, therefore, we choose only the :math:`n_i = 0, \forall i` case and
-    write the sum in a form:
+    Which means that the :math:`\vec{Q}` vector is a reciprocal lattice vector,
+    which we denote as :math:`\vec{G} = \sum_{i}\vec{b}_in_i`. For the spiral state this
+    means that the ordering of the spins is ferromagnetic between the unit cells. We
+    denote this condition on the :math:`\vec{Q}` vector as :math:`\delta_{\vec{Q},\vec{G}}`
+    and write the sum in a form:
 
     .. math::
-      \sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{0}}
+      \sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{G}}
 
-    In the case of the second sum the argument is the same, but at the end the condition on the
+    In the case of the second sum the logic is the same, but at the end the condition on the
     :math:`\vec{Q}` vector is different:
 
     .. math::
       Q_{a_i} = \dfrac{\pi}{a_i}n_i,  i = 1, 2, 3
 
-    In the context of the spiral it can be interpreted as the antiferromagnetic ordering between
-    the unit cells. The choice of the :math:`n_i` does not change the energy, therefore, we choose
-    only the :math:`n_i = 0 \text{ or } 1, \forall i` and denote the kroneker delta as
-    :math:`\delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}}`:
+    Which means that the :math:`\vec{Q}` vector is a reciprocal lattice vector divided by 2:
+    :math:`\vec{Q} = \dfrac{\vec{G}}{2} = \sum_{i}\dfrac{\vec{b}_i}{2}n_i`.
+    For the spiral state it can be interpreted as the possible ferromagnetic order of
+    spins or antiferromagnetic order of :math:`\hat{u}\hat{v}` component of spin between
+    unit cells. We denote this condition on the :math:`\vec{Q}` vector as
+    :math:`\delta_{\vec{Q},\frac{\vec{G}}{2}}` and write the sum in a form:
 
     .. math::
-      \sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}}
+      \sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}
 
 
 
@@ -249,27 +252,27 @@ we get an expression for the sum:
       \\
       =
       \begin{pmatrix}
-        J_{++}\sum_m 1                       &
+        J_{++}e^{-i\vec{Q}\vec{d}}\sum_m 1   &
         J_{+-}\sum_m e^{i\vec{Q}2\vec{r}_m}  &
         J_{+n}\sum_m e^{i\vec{Q}\vec{r}_m}   \\
         J_{-+}\sum_m e^{-i\vec{Q}2\vec{r}_m} &
-        J_{--}\sum_m 1                       &
+        J_{--}e^{i\vec{Q}\vec{d}}\sum_m 1    &
         J_{-n}\sum_m e^{-i\vec{Q}\vec{r}_m}  \\
         J_{n+}\sum_m e^{-i\vec{Q}\vec{r}_m}  &
         J_{n-}\sum_m e^{i\vec{Q}\vec{r}_m}   &
-        M\cdot J_{nn}                         \\
+        M\cdot J_{nn}                        \\
       \end{pmatrix}
       \\
       =
       \begin{pmatrix}
-        M\cdot J_{++}                                        &
-        M\delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}} J_{+-} &
-        M\delta_{\vec{Q},\vec{0}}\cdot J_{+n}                \\
-        M\delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}} J_{-+} &
-        M\cdot J_{--}                                        &
-        M\delta_{\vec{Q},\vec{0}}\cdot J_{-n}                \\
-        M\delta_{\vec{Q},\vec{0}}\cdot J_{n+}                &
-        M\delta_{\vec{Q},\vec{0}}\cdot J_{n-}                &
+        Me^{-i\vec{Q}\vec{d}} J_{++}                         &
+        M\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-} &
+        M\delta_{\vec{Q},\vec{G}}\cdot J_{+n}                \\
+        M\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{-+} &
+        Me^{i\vec{Q}\vec{d}} J_{--}                          &
+        M\delta_{\vec{Q},\vec{G}}\cdot J_{-n}                \\
+        M\delta_{\vec{Q},\vec{G}}\cdot J_{n+}                &
+        M\delta_{\vec{Q},\vec{G}}\cdot J_{n-}                &
         M\cdot J_{nn}                                        \\
       \end{pmatrix}
     \end{multline}
@@ -282,15 +285,15 @@ we get an expression for the sum:
   =
   M
   \begin{pmatrix}
-    J_{++}                                              &
-    \delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}} J_{+-} &
-    \delta_{\vec{Q},\vec{0}}\cdot J_{+n}                \\
-    \delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}} J_{-+} &
-    J_{--}                                              &
-    \delta_{\vec{Q},\vec{0}}\cdot J_{-n}                \\
-    \delta_{\vec{Q},\vec{0}}\cdot J_{n+}                &
-    \delta_{\vec{Q},\vec{0}}\cdot J_{n-}                &
-    J_{nn}
+    e^{-i\vec{Q}\vec{d}}J_{++}                          &
+    \delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-} &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{+n}                \\
+    \delta_{\vec{Q},\frac{\vec{G}}{2}} J_{-+} &
+    e^{i\vec{Q}\vec{d}}J_{--}                           &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{-n}                \\
+    \delta_{\vec{Q},\vec{G}}\cdot J_{n+}                &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{n-}                &
+    J_{nn}                                              \\
   \end{pmatrix}
 
 Which leads to the expression for the exchange part of total energy:
@@ -369,15 +372,15 @@ Which leads to the expression for the exchange part of total energy:
       \cos\theta_a
       \right)
       \begin{pmatrix}
-        J_{++}                                              &
-        \delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}} J_{+-} &
-        \delta_{\vec{Q},\vec{0}}\cdot J_{+n}                \\
-        \delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}} J_{-+} &
-        J_{--}                                              &
-        \delta_{\vec{Q},\vec{0}}\cdot J_{-n}                \\
-        \delta_{\vec{Q},\vec{0}}\cdot J_{n+}                &
-        \delta_{\vec{Q},\vec{0}}\cdot J_{n-}                &
-        J_{nn}
+        e^{-i\vec{Q}\vec{d}}J_{++}                          &
+        \delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-} &
+        \delta_{\vec{Q},\vec{G}}\cdot J_{+n}                \\
+        \delta_{\vec{Q},\frac{\vec{G}}{2}} J_{-+} &
+        e^{i\vec{Q}\vec{d}}J_{--}                           &
+        \delta_{\vec{Q},\vec{G}}\cdot J_{-n}                \\
+        \delta_{\vec{Q},\vec{G}}\cdot J_{n+}                &
+        \delta_{\vec{Q},\vec{G}}\cdot J_{n-}                &
+        J_{nn}                                              \\
       \end{pmatrix}
       \begin{pmatrix}
         \dfrac{\sin\theta_b e^{-i\phi_b}}{\sqrt{2}}  \\
@@ -391,16 +394,16 @@ Which leads to the expression for the exchange part of total energy:
       MS_aS_b
       \left(
       \dfrac{
-      J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b)}
+      J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
       +
-      J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b)}
+      J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
       }{2}
       +
       J_{nn}\cos\theta_a\cos\theta_b
       \right.
       \\
       +
-      \delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}}
+      \delta_{\vec{Q},\frac{\vec{G}}{2}}
       \left[
       \dfrac{
       J_{+-}\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b)}
@@ -410,7 +413,7 @@ Which leads to the expression for the exchange part of total energy:
       \right]
       \\
       +
-      \delta_{\vec{Q},\vec{0}}
+      \delta_{\vec{Q},\vec{G}}
       \left[
       \dfrac{
       J_{+n}\sin\theta_a\cos\theta_b e^{i\phi_a}
@@ -436,43 +439,48 @@ Which leads to the expression for the exchange part of total energy:
   .. math::
     \begin{multline}
       \dfrac{
-        J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b)}
+        J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
         +
-        J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b)}
+        J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
       }{2}
       \\
       =
       \dfrac{
-        (A + iD_n)\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b)}
+        (A + iD_n)\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
         +
-        (A - iD_n)\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b)}
+        (A - iD_n)\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
       }{2}
       \\
       =
       A\sin\theta_a\sin\theta_b
       \dfrac{
-      e^{i(\phi_a-\phi_b)}+e^{-i(\phi_a-\phi_b)}
+      e^{i(\phi_a-\phi_b)}+e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
       }{2}
       -
       D_n\sin\theta_a\sin\theta_b
       \dfrac{
-      e^{i(\phi_a-\phi_b)}-e^{-i(\phi_a-\phi_b)}
+      e^{i(\phi_a-\phi_b)}-e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
       }{2i}
       \\
       =
-      A\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b)
+      A\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
       -
-      D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b)
+      D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
       \\
       =
-      (J+\dfrac{S_{uu}+S_{vv}}{2})\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b)
+      (J+\dfrac{S_{uu}+S_{vv}}{2})\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
       -
-      D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b)
+      D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
       \\
       =
-      \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b)
+      \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
       -
-      \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b)
+      \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+      \\
+      =
+      \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+      +
+      \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
     \end{multline}
 
   where :math:`A = J+\dfrac{S_{uu}+S_{vv}}{2}`
@@ -615,13 +623,13 @@ Which leads to the expression for the exchange part of total energy:
     \\+
     \sin\theta_a\sin\theta_b
     \left(
-    \dfrac{J_{uu}+J_{vv}}{2}\cos(\phi_a-\phi_b)
-    -
-    \dfrac{J_{uv}-J_{vu}}{2}\sin(\phi_a-\phi_b)
+    \dfrac{J_{uu}+J_{vv}}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+    +
+    \dfrac{J_{uv}-J_{vu}}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
     \right)
     \\
     +
-    \delta_{\vec{Q},\vec{0}\text{ or }\vec{\pi}}
+    \delta_{\vec{Q},\frac{\vec{G}}{2}}
     \sin\theta_a\sin\theta_b
     \left(
     \dfrac{J_{uu}-J_{vv}}{2}\cos(\phi_a+\phi_b)
@@ -630,7 +638,7 @@ Which leads to the expression for the exchange part of total energy:
     \right)
     \\
     +
-    \delta_{\vec{Q},\vec{0}}
+    \delta_{\vec{Q},\vec{G}}
     \left[
     \sin\theta_a\cos\theta_b
     (

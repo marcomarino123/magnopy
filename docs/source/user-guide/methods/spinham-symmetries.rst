@@ -7,8 +7,7 @@ Spin Hamiltonian and its symmetries
 
 Before we define the Hamiltonian let us discuss some notation:
 
-* Let :math:`\vec{r}_m` :math:`(m = 1, ..., M)` be the Bravais lattice vectors that define
-  the position of each cell.
+* Let :math:`\vec{r}_m` :math:`(m = 1, ..., M)` be the Bravais lattice vectors that define the position of each cell.
 * Each unit cell contains a set of :math:`N` atoms, located at the positions
   :math:`\vec{r}_a` :math:`(a = 1, ..., N)` with respect to the position of the cell. Therefore,
   each atom is located at the position :math:`\vec{r}_{ma} = \vec{r}_m + \vec{r}_a`.

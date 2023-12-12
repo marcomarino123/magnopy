@@ -113,4 +113,4 @@ Than the spin vector in the :math:`\vert uvn\rangle` reference frame can be writ
     :file: ../../../images/spin-rotations-simple.html
 
   .. note::
-    We will not use the latter rotation in the following pages.
+    We will NOT use the latter rotation in the following pages.

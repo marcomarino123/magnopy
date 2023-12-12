@@ -45,7 +45,7 @@ Coordinate system with circular polarization
 ============================================
 
 Later we will find useful the usage of the new reference frame
-with circularry polarized :math:`\vert u \rangle` and
+with circular polarized :math:`\vert u \rangle` and
 :math:`\vert v \rangle` vectors. Here we present the algebra of this
 reference frame. First of all, we define the transformation matrix as:
 

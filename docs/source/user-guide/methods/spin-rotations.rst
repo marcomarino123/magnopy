@@ -17,7 +17,7 @@ Given a spin vector :math:`\vec{S} = S\cdot\hat{S}`, we define its direction
 with two angles: :math:`\theta` and :math:`\phi`.
 
 .. math::
-  \vec{S} =
+  \vec{S} = S\cdot
   \begin{pmatrix}
     \sin\theta\cos\phi \\
     \sin\theta\sin\phi \\
@@ -35,29 +35,17 @@ frame change in :ref:`user-guide_methods_rf-choice`:
 
 .. math::
   \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}
-  = \begin{pmatrix}
+  =
+  \begin{pmatrix}
     -\sin\phi \\
     \cos\phi \\
     0
   \end{pmatrix}
 
-.. math::
-
-    R(\theta, \phi) =
-    \begin{pmatrix}
-      \cos\theta + \sin^2\phi(1-\cos\theta) &
-      -\sin\phi\cos\phi(1-\cos\theta) &
-      \cos\phi\sin\theta  \\
-      -\sin\phi\cos\phi(1-\cos\theta) &
-      \cos\theta + \cos^2\phi(1-\cos\theta) &
-      \sin\phi\sin\theta  \\
-      -\cos\phi\sin\theta &
-      -\sin\phi\sin\theta &
-      \cos\theta \\
-    \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
 
 
-Than the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
+Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
 
 .. math::
   \vec{S} = R(\theta, \phi)\vec{S}^{ferro}

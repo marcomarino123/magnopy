@@ -23,17 +23,8 @@ described in :ref:`user-guide_methods_rf-change`.
 We start this section from a Hamiltonian written in a :math:`\hat{u}\hat{v}\hat{n}`
 reference frame:
 
-.. math::
-  H = \dfrac{1}{2} \sum_{m, \vec{d}, a, b} \vec{S}_{ma}^T J_{ab}(d_{ab})\vec{S}_{m+d,b}
+.. include:: repeated-formulas/hamiltonian-main-any.txt
 
-
-.. dropdown:: Bra-ket notation
-
-  .. math::
-    H = \dfrac{1}{2} \sum_{m, \vec{d}, a, b}
-    \langle S_{ma}\vert uvn\rangle
-    \langle uvn \vert J_{ab}(d_{ab})\vert uvn \rangle
-    \langle uvn \vert S_{m+d,b} \rangle
 
 Exchange matrices
 =================
@@ -57,16 +48,13 @@ matrices. The exchange matrices are transformed as follows:
 Now we recall the definition of the transformation matrix
 (:ref:`see here <user-guide_methods_spherical-rf>`):
 
-.. math::
-  \langle uvn\vert T\vert uvn \rangle
-  = \dfrac{1}{\sqrt{2}}
-  \begin{pmatrix}
-    1 &  1 & 0        \\
-    i & -i & 0        \\
-    0 &  0 & \sqrt{2} \\
-  \end{pmatrix}
+.. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.txt
 
-And write the exchange matrix in the spherical reference frame:
+And separate exchange matrix into isotropic, symmetric anisotropic and antisymmetric parts:
+
+.. include:: repeated-formulas/exchange-matrix-decomposition-uvn.txt
+
+Which leads to the exchange matrix in a spherical reference frame:
 
 .. dropdown:: Details
 
@@ -116,36 +104,6 @@ And write the exchange matrix in the spherical reference frame:
       \end{pmatrix}
     \end{multline}
 
-  Now we define isotropic, symmetric and antisymmetric parts of the exchange matrix:
-
-  .. math::
-    \begin{pmatrix}
-        J_{uu} & J_{uv} & J_{un} \\
-        J_{vu} & J_{vv} & J_{vn} \\
-        J_{nu} & J_{nv} & J_{nn} \\
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-      J_{iso} & 0 & 0 \\
-      0 & J_{iso} & 0 \\
-      0 & 0 & J_{iso} \\
-    \end{pmatrix}
-    +
-    \begin{pmatrix}
-      S_{uu} & S_{uv} & S_{un} \\
-      S_{uv} & S_{vv} & S_{vn} \\
-      S_{un} & S_{vn} & S_{nn} \\
-    \end{pmatrix}
-    +
-    \begin{pmatrix}
-      0 & D_n & -D_v \\
-      -D_n & 0 & D_u \\
-      D_v & -D_u & 0 \\
-    \end{pmatrix}
-
-  where :math:`J_{iso} = \dfrac{1}{3}(J_{uu} + J_{vv} + J_{nn})` and
-  :math:`S_{uu} + S_{vv} + S_{nn} = 0`.
-
   Which gives us:
 
   .. math::
@@ -163,89 +121,59 @@ And write the exchange matrix in the spherical reference frame:
       2J_{iso} + 2S_{nn}                      \\
     \end{pmatrix}
 
-.. math::
-  \begin{pmatrix}
-    J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} + iD_n                       &
-    \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}                              &
-    \dfrac{S_{un} - iS_{vn}}{\sqrt{2}} - \dfrac{D_v + iD_u}{\sqrt{2}} \\
-    \dfrac{S_{uu} - S_{vv}}{2} + iS_{uv}                              &
-    J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} - iD_n                       &
-    \dfrac{S_{un} + iS_{vn}}{\sqrt{2}} - \dfrac{D_v - iD_u}{\sqrt{2}} \\
-    \dfrac{S_{un} + iS_{vn}}{\sqrt{2}} + \dfrac{D_v - iD_u}{\sqrt{2}} &
-    \dfrac{S_{un} - iS_{vn}}{\sqrt{2}} + \dfrac{D_v + iD_u}{\sqrt{2}} &
-    J_{iso} + S_{nn}                                                  \\
-  \end{pmatrix}
+.. include:: repeated-formulas/exchange-matrix-spherical.txt
 
-Further defining
+Let us note a few symmetries of the exchange matrix in a spherical reference frame:
 
-.. math::
-  \begin{matrix}
-    D^{\pm} = \dfrac{D_v \pm iD_u}{\sqrt{2}} \\
-    \text{and}                              \\
-    S^{\pm} = \dfrac{S_{un} \pm iS_{vn}}{\sqrt{2}} \\
-  \end{matrix}
+.. include:: repeated-formulas/exchange-matrix-symmetries-spherical.txt
 
-One can write the exchange matrix in the spherical reference frame as:
+.. dropdown:: Alternative way to write the matrix
 
-.. math::
-  \begin{pmatrix}
-    J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} + iD_n &
-    \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}        &
-    S^- - D^+                                   \\
-    \dfrac{S_{uu} - S_{vv}}{2} + iS_{uv}        &
-    J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} - iD_n &
-    S^+ - D^-                                   \\
-    S^+ + D^-                                   &
-    S^- + D^+                                   &
-    J_{iso} + S_{nn}                            \\
-  \end{pmatrix}
+  If we define:
 
-Hamiltonian
-===========
+  .. math::
+    \begin{matrix}
+      D^{\pm} = \dfrac{D_v \pm iD_u}{\sqrt{2}} \\
+      \text{and}                              \\
+      S^{\pm} = \dfrac{S_{un} \pm iS_{vn}}{\sqrt{2}} \\
+    \end{matrix}
+
+  Then we can write the exchange matrix in the spherical reference frame as:
+
+  .. math::
+    \begin{pmatrix}
+      J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} + iD_n &
+      \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}        &
+      S^- - D^+                                   \\
+      \dfrac{S_{uu} - S_{vv}}{2} + iS_{uv}        &
+      J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} - iD_n &
+      S^+ - D^-                                   \\
+      S^+ + D^-                                   &
+      S^- + D^+                                   &
+      J_{iso} + S_{nn}                            \\
+    \end{pmatrix}
+
+Rotation symmetry check
+=======================
 
 Now let us write the Hamiltonian in the spherical reference frame:
 
-.. math::
-  H = \dfrac{1}{2} \sum_{m, \vec{d}, a, b}
-  (\vec{S}_{ma}^{ferro})^TR^{\dagger}(\theta_a,\phi_a)R^{\dagger}(\theta_m)
-  J_{ab}(d_{ab})
-  R(\theta_{m+d})R(\theta_b,\phi_b)\vec{S}_{m+d,b}^{ferro}
+.. include:: repeated-formulas/hamiltonian-main-from-ferro-any.txt
 
 .. dropdown:: Relevant tensors in spherical reference frame
 
   See :ref:`user-guide_methods_spherical-rf` for details.
 
-  .. math::
-    R(\theta_a,\phi_a) =
-    \begin{pmatrix}
-      \dfrac{1+\cos\theta_a}{2}                  &
-      \dfrac{(\cos\theta_a-1)e^{-2i\phi_a}}{2}     &
-      \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}}  \\
-      \dfrac{(\cos\theta_a - 1)e^{2i\phi_a}}{2}    &
-      \dfrac{1 + \cos\theta_a}{2}                &
-      \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}    \\
-      \dfrac{-\sin\theta_a e^{i\phi_a} }{\sqrt{2}} &
-      \dfrac{-\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} &
-      \cos\theta_a                               \\
-    \end{pmatrix}
+  .. include:: repeated-formulas/spin-rotation-matrix-spherical.txt
 
-  .. math::
-    R(\theta_m) =
-    \begin{pmatrix}
-      e^{-i\theta_m} & 0              & 0 \\
-      0              & e^{i\theta_m}  & 0 \\
-      0              & 0              & 1 \\
-    \end{pmatrix}=
-    \begin{pmatrix}
-      e^{-i\vec{Q}\cdot\vec{r}_m} & 0                          & 0 \\
-      0                           & e^{i\vec{Q}\cdot\vec{r}_m} & 0 \\
-      0                           & 0                          & 1 \\
-    \end{pmatrix}
+  .. include:: repeated-formulas/spiral-rotation-matrix-spherical.txt
 
   .. math::
     \vec{S}_{ma}^{ferro} =
     \begin{pmatrix}
-      0 & 0 & 0 \\
+      0   \\
+      0   \\
+      S_a \\
     \end{pmatrix}
 
 
@@ -271,9 +199,9 @@ Let us write this equation explicitly in the spherical reference frame:
       0                           & 0                          & 1 \\
     \end{pmatrix}
     \begin{pmatrix}
-      J_{11} & J_{12} & J_{13} \\
-      J_{21} & J_{22} & J_{23} \\
-      J_{31} & J_{32} & J_{33} \\
+      J_{++} & J_{+-} & J_{+n} \\
+      J_{-+} & J_{--} & J_{-n} \\
+      J_{n+} & J_{n-} & J_{nn} \\
     \end{pmatrix}
     \begin{pmatrix}
       e^{-i\vec{Q}\cdot(\vec{r}_m+\vec{d})} & 0                                    & 0 \\
@@ -285,9 +213,9 @@ Let us write this equation explicitly in the spherical reference frame:
     J_{ab}(d_{ab}) R(\theta_{d})
     =
     \begin{pmatrix}
-      J_{11} & J_{12} & J_{13} \\
-      J_{21} & J_{22} & J_{23} \\
-      J_{31} & J_{32} & J_{33} \\
+      J_{++} & J_{+-} & J_{+n} \\
+      J_{-+} & J_{--} & J_{-n} \\
+      J_{n+} & J_{n-} & J_{nn} \\
     \end{pmatrix}
     \begin{pmatrix}
       e^{-i\vec{Q}\cdot\vec{d}} & 0                        & 0 \\
@@ -298,21 +226,21 @@ Let us write this equation explicitly in the spherical reference frame:
 
 .. math::
     \begin{pmatrix}
-      J_{11}e^{-i\vec{Q}\vec{d}} &
-      J_{12}e^{i\vec{Q}(2\vec{r}_m+\vec{d})} &
-      J_{13}e^{i\vec{Q}\vec{R}_m} \\
-      J_{21}e^{-i\vec{Q}(2\vec{r}_m+\vec{d})} &
-      J_{22}e^{i\vec{Q}\vec{d}} &
-      J_{23}e^{-i\vec{Q}\vec{R}_m} \\
-      J_{31}e^{-i\vec{Q}(\vec{R}_m+\vec{d})} &
-      J_{32}e^{i\vec{Q}(\vec{R}_m+\vec{d})} &
-      J_{33} \\
+      J_{++}e^{-i\vec{Q}\vec{d}} &
+      J_{+-}e^{i\vec{Q}(2\vec{r}_m+\vec{d})} &
+      J_{+n}e^{i\vec{Q}\vec{R}_m} \\
+      J_{-+}e^{-i\vec{Q}(2\vec{r}_m+\vec{d})} &
+      J_{--}e^{i\vec{Q}\vec{d}} &
+      J_{-n}e^{-i\vec{Q}\vec{R}_m} \\
+      J_{n+}e^{-i\vec{Q}(\vec{R}_m+\vec{d})} &
+      J_{n-}e^{i\vec{Q}(\vec{R}_m+\vec{d})} &
+      J_{nn} \\
     \end{pmatrix}
     \stackrel{?}{=}
     \begin{pmatrix}
-      J_{11}e^{-i\vec{Q}\vec{d}} & J_{12}e^{i\vec{Q}\vec{d}} & J_{13} \\
-      J_{21}e^{-i\vec{Q}\vec{d}} & J_{22}e^{i\vec{Q}\vec{d}} & J_{23} \\
-      J_{31}e^{-i\vec{Q}\vec{d}} & J_{32}e^{i\vec{Q}\vec{d}} & J_{33} \\
+      J_{++}e^{-i\vec{Q}\vec{d}} & J_{+-}e^{i\vec{Q}\vec{d}} & J_{+n} \\
+      J_{-+}e^{-i\vec{Q}\vec{d}} & J_{--}e^{i\vec{Q}\vec{d}} & J_{-n} \\
+      J_{n+}e^{-i\vec{Q}\vec{d}} & J_{n-}e^{i\vec{Q}\vec{d}} & J_{nn} \\
     \end{pmatrix}
 
 As one can see two types of conditions may result from this equation:
@@ -328,46 +256,46 @@ First, let us list the combined conditions, which result in the truth of the rel
 
   * There are no restrictions on the diagonal elements.
 
-  * Condition for :math:`J_{12}` and :math:`J_{21}`: are the same:
+  * Condition for :math:`J_{+-}` and :math:`J_{-+}`: are the same:
 
     .. math::
       \begin{matrix}
-        J_{12} = \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}
-        = (\dfrac{S_{uu} - S_{vv}}{2} + iS_{uv})^* = J_{21}^*\\
+        J_{+-} = \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}
+        = (\dfrac{S_{uu} - S_{vv}}{2} + iS_{uv})^* = J_{-+}^*\\
         \Downarrow \\
-        J_{12}e^{2i\vec{Q}\vec{r}_m} = J_{12}
+        J_{+-}e^{2i\vec{Q}\vec{r}_m} = J_{+-}
         \Leftrightarrow
-        (J_{12}e^{2i\vec{Q}\vec{r}_m})^* = J_{12}^*
+        (J_{+-}e^{2i\vec{Q}\vec{r}_m})^* = J_{+-}^*
         \Leftrightarrow
-        J_{21}e^{-2i\vec{Q}\vec{r}_m} = J_{21}
+        J_{-+}e^{-2i\vec{Q}\vec{r}_m} = J_{-+}
       \end{matrix}
 
-  * Conditions on :math:`J_{31}` and :math:`J_{32}` are the same:
+  * Conditions on :math:`J_{n+}` and :math:`J_{n-}` are the same:
 
     .. math::
-      J_{31} = S^+ + D^- = (S^- + D^+)^* = J_{32}^*
+      J_{n+} = S^+ + D^- = (S^- + D^+)^* = J_{n-}^*
 
-  * Conditions on J_{13} and J_{23} are the same:
+  * Conditions on J_{+n} and J_{-n} are the same:
 
     .. math::
-      J_{13} = S^- - D^+ = (S^+ - D^-)^* = J_{23}^*
+      J_{+n} = S^- - D^+ = (S^+ - D^-)^* = J_{-n}^*
 
 
-#.  :math:`J_{12}e^{2i\vec{Q}\vec{r}_m} = J_{12}`
+#.  :math:`J_{+-}e^{2i\vec{Q}\vec{r}_m} = J_{+-}`
 
     * Conditions on exchange matrices:
       :math:`S_{uv} = 0` and :math:`S_{uu} = S_{vv}`
     * Condition on the :math:`\vec{Q}`:
       :math:`\vec{Q}\cdot\vec{r}_m = \pi n`
 
-#.  :math:`J_{13}e^{i\vec{Q}\vec{r}_m}  = J_{13}`
+#.  :math:`J_{+n}e^{i\vec{Q}\vec{r}_m}  = J_{+n}`
 
     * Conditions on exchange matrices:
       :math:`S_{un} = D_v` and :math:`S_{vn} = -D_u`
     * Condition on the :math:`\vec{Q}`:
       :math:`\vec{Q}\cdot\vec{r}_m = 2\pi n`
 
-#.  :math:`J_{31}e^{-i\vec{Q}\vec{r}_m} = J_{31}`
+#.  :math:`J_{n+}e^{-i\vec{Q}\vec{r}_m} = J_{n+}`
 
     * Conditions on exchange matrices:
       :math:`S_{un} = -D_v` and :math:`S_{vn} = D_u`
@@ -376,13 +304,50 @@ First, let us list the combined conditions, which result in the truth of the rel
 
 Which results in three unique possible cases:
 
+.. dropdown:: Details
+
+  First let us recall how the spin vector is defined in a :math:`\hat{u}\hat{v}\hat{n}`
+  reference frame:
+
+  .. include:: repeated-formulas/spin-uvn.txt
+
+  * What does :math:`\vec{Q}\cdot\vec{r}_m = 2\pi n` mean?
+
+    .. math::
+      \langle uvn\vert S_{ma}\rangle =S_a\cdot
+      \begin{pmatrix}
+          \sin\theta_a\cos(\phi_a) \\
+          \sin\theta_a\sin(\phi_a) \\
+          \cos\theta_a                                     \\
+      \end{pmatrix}
+
+    One can see that it corresponds to the ferromagnetic alignment of spins between
+    the unit cells.
+
+  * What does :math:`\vec{Q}\cdot\vec{r}_m = \pi n` mean?
+
+    .. math::
+      \langle uvn\vert S_{ma}\rangle =S_a\cdot
+      \begin{pmatrix}
+          \pm\sin\theta_a\cos(\phi_a) \\
+          \pm\sin\theta_a\sin(\phi_a) \\
+          \cos\theta_a                                     \\
+      \end{pmatrix}
+
+    One can see that it corresponds to the "antiferromagnetic" alignment of spins between
+    the unit cells: If :math:`\cos\theta_a = 0` then it is just antiferromagnetic,
+    but if :math:`\cos\theta_a \neq 0` then it is antiferromagnetic only in
+    :math:`\hat{u}\hat{v}` plane. We will call this case a "Antiferromagnetic cone".
+
+
+
 * :math:`\vec{Q}\cdot\vec{r}_m = 2\pi n`
 
-  "Even" commensurate spirals.
+  Ferromagnetic case
 * :math:`\vec{Q}\cdot\vec{r}_m = \pi n = \pi (2k+1)` and
   :math:`S_{un} = D_v = S_{vn} = D_u = 0`
 
-  "Odd" commensurate spiral.
+  Antiferromagnetic cone.
 * :math:`S_{uv} = 0` and :math:`S_{uu} = S_{vv}` and
   :math:`S_{un} = D_v = S_{vn} = D_u = 0`
 

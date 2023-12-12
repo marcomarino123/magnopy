@@ -44,13 +44,7 @@ The direction of each one is given by two angles :math:`\theta_a` and
 The spiral rotation is assumed to be applied based on the coordinate of the
 unit cell :math:`\vec{r}_m` only:
 
-.. math::
-  R(\theta_m) = R(\vec{Q}\cdot\vec{r}_m) =
-  \begin{pmatrix}
-  \cos(\vec{Q}\cdot\vec{r}_m) & -\sin(\vec{Q}\cdot\vec{r}_m) & 0 \\
-  \sin(\vec{Q}\cdot\vec{r}_m) & \cos(\vec{Q}\cdot\vec{r}_m)  & 0 \\
-  0                           & 0                            & 1 \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spiral-rotation-matrix-uvn.txt
 
 
 Full spin rotation matrix
@@ -63,26 +57,11 @@ cone axis :math:`\hat{n}`. In order to do that we combine rotations inside
 each unit cell as described in the :ref:`user-guide_methods_spin-rotations`
 section and in this section:
 
-.. math::
-  \vec{S}_{ma} = R(\theta_m)R(\theta_a,\phi_a)\vec{S}_{ma}^{ferro}
-  = R_{ma}\vec{S}_{ma}^{ferro}
+.. include:: repeated-formulas/spin-from-ferro-any.txt
 
 where we recall
 
-.. math::
-
-    R(\theta_a, \phi_a) =
-    \begin{pmatrix}
-      \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
-      -\sin\phi_a\cos\phi_a(1-\cos\theta_a) &
-      \cos\phi_a\sin\theta_a  \\
-      -\sin\phi_a\cos\phi_a(1-\cos\theta_a) &
-      \cos\theta_a + \cos^2\phi_a(1-\cos\theta_a) &
-      \sin\phi_a\sin\theta_a  \\
-      -\cos\phi_a\sin\theta_a &
-      -\sin\phi_a\sin\theta_a &
-      \cos\theta_a \\
-    \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
 
 Matrix :math:`R_{ma}` has the form:
 
@@ -96,13 +75,7 @@ Matrix :math:`R_{ma}` has the form:
 
 And the spin :math:`\vec{S}_{ma}` is
 
-.. math::
-  \vec{S}_{ma} =
-   \begin{pmatrix}
-    \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
-    \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
-    \cos\theta_a                                     \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-uvn.txt
 
 .. dropdown:: All elements of the matrix  :math:`\text{ }R_{ma}`
 
@@ -142,11 +115,6 @@ And the spin :math:`\vec{S}_{ma}` is
     R_{32} =  -\sin\phi_a\sin\theta_a
   .. math::
     R_{33} =  \cos\theta_a
-
-
-
-
-
 
 
 Examples

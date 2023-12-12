@@ -1,0 +1,13 @@
+.. math::
+  R(\theta, \phi) =
+  \begin{pmatrix}
+      \cos\theta + \sin^2\phi(1-\cos\theta) &
+      -\sin\phi\cos\phi(1-\cos\theta)       &
+      \cos\phi\sin\theta                    \\
+      -\sin\phi\cos\phi(1-\cos\theta)       &
+      \cos\theta + \cos^2\phi(1-\cos\theta) &
+      \sin\phi\sin\theta                    \\
+      -\cos\phi\sin\theta                   &
+      -\sin\phi\sin\theta                   &
+      \cos\theta                            \\
+  \end{pmatrix}

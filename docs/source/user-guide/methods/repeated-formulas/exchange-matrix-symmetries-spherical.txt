@@ -1,0 +1,12 @@
+.. math::
+  \begin{pmatrix}
+    J_{++} & J_{+-} & J_{+n} \\
+    J_{-+} & J_{--} & J_{-n} \\
+    J_{n+} & J_{n-} & J_{nn} \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    J_{++}   & J_{+-}   & J_{+n} \\
+    J_{+-}^* & J_{--}   & J_{+n}^* \\
+    J_{n+}   & J_{n+}^* & J_{nn} \\
+  \end{pmatrix}

@@ -46,12 +46,10 @@ The third term describe the Zeeman interaction with the external magnetic field.
   * Spin vectors are not normalized.
 
 For the simplicity of the latter discussion we combine the exchange and anisotropy
-under one sum, defining :math:`A_a = \dfrac{1}{2}J_{aa}(\vec{d}=\vec{0})`, than the Hamiltonian
+under one sum, defining :math:`A_a = \dfrac{1}{2}J_{aa}(\vec{d}=\vec{0})`, then the Hamiltonian
 is written as:
 
-.. math::
-  H = \dfrac{1}{2} \sum_{m, \vec{d}, a, b} \vec{S}_{ma}^T J_{ab}(d_{ab})\vec{S}_{m+d,b}
-  + \mu_B\vec{H}^T\sum_{m,a} g_a \vec{S}_{ma}
+.. include:: repeated-formulas/hamiltonian-main-any.txt
 
 .. dropdown:: Bra-ket notation
 

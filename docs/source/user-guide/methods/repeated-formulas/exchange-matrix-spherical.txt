@@ -1,0 +1,18 @@
+.. math::
+  \begin{pmatrix}
+    J_{++} & J_{+-} & J_{+n} \\
+    J_{-+} & J_{--} & J_{-n} \\
+    J_{n+} & J_{n-} & J_{nn} \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} + iD_n                       &
+    \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}                              &
+    \dfrac{S_{un} - iS_{vn}}{\sqrt{2}} - \dfrac{D_v + iD_u}{\sqrt{2}} \\
+    \dfrac{S_{uu} - S_{vv}}{2} + iS_{uv}                              &
+    J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} - iD_n                       &
+    \dfrac{S_{un} + iS_{vn}}{\sqrt{2}} - \dfrac{D_v - iD_u}{\sqrt{2}} \\
+    \dfrac{S_{un} + iS_{vn}}{\sqrt{2}} + \dfrac{D_v - iD_u}{\sqrt{2}} &
+    \dfrac{S_{un} - iS_{vn}}{\sqrt{2}} + \dfrac{D_v + iD_u}{\sqrt{2}} &
+    J_{iso} + S_{nn}                                                  \\
+  \end{pmatrix}

@@ -17,14 +17,7 @@ is the most convinient one for the fourier transformation. First, we recall the
 coordinate representation of the spin vector :math:`\vert S_{ma}\rangle`
 from :ref:`previous section <user-guide_methods_spherical-rf>`:
 
-.. math::
-  \langle u^+u^-n\vert S_{ma}\rangle
-  =S_a\cdot
-  \begin{pmatrix}
-    \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{- i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
-    \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{+ i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
-    \cos\theta_a
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-spherical.txt
 
 We compute the fourier transform of it:
 

@@ -25,22 +25,9 @@
 
 From the :ref:`previous section <user-guide_methods_single-q>` we recall:
 
-.. math::
-  \vert S_{ma}\rangle = R(\theta_m)R(\theta_a,\phi_a)\vert S_{ma}^{ferro}\rangle
-  = R_{ma}\vert S_{ma}^{ferro}\rangle
+.. include:: repeated-formulas/spin-from-ferro-any.txt
 
-.. math::
-  \langle uvn\vert S_{ma}\rangle =S_a\cdot
-  \begin{pmatrix}
-      \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
-      \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
-      \cos\theta_a                                     \\
-  \end{pmatrix} =
-  \begin{pmatrix}
-      S_{ma}^u\\
-      S_{ma}^v\\
-      S_{ma}^n\\
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-uvn.txt
 
 Coordinate system with circular polarization
 ============================================
@@ -64,15 +51,7 @@ The transformation matrix is designed as follows:
 
 Which results in the unitary transformation matrix:
 
-.. math::
-  \langle uvn\vert T\vert uvn \rangle
-  = \langle uvn \vert u^+u^-n\rangle
-  = \dfrac{1}{\sqrt{2}}
-  \begin{pmatrix}
-    1 &  1 & 0        \\
-    i & -i & 0        \\
-    0 &  0 & \sqrt{2} \\
-  \end{pmatrix}
+.. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.txt
 
 .. dropdown:: Unitary check
 
@@ -170,37 +149,12 @@ reference frame:
       = S_a\cdot\dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{\pm i (\vec{Q}\cdot\vec{r}_m + \phi_a)}
     \end{multline}
 
-.. math::
-  \langle u^+u^-n\vert S_{ma}\rangle
-  =
-  \begin{pmatrix}
-    S_{ma}^{-} \\
-    S_{ma}^{+} \\
-    S_{ma}^{n}
-  \end{pmatrix}
-  =S_a\cdot
-  \begin{pmatrix}
-     \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{- i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
-     \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{+ i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
-     \cos\theta_a
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-spherical.txt
 
 Rotation matrix :math:`R(\theta_a,\phi_a)`
 ------------------------------------------
 
-.. math::
-  \langle u^+u^-n\vert R_a \vert u^+u^-n\rangle =
-  \begin{pmatrix}
-    \dfrac{1+\cos\theta_a}{2}                  &
-    \dfrac{(\cos\theta_a-1)e^{-2i\phi_a}}{2}     &
-    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}}  \\
-    \dfrac{(\cos\theta_a - 1)e^{2i\phi_a}}{2}    &
-    \dfrac{1 + \cos\theta_a}{2}                &
-    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}    \\
-    \dfrac{-\sin\theta_a e^{i\phi_a} }{\sqrt{2}} &
-    \dfrac{-\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} &
-    \cos\theta_a                               \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-spherical.txt
 
 
 .. dropdown:: Details
@@ -221,7 +175,7 @@ Rotation matrix :math:`R(\theta_a,\phi_a)`
       \cos\theta_a \\
     \end{pmatrix}
 
-  Than we compute the transformation:
+  Then we compute the transformation:
 
   .. math::
     \langle u^+u^-n\vert R_a \vert u^+u^-n\rangle
@@ -295,18 +249,7 @@ Rotation matrix :math:`R(\theta_a,\phi_a)`
 Rotation matrix :math:`R(\theta_m)`
 -----------------------------------
 
-.. math::
-  \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle =
-  \begin{pmatrix}
-    e^{-i\theta_m} & 0              & 0 \\
-    0              & e^{i\theta_m}  & 0 \\
-    0              & 0              & 1 \\
-  \end{pmatrix}=
-  \begin{pmatrix}
-    e^{-i\vec{Q}\cdot\vec{r}_m} & 0                          & 0 \\
-    0                           & e^{i\vec{Q}\cdot\vec{r}_m} & 0 \\
-    0                           & 0                          & 1 \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spiral-rotation-matrix-spherical.txt
 
 .. dropdown:: Details
 
@@ -325,7 +268,7 @@ Rotation matrix :math:`R(\theta_m)`
       0              & 0               & 1 \\
     \end{pmatrix}
 
-  Than we compute the transformation:
+  Then we compute the transformation:
 
   .. math::
     \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle

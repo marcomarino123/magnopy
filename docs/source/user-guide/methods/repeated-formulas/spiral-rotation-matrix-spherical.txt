@@ -1,0 +1,14 @@
+.. math::
+  \langle u^+u^-n\vert R(\theta_m) \vert u^+u^-n\rangle
+  =
+  \begin{pmatrix}
+    e^{-i\theta_m} & 0              & 0 \\
+    0              & e^{i\theta_m}  & 0 \\
+    0              & 0              & 1 \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    e^{-i\vec{Q}\cdot\vec{r}_m} & 0                          & 0 \\
+    0                           & e^{i\vec{Q}\cdot\vec{r}_m} & 0 \\
+    0                           & 0                          & 1 \\
+  \end{pmatrix}

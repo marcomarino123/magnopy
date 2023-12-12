@@ -53,7 +53,7 @@ axis of the global reference frame to the direction of the given unit vector:
   * When :math:`\hat{n} = \pm\hat{z}` the angle :math:`\beta` is not well defined,
     therefore, these two cases are treated separately below.
 
-* If :math:`\hat{n} \ne \pm \hat{z}`, than
+* If :math:`\hat{n} \ne \pm \hat{z}`, then
   :math:`\hat{x}\hat{y}\hat{z}` is rotated by the angle
   :math:`\alpha` around the axis :math:`\hat{r}`
 

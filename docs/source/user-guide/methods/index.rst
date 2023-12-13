@@ -16,6 +16,7 @@ Methods and algorithms
     spin-fourier
     spinham-spherical
     energy-classic/index
+    energy-minimization/index
 
 .. toctree::
     :maxdepth: 1

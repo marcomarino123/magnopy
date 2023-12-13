@@ -18,3 +18,12 @@ repos:
   hooks:
   - id: black
     language_version: python3.11
+- repo: https://github.com/adrybakov/pre-commit-hooks
+  rev: 0.2.0                # Check available tags on the GitHub page
+  hooks:
+    - id: license-headers   # Required
+      args:                 # Optional (as the next lines)
+        - --license-file    # If license summary is not in a "LICENSE" file
+        - L-HEADER          # Path to the license summary file
+        - --update-year     # If you want to automatically update the year
+        - --verbose         # (Added in 0.2.0) If you want each modified filename to be printed

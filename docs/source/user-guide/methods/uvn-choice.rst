@@ -1,4 +1,4 @@
-.. _user-guide_methods_rf-choice:
+.. _user-guide_methods_uvn-choice:
 
 *****************************
 Choice of the reference frame
@@ -42,7 +42,7 @@ axis of the global reference frame to the direction of the given unit vector:
   \end{pmatrix}
 
 .. raw:: html
-  :file: ../../../images/rf-choice-n-angles.html
+  :file: ../../../images/uvn-choice-n-angles.html
 
 .. note::
   * The given unit vector is called :math:`\hat{n}`, because in the
@@ -70,7 +70,7 @@ axis of the global reference frame to the direction of the given unit vector:
     \end{aligned}
 
   .. math::
-    :name: eq:rf-choice-rot-matrix
+    :name: eq:uvn-choice-rot-matrix
 
     R_{rf} = R_{rf}(\alpha,\beta) =
     \begin{pmatrix}
@@ -137,7 +137,7 @@ axis of the global reference frame to the direction of the given unit vector:
 
 
 .. raw:: html
-  :file: ../../../images/rf-choice-main-case.html
+  :file: ../../../images/uvn-choice-main-case.html
 
 * If :math:`\hat{n} = \pm\hat{z}`
 
@@ -158,4 +158,4 @@ axis of the global reference frame to the direction of the given unit vector:
     \end{matrix}
 
 .. raw:: html
-  :file: ../../../images/rf-choice-special-cases.html
+  :file: ../../../images/uvn-choice-special-cases.html

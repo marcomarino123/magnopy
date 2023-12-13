@@ -15,7 +15,7 @@ Single-:math:`Q` conical state can be described by two vectors:
 * Cone axis :math:`\hat{n}`.
   It defines the global rotational axis of the spiral.
   Note, that we orient the reference frame as described in
-  :ref:`user-guide_methods_rf-choice`, therefore, the cone axis :math:`\hat{n}`
+  :ref:`user-guide_methods_uvn-choice`, therefore, the cone axis :math:`\hat{n}`
   is one of the reference frame axes.
 * Spiral vector :math:`\vec{Q}`. It defines the phase as:
   :math:`\theta_m = \vec{Q}\cdot\vec{r_m}`.

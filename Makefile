@@ -51,6 +51,6 @@ test:
 	@pytest -s
 
 pictures-for-docs:
-	@python3 docs/images/scripts/rf-choice.py -rd .
+	@python3 docs/images/scripts/uvn-choice.py -rd .
 	@python3 docs/images/scripts/spin-rotations.py -rd .
 	@python3 docs/images/scripts/single-q.py -rd .

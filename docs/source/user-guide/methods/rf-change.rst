@@ -13,7 +13,7 @@ Change of the reference frame
 Here we discuss how the spin vectors and exchange matrices are
 changing under when we move from the given to the chosen reference frame.
 
-As shown in the :ref:`previous section <user-guide_methods_rf-choice>`
+As shown in the :ref:`previous section <user-guide_methods_uvn-choice>`
 the rotation matrix :math:`R_{rf}` rotate :math:`\vert xyz\rangle` reference frame
 to the :math:`\vert uvn\rangle`:
 
@@ -56,7 +56,7 @@ Let us write this result explicitly:
 .. note::
   Rotation matrix :math:`R_{rf}` is explicitly written in the
   :math:`\vert xyz\rangle` reference frame in the
-  :ref:`previous section <eq:rf-choice-rot-matrix>`.
+  :ref:`previous section <eq:uvn-choice-rot-matrix>`.
 
 Next, we write the equations for the exchange matrices:
 

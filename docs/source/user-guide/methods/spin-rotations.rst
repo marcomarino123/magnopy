@@ -31,7 +31,7 @@ with two angles: :math:`\theta` and :math:`\phi`.
 Any direction of the spin vector can be produced from the direction of the
 vector :math:`\vec{n}` by a rotation around the vector :math:`r` with
 the angle :math:`\theta`, similary to how it was done for the reference
-frame change in :ref:`user-guide_methods_rf-choice`:
+frame change in :ref:`user-guide_methods_uvn-choice`:
 
 .. math::
   \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}

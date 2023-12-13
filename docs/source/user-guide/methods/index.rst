@@ -8,7 +8,7 @@ Methods and algorithms
     :maxdepth: 1
 
     spinham-symmetries
-    rf-choice
+    uvn-choice
     rf-change
     spin-rotations
     single-q

@@ -151,7 +151,7 @@ def main(root_directory):
         np.sin(beta) * np.sin(alpha_arc) / 2,
         np.cos(alpha_arc) / 2,
     ]
-    plot_arc(fig, arc=alpha_arc, label="α", color="#FF8800")
+    plot_arc(fig, arc=alpha_arc, label="α", color="#FF8800", arrow=True)
     save_figure(
         fig,
         os.path.join(images_dir, "uvn-choice-main-case.html"),

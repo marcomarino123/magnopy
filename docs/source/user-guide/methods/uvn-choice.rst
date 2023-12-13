@@ -1,8 +1,8 @@
 .. _user-guide_methods_uvn-choice:
 
-*****************************
-Choice of the reference frame
-*****************************
+*********************************
+Choice of the uvn reference frame
+*********************************
 
 .. dropdown:: Notation used on this page
 
@@ -57,105 +57,112 @@ axis of the global reference frame to the direction of the given unit vector:
   :math:`\hat{x}\hat{y}\hat{z}` is rotated by the angle
   :math:`\alpha` around the axis :math:`\hat{r}`
 
-  .. math::
+  .. dropdown:: Formulas
 
-    \begin{aligned}
-      \hat{r}(\alpha,\beta) &= \dfrac{\hat{z}\times\hat{n}}
-      {\vert\hat{z}\times\hat{n}\vert} =
+    .. math::
+
+      \begin{aligned}
+        \hat{r}(\alpha,\beta) &= \dfrac{\hat{z}\times\hat{n}}
+        {\vert\hat{z}\times\hat{n}\vert} =
+        \begin{pmatrix}
+          -\sin\beta \\
+          \cos\beta \\
+          0
+        \end{pmatrix}
+      \end{aligned}
+
+    .. math::
+      :name: eq:uvn-choice-rot-matrix
+
+      &R_{rf} = R_{rf}(\alpha,\beta)
+      =
       \begin{pmatrix}
-        -\sin\beta \\
-        \cos\beta \\
-        0
+        1 - \dfrac{n_x^2}{1+n_z} & -\dfrac{n_xn_y}{1+n_z}   & n_x  \\
+        -\dfrac{n_xn_y}{1+n_z}   & 1 - \dfrac{n_y^2}{1+n_z} & n_y  \\
+        -n_x                     & -n_y                     & n_z  \\
       \end{pmatrix}
-    \end{aligned}
-
-  .. math::
-    :name: eq:uvn-choice-rot-matrix
-
-    R_{rf} = R_{rf}(\alpha,\beta) =
-    \begin{pmatrix}
-      \cos\alpha + \sin^2\beta(1-\cos\alpha) &
-      -\sin\beta\cos\beta(1-\cos\alpha) &
-      \cos\beta\sin\alpha  \\
-      -\sin\beta\cos\beta(1-\cos\alpha) &
-      \cos\alpha + \cos^2\beta(1-\cos\alpha) &
-      \sin\beta\sin\alpha  \\
-      -\cos\beta\sin\alpha &
-      -\sin\beta\sin\alpha &
-      \cos\alpha \\
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-      1 - \dfrac{n_x^2}{1+n_z} & -\dfrac{n_xn_y}{1+n_z}   & n_x  \\
-      -\dfrac{n_xn_y}{1+n_z}   & 1 - \dfrac{n_y^2}{1+n_z} & n_y  \\
-      -n_x                     & -n_y                     & n_z  \\
-    \end{pmatrix}
-
-  .. math::
-
-    \begin{aligned}
-      \hat{u} &= R_{rf} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
-      =
+      \\
+      &=
       \begin{pmatrix}
-        \cos\alpha + \sin^2\beta(1-\cos\alpha) \\
-        -\sin\beta\cos\beta(1-\cos\alpha) \\
-        -\cos\beta\sin\alpha \\
+        \cos\alpha + \sin^2\beta(1-\cos\alpha) &
+        -\sin\beta\cos\beta(1-\cos\alpha) &
+        \cos\beta\sin\alpha  \\
+        -\sin\beta\cos\beta(1-\cos\alpha) &
+        \cos\alpha + \cos^2\beta(1-\cos\alpha) &
+        \sin\beta\sin\alpha  \\
+        -\cos\beta\sin\alpha &
+        -\sin\beta\sin\alpha &
+        \cos\alpha \\
       \end{pmatrix}
-      =
-      \begin{pmatrix}
-        1 - \dfrac{n_x^2}{1+n_z} \\
-        -\dfrac{n_xn_y}{1+n_z} \\
-        -n_x
-      \end{pmatrix} \\
-      \hat{v} &= R_{rf} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
-      =
-      \begin{pmatrix}
-        -\sin\beta\cos\beta(1-\cos\alpha) \\
-        \cos\alpha + \cos^2\beta(1-\cos\alpha) \\
-        -\sin\beta\sin\alpha
-      \end{pmatrix}
-      =
-      \begin{pmatrix}
-        -\dfrac{n_xn_y}{1+n_z} \\
-        1 - \dfrac{n_y^2}{1+n_z} \\
-        -n_y
-      \end{pmatrix} \\
-      \hat{n} &= R_{rf} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
-      =
-      \begin{pmatrix}
-        \cos\beta\sin\alpha \\
-        \sin\beta\sin\alpha \\
-        \cos\alpha
-      \end{pmatrix}
-      =
-      \begin{pmatrix}
-        n_x \\
-        n_y \\
-        n_z
-      \end{pmatrix}
-    \end{aligned}
 
+    .. math::
+
+      \begin{aligned}
+        \hat{u} &= R_{rf} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+        =
+        \begin{pmatrix}
+          1 - \dfrac{n_x^2}{1+n_z} \\
+          -\dfrac{n_xn_y}{1+n_z} \\
+          -n_x
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          \cos\alpha + \sin^2\beta(1-\cos\alpha) \\
+          -\sin\beta\cos\beta(1-\cos\alpha) \\
+          -\cos\beta\sin\alpha \\
+        \end{pmatrix}
+        \\
+        \hat{v} &= R_{rf} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+        =
+        \begin{pmatrix}
+          -\dfrac{n_xn_y}{1+n_z} \\
+          1 - \dfrac{n_y^2}{1+n_z} \\
+          -n_y
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          -\sin\beta\cos\beta(1-\cos\alpha) \\
+          \cos\alpha + \cos^2\beta(1-\cos\alpha) \\
+          -\sin\beta\sin\alpha
+        \end{pmatrix}
+        \\
+        \hat{n} &= R_{rf} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+        =
+        \begin{pmatrix}
+          n_x \\
+          n_y \\
+          n_z
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          \cos\beta\sin\alpha \\
+          \sin\beta\sin\alpha \\
+          \cos\alpha
+        \end{pmatrix}
+      \end{aligned}
 
 .. raw:: html
   :file: ../../../images/uvn-choice-main-case.html
 
 * If :math:`\hat{n} = \pm\hat{z}`
 
-  .. math::
-    \begin{matrix}
-      \begin{aligned}
-        \hat{u} &= \hat{x} \\
-        \hat{v} &= \pm\hat{y} \\
-        \hat{n} &= \pm\hat{z} \\
-      \end{aligned} & \text{ and } &
-      R_{rf} =
-      \begin{pmatrix}
-        1 & 0     & 0 \\
-        0 & \pm 1 & 0 \\
-        0 & 0     & \pm 1 \\
-      \end{pmatrix}
-      = R_{rf}(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
-    \end{matrix}
+  .. dropdown:: Formulas
+
+    .. math::
+      \begin{matrix}
+        \begin{aligned}
+          \hat{u} &= \hat{x} \\
+          \hat{v} &= \pm\hat{y} \\
+          \hat{n} &= \pm\hat{z} \\
+        \end{aligned} & \text{ and } &
+        R_{rf} =
+        \begin{pmatrix}
+          1 & 0     & 0 \\
+          0 & \pm 1 & 0 \\
+          0 & 0     & \pm 1 \\
+        \end{pmatrix}
+        = R_{rf}(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
+      \end{matrix}
 
 .. raw:: html
   :file: ../../../images/uvn-choice-special-cases.html

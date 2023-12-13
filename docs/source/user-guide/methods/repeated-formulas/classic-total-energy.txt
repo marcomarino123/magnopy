@@ -62,7 +62,7 @@
     +
     \sin\theta_a
     \left(
-      \dfrac{H^uM}{2}
+      \dfrac{H^u}{2}
       \left[
         \delta_{\vec{Q}_m^u + \vec{Q}_m, \vec{G}} \cos(\phi_a^u + \phi_a)
         +
@@ -73,7 +73,7 @@
     \left.
     \left.
       -
-      \dfrac{H^vM}{2}
+      \dfrac{H^v}{2}
       \left[
         \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
         +

@@ -1,5 +1,7 @@
 import sys
 
+__all__ = ["_winwait"]
+
 
 def _winwait():
     r"""

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from magnopy import __doclink__, __release_date__, __version__
 
-__all__ = ["logo", "oneline", "license"]
+__all__ = ["logo"]
 
 
 def logo(info=None, line_length=None, flat=False, date_time=False, comment=None):

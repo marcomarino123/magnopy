@@ -1,8 +1,8 @@
 .. _user-guide_methods_xyz-to-uvn:
 
-*****************************
-Change of the reference frame
-*****************************
+**********************
+Change from xyz to uvn
+**********************
 
 .. dropdown:: Notation used on this page
 

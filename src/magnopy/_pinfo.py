@@ -60,7 +60,7 @@ def logo(info=None, line_length=None, flat=False, date_time=False, comment=None)
             f"Version: {__version__}",
             f"Documentation: {__doclink__}",
             f"Release date: {__release_date__}",
-            f"Licence: GNU GPLv3",
+            f"License: GNU GPLv3",
             f"Copyright (C) 2023-{datetime.now().year}  Magnopy Team",
         ]
         if date_time:

@@ -1,38 +1,32 @@
 .. math::
-  \begin{multline}
-    \dfrac{
-    J_{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
-    +
-    J_{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
-    }{\sqrt{2}}
-    \\
-    =
-    \dfrac{
-    (J_{nu}+iJ_{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
-    +
-    (J_{nu} - iJ_{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
-    }{2}
-    \\
-    =
-    J_{nu}\cos\theta_a\sin\theta_b
-    \dfrac{
-    e^{-i(\phi_b+\vec{Q}\vec{d})}+e^{i(\phi_b+\vec{Q}\vec{d})}
-    }{2}
-    +
-    J_{nv}\cos\theta_a\sin\theta_b
-    \dfrac{
-    e^{i(\phi_b+\vec{Q}\vec{d})}-e^{-i(\phi_b+\vec{Q}\vec{d})}
-    }{2i}
-    \\
-    =
-    J_{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d})
-    +
-    J_{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d})
-    \\
-    =
-    (S_{un} + D_v)\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d})
-    +
-    (S_{vn} - D_u)\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d})
-  \end{multline}
+  &\dfrac{
+  J_{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
+  +
+  J_{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
+  }{\sqrt{2}}
+  \\&=
+  \dfrac{
+  (J_{nu}+iJ_{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
+  +
+  (J_{nu} - iJ_{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
+  }{2}
+  \\&=
+  J_{nu}\cos\theta_a\sin\theta_b
+  \dfrac{
+  e^{-i(\phi_b+\vec{Q}\vec{d})}+e^{i(\phi_b+\vec{Q}\vec{d})}
+  }{2}
+  +
+  J_{nv}\cos\theta_a\sin\theta_b
+  \dfrac{
+  e^{i(\phi_b+\vec{Q}\vec{d})}-e^{-i(\phi_b+\vec{Q}\vec{d})}
+  }{2i}
+  \\&=
+  J_{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d})
+  +
+  J_{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d})
+  \\&=
+  (S_{un} + D_v)\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d})
+  +
+  (S_{vn} - D_u)\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d})
 
 where :math:`J_{nu} = S_{un} + D_v` and :math:`J_{nv} = S_{vn} - D_u`

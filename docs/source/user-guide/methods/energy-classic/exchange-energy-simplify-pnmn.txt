@@ -1,42 +1,36 @@
 .. math::
-  \begin{multline}
-    \dfrac{
-    J_{+n}\sin\theta_a\cos\theta_b e^{i\phi_a}
-    +
-    J_{-n}\sin\theta_a\cos\theta_b e^{-i\phi_a}
-    }{\sqrt{2}}
-    \\
-    =
-    \dfrac{
-    (J_{un}-iJ_{vn})\sin\theta_a\cos\theta_b e^{i\phi_a}
-    +
-    (J_{un}+iJ_{vn})\sin\theta_a\cos\theta_b e^{-i\phi_a}
-    }{2}
-    \\
-    =
-    J_{un}\sin\theta_a\cos\theta_b
-    \dfrac{
-    e^{i\phi_a}
-    +
-    e^{-i\phi_a}
-    }{2}
-    +
-    J_{vn}\sin\theta_a\cos\theta_b
-    \dfrac{
-    e^{i\phi_a}
-    -
-    e^{-i\phi_a}
-    }{2i}
-    \\
-    =
-    J_{un}\sin\theta_a\cos\theta_b\cos\phi_a
-    +
-    J_{vn}\sin\theta_a\cos\theta_b\sin\phi_a
-    \\
-    =
-    (S_{un} - D_v)\sin\theta_a\cos\theta_b\cos\phi_a
-    +
-    (S_{vn} + D_u)\sin\theta_a\cos\theta_b\sin\phi_a
-  \end{multline}
+  &\dfrac{
+  J_{+n}\sin\theta_a\cos\theta_b e^{i\phi_a}
+  +
+  J_{-n}\sin\theta_a\cos\theta_b e^{-i\phi_a}
+  }{\sqrt{2}}
+  \\&=
+  \dfrac{
+  (J_{un}-iJ_{vn})\sin\theta_a\cos\theta_b e^{i\phi_a}
+  +
+  (J_{un}+iJ_{vn})\sin\theta_a\cos\theta_b e^{-i\phi_a}
+  }{2}
+  \\&=
+  J_{un}\sin\theta_a\cos\theta_b
+  \dfrac{
+  e^{i\phi_a}
+  +
+  e^{-i\phi_a}
+  }{2}
+  +
+  J_{vn}\sin\theta_a\cos\theta_b
+  \dfrac{
+  e^{i\phi_a}
+  -
+  e^{-i\phi_a}
+  }{2i}
+  \\&=
+  J_{un}\sin\theta_a\cos\theta_b\cos\phi_a
+  +
+  J_{vn}\sin\theta_a\cos\theta_b\sin\phi_a
+  \\&=
+  (S_{un} - D_v)\sin\theta_a\cos\theta_b\cos\phi_a
+  +
+  (S_{vn} + D_u)\sin\theta_a\cos\theta_b\sin\phi_a
 
 where :math:`J_{un} = S_{un} - D_v` and :math:`J_{vn} = S_{vn} + D_u`

@@ -1,41 +1,35 @@
 .. math::
-  \begin{multline}
-    \sum_m H_{ma}^n
-    =
-    H^n
-    \sum_m
-    \cos(\vec{Q}^n\vec{r}_m+\phi^n_a)
-    \\
-    =
-    H^n
-    \dfrac{1}{2}
-    \sum_m
-    \left[
-    e^{i\vec{Q}^n\vec{r}_m}e^{i\phi^n_a}
-    +
-    e^{-i\vec{Q}^n\vec{r}_m}e^{-i\phi^n_a}
-    \right]
-    \\
-    =
-    H^n
-    \dfrac{1}{2}
-    \left[
-    e^{i\phi^n_a} \sum_m e^{i\vec{Q}^n\vec{r}_m}
-    +
-    e^{-i\phi^n_a} \sum_m e^{-i\vec{Q}^n\vec{r}_m}
-    \right]
-    \\
-    =
-    H^nM
-    \dfrac{1}{2}
-    \left[
-    e^{i\phi^n_a} \delta_{vec{Q}^n, \vec{G}}
-    +
-    e^{-i\phi^n_a} \delta_{\vec{Q}^n, \vec{G}}
-    \right]
-    \\
-    =
-    H^nM
-    \delta_{\vec{Q}^n, \vec{G}}
-    \cos\phi^n_a
-  \end{multline}
+  &\sum_m H_{ma}^n
+  =
+  H^n
+  \sum_m
+  \cos(\vec{Q}^n\vec{r}_m+\phi^n_a)
+  \\&=
+  H^n
+  \dfrac{1}{2}
+  \sum_m
+  \left[
+  e^{i\vec{Q}^n\vec{r}_m}e^{i\phi^n_a}
+  +
+  e^{-i\vec{Q}^n\vec{r}_m}e^{-i\phi^n_a}
+  \right]
+  \\&=
+  H^n
+  \dfrac{1}{2}
+  \left[
+  e^{i\phi^n_a} \sum_m e^{i\vec{Q}^n\vec{r}_m}
+  +
+  e^{-i\phi^n_a} \sum_m e^{-i\vec{Q}^n\vec{r}_m}
+  \right]
+  \\&=
+  H^nM
+  \dfrac{1}{2}
+  \left[
+  e^{i\phi^n_a} \delta_{vec{Q}^n, \vec{G}}
+  +
+  e^{-i\phi^n_a} \delta_{\vec{Q}^n, \vec{G}}
+  \right]
+  \\&=
+  H^nM
+  \delta_{\vec{Q}^n, \vec{G}}
+  \cos\phi^n_a

@@ -1,0 +1,48 @@
+.. math::
+  \begin{multline}
+    \dfrac{
+      J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+      +
+      J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    }{2}
+    \\
+    =
+    \dfrac{
+      (A + iD_n)\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+      +
+      (A - iD_n)\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    }{2}
+    \\
+    =
+    A\sin\theta_a\sin\theta_b
+    \dfrac{
+    e^{i(\phi_a-\phi_b)}+e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    }{2}
+    -
+    D_n\sin\theta_a\sin\theta_b
+    \dfrac{
+    e^{i(\phi_a-\phi_b)}-e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    }{2i}
+    \\
+    =
+    A\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
+    -
+    D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+    \\
+    =
+    (J+\dfrac{S_{uu}+S_{vv}}{2})\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
+    -
+    D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+    \\
+    =
+    \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
+    -
+    \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+    \\
+    =
+    \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+    +
+    \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+  \end{multline}
+
+where :math:`A = J+\dfrac{S_{uu}+S_{vv}}{2}`

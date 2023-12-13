@@ -1,0 +1,23 @@
+.. math::
+  (\vec{S}_a^{ferro})^T
+  R^{\dagger}(\theta_a,\phi_a)
+  =
+  (0,0,S_a)
+  \begin{pmatrix}
+    \dfrac{1+\cos\theta_a}{2}                     &
+    \dfrac{(\cos\theta_a - 1)e^{-2i\phi_a}}{2}    &
+    \dfrac{-\sin\theta_a e^{-i\phi_a} }{\sqrt{2}} \\
+    \dfrac{(\cos\theta_a-1)e^{2i\phi_a}}{2}       &
+    \dfrac{1 + \cos\theta_a}{2}                   &
+    \dfrac{-\sin\theta_a e^{i\phi_a}}{\sqrt{2}}   \\
+    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}    &
+    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}}   &
+    \cos\theta_a                                  \\
+  \end{pmatrix}
+  =
+  S_a
+  \left(
+    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}  ,
+    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} ,
+    \cos\theta_a
+  \right)

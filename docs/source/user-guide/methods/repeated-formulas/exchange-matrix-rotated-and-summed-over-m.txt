@@ -1,0 +1,18 @@
+.. math::
+  \sum_m
+  R^{\dagger}(\theta_m)
+  J_{ab}(d_{ab})
+  R(\theta_{m+d})
+  =
+  M
+  \begin{pmatrix}
+    e^{-i\vec{Q}\vec{d}} J_{++}                                   &
+    e^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-}  &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{+n}                          \\
+    e^{-i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{-+} &
+    e^{i\vec{Q}\vec{d}} J_{--}                                    &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{-n}                          \\
+    e^{-i\vec{Q}\vec{d}}\delta_{\vec{Q},\vec{G}}\cdot J_{n+}      &
+    e^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\vec{G}}\cdot J_{n-}       &
+    J_{nn}                                                        \\
+  \end{pmatrix}

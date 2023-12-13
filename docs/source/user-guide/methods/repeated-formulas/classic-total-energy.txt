@@ -1,0 +1,84 @@
+
+.. math::
+  \begin{multline}
+    E = E_{exchange} + E_{Zeeman}
+    =
+    \dfrac{1}{2}
+    \sum_{a, b, \vec{d}}
+    MS_aS_b
+    \left\{
+      J_{nn}\cos\theta_a\cos\theta_b
+    \right.
+    \\
+    +
+    \sin\theta_a\sin\theta_b
+    \left[
+      \dfrac{J_{uu}+J_{vv}}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+      +
+      \dfrac{J_{uv}-J_{vu}}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+    \right]
+    \\
+    +
+    \delta_{\vec{Q},\frac{\vec{G}}{2}}
+    \sin\theta_a\sin\theta_b
+    \left[
+      \dfrac{J_{uu}-J_{vv}}{2}\cos(\phi_a+\phi_b+\vec{Q}\vec{d})
+        +
+      \dfrac{J_{uv}+J_{vu}}{2}\sin(\phi_a+\phi_b+\vec{Q}\vec{d})
+    \right]
+    \\
+    +
+    \delta_{\vec{Q},\vec{G}}
+    \left(
+      \sin\theta_a\cos\theta_b
+      \left[
+        J_{un}\cos\phi_a
+        +
+        J_{vn}\sin\phi_a
+      \right]
+    \right.
+    \\
+    \left.
+      \left.
+        +
+        \cos\theta_a\sin\theta_b
+        \left[
+          J_{nu}\cos(\phi_b+\vec{Q}\vec{d})
+          +
+          J_{nv}\sin(\phi_b+\vec{Q}\vec{d})
+        \right]
+      \right)
+    \right\}
+    \\
+    \mu_BM
+    \sum_{a}
+    g_a  S_a
+    \left\{
+      H^n
+      \delta_{\vec{Q}^n, \vec{G}}
+      \cos\phi^n_a\cos\theta_a
+    \right.
+    \\
+    +
+    \sin\theta_a
+    \left(
+      \dfrac{H^uM}{2}
+      \left[
+        \delta_{\vec{Q}_m^u + \vec{Q}_m, \vec{G}} \cos(\phi_a^u + \phi_a)
+        +
+        \delta_{\vec{Q}_m^u - \vec{Q}_m, \vec{G}} \cos(\phi_a^u - \phi_a)
+      \right]
+    \right.
+    \\
+    \left.
+    \left.
+      -
+      \dfrac{H^vM}{2}
+      \left[
+        \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
+        +
+        \delta_{\vec{Q}_m^v - \vec{Q}_m, \vec{G}} \sin(\phi_a^v - \phi_a)
+      \right]
+    \right)
+    \right\}
+  \end{multline}

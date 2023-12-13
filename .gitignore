@@ -20,4 +20,4 @@ dist
 __pycache__
 
 # On-the-fly-tests
-tmp.py
+tmp*

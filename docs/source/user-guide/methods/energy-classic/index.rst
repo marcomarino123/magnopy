@@ -53,7 +53,7 @@ Let us separate the summation over cites in unit cell and over unit cells:
   g_a
   \left[
   \sum_{m}
-  \vec{H}^T_{ma}
+  \vec{H}^{\dagger}_{ma}
   R(\theta_m)
   \right]
   R(\theta_a,\phi_a)
@@ -214,7 +214,7 @@ Next we turn our attention to the Zeeman term:
   g_a
   \left[
   \sum_{m}
-  \vec{H}^T_{ma}
+  \vec{H}^{\dagger}_{ma}
   R(\theta_m)
   \right]
   R(\theta_a,\phi_a)
@@ -299,7 +299,7 @@ Then the energy is:
   \sin\theta_a
   \left(
     H_{ma}^u\cos(\vec{Q}\cdot\vec{r}_m+\phi_a)
-    -
+    +
     H_{ma}^v\sin(\vec{Q}\cdot\vec{r}_m+\phi_a)
   \right)
   +
@@ -367,13 +367,13 @@ Then we can write:
     \right]
   \right.
   \\
+  +
   \left.
   \left.
-    -
     \dfrac{H^vM}{2}
     \left[
       \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
-      +
+      -
       \delta_{\vec{Q}_m^v - \vec{Q}_m, \vec{G}} \sin(\phi_a^v - \phi_a)
     \right]
   \right)

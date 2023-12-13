@@ -18,9 +18,9 @@ The Hamiltonian is usually given in some coordinate frame, which we call
 a global :math:`\vert xyz \rangle` frame. Then the Hamiltonian is given by:
 
 .. math::
-  H = \dfrac{1}{2} \sum_{m, \vec{d}, a\ne b\vert_{\vec{d}= \vec{0}}} \vec{S}_{ma}^T J_{ab}(d_{ab})\vec{S}_{m+d,b}
+  H = \dfrac{1}{2} \sum_{m, \vec{d}, a\ne b\vert_{\vec{d}= \vec{0}}} \vec{S}_{ma}^{\dagger} J_{ab}(d_{ab})\vec{S}_{m+d,b}
   + \sum_{m,a} \vec{S}_{ma}^T A_a \vec{S}_{ma}
-  + \mu_B\vec{H}^T\sum_{m,a} g_a \vec{S}_{ma}
+  + \mu_B\vec{H}^{\dagger}\sum_{m,a} g_a \vec{S}_{ma}
 
 .. dropdown:: Bra-ket notation
 

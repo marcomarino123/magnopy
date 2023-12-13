@@ -50,7 +50,7 @@
       \right)
     \right\}
     \\
-    \mu_BM
+    +\mu_BM
     \sum_{a}
     g_a  S_a
     \left\{
@@ -70,13 +70,13 @@
       \right]
     \right.
     \\
+    +
     \left.
     \left.
-      -
       \dfrac{H^v}{2}
       \left[
         \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
-        +
+        -
         \delta_{\vec{Q}_m^v - \vec{Q}_m, \vec{G}} \sin(\phi_a^v - \phi_a)
       \right]
     \right)

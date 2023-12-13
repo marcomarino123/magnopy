@@ -5,8 +5,8 @@
     g_a  S_a
     \sum_{m}
     \left(
-      \dfrac{H_{ma}^{-}}{\sqrt{2}},
       \dfrac{H_{ma}^{+}}{\sqrt{2}},
+      \dfrac{H_{ma}^{-}}{\sqrt{2}},
       H_{ma}^n
     \right)
     \begin{pmatrix}
@@ -28,9 +28,9 @@
     \left[
     \dfrac{\sin\theta_a}{2}
     \left(
-      H_{ma}^{-}e^{-i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
+      H_{ma}^{+}e^{-i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
       +
-      H_{ma}^{+}e^{i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
+      H_{ma}^{-}e^{i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
     \right)
     +
     H_{ma}^n\cos\theta_a
@@ -44,9 +44,9 @@
     \left[
     \dfrac{\sin\theta_a}{2}
     \left(
-      (H_{ma}^u - iH_{ma}^v)e^{-i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
+      (H_{ma}^u + iH_{ma}^v)e^{-i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
       +
-      (H_{ma}^u + iH_{ma}^v)e^{i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
+      (H_{ma}^u - iH_{ma}^v)e^{i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
     \right)
     +
     H_{ma}^n\cos\theta_a
@@ -66,7 +66,7 @@
       +
       e^{-i(\vec{Q}\cdot\vec{r}_m+\phi_a)}
       }{2}
-      -
+      +
       iH_{ma}^v
       \dfrac{
       e^{-i(\vec{Q}\cdot\vec{r}_m+\phi_a)}

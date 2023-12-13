@@ -12,7 +12,7 @@
   \vec{S}_{m+d,b}^{ferro}
   +
   \mu_B
-  \vec{H}^T
+  \vec{H}^{\dagger}
   \sum_{m,a}
   g_a
   R(\theta_m)

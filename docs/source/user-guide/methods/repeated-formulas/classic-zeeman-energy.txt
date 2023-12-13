@@ -1,0 +1,34 @@
+.. math::
+  \dfrac{E_{Zeeman}}{M}
+  =
+  \mu_B
+  \sum_{a}
+  g_a  S_a
+  \left\{
+    H^n
+    \delta_{\vec{Q}^n, \vec{G}}
+    \cos\phi^n_a\cos\theta_a
+  \right.
+  \\
+  +
+  \sin\theta_a
+  \left(
+    \dfrac{H^uM}{2}
+    \left[
+      \delta_{\vec{Q}_m^u + \vec{Q}_m, \vec{G}} \cos(\phi_a^u + \phi_a)
+      +
+      \delta_{\vec{Q}_m^u - \vec{Q}_m, \vec{G}} \cos(\phi_a^u - \phi_a)
+    \right]
+  \right.
+  \\
+  +
+  \left.
+  \left.
+    \dfrac{H^vM}{2}
+    \left[
+      \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
+      -
+      \delta_{\vec{Q}_m^v - \vec{Q}_m, \vec{G}} \sin(\phi_a^v - \phi_a)
+    \right]
+  \right)
+  \right\}

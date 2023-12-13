@@ -1,11 +1,10 @@
-
 .. math::
   \begin{multline}
-    E = E_{exchange} + E_{Zeeman}
+    \dfrac{E}{M} = \dfrac{E_{exchange} + E_{Zeeman}}{M}
     =
     \dfrac{1}{2}
     \sum_{a, b, \vec{d}}
-    MS_aS_b
+    S_aS_b
     \left\{
       J_{nn}\cos\theta_a\cos\theta_b
     \right.
@@ -50,7 +49,7 @@
       \right)
     \right\}
     \\
-    +\mu_BM
+    +\mu_B
     \sum_{a}
     g_a  S_a
     \left\{

@@ -5,3 +5,9 @@
   \sin(\vec{Q}\cdot\vec{r}_m) & \cos(\vec{Q}\cdot\vec{r}_m)  & 0 \\
   0                           & 0                            & 1 \\
   \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos(\theta_m) & -\sin(\theta_m) & 0 \\
+    \sin(\theta_m) & \cos(\theta_m)  & 0 \\
+    0              & 0               & 1 \\
+  \end{pmatrix}

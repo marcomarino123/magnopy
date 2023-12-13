@@ -13,15 +13,15 @@ Spin rotations
     vector :math:`\vec{v}`.
   * :math:`v` - is a modulus of the vector :math:`\vec{v}`.
 
-Given a spin vector :math:`\vec{S} = S\cdot\hat{S}`, we define its direction
-with two angles: :math:`\theta` and :math:`\phi`.
+Given a spin vector :math:`\vec{S}_a = S_a\cdot\hat{S}_a`, we define its direction
+with two angles: :math:`\theta_a` and :math:`\phi_a`.
 
 .. math::
-  \vec{S} = S\cdot
+  \vec{S}_a = S_a\cdot
   \begin{pmatrix}
-    \sin\theta\cos\phi \\
-    \sin\theta\sin\phi \\
-    \cos\theta
+    \sin\theta_a\cos\phi_a \\
+    \sin\theta_a\sin\phi_a \\
+    \cos\theta_a
   \end{pmatrix}
 
 
@@ -30,15 +30,15 @@ with two angles: :math:`\theta` and :math:`\phi`.
 
 Any direction of the spin vector can be produced from the direction of the
 vector :math:`\vec{n}` by a rotation around the vector :math:`r` with
-the angle :math:`\theta`, similary to how it was done for the reference
+the angle :math:`\theta_a`, similary to how it was done for the reference
 frame change in :ref:`user-guide_methods_uvn-choice`:
 
 .. math::
-  \vec{r} = \dfrac{\hat{n} \times \vec{S}}{\vert\hat{n} \times \vec{S}\vert}
+  \vec{r} = \dfrac{\hat{n} \times \vec{S}_a}{\vert\hat{n} \times \vec{S}_a\vert}
   =
   \begin{pmatrix}
-    -\sin\phi \\
-    \cos\phi \\
+    -\sin\phi_a \\
+    \cos\phi_a \\
     0
   \end{pmatrix}
 
@@ -48,17 +48,17 @@ frame change in :ref:`user-guide_methods_uvn-choice`:
 Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
 
 .. math::
-  \vec{S} = R(\theta, \phi)\vec{S}^{ferro}
-  = S\cdot R(\theta, \phi)\hat{S}^{ferro}
-  = S\cdot R(\theta, \phi)\hat{n}
+  \vec{S}_a = R(\theta_a, \phi_a)\vec{S}_a^{ferro}
+  = S_a\cdot R(\theta_a, \phi_a)\hat{S}_a^{ferro}
+  = S_a\cdot R(\theta_a, \phi_a)\hat{n}
 
 .. dropdown:: Bra-ket notation
 
   .. math::
-    \langle uvn\vert S\rangle = \langle uvn\vert R(\theta, \phi) \vert S^{ferro}\rangle
-    = \langle uvn\vert R(\theta, \phi)\vert uvn \rangle
-    \langle uvn \vert S^{ferro}\rangle
-    = S\cdot\langle uvn\vert R(\theta, \phi)\vert uvn \rangle
+    \langle uvn\vert S_a\rangle = \langle uvn\vert R(\theta_a, \phi_a) \vert S_a^{ferro}\rangle
+    = \langle uvn\vert R(\theta_a, \phi_a)\vert uvn \rangle
+    \langle uvn \vert S_a^{ferro}\rangle
+    = S_a\cdot\langle uvn\vert R(\theta_a, \phi_a)\vert uvn \rangle
     \langle uvn \vert n\rangle
 
 
@@ -67,34 +67,34 @@ Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be writ
   Alternatively one can define two consecutive rotations:
 
   .. math::
-    \vec{S} = R(\phi)R(\theta)\vec{S}^{ferro}
-    = e^{\phi\hat{n}\times}e^{\theta\hat{v}\times}\vec{S}^{ferro}
+    \vec{S}_a = R(\phi_a)R(\theta_a)\vec{S}_a^{ferro}
+    = e^{\phi_a\hat{n}\times}e^{\theta_a\hat{v}\times}\vec{S}_a^{ferro}
 
   With the rotation matrices defined as:
 
   .. math::
     \begin{matrix}
-      R(\theta) =
+      R(\theta_a) =
       \begin{pmatrix}
-        \cos\theta  & 0 & \sin\theta \\
+        \cos\theta_a  & 0 & \sin\theta_a \\
         0           & 1 & 0          \\
-        -\sin\theta & 0 & \cos\theta \\
+        -\sin\theta_a & 0 & \cos\theta_a \\
       \end{pmatrix};
       &
-      R(\phi) =
+      R(\phi_a) =
       \begin{pmatrix}
-        \cos\phi & -\sin\phi & 0 \\
-        \sin\phi & \cos\phi  & 0 \\
+        \cos\phi_a & -\sin\phi_a & 0 \\
+        \sin\phi_a & \cos\phi_a  & 0 \\
         0        & 0         & 1 \\
       \end{pmatrix}
     \end{matrix}
 
   .. math::
-      R^{\prime}(\theta,\phi) = R(\phi)R(\theta) =
+      R^{\prime}(\theta_a,\phi_a) = R(\phi_a)R(\theta_a) =
       \begin{pmatrix}
-        \cos\phi\cdot\cos\theta & -\sin\phi & \cos\phi\cdot\sin\theta \\
-        \sin\phi\cdot\cos\theta & \cos\phi  & \sin\phi\cdot\sin\theta \\
-        -\sin\theta             & 0         & \cos\theta              \\
+        \cos\phi_a\cdot\cos\theta_a & -\sin\phi_a & \cos\phi_a\cdot\sin\theta_a \\
+        \sin\phi_a\cdot\cos\theta_a & \cos\phi_a  & \sin\phi_a\cdot\sin\theta_a \\
+        -\sin\theta_a             & 0         & \cos\theta_a              \\
       \end{pmatrix}
 
   .. raw:: html

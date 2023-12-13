@@ -24,16 +24,20 @@ We compute the fourier transform of it:
 .. dropdown:: Details
 
   .. math::
-    \begin{multline}
-      \vert S_{ka} \rangle
-      = \dfrac{1}{M}\sum_{m} e^{-i\vec{k}\vec{r_m}} \vert S_{ma} \rangle
-      = S_a\cdot\left[\dfrac{\sin\theta_a\cdot e^{-i\phi_a}}{\sqrt{2}} \vert u^+\rangle
-      \left(\dfrac{1}{M}\sum_{m}e^{-i\vec{r}_m(\vec{k}+\vec{Q})}\right)\\
-      + \dfrac{\sin\theta_a\cdot e^{i\phi_a}}{\sqrt{2}} \vert u^-\rangle
-      \left(\dfrac{1}{M}\sum_{m}e^{-i\vec{r}_m(\vec{k}-\vec{Q})}\right)
-      + \cos\theta \left(\dfrac{1}{M}\sum_{m}e^{-i\vec{k}\vec{r}_m}\right) \vert v \rangle
-      \right]
-    \end{multline}
+      &\vert S_{ka} \rangle
+      =
+      \dfrac{1}{M}\sum_{m} e^{-i\vec{k}\vec{r_m}} \vert S_{ma} \rangle
+      =
+      S_a\cdot
+      \Biggl[
+        \dfrac{\sin\theta_a\cdot e^{-i\phi_a}}{\sqrt{2}} \vert u^+\rangle
+        \left(\dfrac{1}{M}\sum_{m}e^{-i\vec{r}_m(\vec{k}+\vec{Q})}\right)
+        \\&+
+        \dfrac{\sin\theta_a\cdot e^{i\phi_a}}{\sqrt{2}} \vert u^-\rangle
+        \left(\dfrac{1}{M}\sum_{m}e^{-i\vec{r}_m(\vec{k}-\vec{Q})}\right)
+        \\&+
+        \cos\theta \left(\dfrac{1}{M}\sum_{m}e^{-i\vec{k}\vec{r}_m}\right) \vert v \rangle
+      \Biggr]
 
   where :math:`m = 1, ..., M`
 

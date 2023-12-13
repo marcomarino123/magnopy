@@ -1,13 +1,13 @@
 .. math::
-  R(\theta, \phi) =
+  R_a = R(\theta_a, \phi_a) =
   \begin{pmatrix}
-      \cos\theta + \sin^2\phi(1-\cos\theta) &
-      -\sin\phi\cos\phi(1-\cos\theta)       &
-      \cos\phi\sin\theta                    \\
-      -\sin\phi\cos\phi(1-\cos\theta)       &
-      \cos\theta + \cos^2\phi(1-\cos\theta) &
-      \sin\phi\sin\theta                    \\
-      -\cos\phi\sin\theta                   &
-      -\sin\phi\sin\theta                   &
-      \cos\theta                            \\
+      \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
+      -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
+      \cos\phi_a\sin\theta_a                      \\
+      -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
+      \cos\theta_a + \cos^2\phi_a(1-\cos\theta_a) &
+      \sin\phi_a\sin\theta_a                      \\
+      -\cos\phi_a\sin\theta_a                     &
+      -\sin\phi_a\sin\theta_a                     &
+      \cos\theta_a                                \\
   \end{pmatrix}

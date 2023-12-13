@@ -1,4 +1,4 @@
-.. _user-guide_methods_rf-change:
+.. _user-guide_methods_xyz-to-uvn:
 
 *****************************
 Change of the reference frame

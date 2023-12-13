@@ -19,7 +19,7 @@ Hamiltonian in a "spherical" reference frame
 
 The reference frame of the given Hamiltonian is changed from
 :math:`\hat{x}\hat{y}\hat{z}` to :math:`\hat{u}\hat{v}\hat{n}` as
-described in :ref:`user-guide_methods_rf-change`.
+described in :ref:`user-guide_methods_xyz-to-uvn`.
 We start this section from a Hamiltonian written in a :math:`\hat{u}\hat{v}\hat{n}`
 reference frame:
 

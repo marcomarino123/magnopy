@@ -9,7 +9,7 @@ Methods and algorithms
 
     spinham-symmetries
     uvn-choice
-    rf-change
+    xyz-to-uvn
     spin-rotations
     single-q
     spherical-rf

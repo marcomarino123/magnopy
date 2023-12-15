@@ -153,39 +153,65 @@ And the spin :math:`\vec{S}_{ma}` is
 Examples
 ========
 
-* One spin in the unit cell: :math:`\vec{r}_1 = (0,0,0)`,
-  :math:`\theta_1 = 90^{\circ}`, :math:`\phi_1 = 0^{\circ}`,
-  :math:`\vec{Q} = (0,0,1)^T`
+* One spin in the unit cell, :math:`\vec{Q} = (0,0,1)^T`:
+
+  - :math:`\vec{r}_1 = (0,0,0)`,
+    :math:`\theta_1 = 90^{\circ}`,
+    :math:`\phi_1 = 0^{\circ}`
+
 
 .. raw:: html
   :file: ../../../images/single-q-1.html
 
-* One spin in the unit cell: :math:`\vec{r}_1 = (0,0,0)`,
-  :math:`\theta_1 = 60^{\circ}`, :math:`\phi_1 = 0^{\circ}`,
-  :math:`\vec{Q} = (0,0,1)^T`
+* One spin in the unit cell, :math:`\vec{Q} = (0,0,1)^T`:
+
+  - :math:`\vec{r}_1 = (0,0,0)`,
+    :math:`\theta_1 = 60^{\circ}`,
+    :math:`\phi_1 = 0^{\circ}`
+
 
 .. raw:: html
   :file: ../../../images/single-q-2.html
 
-* One spin in the unit cell: :math:`\vec{r}_1 = (0,0,0)`,
-  :math:`\theta_1 = 60^{\circ}`, :math:`\phi_1 = 45^{\circ}`,
-  :math:`\vec{Q} = (0,0,1)^T`
+* One spin in the unit cell, :math:`\vec{Q} = (0,0,1)^T`:
+
+  - :math:`\vec{r}_1 = (0,0,0)`,
+    :math:`\theta_1 = 60^{\circ}`,
+    :math:`\phi_1 = 45^{\circ}`
 
 .. raw:: html
   :file: ../../../images/single-q-3.html
 
-* One spin in the unit cell: :math:`\vec{r}_1 = (0,0,0)`,
-  :math:`\theta_1 = 30^{\circ}`, :math:`\phi_1 = 0^{\circ}`,
-  :math:`\vec{Q} = (0,1,0)^T`
+* One spin in the unit cell, :math:`\vec{Q} = (0,1,0)^T`:
+
+  - :math:`\vec{r}_1 = (0,0,0)`,
+    :math:`\theta_1 = 30^{\circ}`,
+    :math:`\phi_1 = 0^{\circ}`
 
 .. raw:: html
   :file: ../../../images/single-q-4.html
 
-* Two spins in the unit cell: :math:`\vec{r}_1 = (0,0,0)`,
-  :math:`\theta_1 = 30^{\circ}`, :math:`\phi_1 = 0^{\circ}`,
-  :math:`\vec{r}_2 = (\frac{1}{2},\frac{1}{2},\frac{1}{2})`,
-  :math:`\theta_2 = 20^{\circ}`, :math:`\phi_2 = 45^{\circ}`,
-  :math:`\vec{Q} = (0,1,0)^T`
+* Two spins in the unit cell, :math:`\vec{Q} = (0,1,0)^T`:
+
+  - :math:`\vec{r}_1 = (0,0,0)`,
+    :math:`\theta_1 = 30^{\circ}`,
+    :math:`\phi_1 = 0^{\circ}`
+  - :math:`\vec{r}_2 = (\frac{1}{2},\frac{1}{2},\frac{1}{2})`,
+    :math:`\theta_2 = 20^{\circ}`,
+    :math:`\phi_2 = 45^{\circ}`
+
 
 .. raw:: html
   :file: ../../../images/single-q-5.html
+
+* Two spins in the unit cell, :math:`\vec{Q} = (1,0,0)^T`:
+
+  - :math:`\vec{r}_1 = (0,0,0)`,
+    :math:`\theta_1 = 150^{\circ}`,
+    :math:`\phi_1 = 0^{\circ}`
+  - :math:`\vec{r}_2 = (0,\frac{1}{2},0)`,
+    :math:`\theta_2 = 30^{\circ}`,
+    :math:`\phi_2 =180^{\circ}`
+
+.. raw:: html
+  :file: ../../../images/single-q-6.html

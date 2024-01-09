@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2023 Magnopy Team
+# Copyright (C) 2023-2024 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -20,6 +20,7 @@ import wulfric
 from wulfric import Atom, print_2d_array
 
 from magnopy._pinfo import logo
+from magnopy.spinham.energy import Energy
 from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.spinham.parameter import ExchangeParameter
 
@@ -161,7 +162,15 @@ def read_atoms(lines, i, spinham: SpinHamiltonian):
         line = lines[i]
         name = line.split()[0]
         position = [float(x) for x in line.split()[1:4]]
-        spinham.add_atom(name, position=position)
+        spin_vector = [float(x) for x in line.split()[4:7]]
+        if len(spin_vector) == 3:
+            spinham.add_atom(name, position=position, spin=spin_vector)
+        elif len(spin_vector) == 1:
+            spinham.add_atom(
+                name, position=position, spin_vector=(0, 0, spin_vector[0])
+            )
+        else:
+            spinham.add_atom(name, position=position)
         i += 1
     return spinham, i
 
@@ -274,14 +283,13 @@ def load_model(filename, save_filtered=False) -> SpinHamiltonian:
             f.write("\n".join(filtered_lines))
 
     i = 0
-    spinham = SpinHamiltonian()
+    spinham = Energy()
     while i < len(filtered_lines):
         line = filtered_lines[i]
         if line.startswith("=" * 20) or i == 0:
             if line.startswith("=" * 20):
                 i += 1
             read_section = choose_section(filtered_lines, i)
-            print(read_section, i)
             if read_section is not None:
                 spinham, i = read_section(filtered_lines, i, spinham)
         else:

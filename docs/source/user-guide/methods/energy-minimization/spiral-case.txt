@@ -1,0 +1,136 @@
+Spiral state
+============
+
+Examples of the spirals can be found :ref:`here<user-guide_methods_single-q_examples>`.
+
+.. math::
+  &\dfrac{E_{exchange}}{M}
+  =
+  \dfrac{1}{2}
+  \sum_{a, b, \vec{d}}
+  S_aS_b
+  \Biggl\{
+    J_{nn}\cos\theta_a\cos\theta_b
+    \\
+    &+
+    \sin\theta_a\sin\theta_b
+    \Bigl[
+      \dfrac{J_{uu}+J_{vv}}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+      +
+      \dfrac{J_{uv}-J_{vu}}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+    \Bigr]
+  \Biggr\}
+
+Let us simplify the expression by explicitly writing the double-counted terms
+:math:`ab` and :math:`ba`:
+
+.. dropdown:: Details
+
+  We are using the :ref:`symmetries of the Hamiltonian <user-guide_methods_spinham-symmetries>`:
+
+  .. include:: ../repeated-formulas/spinham-parameter-symmetries.txt
+
+  Which means:
+
+  * :math:`J_{uu}(d_{ab}) = J_{uu}(d_{ba}) = J_{uu}`
+  * :math:`J_{vv}(d_{ab}) = J_{vv}(d_{ba}) = J_{vv}`
+  * :math:`J_{nn}(d_{ab}) = J_{nn}(d_{ba}) = J_{nn}`
+  * :math:`D_n(d_{ab}) = -D_n(d_{ba}) = D_n`
+
+
+  .. math::
+    &\dfrac{E_{exchange}}{M}
+    =
+    \dfrac{1}{2}
+    \sum_a\sum_{b\ge a}\sum_{\vec{d}}
+    S_aS_b
+    \Biggl\{
+      J_{nn}(d_{ab})\cos\theta_a\cos\theta_b
+      +
+      J_{nn}(d_{ba})\cos\theta_b\cos\theta_a
+      \\
+      &+
+      \sin\theta_a\sin\theta_b
+      \Bigl[
+        \dfrac{J_{uu}(d_{ab})+J_{vv}(d_{ab})}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+        +
+        D_n(d_{ab})\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+      \Bigr]
+      \\
+      &+
+      \sin\theta_b\sin\theta_a
+      \Bigl[
+        \dfrac{J_{uu}(d_{ba})+J_{vv}(d_{ba})}{2}\cos(\vec{Q}\vec{d}+\phi_a-\phi_b)
+        +
+        D_n(d_{ba})\sin(\vec{Q}\vec{d}+\phi_a-\phi_b)
+      \Bigr]
+    \Biggr\}
+
+  let us define :math:`\Delta\phi_{ab} = \phi_a-\phi_b`, then:
+
+
+  .. math::
+    &\dfrac{E_{exchange}}{M}
+    =
+    \sum_a\sum_{b\ge a}\sum_{\vec{d}}
+    S_aS_b
+    \Biggl\{
+      J_{nn}\cos\theta_a\cos\theta_b
+      \\
+      &+
+      \sin\theta_a\sin\theta_b
+      \Biggl(
+        \dfrac{J_{uu}+J_{vv}}{2}
+        \Bigl[
+        \cos(\vec{Q}\vec{d}-\Delta\phi_{ab})
+        +
+        \cos(\vec{Q}\vec{d}+\Delta\phi_{ab})
+        \Bigr]
+        \\
+        &+
+        D_n
+        \Bigl[
+        \sin(\vec{Q}\vec{d}-\Delta\phi_{ab})
+        -
+        \sin(\vec{Q}\vec{d}+\Delta\phi_{ab})
+        \Bigr]
+      \Biggr)
+    \Biggr\}
+    \\
+    &=
+    \sum_a\sum_{b\ge a}\sum_{\vec{d}}
+    S_aS_b
+    \Biggl\{
+      J_{nn}\cos\theta_a\cos\theta_b
+      \\
+      &+
+      \sin\theta_a\sin\theta_b
+      \Biggl(
+        (J_{uu}+J_{vv})
+        \Bigl[
+        \cos(\vec{Q}\vec{d})\sin(\Delta\phi_{ab})
+        \Bigr]
+        -
+        D_n
+        \Bigl[
+        \cos(\vec{Q}\vec{d})\sin\Delta\phi_{ab}
+        \Bigr]
+      \Biggr)
+    \Biggr\}
+    \\
+    &=
+    \sum_a\sum_{b\ge a}\sum_{\vec{d}}
+    S_aS_b
+    \Biggl\{
+      J_{nn}\cos\theta_a\cos\theta_b
+      \\
+      &+
+      \sin\theta_a\sin\theta_b\cos(\vec{Q}\vec{d})
+      \Biggl(
+        \left[J_{uu}+J_{vv}\right]
+        \sin(\Delta\phi_{ab})
+        -
+        D_n
+        \sin\Delta\phi_{ab}
+      \Biggr)
+    \Biggr\}

@@ -149,6 +149,7 @@ And the spin :math:`\vec{S}_{ma}` is
   .. math::
     R_{33} = \cos\theta_a
 
+.. _user-guide_methods_single-q_examples:
 
 Examples
 ========

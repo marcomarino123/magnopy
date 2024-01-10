@@ -66,5 +66,4 @@ Symmetries of the Hamiltonian
 
 The Hamiltonian has the following symmetries:
 
-.. math::
-  J_{ab}(d_{ab}) = J_{ba}^T(d_{ba}) = J_{ba}^T(-d_{ab})
+.. include:: repeated-formulas/spinham-parameter-symmetries.txt

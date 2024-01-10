@@ -11,7 +11,7 @@ Specification of the input file
   line symbols are ignored.
 * Comment lines can appear at any line of the file.
 * Sections are separated by 20 or more consecutive ``=`` (U+003D) symbols.
-* Subsections inside eachsection are separated by 20 or more ``-`` (U+002D) syymbols.
+* Subsections inside each section are separated by 20 or more ``-`` (U+002D) syymbols.
 * Whole file is case-insensetive.
 
 
@@ -33,7 +33,7 @@ Unit cell
 
 * line 1: Section separator (20+ ``=`` symbols)
 * line 2: ``Cell`` keyword. Spaces are ignored in this line. By default the Units
-  for the lattice vectors are angstroms. You may use other predefined units by providing
+  for the lattice vectors are Angstroms. You may use other predefined units by providing
   the keyword (case-insensetive):
 
   - Angstroms
@@ -49,7 +49,7 @@ Additional rules:
 
 * Lines 3-5 can contain additional information,
   given that first three space-separated are the coordinates of
-  correcponding lattice vectors.
+  corresponding lattice vectors.
 
 Atoms
 -----
@@ -177,7 +177,7 @@ Specification of the bond:
 
 Additional rules:
 
-* If both ``Matrix`` and ``DMI`` are given, then antisymmetrix part of the
-  matrix is ovewritten.
-* If both ``Matrix`` and ``isotropic parameter`` are given, than
-  isotropic part of the matrix is ovewritten.
+* If both ``Matrix`` and ``DMI`` are given, then antisymmetric part of the
+  matrix is overwritten.
+* If both ``Matrix`` and ``isotropic parameter`` are given, then
+  isotropic part of the matrix is overwritten.

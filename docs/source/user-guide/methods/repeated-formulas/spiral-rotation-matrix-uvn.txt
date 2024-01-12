@@ -1,9 +1,12 @@
 .. math::
-  R(\theta_m) = R(\vec{Q}\cdot\vec{r}_m) =
+  \boldsymbol{R}(\theta_m)
+  =
+  \boldsymbol{R}(\vec{Q}\cdot\vec{r}_m)
+  =
   \begin{pmatrix}
-  \cos(\vec{Q}\cdot\vec{r}_m) & -\sin(\vec{Q}\cdot\vec{r}_m) & 0 \\
-  \sin(\vec{Q}\cdot\vec{r}_m) & \cos(\vec{Q}\cdot\vec{r}_m)  & 0 \\
-  0                           & 0                            & 1 \\
+    \cos(\vec{Q}\cdot\vec{r}_m) & -\sin(\vec{Q}\cdot\vec{r}_m) & 0 \\
+    \sin(\vec{Q}\cdot\vec{r}_m) & \cos(\vec{Q}\cdot\vec{r}_m)  & 0 \\
+    0                           & 0                            & 1 \\
   \end{pmatrix}
   =
   \begin{pmatrix}

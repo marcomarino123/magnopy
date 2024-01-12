@@ -6,9 +6,11 @@ Single-Q conical state
 
 .. dropdown:: Notation used on this page
 
-  * The reference frame is :math:`\hat{u}\hat{v}\hat{n}` for the whole page.
-  * :math:`\vec{v}` - is a vector.
-  * Parenthesis () and braquets [] are equivalent.
+  * .. include:: page-notations/vector.txt
+  * .. include:: page-notations/matrix.txt
+  * .. include:: page-notations/bra-ket.txt
+  * .. include:: page-notations/in-uvn.txt
+  * .. include:: page-notations/parentheses.txt
 
 Single-:math:`Q` conical state can be described by two vectors:
 
@@ -18,20 +20,20 @@ Single-:math:`Q` conical state can be described by two vectors:
   :ref:`user-guide_methods_uvn-choice`, therefore, the cone axis :math:`\hat{n}`
   is one of the reference frame axes.
 * Spiral vector :math:`\vec{Q}`. It defines the phase as:
-  :math:`\theta_m = \vec{Q}\cdot\vec{r_m}`.
+  :math:`\theta_m = \vec{Q}\cdot\vec{r}_m`.
 
 
 Spiral rotation matrix
 ======================
 
-We describe the position of each spin :math:`S_{ma}` in the crystal with
+We describe the position of each spin :math:`\vec{S}_{ma}` in the crystal with
 the two vectors :math:`\vec{r}_m` and :math:`\vec{r}_a`, where
 
 .. math::
   \vec{r}_m = i\cdot\vec{a} + j\cdot\vec{b} + k\cdot\vec{c}
 
-Gives the coordinate of the unit cell, to which the spin :math:`\vec{S}_{ma}`
-belongs. And vector :math:`\vec{r}_a` describe the spin's position
+gives the coordinate of the unit cell, to which the spin :math:`\vec{S}_{ma}`
+belongs. Vector :math:`\vec{r}_a` describes the spin's position
 inside unit cell and does not depend on the index :math:`m`. Therefore, the
 spin :math:`\vec{S}_{ma}` is located at the position
 
@@ -46,16 +48,19 @@ unit cell :math:`\vec{r}_m` only:
 
 .. include:: repeated-formulas/spiral-rotation-matrix-uvn.txt
 
+In other words we absorb the in-cell spiral contribution :math:`\vec{Q}\cdot\vec{r}_a`
+into the angle :math:`\phi_a`
+
 
 Full spin rotation matrix
 =========================
 
-In the following sections we will need to produce the spin spiral ground
+In the following sections we produce the spin spiral ground
 state from the ferromagnetically ordered state, where each spin
 :math:`\vec{S}_{ma}^{ferro}` is oriented along the direction of the
-cone axis :math:`\hat{n}`. In order to do that we combine rotations inside
+cone axis :math:`\hat{n}`. In order to do that we combine the rotation inside
 each unit cell as described in the :ref:`user-guide_methods_spin-rotations`
-section and in this section:
+section and the rotation between unit cells as described above:
 
 .. include:: repeated-formulas/spin-from-ferro-any.txt
 
@@ -63,27 +68,31 @@ where we recall
 
 .. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
 
-Matrix :math:`R_{ma}` has the form:
+Matrix :math:`\boldsymbol{R_{ma}}` has the form:
 
 .. math::
-  R_{ma} =
+  \boldsymbol{R_{ma}}
+  =
   \begin{pmatrix}
-  ... & ... & \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a)\\
-  ... & ... & \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
-  -\cos\phi_a\sin\theta_a & -\sin\phi_a\sin\theta_a & \cos\theta_a \\
+    ... & ... & \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a)     \\
+    ... & ... & \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a)     \\
+    -\cos\phi_a\sin\theta_a & -\sin\phi_a\sin\theta_a & \cos\theta_a \\
   \end{pmatrix}
 
 And the spin :math:`\vec{S}_{ma}` is
 
 .. include:: repeated-formulas/spin-uvn.txt
 
-.. dropdown:: All elements of the matrix  :math:`\text{ }R_{ma}`
+.. dropdown:: All elements of the matrix  :math:`\text{ }\boldsymbol{R_{ma}}`
 
-  For simplicity of the notation we call the matrix :math:`R_{ma}`
-  as :math:`R`:
+  For simplicity of the notation we call the matrix :math:`\boldsymbol{R_{ma}}`
+  as :math:`\boldsymbol{R}`:
 
   .. math::
-    R_{ma} = R =
+    \boldsymbol{R_{ma}}
+    =
+    \boldsymbol{R}
+    =
     \begin{pmatrix}
       R_{11} & R_{12} & R_{13} \\
       R_{21} & R_{22} & R_{23} \\

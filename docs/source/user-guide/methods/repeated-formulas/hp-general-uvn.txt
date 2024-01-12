@@ -1,0 +1,23 @@
+.. math::
+  &
+  \hat{s}^+
+  =
+  \hat{s}_u + i\hat{s}_v
+  =
+  \sqrt{2S}
+  \cdot
+  \sqrt{1 - \dfrac{\hat{a}^{\dagger}\hat{a}}{2S}}
+  \cdot
+  \hat{a}
+  \\&
+  \hat{s}^-
+  =
+  \hat{s}_u - i\hat{s}_v
+  =
+  \sqrt{2S}
+  \cdot
+  \hat{a}^{\dagger}
+  \cdot
+  \sqrt{1 - \dfrac{\hat{a}^{\dagger}\hat{a}}{2S}}
+  \\&
+  \hat{s}_n = S - \hat{a}^{\dagger}\hat{a}

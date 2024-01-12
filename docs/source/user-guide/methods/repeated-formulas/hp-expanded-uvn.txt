@@ -1,0 +1,15 @@
+.. math::
+  &
+  \hat{s}^+
+  \approx
+  \sqrt{2S}
+  \cdot
+  \left(\hat{a} - \dfrac{\hat{a}^{\dagger}\hat{a}\hat{a}}{4S}\right)
+  \\&
+  \hat{s}^-
+  \approx
+  \sqrt{2S}
+  \cdot
+  \left(\hat{a}^{\dagger} - \dfrac{\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}}{4S}\right)
+  \\&
+  \hat{s}_n = S - \hat{a}^{\dagger}\hat{a}

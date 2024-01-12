@@ -1,0 +1,12 @@
+:math:`\vec{a} \times \vec{b}` means cross product for vectors of two vectors.
+In :math:`xyz` reference frame:
+
+.. math::
+
+  \vec{a} \times \vec{b}
+  =
+  \begin{pmatrix}
+  a_yb_z - a_zb_y \\
+  a_zb_x - a_xb_z \\
+  a_xb_y - a_yb_x \\
+  \end{pmatrix}

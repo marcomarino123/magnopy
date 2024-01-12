@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2023 Magnopy Team
+# Copyright (C) 2023-2024 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -331,7 +331,7 @@ def plot_example(spins, Q, N):
                         origin=R,
                         cone_scale=0.4,
                         line_width=4,
-                        color="#E7676B",
+                        color="#FF4E3C",
                         origin_pont=True,
                     )
                     arc = np.linspace(0, 2 * np.pi, 100)
@@ -340,6 +340,6 @@ def plot_example(spins, Q, N):
                         R[1] + np.sin(theta) * np.sin(arc),
                         R[2] + np.cos(theta) * np.ones_like(arc),
                     ]
-                    plot_arc(fig, arc, color="#63C06F")
+                    plot_arc(fig, arc, color="#5670EF")
 
     return fig

@@ -9,6 +9,7 @@ Spin rotations
 
   * .. include:: page-notations/vector.txt
   * .. include:: page-notations/unit-vector.txt
+  * .. include:: page-notations/spin-unit-vector-operator.txt
   * .. include:: page-notations/matrix.txt
   * .. include:: page-notations/reference-frame.txt
   * .. include:: page-notations/cross-product.txt

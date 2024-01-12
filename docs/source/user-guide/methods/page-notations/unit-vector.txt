@@ -6,3 +6,6 @@
   \hat{r} = \dfrac{\vec{r}}{r},
 
 where :math:`r` is a length of the vector :math:`\vec{r}`.
+
+.. note::
+  Unit vector notations coincides with the notation for the linear operators.

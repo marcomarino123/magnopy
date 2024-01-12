@@ -7,7 +7,7 @@ Methods and algorithms
 .. toctree::
     :maxdepth: 1
 
-    spinham-symmetries
+    spinham
     uvn-choice
     xyz-to-uvn
     spin-rotations

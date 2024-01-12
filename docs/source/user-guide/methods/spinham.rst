@@ -1,8 +1,8 @@
-.. _user-guide_methods_spinham-symmetries:
+.. _user-guide_methods_spinham:
 
-***********************************
-Spin Hamiltonian and its symmetries
-***********************************
+****************
+Spin Hamiltonian
+****************
 
 
 Before we define the Hamiltonian let us discuss some notation:
@@ -37,7 +37,7 @@ a global :math:`\vert xyz \rangle` frame. Then the Hamiltonian is given by:
 where vector :math:`\vec{d}_{ab} = \vec{r}_{m+d} - \vec{r}_m`  runs over the neighbors.
 :math:`J_{ab}(d_{ab})` is a :math:`3\times3` exchange matrix.
 :math:`A_a` is a :math:`3\times3` on-site anisotropy matrix.
-The third term describe the Zeeman interaction with the external magnetic field.
+The third term describes the Zeeman interaction with the external magnetic field.
 
 .. note::
 
@@ -45,9 +45,9 @@ The third term describe the Zeeman interaction with the external magnetic field.
     for the pair :math:`(m,a; m+d,b)` the pair :math:`(m+d,b; m,a)` is included.
   * Spin vectors are not normalized.
 
-For the simplicity of the latter discussion we combine the exchange and anisotropy
-under one sum, defining :math:`A_a = \dfrac{1}{2}J_{aa}(\vec{d}=\vec{0})`, then the Hamiltonian
-is written as:
+For the simplicity of the latter discussion we combine the exchange and anisotropy terms
+under one sum, defining :math:`A_a = \dfrac{1}{2}J_{aa}(\vec{d}=\vec{0})`,
+then the Hamiltonian is written as:
 
 .. include:: repeated-formulas/hamiltonian-main-any.txt
 

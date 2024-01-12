@@ -4,10 +4,15 @@
 Classical energy
 ****************
 
-.. dropdown:: Notation used in this page
+.. dropdown:: Notation used on this page
 
-    * We work in the :math:`\vert u^+ u^- n \rangle` reference frame, if not specified otherwise.
-    * Parentheses (), square brackets [] and figure parentheses {} are equivalent.
+  * .. include:: ../page-notations/vector.txt
+  * .. include:: ../page-notations/matrix.txt
+  * .. include:: ../page-notations/reference-frame.txt
+  * .. include:: ../page-notations/transpose-complex-conjugate.txt
+  * .. include:: ../page-notations/in-spherical.txt
+  * .. include:: ../page-notations/parentheses.txt
+
 
 Let us recall the Hamiltonian:
 
@@ -36,16 +41,16 @@ Let us separate the summation over cites in unit cell and over unit cells:
   =
   \dfrac{1}{2}
   \sum_{a, b}
-  (\vec{S}_a^{ferro})^T
-  R^{\dagger}(\theta_a,\phi_a)
-  \sum_{\vec{d}}
+  (\vec{S}_a^{ferro})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  \sum_{\vec{d}_{ab}}
   \left[
   \sum_{m}
-  R^{\dagger}(\theta_m)
-  J_{ab}(d_{ab})
-  R(\theta_{m+d})
+  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{R}(\theta_{m+d_{ab}})
   \right]
-  R(\theta_b,\phi_b)
+  \boldsymbol{R}(\theta_b,\phi_b)
   \vec{S}_b^{ferro}
   +
   \mu_B
@@ -54,9 +59,9 @@ Let us separate the summation over cites in unit cell and over unit cells:
   \left[
   \sum_{m}
   \vec{H}^{\dagger}_{ma}
-  R(\theta_m)
+  \boldsymbol{R}(\theta_m)
   \right]
-  R(\theta_a,\phi_a)
+  \boldsymbol{R}(\theta_a,\phi_a)
   \vec{S}_{a}^{ferro}
 
 We focus our attention on the expressions in the square brackets:
@@ -81,9 +86,9 @@ Next we write the expression under the sum explicitly:
   .. include:: exchange-matrix-spiral-rotated-details.txt
 
 .. math::
-  R^{\dagger}(\theta_m)
-  J(d)
-  R(\theta_{m+d})
+  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{J}(\vec{d})
+  \boldsymbol{R}(\theta_{m+d})
   =
   \begin{pmatrix}
     J_{++}e^{-i\vec{Q}\vec{d}}              &
@@ -99,16 +104,17 @@ Next we write the expression under the sum explicitly:
 
 Next we write back the sum over :math:`m`, and using the facts that:
 
-* :math:`\vec{d} = \sum_{i}\vec{a}_in_i`
-* :math:`J` does not depend on the index :math:`m`
+* :math:`\vec{d} = \sum_{i}\vec{a}_in_i`, where :math:`\vec{a}_i` are the lattice vectors
+  and :math:`n_i \in \mathbb{Z}`, :math:`i = 1,2,3`.
+* :math:`\boldsymbol{J}(\vec{d}) = \boldsymbol{J_{ab}}(\vec{d}_{ab})`
+  does not depend on the index :math:`m`
 * :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{G}}`
   and
-  :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}`
+  :math:`\sum_{r_m}e^{\pm 2i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}`
 
-  .. dropdown:: Details
+  .. dropdown:: Details [1]_
 
     .. include:: exchange-details-on-fourier-identities.txt
-
 
 we get an expression for the sum:
 
@@ -164,15 +170,15 @@ Next we turn our attention to the Zeeman term:
   \left[
   \sum_{m}
   \vec{H}^{\dagger}_{ma}
-  R(\theta_m)
+  \boldsymbol{R}(\theta_m)
   \right]
-  R(\theta_a,\phi_a)
+  \boldsymbol{R}(\theta_a,\phi_a)
   \vec{S}_{a}^{ferro}
 
 Let us compute part of the expression:
 
 .. math::
-  R(\theta_a,\phi_a)
+  \boldsymbol{R}(\theta_a,\phi_a)
   \vec{S}_a^{ferro}
   =
   S_a
@@ -186,10 +192,12 @@ Magnetic field in the spherical reference frame is written as:
 
 .. dropdown:: Details
 
-  Magnetic field in the :math:`\hat{u}\hat{v}\hat{n}` reference frame is written as:
+  Magnetic field in the :math:`uvn` reference frame is written as:
 
   .. math::
-    \langle uvn\vert H_{ma}\rangle = \left(H_{ma}^u, H_{ma}^v, H_{ma}^n\right)^T
+    \langle uvn \vert H_{ma}\rangle
+    =
+    \left(H_{ma}^u, H_{ma}^v, H_{ma}^n\right)^{\dagger}
 
   Let us recall the transformation matrix:
 
@@ -198,13 +206,13 @@ Magnetic field in the spherical reference frame is written as:
   And compute the magnetic field in the spherical reference frame:
 
   .. math::
-    \langle u^+u^-n\vert H_{ma}\rangle
+    \langle u^+u^-n \vert H_{ma} \rangle
     =
-    \langle u^+u^-n\vert uvn\rangle
-    \langle uvn\vert H_{ma}\rangle
+    \langle u^+u^-n \vert uvn \rangle
+    \langle uvn \vert H_{ma} \rangle
     =
-    \langle uvn\vert T^{\dagger}\vert uvn\rangle
-    \langle uvn\vert H_{ma}\rangle
+    \langle uvn \vert T^{\dagger} \vert uvn \rangle
+    \langle uvn \vert H_{ma} \rangle
 
   Which leads to the expression:
 
@@ -256,7 +264,7 @@ Then the energy is:
   \right]
 
 Let us set each component of the magnetic field to be a harmonic function in the
-:math:`\hat{u}\hat{v}\hat{n}` reference frame:
+:math:`uvn` reference frame:
 
 .. math::
   \begin{aligned}
@@ -272,7 +280,7 @@ Let us set each component of the magnetic field to be a harmonic function in the
     H^v\cos(\vec{Q}^v\vec{r}_m+\phi_a^v) \\
     H_{ma}^n
     &=
-    H^v\cos(\vec{Q^v}(\vec{r}_m+\vec{r}_a)+\varphi^v)
+    H^n\cos(\vec{Q^n}(\vec{r}_m+\vec{r}_a)+\varphi^n)
     =
     H^n\cos(\vec{Q}^n\vec{r}_m+\phi_a^n) \\
   \end{aligned}

@@ -1,8 +1,8 @@
 .. math::
   &\sum_m
-  R^{\dagger}(\theta_m)
-  J_{ab}(d_{ab})
-  R(\theta_{m+d})
+  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{R}(\theta_{m+d})
   \\&=
   \begin{pmatrix}
     J_{++}\sum_m e^{-i\vec{Q}\vec{d}}              &

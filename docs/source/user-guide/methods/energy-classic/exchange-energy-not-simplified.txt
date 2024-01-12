@@ -3,15 +3,15 @@
   =
   \dfrac{1}{2}
   \sum_{a, b, \vec{d}}
-  (\vec{S}_a^{ferro})^T
-  R^{\dagger}(\theta_a,\phi_a)
+  (\vec{S}_a^{ferro})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   \left[
   \sum_{m}
-  R^{\dagger}(\theta_m)
-  J_{ab}(d_{ab})
-  R(\theta_{m+d})
+  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{R}(\theta_{m+d})
   \right]
-  R(\theta_b,\phi_b)
+  \boldsymbol{R}(\theta_b,\phi_b)
   \vec{S}_b^{ferro}
   \\&=
   \dfrac{1}{2}

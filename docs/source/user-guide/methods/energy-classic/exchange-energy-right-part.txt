@@ -1,5 +1,5 @@
 .. math::
-  R(\theta_b,\phi_b)
+  \boldsymbol{R}(\theta_b,\phi_b)
   \vec{S}_b^{ferro}
   =
   S_b

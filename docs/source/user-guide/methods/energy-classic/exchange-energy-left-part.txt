@@ -1,6 +1,6 @@
 .. math::
-  (\vec{S}_a^{ferro})^T
-  R^{\dagger}(\theta_a,\phi_a)
+  (\vec{S}_a^{ferro})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   =
   (0,0,S_a)
   \begin{pmatrix}

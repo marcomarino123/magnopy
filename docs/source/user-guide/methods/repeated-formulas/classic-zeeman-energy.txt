@@ -1,19 +1,18 @@
 .. math::
-  &\dfrac{E_{Zeeman}}{M}
+  \dfrac{E_{Zeeman}}{M}
   =
   \mu_B
   \sum_{a}
   g_a  S_a
-  \Bigg\{
+  \Bigg\{&
     \cos\theta_a
     H^n
     \delta_{\vec{Q}^n, \vec{G}}
     \cos\phi^n_a
-    +
+    \\+
     \dfrac{\sin\theta_a}{2}
-    \Biggl(
-      \\
-      &H^u
+    \Biggl(&
+      H^u
       \Bigl[
         \delta_{\vec{Q}_m^u + \vec{Q}_m, \vec{G}} \cos(\phi_a^u + \phi_a)
         +

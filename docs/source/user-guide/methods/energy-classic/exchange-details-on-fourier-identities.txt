@@ -25,7 +25,7 @@ because the sum can not be zero:
 
 where we projected the :math:`\vec{Q}` vector on the three lattice vectors
 :math:`\vec{a}_1`, :math:`\vec{a}_2`, :math:`\vec{a}_3`; :math:`n \in \mathbb{Z}`
-One can rewrite the condition above  :math:`\vec{Q}` vectors in a form:
+One can rewrite the condition above in a form:
 
 .. math::
     Q_{a_i} = \dfrac{2\pi}{a_i}n_i,  i = 1, 2, 3
@@ -41,7 +41,7 @@ and write the sum in a form:
     \sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{G}}
 
 In the case of the sum with :math:`2\vec{Q}\vec{r}_m` under the exponent
-the argument is the same, but at the final condition differs:
+the argument is the same, but the final condition differs:
 
 .. math::
     Q_{a_i} = \dfrac{\pi}{a_i}n_i,  i = 1, 2, 3
@@ -55,4 +55,8 @@ We denote this condition on the :math:`\vec{Q}` vector as
 :math:`\delta_{\vec{Q},\frac{\vec{G}}{2}}` and write the sum in a form:
 
 .. math::
-    \sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}
+    \sum_{r_m}e^{\pm 2i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}
+
+
+.. [1] Ashcroft, Neil W., and N. David Mermin.
+       Solid state physics. Cengage Learning, 2022.

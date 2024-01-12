@@ -2,19 +2,19 @@
   H
   =
   \dfrac{1}{2}
-  \sum_{m, \vec{d}, a, b}
-  (\vec{S}_{ma}^{ferro})^T
-  R^{\dagger}(\theta_a,\phi_a)
-  R^{\dagger}(\theta_m)
-  J_{ab}(d_{ab})
-  R(\theta_{m+d})
-  R(\theta_b,\phi_b)
-  \vec{S}_{m+d,b}^{ferro}
+  \sum_{m, \vec{d}_{ab}, a, b}
+  (\vec{S}_{ma}^{ferro})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{R}(\theta_{m+d_{ab}})
+  \boldsymbol{R}(\theta_b,\phi_b)
+  \vec{S}_{m+d_{ab},b}^{ferro}
   +
   \mu_B
   \vec{H}^{\dagger}
   \sum_{m,a}
   g_a
-  R(\theta_m)
-  R(\theta_a,\phi_a)
+  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\theta_a,\phi_a)
   \vec{S}_{ma}^{ferro}

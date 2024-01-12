@@ -1,0 +1,6 @@
+"reference frame" = "coordinate system" = "basis".
+Particular reference frame is usually mentioned as ":math:`xyz` reference frame",
+which is understood as the coordinate system defined by the three unit vectors:
+:math:`\hat{x}`, :math:`\hat{y}`, :math:`\hat{z}` and some origin point :math:`O`.
+With the bra-ket notation it is usually written as:
+:math:`\vert xyz \rangle`

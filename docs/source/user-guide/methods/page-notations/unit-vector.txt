@@ -1,0 +1,8 @@
+:math:`\hat{r}` is a unit vector, corresponding to the vector
+:math:`\vec{r}` in Euclidean space:
+
+.. math::
+
+  \hat{r} = \dfrac{\vec{r}}{r},
+
+where :math:`r` is a length of the vector :math:`\vec{r}`.

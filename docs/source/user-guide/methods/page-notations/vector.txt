@@ -1,0 +1,5 @@
+:math:`\vec{r}` is a vector in 3D Euclidean space.
+In some coordinate system it is represented by a *column* of coordinates:
+
+* :math:`\vec{r} = (r_x, r_y, r_z)^T` - in some :math:`xyz` reference frame.
+* :math:`\vec{r} = (r_u, r_v, r_n)^T` - in some :math:`uvn` reference frame.

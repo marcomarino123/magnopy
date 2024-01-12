@@ -1,0 +1,2 @@
+Matrix is denoted with bold symbol: :math:`\boldsymbol{A}`.
+Matrix element :math:`i,j` is denoted as: :math:`A_{ij}`.

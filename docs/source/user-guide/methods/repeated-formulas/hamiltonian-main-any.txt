@@ -1,3 +1,12 @@
 .. math::
-  H = \dfrac{1}{2} \sum_{m, \vec{d}, a, b} \vec{S}_{ma}^{\dagger} J_{ab}(d_{ab})\vec{S}_{m+d,b}
-  + \mu_B\vec{H}^{\dagger}\sum_{m,a} g_a \vec{S}_{ma}
+  H
+  =
+  \dfrac{1}{2}
+  \sum_{m, \vec{d}_{ab}, a, b}
+  \vec{S}_{ma}^{\dagger}
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \vec{S}_{m+d,b}
+  +
+  \mu_B\vec{H}^{\dagger}
+  \sum_{m,a}
+  g_a \vec{S}_{ma}

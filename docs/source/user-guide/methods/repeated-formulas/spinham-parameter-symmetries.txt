@@ -1,2 +1,6 @@
 .. math::
-  J_{ab}(d_{ab}) = J_{ba}^T(d_{ba}) = J_{ba}^T(-d_{ab})
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  =
+  \boldsymbol{J_{ba}}^T(\vec{d}_{ba})
+  =
+  \boldsymbol{J_{ba}}^T(-\vec{d}_{ab})

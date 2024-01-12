@@ -1,0 +1,1 @@
+:math:`\mathrm{Tr}(A) = \sum_{i} A_{ii}` is a trace of the square matrix :math:`A`.

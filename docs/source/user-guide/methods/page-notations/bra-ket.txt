@@ -1,0 +1,2 @@
+Bra-ket notation is used.
+See :ref:`user-guide_methods_bra-ket` for the introduction remarks.

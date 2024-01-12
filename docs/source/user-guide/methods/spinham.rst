@@ -65,7 +65,7 @@ where vector :math:`\vec{d}_{ab} = \vec{r}_{m+d} - \vec{r}_m`  runs over the nei
 
   .. math::
 
-    \boldsymbol{J_{ab}}^{aniso-symm} = \dfrac{\boldsymbol{J_{ab}} + \boldsymbol{J_{ab}}^T}{2} - J_{ab}^{iso}\cdot \boldsymbol{I}
+    \boldsymbol{J_{ab}^{aniso-symm}} = \dfrac{\boldsymbol{J_{ab}} + \boldsymbol{J_{ab}}^T}{2} - J_{ab}^{iso}\cdot \boldsymbol{I}
 
   where :math:`\boldsymbol{I}` is a :math:`3\times3` identity matrix.
 
@@ -73,7 +73,7 @@ where vector :math:`\vec{d}_{ab} = \vec{r}_{m+d} - \vec{r}_m`  runs over the nei
 
   .. math::
 
-    \boldsymbol{J_{ab}}^{aniso-asymm} = \dfrac{\boldsymbol{J_{ab}} - \boldsymbol{J_{ab}}^T}{2}
+    \boldsymbol{J_{ab}^{aniso-asymm}} = \dfrac{\boldsymbol{J_{ab}} - \boldsymbol{J_{ab}}^T}{2}
     =
     \begin{pmatrix}
       0    & D_z  & -D_y \\

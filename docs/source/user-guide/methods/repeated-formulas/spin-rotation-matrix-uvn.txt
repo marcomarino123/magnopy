@@ -1,5 +1,5 @@
 .. math::
-  R_a = R(\theta_a, \phi_a) =
+  \boldsymbol{R_a} = \boldsymbol{R}(\theta_a, \phi_a) =
   \begin{pmatrix}
       \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
       -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &

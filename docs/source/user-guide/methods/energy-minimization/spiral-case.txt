@@ -3,21 +3,25 @@ Spiral state
 
 Examples of the spirals can be found :ref:`here<user-guide_methods_single-q_examples>`.
 
+In that case both :math:`\delta_{\vec{Q},\vec{G}} = 0`
+and :math:`\delta_{\frac{\vec{Q}}{2},\vec{G}} = 0`,
+therefore, the expression for the exchange energy is simplified to
+
 .. math::
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}}
+  \sum_{a, b, \vec{d}_{ab}}
   S_aS_b
   \Biggl\{
-    J_{nn}\cos\theta_a\cos\theta_b
+    J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
     \\
     &+
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{uu}+J_{vv}}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+      \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
       +
-      \dfrac{J_{uv}-J_{vu}}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+      \dfrac{J_{uv}(\vec{d}_{ab})-J_{vu}(\vec{d}_{ab})}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
     \Bigr]
   \Biggr\}
 
@@ -32,10 +36,10 @@ Let us simplify the expression by explicitly writing the double-counted terms
 
   Which means:
 
-  * :math:`J_{uu}(d_{ab}) = J_{uu}(d_{ba}) = J_{uu}`
-  * :math:`J_{vv}(d_{ab}) = J_{vv}(d_{ba}) = J_{vv}`
-  * :math:`J_{nn}(d_{ab}) = J_{nn}(d_{ba}) = J_{nn}`
-  * :math:`D_n(d_{ab}) = -D_n(d_{ba}) = D_n`
+  * :math:`J_{uu}(\vec{d}_{ab}) = J_{uu}(\vec{d}_{ba}) = J_{uu}`
+  * :math:`J_{vv}(\vec{d}_{ab}) = J_{vv}(\vec{d}_{ba}) = J_{vv}`
+  * :math:`J_{nn}(\vec{d}_{ab}) = J_{nn}(\vec{d}_{ba}) = J_{nn}`
+  * :math:`D_n(\vec{d}_{ab}) = -D_n(\vec{d}_{ba}) = D_n`
 
 
   .. math::
@@ -45,24 +49,24 @@ Let us simplify the expression by explicitly writing the double-counted terms
     \sum_a\sum_{b\ge a}\sum_{\vec{d}}
     S_aS_b
     \Biggl\{
-      J_{nn}(d_{ab})\cos\theta_a\cos\theta_b
+      J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
       +
-      J_{nn}(d_{ba})\cos\theta_b\cos\theta_a
+      J_{nn}(\vec{d}_{ba})\cos\theta_b\cos\theta_a
       \\
       &+
       \sin\theta_a\sin\theta_b
       \Bigl[
-        \dfrac{J_{uu}(d_{ab})+J_{vv}(d_{ab})}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+        \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
         +
-        D_n(d_{ab})\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+        D_n(\vec{d}_{ab})\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
       \Bigr]
       \\
       &+
       \sin\theta_b\sin\theta_a
       \Bigl[
-        \dfrac{J_{uu}(d_{ba})+J_{vv}(d_{ba})}{2}\cos(\vec{Q}\vec{d}+\phi_a-\phi_b)
+        \dfrac{J_{uu}(\vec{d}_{ba})+J_{vv}(\vec{d}_{ba})}{2}\cos(\vec{Q}\vec{d}+\phi_a-\phi_b)
         +
-        D_n(d_{ba})\sin(\vec{Q}\vec{d}+\phi_a-\phi_b)
+        D_n(\vec{d}_{ba})\sin(\vec{Q}\vec{d}+\phi_a-\phi_b)
       \Bigr]
     \Biggr\}
 

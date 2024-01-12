@@ -1,5 +1,5 @@
 .. math::
-  \langle u^+u^-n\vert S_{ma}\rangle
+  \langle u^+u^-n \vert S_{ma} \rangle
   =
   \begin{pmatrix}
     S_{ma}^{-} \\
@@ -7,7 +7,8 @@
     S_{ma}^{n} \\
   \end{pmatrix}
   =
-  S_a\cdot
+  S_a
+  \cdot
   \begin{pmatrix}
      \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{- i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\
      \dfrac{\sin\theta_a}{\sqrt{2}}\cdot e^{+ i (\vec{Q}\cdot\vec{r}_m + \phi_a)} \\

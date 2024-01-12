@@ -1,7 +1,7 @@
 .. math::
-  \langle uvn\vert T\vert uvn \rangle
+  \langle uvn \vert T \vert uvn \rangle
   =
-  \langle uvn \vert u^+u^-n\rangle
+  \langle uvn \vert u^+u^-n \rangle
   =
   \dfrac{1}{\sqrt{2}}
   \begin{pmatrix}

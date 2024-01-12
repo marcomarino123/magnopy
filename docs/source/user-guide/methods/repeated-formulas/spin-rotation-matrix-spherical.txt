@@ -1,5 +1,5 @@
 .. math::
-  \langle u^+u^-n\vert R(\theta_a,\phi_a) \vert u^+u^-n\rangle =
+  \langle u^+u^-n \vert R(\theta_a,\phi_a) \vert u^+u^-n \rangle =
   \begin{pmatrix}
     \dfrac{1+\cos\theta_a}{2}                    &
     \dfrac{(\cos\theta_a-1)e^{-2i\phi_a}}{2}     &

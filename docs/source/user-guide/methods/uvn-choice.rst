@@ -11,8 +11,7 @@ Choice of the uvn reference frame
   * .. include:: page-notations/matrix.txt
   * .. include:: page-notations/reference-frame.txt
   * .. include:: page-notations/cross-product.txt
-  * On this page all vectors and matrices are written in the
-    :math:`xyz` reference frame.
+  * .. include:: page-notations/in-xyz.txt
 
 
 The exchange and on-site anisotropy matrices are usually given in some global

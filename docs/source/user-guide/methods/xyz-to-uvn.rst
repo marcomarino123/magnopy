@@ -6,32 +6,46 @@ Change from xyz to uvn
 
 .. dropdown:: Notation used on this page
 
-  * "reference frame" = "coordinate system" = "basis"
-  * For this page we adopt bra-ket notation.
+  * .. include:: page-notations/vector.txt
+  * .. include:: page-notations/matrix.txt
+  * .. include:: page-notations/reference-frame.txt
+  * .. include:: page-notations/bra-ket.txt
 
 
 Here we discuss how the spin vectors and exchange matrices are
-changing under when we move from the given to the chosen reference frame.
+changing under the change from the given to the chosen reference frame.
 
 As shown in the :ref:`previous section <user-guide_methods_uvn-choice>`
-the rotation matrix :math:`R_{rf}` rotate :math:`\vert xyz\rangle` reference frame
-to the :math:`\vert uvn\rangle`:
+the rotation matrix :math:`\boldsymbol{R_{rf}}` rotate :math:`\vert xyz\rangle`
+reference frame to the :math:`\vert uvn\rangle`
 
 .. math::
-  \vert uvn\rangle = R_{rf}\vert xyz\rangle \Rightarrow
-  \langle uvn\vert = \langle xyz\vert R_{rf}^T = \langle xyz R_{rf}\vert
+  \vert uvn\rangle
+  =
+  \boldsymbol{R_{rf}} \vert xyz \rangle
+  \Rightarrow
+  \langle uvn \vert
+  =
+  \langle xyz \vert \boldsymbol{R_{rf}}^{\dagger}
+  =
+  \langle xyz R_{rf} \vert
 
 .. math::
-  \langle xyz\vert R_{rf}\vert xyz\rangle
-  = \langle xyz\vert uvn\rangle
+  \langle xyz \vert R_{rf} \vert xyz \rangle
+  =
+  \langle xyz \vert uvn \rangle
 
 Let us first work with the arbitrary (spin) vector :math:`\vert S\rangle`:
 
 .. math::
-  \langle uvn\vert S\rangle
-  = \langle xyzR_{rf}\vert S\rangle
-  = \langle xyz\vert R_{rf}^T\vert S\rangle
-  = \langle xyz\vert R_{rf}^T\vert xyz\rangle\langle xyz\vert S\rangle
+  \langle uvn \vert S \rangle
+  =
+  \langle xyz R_{rf} \vert S\rangle
+  =
+  \langle xyz \vert R_{rf}^{\dagger} \vert S \rangle
+  =
+  \langle xyz \vert R_{rf}^{\dagger} \vert xyz \rangle
+  \langle xyz \vert S \rangle
 
 Let us write this result explicitly:
 
@@ -54,22 +68,25 @@ Let us write this result explicitly:
   \end{pmatrix}
 
 .. note::
-  Rotation matrix :math:`R_{rf}` is explicitly written in the
+  Rotation matrix :math:`\boldsymbol{R_{rf}}` is explicitly written in the
   :math:`\vert xyz\rangle` reference frame in the
   :ref:`previous section <eq:uvn-choice-rot-matrix>`.
 
 Next, we write the equations for the exchange matrices:
 
 .. math::
-  \langle uvn\vert J_{ij}\vert uvn\rangle
-  = \langle uvn\vert xyz\rangle
-  \langle xyz \vert J_{ij} \vert xyz\rangle
-  \langle xyz\vert uvn \rangle
-  = \langle xyz\vert R_{rf}^T
-  \vert xyz\rangle\langle xyz\vert
-  J_{ij}
-  \vert xyz\rangle\langle xyz\vert
-  R_{rf}\vert xyz\rangle
+  \langle uvn \vert J \vert uvn \rangle
+  =
+  \langle uvn \vert xyz \rangle
+  \langle xyz \vert J \vert xyz \rangle
+  \langle xyz \vert uvn \rangle
+  =
+  \langle xyz \vert R_{rf}^{\dagger}
+  \vert xyz \rangle
+  \langle xyz \vert J \vert xyz \rangle
+  \langle xyz \vert
+  R_{rf}
+  \vert xyz \rangle
 
 In a matrix form this result is written as:
 
@@ -79,18 +96,12 @@ In a matrix form this result is written as:
     J_{vu} & J_{vv} & J_{vn} \\
     J_{nu} & J_{nv} & J_{nn} \\
   \end{pmatrix}
-  = R_{rf}^T
+  = \boldsymbol{R_{rf}}^{\dagger}
   \begin{pmatrix}
     J_{xx} & J_{xy} & J_{xz} \\
     J_{yx} & J_{yy} & J_{yz} \\
     J_{zx} & J_{zy} & J_{zz} \\
-  \end{pmatrix} R_{rf}
-
-
-
-
-
-
+  \end{pmatrix} \boldsymbol{R_{rf}}
 
 .. important::
   In the following pages the reference frame :math:`\vert uvn\rangle`

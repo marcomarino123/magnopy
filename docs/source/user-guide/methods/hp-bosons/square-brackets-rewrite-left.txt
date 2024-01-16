@@ -26,7 +26,7 @@
     (\vec{t}_a)^{\dagger} \\
     (\vec{f}_a)^{\dagger} \\
   \end{pmatrix}
-  \\=&
+  =\\&=
   S_a
   \left[
     (\vec{f}_a)^{\dagger}

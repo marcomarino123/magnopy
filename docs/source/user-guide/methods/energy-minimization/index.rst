@@ -90,32 +90,28 @@ therefore, the expression for the energy is simplified to:
   S_aS_b
   \Biggl\{
     J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
-    \\
-    &+
+    +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
       \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\phi_b-\phi_a)
       +
       \dfrac{J_{uv}(\vec{d}_{ab})-J_{vu}(\vec{d}_{ab})}{2}\sin(\phi_b-\phi_a)
     \Bigr]
-    \\
-    &+
+    +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
       \dfrac{J_{uu}(\vec{d}_{ab})-J_{vv}(\vec{d}_{ab})}{2}\cos(\phi_a+\phi_b)
         +
       \dfrac{J_{uv}(\vec{d}_{ab})+J_{vu}(\vec{d}_{ab})}{2}\sin(\phi_a+\phi_b)
     \Bigr]
-    \\
-    &+
+    +\\&+
     \sin\theta_a\cos\theta_b
     \Bigl[
       J_{un}(\vec{d}_{ab})\cos\phi_a
       +
       J_{vn}(\vec{d}_{ab})\sin\phi_a
     \Bigr]
-    \\
-    &+
+    +\\&+
     \cos\theta_a\sin\theta_b
     \Bigl[
       J_{nu}(\vec{d}_{ab})\cos\phi_b
@@ -196,16 +192,14 @@ therefore, the expression for the energy is simplified to:
   S_aS_b
   \Biggl\{
     J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
-    \\
-    &-
+    -\\&-
     \sin\theta_a\sin\theta_b
     \Bigl[
       \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\phi_b-\phi_a)
       +
       \dfrac{J_{uv}(\vec{d}_{ab})-J_{vu}(\vec{d}_{ab})}{2}\sin(\phi_b-\phi_a)
     \Bigr]
-    \\
-    &-
+    -\\&-
     \sin\theta_a\sin\theta_b
     \Bigl[
       \dfrac{J_{uu}(\vec{d}_{ab})-J_{vv}(\vec{d}_{ab})}{2}\cos(\phi_a+\phi_b)

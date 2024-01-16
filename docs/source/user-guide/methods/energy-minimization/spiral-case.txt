@@ -15,8 +15,7 @@ therefore, the expression for the exchange energy is simplified to
   S_aS_b
   \Biggl\{
     J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
-    \\
-    &+
+    +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
       \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
@@ -52,16 +51,14 @@ Let us simplify the expression by explicitly writing the double-counted terms
       J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
       +
       J_{nn}(\vec{d}_{ba})\cos\theta_b\cos\theta_a
-      \\
-      &+
+      +\\&+
       \sin\theta_a\sin\theta_b
       \Bigl[
         \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
         +
         D_n(\vec{d}_{ab})\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
       \Bigr]
-      \\
-      &+
+      +\\&+
       \sin\theta_b\sin\theta_a
       \Bigl[
         \dfrac{J_{uu}(\vec{d}_{ba})+J_{vv}(\vec{d}_{ba})}{2}\cos(\vec{Q}\vec{d}+\phi_a-\phi_b)
@@ -80,8 +77,7 @@ Let us simplify the expression by explicitly writing the double-counted terms
     S_aS_b
     \Biggl\{
       J_{nn}\cos\theta_a\cos\theta_b
-      \\
-      &+
+      +\\&+
       \sin\theta_a\sin\theta_b
       \Biggl(
         \dfrac{J_{uu}+J_{vv}}{2}
@@ -90,8 +86,7 @@ Let us simplify the expression by explicitly writing the double-counted terms
         +
         \cos(\vec{Q}\vec{d}+\Delta\phi_{ab})
         \Bigr]
-        \\
-        &+
+        +\\&+
         D_n
         \Bigl[
         \sin(\vec{Q}\vec{d}-\Delta\phi_{ab})
@@ -100,14 +95,12 @@ Let us simplify the expression by explicitly writing the double-counted terms
         \Bigr]
       \Biggr)
     \Biggr\}
-    \\
-    &=
+    =\\&=
     \sum_a\sum_{b\ge a}\sum_{\vec{d}}
     S_aS_b
     \Biggl\{
       J_{nn}\cos\theta_a\cos\theta_b
-      \\
-      &+
+      +\\&+
       \sin\theta_a\sin\theta_b
       \Biggl(
         (J_{uu}+J_{vv})
@@ -121,14 +114,12 @@ Let us simplify the expression by explicitly writing the double-counted terms
         \Bigr]
       \Biggr)
     \Biggr\}
-    \\
-    &=
+    =\\&=
     \sum_a\sum_{b\ge a}\sum_{\vec{d}}
     S_aS_b
     \Biggl\{
       J_{nn}\cos\theta_a\cos\theta_b
-      \\
-      &+
+      +\\&+
       \sin\theta_a\sin\theta_b\cos(\vec{Q}\vec{d})
       \Biggl(
         \left[J_{uu}+J_{vv}\right]

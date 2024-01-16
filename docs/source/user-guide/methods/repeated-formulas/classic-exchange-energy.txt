@@ -6,16 +6,14 @@
   S_aS_b
   \Biggl\{
     J_{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
-    \\
-    &+
+    +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
       \dfrac{J_{uu}(\vec{d}_{ab})+J_{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
       +
       \dfrac{J_{uv}(\vec{d}_{ab})-J_{vu}(\vec{d}_{ab})}{2}\sin(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
     \Bigr]
-    \\
-    &+
+    +\\&+
     \delta_{\vec{Q},\frac{\vec{G}}{2}}
     \sin\theta_a\sin\theta_b
     \Bigl[
@@ -23,8 +21,7 @@
         +
       \dfrac{J_{uv}(\vec{d}_{ab})+J_{vu}(\vec{d}_{ab})}{2}\sin(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})
     \Bigr]
-    \\
-    &+
+    +\\&+
     \delta_{\vec{Q},\vec{G}}
     \sin\theta_a\cos\theta_b
     \Bigl[
@@ -32,8 +29,7 @@
       +
       J_{vn}(\vec{d}_{ab})\sin\phi_a
     \Bigr]
-    \\
-    &+
+    +\\&+
     \delta_{\vec{Q},\vec{G}}
     \cos\theta_a\sin\theta_b
     \Bigl[

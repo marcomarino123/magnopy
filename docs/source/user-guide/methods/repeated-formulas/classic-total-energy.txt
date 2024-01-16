@@ -7,16 +7,14 @@
     S_aS_b
     \Biggl\{
       J_{nn}\cos\theta_a\cos\theta_b
-      \\
-      &+
+      +\\&+
       \sin\theta_a\sin\theta_b
       \Bigl[
         \dfrac{J_{uu}+J_{vv}}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
         +
         \dfrac{J_{uv}-J_{vu}}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
       \Bigr]
-      \\
-      &+
+      +\\&+
       \delta_{\vec{Q},\frac{\vec{G}}{2}}
       \sin\theta_a\sin\theta_b
       \Bigl[
@@ -24,8 +22,7 @@
           +
         \dfrac{J_{uv}+J_{vu}}{2}\sin(\phi_a+\phi_b+\vec{Q}\vec{d})
       \Bigr]
-      \\
-      &+
+      +\\&+
       \delta_{\vec{Q},\vec{G}}
       \sin\theta_a\cos\theta_b
       \Bigl[
@@ -33,8 +30,7 @@
         +
         J_{vn}\sin\phi_a
       \Bigr]
-      \\
-      &+
+      +\\&+
       \delta_{\vec{Q},\vec{G}}
       \cos\theta_a\sin\theta_b
       \Bigl[
@@ -43,8 +39,7 @@
         J_{nv}\sin(\phi_b+\vec{Q}\vec{d})
       \Bigr]
     \Biggr\}
-    \\
-    &+
+    +\\&+
     \mu_B
     \sum_{a}
     g_a  S_a
@@ -53,7 +48,7 @@
       H^n
       \delta_{\vec{Q}^n, \vec{G}}
       \cos\phi^n_a
-      \\+&
+      +\\+&
       \dfrac{\sin\theta_a}{2}
       \Biggl(
         H^u
@@ -62,8 +57,7 @@
           +
           \delta_{\vec{Q}_m^u - \vec{Q}_m, \vec{G}} \cos(\phi_a^u - \phi_a)
         \Bigr]
-        \\
-        &+
+        +\\&+
         H^v
         \Bigl[
           \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)

@@ -4,13 +4,13 @@
   +
   J_{-+}\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d})}
   }{2}
-  \\&=
+  =\\&=
   \dfrac{
   (A-iS_{uv})\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b+\vec{Q}\vec{d})}
   +
   (A+iS_{uv})\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d})}
   }{2}
-  \\&=
+  =\\&=
   A\sin\theta_a\sin\theta_b
   \dfrac{
   e^{i(\phi_a+\phi_b+\vec{Q}\vec{d})}+e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d})}
@@ -20,15 +20,15 @@
   \dfrac{
   e^{i(\phi_a+\phi_b+\vec{Q}\vec{d})}-e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d})}
   }{2i}
-  \\&=
+  =\\&=
   A\sin\theta_a\sin\theta_b\cos(\phi_a+\phi_b+\vec{Q}\vec{d})
   +
   S_{uv}\sin\theta_a\sin\theta_b\sin(\phi_a+\phi_b+\vec{Q}\vec{d})
-  \\&=
+  =\\&=
   \dfrac{S_{uu}-S_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a+\phi_b+\vec{Q}\vec{d})
   +
   S_{uv}\sin\theta_a\sin\theta_b\sin(\phi_a+\phi_b+\vec{Q}\vec{d})
-  \\&=
+  =\\&=
   \dfrac{J_{uu}-J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a+\phi_b+\vec{Q}\vec{d})
   +
   \dfrac{J_{uv}+J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a+\phi_b+\vec{Q}\vec{d})

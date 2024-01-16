@@ -13,12 +13,12 @@ Let us define:
   =
   H^u\cos(\theta^u_m+\phi_a^u)
   \cos(\theta_m+\phi_a)
-  \\&=
+  =\\&=
   H^u\sum_m
   \dfrac{1}{4}
   (e^{i(\theta^u_m+\phi_a^u)}+e^{-i(\theta^u_m+\phi_a^u)})
   (e^{i(\theta_m+\phi_a)}+e^{-i(\theta_m+\phi_a)})
-  \\&=
+  =\\&=
   H^u\sum_m
   \dfrac{1}{4}
   \left[
@@ -30,7 +30,7 @@ Let us define:
   +
   e^{-i\theta^-}e^{-i\phi^-}
   \right]
-  \\&=
+  =\\&=
   H^u\dfrac{1}{4}
   \left[
   e^{i\phi^+}\sum_m e^{i\vec{Q}^+\vec{r}_m}
@@ -41,7 +41,7 @@ Let us define:
   +
   e^{-i\phi^-}\sum_m e^{-i\vec{Q}^-\vec{r}_m}
   \right]
-  \\&=
+  =\\&=
   H^uM\dfrac{1}{4}
   \left[
   e^{i\phi^+} \delta_{\vec{Q}^+, \vec{G}}
@@ -52,14 +52,14 @@ Let us define:
   +
   e^{-i\phi^-}  \delta_{\vec{Q}^-, \vec{G}}
   \right]
-  \\&=
+  =\\&=
   \dfrac{H^uM}{2}
   \left[
   \delta_{\vec{Q}^+, \vec{G}} \cos\phi^+
   +
   \delta_{\vec{Q}^-, \vec{G}} \cos\phi^-
   \right]
-  \\&=
+  =\\&=
   \dfrac{H^uM}{2}
   \left[
   \delta_{\vec{Q}_m^u + \vec{Q}_m, \vec{G}} \cos(\phi_a^u + \phi_a)

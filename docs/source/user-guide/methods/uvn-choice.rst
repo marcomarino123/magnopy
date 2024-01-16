@@ -80,7 +80,7 @@ frame to the direction of the given unit vector:
         -\dfrac{n_xn_y}{1+n_z}   & 1 - \dfrac{n_y^2}{1+n_z} & n_y  \\
         -n_x                     & -n_y                     & n_z  \\
       \end{pmatrix}
-      \\&=
+      =\\&=
       \begin{pmatrix}
         \cos\alpha + \sin^2\beta(1-\cos\alpha) &
         -\sin\beta\cos\beta(1-\cos\alpha)      &

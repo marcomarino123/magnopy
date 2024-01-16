@@ -35,14 +35,14 @@ We compute the fourier transform of it:
           \dfrac{1}{M}
           \sum_{m}e^{-i\vec{r}_m(\vec{k}+\vec{Q})}
         \right)
-        \\&+
+        +\\&+
         \dfrac{\sin\theta_a\cdot e^{i\phi_a}}{\sqrt{2}}
         \vert u^-\rangle
         \left(
           \dfrac{1}{M}
           \sum_{m}e^{-i\vec{r}_m(\vec{k}-\vec{Q})}
         \right)
-        \\&+
+        +\\&+
         \cos\theta
         \left(
           \dfrac{1}{M}

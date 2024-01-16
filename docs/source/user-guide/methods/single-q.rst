@@ -103,18 +103,18 @@ And the spin :math:`\vec{S}_{ma}` is
     &R_{11}
     =
     \cos(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \sin^2\phi_a(1-\cos\theta_a)\right]-\sin(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]
-    \\&=
+    =\\&=
     (1-\cos\theta_a)\left[\cos(\vec{Q}\cdot\vec{r}_m)\sin^2\phi_a+\sin(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a\right]+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
-    \\&=
+    =\\&=
     (1-\cos\theta_a)\sin\phi_a\sin(\vec{Q}\cdot\vec{r}_m+\phi_a)+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
 
   .. math::
     &R_{12}
     =
     \cos(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]-\sin(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \cos^2\phi_a(1-\cos\theta_a)\right]
-    \\&=
+    =\\&=
     (1-\cos\theta_a)\left[-\cos(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a-\sin(\vec{Q}\cdot\vec{r}_m)\cos^2\phi_a\right]-\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
-    \\&=
+    =\\&=
     -(1-\cos\theta_a)\cos\phi_a\sin(\vec{Q}\cdot\vec{r}_m+\phi_a)-\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
 
   .. math::
@@ -128,18 +128,18 @@ And the spin :math:`\vec{S}_{ma}` is
     &R_{21}
     =
     \sin(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \sin^2\phi_a(1-\cos\theta_a)\right]+\cos(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]
-    \\&=
+    =\\&=
     (1-\cos\theta_a)\left[\sin(\vec{Q}\cdot\vec{r}_m)\sin^2\phi_a-\cos(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a\right]+\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
-    \\&=
+    =\\&=
     -(1-\cos\theta_a)\sin\phi_a\cos(\vec{Q}\cdot\vec{r}_m+\phi_a)+\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
 
   .. math::
     &R_{22}
     =
     \sin(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]+\cos(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \cos^2\phi_a(1-\cos\theta_a)\right]
-    \\&=
+    =\\&=
     (1-\cos\theta_a)\left[-\sin(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a+\cos(\vec{Q}\cdot\vec{r}_m)\cos^2\phi_a\right]+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
-    \\&=
+    =\\&=
     (1-\cos\theta_a)\cos\phi_a\cos(\vec{Q}\cdot\vec{r}_m+\phi_a)+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
 
   .. math::

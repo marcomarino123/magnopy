@@ -29,7 +29,7 @@
     1 - \dfrac{\hat{a}^{\dagger}_b\hat{a}_b}{S_b}
     \\
   \end{pmatrix}
-  \\=&
+  =\\&=
   S_b
   \left[
     \vec{f}_b

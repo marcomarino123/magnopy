@@ -151,7 +151,7 @@ reference frame:
           i\sin(\vec{Q}\cdot\vec{r}_m + \phi_a)
         ]
       }{\sqrt{2}}
-      \\=
+      =\\=
       S_a
       \cdot
       \dfrac{
@@ -188,7 +188,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
     \langle u^+u^-n \vert uvn \rangle
     \langle uvn \vert R_a \vert uvn \rangle
     \langle uvn \vert u^+u^-n \rangle
-    \\&=
+    =\\&=
     \langle uvn \vert T^{\dagger} \vert uvn \rangle
     \langle uvn \vert R_a \vert uvn \rangle
     \langle uvn \vert T\vert uvn \rangle
@@ -218,7 +218,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
       i & -i & 0        \\
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
-    \\&=
+    =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
       \cos\theta_a + \sin\phi_a(1-\cos\theta_a)(\sin\phi_a + i\cos\phi_a)   &
@@ -236,7 +236,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
       i & -i & 0        \\
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
-    \\&=
+    =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
       1+\cos\theta_a                     &
@@ -269,7 +269,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
     \langle u^+u^-n \vert uvn \rangle
     \langle uvn \vert R(\theta_m) \vert uvn \rangle
     \langle uvn \vert u^+u^-n \rangle
-    \\&=
+    =\\&=
     \langle uvn \vert T^{\dagger} \vert uvn \rangle
     \langle uvn \vert R(\theta_m) \vert uvn \rangle
     \langle uvn \vert T \vert uvn \rangle
@@ -293,7 +293,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
       i & -i & 0        \\
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
-    \\&=
+    =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
       \cos\theta_m - i\sin\theta_m  &
@@ -311,7 +311,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
       i & -i & 0        \\
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
-    \\&=
+    =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
       2e^{-i\theta_m} & 0              & 0 \\

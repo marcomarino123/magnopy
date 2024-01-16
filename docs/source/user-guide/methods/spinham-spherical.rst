@@ -35,7 +35,7 @@ matrices. The exchange matrices are transformed as follows:
   \langle u^+u^-n \vert uvn \rangle
   \langle uvn \vert J_{ab}(\vec{d}_{ab}) \vert uvn \rangle
   \langle uvn \vert u^+u^-n \rangle
-  \\&=
+  =\\&=
   \langle uvn \vert T^{\dagger} \vert uvn \rangle
   \langle uvn \vert J_{ab}(\vec{d}_{ab}) \vert uvn \rangle
   \langle uvn \vert T\vert uvn \rangle
@@ -72,7 +72,7 @@ Which leads to the exchange matrix in a spherical reference frame:
       i & -i & 0        \\
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
-    \\&=
+    =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
       J_{uu} - i J_{vu} & J_{uv} - i J_{vv} & J_{un} - i J_{vn} \\
@@ -84,7 +84,7 @@ Which leads to the exchange matrix in a spherical reference frame:
       i & -i & 0        \\
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
-    \\&=
+    =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
       (J_{uu} + J_{vv}) + i(J_{uv} - J_{vu}) &

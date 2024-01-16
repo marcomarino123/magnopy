@@ -3,7 +3,7 @@
   \boldsymbol{R}^{\dagger}(\theta_m)
   \boldsymbol{J_{ab}}(\vec{d}_{ab})
   \boldsymbol{R}(\theta_{m+d})
-  \\&=
+  =\\&=
   \begin{pmatrix}
     J_{++}\sum_m e^{-i\vec{Q}\vec{d}}              &
     J_{+-}\sum_m e^{i\vec{Q}(2\vec{r}_m+\vec{d})}  &
@@ -15,7 +15,7 @@
     J_{n-}\sum_m e^{i\vec{Q}(\vec{r}_m+\vec{d})}   &
     J_{nn}\sum_m 1                                 \\
   \end{pmatrix}
-  \\&=
+  =\\&=
   \begin{pmatrix}
     J_{++}e^{-i\vec{Q}\vec{d}}\sum_m 1                        &
     J_{+-}e^{i\vec{Q}\vec{d}} \sum_m e^{i\vec{Q}2\vec{r}_m}   &
@@ -27,7 +27,7 @@
     J_{n-}e^{i\vec{Q}\vec{d}} \sum_m e^{i\vec{Q}\vec{r}_m}    &
     M\cdot J_{nn}                                             \\
   \end{pmatrix}
-  \\&=
+  =\\&=
   \begin{pmatrix}
     Me^{-i\vec{Q}\vec{d}} J_{++}                                   &
     Me^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-}  &

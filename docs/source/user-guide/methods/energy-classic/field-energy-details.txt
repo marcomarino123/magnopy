@@ -18,7 +18,7 @@
     \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}  \\
     \cos\theta_a                                \\
   \end{pmatrix}
-  \\&=
+  =\\&=
   \mu_B
   \sum_{a}
   g_a  S_a
@@ -33,7 +33,7 @@
   +
   H_{ma}^n\cos\theta_a
   \right]
-  \\&=
+  =\\&=
   \mu_B
   \sum_{a}
   g_a  S_a
@@ -48,7 +48,7 @@
   +
   H_{ma}^n\cos\theta_a
   \right]
-  \\&=
+  =\\&=
   \mu_B
   \sum_{a}
   g_a  S_a

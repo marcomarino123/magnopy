@@ -13,7 +13,7 @@
   \right]
   \boldsymbol{R}(\theta_b,\phi_b)
   \vec{S}_b^{ferro}
-  \\&=
+  =\\&=
   \dfrac{1}{2}
   \sum_{a, b, \vec{d}}
   MS_aS_b
@@ -38,19 +38,19 @@
     \dfrac{\sin\theta_b e^{i\phi_b}}{\sqrt{2}}   \\
     \cos\theta_b                                 \\
   \end{pmatrix}
-  \\&=
+  =\\&=
   \dfrac{1}{2}
   \sum_{a, b, \vec{d}}
   MS_aS_b
   \Biggl\{
     J_{nn}\cos\theta_a\cos\theta_b
-    \\&+
+    +\\&+
     \dfrac{
     J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
     +
     J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
     }{2}
-    \\&+
+    +\\&+
     \delta_{\vec{Q},\frac{\vec{G}}{2}}
     \Biggl[
       \dfrac{
@@ -59,7 +59,7 @@
       J_{-+}\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d})}
       }{2}
     \Biggr]
-    \\&+
+    +\\&+
     \delta_{\vec{Q},\vec{G}}
     \Biggl[
       \dfrac{
@@ -67,7 +67,7 @@
       +
       J_{-n}\sin\theta_a\cos\theta_b e^{-i\phi_a}
       }{\sqrt{2}}
-      \\&+
+      +\\&+
       \dfrac{
       J_{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
       +

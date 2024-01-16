@@ -13,12 +13,12 @@ Let us define:
   =
   H^v\cos(\theta^v_m+\phi_a^v)
   \sin(\theta_m+\phi_a)
-  \\&=
+  =\\&=
   H^v\sum_m
   \dfrac{1}{4i}
   (e^{i(\theta^v_m+\phi_a^v)}+e^{-i(\theta^v_m+\phi_a^v)})
   (e^{i(\theta_m+\phi_a)}-e^{-i(\theta_m+\phi_a)})
-  \\&=
+  =\\&=
   H^v\sum_m
   \dfrac{1}{4i}
   \left[
@@ -30,7 +30,7 @@ Let us define:
   +
   e^{-i\theta^-}e^{-i\phi^-}
   \right]
-  \\&=
+  =\\&=
   H^v\dfrac{1}{4i}
   \left[
   e^{i\phi^+}\sum_m e^{i\vec{Q}^+\vec{r}_m}
@@ -41,7 +41,7 @@ Let us define:
   +
   e^{-i\phi^-}\sum_m e^{-i\vec{Q}^-\vec{r}_m}
   \right]
-  \\&=
+  =\\&=
   H^vM\dfrac{1}{4i}
   \left[
   e^{i\phi^+} \delta_{\vec{Q}^+, \vec{G}}
@@ -52,14 +52,14 @@ Let us define:
   +
   e^{-i\phi^-}  \delta_{\vec{Q}^-, \vec{G}}
   \right]
-  \\&=
+  =\\&=
   \dfrac{H^vM}{2}
   \left[
   \delta_{\vec{Q}^+, \vec{G}} \sin\phi^+
   -
   \delta_{\vec{Q}^-, \vec{G}} \sin\phi^-
   \right]
-  \\&=
+  =\\&=
   \dfrac{H^vM}{2}
   \left[
   \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)

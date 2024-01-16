@@ -1,0 +1,37 @@
+
+First we recall the transformation matrix:
+
+.. include:: ../repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.txt
+
+.. math::
+  &\langle u^+u^-n \vert s \rangle
+  =
+  \langle u^+u^-n \vert uvn \rangle
+  \langle uvn \vert s \rangle
+  =
+  \boldsymbol{T}^{\dagger}
+  \langle uvn \vert s \rangle
+  \\&=
+  \dfrac{1}{\sqrt{2}}
+  \begin{pmatrix}
+    1 & -i & 0        \\
+    1 & i  & 0        \\
+    0 & 0  & \sqrt{2} \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    \hat{s}_u \\
+    \hat{s}_v \\
+    \hat{s}_n \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \dfrac{\hat{s}_u - i\hat{s}_v}{\sqrt{2}} \\
+    \dfrac{\hat{s}_u + i\hat{s}_v}{\sqrt{2}} \\
+    \hat{s}_n                                \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \dfrac{\hat{s}^-}{\sqrt{2}} \\
+    \dfrac{\hat{s}^+}{\sqrt{2}} \\
+    \hat{s}_n                   \\
+  \end{pmatrix}

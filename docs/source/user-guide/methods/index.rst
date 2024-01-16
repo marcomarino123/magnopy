@@ -27,7 +27,7 @@ Methods and algorithms
   :maxdepth: 1
   :caption: Holstein-Primakoff bosons
 
-  hp-bosons
+  hp-bosons/index
   energy-quantum-correction
   lswt
   hp-cubic-terms

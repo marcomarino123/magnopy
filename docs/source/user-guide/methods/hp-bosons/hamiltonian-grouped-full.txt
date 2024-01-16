@@ -1,0 +1,6 @@
+.. math::
+  H^{exchange}
+  =
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{md}_{ab}}
+  \vec{f}_b

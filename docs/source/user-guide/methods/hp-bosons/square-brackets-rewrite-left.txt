@@ -1,0 +1,50 @@
+.. math::
+  &
+  (\hat{\vec{s}}_{ma}^{ferro})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  =
+  S_a
+  \left(
+    \dfrac{1}{\sqrt{S_a}}
+    \cdot
+    \left[
+      \hat{a}_a
+      -
+      \dfrac{\hat{a}^{\dagger}_a\hat{a}_a\hat{a}_a}{4S_a}
+    \right],
+    \dfrac{1}{\sqrt{S_a}}
+    \cdot
+    \left[
+      \hat{a}^{\dagger}_a
+      -
+      \dfrac{\hat{a}^{\dagger}_a\hat{a}^{\dagger}_a\hat{a}_a}{4S_a}
+    \right],
+    1 - \dfrac{\hat{a}^{\dagger}_a\hat{a}_a}{S_a}
+  \right)
+  \begin{pmatrix}
+    (\vec{p}_a)^{\dagger} \\
+    (\vec{t}_a)^{\dagger} \\
+    (\vec{f}_a)^{\dagger} \\
+  \end{pmatrix}
+  \\=&
+  S_a
+  \left[
+    (\vec{f}_a)^{\dagger}
+    +
+    \dfrac{1}{\sqrt{S_a}}
+    \left(
+      \hat{a}_a(\vec{p}_a)^{\dagger}
+      +
+      \hat{a}^{\dagger}_a(\vec{t}_a)^{\dagger}
+    \right)
+    -
+    \dfrac{1}{S_a}
+    \hat{a}^{\dagger}_a\hat{a}_a(\vec{f}_a)^{\dagger}
+    -
+    \dfrac{1}{4S_a^{3/2}}
+    \left(
+      \hat{a}^{\dagger}_a\hat{a}_a\hat{a}_a(\vec{p}_a)^{\dagger}
+      +
+      \hat{a}^{\dagger}_a\hat{a}^{\dagger}_a\hat{a}_a(\vec{t}_a)^{\dagger}
+    \right)
+  \right]

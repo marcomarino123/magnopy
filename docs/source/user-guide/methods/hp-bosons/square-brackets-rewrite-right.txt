@@ -1,0 +1,58 @@
+.. math::
+  &
+  \boldsymbol{R}(\theta_b,\phi_b)
+  \hat{\vec{s}}_{m+d_{ab},b}^{ferro}
+  =
+  S_b
+  \left(
+    \vec{p}_b,
+    \vec{t}_b,
+    \vec{f}_b
+  \right)
+  \begin{pmatrix}
+    \dfrac{1}{\sqrt{S_b}}
+    \cdot
+    \left[
+      \hat{a}^{\dagger}_b
+      -
+      \dfrac{\hat{a}^{\dagger}_b\hat{a}^{\dagger}_b\hat{a}_b}{4S_b}
+    \right]
+    \\
+    \dfrac{1}{\sqrt{S_b}}
+    \cdot
+    \left[
+      \hat{a}_b
+      -
+      \dfrac{\hat{a}^{\dagger}_b\hat{a}_b\hat{a}_b}{4S_b}
+    \right]
+    \\
+    1 - \dfrac{\hat{a}^{\dagger}_b\hat{a}_b}{S_b}
+    \\
+  \end{pmatrix}
+  \\=&
+  S_b
+  \left[
+    \vec{f}_b
+    +
+    \dfrac{1}{\sqrt{S_b}}
+    \left(
+      \hat{a}^{\dagger}_b\vec{p}_b
+      +
+      \hat{a}_b\vec{t}_b
+    \right)
+    -
+    \dfrac{1}{S_b}
+    \hat{a}^{\dagger}_b\hat{a}_b\vec{f}_b
+    -
+    \dfrac{1}{4S_b^{3/2}}
+    \left(
+      \hat{a}^{\dagger}_b\hat{a}^{\dagger}_b\hat{a}_b\vec{p}_b
+      +
+      \hat{a}^{\dagger}_b\hat{a}_b\hat{a}_b\vec{t}_b
+    \right)
+  \right]
+
+In the following step we will group the terms with respect to the power of
+:math:`1/S` if one would assumed :math:`S_a = S_b = S`.
+
+.. include:: hamiltonian-grouped-full.txt

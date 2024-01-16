@@ -51,8 +51,3 @@
       \hat{a}^{\dagger}_b\hat{a}_b\hat{a}_b\vec{t}_b
     \right)
   \right]
-
-In the following step we will group the terms with respect to the power of
-:math:`1/S` if one would assumed :math:`S_a = S_b = S`.
-
-.. include:: hamiltonian-grouped-full.txt

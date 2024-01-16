@@ -131,41 +131,80 @@ spherical basis. We split the Hamiltonian into three parts as following:
 Defining auxiliary vectors :math:`\vec{p}_a`, :math:`\vec{t}_a`, :math:`\vec{f}_a`
 we rewrite the Hamiltonian as:
 
-First we recall the rotation matrix in a spherical reference frame:
+.. dropdown:: Details
 
-.. include:: ../repeated-formulas/spin-rotation-matrix-spherical.txt
+  First we recall the rotation matrix in a spherical reference frame:
 
-And define the vectors:
+  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.txt
 
-.. include:: ptf-definition.txt
+  And define the vectors:
 
-Then:
+  .. include:: ptf-definition.txt
+
+  Then:
+
+  .. math::
+    \begin{matrix}
+      R(\theta_a,\phi_a)
+      =
+      \left(
+        \vec{p}_a,
+        \vec{t}_a,
+        \vec{f}_a
+      \right);
+      &
+      R(\theta_a,\phi_a)^{\dagger}
+      =
+      \begin{pmatrix}
+        (\vec{p}_a)^{\dagger} \\
+        (\vec{t}_a)^{\dagger} \\
+        (\vec{f}_a)^{\dagger} \\
+      \end{pmatrix}
+    \end{matrix}
+
+  Next, we rewrite the expressions in the square brackets:
+
+  .. include:: square-brackets-rewrite-left.txt
+
+  .. include:: square-brackets-rewrite-right.txt
+
+
+.. include:: hamiltonian-grouped-full.txt
+
+.. dropdown:: Omitted terms
+
+  .. include:: omitted-terms.txt
+
+In the previous formula the terms are grouped with respect to the power of
+:math:`1/S` if one would assumed :math:`S_a = S_b = S`. Now we will separate them and
+discuss each one in details:
 
 .. math::
-  \begin{matrix}
-    R(\theta_a,\phi_a)
+
+  H^{exchange} = H^{Cl} + H^{LSWT} + H^{Qubic} + H^{Quatric}
+
+* :ref:`Classical energy <user-guide_methods_energy-classic>`
+
+  .. math::
+    H^{Cl}
     =
-    \left(
-      \vec{p}_a,
-      \vec{t}_a,
-      \vec{f}_a
-    \right);
-    &
-    R(\theta_a,\phi_a)^{\dagger}
-    =
-    \begin{pmatrix}
-      (\vec{p}_a)^{\dagger} \\
-      (\vec{t}_a)^{\dagger} \\
-      (\vec{f}_a)^{\dagger} \\
-    \end{pmatrix}
-  \end{matrix}
+    \sum_{m, \vec{d}_{ab}, a, b}
+    S_aS_b
+    (\vec{f}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{f}_b
 
-Next, we rewrite the expressions in the square brackets:
+* :ref:`Linear Spin Wave Theory <user-guide_methods_lswt>`
 
-.. include:: square-brackets-rewrite-left.txt
+  .. include:: lswt-part.txt
 
-.. include:: square-brackets-rewrite-right.txt
+* :ref:`Qubic terms <user-guide_methods_hp-cubic-terms>`
 
+  .. include:: qubic-part.txt
+
+* :ref:`Quartic terms <user-guide_methods_hp-quartic-terms>`
+
+  .. include:: quartic-part.txt
 
 
 

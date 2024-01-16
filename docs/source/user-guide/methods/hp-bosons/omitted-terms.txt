@@ -1,0 +1,95 @@
+In the Hamiltonian we omit the terms which are smaller then the
+:math:`1/S^2` (if one assume :math:`S_a = S_b = S`). In other words we omit the terms
+with more then four bosonic operators. Here are those terms:
+
+.. math::
+  \dfrac{1}{4S_aS_b^{3/2}}
+  \Bigl[
+    &(\vec{f}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{p}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b
+    +
+    (\vec{f}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{t}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b\hat{a}_b
+    +\\&+
+    (\vec{p}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{f}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b
+    +
+    (\vec{t}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{f}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b
+  \Bigr]
+  +\\+
+  \dfrac{1}{16S_a^{3/2}S_b^{3/2}}
+  \Bigl[
+    &(\vec{p}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{p}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b
+    +
+    (\vec{p}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{t}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b\hat{a}_b
+    +\\&+
+    (\vec{t}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{p}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b
+    +
+    (\vec{t}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{t}_b
+    \cdot
+    \hat{a}_a^{\dagger}\hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b\hat{a}_b
+  \Bigr]
+
+.. note::
+  In order to account for more than 4 operator terms one need to expand the square root
+  in the HP transformation up to higher degrees in :math:`1/S`.
+
+The last two omitted terms are one-operator terms, proportional to the :math:`1/\sqrt{S}`:
+
+.. math::
+  \dfrac{1}{\sqrt{S_a}}
+  \Bigl[
+    (\vec{p}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{f}_b
+    \cdot
+    \hat{a}_a
+    +
+    (\vec{t}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{f}_b
+    \cdot
+    \hat{a}_a^{\dagger}
+  \Bigr]
+  +
+  \dfrac{1}{\sqrt{S_b}}
+  \Bigl[
+    (\vec{f}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{p}_b
+    \cdot
+    \hat{a}_b^{\dagger}
+    +
+    (\vec{f}_a)^{\dagger}
+    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \vec{t}_b
+    \cdot
+    \hat{a}_b
+  \Bigr]

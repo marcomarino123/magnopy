@@ -8,18 +8,18 @@
     \dfrac{1}{\sqrt{S_a}}
     \cdot
     \left[
-      \hat{a}_a
+      \hat{a}_{ma}
       -
-      \dfrac{\hat{a}^{\dagger}_a\hat{a}_a\hat{a}_a}{4S_a}
+      \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}}{4S_a}
     \right],
     \dfrac{1}{\sqrt{S_a}}
     \cdot
     \left[
-      \hat{a}^{\dagger}_a
+      \hat{a}_{ma}^{\dagger}
       -
-      \dfrac{\hat{a}^{\dagger}_a\hat{a}^{\dagger}_a\hat{a}_a}{4S_a}
+      \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}}{4S_a}
     \right],
-    1 - \dfrac{\hat{a}^{\dagger}_a\hat{a}_a}{S_a}
+    1 - \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}}{S_a}
   \right)
   \begin{pmatrix}
     (\vec{p}_a)^{\dagger} \\
@@ -33,18 +33,18 @@
     +
     \dfrac{1}{\sqrt{S_a}}
     \left(
-      \hat{a}_a(\vec{p}_a)^{\dagger}
+      \hat{a}_{ma}(\vec{p}_a)^{\dagger}
       +
-      \hat{a}^{\dagger}_a(\vec{t}_a)^{\dagger}
+      \hat{a}_{ma}^{\dagger}(\vec{t}_a)^{\dagger}
     \right)
     -
     \dfrac{1}{S_a}
-    \hat{a}^{\dagger}_a\hat{a}_a(\vec{f}_a)^{\dagger}
+    \hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\vec{f}_a)^{\dagger}
     -
     \dfrac{1}{4S_a^{3/2}}
     \left(
-      \hat{a}^{\dagger}_a\hat{a}_a\hat{a}_a(\vec{p}_a)^{\dagger}
+      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}(\vec{p}_a)^{\dagger}
       +
-      \hat{a}^{\dagger}_a\hat{a}^{\dagger}_a\hat{a}_a(\vec{t}_a)^{\dagger}
+      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\vec{t}_a)^{\dagger}
     \right)
   \right]

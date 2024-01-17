@@ -13,20 +13,20 @@
     \dfrac{1}{\sqrt{S_b}}
     \cdot
     \left[
-      \hat{a}^{\dagger}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}
       -
-      \dfrac{\hat{a}^{\dagger}_b\hat{a}^{\dagger}_b\hat{a}_b}{4S_b}
+      \dfrac{\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}}{4S_b}
     \right]
     \\
     \dfrac{1}{\sqrt{S_b}}
     \cdot
     \left[
-      \hat{a}_b
+      \hat{a}_{m+d_{ab},b}
       -
-      \dfrac{\hat{a}^{\dagger}_b\hat{a}_b\hat{a}_b}{4S_b}
+      \dfrac{\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}}{4S_b}
     \right]
     \\
-    1 - \dfrac{\hat{a}^{\dagger}_b\hat{a}_b}{S_b}
+    1 - \dfrac{\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}}{S_b}
     \\
   \end{pmatrix}
   =\\&=
@@ -36,18 +36,18 @@
     +
     \dfrac{1}{\sqrt{S_b}}
     \left(
-      \hat{a}^{\dagger}_b\vec{p}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}\vec{p}_b
       +
-      \hat{a}_b\vec{t}_b
+      \hat{a}_{m+d_{ab},b}\vec{t}_b
     \right)
     -
     \dfrac{1}{S_b}
-    \hat{a}^{\dagger}_b\hat{a}_b\vec{f}_b
+    \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\vec{f}_b
     -
     \dfrac{1}{4S_b^{3/2}}
     \left(
-      \hat{a}^{\dagger}_b\hat{a}^{\dagger}_b\hat{a}_b\vec{p}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\vec{p}_b
       +
-      \hat{a}^{\dagger}_b\hat{a}_b\hat{a}_b\vec{t}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}\vec{t}_b
     \right)
   \right]

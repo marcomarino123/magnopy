@@ -85,22 +85,8 @@ Next we write the expression under the sum explicitly:
 
   .. include:: exchange-matrix-spiral-rotated-details.txt
 
-.. math::
-  \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J}(\vec{d})
-  \boldsymbol{R}(\theta_{m+d})
-  =
-  \begin{pmatrix}
-    J_{++}e^{-i\vec{Q}\vec{d}}              &
-    J_{+-}e^{i\vec{Q}(2\vec{r}_m+\vec{d})}  &
-    J_{+n}e^{i\vec{Q}\vec{r}_m}             \\
-    J_{-+}e^{-i\vec{Q}(2\vec{r}_m+\vec{d})} &
-    J_{--}e^{i\vec{Q}\vec{d}}               &
-    J_{-n}e^{-i\vec{Q}\vec{r}_m}            \\
-    J_{n+}e^{-i\vec{Q}(\vec{r}_m+\vec{d})}  &
-    J_{n-}e^{i\vec{Q}(\vec{r}_m+\vec{d})}   &
-    J_{nn}                                  \\
-  \end{pmatrix}
+
+.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-uvn.txt
 
 Next we write back the sum over :math:`m`, and using the facts that:
 

@@ -113,21 +113,25 @@
       (\vec{p}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{p}_b
+      \cdot
       \hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b
       +
       (\vec{p}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{t}_b
+      \cdot
       \hat{a}_a\hat{a}_b^{\dagger}\hat{a}_b\hat{a}_b
       +\\&+
       (\vec{t}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{p}_b
+      \cdot
       \hat{a}_a^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b
       +
       (\vec{t}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{t}_b
+      \cdot
       \hat{a}_a^{\dagger}\hat{a}_b^{\dagger}\hat{a}_b\hat{a}_b
     \Bigr]
     -\\&-
@@ -136,21 +140,25 @@
       (\vec{p}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{p}_b
+      \cdot
       \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_a\hat{a}_b^{\dagger}
       +
       (\vec{t}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{p}_b
+      \cdot
       \hat{a}_a^{\dagger}\hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b^{\dagger}
       +\\&+
       (\vec{p}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{t}_b
+      \cdot
       \hat{a}_a^{\dagger}\hat{a}_a\hat{a}_a\hat{a}_b
       +
       (\vec{t}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{md}_{ab}}
       \vec{t}_b
+      \cdot
       \hat{a}_a^{\dagger}\hat{a}_a^{\dagger}\hat{a}_a\hat{a}_b
     \Bigr]
   \Biggr\}

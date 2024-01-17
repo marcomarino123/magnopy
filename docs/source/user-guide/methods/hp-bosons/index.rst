@@ -206,21 +206,6 @@ discuss each one in details:
 
   .. include:: quartic-part.txt
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 References
 ==========
 

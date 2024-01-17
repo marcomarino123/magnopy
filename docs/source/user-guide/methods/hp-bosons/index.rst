@@ -206,6 +206,16 @@ discuss each one in details:
 
   .. include:: ../repeated-formulas/hamiltonian-hp-expansion-quartic-part.txt
 
+.. important::
+  We keep the indices of the spin numbers :math:`S_a` and :math:`S_b` for the derivation.
+  If all atoms in the unit cell has the same
+  spin number: :math:`S_a = S_b = S`, then the terms of the Hamiltonian from above
+  belongs to the effects of the descending order (:math:`1`, :math:`1/S`,
+  :math:`1/S^{3/2}`, :math:`1/S^2`, ...). However, if atoms in the unit cell have
+  different spin numbers, then, for example, the order of some the qubic terms can
+  be the same as of some terms of the LSWT terms and one should be cautious with the terms
+  of the Hamiltonian to consider for the particular system.
+
 References
 ==========
 

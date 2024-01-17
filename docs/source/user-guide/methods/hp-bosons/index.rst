@@ -169,7 +169,7 @@ we rewrite the Hamiltonian as:
   .. include:: square-brackets-rewrite-right.txt
 
 
-.. include:: hamiltonian-grouped-full.txt
+.. include:: ../repeated-formulas/hamiltonian-hp-expansion-full.txt
 
 .. dropdown:: Omitted terms
 
@@ -196,15 +196,15 @@ discuss each one in details:
 
 * :ref:`Linear Spin Wave Theory <user-guide_methods_lswt>`
 
-  .. include:: lswt-part.txt
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.txt
 
 * :ref:`Qubic terms <user-guide_methods_hp-cubic-terms>`
 
-  .. include:: qubic-part.txt
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-qubic-part.txt
 
 * :ref:`Quartic terms <user-guide_methods_hp-quartic-terms>`
 
-  .. include:: quartic-part.txt
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-quartic-part.txt
 
 References
 ==========

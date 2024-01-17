@@ -1,16 +1,16 @@
 .. math::
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J}(\vec{d})
-  \boldsymbol{R}(\theta_{m+d})
+  \boldsymbol{J}(\vec{d}_{ab})
+  \boldsymbol{R}(\theta_{m+d_{ab}})
   =
   \begin{pmatrix}
-    J_{++}e^{-i\vec{Q}\vec{d}}              &
-    J_{+-}e^{i\vec{Q}(2\vec{r}_m+\vec{d})}  &
-    J_{+n}e^{i\vec{Q}\vec{r}_m}             \\
-    J_{-+}e^{-i\vec{Q}(2\vec{r}_m+\vec{d})} &
-    J_{--}e^{i\vec{Q}\vec{d}}               &
-    J_{-n}e^{-i\vec{Q}\vec{r}_m}            \\
-    J_{n+}e^{-i\vec{Q}(\vec{r}_m+\vec{d})}  &
-    J_{n-}e^{i\vec{Q}(\vec{r}_m+\vec{d})}   &
-    J_{nn}                                  \\
+    J_{ab}^{++}e^{-i\vec{Q}\vec{d}_{ab}}              &
+    J_{ab}^{+-}e^{i\vec{Q}(2\vec{r}_m+\vec{d}_{ab})}  &
+    J_{ab}^{+n}e^{i\vec{Q}\vec{r}_m}             \\
+    J_{ab}^{-+}e^{-i\vec{Q}(2\vec{r}_m+\vec{d}_{ab})} &
+    J_{ab}^{--}e^{i\vec{Q}\vec{d}_{ab}}               &
+    J_{ab}^{-n}e^{-i\vec{Q}\vec{r}_m}            \\
+    J_{ab}^{n+}e^{-i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}  &
+    J_{ab}^{n-}e^{i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}   &
+    J_{ab}^{nn}                                  \\
   \end{pmatrix}

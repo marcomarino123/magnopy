@@ -1,40 +1,40 @@
 .. math::
   &\dfrac{
-    J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    J_{ab}^{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
     +
-    J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    J_{ab}^{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
   }{2}
   =\\&=
   \dfrac{
-    (A + iD_n)\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    (A + iD_{ab}^n)\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
     +
-    (A - iD_n)\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    (A - iD_{ab}^n)\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
   }{2}
   =\\&=
   A\sin\theta_a\sin\theta_b
   \dfrac{
-  e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}+e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+  e^{i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}+e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
   }{2}
   -
-  D_n\sin\theta_a\sin\theta_b
+  D_{ab}^n\sin\theta_a\sin\theta_b
   \dfrac{
-  e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}-e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+  e^{i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}-e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
   }{2i}
   =\\&=
-  A\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
+  A\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})
   -
-  D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+  D_{ab}^n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})
   =\\&=
-  (J+\dfrac{S_{uu}+S_{vv}}{2})\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
+  (J+\dfrac{S_{ab}^{uu}+S_{ab}^{vv}}{2})\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})
   -
-  D_n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+  D_{ab}^n\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})
   =\\&=
-  \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d})
+  \dfrac{J_{ab}^{uu}+J_{ab}^{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})
   -
-  \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d})
+  \dfrac{J_{ab}^{uv}-J_{ab}^{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})
   =\\&=
-  \dfrac{J_{uu}+J_{vv}}{2}\sin\theta_a\sin\theta_b\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+  \dfrac{J_{ab}^{uu}+J_{ab}^{vv}}{2}\sin\theta_a\sin\theta_b\cos(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
   +
-  \dfrac{J_{uv}-J_{vu}}{2}\sin\theta_a\sin\theta_b\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+  \dfrac{J_{ab}^{uv}-J_{ab}^{vu}}{2}\sin\theta_a\sin\theta_b\sin(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
 
-where :math:`A = J+\dfrac{S_{uu}+S_{vv}}{2}`
+where :math:`A = J+\dfrac{S_{ab}^{uu}+S_{ab}^{vv}}{2}`

@@ -63,9 +63,9 @@ Which leads to the exchange matrix in a spherical reference frame:
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
     \begin{pmatrix}
-      J_{uu} & J_{uv} & J_{un} \\
-      J_{vu} & J_{vv} & J_{vn} \\
-      J_{nu} & J_{nv} & J_{nn} \\
+      J_{ab}^{uu} & J_{ab}^{uv} & J_{ab}^{un} \\
+      J_{ab}^{vu} & J_{ab}^{vv} & J_{ab}^{vn} \\
+      J_{ab}^{nu} & J_{ab}^{nv} & J_{ab}^{nn} \\
     \end{pmatrix}
     \begin{pmatrix}
       1 &  1 & 0        \\
@@ -75,9 +75,9 @@ Which leads to the exchange matrix in a spherical reference frame:
     =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
-      J_{uu} - i J_{vu} & J_{uv} - i J_{vv} & J_{un} - i J_{vn} \\
-      J_{uu} + i J_{vu} & J_{uv} + i J_{vv} & J_{un} + i J_{vn} \\
-      \sqrt{2}J_{nu}    & \sqrt{2}J_{nv}    & \sqrt{2}J_{nn}    \\
+      J_{ab}^{uu} - i J_{ab}^{vu} & J_{ab}^{uv} - i J_{ab}^{vv} & J_{ab}^{un} - i J_{ab}^{vn} \\
+      J_{ab}^{uu} + i J_{ab}^{vu} & J_{ab}^{uv} + i J_{ab}^{vv} & J_{ab}^{un} + i J_{ab}^{vn} \\
+      \sqrt{2}J_{ab}^{nu}    & \sqrt{2}J_{ab}^{nv}    & \sqrt{2}J_{ab}^{nn}    \\
     \end{pmatrix}
     \begin{pmatrix}
       1 &  1 & 0        \\
@@ -87,15 +87,15 @@ Which leads to the exchange matrix in a spherical reference frame:
     =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
-      (J_{uu} + J_{vv}) + i(J_{uv} - J_{vu}) &
-      (J_{uu} - J_{vv}) - i(J_{uv} + J_{vu}) &
-      \sqrt{2}(J_{un} - iJ_{vn})             \\
-      (J_{uu} - J_{vv}) + i(J_{uv} + J_{vu}) &
-      (J_{uu} + J_{vv}) - i(J_{uv} - J_{vu}) &
-      \sqrt{2}(J_{un} + iJ_{vn})             \\
-      \sqrt{2}(J_{nu} + iJ_{nv})             &
-      \sqrt{2}(J_{nu} - iJ_{nv})             &
-      2J_{nn}                                \\
+      (J_{ab}^{uu} + J_{ab}^{vv}) + i(J_{ab}^{uv} - J_{ab}^{vu}) &
+      (J_{ab}^{uu} - J_{ab}^{vv}) - i(J_{ab}^{uv} + J_{ab}^{vu}) &
+      \sqrt{2}(J_{ab}^{un} - iJ_{ab}^{vn})             \\
+      (J_{ab}^{uu} - J_{ab}^{vv}) + i(J_{ab}^{uv} + J_{ab}^{vu}) &
+      (J_{ab}^{uu} + J_{ab}^{vv}) - i(J_{ab}^{uv} - J_{ab}^{vu}) &
+      \sqrt{2}(J_{ab}^{un} + iJ_{ab}^{vn})             \\
+      \sqrt{2}(J_{ab}^{nu} + iJ_{ab}^{nv})             &
+      \sqrt{2}(J_{ab}^{nu} - iJ_{ab}^{nv})             &
+      2J_{ab}^{nn}                                \\
     \end{pmatrix}
 
   Which gives:
@@ -105,15 +105,15 @@ Which leads to the exchange matrix in a spherical reference frame:
     =
     \dfrac{1}{2}
     \begin{pmatrix}
-      2J_{iso} + S_{uu} + S_{vv} + 2iD_n      &
-      S_{uu} - S_{vv} - 2iS_{uv}              &
-      \sqrt{2}(S_{un} - iS_{vn} - D_v - iD_u) \\
-      S_{uu} - S_{vv} + 2iS_{uv}              &
-      2J_{iso} + S_{uu} + S_{vv} - 2iD_n      &
-      \sqrt{2}(S_{un} + iS_{vn} - D_v + iD_u) \\
-      \sqrt{2}(S_{un} + iS_{vn} + D_v - iD_u) &
-      \sqrt{2}(S_{un} - iS_{vn} + D_v + iD_u) &
-      2J_{iso} + 2S_{nn}                      \\
+      2J_{iso} + S_{ab}^{uu} + S_{ab}^{vv} + 2iD_{ab}^n      &
+      S_{ab}^{uu} - S_{ab}^{vv} - 2iS_{ab}^{uv}              &
+      \sqrt{2}(S_{ab}^{un} - iS_{ab}^{vn} - D_{ab}^v - iD_{ab}^u) \\
+      S_{ab}^{uu} - S_{ab}^{vv} + 2iS_{ab}^{uv}              &
+      2J_{iso} + S_{ab}^{uu} + S_{ab}^{vv} - 2iD_{ab}^n      &
+      \sqrt{2}(S_{ab}^{un} + iS_{ab}^{vn} - D_{ab}^v + iD_{ab}^u) \\
+      \sqrt{2}(S_{ab}^{un} + iS_{ab}^{vn} + D_{ab}^v - iD_{ab}^u) &
+      \sqrt{2}(S_{ab}^{un} - iS_{ab}^{vn} + D_{ab}^v + iD_{ab}^u) &
+      2J_{iso} + 2S_{ab}^{nn}                      \\
     \end{pmatrix}
 
 .. include:: repeated-formulas/exchange-matrix-spherical.txt
@@ -128,21 +128,21 @@ Let us note a few symmetries of the exchange matrix in a spherical reference fra
 
   .. math::
     \begin{matrix}
-      D^{\pm} = \dfrac{D_v \pm iD_u}{\sqrt{2}};      &
-      S^{\pm} = \dfrac{S_{un} \pm iS_{vn}}{\sqrt{2}} \\
+      D^{\pm} = \dfrac{D_{ab}^v \pm iD_{ab}^u}{\sqrt{2}};      &
+      S^{\pm} = \dfrac{S_{ab}^{un} \pm iS_{ab}^{vn}}{\sqrt{2}} \\
     \end{matrix}
 
   Then we can write the exchange matrix in the spherical reference frame as:
 
   .. math::
     \begin{pmatrix}
-      J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} + iD_n &
-      \dfrac{S_{uu} - S_{vv}}{2} - iS_{uv}        &
+      J_{iso} + \dfrac{S_{ab}^{uu} + S_{ab}^{vv}}{2} + iD_{ab}^n &
+      \dfrac{S_{ab}^{uu} - S_{ab}^{vv}}{2} - iS_{ab}^{uv}        &
       S^- - D^+                                   \\
-      \dfrac{S_{uu} - S_{vv}}{2} + iS_{uv}        &
-      J_{iso} + \dfrac{S_{uu} + S_{vv}}{2} - iD_n &
+      \dfrac{S_{ab}^{uu} - S_{ab}^{vv}}{2} + iS_{ab}^{uv}        &
+      J_{iso} + \dfrac{S_{ab}^{uu} + S_{ab}^{vv}}{2} - iD_{ab}^n &
       S^+ - D^-                                   \\
       S^+ + D^-                                   &
       S^- + D^+                                   &
-      J_{iso} + S_{nn}                            \\
+      J_{iso} + S_{ab}^{nn}                            \\
     \end{pmatrix}

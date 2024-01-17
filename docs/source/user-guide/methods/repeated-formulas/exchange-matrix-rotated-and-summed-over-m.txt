@@ -6,13 +6,13 @@
   =
   M
   \begin{pmatrix}
-    e^{-i\vec{Q}\vec{d}} J_{++}                                   &
-    e^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-}  &
-    \delta_{\vec{Q},\vec{G}}\cdot J_{+n}                          \\
-    e^{-i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{-+} &
-    e^{i\vec{Q}\vec{d}} J_{--}                                    &
-    \delta_{\vec{Q},\vec{G}}\cdot J_{-n}                          \\
-    e^{-i\vec{Q}\vec{d}}\delta_{\vec{Q},\vec{G}}\cdot J_{n+}      &
-    e^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\vec{G}}\cdot J_{n-}       &
-    J_{nn}                                                        \\
+    e^{-i\vec{Q}\vec{d}_{ab}} J_{ab}^{++}                                   &
+    e^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{+-}  &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{+n}                          \\
+    e^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{-+} &
+    e^{i\vec{Q}\vec{d}_{ab}} J_{ab}^{--}                                    &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{-n}                          \\
+    e^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n+}      &
+    e^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n-}       &
+    J_{ab}^{nn}                                                        \\
   \end{pmatrix}

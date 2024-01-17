@@ -3,40 +3,40 @@
     &\dfrac{E}{M} = \dfrac{E_{exchange} + E_{Zeeman}}{M}
     =
     \dfrac{1}{2}
-    \sum_{a, b, \vec{d}}
+    \sum_{a, b, \vec{d}_{ab}}
     S_aS_b
     \Biggl\{
-      J_{nn}\cos\theta_a\cos\theta_b
+      J_{ab}^{nn}\cos\theta_a\cos\theta_b
       +\\&+
       \sin\theta_a\sin\theta_b
       \Bigl[
-        \dfrac{J_{uu}+J_{vv}}{2}\cos(\vec{Q}\vec{d}+\phi_b-\phi_a)
+        \dfrac{J_{ab}^{uu}+J_{ab}^{vv}}{2}\cos(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
         +
-        \dfrac{J_{uv}-J_{vu}}{2}\sin(\vec{Q}\vec{d}+\phi_b-\phi_a)
+        \dfrac{J_{ab}^{uv}-J_{ab}^{vu}}{2}\sin(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
       \Bigr]
       +\\&+
       \delta_{\vec{Q},\frac{\vec{G}}{2}}
       \sin\theta_a\sin\theta_b
       \Bigl[
-        \dfrac{J_{uu}-J_{vv}}{2}\cos(\phi_a+\phi_b+\vec{Q}\vec{d})
+        \dfrac{J_{ab}^{uu}-J_{ab}^{vv}}{2}\cos(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})
           +
-        \dfrac{J_{uv}+J_{vu}}{2}\sin(\phi_a+\phi_b+\vec{Q}\vec{d})
+        \dfrac{J_{ab}^{uv}+J_{ab}^{vu}}{2}\sin(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})
       \Bigr]
       +\\&+
       \delta_{\vec{Q},\vec{G}}
       \sin\theta_a\cos\theta_b
       \Bigl[
-        J_{un}\cos\phi_a
+        J_{ab}^{un}\cos\phi_a
         +
-        J_{vn}\sin\phi_a
+        J_{ab}^{vn}\sin\phi_a
       \Bigr]
       +\\&+
       \delta_{\vec{Q},\vec{G}}
       \cos\theta_a\sin\theta_b
       \Bigl[
-        J_{nu}\cos(\phi_b+\vec{Q}\vec{d})
+        J_{ab}^{nu}\cos(\phi_b+\vec{Q}\vec{d}_{ab})
         +
-        J_{nv}\sin(\phi_b+\vec{Q}\vec{d})
+        J_{ab}^{nv}\sin(\phi_b+\vec{Q}\vec{d}_{ab})
       \Bigr]
     \Biggr\}
     +\\&+

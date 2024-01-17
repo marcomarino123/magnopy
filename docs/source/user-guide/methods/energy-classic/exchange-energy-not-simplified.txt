@@ -2,7 +2,7 @@
   &H
   =
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}}
+  \sum_{a, b, \vec{d}_{ab}}
   (\vec{S}_a^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   \left[
@@ -15,7 +15,7 @@
   \vec{S}_b^{ferro}
   =\\&=
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}}
+  \sum_{a, b, \vec{d}_{ab}}
   MS_aS_b
   \left(
   \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}},
@@ -23,15 +23,15 @@
   \cos\theta_a
   \right)
   \begin{pmatrix}
-    e^{-i\vec{Q}\vec{d}} J_{++}                                   &
-    e^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{+-}  &
-    \delta_{\vec{Q},\vec{G}}\cdot J_{+n}                          \\
-    e^{-i\vec{Q}\vec{d}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{-+} &
-    e^{i\vec{Q}\vec{d}} J_{--}                                    &
-    \delta_{\vec{Q},\vec{G}}\cdot J_{-n}                          \\
-    e^{-i\vec{Q}\vec{d}}\delta_{\vec{Q},\vec{G}}\cdot J_{n+}      &
-    e^{i\vec{Q}\vec{d}}\delta_{\vec{Q},\vec{G}}\cdot J_{n-}       &
-    J_{nn}                                                        \\
+    e^{-i\vec{Q}\vec{d}_{ab}} J_{ab}^{++}                                   &
+    e^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{+-}  &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{+n}                          \\
+    e^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{-+} &
+    e^{i\vec{Q}\vec{d}_{ab}} J_{ab}^{--}                                    &
+    \delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{-n}                          \\
+    e^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n+}      &
+    e^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n-}       &
+    J_{ab}^{nn}                                                        \\
   \end{pmatrix}
   \begin{pmatrix}
     \dfrac{\sin\theta_b e^{-i\phi_b}}{\sqrt{2}}  \\
@@ -40,38 +40,38 @@
   \end{pmatrix}
   =\\&=
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}}
+  \sum_{a, b, \vec{d}_{ab}}
   MS_aS_b
   \Biggl\{
-    J_{nn}\cos\theta_a\cos\theta_b
+    J_{ab}^{nn}\cos\theta_a\cos\theta_b
     +\\&+
     \dfrac{
-    J_{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    J_{ab}^{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
     +
-    J_{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d})}
+    J_{ab}^{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\vec{Q}\vec{d}_{ab})}
     }{2}
     +\\&+
     \delta_{\vec{Q},\frac{\vec{G}}{2}}
     \Biggl[
       \dfrac{
-      J_{+-}\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b+\vec{Q}\vec{d})}
+      J_{ab}^{+-}\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})}
       +
-      J_{-+}\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d})}
+      J_{ab}^{-+}\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})}
       }{2}
     \Biggr]
     +\\&+
     \delta_{\vec{Q},\vec{G}}
     \Biggl[
       \dfrac{
-      J_{+n}\sin\theta_a\cos\theta_b e^{i\phi_a}
+      J_{ab}^{+n}\sin\theta_a\cos\theta_b e^{i\phi_a}
       +
-      J_{-n}\sin\theta_a\cos\theta_b e^{-i\phi_a}
+      J_{ab}^{-n}\sin\theta_a\cos\theta_b e^{-i\phi_a}
       }{\sqrt{2}}
       +\\&+
       \dfrac{
-      J_{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
+      J_{ab}^{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
       +
-      J_{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
+      J_{ab}^{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
       }{\sqrt{2}}
     \Biggr]
   \Biggr\}

@@ -1,32 +1,32 @@
 .. math::
   &\dfrac{
-  J_{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
+  J_{ab}^{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
   +
-  J_{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
+  J_{ab}^{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
   }{\sqrt{2}}
   =\\&=
   \dfrac{
-  (J_{nu}+iJ_{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d})}
+  (J_{ab}^{nu}+iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
   +
-  (J_{nu} - iJ_{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d})}
+  (J_{ab}^{nu} - iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
   }{2}
   =\\&=
-  J_{nu}\cos\theta_a\sin\theta_b
+  J_{ab}^{nu}\cos\theta_a\sin\theta_b
   \dfrac{
-  e^{-i(\phi_b+\vec{Q}\vec{d})}+e^{i(\phi_b+\vec{Q}\vec{d})}
+  e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}+e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
   }{2}
   +
-  J_{nv}\cos\theta_a\sin\theta_b
+  J_{ab}^{nv}\cos\theta_a\sin\theta_b
   \dfrac{
-  e^{i(\phi_b+\vec{Q}\vec{d})}-e^{-i(\phi_b+\vec{Q}\vec{d})}
+  e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}-e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
   }{2i}
   =\\&=
-  J_{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d})
+  J_{ab}^{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d}_{ab})
   +
-  J_{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d})
+  J_{ab}^{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d}_{ab})
   =\\&=
-  (S_{un} + D_v)\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d})
+  (S_{ab}^{un} + D_{ab}^v)\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d}_{ab})
   +
-  (S_{vn} - D_u)\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d})
+  (S_{ab}^{vn} - D_{ab}^u)\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d}_{ab})
 
-where :math:`J_{nu} = S_{un} + D_v` and :math:`J_{nv} = S_{vn} - D_u`
+where :math:`J_{ab}^{nu} = S_{ab}^{un} + D_{ab}^v` and :math:`J_{ab}^{nv} = S_{ab}^{vn} - D_{ab}^u`

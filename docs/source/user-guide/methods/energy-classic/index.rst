@@ -69,7 +69,7 @@ We focus our attention on the expressions in the square brackets:
 Exchange energy
 ===============
 
-For this subsection we drop the :math:`ab` indices and recall
+We recall
 :ref:`exchange matrix in a spherical reference frame <user-guide_methods_spinham-spherical>`
 and
 :ref:`rotation matrix in a spherical reference frame <user-guide_methods_spherical-rf>`:
@@ -92,7 +92,7 @@ Next we write back the sum over :math:`m`, and using the facts that:
 
 * :math:`\vec{d} = \sum_{i}\vec{a}_in_i`, where :math:`\vec{a}_i` are the lattice vectors
   and :math:`n_i \in \mathbb{Z}`, :math:`i = 1,2,3`.
-* :math:`\boldsymbol{J}(\vec{d}) = \boldsymbol{J_{ab}}(\vec{d}_{ab})`
+* :math:`\boldsymbol{J_{ab}}(\vec{d}_{ab})`
   does not depend on the index :math:`m`
 * :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{G}}`
   and

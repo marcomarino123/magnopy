@@ -92,15 +92,15 @@ In a matrix form this result is written as:
 
 .. math::
   \begin{pmatrix}
-    J_{uu} & J_{uv} & J_{un} \\
-    J_{vu} & J_{vv} & J_{vn} \\
-    J_{nu} & J_{nv} & J_{nn} \\
+    J_{ab}^{uu} & J_{ab}^{uv} & J_{ab}^{un} \\
+    J_{ab}^{vu} & J_{ab}^{vv} & J_{ab}^{vn} \\
+    J_{ab}^{nu} & J_{ab}^{nv} & J_{ab}^{nn} \\
   \end{pmatrix}
   = \boldsymbol{R_{rf}}^{\dagger}
   \begin{pmatrix}
-    J_{xx} & J_{xy} & J_{xz} \\
-    J_{yx} & J_{yy} & J_{yz} \\
-    J_{zx} & J_{zy} & J_{zz} \\
+    J_{ab}^{xx} & J_{ab}^{xy} & J_{ab}^{xz} \\
+    J_{ab}^{yx} & J_{ab}^{yy} & J_{ab}^{yz} \\
+    J_{ab}^{zx} & J_{ab}^{zy} & J_{ab}^{zz} \\
   \end{pmatrix} \boldsymbol{R_{rf}}
 
 .. important::

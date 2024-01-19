@@ -8,13 +8,13 @@
     \dfrac{1}{S_b\sqrt{S_a}}
     \Bigl[
       (\vec{p}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{f}_b
       \cdot
       \hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
       +
       (\vec{t}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{f}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
@@ -23,13 +23,13 @@
     \dfrac{1}{S_a\sqrt{S_b}}
     \Bigl[
       (\vec{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{p}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}
       +
       (\vec{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{t}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}
@@ -38,13 +38,13 @@
     \dfrac{1}{4S_a^{3/2}}
     \Bigl[
       (\vec{p}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{f}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}
       +
       (\vec{t}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{f}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}
@@ -53,13 +53,13 @@
     \dfrac{1}{4S_b^{3/2}}
     \Bigl[
       (\vec{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{p}_b
       \cdot
       \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
       +
       (\vec{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{t}_b
       \cdot
       \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}

@@ -6,33 +6,33 @@
   \Biggl\{
     &\dfrac{1}{\sqrt{S_aS_b}}
     \Bigl[
-      (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{p}_b
+      (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{p}_b
       \cdot
       \hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}
       +
-      (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{t}_b
+      (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{t}_b
       \cdot
       \hat{a}_{ma}\hat{a}_{m+d_{ab},b}
       +\\&+
-      (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{p}_b
+      (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{p}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}
       +
-      (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{t}_b
+      (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{t}_b
       \cdot
       \hat{a}_{ma}^{\dagger}\hat{a}_{m+d_{ab},b}
     \Bigr]
     -\\&-
     \dfrac{1}{S_a}
     (\vec{f}_a)^{\dagger}
-    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \boldsymbol{\tilde{J}^{mdab}}
     \vec{f}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}
     -
     \dfrac{1}{S_b}
     (\vec{f}_a)^{\dagger}
-    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \boldsymbol{\tilde{J}^{mdab}}
     \vec{f}_b
     \cdot
     \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}

@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{\tilde{J}^{md}_{ab}}
+  \boldsymbol{\tilde{J}^{mdab}}
   =
   \boldsymbol{R}^{\dagger}(\theta_m)
   \boldsymbol{J_{ab}}(\vec{d}_{ab})

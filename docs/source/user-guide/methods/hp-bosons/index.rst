@@ -122,7 +122,7 @@ spherical basis. We split the Hamiltonian into three parts as following:
   (\hat{\vec{s}}_{ma}^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   \right]
-  \boldsymbol{\tilde{J}^{md}_{ab}}
+  \boldsymbol{\tilde{J}^{mdab}}
   \left[
   \boldsymbol{R}(\theta_b,\phi_b)
   \hat{\vec{s}}_{m+d_{ab},b}^{ferro}
@@ -191,7 +191,7 @@ discuss each one in details:
     \sum_{m, \vec{d}_{ab}, a, b}
     S_aS_b
     (\vec{f}_a)^{\dagger}
-    \boldsymbol{\tilde{J}^{md}_{ab}}
+    \boldsymbol{\tilde{J}^{mdab}}
     \vec{f}_b
 
 * :ref:`Linear Spin Wave Theory <user-guide_methods_lswt>`

@@ -12,6 +12,7 @@ Classical energy
   * .. include:: ../page-notations/transpose-complex-conjugate.txt
   * .. include:: ../page-notations/in-spherical.txt
   * .. include:: ../page-notations/parentheses.txt
+  * .. include:: ../page-notations/kronecker-delta.txt
 
 
 Let us recall the Hamiltonian:
@@ -87,6 +88,8 @@ Next we write the expression under the sum explicitly:
 
 
 .. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-uvn.txt
+
+.. _user-guide_methods_energy-classic_sum-over-m-condition:
 
 Next we write back the sum over :math:`m`, and using the facts that:
 

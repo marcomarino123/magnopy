@@ -10,6 +10,7 @@ Minimization of the classical exchange energy
   * .. include:: ../page-notations/matrix.txt
   * .. include:: ../page-notations/bra-ket.txt
   * .. include:: ../page-notations/parentheses.txt
+  * .. include:: ../page-notations/kronecker-delta.txt
 
 Let us recall the expression for the exchange energy:
 

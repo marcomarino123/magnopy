@@ -1,0 +1,5 @@
+Kronecker delta symbol :math:`\delta_{\vec{v}_1, \vec{v}_2}` is understood as
+
+* 0 if :math:`\vec{v}_1 \ne \vec{v}_2`
+
+* 1 if :math:`\vec{v}_1 = \vec{v}_2`

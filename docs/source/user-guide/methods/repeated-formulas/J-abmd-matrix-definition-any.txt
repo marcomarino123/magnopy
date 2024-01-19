@@ -1,0 +1,6 @@
+.. math::
+  \boldsymbol{\tilde{J}^{md}_{ab}}
+  =
+  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{R}(\theta_{m+d_{ab}})

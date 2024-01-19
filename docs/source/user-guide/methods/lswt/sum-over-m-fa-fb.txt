@@ -1,0 +1,8 @@
+.. math::
+  \dfrac{1}{M}
+  \sum_m
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{md}_{ab}}
+  \vec{f}_b
+  e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+  =

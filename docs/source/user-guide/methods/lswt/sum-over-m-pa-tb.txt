@@ -1,0 +1,6 @@
+.. math::
+  \dfrac{1}{M}
+  \sum_m
+  (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{t}_b
+  e^{i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
+  =

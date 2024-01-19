@@ -29,7 +29,7 @@ Methods and algorithms
 
   hp-bosons/index
   energy-quantum-correction
-  lswt
+  lswt/index
   hp-cubic-terms
   hp-quartic-terms
   diagonalisation

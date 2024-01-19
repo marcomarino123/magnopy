@@ -188,6 +188,7 @@ discuss each one in details:
   .. math::
     H^{Cl}
     =
+    \dfrac{1}{2}
     \sum_{m, \vec{d}_{ab}, a, b}
     S_aS_b
     (\vec{f}_a)^{\dagger}

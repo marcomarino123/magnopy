@@ -1,6 +1,7 @@
 .. math::
   H^{exchange}
   =
+  \dfrac{1}{2}
   \sum_{m, \vec{d}_{ab}, a, b}
   S_aS_b
   \Biggl\{

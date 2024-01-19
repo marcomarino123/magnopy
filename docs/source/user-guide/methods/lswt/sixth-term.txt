@@ -1,0 +1,110 @@
+First we work with the term in the round parenthesis:
+
+.. include:: sum-over-m-fa-fb.txt
+
+Now we move on to the full term of the sum:
+
+.. math::
+  -\dfrac{1}{2}
+  \sum_{k}\sum_{k^{\prime}}\sum_{\vec{d}_{ab}, a, b}
+  S_a
+  \Biggl(
+    &(\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}-\vec{Q}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}+\vec{Q}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}-2\vec{Q}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}+2\vec{Q}}
+  \Biggr)
+  \cdot
+  e^{-i(\vec{k}-\vec{k}^{\prime})\vec{d}_{ab}}
+  \hat{a}_{kb}^{\dagger}
+  \hat{a}_{k^{\prime}b}
+
+Kronecker delta will restrict the sum over :math:`\vec{k}^{\prime}` and only the sum over
+:math:`\vec{k}` remains:
+
+.. math::
+  -\dfrac{1}{2}
+  \sum_{k}\sum_{\vec{d}_{ab}, a, b}
+  S_a
+  \Biggl(
+    &(\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+    e^{i\vec{G}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{f}_b
+    e^{-i\vec{Q}\vec{d}_{ab}}
+    e^{i\vec{G}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k-Q, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{f}_b
+    e^{i\vec{Q}\vec{d}_{ab}}
+    e^{i\vec{G}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k+Q, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{f}_b
+    e^{-i2\vec{Q}\vec{d}_{ab}}
+    e^{i\vec{G}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k-2Q, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{f}_b
+    e^{i2\vec{Q}\vec{d}_{ab}}
+    e^{i\vec{G}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{\vec{G}+\vec{k}+2\vec{Q}, b}
+  \Biggr)
+
+Since :math:`\vec{d}_{ab}` is a lattice vector (it is a difference between
+two lattice vectors, see :ref:`here <user-guide_methods_spinham>`), therefore,
+
+.. math::
+  e^{i\vec{G}\vec{d}_{ab}}
+  =
+  e^{i2\pi n}
+  =
+  1
+
+where :math:`n \in \mathbb{Z}`
+
+.. math::
+  -\dfrac{1}{2}
+  \sum_{k}\sum_{\vec{d}_{ab}, a, b}
+  S_a
+  \Biggl(
+    &(\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{f}_b
+    e^{-i\vec{Q}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k-Q, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{f}_b
+    e^{i\vec{Q}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k+Q, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{f}_b
+    e^{-i2\vec{Q}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{G+k-2Q, b}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{f}_b
+    e^{i2\vec{Q}\vec{d}_{ab}}
+    \hat{a}_{kb}^{\dagger}
+    \hat{a}_{\vec{G}+\vec{k}+2\vec{Q}, b}
+  \Biggr)

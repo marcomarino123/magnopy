@@ -1,0 +1,58 @@
+First we work with the term in the round parenthesis:
+
+.. include:: sum-over-m-fa-fb.txt
+
+Now we move on to the full term of the sum:
+
+.. math::
+  -\dfrac{1}{2}
+  \sum_{k}\sum_{k^{\prime}}\sum_{\vec{d}_{ab}, a, b}
+  S_b
+  \Biggl(
+    &(\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}-\vec{Q}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}+\vec{Q}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}-2\vec{Q}}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{f}_b
+    \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}+2\vec{Q}}
+  \Biggr)
+  \cdot
+  \hat{a}_{ka}^{\dagger}
+  \hat{a}_{k^{\prime}a}
+
+Kronecker delta will restrict the sum over :math:`\vec{k}^{\prime}` and only the sum over
+:math:`\vec{k}` remains:
+
+.. math::
+  -\dfrac{1}{2}
+  \sum_{k}\sum_{\vec{d}_{ab}, a, b}
+  S_b
+  \Biggl(
+    &(\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+    \hat{a}_{ka}^{\dagger}
+    \hat{a}_{G+k, a}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{f}_b
+    \hat{a}_{ka}^{\dagger}
+    \hat{a}_{G+k-Q, a}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{f}_b
+    \hat{a}_{ka}^{\dagger}
+    \hat{a}_{G+k+Q, a}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{f}_b
+    \hat{a}_{ka}^{\dagger}
+    \hat{a}_{G+k-2Q, a}
+    +\\&+
+    (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{f}_b
+    \hat{a}_{ka}^{\dagger}
+    \hat{a}_{G+k+2Q, a}
+  \Biggr)

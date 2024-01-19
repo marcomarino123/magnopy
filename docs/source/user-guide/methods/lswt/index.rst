@@ -105,7 +105,7 @@ bosonic operators :math:`\hat{a}_{ma}` and move to the collective bosonic operat
 .. include:: fourier-hamiltonian-grouping.txt
 
 After we apply the rotated matrix separation to each term in the round parentheses
-we will end up with the number of the sums over :math:`m` of the following form:
+we end up with the number of the sums over :math:`m` of the following form:
 
 .. math::
   \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}))\vec{r}_m}
@@ -124,24 +124,28 @@ section the sums of this form can be simplified:
 where :math:`\vec{G}` is a reciprocal lattice vector.
 
 
-Now we focus on each term in the round parenthesis:
+Now we focus on each term of the sum separately:
 
 .. dropdown:: First term
 
-  .. include:: sum-over-m-pa-pb.txt
+  .. include:: first-term.txt
 
 .. dropdown:: Second term
 
-  .. include:: sum-over-m-pa-tb.txt
+  .. include:: second-term.txt
 
 .. dropdown:: Third term
 
-  .. include:: sum-over-m-ta-pb.txt
+  .. include:: third-term.txt
 
 .. dropdown:: Fourth term
 
-  .. include:: sum-over-m-ta-tb.txt
+  .. include:: fourth-term.txt
 
-.. dropdown:: Fifth and Sixth terms
+.. dropdown:: Fifth terms
 
-  .. include:: sum-over-m-fa-fb.txt
+  .. include:: fifth-term.txt
+
+.. dropdown:: Sixth terms
+
+  .. include:: sixth-term.txt

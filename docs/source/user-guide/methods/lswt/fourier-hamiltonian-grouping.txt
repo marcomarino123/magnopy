@@ -10,7 +10,7 @@
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{p}_b
+        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{p}_b
         e^{i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
       \Bigr)
       \cdot
@@ -21,7 +21,7 @@
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{t}_b
+        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{t}_b
         e^{i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
       \Bigr)
       \cdot
@@ -32,7 +32,7 @@
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{p}_b
+        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{p}_b
         e^{-i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
       \Bigr)
       \cdot
@@ -43,7 +43,7 @@
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{md}_{ab}}\vec{t}_b
+        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{t}_b
         e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
       \Bigr)
       \cdot
@@ -57,7 +57,7 @@
       \dfrac{1}{M}
       \sum_m
       (\vec{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{f}_b
       e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
     \Bigr)
@@ -70,7 +70,7 @@
       \dfrac{1}{M}
       \sum_m
       (\vec{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{md}_{ab}}
+      \boldsymbol{\tilde{J}^{mdab}}
       \vec{f}_b
       e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
     \Bigr)

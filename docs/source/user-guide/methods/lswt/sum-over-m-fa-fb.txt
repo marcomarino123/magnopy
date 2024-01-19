@@ -1,8 +1,109 @@
 .. math::
+  &\dfrac{1}{M}
+  \sum_m
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{mdab}}
+  \vec{f}_b
+  e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+  =\\&=
   \dfrac{1}{M}
   \sum_m
   (\vec{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{md}_{ab}}
+  \left(
+    \boldsymbol{\tilde{J}^{dab}_0}
+    +
+    \boldsymbol{\tilde{J}^{dab}_1}e^{i\vec{Q}\vec{r}_m}
+    +
+    \boldsymbol{\tilde{J}^{dab}_2}e^{-i\vec{Q}\vec{r}_m}
+    +
+    \boldsymbol{\tilde{J}^{dab}_3}e^{2i\vec{Q}\vec{r}_m}
+    +
+    \boldsymbol{\tilde{J}^{dab}_4}e^{-2i\vec{Q}\vec{r}_m}
+  \right)
   \vec{f}_b
   e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
-  =
+  =\\&=
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_0}
+  \vec{f}_b
+  \dfrac{1}{M}
+  \sum_m
+  e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_1}
+  \vec{f}_b
+  \dfrac{1}{M}
+  \sum_m
+  e^{-i(\vec{k}-\vec{k}^{\prime}-\vec{Q})\vec{r}_m}
+  +\\&+
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_2}
+  \vec{f}_b
+  \dfrac{1}{M}
+  \sum_m
+  e^{-i(\vec{k}-\vec{k}^{\prime}+\vec{Q})\vec{r}_m}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_3}
+  \vec{f}_b
+  \dfrac{1}{M}
+  \sum_m
+  e^{-i(\vec{k}-\vec{k}^{\prime}-2\vec{Q})\vec{r}_m}
+  +\\&+
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_4}
+  \vec{f}_b
+  \dfrac{1}{M}
+  \sum_m
+  e^{-i(\vec{k}-\vec{k}^{\prime}+2\vec{Q})\vec{r}_m}
+  =\\&=
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_0}
+  \vec{f}_b
+  \delta_{-(\vec{k}-\vec{k}^{\prime}), \vec{G}}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_1}
+  \vec{f}_b
+  \delta_{-(\vec{k}-\vec{k}^{\prime}-\vec{Q}), \vec{G}}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_2}
+  \vec{f}_b
+  \delta_{-(\vec{k}-\vec{k}^{\prime}+\vec{Q}), \vec{G}}
+  +\\&+
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_3}
+  \vec{f}_b
+  \delta_{-(\vec{k}-\vec{k}^{\prime}-2\vec{Q}), \vec{G}}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_4}
+  \vec{f}_b
+  \delta_{-(\vec{k}-\vec{k}^{\prime}+2\vec{Q}), \vec{G}}
+  =\\&=
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_0}
+  \vec{f}_b
+  \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_1}
+  \vec{f}_b
+  \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}-\vec{Q}}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_2}
+  \vec{f}_b
+  \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}+\vec{Q}}
+  +\\&+
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_3}
+  \vec{f}_b
+  \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}-2\vec{Q}}
+  +
+  (\vec{f}_a)^{\dagger}
+  \boldsymbol{\tilde{J}^{dab}_4}
+  \vec{f}_b
+  \delta_{\vec{k}^{\prime}, \vec{G}+\vec{k}+2\vec{Q}}

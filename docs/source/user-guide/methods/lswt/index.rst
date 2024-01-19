@@ -12,6 +12,7 @@ Linear Spin-Wave Theory
   * .. include:: ../page-notations/operators.txt
   * .. include:: ../page-notations/spin-unit-vector-operator.txt
   * .. include:: ../page-notations/bra-ket.txt
+  * .. include:: ../page-notations/kronecker-delta.txt
 
 
 The part of Hamiltonian, which is discussed in this page is
@@ -57,6 +58,10 @@ And then apply hermitian conjugate to the whole expression:
   \boldsymbol{J_{ba}}(\vec{d}_{ba})
   \boldsymbol{R}(\theta_m)
 
+Finally, we separate the matrix into five terms as it will be convenient later:
+
+.. include:: J-abmd-separation.txt
+
 Fourier transformation
 ======================
 
@@ -98,6 +103,26 @@ bosonic operators :math:`\hat{a}_{ma}` and move to the collective bosonic operat
   .. include:: fourier-hamiltonian-grouping-details.txt
 
 .. include:: fourier-hamiltonian-grouping.txt
+
+After we apply the rotated matrix separation to each term in the round parentheses
+we will end up with the number of the sums over :math:`m` of the following form:
+
+.. math::
+  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}))\vec{r}_m}
+
+where :math:`h(\vec{k}, \vec{k}^{\prime})` and :math:`h(\vec{Q})` are corresponding functions of
+the vectors.
+
+As was discussed in the :ref:`classical energy <user-guide_methods_energy-classic_sum-over-m-condition>`
+section the sums of this form can be simplified:
+
+.. math::
+  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}))\vec{r}_m}
+  =
+  \delta_{h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}), \vec{G}}
+
+where :math:`\vec{G}` is a reciprocal lattice vector.
+
 
 Now we focus on each term in the round parenthesis:
 

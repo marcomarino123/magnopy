@@ -16,22 +16,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__version__ = "0.0.0"
-__doclink__ = "magnopy.org"
-__release_date__ = "undefined"
+__all__ = [
+    "BOHR_TO_ANGSTROM",
+    "ANGSTROM_TO_BOHR",
+    "JOULE_TO_meV",
+    "meV_TO_JOULE",
+    "K_TO_meV",
+    "meV_TO_K",
+    "Ry_TO_meV",
+    "meV_TO_Ry",
+]
 
-from . import exceptions, io, magnons, score, spinham
-from .exceptions import *
-from .io import *
-from .magnons import *
-from .score import *
-from .spinham import *
-from .units import *
+BOHR_TO_ANGSTROM = 0.529177210903
+ANGSTROM_TO_BOHR = 1 / BOHR_TO_ANGSTROM
 
-__all__ = ["__version__", "__doclink__", "__release_date__"]
-__all__.extend(spinham.__all__)
-__all__.extend(io.__all__)
-__all__.extend(magnons.__all__)
-__all__.extend(exceptions.__all__)
-__all__.extend(score.__all__)
-__all__.extend(units.__all__)
+JOULE_TO_meV = 6.241509074e21
+meV_TO_JOULE = 1 / JOULE_TO_meV
+
+meV_TO_K = 11.60451812
+K_TO_meV = 1 / meV_TO_K
+
+Ry_TO_meV = 13605.693122994
+meV_TO_Ry = 1 / Ry_TO_meV

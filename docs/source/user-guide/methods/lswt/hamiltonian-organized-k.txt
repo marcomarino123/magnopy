@@ -1,0 +1,42 @@
+.. math::
+  H^{LSWT}_0
+  =
+  \dfrac{1}{2}
+  \sum_{k}\sum_{\vec{d}_{ab}, a, b}
+  S_aS_b
+  \Biggl\{
+    \Biggl[
+      &\dfrac{1}{\sqrt{S_aS_b}}
+      \Bigl(
+        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{p}_b
+        e^{-i\vec{k}\vec{d}_{ab}}
+        \hat{a}_{ka}
+        \hat{a}_{k-G, b}^{\dagger}
+        +\\&+
+        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{t}_b
+        e^{-i\vec{k}\vec{d}_{ab}}
+        \hat{a}_{ka}
+        \hat{a}_{G-k, b}
+        +\\&+
+        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{p}_b
+        e^{i\vec{k}\vec{d}_{ab}}
+        \hat{a}_{ka}^{\dagger}
+        \hat{a}_{-k-G, b}^{\dagger}
+        +\\&+
+        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{t}_b
+        e^{i\vec{k}\vec{d}_{ab}}
+        \hat{a}_{ka}^{\dagger}
+        \hat{a}_{G+k,b}
+      \Bigr)
+      -\\&-
+      \dfrac{1}{S_a}
+      (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+      \hat{a}_{ka}^{\dagger}
+      \hat{a}_{G+k, a}
+      -\\&-
+      \dfrac{1}{S_b}
+      (\vec{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{f}_b
+      \hat{a}_{kb}^{\dagger}
+      \hat{a}_{G+k, b}
+    \Biggr]
+  \Biggr\}

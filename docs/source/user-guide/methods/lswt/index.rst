@@ -58,6 +58,68 @@ And then apply hermitian conjugate to the whole expression:
   \boldsymbol{J_{ba}}(\vec{d}_{ba})
   \boldsymbol{R}(\theta_m)
 
+
+Hermicity
+=========
+
+Before we proceed with derivation let us demonstrate hermicity of the Hamiltonian.
+The easiest way to do so is to write two entries of the same bond for arbitrary bond
+and show that their sum is unchanged under the application of the hermitian conjugate.
+
+We write the part of the Hamiltonian for the bond between atoms :math:`1` and :math:`2`,
+with first atom being located in the unit cell :math:`0` and the second in the unit cell
+:math:`0+d`. Then two entries of the bond are:
+
+* :math:`1 \Rightarrow 2` (:math:`H_{12}`)
+
+  - :math:`a = 1`
+  - :math:`b = 2`
+  - :math:`\vec{d}_{ab} = \vec{d}`
+  - :math:`m = 0`
+* :math:`2 \Rightarrow 1` (:math:`H_{21}`)
+
+  - :math:`a = 2`
+  - :math:`b = 1`
+  - :math:`\vec{d}_{ab} = -\vec{d}`
+  - :math:`m = 0+d`
+
+.. dropdown:: Part of the Hamiltonian
+
+  .. include:: hermicity-two-bond-part.txt
+
+.. dropdown:: It's Hermitian conjugate
+
+  .. include:: hermicity-two-bond-part-hc.txt
+
+By comparison of two formulas above we see that :math:`H_{12}=H_{21}^{\dagger}`, therefore:
+
+.. math::
+  (H_{12} + H_{21})^{\dagger}
+  =
+  H_{12}^{\dagger} + H_{21}^{\dagger}
+  =
+  H_{21} + H_{12}
+  =
+  H_{12} + H_{21}
+
+Therefor full Hamiltonian :math:`H^{LSWT}` is a sum of hermitian terms and is hermitian
+by itself.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IGNORE
+
 Finally, we separate the matrix into five terms as it will be convenient later:
 
 .. include:: J-abmd-separation.txt
@@ -108,18 +170,18 @@ After we apply the rotated matrix separation to each term in the round parenthes
 we end up with the number of the sums over :math:`m` of the following form:
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}))\vec{r}_m}
+  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+\tilde{h}(\vec{Q}))\vec{r}_m}
 
-where :math:`h(\vec{k}, \vec{k}^{\prime})` and :math:`h(\vec{Q})` are corresponding functions of
+where :math:`h(\vec{k}, \vec{k}^{\prime})` and :math:`\tilde{h}(\vec{Q})` are corresponding functions of
 the vectors.
 
 As was discussed in the :ref:`classical energy <user-guide_methods_energy-classic_sum-over-m-condition>`
 section the sums of this form can be simplified:
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}))\vec{r}_m}
+  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+\tilde{h}(\vec{Q}))\vec{r}_m}
   =
-  \delta_{h(\vec{k}, \vec{k}^{\prime})+h(\vec{Q}), \vec{G}}
+  \delta_{h(\vec{k}, \vec{k}^{\prime})+\tilde{h}(\vec{Q}), \vec{G}}
 
 where :math:`\vec{G}` is a reciprocal lattice vector.
 
@@ -149,3 +211,23 @@ Now we focus on each term of the sum separately:
 .. dropdown:: Sixth terms
 
   .. include:: sixth-term.txt
+
+Now we organize the terms with respect to the parts of the exchange matrix:
+
+.. math::
+  H^{LSWT}
+  =
+  H^{LSWT}_0
+  +
+  H^{LSWT}_1
+  +
+  H^{LSWT}_2
+  +
+  H^{LSWT}_3
+  +
+  H^{LSWT}_4
+
+and work with those terms separately:
+
+
+.. include:: hamiltonian-organized-k.txt

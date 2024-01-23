@@ -24,7 +24,7 @@ We compute the fourier transform of it:
   .. math::
       \vert S_{ka} \rangle
       =
-      \dfrac{1}{M}\sum_{m} e^{-i\vec{k}\vec{r_m}} \vert S_{ma} \rangle
+      \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \vert S_{ma} \rangle
       &=
       S_a
       \cdot
@@ -33,20 +33,20 @@ We compute the fourier transform of it:
         \vert u^+\rangle
         \left(
           \dfrac{1}{M}
-          \sum_{m}e^{-i\vec{r}_m(\vec{k}+\vec{Q})}
+          \sum_{m}e^{-i\boldsymbol{r}_m(\boldsymbol{k}+\boldsymbol{q})}
         \right)
         +\\&+
         \dfrac{\sin\theta_a\cdot e^{i\phi_a}}{\sqrt{2}}
         \vert u^-\rangle
         \left(
           \dfrac{1}{M}
-          \sum_{m}e^{-i\vec{r}_m(\vec{k}-\vec{Q})}
+          \sum_{m}e^{-i\boldsymbol{r}_m(\boldsymbol{k}-\boldsymbol{q})}
         \right)
         +\\&+
         \cos\theta
         \left(
           \dfrac{1}{M}
-          \sum_{m}e^{-i\vec{k}\vec{r}_m}
+          \sum_{m}e^{-i\boldsymbol{k}\boldsymbol{r}_m}
         \right)
         \vert v \rangle
       \Biggr]
@@ -59,15 +59,15 @@ We compute the fourier transform of it:
   S_a
   \cdot
   \left[
-    \delta_{\vec{k}, -\vec{Q}}
+    \delta_{\boldsymbol{k}, -\boldsymbol{q}}
     \dfrac{\sin\theta_a\cdot e^{-i\phi_a}}{\sqrt{2}}
     \vert u^+\rangle
     +
-    \delta_{\vec{k}, \vec{Q}}
+    \delta_{\boldsymbol{k}, \boldsymbol{q}}
     \dfrac{\sin\theta_a\cdot e^{i\phi_a}}{\sqrt{2}}
     \vert u^-\rangle
     +
-    \delta_{\vec{k}, \vec{0}}
+    \delta_{\boldsymbol{k}, \boldsymbol{0}}
     \cdot
     \cos\theta
     \vert v \rangle
@@ -81,9 +81,9 @@ Structural factor in the :math:`\vert u^+u^-n\rangle` reference frame:
   S_a
   \cdot
   \begin{pmatrix}
-    \dfrac{\sin\theta_a\cdot e^{-i\phi_a}}{\sqrt{2}} \delta_{\vec{k}, -\vec{Q}} \\
-    \dfrac{\sin\theta_a\cdot e^{ i\phi_a}}{\sqrt{2}} \delta_{\vec{k},  \vec{Q}} \\
-    \cos\theta \delta_{\vec{k}, \vec{0}}                                        \\
+    \dfrac{\sin\theta_a\cdot e^{-i\phi_a}}{\sqrt{2}} \delta_{\boldsymbol{k}, -\boldsymbol{q}} \\
+    \dfrac{\sin\theta_a\cdot e^{ i\phi_a}}{\sqrt{2}} \delta_{\boldsymbol{k},  \boldsymbol{q}} \\
+    \cos\theta \delta_{\boldsymbol{k}, \boldsymbol{0}}                                        \\
   \end{pmatrix}
 
 Structural factor in the :math:`\vert uvn\rangle` reference frame:
@@ -96,15 +96,15 @@ Structural factor in the :math:`\vert uvn\rangle` reference frame:
   \begin{pmatrix}
     \dfrac{\sin\theta_a}{2}
     \left(
-      e^{-i\phi_a}\delta_{\vec{k}, -\vec{Q}}
+      e^{-i\phi_a}\delta_{\boldsymbol{k}, -\boldsymbol{q}}
       +
-      e^{i\phi_a}\delta_{\vec{k}, \vec{Q}}
+      e^{i\phi_a}\delta_{\boldsymbol{k}, \boldsymbol{q}}
     \right) \\
     \dfrac{i\sin\theta_a}{2}
     \left(
-      e^{-i\phi_a}\delta_{\vec{k}, -\vec{Q}}
+      e^{-i\phi_a}\delta_{\boldsymbol{k}, -\boldsymbol{q}}
       -
-      e^{i\phi_a}\delta_{\vec{k}, \vec{Q}}
+      e^{i\phi_a}\delta_{\boldsymbol{k}, \boldsymbol{q}}
     \right) \\
-    \cos\theta \delta_{\vec{k}, \vec{0}}
+    \cos\theta \delta_{\boldsymbol{k}, \boldsymbol{0}}
   \end{pmatrix}

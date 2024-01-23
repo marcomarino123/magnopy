@@ -1,13 +1,13 @@
 .. math::
   &
   \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\vec{s}}_{m+d_{ab},b}^{ferro}
+  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
   =
   S_b
   \left(
-    \vec{p}_b,
-    \vec{t}_b,
-    \vec{f}_b
+    \boldsymbol{p}_b,
+    \boldsymbol{t}_b,
+    \boldsymbol{f}_b
   \right)
   \begin{pmatrix}
     \dfrac{1}{\sqrt{S_b}}
@@ -32,22 +32,22 @@
   =\\&=
   S_b
   \left[
-    \vec{f}_b
+    \boldsymbol{f}_b
     +
     \dfrac{1}{\sqrt{S_b}}
     \left(
-      \hat{a}_{m+d_{ab},b}^{\dagger}\vec{p}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}\boldsymbol{p}_b
       +
-      \hat{a}_{m+d_{ab},b}\vec{t}_b
+      \hat{a}_{m+d_{ab},b}\boldsymbol{t}_b
     \right)
     -
     \dfrac{1}{S_b}
-    \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\vec{f}_b
+    \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\boldsymbol{f}_b
     -
     \dfrac{1}{4S_b^{3/2}}
     \left(
-      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\vec{p}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\boldsymbol{p}_b
       +
-      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}\vec{t}_b
+      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}\boldsymbol{t}_b
     \right)
   \right]

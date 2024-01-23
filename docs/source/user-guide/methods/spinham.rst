@@ -17,13 +17,13 @@ Spin Hamiltonian
 
 Before we define the Hamiltonian let us define the system, which we are solving:
 
-* Let :math:`\vec{r}_m` :math:`(m = 1, ..., M)` be the Bravais lattice vectors
+* Let :math:`\boldsymbol{r}_m` :math:`(m = 1, ..., M)` be the Bravais lattice vectors
   that define the position of each cell.
 * Each unit cell contains a set of :math:`N` atoms, located at the positions
-  :math:`\vec{r}_a` :math:`(a = 1, ..., N)` with respect to the position of the cell.
+  :math:`\boldsymbol{r}_a` :math:`(a = 1, ..., N)` with respect to the position of the cell.
   Therefore, each atom is located at the position
-  :math:`\vec{r}_{ma} = \vec{r}_m + \vec{r}_a`.
-* Each atom is characterized by the spin :math:`\vec{S}_{ma} = \hbar S_a \hat{S}_{ma}`.
+  :math:`\boldsymbol{r}_{ma} = \boldsymbol{r}_m + \boldsymbol{r}_a`.
+* Each atom is characterized by the spin :math:`\boldsymbol{S}_{ma} = \hbar S_a \hat{S}_{ma}`.
 
 The Hamiltonian is usually given in some coordinate frame, which we call
 a global :math:`xyz` reference frame. Then the Hamiltonian is given by:
@@ -31,19 +31,19 @@ a global :math:`xyz` reference frame. Then the Hamiltonian is given by:
 .. math::
   H
   =
-  \dfrac{1}{2} \sum_{m, \vec{d}_{ab}, a\ne b\vert_{\vec{d}_{ab} = \vec{0}}}
-  \vec{S}_{ma}^{\dagger} \boldsymbol{J_{ab}}(\vec{d}_{ab})\vec{S}_{m+d,b}
-  + \sum_{m,a} \vec{S}_{ma}^{\dagger} \boldsymbol{A_a} \vec{S}_{ma}
-  + \mu_B\vec{H}^{\dagger}\sum_{m,a} g_a \vec{S}_{ma}
+  \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ab}, a\ne b\vert_{\boldsymbol{d}_{ab} = \boldsymbol{0}}}
+  \boldsymbol{S}_{ma}^{\dagger} \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})\boldsymbol{S}_{m+d,b}
+  + \sum_{m,a} \boldsymbol{S}_{ma}^{\dagger} \boldsymbol{A_a} \boldsymbol{S}_{ma}
+  + \mu_B\boldsymbol{H}^{\dagger}\sum_{m,a} g_a \boldsymbol{S}_{ma}
 
 .. dropdown:: Bra-ket notation
 
   .. math::
     H
     =
-    \dfrac{1}{2} \sum_{m, \vec{d}_{ab}, a\ne b\vert_{\vec{d}_{ab} = \vec{0}}}
+    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ab}, a\ne b\vert_{\boldsymbol{d}_{ab} = \boldsymbol{0}}}
     \langle S_{ma}\vert xyz\rangle
-    \langle xyz \vert J_{ab}(\vec{d}_{ab}) \vert xyz \rangle
+    \langle xyz \vert J_{ab}(\boldsymbol{d}_{ab}) \vert xyz \rangle
     \langle xyz \vert S_{m+d,b}\rangle
     +
     \sum_{m,a} \langle S_{ma} \vert xyz \rangle
@@ -53,8 +53,8 @@ a global :math:`xyz` reference frame. Then the Hamiltonian is given by:
     \mu_B\langle H\vert xyz\rangle\sum_{m,a} g_a
     \langle xyz \vert S_{ma}\rangle
 
-where vector :math:`\vec{d}_{ab} = \vec{r}_{m+d} - \vec{r}_m`  runs over the neighbors.
-:math:`\boldsymbol{J_{ab}}(\vec{d}_{ab})` is a :math:`3\times3` exchange matrix, which includes:
+where vector :math:`\boldsymbol{d}_{ab} = \boldsymbol{r}_{m+d} - \boldsymbol{r}_m`  runs over the neighbors.
+:math:`\boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})` is a :math:`3\times3` exchange matrix, which includes:
 
 * Isotropic exchange:
 
@@ -82,7 +82,7 @@ where vector :math:`\vec{d}_{ab} = \vec{r}_{m+d} - \vec{r}_m`  runs over the nei
       D_y  & -D_x & 0    \\
     \end{pmatrix}
 
-  It is often described by the vector :math:`\vec{D} = (D_x,D_y,D_z)^T`.
+  It is often described by the vector :math:`\boldsymbol{D} = (D_x,D_y,D_z)^T`.
 
 :math:`\boldsymbol{A_a}` is a :math:`3\times3` on-site anisotropy matrix.
 The third term describes the Zeeman interaction with the external magnetic field.
@@ -95,7 +95,7 @@ The third term describes the Zeeman interaction with the external magnetic field
 
 For the simplicity of the latter discussion we combine the exchange and anisotropy terms
 under one sum, defining
-:math:`\boldsymbol{A_a} = \dfrac{1}{2}\boldsymbol{J_{aa}}(\vec{d}_{aa}=\vec{0})`,
+:math:`\boldsymbol{A_a} = \dfrac{1}{2}\boldsymbol{J_{aa}}(\boldsymbol{d}_{aa}=\boldsymbol{0})`,
 then the Hamiltonian is written as:
 
 .. include:: repeated-formulas/hamiltonian-main-any.txt
@@ -103,9 +103,9 @@ then the Hamiltonian is written as:
 .. dropdown:: Bra-ket notation
 
   .. math::
-    H = \dfrac{1}{2} \sum_{m, \vec{d}_{ab}, a, b}
+    H = \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ab}, a, b}
     \langle S_{ma}\vert xyz\rangle
-    \langle xyz \vert J_{ab}(\vec{d}_{ab})\vert xyz \rangle
+    \langle xyz \vert J_{ab}(\boldsymbol{d}_{ab})\vert xyz \rangle
     \langle xyz \vert S_{m+d,b} \rangle
     + \mu_B \langle H \vert xyz\rangle\sum_{m,a} g_a
     \langle xyz\vert S_{ma} \rangle

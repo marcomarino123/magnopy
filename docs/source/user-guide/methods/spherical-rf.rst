@@ -146,9 +146,9 @@ reference frame:
       \cdot
       \dfrac{
         \sin\theta_a[
-          \cos(\vec{Q}\cdot\vec{r}_m + \phi_a)
+          \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)
           \pm
-          i\sin(\vec{Q}\cdot\vec{r}_m + \phi_a)
+          i\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)
         ]
       }{\sqrt{2}}
       =\\=
@@ -156,9 +156,9 @@ reference frame:
       \cdot
       \dfrac{
         \sin\theta_a[
-          \cos(\pm\vec{Q}\cdot\vec{r}_m \pm \phi_a)
+          \cos(\pm\boldsymbol{q}\cdot\boldsymbol{r}_m \pm \phi_a)
           +
-          i\sin(\pm\vec{Q}\cdot\vec{r}_m \pm \phi_a)
+          i\sin(\pm\boldsymbol{q}\cdot\boldsymbol{r}_m \pm \phi_a)
         ]
       }{\sqrt{2}}
       =
@@ -166,7 +166,7 @@ reference frame:
       \cdot
       \dfrac{\sin\theta_a}{\sqrt{2}}
       \cdot
-      e^{\pm i (\vec{Q}\cdot\vec{r}_m + \phi_a)}
+      e^{\pm i (\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)}
     \end{multline}
 
 .. include:: repeated-formulas/spin-spherical.txt

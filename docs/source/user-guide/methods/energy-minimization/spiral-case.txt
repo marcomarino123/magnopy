@@ -3,24 +3,24 @@ Spiral state
 
 Examples of the spirals can be found :ref:`here<user-guide_methods_single-q_examples>`.
 
-In that case both :math:`\delta_{\vec{Q},\vec{G}} = 0`
-and :math:`\delta_{\frac{\vec{Q}}{2},\vec{G}} = 0`,
+In that case both :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 0`
+and :math:`\delta_{\frac{\boldsymbol{q}}{2},\boldsymbol{G}} = 0`,
 therefore, the expression for the exchange energy is simplified to
 
 .. math::
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}_{ab}}
+  \sum_{a, b, \boldsymbol{d}_{ab}}
   S_aS_b
   \Biggl\{
-    J_{ab}^{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
     +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})+J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
       +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})-J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
     \Bigr]
   \Biggr\}
 
@@ -35,35 +35,35 @@ Let us simplify the expression by explicitly writing the double-counted terms
 
   Which means:
 
-  * :math:`J_{ab}^{uu}(\vec{d}_{ab}) = J_{ba}^{uu}(\vec{d}_{ba}) = J_{ab}^{uu}`
-  * :math:`J_{ab}^{vv}(\vec{d}_{ab}) = J_{ba}^{vv}(\vec{d}_{ba}) = J_{ab}^{vv}`
-  * :math:`J_{ab}^{nn}(\vec{d}_{ab}) = J_{ba}^{nn}(\vec{d}_{ba}) = J_{ab}^{nn}`
-  * :math:`D_{ab}^n(\vec{d}_{ab}) = -D_{ba}^n(\vec{d}_{ba}) = D_{ab}^n`
+  * :math:`J_{ab}^{uu}(\boldsymbol{d}_{ab}) = J_{ba}^{uu}(\boldsymbol{d}_{ba}) = J_{ab}^{uu}`
+  * :math:`J_{ab}^{vv}(\boldsymbol{d}_{ab}) = J_{ba}^{vv}(\boldsymbol{d}_{ba}) = J_{ab}^{vv}`
+  * :math:`J_{ab}^{nn}(\boldsymbol{d}_{ab}) = J_{ba}^{nn}(\boldsymbol{d}_{ba}) = J_{ab}^{nn}`
+  * :math:`D_{ab}^n(\boldsymbol{d}_{ab}) = -D_{ba}^n(\boldsymbol{d}_{ba}) = D_{ab}^n`
 
 
   .. math::
     &\dfrac{E_{exchange}}{M}
     =
     \dfrac{1}{2}
-    \sum_a\sum_{b\ge a}\sum_{\vec{d}_{ab}}
+    \sum_a\sum_{b\ge a}\sum_{\boldsymbol{d}_{ab}}
     S_aS_b
     \Biggl\{
-      J_{ab}^{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
+      J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
       +
-      J_{ab}^{nn}(\vec{d}_{ba})\cos\theta_b\cos\theta_a
+      J_{ab}^{nn}(\boldsymbol{d}_{ba})\cos\theta_b\cos\theta_a
       +\\&+
       \sin\theta_a\sin\theta_b
       \Bigl[
-        \dfrac{J_{ab}^{uu}(\vec{d}_{ab})+J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
+        \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
         +
-        D_{ab}^n(\vec{d}_{ab})\sin(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
+        D_{ab}^n(\boldsymbol{d}_{ab})\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
       \Bigr]
       +\\&+
       \sin\theta_b\sin\theta_a
       \Bigl[
-        \dfrac{J_{ba}^{uu}(\vec{d}_{ba})+J_{ba}^{vv}(\vec{d}_{ba})}{2}\cos(\vec{Q}\vec{d}_{ba}+\phi_a-\phi_b)
+        \dfrac{J_{ba}^{uu}(\boldsymbol{d}_{ba})+J_{ba}^{vv}(\boldsymbol{d}_{ba})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ba}+\phi_a-\phi_b)
         +
-        D_{ba}^n(\vec{d}_{ba})\sin(\vec{Q}\vec{d}_{ba}+\phi_a-\phi_b)
+        D_{ba}^n(\boldsymbol{d}_{ba})\sin(\boldsymbol{q}\boldsymbol{d}_{ba}+\phi_a-\phi_b)
       \Bigr]
     \Biggr\}
 
@@ -73,7 +73,7 @@ Let us simplify the expression by explicitly writing the double-counted terms
   .. math::
     &\dfrac{E_{exchange}}{M}
     =
-    \sum_a\sum_{b\ge a}\sum_{\vec{d}}
+    \sum_a\sum_{b\ge a}\sum_{\boldsymbol{d}}
     S_aS_b
     \Biggl\{
       J_{ab}^{nn}\cos\theta_a\cos\theta_b
@@ -81,9 +81,9 @@ Let us simplify the expression by explicitly writing the double-counted terms
       \sin\theta_a\sin\theta_b
       \Biggl(
         \dfrac{J_{ab}^{uu}+J_{ab}^{vv}}{2}
-        \cos(\vec{Q}\vec{d}_{ab}-\Delta\phi_{ab})
+        \cos(\boldsymbol{q}\boldsymbol{d}_{ab}-\Delta\phi_{ab})
         +
         D_{ab}^n
-        \sin(\vec{Q}\vec{d}_{ab}-\Delta\phi_{ab})
+        \sin(\boldsymbol{q}\boldsymbol{d}_{ab}-\Delta\phi_{ab})
       \Biggr)
     \Biggr\}

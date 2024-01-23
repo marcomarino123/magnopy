@@ -6,73 +6,73 @@ Now we move on to the full term of the sum:
 
 .. math::
   \dfrac{1}{2}
-  \sum_{k}\sum_{k^{\prime}}\sum_{\vec{d}_{ab}, a, b}
+  \sum_{k}\sum_{k^{\prime}}\sum_{\boldsymbol{d}_{ab}, a, b}
   \sqrt{S_aS_b}
   \Biggl(
-    &(\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{p}_b
-    \delta_{\vec{k}^{\prime}, \vec{k}-\vec{G}}
+    &(\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\boldsymbol{p}_b
+    \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{k}-\boldsymbol{G}}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{p}_b
-    \delta_{\vec{k}^{\prime}, \vec{k}+\vec{Q}-\vec{G}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\boldsymbol{p}_b
+    \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{k}+\boldsymbol{q}-\boldsymbol{G}}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{p}_b
-    \delta_{\vec{k}^{\prime}, \vec{k}-\vec{Q}-\vec{G}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\boldsymbol{p}_b
+    \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{k}-\boldsymbol{q}-\boldsymbol{G}}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{p}_b
-    \delta_{\vec{k}^{\prime}, \vec{k}+2\vec{Q}-\vec{G}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\boldsymbol{p}_b
+    \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{k}+2\boldsymbol{q}-\boldsymbol{G}}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{p}_b
-    \delta_{\vec{k}^{\prime}, \vec{k}-2\vec{Q}-\vec{G}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\boldsymbol{p}_b
+    \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{k}-2\boldsymbol{q}-\boldsymbol{G}}
   \Biggr)
   \cdot
-  e^{-i\vec{k}^{\prime}\vec{d}_{ab}}
+  e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
   \hat{a}_{ka}
   \hat{a}_{k^{\prime}b}^{\dagger}
 
-Kronecker delta will restrict the sum over :math:`\vec{k}^{\prime}` and only the sum over
-:math:`\vec{k}` remains:
+Kronecker delta will restrict the sum over :math:`\boldsymbol{k}^{\prime}` and only the sum over
+:math:`\boldsymbol{k}` remains:
 
 .. math::
   \dfrac{1}{2}
-  \sum_{k}\sum_{\vec{d}_{ab}, a, b}
+  \sum_{k}\sum_{\boldsymbol{d}_{ab}, a, b}
   \sqrt{S_aS_b}
   \Biggl(
-    &(\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{p}_b
-    e^{-i\vec{k}\vec{d}_{ab}}
-    e^{i\vec{G}\vec{d}_{ab}}
+    &(\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\boldsymbol{p}_b
+    e^{-i\boldsymbol{k}\boldsymbol{d}_{ab}}
+    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
     \hat{a}_{k-G, b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{p}_b
-    e^{-i(\vec{k}+\vec{Q})\vec{d}_{ab}}
-    e^{i\vec{G}\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}+\boldsymbol{q})\boldsymbol{d}_{ab}}
+    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k+Q-G,b}^{\dagger}
+    \hat{a}_{k+q-G,b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{p}_b
-    e^{-i(\vec{k}-\vec{Q})\vec{d}_{ab}}
-    e^{i\vec{G}\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}-\boldsymbol{q})\boldsymbol{d}_{ab}}
+    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k-Q-G,b}^{\dagger}
+    \hat{a}_{k-q-G,b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{p}_b
-    e^{-i(\vec{k}+2\vec{Q})\vec{d}_{ab}}
-    e^{i\vec{G}\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}+2\boldsymbol{q})\boldsymbol{d}_{ab}}
+    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k+2Q-G, b}^{\dagger}
+    \hat{a}_{k+2q-G, b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{p}_b
-    e^{-i(\vec{k}-2\vec{Q})\vec{d}_{ab}}
-    e^{i\vec{G}\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}-2\boldsymbol{q})\boldsymbol{d}_{ab}}
+    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k-2Q-G,b}^{\dagger}
+    \hat{a}_{k-2q-G,b}^{\dagger}
   \Biggr)
 
-Since :math:`\vec{d}_{ab}` is a lattice vector (it is a difference between
+Since :math:`\boldsymbol{d}_{ab}` is a lattice vector (it is a difference between
 two lattice vectors, see :ref:`here <user-guide_methods_spinham>`), therefore,
 
 .. math::
-  e^{i\vec{G}\vec{d}_{ab}}
+  e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
   =
   e^{i2\pi n}
   =
@@ -82,31 +82,31 @@ where :math:`n \in \mathbb{Z}`
 
 .. math::
   \dfrac{1}{2}
-  \sum_{k}\sum_{\vec{d}_{ab}, a, b}
+  \sum_{k}\sum_{\boldsymbol{d}_{ab}, a, b}
   \sqrt{S_aS_b}
   \Biggl(
-    &(\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\vec{p}_b
-    e^{-i\vec{k}\vec{d}_{ab}}
+    &(\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\boldsymbol{p}_b
+    e^{-i\boldsymbol{k}\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
     \hat{a}_{k-G, b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\vec{p}_b
-    e^{-i(\vec{k}+\vec{Q})\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}+\boldsymbol{q})\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k+Q-G,b}^{\dagger}
+    \hat{a}_{k+q-G,b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\vec{p}_b
-    e^{-i(\vec{k}-\vec{Q})\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}-\boldsymbol{q})\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k-Q-G,b}^{\dagger}
+    \hat{a}_{k-q-G,b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\vec{p}_b
-    e^{-i(\vec{k}+2\vec{Q})\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}+2\boldsymbol{q})\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k+2Q-G, b}^{\dagger}
+    \hat{a}_{k+2q-G, b}^{\dagger}
     +\\+&
-    (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\vec{p}_b
-    e^{-i(\vec{k}-2\vec{Q})\vec{d}_{ab}}
+    (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\boldsymbol{p}_b
+    e^{-i(\boldsymbol{k}-2\boldsymbol{q})\boldsymbol{d}_{ab}}
     \hat{a}_{ka}
-    \hat{a}_{k-2Q-G,b}^{\dagger}
+    \hat{a}_{k-2q-G,b}^{\dagger}
   \Biggr)

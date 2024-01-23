@@ -2,5 +2,5 @@
   \boldsymbol{\tilde{J}^{mdab}}
   =
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_{m+d_{ab}})

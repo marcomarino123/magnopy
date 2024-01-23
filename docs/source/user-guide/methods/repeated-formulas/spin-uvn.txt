@@ -4,8 +4,8 @@
   S_a
   \cdot
   \begin{pmatrix}
-    \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
-    \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a) \\
+    \sin\theta_a\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a) \\
+    \sin\theta_a\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a) \\
     \cos\theta_a                                     \\
   \end{pmatrix}
   =

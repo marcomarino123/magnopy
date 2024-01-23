@@ -8,7 +8,7 @@
   \end{pmatrix}
   =
   \begin{pmatrix}
-    e^{-i\vec{Q}\cdot\vec{r}_m} & 0                          & 0 \\
-    0                           & e^{i\vec{Q}\cdot\vec{r}_m} & 0 \\
+    e^{-i\boldsymbol{q}\cdot\boldsymbol{r}_m} & 0                          & 0 \\
+    0                           & e^{i\boldsymbol{q}\cdot\boldsymbol{r}_m} & 0 \\
     0                           & 0                          & 1 \\
   \end{pmatrix}

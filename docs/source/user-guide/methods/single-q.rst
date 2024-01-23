@@ -1,7 +1,7 @@
 .. _user-guide_methods_single-q:
 
 **********************
-Single-Q conical state
+Single-q conical state
 **********************
 
 .. dropdown:: Notation used on this page
@@ -12,43 +12,43 @@ Single-Q conical state
   * .. include:: page-notations/in-uvn.txt
   * .. include:: page-notations/parentheses.txt
 
-Single-:math:`Q` conical state can be described by two vectors:
+Single-:math:`\boldsymbol{q}` conical state can be described by two vectors:
 
 * Cone axis :math:`\hat{n}`.
   It defines the global rotational axis of the spiral.
   Note, that we orient the reference frame as described in
   :ref:`user-guide_methods_uvn-choice`, therefore, the cone axis :math:`\hat{n}`
   is one of the reference frame axes.
-* Spiral vector :math:`\vec{Q}`. It defines the phase as:
-  :math:`\theta_m = \vec{Q}\cdot\vec{r}_m`.
+* Spiral vector :math:`\boldsymbol{q}`. It defines the phase as:
+  :math:`\theta_m = \boldsymbol{q}\cdot\boldsymbol{r}_m`.
 
 
 Spiral rotation matrix
 ======================
 
-We describe the position of each spin :math:`\vec{S}_{ma}` in the crystal with
-the two vectors :math:`\vec{r}_m` and :math:`\vec{r}_a`, where
+We describe the position of each spin :math:`\boldsymbol{S}_{ma}` in the crystal with
+the two vectors :math:`\boldsymbol{r}_m` and :math:`\boldsymbol{r}_a`, where
 
 .. math::
-  \vec{r}_m = i\cdot\vec{a} + j\cdot\vec{b} + k\cdot\vec{c}
+  \boldsymbol{r}_m = i\cdot\boldsymbol{a} + j\cdot\boldsymbol{b} + k\cdot\boldsymbol{c}
 
-gives the coordinate of the unit cell, to which the spin :math:`\vec{S}_{ma}`
-belongs. Vector :math:`\vec{r}_a` describes the spin's position
+gives the coordinate of the unit cell, to which the spin :math:`\boldsymbol{S}_{ma}`
+belongs. Vector :math:`\boldsymbol{r}_a` describes the spin's position
 inside unit cell and does not depend on the index :math:`m`. Therefore, the
-spin :math:`\vec{S}_{ma}` is located at the position
+spin :math:`\boldsymbol{S}_{ma}` is located at the position
 
 .. math::
-  \vec{r}_{ma} = \vec{r}_m + \vec{r}_a
+  \boldsymbol{r}_{ma} = \boldsymbol{r}_m + \boldsymbol{r}_a
 
 We assume that the spins inside the unit cell can be oriented independently.
 The direction of each one is given by two angles :math:`\theta_a` and
 :math:`\phi_a` as described :ref:`here <user-guide_methods_spin-rotations>`.
 The spiral rotation is assumed to be applied based on the coordinate of the
-unit cell :math:`\vec{r}_m` only:
+unit cell :math:`\boldsymbol{r}_m` only:
 
 .. include:: repeated-formulas/spiral-rotation-matrix-uvn.txt
 
-In other words we absorb the in-cell spiral contribution :math:`\vec{Q}\cdot\vec{r}_a`
+In other words we absorb the in-cell spiral contribution :math:`\boldsymbol{q}\cdot\boldsymbol{r}_a`
 into the angle :math:`\phi_a`
 
 
@@ -57,7 +57,7 @@ Full spin rotation matrix
 
 In the following sections we produce the spin spiral ground
 state from the ferromagnetically ordered state, where each spin
-:math:`\vec{S}_{ma}^{ferro}` is oriented along the direction of the
+:math:`\boldsymbol{S}_{ma}^{ferro}` is oriented along the direction of the
 cone axis :math:`\hat{n}`. In order to do that we combine the rotation inside
 each unit cell as described in the :ref:`user-guide_methods_spin-rotations`
 section and the rotation between unit cells as described above:
@@ -74,12 +74,12 @@ Matrix :math:`\boldsymbol{R_{ma}}` has the form:
   \boldsymbol{R_{ma}}
   =
   \begin{pmatrix}
-    ... & ... & \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a)     \\
-    ... & ... & \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a)     \\
+    ... & ... & \sin\theta_a\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)     \\
+    ... & ... & \sin\theta_a\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)     \\
     -\cos\phi_a\sin\theta_a & -\sin\phi_a\sin\theta_a & \cos\theta_a \\
   \end{pmatrix}
 
-And the spin :math:`\vec{S}_{ma}` is
+And the spin :math:`\boldsymbol{S}_{ma}` is
 
 .. include:: repeated-formulas/spin-uvn.txt
 
@@ -102,52 +102,52 @@ And the spin :math:`\vec{S}_{ma}` is
   .. math::
     &R_{11}
     =
-    \cos(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \sin^2\phi_a(1-\cos\theta_a)\right]-\sin(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]
+    \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[\cos\theta_a + \sin^2\phi_a(1-\cos\theta_a)\right]-\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]
     =\\&=
-    (1-\cos\theta_a)\left[\cos(\vec{Q}\cdot\vec{r}_m)\sin^2\phi_a+\sin(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a\right]+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    (1-\cos\theta_a)\left[\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin^2\phi_a+\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin\phi_a\cos\phi_a\right]+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
     =\\&=
-    (1-\cos\theta_a)\sin\phi_a\sin(\vec{Q}\cdot\vec{r}_m+\phi_a)+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    (1-\cos\theta_a)\sin\phi_a\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
 
   .. math::
     &R_{12}
     =
-    \cos(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]-\sin(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \cos^2\phi_a(1-\cos\theta_a)\right]
+    \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]-\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[\cos\theta_a + \cos^2\phi_a(1-\cos\theta_a)\right]
     =\\&=
-    (1-\cos\theta_a)\left[-\cos(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a-\sin(\vec{Q}\cdot\vec{r}_m)\cos^2\phi_a\right]-\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    (1-\cos\theta_a)\left[-\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin\phi_a\cos\phi_a-\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos^2\phi_a\right]-\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
     =\\&=
-    -(1-\cos\theta_a)\cos\phi_a\sin(\vec{Q}\cdot\vec{r}_m+\phi_a)-\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    -(1-\cos\theta_a)\cos\phi_a\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)-\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
 
   .. math::
     R_{13}
     =
-    \sin\theta_a(\cos(\vec{Q}\cdot\vec{r}_m)\cos\phi_a - \sin(\vec{Q}\cdot\vec{r}_m)\sin\phi_a)
+    \sin\theta_a(\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\phi_a - \sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin\phi_a)
     =
-    \sin\theta_a\cos(\vec{Q}\cdot\vec{r}_m + \phi_a)
+    \sin\theta_a\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)
 
   .. math::
     &R_{21}
     =
-    \sin(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \sin^2\phi_a(1-\cos\theta_a)\right]+\cos(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]
+    \sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[\cos\theta_a + \sin^2\phi_a(1-\cos\theta_a)\right]+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]
     =\\&=
-    (1-\cos\theta_a)\left[\sin(\vec{Q}\cdot\vec{r}_m)\sin^2\phi_a-\cos(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a\right]+\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    (1-\cos\theta_a)\left[\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin^2\phi_a-\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin\phi_a\cos\phi_a\right]+\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
     =\\&=
-    -(1-\cos\theta_a)\sin\phi_a\cos(\vec{Q}\cdot\vec{r}_m+\phi_a)+\sin(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    -(1-\cos\theta_a)\sin\phi_a\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)+\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
 
   .. math::
     &R_{22}
     =
-    \sin(\vec{Q}\cdot\vec{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]+\cos(\vec{Q}\cdot\vec{r}_m)\left[\cos\theta_a + \cos^2\phi_a(1-\cos\theta_a)\right]
+    \sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[-\sin\phi_a\cos\phi_a(1-\cos\theta_a)\right]+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\left[\cos\theta_a + \cos^2\phi_a(1-\cos\theta_a)\right]
     =\\&=
-    (1-\cos\theta_a)\left[-\sin(\vec{Q}\cdot\vec{r}_m)\sin\phi_a\cos\phi_a+\cos(\vec{Q}\cdot\vec{r}_m)\cos^2\phi_a\right]+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    (1-\cos\theta_a)\left[-\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin\phi_a\cos\phi_a+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos^2\phi_a\right]+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
     =\\&=
-    (1-\cos\theta_a)\cos\phi_a\cos(\vec{Q}\cdot\vec{r}_m+\phi_a)+\cos(\vec{Q}\cdot\vec{r}_m)\cos\theta_a
+    (1-\cos\theta_a)\cos\phi_a\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)+\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\theta_a
 
   .. math::
     R_{23}
     =
-    \sin\theta_a(\sin(\vec{Q}\cdot\vec{r}_m)\cos\phi_a + \cos(\vec{Q}\cdot\vec{r}_m)\sin\phi_a)
+    \sin\theta_a(\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\cos\phi_a + \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\sin\phi_a)
     =
-    \sin\theta_a\sin(\vec{Q}\cdot\vec{r}_m + \phi_a)
+    \sin\theta_a\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)
 
   .. math::
     R_{31} = -\cos\phi_a\sin\theta_a
@@ -163,9 +163,9 @@ And the spin :math:`\vec{S}_{ma}` is
 Examples
 ========
 
-* One spin in the unit cell, :math:`\vec{Q} = (0,0,1)^T`:
+* One spin in the unit cell, :math:`\boldsymbol{q} = (0,0,1)^T`:
 
-  - :math:`\vec{r}_1 = (0,0,0)`,
+  - :math:`\boldsymbol{r}_1 = (0,0,0)`,
     :math:`\theta_1 = 90^{\circ}`,
     :math:`\phi_1 = 0^{\circ}`
 
@@ -173,9 +173,9 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-1.html
 
-* One spin in the unit cell, :math:`\vec{Q} = (0,0,1)^T`:
+* One spin in the unit cell, :math:`\boldsymbol{q} = (0,0,1)^T`:
 
-  - :math:`\vec{r}_1 = (0,0,0)`,
+  - :math:`\boldsymbol{r}_1 = (0,0,0)`,
     :math:`\theta_1 = 60^{\circ}`,
     :math:`\phi_1 = 0^{\circ}`
 
@@ -183,30 +183,30 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-2.html
 
-* One spin in the unit cell, :math:`\vec{Q} = (0,0,1)^T`:
+* One spin in the unit cell, :math:`\boldsymbol{q} = (0,0,1)^T`:
 
-  - :math:`\vec{r}_1 = (0,0,0)`,
+  - :math:`\boldsymbol{r}_1 = (0,0,0)`,
     :math:`\theta_1 = 60^{\circ}`,
     :math:`\phi_1 = 45^{\circ}`
 
 .. raw:: html
   :file: ../../../images/single-q-3.html
 
-* One spin in the unit cell, :math:`\vec{Q} = (0,1,0)^T`:
+* One spin in the unit cell, :math:`\boldsymbol{q} = (0,1,0)^T`:
 
-  - :math:`\vec{r}_1 = (0,0,0)`,
+  - :math:`\boldsymbol{r}_1 = (0,0,0)`,
     :math:`\theta_1 = 30^{\circ}`,
     :math:`\phi_1 = 0^{\circ}`
 
 .. raw:: html
   :file: ../../../images/single-q-4.html
 
-* Two spins in the unit cell, :math:`\vec{Q} = (0,1,0)^T`:
+* Two spins in the unit cell, :math:`\boldsymbol{q} = (0,1,0)^T`:
 
-  - :math:`\vec{r}_1 = (0,0,0)`,
+  - :math:`\boldsymbol{r}_1 = (0,0,0)`,
     :math:`\theta_1 = 30^{\circ}`,
     :math:`\phi_1 = 0^{\circ}`
-  - :math:`\vec{r}_2 = (\frac{1}{2},\frac{1}{2},\frac{1}{2})`,
+  - :math:`\boldsymbol{r}_2 = (\frac{1}{2},\frac{1}{2},\frac{1}{2})`,
     :math:`\theta_2 = 20^{\circ}`,
     :math:`\phi_2 = 45^{\circ}`
 
@@ -214,12 +214,12 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-5.html
 
-* Two spins in the unit cell, :math:`\vec{Q} = (1,0,0)^T`:
+* Two spins in the unit cell, :math:`\boldsymbol{q} = (1,0,0)^T`:
 
-  - :math:`\vec{r}_1 = (0,0,0)`,
+  - :math:`\boldsymbol{r}_1 = (0,0,0)`,
     :math:`\theta_1 = 150^{\circ}`,
     :math:`\phi_1 = 0^{\circ}`
-  - :math:`\vec{r}_2 = (0,\frac{1}{2},0)`,
+  - :math:`\boldsymbol{r}_2 = (0,\frac{1}{2},0)`,
     :math:`\theta_2 = 30^{\circ}`,
     :math:`\phi_2 =180^{\circ}`
 

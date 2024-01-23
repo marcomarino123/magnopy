@@ -1,9 +1,9 @@
 .. math::
-  \vec{S}_{ma}
+  \boldsymbol{S}_{ma}
   =
   \boldsymbol{R}(\theta_m)
   \boldsymbol{R}(\theta_a,\phi_a)
-  \vec{S}_{ma}^{ferro}
+  \boldsymbol{S}_{ma}^{ferro}
   =
   \boldsymbol{R_{ma}}
-  \vec{S}_{ma}^{ferro}
+  \boldsymbol{S}_{ma}^{ferro}

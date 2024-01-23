@@ -1,18 +1,18 @@
 .. math::
   \sum_m
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_{m+d})
   =
   M
   \begin{pmatrix}
-    e^{-i\vec{Q}\vec{d}_{ab}} J_{ab}^{++}                                   &
-    e^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{+-}  &
-    \delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{+n}                          \\
-    e^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{-+} &
-    e^{i\vec{Q}\vec{d}_{ab}} J_{ab}^{--}                                    &
-    \delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{-n}                          \\
-    e^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n+}      &
-    e^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n-}       &
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} J_{ab}^{++}                                   &
+    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ab}^{+-}  &
+    \delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{+n}                          \\
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ab}^{-+} &
+    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}} J_{ab}^{--}                                    &
+    \delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{-n}                          \\
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{n+}      &
+    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{n-}       &
     J_{ab}^{nn}                                                        \\
   \end{pmatrix}

@@ -1,109 +1,109 @@
 .. math::
   &\dfrac{1}{M}
   \sum_m
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{mdab}}
-  \vec{t}_b
-  e^{i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
+  \boldsymbol{t}_b
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
   =\\&=
   \dfrac{1}{M}
   \sum_m
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \left(
     \boldsymbol{\tilde{J}^{dab}_0}
     +
-    \boldsymbol{\tilde{J}^{dab}_1}e^{i\vec{Q}\vec{r}_m}
+    \boldsymbol{\tilde{J}^{dab}_1}e^{i\boldsymbol{q}\boldsymbol{r}_m}
     +
-    \boldsymbol{\tilde{J}^{dab}_2}e^{-i\vec{Q}\vec{r}_m}
+    \boldsymbol{\tilde{J}^{dab}_2}e^{-i\boldsymbol{q}\boldsymbol{r}_m}
     +
-    \boldsymbol{\tilde{J}^{dab}_3}e^{2i\vec{Q}\vec{r}_m}
+    \boldsymbol{\tilde{J}^{dab}_3}e^{2i\boldsymbol{q}\boldsymbol{r}_m}
     +
-    \boldsymbol{\tilde{J}^{dab}_4}e^{-2i\vec{Q}\vec{r}_m}
+    \boldsymbol{\tilde{J}^{dab}_4}e^{-2i\boldsymbol{q}\boldsymbol{r}_m}
   \right)
-  \vec{t}_b
-  e^{i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
+  \boldsymbol{t}_b
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
   =\\&=
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_0}
-  \vec{t}_b
+  \boldsymbol{t}_b
   \dfrac{1}{M}
   \sum_m
-  e^{i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_1}
-  \vec{t}_b
+  \boldsymbol{t}_b
   \dfrac{1}{M}
   \sum_m
-  e^{i(\vec{k}+\vec{k}^{\prime}+\vec{Q})\vec{r}_m}
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime}+\boldsymbol{q})\boldsymbol{r}_m}
   +\\&+
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_2}
-  \vec{t}_b
+  \boldsymbol{t}_b
   \dfrac{1}{M}
   \sum_m
-  e^{i(\vec{k}+\vec{k}^{\prime}-\vec{Q})\vec{r}_m}
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime}-\boldsymbol{q})\boldsymbol{r}_m}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_3}
-  \vec{t}_b
+  \boldsymbol{t}_b
   \dfrac{1}{M}
   \sum_m
-  e^{i(\vec{k}+\vec{k}^{\prime}+2\vec{Q})\vec{r}_m}
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime}+2\boldsymbol{q})\boldsymbol{r}_m}
   +\\&+
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_4}
-  \vec{t}_b
+  \boldsymbol{t}_b
   \dfrac{1}{M}
   \sum_m
-  e^{i(\vec{k}+\vec{k}^{\prime}-2\vec{Q})\vec{r}_m}
+  e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime}-2\boldsymbol{q})\boldsymbol{r}_m}
   =\\&=
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_0}
-  \vec{t}_b
-  \delta_{(\vec{k}+\vec{k}^{\prime}), \vec{G}}
+  \boldsymbol{t}_b
+  \delta_{(\boldsymbol{k}+\boldsymbol{k}^{\prime}), \boldsymbol{G}}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_1}
-  \vec{t}_b
-  \delta_{(\vec{k}+\vec{k}^{\prime}+\vec{Q}), \vec{G}}
+  \boldsymbol{t}_b
+  \delta_{(\boldsymbol{k}+\boldsymbol{k}^{\prime}+\boldsymbol{q}), \boldsymbol{G}}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_2}
-  \vec{t}_b
-  \delta_{(\vec{k}+\vec{k}^{\prime}-\vec{Q}), \vec{G}}
+  \boldsymbol{t}_b
+  \delta_{(\boldsymbol{k}+\boldsymbol{k}^{\prime}-\boldsymbol{q}), \boldsymbol{G}}
   +\\&+
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_3}
-  \vec{t}_b
-  \delta_{(\vec{k}+\vec{k}^{\prime}+2\vec{Q}), \vec{G}}
+  \boldsymbol{t}_b
+  \delta_{(\boldsymbol{k}+\boldsymbol{k}^{\prime}+2\boldsymbol{q}), \boldsymbol{G}}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_4}
-  \vec{t}_b
-  \delta_{(\vec{k}+\vec{k}^{\prime}-2\vec{Q}), \vec{G}}
+  \boldsymbol{t}_b
+  \delta_{(\boldsymbol{k}+\boldsymbol{k}^{\prime}-2\boldsymbol{q}), \boldsymbol{G}}
   =\\&=
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_0}
-  \vec{t}_b
-  \delta_{\vec{k}^{\prime}, \vec{G}-\vec{k}}
+  \boldsymbol{t}_b
+  \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}-\boldsymbol{k}}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_1}
-  \vec{t}_b
-  \delta_{\vec{k}^{\prime}, \vec{G}-\vec{k}-\vec{Q}}
+  \boldsymbol{t}_b
+  \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}-\boldsymbol{k}-\boldsymbol{q}}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_2}
-  \vec{t}_b
-  \delta_{\vec{k}^{\prime}, \vec{G}-\vec{k}+\vec{Q}}
+  \boldsymbol{t}_b
+  \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}-\boldsymbol{k}+\boldsymbol{q}}
   +\\&+
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_3}
-  \vec{t}_b
-  \delta_{\vec{k}^{\prime}, \vec{G}-\vec{k}-2\vec{Q}}
+  \boldsymbol{t}_b
+  \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}-\boldsymbol{k}-2\boldsymbol{q}}
   +
-  (\vec{p}_a)^{\dagger}
+  (\boldsymbol{p}_a)^{\dagger}
   \boldsymbol{\tilde{J}^{dab}_4}
-  \vec{t}_b
-  \delta_{\vec{k}^{\prime}, \vec{G}-\vec{k}+2\vec{Q}}
+  \boldsymbol{t}_b
+  \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}-\boldsymbol{k}+2\boldsymbol{q}}

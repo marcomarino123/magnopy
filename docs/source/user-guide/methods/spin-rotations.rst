@@ -15,11 +15,11 @@ Spin rotations
   * .. include:: page-notations/cross-product.txt
   * .. include:: page-notations/in-uvn.txt
 
-Given a spin vector :math:`\vec{S}_a = S_a\cdot\hat{S}_a`, we define its direction
+Given a spin vector :math:`\boldsymbol{S}_a = S_a\cdot\hat{S}_a`, we define its direction
 with two angles: :math:`\theta_a` and :math:`\phi_a`.
 
 .. math::
-  \vec{S}_a
+  \boldsymbol{S}_a
   =
   S_a\cdot
   \begin{pmatrix}
@@ -33,14 +33,14 @@ with two angles: :math:`\theta_a` and :math:`\phi_a`.
   :file: ../../../images/spin-rotations-symmetric.html
 
 Any direction of the spin vector can be produced from the direction of the
-vector :math:`\vec{n}` by a rotation around the vector :math:`\vec{r}` by
+vector :math:`\boldsymbol{n}` by a rotation around the vector :math:`\boldsymbol{r}` by
 the angle :math:`\theta_a`, similarly to how it was done for the reference
 frame change in :ref:`user-guide_methods_uvn-choice`:
 
 .. math::
-  \vec{r}
+  \boldsymbol{r}
   =
-  \dfrac{\hat{n} \times \vec{S}_a}{\vert\hat{n} \times \vec{S}_a\vert}
+  \dfrac{\hat{n} \times \boldsymbol{S}_a}{\vert\hat{n} \times \boldsymbol{S}_a\vert}
   =
   \begin{pmatrix}
     -\sin\phi_a \\
@@ -54,9 +54,9 @@ frame change in :ref:`user-guide_methods_uvn-choice`:
 Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
 
 .. math::
-  \vec{S}_a
+  \boldsymbol{S}_a
   =
-  \boldsymbol{R}(\theta_a, \phi_a)\vec{S}_a^{ferro}
+  \boldsymbol{R}(\theta_a, \phi_a)\boldsymbol{S}_a^{ferro}
   =
   S_a\cdot \boldsymbol{R}(\theta_a, \phi_a)\hat{S}_a^{ferro}
   =
@@ -83,11 +83,11 @@ Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be writ
   Alternatively one can define two consecutive rotations:
 
   .. math::
-    \vec{S}_a
+    \boldsymbol{S}_a
     =
-    \boldsymbol{R}(\phi_a) \boldsymbol{R}(\theta_a) \vec{S}_a^{ferro}
+    \boldsymbol{R}(\phi_a) \boldsymbol{R}(\theta_a) \boldsymbol{S}_a^{ferro}
     =
-    e^{\phi_a\hat{n}\times} e^{\theta_a\hat{v}\times} \vec{S}_a^{ferro}
+    e^{\phi_a\hat{n}\times} e^{\theta_a\hat{v}\times} \boldsymbol{S}_a^{ferro}
 
   With the rotation matrices defined as:
 

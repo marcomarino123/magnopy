@@ -2,39 +2,39 @@
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}_{ab}}
+  \sum_{a, b, \boldsymbol{d}_{ab}}
   S_aS_b
   \Biggl\{
-    J_{ab}^{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
     +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})+J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
       +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})-J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\vec{Q}\vec{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
     \Bigr]
     +\\&+
-    \delta_{\vec{Q},\frac{\vec{G}}{2}}
+    \delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})-J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})-J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
         +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})+J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\phi_a+\phi_b+\vec{Q}\vec{d}_{ab})
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})+J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
     \Bigr]
     +\\&+
-    \delta_{\vec{Q},\vec{G}}
+    \delta_{\boldsymbol{q},\boldsymbol{G}}
     \sin\theta_a\cos\theta_b
     \Bigl[
-      J_{ab}^{un}(\vec{d}_{ab})\cos\phi_a
+      J_{ab}^{un}(\boldsymbol{d}_{ab})\cos\phi_a
       +
-      J_{ab}^{vn}(\vec{d}_{ab})\sin\phi_a
+      J_{ab}^{vn}(\boldsymbol{d}_{ab})\sin\phi_a
     \Bigr]
     +\\&+
-    \delta_{\vec{Q},\vec{G}}
+    \delta_{\boldsymbol{q},\boldsymbol{G}}
     \cos\theta_a\sin\theta_b
     \Bigl[
-      J_{ab}^{nu}(\vec{d}_{ab})\cos(\phi_b+\vec{Q}\vec{d}_{ab})
+      J_{ab}^{nu}(\boldsymbol{d}_{ab})\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
       +
-      J_{ab}^{nv}(\vec{d}_{ab})\sin(\phi_b+\vec{Q}\vec{d}_{ab})
+      J_{ab}^{nv}(\boldsymbol{d}_{ab})\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
     \Bigr]
   \Biggr\}

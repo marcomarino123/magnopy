@@ -1,7 +1,7 @@
 .. math::
   &\begin{pmatrix}
-    e^{i\vec{Q}\vec{r}_m} & 0                      & 0 \\
-    0                     & e^{-i\vec{Q}\vec{r}_m} & 0 \\
+    e^{i\boldsymbol{q}\boldsymbol{r}_m} & 0                      & 0 \\
+    0                     & e^{-i\boldsymbol{q}\boldsymbol{r}_m} & 0 \\
     0                     & 0                      & 1 \\
   \end{pmatrix}
   \begin{pmatrix}
@@ -10,11 +10,11 @@
     J_{ab}^{n+} & J_{ab}^{n-} & J_{ab}^{nn} \\
   \end{pmatrix}
   \begin{pmatrix}
-    e^{-i\vec{Q}(\vec{r}_m+\vec{d}_{ab})} &
+    e^{-i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})} &
     0                                &
     0                                \\
     0                                &
-    e^{i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}  &
+    e^{i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
     0                                \\
     0                                &
     0                                &
@@ -22,22 +22,22 @@
   \end{pmatrix}
   =\\&=
   \begin{pmatrix}
-    J_{ab}^{++}e^{i\vec{Q}\vec{r}_m}  &
-    J_{ab}^{+-}e^{i\vec{Q}\vec{r}_m}  &
-    J_{ab}^{+n}e^{i\vec{Q}\vec{r}_m}  \\
-    J_{ab}^{-+}e^{-i\vec{Q}\vec{r}_m} &
-    J_{ab}^{--}e^{-i\vec{Q}\vec{r}_m} &
-    J_{ab}^{-n}e^{-i\vec{Q}\vec{r}_m} \\
+    J_{ab}^{++}e^{i\boldsymbol{q}\boldsymbol{r}_m}  &
+    J_{ab}^{+-}e^{i\boldsymbol{q}\boldsymbol{r}_m}  &
+    J_{ab}^{+n}e^{i\boldsymbol{q}\boldsymbol{r}_m}  \\
+    J_{ab}^{-+}e^{-i\boldsymbol{q}\boldsymbol{r}_m} &
+    J_{ab}^{--}e^{-i\boldsymbol{q}\boldsymbol{r}_m} &
+    J_{ab}^{-n}e^{-i\boldsymbol{q}\boldsymbol{r}_m} \\
     J_{ab}^{n+}                       &
     J_{ab}^{n-}                       &
     J_{ab}^{nn}                       \\
   \end{pmatrix}
   \begin{pmatrix}
-    e^{-i\vec{Q}(\vec{r}_m+\vec{d}_{ab})} &
+    e^{-i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})} &
     0                                &
     0                                \\
     0                                &
-    e^{i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}  &
+    e^{i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
     0                                \\
     0                                &
     0                                &
@@ -45,13 +45,13 @@
   \end{pmatrix}
   =\\&=
   \begin{pmatrix}
-    J_{ab}^{++}e^{-i\vec{Q}\vec{d}_{ab}}              &
-    J_{ab}^{+-}e^{i\vec{Q}(2\vec{r}_m+\vec{d}_{ab})}  &
-    J_{ab}^{+n}e^{i\vec{Q}\vec{r}_m}             \\
-    J_{ab}^{-+}e^{-i\vec{Q}(2\vec{r}_m+\vec{d}_{ab})} &
-    J_{ab}^{--}e^{i\vec{Q}\vec{d}_{ab}}               &
-    J_{ab}^{-n}e^{-i\vec{Q}\vec{r}_m}            \\
-    J_{ab}^{n+}e^{-i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}  &
-    J_{ab}^{n-}e^{i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}   &
+    J_{ab}^{++}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}              &
+    J_{ab}^{+-}e^{i\boldsymbol{q}(2\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
+    J_{ab}^{+n}e^{i\boldsymbol{q}\boldsymbol{r}_m}             \\
+    J_{ab}^{-+}e^{-i\boldsymbol{q}(2\boldsymbol{r}_m+\boldsymbol{d}_{ab})} &
+    J_{ab}^{--}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}               &
+    J_{ab}^{-n}e^{-i\boldsymbol{q}\boldsymbol{r}_m}            \\
+    J_{ab}^{n+}e^{-i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
+    J_{ab}^{n-}e^{i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}   &
     J_{ab}^{nn}                                  \\
   \end{pmatrix}

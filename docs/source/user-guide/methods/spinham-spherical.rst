@@ -30,14 +30,14 @@ In this section we focus our attention on the transformation of the exchange
 matrices. The exchange matrices are transformed as follows:
 
 .. math::
-  &\langle u^+u^-n \vert J_{ab}(\vec{d}_{ab}) \vert u^+u^-n \rangle
+  &\langle u^+u^-n \vert J_{ab}(\boldsymbol{d}_{ab}) \vert u^+u^-n \rangle
   =
   \langle u^+u^-n \vert uvn \rangle
-  \langle uvn \vert J_{ab}(\vec{d}_{ab}) \vert uvn \rangle
+  \langle uvn \vert J_{ab}(\boldsymbol{d}_{ab}) \vert uvn \rangle
   \langle uvn \vert u^+u^-n \rangle
   =\\&=
   \langle uvn \vert T^{\dagger} \vert uvn \rangle
-  \langle uvn \vert J_{ab}(\vec{d}_{ab}) \vert uvn \rangle
+  \langle uvn \vert J_{ab}(\boldsymbol{d}_{ab}) \vert uvn \rangle
   \langle uvn \vert T\vert uvn \rangle
 
 Now we recall the definition of the transformation matrix
@@ -54,7 +54,7 @@ Which leads to the exchange matrix in a spherical reference frame:
 .. dropdown:: Details
 
   .. math::
-    &\langle u^+u^-n \vert J_{ab}(\vec{d}_{ab}) \vert u^+u^-n \rangle
+    &\langle u^+u^-n \vert J_{ab}(\boldsymbol{d}_{ab}) \vert u^+u^-n \rangle
     =
     \dfrac{1}{2}
     \begin{pmatrix}
@@ -101,7 +101,7 @@ Which leads to the exchange matrix in a spherical reference frame:
   Which gives:
 
   .. math::
-    \langle u^+u^-n \vert J_{ab}(\vec{d}_{ab})\vert u^+u^-n \rangle
+    \langle u^+u^-n \vert J_{ab}(\boldsymbol{d}_{ab})\vert u^+u^-n \rangle
     =
     \dfrac{1}{2}
     \begin{pmatrix}

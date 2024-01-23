@@ -1,6 +1,6 @@
 .. math::
   &
-  (\hat{\vec{s}}_{ma}^{ferro})^{\dagger}
+  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   =
   S_a
@@ -22,29 +22,29 @@
     1 - \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}}{S_a}
   \right)
   \begin{pmatrix}
-    (\vec{p}_a)^{\dagger} \\
-    (\vec{t}_a)^{\dagger} \\
-    (\vec{f}_a)^{\dagger} \\
+    (\boldsymbol{p}_a)^{\dagger} \\
+    (\boldsymbol{t}_a)^{\dagger} \\
+    (\boldsymbol{f}_a)^{\dagger} \\
   \end{pmatrix}
   =\\&=
   S_a
   \left[
-    (\vec{f}_a)^{\dagger}
+    (\boldsymbol{f}_a)^{\dagger}
     +
     \dfrac{1}{\sqrt{S_a}}
     \left(
-      \hat{a}_{ma}(\vec{p}_a)^{\dagger}
+      \hat{a}_{ma}(\boldsymbol{p}_a)^{\dagger}
       +
-      \hat{a}_{ma}^{\dagger}(\vec{t}_a)^{\dagger}
+      \hat{a}_{ma}^{\dagger}(\boldsymbol{t}_a)^{\dagger}
     \right)
     -
     \dfrac{1}{S_a}
-    \hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\vec{f}_a)^{\dagger}
+    \hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\boldsymbol{f}_a)^{\dagger}
     -
     \dfrac{1}{4S_a^{3/2}}
     \left(
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}(\vec{p}_a)^{\dagger}
+      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}(\boldsymbol{p}_a)^{\dagger}
       +
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\vec{t}_a)^{\dagger}
+      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\boldsymbol{t}_a)^{\dagger}
     \right)
   \right]

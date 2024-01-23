@@ -3,20 +3,20 @@
   =
   \boldsymbol{\tilde{J}^{dab}_0}
   +
-  \boldsymbol{\tilde{J}^{dab}_1}e^{i\vec{Q}\vec{r}_m}
+  \boldsymbol{\tilde{J}^{dab}_1}e^{i\boldsymbol{q}\boldsymbol{r}_m}
   +
-  \boldsymbol{\tilde{J}^{dab}_2}e^{-i\vec{Q}\vec{r}_m}
+  \boldsymbol{\tilde{J}^{dab}_2}e^{-i\boldsymbol{q}\boldsymbol{r}_m}
   +
-  \boldsymbol{\tilde{J}^{dab}_3}e^{2i\vec{Q}\vec{r}_m}
+  \boldsymbol{\tilde{J}^{dab}_3}e^{2i\boldsymbol{q}\boldsymbol{r}_m}
   +
-  \boldsymbol{\tilde{J}^{dab}_4}e^{-2i\vec{Q}\vec{r}_m}
+  \boldsymbol{\tilde{J}^{dab}_4}e^{-2i\boldsymbol{q}\boldsymbol{r}_m}
 
 .. math::
   \boldsymbol{\tilde{J}^{dab}_0}
   =
   \begin{pmatrix}
-    J_{ab}^{++}e^{-i\vec{Q}\vec{d}_{ab}} & 0 & 0 \\
-    0 & J_{ab}^{--}e^{i\vec{Q}\vec{d}_{ab}}  & 0 \\
+    J_{ab}^{++}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} & 0 & 0 \\
+    0 & J_{ab}^{--}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}  & 0 \\
     0 & 0 & J_{ab}^{nn} \\
   \end{pmatrix}
 
@@ -26,7 +26,7 @@
   \begin{pmatrix}
     0 & 0                                   & J_{ab}^{+n} \\
     0 & 0                                   & 0           \\
-    0 & J_{ab}^{n-}e^{i\vec{Q}\vec{d}_{ab}} & 0           \\
+    0 & J_{ab}^{n-}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}} & 0           \\
   \end{pmatrix}
 
 .. math::
@@ -35,14 +35,14 @@
   \begin{pmatrix}
     0                                    & 0 & 0           \\
     0                                    & 0 & J_{ab}^{-n} \\
-    J_{ab}^{n+}e^{-i\vec{Q}\vec{d}_{ab}} & 0 & 0           \\
+    J_{ab}^{n+}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} & 0 & 0           \\
   \end{pmatrix}
 
 .. math::
   \boldsymbol{\tilde{J}^{dab}_3}
   =
   \begin{pmatrix}
-    0 & J_{ab}^{+-}e^{i\vec{Q}\vec{d}_{ab}} & 0 \\
+    0 & J_{ab}^{+-}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}} & 0 \\
     0 & 0                                   & 0 \\
     0 & 0                                   & 0 \\
   \end{pmatrix}
@@ -52,7 +52,7 @@
   =
   \begin{pmatrix}
     0                                    & 0 & 0 \\
-    J_{ab}^{-+}e^{-i\vec{Q}\vec{d}_{ab}} & 0 & 0 \\
+    J_{ab}^{-+}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} & 0 & 0 \\
     0                                    & 0 & 0 \\
   \end{pmatrix}
 

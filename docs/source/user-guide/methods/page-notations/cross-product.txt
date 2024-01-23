@@ -1,9 +1,9 @@
-:math:`\vec{a} \times \vec{b}` means cross product for vectors of two vectors.
+:math:`\boldsymbol{a} \times \boldsymbol{b}` means cross product for vectors of two vectors.
 In :math:`xyz` reference frame:
 
 .. math::
 
-  \vec{a} \times \vec{b}
+  \boldsymbol{a} \times \boldsymbol{b}
   =
   \begin{pmatrix}
   a_yb_z - a_zb_y \\

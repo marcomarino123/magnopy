@@ -1,41 +1,41 @@
 .. math::
   &\sum_m
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_{m+d_{ab}})
   =\\&=
   \begin{pmatrix}
-    J_{ab}^{++}\sum_m e^{-i\vec{Q}\vec{d}_{ab}}              &
-    J_{ab}^{+-}\sum_m e^{i\vec{Q}(2\vec{r}_m+\vec{d}_{ab})}  &
-    J_{ab}^{+n}\sum_m e^{i\vec{Q}\vec{r}_m}             \\
-    J_{ab}^{-+}\sum_m e^{-i\vec{Q}(2\vec{r}_m+\vec{d}_{ab})} &
-    J_{ab}^{--}\sum_m e^{i\vec{Q}\vec{d}_{ab}}               &
-    J_{ab}^{-n}\sum_m e^{-i\vec{Q}\vec{r}_m}            \\
-    J_{ab}^{n+}\sum_m e^{-i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}  &
-    J_{ab}^{n-}\sum_m e^{i\vec{Q}(\vec{r}_m+\vec{d}_{ab})}   &
+    J_{ab}^{++}\sum_m e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}              &
+    J_{ab}^{+-}\sum_m e^{i\boldsymbol{q}(2\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
+    J_{ab}^{+n}\sum_m e^{i\boldsymbol{q}\boldsymbol{r}_m}             \\
+    J_{ab}^{-+}\sum_m e^{-i\boldsymbol{q}(2\boldsymbol{r}_m+\boldsymbol{d}_{ab})} &
+    J_{ab}^{--}\sum_m e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}               &
+    J_{ab}^{-n}\sum_m e^{-i\boldsymbol{q}\boldsymbol{r}_m}            \\
+    J_{ab}^{n+}\sum_m e^{-i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
+    J_{ab}^{n-}\sum_m e^{i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}   &
     J_{ab}^{nn}\sum_m 1                                 \\
   \end{pmatrix}
   =\\&=
   \begin{pmatrix}
-    J_{ab}^{++}e^{-i\vec{Q}\vec{d}_{ab}}\sum_m 1                        &
-    J_{ab}^{+-}e^{i\vec{Q}\vec{d}_{ab}} \sum_m e^{i\vec{Q}2\vec{r}_m}   &
-    J_{ab}^{+n}\sum_m e^{i\vec{Q}\vec{r}_m}                        \\
-    J_{ab}^{-+}e^{-i\vec{Q}\vec{d}_{ab}} \sum_m e^{-i\vec{Q}2\vec{r}_m} &
-    J_{ab}^{--}e^{i\vec{Q}\vec{d}_{ab}}\sum_m 1                         &
-    J_{ab}^{-n}\sum_m e^{-i\vec{Q}\vec{r}_m}                       \\
-    J_{ab}^{n+}e^{-i\vec{Q}\vec{d}_{ab}} \sum_m e^{-i\vec{Q}\vec{r}_m}  &
-    J_{ab}^{n-}e^{i\vec{Q}\vec{d}_{ab}} \sum_m e^{i\vec{Q}\vec{r}_m}    &
+    J_{ab}^{++}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\sum_m 1                        &
+    J_{ab}^{+-}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}} \sum_m e^{i\boldsymbol{q}2\boldsymbol{r}_m}   &
+    J_{ab}^{+n}\sum_m e^{i\boldsymbol{q}\boldsymbol{r}_m}                        \\
+    J_{ab}^{-+}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} \sum_m e^{-i\boldsymbol{q}2\boldsymbol{r}_m} &
+    J_{ab}^{--}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\sum_m 1                         &
+    J_{ab}^{-n}\sum_m e^{-i\boldsymbol{q}\boldsymbol{r}_m}                       \\
+    J_{ab}^{n+}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} \sum_m e^{-i\boldsymbol{q}\boldsymbol{r}_m}  &
+    J_{ab}^{n-}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}} \sum_m e^{i\boldsymbol{q}\boldsymbol{r}_m}    &
     M\cdot J_{ab}^{nn}                                             \\
   \end{pmatrix}
   =\\&=
   \begin{pmatrix}
-    Me^{-i\vec{Q}\vec{d}_{ab}} J_{ab}^{++}                                   &
-    Me^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{+-}  &
-    M\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{+n}                          \\
-    Me^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\frac{\vec{G}}{2}} J_{ab}^{-+} &
-    Me^{i\vec{Q}\vec{d}_{ab}} J_{ab}^{--}                                    &
-    M\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{-n}                          \\
-    Me^{-i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n+}      &
-    Me^{i\vec{Q}\vec{d}_{ab}}\delta_{\vec{Q},\vec{G}}\cdot J_{ab}^{n-}       &
+    Me^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} J_{ab}^{++}                                   &
+    Me^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ab}^{+-}  &
+    M\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{+n}                          \\
+    Me^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ab}^{-+} &
+    Me^{i\boldsymbol{q}\boldsymbol{d}_{ab}} J_{ab}^{--}                                    &
+    M\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{-n}                          \\
+    Me^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{n+}      &
+    Me^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{n-}       &
     M\cdot J_{ab}^{nn}                                                  \\
   \end{pmatrix}

@@ -5,54 +5,54 @@
     \Biggl\{
       \dfrac{1}{\sqrt{S_1S_2}}
       \Bigl[
-        (\vec{p}_1)^{\dagger}
+        (\boldsymbol{p}_1)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_0)
-        \boldsymbol{J_{12}}(\vec{d})
+        \boldsymbol{J_{12}}(\boldsymbol{d})
         \boldsymbol{R}(\theta_{0+d})
-        \vec{p}_2
+        \boldsymbol{p}_2
         \cdot
         \hat{a}_{0,1}\hat{a}_{0+d,2}^{\dagger}
         +\\+
-        (\vec{p}_1)^{\dagger}
+        (\boldsymbol{p}_1)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_0)
-        \boldsymbol{J_{12}}(\vec{d})
+        \boldsymbol{J_{12}}(\boldsymbol{d})
         \boldsymbol{R}(\theta_{0+d})
-        \vec{t}_2
+        \boldsymbol{t}_2
         \cdot
         \hat{a}_{0,1}\hat{a}_{0+d,2}
         +\\+
-        (\vec{t}_1)^{\dagger}
+        (\boldsymbol{t}_1)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_0)
-        \boldsymbol{J_{12}}(\vec{d})
+        \boldsymbol{J_{12}}(\boldsymbol{d})
         \boldsymbol{R}(\theta_{0+d})
-        \vec{p}_2
+        \boldsymbol{p}_2
         \cdot
         \hat{a}_{0,1}^{\dagger}\hat{a}_{0+d,2}^{\dagger}
         +\\+
-        (\vec{t}_1)^{\dagger}
+        (\boldsymbol{t}_1)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_0)
-        \boldsymbol{J_{12}}(\vec{d})
+        \boldsymbol{J_{12}}(\boldsymbol{d})
         \boldsymbol{R}(\theta_{0+d})
-        \vec{t}_2
+        \boldsymbol{t}_2
         \cdot
         \hat{a}_{0,1}^{\dagger}\hat{a}_{0+d,2}
       \Bigr]
       -\\-
       \dfrac{1}{S_1}
-      (\vec{f}_1)^{\dagger}
+      (\boldsymbol{f}_1)^{\dagger}
       \boldsymbol{R}^{\dagger}(\theta_0)
-      \boldsymbol{J_{12}}(\vec{d})
+      \boldsymbol{J_{12}}(\boldsymbol{d})
       \boldsymbol{R}(\theta_{0+d})
-      \vec{f}_2
+      \boldsymbol{f}_2
       \cdot
       \hat{a}_{0,1}^{\dagger}\hat{a}_{0,1}
       -\\-
       \dfrac{1}{S_2}
-      (\vec{f}_1)^{\dagger}
+      (\boldsymbol{f}_1)^{\dagger}
       \boldsymbol{R}^{\dagger}(\theta_0)
-      \boldsymbol{J_{12}}(\vec{d})
+      \boldsymbol{J_{12}}(\boldsymbol{d})
       \boldsymbol{R}(\theta_{0+d})
-      \vec{f}_2
+      \boldsymbol{f}_2
       \cdot
       \hat{a}_{0+d,2}^{\dagger}\hat{a}_{0+d,2}
     \Biggr\}
@@ -62,54 +62,54 @@
     \Biggl\{
       \dfrac{1}{\sqrt{S_2S_1}}
       \Bigl[
-        (\vec{p}_2)^{\dagger}
+        (\boldsymbol{p}_2)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_{0+d})
-        \boldsymbol{J_{21}}(-\vec{d})
+        \boldsymbol{J_{21}}(-\boldsymbol{d})
         \boldsymbol{R}(\theta_0)
-        \vec{p}_1
+        \boldsymbol{p}_1
         \cdot
         \hat{a}_{0+d,2}\hat{a}_{0,1}^{\dagger}
         +\\+
-        (\vec{p}_2)^{\dagger}
+        (\boldsymbol{p}_2)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_{0+d})
-        \boldsymbol{J_{21}}(-\vec{d})
+        \boldsymbol{J_{21}}(-\boldsymbol{d})
         \boldsymbol{R}(\theta_0)
-        \vec{t}_1
+        \boldsymbol{t}_1
         \cdot
         \hat{a}_{0+d,2}\hat{a}_{0,1}
         +\\+
-        (\vec{t}_2)^{\dagger}
+        (\boldsymbol{t}_2)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_{0+d})
-        \boldsymbol{J_{21}}(-\vec{d})
+        \boldsymbol{J_{21}}(-\boldsymbol{d})
         \boldsymbol{R}(\theta_0)
-        \vec{p}_1
+        \boldsymbol{p}_1
         \cdot
         \hat{a}_{0+d,2}^{\dagger}\hat{a}_{0,1}^{\dagger}
         +\\+
-        (\vec{t}_2)^{\dagger}
+        (\boldsymbol{t}_2)^{\dagger}
         \boldsymbol{R}^{\dagger}(\theta_{0+d})
-        \boldsymbol{J_{21}}(-\vec{d})
+        \boldsymbol{J_{21}}(-\boldsymbol{d})
         \boldsymbol{R}(\theta_0)
-        \vec{t}_1
+        \boldsymbol{t}_1
         \cdot
         \hat{a}_{0+d,2}^{\dagger}\hat{a}_{0,1}
       \Bigr]
       -\\-
       \dfrac{1}{S_2}
-      (\vec{f}_2)^{\dagger}
+      (\boldsymbol{f}_2)^{\dagger}
       \boldsymbol{R}^{\dagger}(\theta_{0+d})
-      \boldsymbol{J_{21}}(-\vec{d})
+      \boldsymbol{J_{21}}(-\boldsymbol{d})
       \boldsymbol{R}(\theta_0)
-      \vec{f}_1
+      \boldsymbol{f}_1
       \cdot
       \hat{a}_{0+d,2}^{\dagger}\hat{a}_{0+d,2}
       -\\-
       \dfrac{1}{S_1}
-      (\vec{f}_2)^{\dagger}
+      (\boldsymbol{f}_2)^{\dagger}
       \boldsymbol{R}^{\dagger}(\theta_{0+d})
-      \boldsymbol{J_{21}}(-\vec{d})
+      \boldsymbol{J_{21}}(-\boldsymbol{d})
       \boldsymbol{R}(\theta_0)
-      \vec{f}_1
+      \boldsymbol{f}_1
       \cdot
       \hat{a}_{0,1}^{\dagger}\hat{a}_{0,1}
     \Biggr\}

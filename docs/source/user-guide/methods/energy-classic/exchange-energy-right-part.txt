@@ -1,6 +1,6 @@
 .. math::
   \boldsymbol{R}(\theta_b,\phi_b)
-  \vec{S}_b^{ferro}
+  \boldsymbol{S}_b^{ferro}
   =
   S_b
   \begin{pmatrix}

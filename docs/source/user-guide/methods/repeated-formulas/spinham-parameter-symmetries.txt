@@ -1,6 +1,6 @@
 .. math::
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   =
-  \boldsymbol{J_{ba}}^{\dagger}(\vec{d}_{ba})
+  \boldsymbol{J_{ba}}^{\dagger}(\boldsymbol{d}_{ba})
   =
-  \boldsymbol{J_{ba}}^{\dagger}(-\vec{d}_{ab})
+  \boldsymbol{J_{ba}}^{\dagger}(-\boldsymbol{d}_{ab})

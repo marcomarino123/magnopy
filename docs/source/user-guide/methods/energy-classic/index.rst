@@ -26,44 +26,44 @@ Let us separate the summation over cites in unit cell and over unit cells:
     Ferromagnetic spin does not depend on the unit cell index:
 
     .. math::
-        \vec{S}_{ma}^{ferro}
+        \boldsymbol{S}_{ma}^{ferro}
         =
         (0, 0, S_a )^T
         =
-        \vec{S}_a^{ferro}
+        \boldsymbol{S}_a^{ferro}
 
     We assume that magnetic field can vary over the space:
 
     .. math::
-        \vec{H} = \vec{H}(\vec{r_{ma}}) = \vec{H}_{ma}
+        \boldsymbol{H} = \boldsymbol{H}(\boldsymbol{r_{ma}}) = \boldsymbol{H}_{ma}
 
 .. math::
   H
   =
   \dfrac{1}{2}
   \sum_{a, b}
-  (\vec{S}_a^{ferro})^{\dagger}
+  (\boldsymbol{S}_a^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
-  \sum_{\vec{d}_{ab}}
+  \sum_{\boldsymbol{d}_{ab}}
   \left[
   \sum_{m}
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_{m+d_{ab}})
   \right]
   \boldsymbol{R}(\theta_b,\phi_b)
-  \vec{S}_b^{ferro}
+  \boldsymbol{S}_b^{ferro}
   +
   \mu_B
   \sum_{a}
   g_a
   \left[
   \sum_{m}
-  \vec{H}^{\dagger}_{ma}
+  \boldsymbol{H}^{\dagger}_{ma}
   \boldsymbol{R}(\theta_m)
   \right]
   \boldsymbol{R}(\theta_a,\phi_a)
-  \vec{S}_{a}^{ferro}
+  \boldsymbol{S}_{a}^{ferro}
 
 We focus our attention on the expressions in the square brackets:
 
@@ -73,7 +73,7 @@ Exchange energy
 We recall
 :ref:`exchange matrix in a spherical reference frame <user-guide_methods_spinham-spherical>`
 and
-:ref:`rotation matrix in a spherical reference frame <user-guide_methods_spherical-rf>`:
+:ref:`rotation matrix in a spherical reference frame <user-guide_methods_spherical-rf>`
 from previous sections:
 
 .. include:: ../repeated-formulas/exchange-matrix-spherical.txt
@@ -93,13 +93,13 @@ Next we write the expression under the sum explicitly:
 
 Next we write back the sum over :math:`m`, and using the facts that:
 
-* :math:`\vec{d} = \sum_{i}\vec{a}_in_i`, where :math:`\vec{a}_i` are the lattice vectors
+* :math:`\boldsymbol{d} = \sum_{i}\boldsymbol{a}_in_i`, where :math:`\boldsymbol{a}_i` are the lattice vectors
   and :math:`n_i \in \mathbb{Z}`, :math:`i = 1,2,3`.
-* :math:`\boldsymbol{J_{ab}}(\vec{d}_{ab})`
+* :math:`\boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})`
   does not depend on the index :math:`m`
-* :math:`\sum_{r_m}e^{\pm i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\vec{G}}`
+* :math:`\sum_{r_m}e^{\pm i\boldsymbol{q}\boldsymbol{r}_m} = M\delta_{\boldsymbol{q},\boldsymbol{G}}`
   and
-  :math:`\sum_{r_m}e^{\pm 2i\vec{Q}\vec{r}_m} = M\delta_{\vec{Q},\frac{\vec{G}}{2}}`
+  :math:`\sum_{r_m}e^{\pm 2i\boldsymbol{q}\boldsymbol{r}_m} = M\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}`
 
   .. dropdown:: Details [1]_
 
@@ -158,17 +158,17 @@ Next we turn our attention to the Zeeman term:
   g_a
   \left[
   \sum_{m}
-  \vec{H}^{\dagger}_{ma}
+  \boldsymbol{H}^{\dagger}_{ma}
   \boldsymbol{R}(\theta_m)
   \right]
   \boldsymbol{R}(\theta_a,\phi_a)
-  \vec{S}_{a}^{ferro}
+  \boldsymbol{S}_{a}^{ferro}
 
 Let us compute part of the expression:
 
 .. math::
   \boldsymbol{R}(\theta_a,\phi_a)
-  \vec{S}_a^{ferro}
+  \boldsymbol{S}_a^{ferro}
   =
   S_a
   \begin{pmatrix}
@@ -244,9 +244,9 @@ Then the energy is:
   \left[
   \sin\theta_a
   \left(
-    H_{ma}^u\cos(\vec{Q}\cdot\vec{r}_m+\phi_a)
+    H_{ma}^u\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)
     +
-    H_{ma}^v\sin(\vec{Q}\cdot\vec{r}_m+\phi_a)
+    H_{ma}^v\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)
   \right)
   +
   H_{ma}^n\cos\theta_a
@@ -259,19 +259,19 @@ Let us set each component of the magnetic field to be a harmonic function in the
   \begin{aligned}
     H_{ma}^u
     &=
-    H^u\cos(\vec{Q^u}(\vec{r}_m+\vec{r}_a)+\varphi^u)
+    H^u\cos(\boldsymbol{q^u}(\boldsymbol{r}_m+\boldsymbol{r}_a)+\varphi^u)
     =
-    H^u\cos(\vec{Q}^u\vec{r}_m+\phi_a^u) \\
+    H^u\cos(\boldsymbol{q^u}\boldsymbol{r}_m+\phi_a^u) \\
     H_{ma}^v
     &=
-    H^v\cos(\vec{Q^v}(\vec{r}_m+\vec{r}_a)+\varphi^v)
+    H^v\cos(\boldsymbol{q^v}(\boldsymbol{r}_m+\boldsymbol{r}_a)+\varphi^v)
     =
-    H^v\cos(\vec{Q}^v\vec{r}_m+\phi_a^v) \\
+    H^v\cos(\boldsymbol{q^v}\boldsymbol{r}_m+\phi_a^v) \\
     H_{ma}^n
     &=
-    H^n\cos(\vec{Q^n}(\vec{r}_m+\vec{r}_a)+\varphi^n)
+    H^n\cos(\boldsymbol{q^n}(\boldsymbol{r}_m+\boldsymbol{r}_a)+\varphi^n)
     =
-    H^n\cos(\vec{Q}^n\vec{r}_m+\phi_a^n) \\
+    H^n\cos(\boldsymbol{q^n}\boldsymbol{r}_m+\phi_a^n) \\
   \end{aligned}
 
 Then we can write:

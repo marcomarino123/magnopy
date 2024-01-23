@@ -1,32 +1,32 @@
 .. math::
   &\dfrac{
-  J_{ab}^{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
+  J_{ab}^{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
   +
-  J_{ab}^{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
+  J_{ab}^{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
   }{\sqrt{2}}
   =\\&=
   \dfrac{
-  (J_{ab}^{nu}+iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
+  (J_{ab}^{nu}+iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
   +
-  (J_{ab}^{nu} - iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
+  (J_{ab}^{nu} - iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
   }{2}
   =\\&=
   J_{ab}^{nu}\cos\theta_a\sin\theta_b
   \dfrac{
-  e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}+e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}
+  e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}+e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
   }{2}
   +
   J_{ab}^{nv}\cos\theta_a\sin\theta_b
   \dfrac{
-  e^{i(\phi_b+\vec{Q}\vec{d}_{ab})}-e^{-i(\phi_b+\vec{Q}\vec{d}_{ab})}
+  e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}-e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
   }{2i}
   =\\&=
-  J_{ab}^{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d}_{ab})
+  J_{ab}^{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
   +
-  J_{ab}^{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d}_{ab})
+  J_{ab}^{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
   =\\&=
-  (S_{ab}^{un} + D_{ab}^v)\cos\theta_a\sin\theta_b\cos(\phi_b+\vec{Q}\vec{d}_{ab})
+  (S_{ab}^{un} + D_{ab}^v)\cos\theta_a\sin\theta_b\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
   +
-  (S_{ab}^{vn} - D_{ab}^u)\cos\theta_a\sin\theta_b\sin(\phi_b+\vec{Q}\vec{d}_{ab})
+  (S_{ab}^{vn} - D_{ab}^u)\cos\theta_a\sin\theta_b\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
 
 where :math:`J_{ab}^{nu} = S_{ab}^{un} + D_{ab}^v` and :math:`J_{ab}^{nv} = S_{ab}^{vn} - D_{ab}^u`

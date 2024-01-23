@@ -3,33 +3,33 @@
   =
   H^n
   \sum_m
-  \cos(\vec{Q}^n\vec{r}_m+\phi^n_a)
+  \cos(\boldsymbol{q^n}\boldsymbol{r}_m+\phi^n_a)
   =\\&=
   H^n
   \dfrac{1}{2}
   \sum_m
   \left[
-  e^{i\vec{Q}^n\vec{r}_m}e^{i\phi^n_a}
+  e^{i\boldsymbol{q^n}\boldsymbol{r}_m}e^{i\phi^n_a}
   +
-  e^{-i\vec{Q}^n\vec{r}_m}e^{-i\phi^n_a}
+  e^{-i\boldsymbol{q^n}\boldsymbol{r}_m}e^{-i\phi^n_a}
   \right]
   =\\&=
   H^n
   \dfrac{1}{2}
   \left[
-  e^{i\phi^n_a} \sum_m e^{i\vec{Q}^n\vec{r}_m}
+  e^{i\phi^n_a} \sum_m e^{i\boldsymbol{q^n}\boldsymbol{r}_m}
   +
-  e^{-i\phi^n_a} \sum_m e^{-i\vec{Q}^n\vec{r}_m}
+  e^{-i\phi^n_a} \sum_m e^{-i\boldsymbol{q^n}\boldsymbol{r}_m}
   \right]
   =\\&=
   H^nM
   \dfrac{1}{2}
   \left[
-  e^{i\phi^n_a} \delta_{vec{Q}^n, \vec{G}}
+  e^{i\phi^n_a} \delta_{vec{q}^n, \boldsymbol{G}}
   +
-  e^{-i\phi^n_a} \delta_{\vec{Q}^n, \vec{G}}
+  e^{-i\phi^n_a} \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
   \right]
   =\\&=
   H^nM
-  \delta_{\vec{Q}^n, \vec{G}}
+  \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
   \cos\phi^n_a

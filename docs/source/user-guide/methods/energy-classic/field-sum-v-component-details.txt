@@ -1,11 +1,11 @@
 Let us define:
 
-- :math:`\theta^v_m = \vec{Q}^v\vec{r}_m`
-- :math:`\theta_m = \vec{Q}\vec{r}_m`
+- :math:`\theta^v_m = \boldsymbol{q^v}\boldsymbol{r}_m`
+- :math:`\theta_m = \boldsymbol{q}\boldsymbol{r}_m`
 - :math:`\phi^{\pm} = \phi_a^v \pm \phi_a`
 - :math:`\theta_m^{\pm} = \theta_m^v \pm \theta_m`
   and
-  :math:`\vec{Q}_m^{\pm} = \vec{Q}_m^v \pm \vec{Q}_m`
+  :math:`\boldsymbol{q^{\pm}}_m = \boldsymbol{q^v}_m \pm \boldsymbol{q}_m`
 
 .. math::
   &\sum_m
@@ -33,36 +33,36 @@ Let us define:
   =\\&=
   H^v\dfrac{1}{4i}
   \left[
-  e^{i\phi^+}\sum_m e^{i\vec{Q}^+\vec{r}_m}
+  e^{i\phi^+}\sum_m e^{i\boldsymbol{q^+}\boldsymbol{r}_m}
   -
-  e^{-i\phi^+}\sum_m e^{-i\vec{Q}^+\vec{r}_m}
+  e^{-i\phi^+}\sum_m e^{-i\boldsymbol{q^+}\boldsymbol{r}_m}
   -
-  e^{i\phi^-}\sum_m e^{i\vec{Q}^-\vec{r}_m}
+  e^{i\phi^-}\sum_m e^{i\boldsymbol{q^-}\boldsymbol{r}_m}
   +
-  e^{-i\phi^-}\sum_m e^{-i\vec{Q}^-\vec{r}_m}
+  e^{-i\phi^-}\sum_m e^{-i\boldsymbol{q^-}\boldsymbol{r}_m}
   \right]
   =\\&=
   H^vM\dfrac{1}{4i}
   \left[
-  e^{i\phi^+} \delta_{\vec{Q}^+, \vec{G}}
+  e^{i\phi^+} \delta_{\boldsymbol{q^+}, \boldsymbol{G}}
   -
-  e^{-i\phi^+} \delta_{\vec{Q}^+, \vec{G}}
+  e^{-i\phi^+} \delta_{\boldsymbol{q^+}, \boldsymbol{G}}
   -
-  e^{i\phi^-} \delta_{\vec{Q}^-, \vec{G}}
+  e^{i\phi^-} \delta_{\boldsymbol{q^-}, \boldsymbol{G}}
   +
-  e^{-i\phi^-}  \delta_{\vec{Q}^-, \vec{G}}
+  e^{-i\phi^-}  \delta_{\boldsymbol{q^-}, \boldsymbol{G}}
   \right]
   =\\&=
   \dfrac{H^vM}{2}
   \left[
-  \delta_{\vec{Q}^+, \vec{G}} \sin\phi^+
+  \delta_{\boldsymbol{q^+}, \boldsymbol{G}} \sin\phi^+
   -
-  \delta_{\vec{Q}^-, \vec{G}} \sin\phi^-
+  \delta_{\boldsymbol{q^-}, \boldsymbol{G}} \sin\phi^-
   \right]
   =\\&=
   \dfrac{H^vM}{2}
   \left[
-  \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
+  \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v + \phi_a)
   -
-  \delta_{\vec{Q}_m^v - \vec{Q}_m, \vec{G}} \sin(\phi_a^v - \phi_a)
+  \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v - \phi_a)
   \right]

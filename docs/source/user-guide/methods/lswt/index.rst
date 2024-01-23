@@ -47,15 +47,15 @@ And then apply hermitian conjugate to the whole expression:
 
 .. math::
   (\boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_{m+d_{ab}}))^{\dagger}
   =
   \boldsymbol{R}^{\dagger}(\theta_{m+d_{ab}})
-  \boldsymbol{J_{ab}}^{\dagger}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}^{\dagger}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_m)
   =
   \boldsymbol{R}^{\dagger}(\theta_{m+d_{ab}})
-  \boldsymbol{J_{ba}}(\vec{d}_{ba})
+  \boldsymbol{J_{ba}}(\boldsymbol{d}_{ba})
   \boldsymbol{R}(\theta_m)
 
 
@@ -74,13 +74,13 @@ with first atom being located in the unit cell :math:`0` and the second in the u
 
   - :math:`a = 1`
   - :math:`b = 2`
-  - :math:`\vec{d}_{ab} = \vec{d}`
+  - :math:`\boldsymbol{d}_{ab} = \boldsymbol{d}`
   - :math:`m = 0`
 * :math:`2 \Rightarrow 1` (:math:`H_{21}`)
 
   - :math:`a = 2`
   - :math:`b = 1`
-  - :math:`\vec{d}_{ab} = -\vec{d}`
+  - :math:`\boldsymbol{d}_{ab} = -\boldsymbol{d}`
   - :math:`m = 0+d`
 
 .. dropdown:: Part of the Hamiltonian
@@ -137,28 +137,28 @@ bosonic operators :math:`\hat{a}_{ma}` and move to the collective bosonic operat
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
   \hat{a}_{ka}
-  e^{i\vec{\vec{k}}\vec{r}_m}
+  e^{i\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m}
   \\
   \hat{a}_{m+d_{ab},b}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
   \hat{a}_{kb}
-  e^{i(\vec{\vec{k}}\vec{r}_m+\vec{d}_{ab})}
+  e^{i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m+\boldsymbol{d}_{ab})}
   \\
   \hat{a}_{ma}^{\dagger}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
   \hat{a}_{ka}^{\dagger}
-  e^{-i\vec{\vec{k}}\vec{r}_m}
+  e^{-i\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m}
   \\
   \hat{a}_{m+d_{ab},b}^{\dagger}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
   \hat{a}_{kb}^{\dagger}
-  e^{-i(\vec{\vec{k}}\vec{r}_m+\vec{d}_{ab})}
+  e^{-i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m+\boldsymbol{d}_{ab})}
 
 .. dropdown:: Details
 
@@ -170,20 +170,20 @@ After we apply the rotated matrix separation to each term in the round parenthes
 we end up with the number of the sums over :math:`m` of the following form:
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+\tilde{h}(\vec{Q}))\vec{r}_m}
+  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r}_m}
 
-where :math:`h(\vec{k}, \vec{k}^{\prime})` and :math:`\tilde{h}(\vec{Q})` are corresponding functions of
+where :math:`h(\boldsymbol{k}, \boldsymbol{k}^{\prime})` and :math:`\tilde{h}(\boldsymbol{q})` are corresponding functions of
 the vectors.
 
 As was discussed in the :ref:`classical energy <user-guide_methods_energy-classic_sum-over-m-condition>`
 section the sums of this form can be simplified:
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\vec{k}, \vec{k}^{\prime})+\tilde{h}(\vec{Q}))\vec{r}_m}
+  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r}_m}
   =
-  \delta_{h(\vec{k}, \vec{k}^{\prime})+\tilde{h}(\vec{Q}), \vec{G}}
+  \delta_{h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}), \boldsymbol{G}}
 
-where :math:`\vec{G}` is a reciprocal lattice vector.
+where :math:`\boldsymbol{G}` is a reciprocal lattice vector.
 
 
 Now we focus on each term of the sum separately:

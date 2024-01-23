@@ -19,9 +19,9 @@ Let us recall the expression for the exchange energy:
 In order to minimize this equation and find ground state we split all possible cases into
 three distinct ones:
 
-* :math:`\vec{Q} = \vec{G}` - ferromagnetic alignment.
-* :math:`\vec{Q} = \dfrac{\vec{G}}{2} \ne \vec{G}` - antiferromagnetic cone.
-* :math:`\vec{Q} \ne \dfrac{\vec{G}}{2} \ne \vec{G}` - spiral state.
+* :math:`\boldsymbol{q} = \boldsymbol{G}` - ferromagnetic alignment.
+* :math:`\boldsymbol{q} = \dfrac{\boldsymbol{G}}{2} \ne \boldsymbol{G}` - antiferromagnetic cone.
+* :math:`\boldsymbol{q} \ne \dfrac{\boldsymbol{G}}{2} \ne \boldsymbol{G}` - spiral state.
 
 For each case the general equation is simplified and minimized. Then the true
 ground state is defined by the comparison of the three obtained minimums.
@@ -35,9 +35,9 @@ reference frame:
 Ferromagnetic alignment
 =======================
 
-If :math:`\delta_{\vec{Q},\vec{G}} = 1`,
-then :math:`\vec{Q}\vec{d}_{ab} = 2\pi n` for any :math:`\vec{d}_{ab}`
-and :math:`\vec{Q}\vec{r}_m = 2\pi n` for any :math:`\vec{r}_m`,
+If :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 1`,
+then :math:`\boldsymbol{q}\boldsymbol{d}_{ab} = 2\pi n` for any :math:`\boldsymbol{d}_{ab}`
+and :math:`\boldsymbol{q}\boldsymbol{r}_m = 2\pi n` for any :math:`\boldsymbol{r}_m`,
 thus, the spin vector is simplified to
 
 .. math::
@@ -62,12 +62,12 @@ This equation describes a ferromagnetic alignment of the spins between the unit 
 .. dropdown:: Example
 
   * Two spins in the unit cell,
-    :math:`\vec{Q} = (2\pi,0,0)^T`:
+    :math:`\boldsymbol{q} = (2\pi,0,0)^T`:
 
-    - :math:`\vec{r}_1 = (0,0,0)`,
+    - :math:`\boldsymbol{r}_1 = (0,0,0)`,
       :math:`\theta_1 = 150^{\circ}`,
       :math:`\phi_1 = 180^{\circ}`
-    - :math:`\vec{r}_2 = (\frac{1}{2},\frac{1}{2},0)`,
+    - :math:`\boldsymbol{r}_2 = (\frac{1}{2},\frac{1}{2},0)`,
       :math:`\theta_2 = 30^{\circ}`,
       :math:`\phi_2 = 0^{\circ}`
 
@@ -79,45 +79,45 @@ This equation describes a ferromagnetic alignment of the spins between the unit 
     choice of the :math:`\theta_a`, :math:`\phi_a`. But the alignment of the spins with
     the same unit-cell index is ferromagnetic with respect to the change of the unit cell.
 
-We note, tha if :math:`\delta_{\vec{Q},\vec{G}} = 1`,
-then :math:`\delta_{\vec{Q},\frac{\vec{G}}{2}} = 1` as well,
+We note, tha if :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 1`,
+then :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1` as well,
 therefore, the expression for the energy is simplified to:
 
 .. math::
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}_{ab}}
+  \sum_{a, b, \boldsymbol{d}_{ab}}
   S_aS_b
   \Biggl\{
-    J_{ab}^{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
     +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})+J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_b-\phi_a)
       +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})-J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_b-\phi_a)
     \Bigr]
     +\\&+
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})-J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\phi_a+\phi_b)
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})-J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_a+\phi_b)
         +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})+J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\phi_a+\phi_b)
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})+J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_a+\phi_b)
     \Bigr]
     +\\&+
     \sin\theta_a\cos\theta_b
     \Bigl[
-      J_{ab}^{un}(\vec{d}_{ab})\cos\phi_a
+      J_{ab}^{un}(\boldsymbol{d}_{ab})\cos\phi_a
       +
-      J_{ab}^{vn}(\vec{d}_{ab})\sin\phi_a
+      J_{ab}^{vn}(\boldsymbol{d}_{ab})\sin\phi_a
     \Bigr]
     +\\&+
     \cos\theta_a\sin\theta_b
     \Bigl[
-      J_{ab}^{nu}(\vec{d}_{ab})\cos\phi_b
+      J_{ab}^{nu}(\boldsymbol{d}_{ab})\cos\phi_b
       +
-      J_{ab}^{nv}(\vec{d}_{ab})\sin\phi_b
+      J_{ab}^{nv}(\boldsymbol{d}_{ab})\sin\phi_b
     \Bigr]
   \Biggr\}
 
@@ -125,9 +125,9 @@ therefore, the expression for the energy is simplified to:
 Antiferromagnetic cone
 ======================
 
-If :math:`\delta_{\vec{Q},\frac{\vec{G}}{2}} = 1`,
-then :math:`\vec{Q}\vec{d}_{ab} = \pi n` for any :math:`\vec{d}_{ab}`
-and :math:`\vec{Q}\vec{r}_m = \pi n` for any :math:`\vec{r}_m`,
+If :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1`,
+then :math:`\boldsymbol{q}\boldsymbol{d}_{ab} = \pi n` for any :math:`\boldsymbol{d}_{ab}`
+and :math:`\boldsymbol{q}\boldsymbol{r}_m = \pi n` for any :math:`\boldsymbol{r}_m`,
 thus, the spin vector is simplified to
 
 .. math::
@@ -164,12 +164,12 @@ In this section we discuss the case with :math:`n=2k+1`.
 .. dropdown:: Example
 
   * Two spins in the unit cell,
-    :math:`\vec{Q} = (\pi,0,0)^T`:
+    :math:`\boldsymbol{q} = (\pi,0,0)^T`:
 
-    - :math:`\vec{r}_1 = (0,0,0)`,
+    - :math:`\boldsymbol{r}_1 = (0,0,0)`,
       :math:`\theta_1 = 150^{\circ}`,
       :math:`\phi_1 = 180^{\circ}`
-    - :math:`\vec{r}_2 = (\frac{1}{2},\frac{1}{2},0)`,
+    - :math:`\boldsymbol{r}_2 = (\frac{1}{2},\frac{1}{2},0)`,
       :math:`\theta_2 = 30^{\circ}`,
       :math:`\phi_2 = 0^{\circ}`
 
@@ -182,30 +182,30 @@ In this section we discuss the case with :math:`n=2k+1`.
     (:math:`\hat{u}\hat{v}`) spin's component with the same unit-cell index is antiferromagnetic
     with respect to the change of the unit cell.
 
-If :math:`n = 2k+1`, than :math:`\delta_{\vec{Q},\vec{G}} = 0`,
+If :math:`n = 2k+1`, than :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 0`,
 therefore, the expression for the energy is simplified to:
 
 .. math::
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \vec{d}_{ab}}
+  \sum_{a, b, \boldsymbol{d}_{ab}}
   S_aS_b
   \Biggl\{
-    J_{ab}^{nn}(\vec{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
     -\\&-
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})+J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_b-\phi_a)
       +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})-J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\phi_b-\phi_a)
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_b-\phi_a)
     \Bigr]
     -\\&-
     \sin\theta_a\sin\theta_b
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\vec{d}_{ab})-J_{ab}^{vv}(\vec{d}_{ab})}{2}\cos(\phi_a+\phi_b)
+      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})-J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_a+\phi_b)
         +
-      \dfrac{J_{ab}^{uv}(\vec{d}_{ab})+J_{ab}^{vu}(\vec{d}_{ab})}{2}\sin(\phi_a+\phi_b)
+      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})+J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_a+\phi_b)
     \Bigr]
   \Biggr\}
 

@@ -2,11 +2,11 @@
   H
   =
   \dfrac{1}{2}
-  \sum_{m, \vec{d}_{ab}, a, b}
-  \vec{S}_{ma}^{\dagger}
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
-  \vec{S}_{m+d,b}
+  \sum_{m, \boldsymbol{d}_{ab}, a, b}
+  \boldsymbol{S}_{ma}^{\dagger}
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
+  \boldsymbol{S}_{m+d,b}
   +
-  \mu_B\vec{H}^{\dagger}
+  \mu_B\boldsymbol{H}^{\dagger}
   \sum_{m,a}
-  g_a \vec{S}_{ma}
+  g_a \boldsymbol{S}_{ma}

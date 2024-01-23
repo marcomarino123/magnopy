@@ -1,58 +1,58 @@
 In the Hamiltonian we omit the terms which are smaller then the
 :math:`1/S^2` (if one assume :math:`S_a = S_b = S`). In other words we omit the terms
-with more then four bosonic operators. Here are those terms:
+with more than four bosonic operators. Here are those terms:
 
 .. math::
   \dfrac{1}{4S_aS_b^{3/2}}
   \Bigl[
-    &(\vec{f}_a)^{\dagger}
+    &(\boldsymbol{f}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{p}_b
+    \boldsymbol{p}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
     +
-    (\vec{f}_a)^{\dagger}
+    (\boldsymbol{f}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{t}_b
+    \boldsymbol{t}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}
     +\\&+
-    (\vec{p}_a)^{\dagger}
+    (\boldsymbol{p}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{f}_b
+    \boldsymbol{f}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
     +
-    (\vec{t}_a)^{\dagger}
+    (\boldsymbol{t}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{f}_b
+    \boldsymbol{f}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
   \Bigr]
   +\\+
   \dfrac{1}{16S_a^{3/2}S_b^{3/2}}
   \Bigl[
-    &(\vec{p}_a)^{\dagger}
+    &(\boldsymbol{p}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{p}_b
+    \boldsymbol{p}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
     +
-    (\vec{p}_a)^{\dagger}
+    (\boldsymbol{p}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{t}_b
+    \boldsymbol{t}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}
     +\\&+
-    (\vec{t}_a)^{\dagger}
+    (\boldsymbol{t}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{p}_b
+    \boldsymbol{p}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
     +
-    (\vec{t}_a)^{\dagger}
+    (\boldsymbol{t}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{t}_b
+    \boldsymbol{t}_b
     \cdot
     \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}
   \Bigr]
@@ -66,30 +66,30 @@ The last two omitted terms are one-operator terms, proportional to the :math:`1/
 .. math::
   \dfrac{1}{\sqrt{S_a}}
   \Bigl[
-    (\vec{p}_a)^{\dagger}
+    (\boldsymbol{p}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{f}_b
+    \boldsymbol{f}_b
     \cdot
     \hat{a}_{ma}
     +
-    (\vec{t}_a)^{\dagger}
+    (\boldsymbol{t}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{f}_b
+    \boldsymbol{f}_b
     \cdot
     \hat{a}_{ma}^{\dagger}
   \Bigr]
   +
   \dfrac{1}{\sqrt{S_b}}
   \Bigl[
-    (\vec{f}_a)^{\dagger}
+    (\boldsymbol{f}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{p}_b
+    \boldsymbol{p}_b
     \cdot
     \hat{a}_{m+d_{ab},b}^{\dagger}
     +
-    (\vec{f}_a)^{\dagger}
+    (\boldsymbol{f}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{t}_b
+    \boldsymbol{t}_b
     \cdot
     \hat{a}_{m+d_{ab},b}
   \Bigr]

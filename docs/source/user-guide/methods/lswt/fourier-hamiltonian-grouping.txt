@@ -2,7 +2,7 @@
   H^{LSWT}
   &=
   \dfrac{1}{2}
-  \sum_{k}\sum_{k^{\prime}}\sum_{\vec{d}_{ab}, a, b}
+  \sum_{k}\sum_{k^{\prime}}\sum_{\boldsymbol{d}_{ab}, a, b}
   S_aS_b
   \Biggl\{
     \dfrac{1}{\sqrt{S_aS_b}}
@@ -11,44 +11,44 @@
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{p}_b
-        e^{i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+        (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{p}_b
+        e^{i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
       \Bigr)
       \cdot
-      e^{-i\vec{k}^{\prime}\vec{d}_{ab}}
+      e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
       \hat{a}_{ka}
       \hat{a}_{k^{\prime}b}^{\dagger}
       +\\&+
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{t}_b
-        e^{i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
+        (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{t}_b
+        e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
       \Bigr)
       \cdot
-      e^{i\vec{k}^{\prime}\vec{d}_{ab}}
+      e^{i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
       \hat{a}_{ka}
       \hat{a}_{k^{\prime}b}
       +\\&+
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{p}_b
-        e^{-i(\vec{k}+\vec{k}^{\prime})\vec{r}_m}
+        (\boldsymbol{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{p}_b
+        e^{-i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
       \Bigr)
       \cdot
-      e^{-i\vec{k}^{\prime}\vec{d}_{ab}}
+      e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
       \hat{a}_{ka}^{\dagger}
       \hat{a}_{k^{\prime}b}^{\dagger}
       +\\&+
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\vec{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\vec{t}_b
-        e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+        (\boldsymbol{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{t}_b
+        e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
       \Bigr)
       \cdot
-      e^{i\vec{k}^{\prime}\vec{d}_{ab}}
+      e^{i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
       \hat{a}_{ka}^{\dagger}
       \hat{a}_{k^{\prime}b}
     \Biggr]
@@ -57,10 +57,10 @@
     \Bigl(
       \dfrac{1}{M}
       \sum_m
-      (\vec{f}_a)^{\dagger}
+      (\boldsymbol{f}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{mdab}}
-      \vec{f}_b
-      e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+      \boldsymbol{f}_b
+      e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
     \Bigr)
     \cdot
     \hat{a}_{ka}^{\dagger}
@@ -70,13 +70,13 @@
     \Bigl(
       \dfrac{1}{M}
       \sum_m
-      (\vec{f}_a)^{\dagger}
+      (\boldsymbol{f}_a)^{\dagger}
       \boldsymbol{\tilde{J}^{mdab}}
-      \vec{f}_b
-      e^{-i(\vec{k}-\vec{k}^{\prime})\vec{r}_m}
+      \boldsymbol{f}_b
+      e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
     \Bigr)
     \cdot
-    e^{-i(\vec{k}-\vec{k}^{\prime})\vec{d}_{ab}}
+    e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{d}_{ab}}
     \hat{a}_{kb}^{\dagger}
     \hat{a}_{k^{\prime}b}
   \Biggr\}

@@ -26,9 +26,9 @@ components of the spin with the corresponding spin operators:
 .. math::
 
   \begin{pmatrix}
-    \vec{S}_u \\
-    \vec{S}_v \\
-    \vec{S}_n \\
+    \boldsymbol{S}_u \\
+    \boldsymbol{S}_v \\
+    \boldsymbol{S}_n \\
   \end{pmatrix}
   \Rightarrow
   \begin{pmatrix}
@@ -86,8 +86,8 @@ Now we move on to the Hamiltonian in the
 .. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any.txt
 
 .. note::
-  Before this section the parameters :math:`\vec{n}`, :math:`\theta_a`, :math:`\phi_a`,
-  :math:`\vec{Q}` were unknown. Starting from this section we assume that the ground
+  Before this section the parameters :math:`\boldsymbol{n}`, :math:`\theta_a`, :math:`\phi_a`,
+  :math:`\boldsymbol{q}` were unknown. Starting from this section we assume that the ground
   state is known and we want to compute the low energy excitations to it.
 
 and recast vectors to operators:
@@ -101,34 +101,34 @@ spherical basis. We split the Hamiltonian into three parts as following:
   H^{exchange}
   =
   \dfrac{1}{2}
-  \sum_{m, \vec{d}_{ab}, a, b}
+  \sum_{m, \boldsymbol{d}_{ab}, a, b}
   \left[
-  (\hat{\vec{s}}_{ma}^{ferro})^{\dagger}
+  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   \right]
   \left[
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\vec{d}_{ab})
+  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
   \boldsymbol{R}(\theta_{m+d_{ab}})
   \right]
   \left[
   \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\vec{s}}_{m+d_{ab},b}^{ferro}
+  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
   \right]
   \\=
   \dfrac{1}{2}
-  \sum_{m, \vec{d}_{ab}, a, b}
+  \sum_{m, \boldsymbol{d}_{ab}, a, b}
   \left[
-  (\hat{\vec{s}}_{ma}^{ferro})^{\dagger}
+  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   \right]
   \boldsymbol{\tilde{J}^{mdab}}
   \left[
   \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\vec{s}}_{m+d_{ab},b}^{ferro}
+  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
   \right]
 
-Defining auxiliary vectors :math:`\vec{p}_a`, :math:`\vec{t}_a`, :math:`\vec{f}_a`
+Defining auxiliary vectors :math:`\boldsymbol{p}_a`, :math:`\boldsymbol{t}_a`, :math:`\boldsymbol{f}_a`
 we rewrite the Hamiltonian as:
 
 .. dropdown:: Details
@@ -148,17 +148,17 @@ we rewrite the Hamiltonian as:
       R(\theta_a,\phi_a)
       =
       \left(
-        \vec{p}_a,
-        \vec{t}_a,
-        \vec{f}_a
+        \boldsymbol{p}_a,
+        \boldsymbol{t}_a,
+        \boldsymbol{f}_a
       \right);
       &
       R(\theta_a,\phi_a)^{\dagger}
       =
       \begin{pmatrix}
-        (\vec{p}_a)^{\dagger} \\
-        (\vec{t}_a)^{\dagger} \\
-        (\vec{f}_a)^{\dagger} \\
+        (\boldsymbol{p}_a)^{\dagger} \\
+        (\boldsymbol{t}_a)^{\dagger} \\
+        (\boldsymbol{f}_a)^{\dagger} \\
       \end{pmatrix}
     \end{matrix}
 
@@ -176,7 +176,7 @@ we rewrite the Hamiltonian as:
   .. include:: omitted-terms.txt
 
 In the previous formula the terms are grouped with respect to the power of
-:math:`1/S` if one would assumed :math:`S_a = S_b = S`. Now we will separate them and
+:math:`1/S` if one would assume :math:`S_a = S_b = S`. Now we will separate them and
 discuss each one in details:
 
 .. math::
@@ -189,11 +189,11 @@ discuss each one in details:
     H^{Cl}
     =
     \dfrac{1}{2}
-    \sum_{m, \vec{d}_{ab}, a, b}
+    \sum_{m, \boldsymbol{d}_{ab}, a, b}
     S_aS_b
-    (\vec{f}_a)^{\dagger}
+    (\boldsymbol{f}_a)^{\dagger}
     \boldsymbol{\tilde{J}^{mdab}}
-    \vec{f}_b
+    \boldsymbol{f}_b
 
 * :ref:`Linear Spin Wave Theory <user-guide_methods_lswt>`
 

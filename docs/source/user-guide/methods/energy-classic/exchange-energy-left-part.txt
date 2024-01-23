@@ -1,5 +1,5 @@
 .. math::
-  (\vec{S}_a^{ferro})^{\dagger}
+  (\boldsymbol{S}_a^{ferro})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
   =
   (0,0,S_a)

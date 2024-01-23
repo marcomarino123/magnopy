@@ -7,23 +7,23 @@
   \Bigg\{&
     \cos\theta_a
     H^n
-    \delta_{\vec{Q}^n, \vec{G}}
+    \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
     \cos\phi^n_a
     +\\+
     \dfrac{\sin\theta_a}{2}
     \Biggl(&
       H^u
       \Bigl[
-        \delta_{\vec{Q}_m^u + \vec{Q}_m, \vec{G}} \cos(\phi_a^u + \phi_a)
+        \delta_{\boldsymbol{q^u}_m + \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_a^u + \phi_a)
         +
-        \delta_{\vec{Q}_m^u - \vec{Q}_m, \vec{G}} \cos(\phi_a^u - \phi_a)
+        \delta_{\boldsymbol{q^u}_m - \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_a^u - \phi_a)
       \Bigr]
       +\\&+
       H^v
       \Bigl[
-        \delta_{\vec{Q}_m^v + \vec{Q}_m, \vec{G}} \sin(\phi_a^v + \phi_a)
+        \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v + \phi_a)
         -
-        \delta_{\vec{Q}_m^v - \vec{Q}_m, \vec{G}} \sin(\phi_a^v - \phi_a)
+        \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v - \phi_a)
       \Bigr]
     \Biggr)
   \Biggr\}

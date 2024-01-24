@@ -131,7 +131,16 @@ Atoms
 Notation
 --------
 
-# TODO
+.. code-block:: text
+  :lineos:
+
+  ==========
+  Notation
+  <Spin normalized>
+  <Double counting>
+  <Exchange factor>
+  <On-site factor>
+  ==========
 
 Magnetic field
 --------------

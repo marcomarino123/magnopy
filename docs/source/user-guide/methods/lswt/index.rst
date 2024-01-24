@@ -10,7 +10,6 @@ Linear Spin-Wave Theory
   * .. include:: ../page-notations/matrix.txt
   * .. include:: ../page-notations/parentheses.txt
   * .. include:: ../page-notations/operators.txt
-  * .. include:: ../page-notations/spin-unit-vector-operator.txt
   * .. include:: ../page-notations/bra-ket.txt
   * .. include:: ../page-notations/kronecker-delta.txt
 

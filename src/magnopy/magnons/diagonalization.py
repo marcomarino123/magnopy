@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2023 Magnopy Team
+# Copyright (C) 2023-2024 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -35,36 +35,36 @@ def solve_via_colpa(D):
     .. math::
 
         \hat{H} = \sum_{r^{\prime}, r = 1}^m
-        \hat{\alpha}_{r^{\prime}}^{\dagger}\boldsymbol{\Delta}_1^{r^{\prime}r}\hat{\alpha}_r +
-        \hat{\alpha}_{r^{\prime}}^{\dagger}\boldsymbol{\Delta}_2^{r^{\prime}r}\hat{\alpha}_{m+r}^{\dagger} +
-        \hat{\alpha}_{m+r^{\prime}}^{\dagger}\boldsymbol{\Delta}_3^{r^{\prime}r}\hat{\alpha}_r +
-        \hat{\alpha}_{m+r^{\prime}}^{\dagger}\boldsymbol{\Delta}_4^{r^{\prime}r}\hat{\alpha}_{m+r}^{\dagger}
+        a_{r^{\prime}}^{\dagger}\boldsymbol{\Delta}_1^{r^{\prime}r}a_r +
+        a_{r^{\prime}}^{\dagger}\boldsymbol{\Delta}_2^{r^{\prime}r}a_{m+r}^{\dagger} +
+        a_{m+r^{\prime}}^{\dagger}\boldsymbol{\Delta}_3^{r^{\prime}r}a_r +
+        a_{m+r^{\prime}}^{\dagger}\boldsymbol{\Delta}_4^{r^{\prime}r}a_{m+r}^{\dagger}
 
     In a matrix form the Hamiltonian is:
 
     .. math::
 
-        \hat{H} = \boldsymbol{\hat{a}}^{\dagger} \boldsymbol{D} \boldsymbol{\hat{a}}
+        \hat{H} = \boldsymbol{\cal A}^{\dagger} \boldsymbol{D} \boldsymbol{\cal A}
 
     where
 
     .. math::
 
-        \boldsymbol{\hat{a}} =
+        \boldsymbol{\cal A} =
         \begin{pmatrix}
-            \hat{\alpha}_1 \\
+            a_1 \\
             \cdots \\
-            \hat{\alpha}_m \\
-            \hat{\alpha}_{m+1} \\
+            a_m \\
+            a_{m+1} \\
             \cdots \\
-            \hat{\alpha}_{2m} \\
+            a_{2m} \\
         \end{pmatrix}
 
     After diagonalization the Hamiltonian is:
 
     .. math::
 
-        \hat{H} = \boldsymbol{\hat{c}}^{\dagger} \boldsymbol{E} \boldsymbol{\hat{c}}
+        \hat{H} = \boldsymbol{\cal B}^{\dagger} \boldsymbol{E} \boldsymbol{\cal B}
 
     Parameters
     ----------
@@ -91,13 +91,13 @@ def solve_via_colpa(D):
 
     G : (2N, 2N) :numpy:`ndarray`
         Transformation matrix, which change the basis from the original set of bosonic
-        operators :math:`\boldsymbol{\hat{a}}` to the set of
+        operators :math:`\boldsymbol{a}` to the set of
         new bosonic operators :math:`\boldsymbol{\hat{c}}` which diagonalize
         the Hamiltonian:
 
         .. math::
 
-            \boldsymbol{\hat{c}} = \boldsymbol{G} \boldsymbol{\hat{a}}
+            \boldsymbol{\hat{c}} = \boldsymbol{G} \boldsymbol{a}
 
     Notes
     -----

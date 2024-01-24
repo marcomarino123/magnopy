@@ -26,44 +26,44 @@ Let us separate the summation over cites in unit cell and over unit cells:
     Ferromagnetic spin does not depend on the unit cell index:
 
     .. math::
-        \boldsymbol{S}_{ma}^{ferro}
+        \boldsymbol{S_{mi}^{ferro}}
         =
-        (0, 0, S_a )^T
+        (0, 0, S_i )^T
         =
-        \boldsymbol{S}_a^{ferro}
+        \boldsymbol{S_i^{ferro}}
 
-    We assume that magnetic field can vary over the space:
+    We assume that magnetic field can vary in space:
 
     .. math::
-        \boldsymbol{H} = \boldsymbol{H}(\boldsymbol{r_{ma}}) = \boldsymbol{H}_{ma}
+        \boldsymbol{h} = \boldsymbol{h}(\boldsymbol{r_{mi}}) = \boldsymbol{h_{mi}}
 
 .. math::
   H
   =
   \dfrac{1}{2}
   \sum_{a, b}
-  (\boldsymbol{S}_a^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
-  \sum_{\boldsymbol{d}_{ab}}
+  (\boldsymbol{S_i^{ferro}})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
+  \sum_{\boldsymbol{d_{ij}}}
   \left[
   \sum_{m}
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d_{ab}})
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}})
   \right]
-  \boldsymbol{R}(\theta_b,\phi_b)
-  \boldsymbol{S}_b^{ferro}
+  \boldsymbol{R}(\theta_j,\phi_j)
+  \boldsymbol{S_j^{ferro}}
   +
   \mu_B
-  \sum_{a}
-  g_a
+  \sum_i
+  g_i
   \left[
   \sum_{m}
-  \boldsymbol{H}^{\dagger}_{ma}
+  \boldsymbol{h_{mi}}^{\dagger}
   \boldsymbol{R}(\theta_m)
   \right]
-  \boldsymbol{R}(\theta_a,\phi_a)
-  \boldsymbol{S}_{a}^{ferro}
+  \boldsymbol{R}(\theta_i,\phi_i)
+  \boldsymbol{S_{i}^{ferro}}
 
 We focus our attention on the expressions in the square brackets:
 
@@ -95,11 +95,11 @@ Next we write back the sum over :math:`m`, and using the facts that:
 
 * :math:`\boldsymbol{d} = \sum_{i}\boldsymbol{a}_in_i`, where :math:`\boldsymbol{a}_i` are the lattice vectors
   and :math:`n_i \in \mathbb{Z}`, :math:`i = 1,2,3`.
-* :math:`\boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})`
+* :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})`
   does not depend on the index :math:`m`
-* :math:`\sum_{r_m}e^{\pm i\boldsymbol{q}\boldsymbol{r}_m} = M\delta_{\boldsymbol{q},\boldsymbol{G}}`
+* :math:`\sum_{r_m}e^{\pm i\boldsymbol{q}\boldsymbol{r_m}} = M\delta_{\boldsymbol{q},\boldsymbol{G}}`
   and
-  :math:`\sum_{r_m}e^{\pm 2i\boldsymbol{q}\boldsymbol{r}_m} = M\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}`
+  :math:`\sum_{r_m}e^{\pm 2i\boldsymbol{q}\boldsymbol{r_m}} = M\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}`
 
   .. dropdown:: Details [1]_
 
@@ -154,27 +154,27 @@ Next we turn our attention to the Zeeman term:
 
 .. math::
   \mu_B
-  \sum_{a}
-  g_a
+  \sum_i
+  g_i
   \left[
   \sum_{m}
-  \boldsymbol{H}^{\dagger}_{ma}
+  \boldsymbol{h_{mi}}^{\dagger}
   \boldsymbol{R}(\theta_m)
   \right]
-  \boldsymbol{R}(\theta_a,\phi_a)
-  \boldsymbol{S}_{a}^{ferro}
+  \boldsymbol{R}(\theta_i,\phi_i)
+  \boldsymbol{S_{i}^{ferro}}
 
 Let us compute part of the expression:
 
 .. math::
-  \boldsymbol{R}(\theta_a,\phi_a)
-  \boldsymbol{S}_a^{ferro}
+  \boldsymbol{R}(\theta_i,\phi_i)
+  \boldsymbol{S_i^{ferro}}
   =
-  S_a
+  S_i
   \begin{pmatrix}
-    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} \\
-    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}  \\
-    \cos\theta_a                                \\
+    \dfrac{\sin\theta_i e^{-i\phi_i}}{\sqrt{2}} \\
+    \dfrac{\sin\theta_i e^{i\phi_i}}{\sqrt{2}}  \\
+    \cos\theta_i                                \\
   \end{pmatrix}
 
 Magnetic field in the spherical reference frame is written as:
@@ -184,9 +184,9 @@ Magnetic field in the spherical reference frame is written as:
   Magnetic field in the :math:`uvn` reference frame is written as:
 
   .. math::
-    \langle uvn \vert H_{ma}\rangle
+    \langle uvn \vert h_{mi}\rangle
     =
-    \left(H_{ma}^u, H_{ma}^v, H_{ma}^n\right)^{\dagger}
+    \left(h_{mi}^u, h_{mi}^v, h_{mi}^n\right)^{\dagger}
 
   Let us recall the transformation matrix:
 
@@ -195,13 +195,13 @@ Magnetic field in the spherical reference frame is written as:
   And compute the magnetic field in the spherical reference frame:
 
   .. math::
-    \langle u^+u^-n \vert H_{ma} \rangle
+    \langle u^+u^-n \vert h_{mi} \rangle
     =
     \langle u^+u^-n \vert uvn \rangle
-    \langle uvn \vert H_{ma} \rangle
+    \langle uvn \vert h_{mi} \rangle
     =
     \langle uvn \vert T^{\dagger} \vert uvn \rangle
-    \langle uvn \vert H_{ma} \rangle
+    \langle uvn \vert h_{mi} \rangle
 
   Which leads to the expression:
 
@@ -213,21 +213,21 @@ Magnetic field in the spherical reference frame is written as:
     0 &  0 & \sqrt{2} \\
   \end{pmatrix}
   \begin{pmatrix}
-    H_{ma}^u \\
-    H_{ma}^v \\
-    H_{ma}^n \\
+    h_{mi}^u \\
+    h_{mi}^v \\
+    h_{mi}^n \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \dfrac{H_{ma}^u - iH_{ma}^v}{\sqrt{2}} \\
-    \dfrac{H_{ma}^u + iH_{ma}^v}{\sqrt{2}} \\
-    H_{ma}^n     \\
+    \dfrac{h_{mi}^u - ih_{mi}^v}{\sqrt{2}} \\
+    \dfrac{h_{mi}^u + ih_{mi}^v}{\sqrt{2}} \\
+    h_{mi}^n     \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \dfrac{H_{ma}^{-}}{\sqrt{2}}       \\
-    \dfrac{H_{ma}^{+}}{\sqrt{2}}       \\
-    H_{ma}^n \\
+    \dfrac{h_{mi}^{-}}{\sqrt{2}}       \\
+    \dfrac{h_{mi}^{+}}{\sqrt{2}}       \\
+    h_{mi}^n \\
   \end{pmatrix}
 
 Then the energy is:
@@ -238,18 +238,18 @@ Then the energy is:
 
 .. math::
   \mu_B
-  \sum_{a}
-  g_a  S_a
+  \sum_i
+  g_i  S_i
   \sum_{m}
   \left[
-  \sin\theta_a
+  \sin\theta_i
   \left(
-    H_{ma}^u\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)
+    h_{mi}^u\cos(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)
     +
-    H_{ma}^v\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)
+    h_{mi}^v\sin(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)
   \right)
   +
-  H_{ma}^n\cos\theta_a
+  h_{mi}^n\cos\theta_i
   \right]
 
 Let us set each component of the magnetic field to be a harmonic function in the
@@ -257,36 +257,36 @@ Let us set each component of the magnetic field to be a harmonic function in the
 
 .. math::
   \begin{aligned}
-    H_{ma}^u
+    h_{mi}^u
     &=
-    H^u\cos(\boldsymbol{q^u}(\boldsymbol{r}_m+\boldsymbol{r}_a)+\varphi^u)
+    h^u\cos(\boldsymbol{q^u}(\boldsymbol{r_m}+\boldsymbol{r_i})+\varphi^u)
     =
-    H^u\cos(\boldsymbol{q^u}\boldsymbol{r}_m+\phi_a^u) \\
-    H_{ma}^v
+    h^u\cos(\boldsymbol{q^u}\boldsymbol{r_m}+\phi_i^u) \\
+    h_{mi}^v
     &=
-    H^v\cos(\boldsymbol{q^v}(\boldsymbol{r}_m+\boldsymbol{r}_a)+\varphi^v)
+    h^v\cos(\boldsymbol{q^v}(\boldsymbol{r_m}+\boldsymbol{r_i})+\varphi^v)
     =
-    H^v\cos(\boldsymbol{q^v}\boldsymbol{r}_m+\phi_a^v) \\
-    H_{ma}^n
+    h^v\cos(\boldsymbol{q^v}\boldsymbol{r_m}+\phi_i^v) \\
+    h_{mi}^n
     &=
-    H^n\cos(\boldsymbol{q^n}(\boldsymbol{r}_m+\boldsymbol{r}_a)+\varphi^n)
+    h^n\cos(\boldsymbol{q^n}(\boldsymbol{r_m}+\boldsymbol{r_i})+\varphi^n)
     =
-    H^n\cos(\boldsymbol{q^n}\boldsymbol{r}_m+\phi_a^n) \\
+    h^n\cos(\boldsymbol{q^n}\boldsymbol{r_m}+\phi_i^n) \\
   \end{aligned}
 
 Then we can write:
 
 .. dropdown:: Details
 
-  * :math:`\hat{u}` component
+  * :math:`\boldsymbol{\hat{u}}` component
 
     .. include:: field-sum-u-component-details.txt
 
-  * :math:`\hat{v}` component
+  * :math:`\boldsymbol{\hat{v}}` component
 
     .. include:: field-sum-v-component-details.txt
 
-  * :math:`\hat{n}` component
+  * :math:`\boldsymbol{\hat{n}}` component
 
     .. include:: field-sum-n-component-details.txt
 

@@ -7,13 +7,13 @@ The list of operators used in this documentation is
 * Vectors spin operators, that are denoted
 
   .. math::
-    \boldsymbol{\cal S}=(s^x,s^y,s^z)^\dagger=\begin{pmatrix} s^x\\s^y\\s^z\end{pmatrix}
+    \boldsymbol{\cal S}=(s^x,s^y,s^z)^{\dagger}=\begin{pmatrix} s^x\\s^y\\s^z\end{pmatrix}
 
 * Boson operators, that are denoted by :math:`a` or :math:`b`
 
 * Vector boson operators, that are denoted by
 
   .. math::
-    \boldsymbol{\cal A}=(a_1,a_2,\dots)^\dagger=\begin{pmatrix}a_1\\a_2\\\vdots\end{pmatrix}
+    \boldsymbol{\cal A}=(a_1,a_2,\dots)^{\dagger}=\begin{pmatrix}a_1\\a_2\\\vdots\end{pmatrix}
 
-    \boldsymbol{\cal B}=(b_1,b_2,\dots)^\dagger=\begin{pmatrix}b_1\\b_2\\\vdots\end{pmatrix}
+    \boldsymbol{\cal B}=(b_1,b_2,\dots)^{\dagger}=\begin{pmatrix}b_1\\b_2\\\vdots\end{pmatrix}

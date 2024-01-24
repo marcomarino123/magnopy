@@ -1,25 +1,25 @@
 Let us define:
 
-- :math:`\theta^v_m = \boldsymbol{q^v}\boldsymbol{r}_m`
-- :math:`\theta_m = \boldsymbol{q}\boldsymbol{r}_m`
-- :math:`\phi^{\pm} = \phi_a^v \pm \phi_a`
+- :math:`\theta^v_m = \boldsymbol{q^v}\boldsymbol{r_m}`
+- :math:`\theta_m = \boldsymbol{q}\boldsymbol{r_m}`
+- :math:`\phi^{\pm} = \phi_i^v \pm \phi_i`
 - :math:`\theta_m^{\pm} = \theta_m^v \pm \theta_m`
   and
   :math:`\boldsymbol{q^{\pm}}_m = \boldsymbol{q^v}_m \pm \boldsymbol{q}_m`
 
 .. math::
   &\sum_m
-  H_{ma}^v\sin(\theta_m+\phi_a)
+  h_{mi}^v\sin(\theta_m+\phi_i)
   =
-  H^v\cos(\theta^v_m+\phi_a^v)
-  \sin(\theta_m+\phi_a)
+  h^v\cos(\theta^v_m+\phi_i^v)
+  \sin(\theta_m+\phi_i)
   =\\&=
-  H^v\sum_m
+  h^v\sum_m
   \dfrac{1}{4i}
-  (e^{i(\theta^v_m+\phi_a^v)}+e^{-i(\theta^v_m+\phi_a^v)})
-  (e^{i(\theta_m+\phi_a)}-e^{-i(\theta_m+\phi_a)})
+  (e^{i(\theta^v_m+\phi_i^v)}+e^{-i(\theta^v_m+\phi_i^v)})
+  (e^{i(\theta_m+\phi_i)}-e^{-i(\theta_m+\phi_i)})
   =\\&=
-  H^v\sum_m
+  h^v\sum_m
   \dfrac{1}{4i}
   \left[
   e^{i\theta^+}e^{i\phi^+}
@@ -31,18 +31,18 @@ Let us define:
   e^{-i\theta^-}e^{-i\phi^-}
   \right]
   =\\&=
-  H^v\dfrac{1}{4i}
+  h^v\dfrac{1}{4i}
   \left[
-  e^{i\phi^+}\sum_m e^{i\boldsymbol{q^+}\boldsymbol{r}_m}
+  e^{i\phi^+}\sum_m e^{i\boldsymbol{q^+}\boldsymbol{r_m}}
   -
-  e^{-i\phi^+}\sum_m e^{-i\boldsymbol{q^+}\boldsymbol{r}_m}
+  e^{-i\phi^+}\sum_m e^{-i\boldsymbol{q^+}\boldsymbol{r_m}}
   -
-  e^{i\phi^-}\sum_m e^{i\boldsymbol{q^-}\boldsymbol{r}_m}
+  e^{i\phi^-}\sum_m e^{i\boldsymbol{q^-}\boldsymbol{r_m}}
   +
-  e^{-i\phi^-}\sum_m e^{-i\boldsymbol{q^-}\boldsymbol{r}_m}
+  e^{-i\phi^-}\sum_m e^{-i\boldsymbol{q^-}\boldsymbol{r_m}}
   \right]
   =\\&=
-  H^vM\dfrac{1}{4i}
+  h^vM\dfrac{1}{4i}
   \left[
   e^{i\phi^+} \delta_{\boldsymbol{q^+}, \boldsymbol{G}}
   -
@@ -53,16 +53,16 @@ Let us define:
   e^{-i\phi^-}  \delta_{\boldsymbol{q^-}, \boldsymbol{G}}
   \right]
   =\\&=
-  \dfrac{H^vM}{2}
+  \dfrac{h^vM}{2}
   \left[
   \delta_{\boldsymbol{q^+}, \boldsymbol{G}} \sin\phi^+
   -
   \delta_{\boldsymbol{q^-}, \boldsymbol{G}} \sin\phi^-
   \right]
   =\\&=
-  \dfrac{H^vM}{2}
+  \dfrac{h^vM}{2}
   \left[
-  \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v + \phi_a)
+  \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_i^v + \phi_i)
   -
-  \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v - \phi_a)
+  \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_i^v - \phi_i)
   \right]

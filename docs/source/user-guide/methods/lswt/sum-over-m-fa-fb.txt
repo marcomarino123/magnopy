@@ -1,109 +1,109 @@
 .. math::
   &\dfrac{1}{M}
   \sum_m
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{mdab}}
-  \boldsymbol{f}_b
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}_{mdij}}
+  \boldsymbol{f}_j
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
   =\\&=
   \dfrac{1}{M}
   \sum_m
-  (\boldsymbol{f}_a)^{\dagger}
+  (\boldsymbol{f}_i)^{\dagger}
   \left(
-    \boldsymbol{\tilde{J}^{dab}_0}
+    \boldsymbol{\tilde{J}^{dij}_0}
     +
-    \boldsymbol{\tilde{J}^{dab}_1}e^{i\boldsymbol{q}\boldsymbol{r}_m}
+    \boldsymbol{\tilde{J}^{dij}_1}e^{i\boldsymbol{q}\boldsymbol{r_m}}
     +
-    \boldsymbol{\tilde{J}^{dab}_2}e^{-i\boldsymbol{q}\boldsymbol{r}_m}
+    \boldsymbol{\tilde{J}^{dij}_2}e^{-i\boldsymbol{q}\boldsymbol{r_m}}
     +
-    \boldsymbol{\tilde{J}^{dab}_3}e^{2i\boldsymbol{q}\boldsymbol{r}_m}
+    \boldsymbol{\tilde{J}^{dij}_3}e^{2i\boldsymbol{q}\boldsymbol{r_m}}
     +
-    \boldsymbol{\tilde{J}^{dab}_4}e^{-2i\boldsymbol{q}\boldsymbol{r}_m}
+    \boldsymbol{\tilde{J}^{dij}_4}e^{-2i\boldsymbol{q}\boldsymbol{r_m}}
   \right)
-  \boldsymbol{f}_b
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+  \boldsymbol{f}_j
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
   =\\&=
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_0}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_0}
+  \boldsymbol{f}_j
   \dfrac{1}{M}
   \sum_m
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_1}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_1}
+  \boldsymbol{f}_j
   \dfrac{1}{M}
   \sum_m
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}-\boldsymbol{q})\boldsymbol{r}_m}
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}-\boldsymbol{q})\boldsymbol{r_m}}
   +\\&+
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_2}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_2}
+  \boldsymbol{f}_j
   \dfrac{1}{M}
   \sum_m
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}+\boldsymbol{q})\boldsymbol{r}_m}
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}+\boldsymbol{q})\boldsymbol{r_m}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_3}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_3}
+  \boldsymbol{f}_j
   \dfrac{1}{M}
   \sum_m
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}-2\boldsymbol{q})\boldsymbol{r}_m}
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}-2\boldsymbol{q})\boldsymbol{r_m}}
   +\\&+
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_4}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_4}
+  \boldsymbol{f}_j
   \dfrac{1}{M}
   \sum_m
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}+2\boldsymbol{q})\boldsymbol{r}_m}
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime}+2\boldsymbol{q})\boldsymbol{r_m}}
   =\\&=
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_0}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_0}
+  \boldsymbol{f}_j
   \delta_{-(\boldsymbol{k}-\boldsymbol{k}^{\prime}), \boldsymbol{G}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_1}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_1}
+  \boldsymbol{f}_j
   \delta_{-(\boldsymbol{k}-\boldsymbol{k}^{\prime}-\boldsymbol{q}), \boldsymbol{G}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_2}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_2}
+  \boldsymbol{f}_j
   \delta_{-(\boldsymbol{k}-\boldsymbol{k}^{\prime}+\boldsymbol{q}), \boldsymbol{G}}
   +\\&+
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_3}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_3}
+  \boldsymbol{f}_j
   \delta_{-(\boldsymbol{k}-\boldsymbol{k}^{\prime}-2\boldsymbol{q}), \boldsymbol{G}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_4}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_4}
+  \boldsymbol{f}_j
   \delta_{-(\boldsymbol{k}-\boldsymbol{k}^{\prime}+2\boldsymbol{q}), \boldsymbol{G}}
   =\\&=
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_0}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_0}
+  \boldsymbol{f}_j
   \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_1}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_1}
+  \boldsymbol{f}_j
   \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}-\boldsymbol{q}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_2}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_2}
+  \boldsymbol{f}_j
   \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}+\boldsymbol{q}}
   +\\&+
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_3}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_3}
+  \boldsymbol{f}_j
   \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}-2\boldsymbol{q}}
   +
-  (\boldsymbol{f}_a)^{\dagger}
-  \boldsymbol{\tilde{J}^{dab}_4}
-  \boldsymbol{f}_b
+  (\boldsymbol{f}_i)^{\dagger}
+  \boldsymbol{\tilde{J}^{dij}_4}
+  \boldsymbol{f}_j
   \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}+2\boldsymbol{q}}

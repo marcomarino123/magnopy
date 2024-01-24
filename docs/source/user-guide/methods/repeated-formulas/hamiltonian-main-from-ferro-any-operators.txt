@@ -1,20 +1,20 @@
 .. math::
-  H
+  {\cal H}
   =
   \dfrac{1}{2}
-  \sum_{m, \boldsymbol{d}_{ab}, a, b}
-  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  \sum_{m, \boldsymbol{d_{ij}}, i, j}
+  (\boldsymbol{s_{mi}^{ferro}})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d_{ab}})
-  \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}})
+  \boldsymbol{R}(\theta_j,\phi_j)
+  \boldsymbol{s_{m+d_{ij},j}^{ferro}}
   +
   \mu_B
-  \boldsymbol{H}^{\dagger}
-  \sum_{m,a}
-  g_a
+  \boldsymbol{h}^{\dagger}
+  \sum_{m,i}
+  g_i
   \boldsymbol{R}(\theta_m)
-  \boldsymbol{R}(\theta_a,\phi_a)
-  \hat{\boldsymbol{s}}_{ma}^{ferro}
+  \boldsymbol{R}(\theta_i,\phi_i)
+  \boldsymbol{s_{mi}^{ferro}}

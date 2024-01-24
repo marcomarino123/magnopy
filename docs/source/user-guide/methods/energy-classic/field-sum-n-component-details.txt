@@ -1,35 +1,35 @@
 .. math::
-  &\sum_m H_{ma}^n
+  &\sum_m h_{mi}^n
   =
-  H^n
+  h^n
   \sum_m
-  \cos(\boldsymbol{q^n}\boldsymbol{r}_m+\phi^n_a)
+  \cos(\boldsymbol{q^n}\boldsymbol{r_m}+\phi^n_i)
   =\\&=
-  H^n
+  h^n
   \dfrac{1}{2}
   \sum_m
   \left[
-  e^{i\boldsymbol{q^n}\boldsymbol{r}_m}e^{i\phi^n_a}
+  e^{i\boldsymbol{q^n}\boldsymbol{r_m}}e^{i\phi^n_i}
   +
-  e^{-i\boldsymbol{q^n}\boldsymbol{r}_m}e^{-i\phi^n_a}
+  e^{-i\boldsymbol{q^n}\boldsymbol{r_m}}e^{-i\phi^n_i}
   \right]
   =\\&=
-  H^n
+  h^n
   \dfrac{1}{2}
   \left[
-  e^{i\phi^n_a} \sum_m e^{i\boldsymbol{q^n}\boldsymbol{r}_m}
+  e^{i\phi^n_i} \sum_m e^{i\boldsymbol{q^n}\boldsymbol{r_m}}
   +
-  e^{-i\phi^n_a} \sum_m e^{-i\boldsymbol{q^n}\boldsymbol{r}_m}
+  e^{-i\phi^n_i} \sum_m e^{-i\boldsymbol{q^n}\boldsymbol{r_m}}
   \right]
   =\\&=
-  H^nM
+  h^nM
   \dfrac{1}{2}
   \left[
-  e^{i\phi^n_a} \delta_{vec{q}^n, \boldsymbol{G}}
+  e^{i\phi^n_i} \delta_{vec{q}^n, \boldsymbol{G}}
   +
-  e^{-i\phi^n_a} \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
+  e^{-i\phi^n_i} \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
   \right]
   =\\&=
-  H^nM
+  h^nM
   \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
-  \cos\phi^n_a
+  \cos\phi^n_i

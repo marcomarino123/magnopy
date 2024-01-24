@@ -1,36 +1,36 @@
 .. math::
   &\dfrac{
-  J_{ab}^{+-}\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  J_{ij}^{+-}\sin\theta_i\sin\theta_j e^{i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   +
-  J_{ab}^{-+}\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  J_{ij}^{-+}\sin\theta_i\sin\theta_j e^{-i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2}
   =\\&=
   \dfrac{
-  (A-iS_{ab}^{uv})\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  (A-iS_{ij}^{uv})\sin\theta_i\sin\theta_j e^{i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   +
-  (A+iS_{ab}^{uv})\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  (A+iS_{ij}^{uv})\sin\theta_i\sin\theta_j e^{-i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2}
   =\\&=
-  A\sin\theta_a\sin\theta_b
+  A\sin\theta_i\sin\theta_j
   \dfrac{
-  e^{i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}+e^{-i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  e^{i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}+e^{-i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2}
   +
-  S_{ab}^{uv}\sin\theta_a\sin\theta_b
+  S_{ij}^{uv}\sin\theta_i\sin\theta_j
   \dfrac{
-  e^{i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}-e^{-i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  e^{i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}-e^{-i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2i}
   =\\&=
-  A\sin\theta_a\sin\theta_b\cos(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  A\sin\theta_i\sin\theta_j\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   +
-  S_{ab}^{uv}\sin\theta_a\sin\theta_b\sin(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  S_{ij}^{uv}\sin\theta_i\sin\theta_j\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   =\\&=
-  \dfrac{S_{ab}^{uu}-S_{ab}^{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  \dfrac{S_{ij}^{uu}-S_{ij}^{vv}}{2}\sin\theta_i\sin\theta_j\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   +
-  S_{ab}^{uv}\sin\theta_a\sin\theta_b\sin(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  S_{ij}^{uv}\sin\theta_i\sin\theta_j\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   =\\&=
-  \dfrac{J_{ab}^{uu}-J_{ab}^{vv}}{2}\sin\theta_a\sin\theta_b\cos(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  \dfrac{J_{ij}^{uu}-J_{ij}^{vv}}{2}\sin\theta_i\sin\theta_j\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   +
-  \dfrac{J_{ab}^{uv}+J_{ab}^{vu}}{2}\sin\theta_a\sin\theta_b\sin(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  \dfrac{J_{ij}^{uv}+J_{ij}^{vu}}{2}\sin\theta_i\sin\theta_j\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
 
-where :math:`A = \dfrac{S_{ab}^{uu}-S_{ab}^{vv}}{2}`
+where :math:`A = \dfrac{S_{ij}^{uu}-S_{ij}^{vv}}{2}`

@@ -1,6 +1,6 @@
 .. math::
-  \boldsymbol{\tilde{J}^{mdab}}
+  \boldsymbol{\tilde{J}_{mdij}}
   =
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d_{ab}})
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}})

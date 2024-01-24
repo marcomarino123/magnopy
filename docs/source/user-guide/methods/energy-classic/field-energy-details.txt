@@ -1,74 +1,74 @@
 .. math::
   &\mu_B
-  \sum_{a}
-  g_a  S_a
+  \sum_i
+  g_i  S_i
   \sum_{m}
   \left(
-    \dfrac{H_{ma}^{+}}{\sqrt{2}},
-    \dfrac{H_{ma}^{-}}{\sqrt{2}},
-    H_{ma}^n
+    \dfrac{h_{mi}^{+}}{\sqrt{2}},
+    \dfrac{h_{mi}^{-}}{\sqrt{2}},
+    h_{mi}^n
   \right)
   \begin{pmatrix}
-    e^{-i\boldsymbol{q}\cdot\boldsymbol{r}_m} & 0                          & 0 \\
-    0                           & e^{i\boldsymbol{q}\cdot\boldsymbol{r}_m} & 0 \\
+    e^{-i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0                          & 0 \\
+    0                           & e^{i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0 \\
     0                           & 0                          & 1 \\
   \end{pmatrix}
   \begin{pmatrix}
-    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} \\
-    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}  \\
-    \cos\theta_a                                \\
+    \dfrac{\sin\theta_i e^{-i\phi_i}}{\sqrt{2}} \\
+    \dfrac{\sin\theta_i e^{i\phi_i}}{\sqrt{2}}  \\
+    \cos\theta_i                                \\
   \end{pmatrix}
   =\\&=
   \mu_B
-  \sum_{a}
-  g_a  S_a
+  \sum_i
+  g_i  S_i
   \sum_{m}
   \left[
-  \dfrac{\sin\theta_a}{2}
+  \dfrac{\sin\theta_i}{2}
   \left(
-    H_{ma}^{+}e^{-i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    h_{mi}^{+}e^{-i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
     +
-    H_{ma}^{-}e^{i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    h_{mi}^{-}e^{i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
   \right)
   +
-  H_{ma}^n\cos\theta_a
+  h_{mi}^n\cos\theta_i
   \right]
   =\\&=
   \mu_B
-  \sum_{a}
-  g_a  S_a
+  \sum_i
+  g_i  S_i
   \sum_{m}
   \left[
-  \dfrac{\sin\theta_a}{2}
+  \dfrac{\sin\theta_i}{2}
   \left(
-    (H_{ma}^u + iH_{ma}^v)e^{-i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    (h_{mi}^u + ih_{mi}^v)e^{-i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
     +
-    (H_{ma}^u - iH_{ma}^v)e^{i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    (h_{mi}^u - ih_{mi}^v)e^{i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
   \right)
   +
-  H_{ma}^n\cos\theta_a
+  h_{mi}^n\cos\theta_i
   \right]
   =\\&=
   \mu_B
-  \sum_{a}
-  g_a  S_a
+  \sum_i
+  g_i  S_i
   \sum_{m}
   \left[
-  \sin\theta_a
+  \sin\theta_i
   \left(
-    H_{ma}^u
+    h_{mi}^u
     \dfrac{
-    e^{i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    e^{i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
     +
-    e^{-i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    e^{-i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
     }{2}
     +
-    iH_{ma}^v
+    ih_{mi}^v
     \dfrac{
-    e^{-i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
-    - e^{i(\boldsymbol{q}\cdot\boldsymbol{r}_m+\phi_a)}
+    e^{-i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
+    - e^{i(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)}
     }{2}
   \right)
   +
-  H_{ma}^n\cos\theta_a
+  h_{mi}^n\cos\theta_i
   \right]

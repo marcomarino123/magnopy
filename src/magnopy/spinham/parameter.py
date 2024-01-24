@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2023 Magnopy Team
+# Copyright (C) 2023-2024 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -191,7 +191,7 @@ class ExchangeParameter:
         Derived from the exchange matrix (:math:`\mathbf{J}`) as
 
         .. math::
-            J_{iso} = \dfrac{1}{3}Tr(\mathbf{J})
+            J^{iso} = \dfrac{1}{3}Tr(\mathbf{J})
 
         Returns
         -------

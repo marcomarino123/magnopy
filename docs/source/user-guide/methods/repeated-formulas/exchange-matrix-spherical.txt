@@ -1,18 +1,18 @@
 .. math::
   \begin{pmatrix}
-    J_{ab}^{++} & J_{ab}^{+-} & J_{ab}^{+n} \\
-    J_{ab}^{-+} & J_{ab}^{--} & J_{ab}^{-n} \\
-    J_{ab}^{n+} & J_{ab}^{n-} & J_{ab}^{nn} \\
+    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
+    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
+    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    J_{iso} + \dfrac{S_{ab}^{uu} + S_{ab}^{vv}}{2} + iD_{ab}^n                       &
-    \dfrac{S_{ab}^{uu} - S_{ab}^{vv}}{2} - iS_{ab}^{uv}                              &
-    \dfrac{S_{ab}^{un} - iS_{ab}^{vn}}{\sqrt{2}} - \dfrac{D_{ab}^v + iD_{ab}^u}{\sqrt{2}} \\
-    \dfrac{S_{ab}^{uu} - S_{ab}^{vv}}{2} + iS_{ab}^{uv}                              &
-    J_{iso} + \dfrac{S_{ab}^{uu} + S_{ab}^{vv}}{2} - iD_{ab}^n                       &
-    \dfrac{S_{ab}^{un} + iS_{ab}^{vn}}{\sqrt{2}} - \dfrac{D_{ab}^v - iD_{ab}^u}{\sqrt{2}} \\
-    \dfrac{S_{ab}^{un} + iS_{ab}^{vn}}{\sqrt{2}} + \dfrac{D_{ab}^v - iD_{ab}^u}{\sqrt{2}} &
-    \dfrac{S_{ab}^{un} - iS_{ab}^{vn}}{\sqrt{2}} + \dfrac{D_{ab}^v + iD_{ab}^u}{\sqrt{2}} &
-    J_{iso} + S_{ab}^{nn}                                                  \\
+    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &
+    \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}                              &
+    \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} \\
+    \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} + iS_{ij}^{uv}                              &
+    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n                       &
+    \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} \\
+    \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} &
+    \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} &
+    J^{iso} + S_{ij}^{nn}                                                  \\
   \end{pmatrix}

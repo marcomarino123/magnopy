@@ -11,21 +11,21 @@ therefore, the expression for the exchange energy is simplified to
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  S_aS_b
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  S_iS_j
   \Biggl\{
-    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ij}^{nn}(\boldsymbol{d_{ij}})\cos\theta_i\cos\theta_j
     +\\&+
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
       +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})-J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
     \Bigr]
   \Biggr\}
 
 Let us simplify the expression by explicitly writing the double-counted terms
-:math:`ab` and :math:`ba`:
+:math:`ij` and :math:`ji`:
 
 .. dropdown:: Details
 
@@ -35,55 +35,55 @@ Let us simplify the expression by explicitly writing the double-counted terms
 
   Which means:
 
-  * :math:`J_{ab}^{uu}(\boldsymbol{d}_{ab}) = J_{ba}^{uu}(\boldsymbol{d}_{ba}) = J_{ab}^{uu}`
-  * :math:`J_{ab}^{vv}(\boldsymbol{d}_{ab}) = J_{ba}^{vv}(\boldsymbol{d}_{ba}) = J_{ab}^{vv}`
-  * :math:`J_{ab}^{nn}(\boldsymbol{d}_{ab}) = J_{ba}^{nn}(\boldsymbol{d}_{ba}) = J_{ab}^{nn}`
-  * :math:`D_{ab}^n(\boldsymbol{d}_{ab}) = -D_{ba}^n(\boldsymbol{d}_{ba}) = D_{ab}^n`
+  * :math:`J_{ij}^{uu}(\boldsymbol{d_{ij}}) = J_{ji}^{uu}(\boldsymbol{d_{ji}}) = J_{ij}^{uu}`
+  * :math:`J_{ij}^{vv}(\boldsymbol{d_{ij}}) = J_{ji}^{vv}(\boldsymbol{d_{ji}}) = J_{ij}^{vv}`
+  * :math:`J_{ij}^{nn}(\boldsymbol{d_{ij}}) = J_{ji}^{nn}(\boldsymbol{d_{ji}}) = J_{ij}^{nn}`
+  * :math:`D_{ij}^n(\boldsymbol{d_{ij}}) = -D_{ji}^n(\boldsymbol{d_{ji}}) = D_{ij}^n`
 
 
   .. math::
     &\dfrac{E_{exchange}}{M}
     =
     \dfrac{1}{2}
-    \sum_a\sum_{b\ge a}\sum_{\boldsymbol{d}_{ab}}
-    S_aS_b
+    \sum_i\sum_{b\ge a}\sum_{\boldsymbol{d_{ij}}}
+    S_iS_j
     \Biggl\{
-      J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
+      J_{ij}^{nn}(\boldsymbol{d_{ij}})\cos\theta_i\cos\theta_j
       +
-      J_{ab}^{nn}(\boldsymbol{d}_{ba})\cos\theta_b\cos\theta_a
+      J_{ij}^{nn}(\boldsymbol{d_{ji}})\cos\theta_j\cos\theta_i
       +\\&+
-      \sin\theta_a\sin\theta_b
+      \sin\theta_i\sin\theta_j
       \Bigl[
-        \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+        \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
         +
-        D_{ab}^n(\boldsymbol{d}_{ab})\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+        D_{ij}^n(\boldsymbol{d_{ij}})\sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
       \Bigr]
       +\\&+
-      \sin\theta_b\sin\theta_a
+      \sin\theta_j\sin\theta_i
       \Bigl[
-        \dfrac{J_{ba}^{uu}(\boldsymbol{d}_{ba})+J_{ba}^{vv}(\boldsymbol{d}_{ba})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ba}+\phi_a-\phi_b)
+        \dfrac{J_{ji}^{uu}(\boldsymbol{d_{ji}})+J_{ji}^{vv}(\boldsymbol{d_{ji}})}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ji}}+\phi_i-\phi_j)
         +
-        D_{ba}^n(\boldsymbol{d}_{ba})\sin(\boldsymbol{q}\boldsymbol{d}_{ba}+\phi_a-\phi_b)
+        D_{ji}^n(\boldsymbol{d_{ji}})\sin(\boldsymbol{q}\boldsymbol{d_{ji}}+\phi_i-\phi_j)
       \Bigr]
     \Biggr\}
 
-  let us define :math:`\Delta\phi_{ab} = \phi_a-\phi_b`, then:
+  let us define :math:`\Delta\phi_{ij} = \phi_i-\phi_j`, then:
 
 
   .. math::
     &\dfrac{E_{exchange}}{M}
     =
-    \sum_a\sum_{b\ge a}\sum_{\boldsymbol{d}}
-    S_aS_b
+    \sum_i\sum_{b\ge a}\sum_{\boldsymbol{d}}
+    S_iS_j
     \Biggl\{
-      J_{ab}^{nn}\cos\theta_a\cos\theta_b
+      J_{ij}^{nn}\cos\theta_i\cos\theta_j
       +\\&+
-      \sin\theta_a\sin\theta_b
+      \sin\theta_i\sin\theta_j
       \Biggl(
-        \dfrac{J_{ab}^{uu}+J_{ab}^{vv}}{2}
-        \cos(\boldsymbol{q}\boldsymbol{d}_{ab}-\Delta\phi_{ab})
+        \dfrac{J_{ij}^{uu}+J_{ij}^{vv}}{2}
+        \cos(\boldsymbol{q}\boldsymbol{d_{ij}}-\Delta\phi_{ij})
         +
-        D_{ab}^n
-        \sin(\boldsymbol{q}\boldsymbol{d}_{ab}-\Delta\phi_{ab})
+        D_{ij}^n
+        \sin(\boldsymbol{q}\boldsymbol{d_{ij}}-\Delta\phi_{ij})
       \Biggr)
     \Biggr\}

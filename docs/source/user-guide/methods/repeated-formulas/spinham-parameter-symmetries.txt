@@ -1,6 +1,6 @@
 .. math::
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
   =
-  \boldsymbol{J_{ba}}^{\dagger}(\boldsymbol{d}_{ba})
+  \boldsymbol{J_{ji}}^{\dagger}(\boldsymbol{d_{ji}})
   =
-  \boldsymbol{J_{ba}}^{\dagger}(-\boldsymbol{d}_{ab})
+  \boldsymbol{J_{ji}}^{\dagger}(-\boldsymbol{d_{ij}})

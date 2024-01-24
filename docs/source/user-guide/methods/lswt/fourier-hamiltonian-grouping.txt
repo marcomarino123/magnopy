@@ -2,81 +2,81 @@
   H^{LSWT}
   &=
   \dfrac{1}{2}
-  \sum_{k}\sum_{k^{\prime}}\sum_{\boldsymbol{d}_{ab}, a, b}
-  S_aS_b
+  \sum_{k}\sum_{k^{\prime}}\sum_{\boldsymbol{d_{ij}}, a, b}
+  S_iS_j
   \Biggl\{
-    \dfrac{1}{\sqrt{S_aS_b}}
+    \dfrac{1}{\sqrt{S_iS_j}}
     \Biggl[
       \\&
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{p}_b
-        e^{i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+        (\boldsymbol{p}_i)^{\dagger}\boldsymbol{\tilde{J}_{mdij}}\boldsymbol{p}_j
+        e^{i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
       \Bigr)
       \cdot
-      e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
-      \hat{a}_{ka}
-      \hat{a}_{k^{\prime}b}^{\dagger}
+      e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d_{ij}}}
+      a_{ka}
+      a_{k^{\prime}b}^{\dagger}
       +\\&+
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\boldsymbol{p}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{t}_b
-        e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+        (\boldsymbol{p}_i)^{\dagger}\boldsymbol{\tilde{J}_{mdij}}\boldsymbol{t}_j
+        e^{i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
       \Bigr)
       \cdot
-      e^{i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
-      \hat{a}_{ka}
-      \hat{a}_{k^{\prime}b}
+      e^{i\boldsymbol{k}^{\prime}\boldsymbol{d_{ij}}}
+      a_{ka}
+      a_{k^{\prime}b}
       +\\&+
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\boldsymbol{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{p}_b
-        e^{-i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+        (\boldsymbol{t}_i)^{\dagger}\boldsymbol{\tilde{J}_{mdij}}\boldsymbol{p}_j
+        e^{-i(\boldsymbol{k}+\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
       \Bigr)
       \cdot
-      e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
-      \hat{a}_{ka}^{\dagger}
-      \hat{a}_{k^{\prime}b}^{\dagger}
+      e^{-i\boldsymbol{k}^{\prime}\boldsymbol{d_{ij}}}
+      a_{ka}^{\dagger}
+      a_{k^{\prime}b}^{\dagger}
       +\\&+
       \Bigl(
         \dfrac{1}{M}
         \sum_m
-        (\boldsymbol{t}_a)^{\dagger}\boldsymbol{\tilde{J}^{mdab}}\boldsymbol{t}_b
-        e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+        (\boldsymbol{t}_i)^{\dagger}\boldsymbol{\tilde{J}_{mdij}}\boldsymbol{t}_j
+        e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
       \Bigr)
       \cdot
-      e^{i\boldsymbol{k}^{\prime}\boldsymbol{d}_{ab}}
-      \hat{a}_{ka}^{\dagger}
-      \hat{a}_{k^{\prime}b}
+      e^{i\boldsymbol{k}^{\prime}\boldsymbol{d_{ij}}}
+      a_{ka}^{\dagger}
+      a_{k^{\prime}b}
     \Biggr]
     -\\&-
-    \dfrac{1}{S_a}
+    \dfrac{1}{S_i}
     \Bigl(
       \dfrac{1}{M}
       \sum_m
-      (\boldsymbol{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{f}_b
-      e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+      (\boldsymbol{f}_i)^{\dagger}
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{f}_j
+      e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
     \Bigr)
     \cdot
-    \hat{a}_{ka}^{\dagger}
-    \hat{a}_{k^{\prime}a}
+    a_{ka}^{\dagger}
+    a_{k^{\prime}a}
     -\\&-
-    \dfrac{1}{S_b}
+    \dfrac{1}{S_j}
     \Bigl(
       \dfrac{1}{M}
       \sum_m
-      (\boldsymbol{f}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{f}_b
-      e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r}_m}
+      (\boldsymbol{f}_i)^{\dagger}
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{f}_j
+      e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{r_m}}
     \Bigr)
     \cdot
-    e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{k^{\prime}b}
+    e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{k^{\prime}b}
   \Biggr\}

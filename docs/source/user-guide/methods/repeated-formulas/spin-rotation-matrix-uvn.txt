@@ -1,13 +1,13 @@
 .. math::
-  \boldsymbol{R_a} = \boldsymbol{R}(\theta_a, \phi_a) =
+  \boldsymbol{R_i} = \boldsymbol{R}(\theta_i, \phi_i) =
   \begin{pmatrix}
-      \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
-      -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
-      \cos\phi_a\sin\theta_a                      \\
-      -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
-      \cos\theta_a + \cos^2\phi_a(1-\cos\theta_a) &
-      \sin\phi_a\sin\theta_a                      \\
-      -\cos\phi_a\sin\theta_a                     &
-      -\sin\phi_a\sin\theta_a                     &
-      \cos\theta_a                                \\
+      \cos\theta_i + \sin^2\phi_i(1-\cos\theta_i) &
+      -\sin\phi_i\cos\phi_i(1-\cos\theta_i)       &
+      \cos\phi_i\sin\theta_i                      \\
+      -\sin\phi_i\cos\phi_i(1-\cos\theta_i)       &
+      \cos\theta_i + \cos^2\phi_i(1-\cos\theta_i) &
+      \sin\phi_i\sin\theta_i                      \\
+      -\cos\phi_i\sin\theta_i                     &
+      -\sin\phi_i\sin\theta_i                     &
+      \cos\theta_i                                \\
   \end{pmatrix}

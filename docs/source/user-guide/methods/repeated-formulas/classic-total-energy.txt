@@ -3,66 +3,66 @@
     &\dfrac{E}{M} = \dfrac{E_{exchange} + E_{Zeeman}}{M}
     =
     \dfrac{1}{2}
-    \sum_{a, b, \boldsymbol{d}_{ab}}
-    S_aS_b
+    \sum_{i, j, \boldsymbol{d_{ij}}}
+    S_iS_j
     \Biggl\{
-      J_{ab}^{nn}\cos\theta_a\cos\theta_b
+      J_{ij}^{nn}\cos\theta_i\cos\theta_j
       +\\&+
-      \sin\theta_a\sin\theta_b
+      \sin\theta_i\sin\theta_j
       \Bigl[
-        \dfrac{J_{ab}^{uu}+J_{ab}^{vv}}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+        \dfrac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
         +
-        \dfrac{J_{ab}^{uv}-J_{ab}^{vu}}{2}\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+        \dfrac{J_{ij}^{uv}-J_{ij}^{vu}}{2}\sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
       \Bigr]
       +\\&+
       \delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}
-      \sin\theta_a\sin\theta_b
+      \sin\theta_i\sin\theta_j
       \Bigl[
-        \dfrac{J_{ab}^{uu}-J_{ab}^{vv}}{2}\cos(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+        \dfrac{J_{ij}^{uu}-J_{ij}^{vv}}{2}\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
           +
-        \dfrac{J_{ab}^{uv}+J_{ab}^{vu}}{2}\sin(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+        \dfrac{J_{ij}^{uv}+J_{ij}^{vu}}{2}\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
       \Bigr]
       +\\&+
       \delta_{\boldsymbol{q},\boldsymbol{G}}
-      \sin\theta_a\cos\theta_b
+      \sin\theta_i\cos\theta_j
       \Bigl[
-        J_{ab}^{un}\cos\phi_a
+        J_{ij}^{un}\cos\phi_i
         +
-        J_{ab}^{vn}\sin\phi_a
+        J_{ij}^{vn}\sin\phi_i
       \Bigr]
       +\\&+
       \delta_{\boldsymbol{q},\boldsymbol{G}}
-      \cos\theta_a\sin\theta_b
+      \cos\theta_i\sin\theta_j
       \Bigl[
-        J_{ab}^{nu}\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+        J_{ij}^{nu}\cos(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
         +
-        J_{ab}^{nv}\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+        J_{ij}^{nv}\sin(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
       \Bigr]
     \Biggr\}
     +\\&+
     \mu_B
-    \sum_{a}
-    g_a  S_a
+    \sum_i
+    g_i  S_i
     \Bigg\{
-      \cos\theta_a
-      H^n
+      \cos\theta_i
+      h^n
       \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
-      \cos\phi^n_a
+      \cos\phi^n_i
       +\\+&
-      \dfrac{\sin\theta_a}{2}
+      \dfrac{\sin\theta_i}{2}
       \Biggl(
-        H^u
+        h^u
         \Bigl[
-          \delta_{\boldsymbol{q^u}_m + \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_a^u + \phi_a)
+          \delta_{\boldsymbol{q^u}_m + \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_i^u + \phi_i)
           +
-          \delta_{\boldsymbol{q^u}_m - \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_a^u - \phi_a)
+          \delta_{\boldsymbol{q^u}_m - \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_i^u - \phi_i)
         \Bigr]
         +\\&+
-        H^v
+        h^v
         \Bigl[
-          \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v + \phi_a)
+          \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_i^v + \phi_i)
           -
-          \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_a^v - \phi_a)
+          \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_i^v - \phi_i)
         \Bigr]
       \Biggr)
     \Biggr\}

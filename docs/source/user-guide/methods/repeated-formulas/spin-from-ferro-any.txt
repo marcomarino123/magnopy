@@ -1,9 +1,9 @@
 .. math::
-  \boldsymbol{S}_{ma}
+  \boldsymbol{S_{mi}}
   =
   \boldsymbol{R}(\theta_m)
-  \boldsymbol{R}(\theta_a,\phi_a)
-  \boldsymbol{S}_{ma}^{ferro}
+  \boldsymbol{R}(\theta_i,\phi_i)
+  \boldsymbol{S_{mi}^{ferro}}
   =
-  \boldsymbol{R_{ma}}
-  \boldsymbol{S}_{ma}^{ferro}
+  \boldsymbol{R_{mi}}
+  \boldsymbol{S_{mi}^{ferro}}

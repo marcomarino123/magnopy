@@ -18,22 +18,22 @@ In order to describe the excitations we will use Holstein-Primakoff (HP) bosons 
 for the ferromagnetic state in the :math:`uvn` reference frame.
 
 Before we proceed to the transformation we need to mention the transition from the
-spin-vectors to the spin-operators. We choose the direction of vector :math:`\hat{n}`
+spin-vectors to the spin-operators. We choose the direction of vector :math:`\boldsymbol{\hat{n}}`
 of the :math:`uvn` basis as a quantization axis and substitute the vector
 components of the spin with the corresponding spin operators:
 
 .. math::
 
   \begin{pmatrix}
-    \boldsymbol{S}_u \\
-    \boldsymbol{S}_v \\
-    \boldsymbol{S}_n \\
+    S^u \\
+    S^v \\
+    S^n \\
   \end{pmatrix}
   \Rightarrow
   \begin{pmatrix}
-    \hat{s}_u \\
-    \hat{s}_v \\
-    \hat{s}_n \\
+    s^u \\
+    s^v \\
+    s^n \\
   \end{pmatrix}
 
 Next, we write the HP transformation for the *ferromagnetic* ground state:
@@ -57,26 +57,26 @@ Next we write the vector of spin operators in the
   &\langle u^+u^-n \vert s \rangle
   =
   \begin{pmatrix}
-    \dfrac{\hat{s}^-}{\sqrt{2}} \\
-    \dfrac{\hat{s}^+}{\sqrt{2}} \\
-    \hat{s}_n                   \\
+    \dfrac{s^-}{\sqrt{2}} \\
+    \dfrac{s^+}{\sqrt{2}} \\
+    s^n                   \\
   \end{pmatrix}
   =
   \begin{pmatrix}
     \sqrt{S}
     \cdot
     \left[
-      \hat{a}^{\dagger}
+      a^{\dagger}
       -
-      \dfrac{\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}}{4S}
+      \dfrac{a^{\dagger}a^{\dagger}a}{4S}
     \right] \\
     \sqrt{S}
     \cdot \left[
-      \hat{a}
+      a
       -
-      \dfrac{\hat{a}^{\dagger}\hat{a}\hat{a}}{4S}
+      \dfrac{a^{\dagger}aa}{4S}
     \right] \\
-    S - \hat{a}^{\dagger}\hat{a} \\
+    S - a^{\dagger}a \\
   \end{pmatrix}
 
 Now we move on to the Hamiltonian in the
@@ -85,11 +85,11 @@ Now we move on to the Hamiltonian in the
 .. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any.txt
 
 .. note::
-  Before this section the parameters :math:`\boldsymbol{n}`, :math:`\theta_a`, :math:`\phi_a`,
+  Before this section the parameters :math:`\boldsymbol{n}`, :math:`\theta_i`, :math:`\phi_i`,
   :math:`\boldsymbol{q}` were unknown. Starting from this section we assume that the ground
   state is known and we want to compute the low energy excitations to it.
 
-and recast vectors to operators:
+and cast classical spin vectors to vector spin operators:
 
 .. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any-operators.txt
 
@@ -97,37 +97,37 @@ From this moment we focus on the exchange part of the Hamiltonian and work in th
 spherical basis. We split the Hamiltonian into three parts as following:
 
 .. math::
-  H^{exchange}
+  {\cal H}^{exchange}
   =
   \dfrac{1}{2}
-  \sum_{m, \boldsymbol{d}_{ab}, a, b}
+  \sum_{m, \boldsymbol{d_{ij}}, i, j}
   \left[
-  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  (\boldsymbol{s_{mi}^{ferro}})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   \right]
   \left[
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d_{ab}})
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}})
   \right]
   \left[
-  \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
+  \boldsymbol{R}(\theta_j,\phi_j)
+  \boldsymbol{s_{m+d_{ij},j}^{ferro}}
   \right]
   \\=
   \dfrac{1}{2}
-  \sum_{m, \boldsymbol{d}_{ab}, a, b}
+  \sum_{m, \boldsymbol{d_{ij}}, i, j}
   \left[
-  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  (\boldsymbol{s_{mi}^{ferro}})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   \right]
-  \boldsymbol{\tilde{J}^{mdab}}
+  \boldsymbol{\tilde{J}_{mdij}}
   \left[
-  \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
+  \boldsymbol{R}(\theta_j,\phi_j)
+  \boldsymbol{s_{m+d_{ij},j}^{ferro}}
   \right]
 
-Defining auxiliary vectors :math:`\boldsymbol{p}_a`, :math:`\boldsymbol{t}_a`, :math:`\boldsymbol{f}_a`
+Defining auxiliary vectors :math:`\boldsymbol{p_i}`, :math:`\boldsymbol{t_i}`, :math:`\boldsymbol{f_i}`
 we rewrite the Hamiltonian as:
 
 .. dropdown:: Details
@@ -144,20 +144,20 @@ we rewrite the Hamiltonian as:
 
   .. math::
     \begin{matrix}
-      R(\theta_a,\phi_a)
+      R(\theta_i,\phi_i)
       =
       \left(
-        \boldsymbol{p}_a,
-        \boldsymbol{t}_a,
-        \boldsymbol{f}_a
+        \boldsymbol{p_i},
+        \boldsymbol{t_i},
+        \boldsymbol{f_i}
       \right);
       &
-      R(\theta_a,\phi_a)^{\dagger}
+      R(\theta_i,\phi_i)^{\dagger}
       =
       \begin{pmatrix}
-        (\boldsymbol{p}_a)^{\dagger} \\
-        (\boldsymbol{t}_a)^{\dagger} \\
-        (\boldsymbol{f}_a)^{\dagger} \\
+        \boldsymbol{p_i}^{\dagger} \\
+        \boldsymbol{t_i}^{\dagger} \\
+        \boldsymbol{f_i}^{\dagger} \\
       \end{pmatrix}
     \end{matrix}
 
@@ -175,24 +175,24 @@ we rewrite the Hamiltonian as:
   .. include:: omitted-terms.txt
 
 In the previous formula the terms are grouped with respect to the power of
-:math:`1/S` if one would assume :math:`S_a = S_b = S`. Now we will separate them and
+:math:`1/S` if one would assume :math:`S_i = S_j = S`. Now we will separate them and
 discuss each one in details:
 
 .. math::
 
-  H^{exchange} = H^{Cl} + H^{LSWT} + H^{Qubic} + H^{Quatric}
+  {\cal H}^{exchange} = {\cal H}^{Cl} + {\cal H}^{LSWT} + {\cal H}^{Qubic} + {\cal H}^{Quatric}
 
 * :ref:`Classical energy <user-guide_methods_energy-classic>`
 
   .. math::
-    H^{Cl}
+    {\cal H}^{Cl}
     =
     \dfrac{1}{2}
-    \sum_{m, \boldsymbol{d}_{ab}, a, b}
-    S_aS_b
-    (\boldsymbol{f}_a)^{\dagger}
-    \boldsymbol{\tilde{J}^{mdab}}
-    \boldsymbol{f}_b
+    \sum_{m, \boldsymbol{d_{ij}}, i, j}
+    S_iS_j
+    \boldsymbol{f_i}^\dagger
+    \boldsymbol{\tilde{J}_{mdij}}
+    \boldsymbol{f_j}
 
 * :ref:`Linear Spin Wave Theory <user-guide_methods_lswt>`
 
@@ -207,9 +207,9 @@ discuss each one in details:
   .. include:: ../repeated-formulas/hamiltonian-hp-expansion-quartic-part.txt
 
 .. important::
-  We keep the indices of the spin numbers :math:`S_a` and :math:`S_b` for the derivation.
+  We keep the indices of the spin numbers :math:`S_i` and :math:`S_j` for the derivation.
   If all atoms in the unit cell has the same
-  spin number: :math:`S_a = S_b = S`, then the terms of the Hamiltonian from above
+  spin number: :math:`S_i = S_j = S`, then the terms of the Hamiltonian from above
   belongs to the effects of the descending order (:math:`1`, :math:`1/S`,
   :math:`1/S^{3/2}`, :math:`1/S^2`, ...). However, if atoms in the unit cell have
   different spin numbers, then, for example, the order of some the qubic terms can

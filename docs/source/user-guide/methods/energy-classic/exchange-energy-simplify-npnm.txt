@@ -1,32 +1,32 @@
 .. math::
   &\dfrac{
-  J_{ab}^{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  J_{ij}^{n+}\cos\theta_i\sin\theta_j e^{-i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   +
-  J_{ab}^{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  J_{ij}^{n-}\cos\theta_i\sin\theta_j e^{i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{\sqrt{2}}
   =\\&=
   \dfrac{
-  (J_{ab}^{nu}+iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  (J_{ij}^{nu}+iJ_{ij}^{nv})\cos\theta_i\sin\theta_j e^{-i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   +
-  (J_{ab}^{nu} - iJ_{ab}^{nv})\cos\theta_a\sin\theta_b e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  (J_{ij}^{nu} - iJ_{ij}^{nv})\cos\theta_i\sin\theta_j e^{i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2}
   =\\&=
-  J_{ab}^{nu}\cos\theta_a\sin\theta_b
+  J_{ij}^{nu}\cos\theta_i\sin\theta_j
   \dfrac{
-  e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}+e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  e^{-i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}+e^{i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2}
   +
-  J_{ab}^{nv}\cos\theta_a\sin\theta_b
+  J_{ij}^{nv}\cos\theta_i\sin\theta_j
   \dfrac{
-  e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}-e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+  e^{i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}-e^{-i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
   }{2i}
   =\\&=
-  J_{ab}^{nu}\cos\theta_a\sin\theta_b\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  J_{ij}^{nu}\cos\theta_i\sin\theta_j\cos(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   +
-  J_{ab}^{nv}\cos\theta_a\sin\theta_b\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  J_{ij}^{nv}\cos\theta_i\sin\theta_j\sin(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   =\\&=
-  (S_{ab}^{un} + D_{ab}^v)\cos\theta_a\sin\theta_b\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  (S_{ij}^{un} + D_{ij}^v)\cos\theta_i\sin\theta_j\cos(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
   +
-  (S_{ab}^{vn} - D_{ab}^u)\cos\theta_a\sin\theta_b\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+  (S_{ij}^{vn} - D_{ij}^u)\cos\theta_i\sin\theta_j\sin(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
 
-where :math:`J_{ab}^{nu} = S_{ab}^{un} + D_{ab}^v` and :math:`J_{ab}^{nv} = S_{ab}^{vn} - D_{ab}^u`
+where :math:`J_{ij}^{nu} = S_{ij}^{un} + D_{ij}^v` and :math:`J_{ij}^{nv} = S_{ij}^{vn} - D_{ij}^u`

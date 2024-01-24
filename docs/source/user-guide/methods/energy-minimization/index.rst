@@ -36,23 +36,23 @@ Ferromagnetic alignment
 =======================
 
 If :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 1`,
-then :math:`\boldsymbol{q}\boldsymbol{d}_{ab} = 2\pi n` for any :math:`\boldsymbol{d}_{ab}`
-and :math:`\boldsymbol{q}\boldsymbol{r}_m = 2\pi n` for any :math:`\boldsymbol{r}_m`,
+then :math:`\boldsymbol{q}\boldsymbol{d_{ij}} = 2\pi n` for any :math:`\boldsymbol{d_{ij}}`
+and :math:`\boldsymbol{q}\boldsymbol{r_m} = 2\pi n` for any :math:`\boldsymbol{r_m}`,
 thus, the spin vector is simplified to
 
 .. math::
-  \langle uvn\vert S_{ma}\rangle
-  = S_a\cdot
+  \langle uvn\vert S_{mi}\rangle
+  = S_i\cdot
   \begin{pmatrix}
-    \sin\theta_a\cos(2\pi n+\phi_a) \\
-    \sin\theta_a\sin(2\pi n+\phi_a) \\
-    \cos\theta_a                    \\
+    \sin\theta_i\cos(2\pi n+\phi_i) \\
+    \sin\theta_i\sin(2\pi n+\phi_i) \\
+    \cos\theta_i                    \\
   \end{pmatrix}
-  = S_a\cdot
+  = S_i\cdot
   \begin{pmatrix}
-    \sin\theta_a\cos(\phi_a) \\
-    \sin\theta_a\sin(\phi_a) \\
-    \cos\theta_a             \\
+    \sin\theta_i\cos(\phi_i) \\
+    \sin\theta_i\sin(\phi_i) \\
+    \cos\theta_i             \\
   \end{pmatrix}
 
 where :math:`n \in \mathbb{Z}`.
@@ -76,7 +76,7 @@ This equation describes a ferromagnetic alignment of the spins between the unit 
 
   .. note::
     Alignment of two spins inside the unit cell is antiferromagnetic, due to the
-    choice of the :math:`\theta_a`, :math:`\phi_a`. But the alignment of the spins with
+    choice of the :math:`\theta_i`, :math:`\phi_i`. But the alignment of the spins with
     the same unit-cell index is ferromagnetic with respect to the change of the unit cell.
 
 We note, tha if :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 1`,
@@ -87,37 +87,37 @@ therefore, the expression for the energy is simplified to:
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  S_aS_b
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  S_iS_j
   \Biggl\{
-    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ij}^{nn}(\boldsymbol{d_{ij}})\cos\theta_i\cos\theta_j
     +\\&+
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_j-\phi_i)
       +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})-J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_j-\phi_i)
     \Bigr]
     +\\&+
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})-J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_a+\phi_b)
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})-J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_i+\phi_j)
         +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})+J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_a+\phi_b)
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})+J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_i+\phi_j)
     \Bigr]
     +\\&+
-    \sin\theta_a\cos\theta_b
+    \sin\theta_i\cos\theta_j
     \Bigl[
-      J_{ab}^{un}(\boldsymbol{d}_{ab})\cos\phi_a
+      J_{ij}^{un}(\boldsymbol{d_{ij}})\cos\phi_i
       +
-      J_{ab}^{vn}(\boldsymbol{d}_{ab})\sin\phi_a
+      J_{ij}^{vn}(\boldsymbol{d_{ij}})\sin\phi_i
     \Bigr]
     +\\&+
-    \cos\theta_a\sin\theta_b
+    \cos\theta_i\sin\theta_j
     \Bigl[
-      J_{ab}^{nu}(\boldsymbol{d}_{ab})\cos\phi_b
+      J_{ij}^{nu}(\boldsymbol{d_{ij}})\cos\phi_j
       +
-      J_{ab}^{nv}(\boldsymbol{d}_{ab})\sin\phi_b
+      J_{ij}^{nv}(\boldsymbol{d_{ij}})\sin\phi_j
     \Bigr]
   \Biggr\}
 
@@ -126,33 +126,33 @@ Antiferromagnetic cone
 ======================
 
 If :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1`,
-then :math:`\boldsymbol{q}\boldsymbol{d}_{ab} = \pi n` for any :math:`\boldsymbol{d}_{ab}`
-and :math:`\boldsymbol{q}\boldsymbol{r}_m = \pi n` for any :math:`\boldsymbol{r}_m`,
+then :math:`\boldsymbol{q}\boldsymbol{d_{ij}} = \pi n` for any :math:`\boldsymbol{d_{ij}}`
+and :math:`\boldsymbol{q}\boldsymbol{r_m} = \pi n` for any :math:`\boldsymbol{r_m}`,
 thus, the spin vector is simplified to
 
 .. math::
-  \langle uvn\vert S_{ma}\rangle
-  = S_a\cdot
+  \langle uvn\vert S_{mi}\rangle
+  = S_i\cdot
   \begin{pmatrix}
-    \sin\theta_a\cos(\pi n+\phi_a) \\
-    \sin\theta_a\sin(\pi n+\phi_a) \\
-    \cos\theta_a                    \\
+    \sin\theta_i\cos(\pi n+\phi_i) \\
+    \sin\theta_i\sin(\pi n+\phi_i) \\
+    \cos\theta_i                    \\
   \end{pmatrix}
   =
-  S_a\cdot
+  S_i\cdot
   \left\{
   \begin{matrix}
     \begin{pmatrix}
-      \sin\theta_a\cos(\phi_a) \\
-      \sin\theta_a\sin(\phi_a) \\
-      \cos\theta_a             \\
+      \sin\theta_i\cos(\phi_i) \\
+      \sin\theta_i\sin(\phi_i) \\
+      \cos\theta_i             \\
     \end{pmatrix}
     \text{ if }n=2k
     \\
     \begin{pmatrix}
-      -\sin\theta_a\cos(\phi_a) \\
-      -\sin\theta_a\sin(\phi_a) \\
-      \cos\theta_a              \\
+      -\sin\theta_i\cos(\phi_i) \\
+      -\sin\theta_i\sin(\phi_i) \\
+      \cos\theta_i              \\
     \end{pmatrix}
     \text{ if }n=2k+1
   \end{matrix}
@@ -178,8 +178,8 @@ In this section we discuss the case with :math:`n=2k+1`.
 
   .. note::
     Alignment of two spins inside the unit cell is antiferromagnetic, due to the
-    choice of the :math:`\theta_a`, :math:`\phi_a`. The alignment of the in-plane
-    (:math:`\hat{u}\hat{v}`) spin's component with the same unit-cell index is antiferromagnetic
+    choice of the :math:`\theta_i`, :math:`\phi_i`. The alignment of the in-plane
+    (:math:`\boldsymbol{\hat{u}}\boldsymbol{\hat{v}}`) spin's component with the same unit-cell index is antiferromagnetic
     with respect to the change of the unit cell.
 
 If :math:`n = 2k+1`, than :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 0`,
@@ -189,23 +189,23 @@ therefore, the expression for the energy is simplified to:
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  S_aS_b
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  S_iS_j
   \Biggl\{
-    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ij}^{nn}(\boldsymbol{d_{ij}})\cos\theta_i\cos\theta_j
     -\\&-
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_j-\phi_i)
       +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})-J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_j-\phi_i)
     \Bigr]
     -\\&-
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})-J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_a+\phi_b)
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})-J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_i+\phi_j)
         +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})+J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_a+\phi_b)
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})+J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_i+\phi_j)
     \Bigr]
   \Biggr\}
 

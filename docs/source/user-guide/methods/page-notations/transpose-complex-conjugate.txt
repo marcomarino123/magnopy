@@ -1,4 +1,4 @@
-We are explicitly using complex conjugate :math:`^\dagger` instead of the
+We are explicitly using complex conjugate :math:`^{\dagger}` instead of the
 transposition :math:`^T` in the places where one would expect to see the
 transposition. The reason is the following: even the real-valued quantities
 can be written with complex numbers if the "complex" reference frame is used

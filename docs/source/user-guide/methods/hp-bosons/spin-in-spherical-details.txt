@@ -19,19 +19,19 @@ First we recall the transformation matrix:
     0 & 0  & \sqrt{2} \\
   \end{pmatrix}
   \begin{pmatrix}
-    \hat{s}_u \\
-    \hat{s}_v \\
-    \hat{s}_n \\
+    s^u \\
+    s^v \\
+    s^n \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \dfrac{\hat{s}_u - i\hat{s}_v}{\sqrt{2}} \\
-    \dfrac{\hat{s}_u + i\hat{s}_v}{\sqrt{2}} \\
-    \hat{s}_n                                \\
+    \dfrac{s^u - is^v}{\sqrt{2}} \\
+    \dfrac{s^u + is^v}{\sqrt{2}} \\
+    s^n                                \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \dfrac{\hat{s}^-}{\sqrt{2}} \\
-    \dfrac{\hat{s}^+}{\sqrt{2}} \\
-    \hat{s}_n                   \\
+    \dfrac{s^-}{\sqrt{2}} \\
+    \dfrac{s^+}{\sqrt{2}} \\
+    s^n                   \\
   \end{pmatrix}

@@ -1,8 +1,8 @@
 .. _user-guide_methods_spherical-rf:
 
-***************************
-"Spherical" reference frame
-***************************
+*************************
+Spherical reference frame
+*************************
 
 .. dropdown:: Notation used on this page
 
@@ -95,17 +95,17 @@ Change to the spherical basis
 Spin vector
 -----------
 
-Now we write the :math:`\vert S_{ma}\rangle` in the :math:`\vert u^+u^-n\rangle`
+Now we write the :math:`\vert S_{mi}\rangle` in the :math:`\vert u^+u^-n\rangle`
 reference frame:
 
 .. math::
-  \langle u^+u^-n \vert S_{ma} \rangle
+  \langle u^+u^-n \vert S_{mi} \rangle
   =
   \langle u^+u^-n \vert uvn \rangle
-  \langle uvn \vert S_{ma} \rangle
+  \langle uvn \vert S_{mi} \rangle
   =
   \langle uvn \vert T^{\dagger} \vert uvn \rangle
-  \langle uvn \vert S_{ma} \rangle
+  \langle uvn \vert S_{mi} \rangle
 
 .. dropdown:: Details
 
@@ -117,61 +117,61 @@ reference frame:
       0 &  0 & \sqrt{2}
     \end{pmatrix}
     \begin{pmatrix}
-      S_{ma}^{u} \\
-      S_{ma}^{v} \\
-      S_{ma}^{n} \\
+      S_{mi}^{u} \\
+      S_{mi}^{v} \\
+      S_{mi}^{n} \\
     \end{pmatrix}
     = \dfrac{1}{\sqrt{2}}
     \begin{pmatrix}
-      S_{ma}^{u} - iS_{ma}^{u} \\
-      S_{ma}^{v} + iS_{ma}^{u} \\
-      \sqrt{2}S_{ma}^{n}
+      S_{mi}^{u} - iS_{mi}^{u} \\
+      S_{mi}^{v} + iS_{mi}^{u} \\
+      \sqrt{2}S_{mi}^{n}
     \end{pmatrix}
     =
     \begin{pmatrix}
-      S_{ma}^{-} \\
-      S_{ma}^{+} \\
-      S_{ma}^{n}
+      S_{mi}^{-} \\
+      S_{mi}^{+} \\
+      S_{mi}^{n}
     \end{pmatrix}
 
   where we defined:
 
   .. math::
     \begin{multline}
-      S_{ma}^{\pm}
+      S_{mi}^{\pm}
       =
-      \dfrac{S_{ma}^u \pm iS_{ma}^v}{\sqrt{2}}
+      \dfrac{S_{mi}^u \pm iS_{mi}^v}{\sqrt{2}}
       =
-      S_a
+      S_i
       \cdot
       \dfrac{
-        \sin\theta_a[
-          \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)
+        \sin\theta_i[
+          \cos(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)
           \pm
-          i\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)
+          i\sin(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)
         ]
       }{\sqrt{2}}
       =\\=
-      S_a
+      S_i
       \cdot
       \dfrac{
-        \sin\theta_a[
-          \cos(\pm\boldsymbol{q}\cdot\boldsymbol{r}_m \pm \phi_a)
+        \sin\theta_i[
+          \cos(\pm\boldsymbol{q}\cdot\boldsymbol{r_m} \pm \phi_i)
           +
-          i\sin(\pm\boldsymbol{q}\cdot\boldsymbol{r}_m \pm \phi_a)
+          i\sin(\pm\boldsymbol{q}\cdot\boldsymbol{r_m} \pm \phi_i)
         ]
       }{\sqrt{2}}
       =
-      S_a
+      S_i
       \cdot
-      \dfrac{\sin\theta_a}{\sqrt{2}}
+      \dfrac{\sin\theta_i}{\sqrt{2}}
       \cdot
-      e^{\pm i (\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a)}
+      e^{\pm i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)}
     \end{multline}
 
 .. include:: repeated-formulas/spin-spherical.txt
 
-Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
+Rotation matrix :math:`\boldsymbol{R}(\theta_i,\phi_i)`
 -------------------------------------------------------
 
 .. dropdown:: Details
@@ -183,14 +183,14 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
   Then we compute the transformation:
 
   .. math::
-    &\langle u^+u^-n \vert R_a \vert u^+u^-n \rangle
+    &\langle u^+u^-n \vert R_i \vert u^+u^-n \rangle
     =
     \langle u^+u^-n \vert uvn \rangle
-    \langle uvn \vert R_a \vert uvn \rangle
+    \langle uvn \vert R_i \vert uvn \rangle
     \langle uvn \vert u^+u^-n \rangle
     =\\&=
     \langle uvn \vert T^{\dagger} \vert uvn \rangle
-    \langle uvn \vert R_a \vert uvn \rangle
+    \langle uvn \vert R_i \vert uvn \rangle
     \langle uvn \vert T\vert uvn \rangle
 
   The exact form of this matrix will be useful later:
@@ -203,15 +203,15 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
     \begin{pmatrix}
-      \cos\theta_a + \sin^2\phi_a(1-\cos\theta_a) &
-      -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
-      \cos\phi_a\sin\theta_a                      \\
-      -\sin\phi_a\cos\phi_a(1-\cos\theta_a)       &
-      \cos\theta_a + \cos^2\phi_a(1-\cos\theta_a) &
-      \sin\phi_a\sin\theta_a                      \\
-      -\cos\phi_a\sin\theta_a                     &
-      -\sin\phi_a\sin\theta_a                     &
-      \cos\theta_a                                \\
+      \cos\theta_i + \sin^2\phi_i(1-\cos\theta_i) &
+      -\sin\phi_i\cos\phi_i(1-\cos\theta_i)       &
+      \cos\phi_i\sin\theta_i                      \\
+      -\sin\phi_i\cos\phi_i(1-\cos\theta_i)       &
+      \cos\theta_i + \cos^2\phi_i(1-\cos\theta_i) &
+      \sin\phi_i\sin\theta_i                      \\
+      -\cos\phi_i\sin\theta_i                     &
+      -\sin\phi_i\sin\theta_i                     &
+      \cos\theta_i                                \\
     \end{pmatrix}
     \begin{pmatrix}
       1 & 1 & 0         \\
@@ -221,15 +221,15 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
     =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
-      \cos\theta_a + \sin\phi_a(1-\cos\theta_a)(\sin\phi_a + i\cos\phi_a)   &
-      -i\cos\theta_a - \cos\phi_a(1-\cos\theta_a)(\sin\phi_a + i\cos\phi_a) &
-      \sin\theta_a(\cos\phi_a - i\sin\phi_a)                                \\
-      \cos\theta_a + \sin\phi_a(1-\cos\theta_a)(\sin\phi_a - i\cos\phi_a)   &
-      i\cos\theta_a - \cos\phi_a(1-\cos\theta_a)(\sin\phi_a - i\cos\phi_a)  &
-      \sin\theta_a(\cos\phi_a + i\sin\phi_a)                                \\
-      -\sqrt{2}\sin\theta_a\cos\phi_a                                       &
-      -\sqrt{2}\sin\theta_a\sin\phi_a                                       &
-      \sqrt{2}\cos\theta_a                                                  \\
+      \cos\theta_i + \sin\phi_i(1-\cos\theta_i)(\sin\phi_i + i\cos\phi_i)   &
+      -i\cos\theta_i - \cos\phi_i(1-\cos\theta_i)(\sin\phi_i + i\cos\phi_i) &
+      \sin\theta_i(\cos\phi_i - i\sin\phi_i)                                \\
+      \cos\theta_i + \sin\phi_i(1-\cos\theta_i)(\sin\phi_i - i\cos\phi_i)   &
+      i\cos\theta_i - \cos\phi_i(1-\cos\theta_i)(\sin\phi_i - i\cos\phi_i)  &
+      \sin\theta_i(\cos\phi_i + i\sin\phi_i)                                \\
+      -\sqrt{2}\sin\theta_i\cos\phi_i                                       &
+      -\sqrt{2}\sin\theta_i\sin\phi_i                                       &
+      \sqrt{2}\cos\theta_i                                                  \\
     \end{pmatrix}
     \begin{pmatrix}
       1 & 1 & 0         \\
@@ -239,15 +239,15 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_a,\phi_a)`
     =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
-      1+\cos\theta_a                     &
-      (\cos\theta_a-1)e^{-2i\phi_a}      &
-      \sqrt{2}\sin\theta_a e^{-i\phi_a}  \\
-      (\cos\theta_a - 1)e^{2i\phi_a}     &
-      1 + \cos\theta_a                   &
-      \sqrt{2}\sin\theta_a e^{i\phi_a}   \\
-      -\sqrt{2}\sin\theta_a e^{i\phi_a}  &
-      -\sqrt{2}\sin\theta_a e^{-i\phi_a} &
-      2\cos\theta_a                      \\
+      1+\cos\theta_i                     &
+      (\cos\theta_i-1)e^{-2i\phi_i}      &
+      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
+      (\cos\theta_i - 1)e^{2i\phi_i}     &
+      1 + \cos\theta_i                   &
+      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
+      -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
+      -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
+      2\cos\theta_i                      \\
     \end{pmatrix}
 
 .. include:: repeated-formulas/spin-rotation-matrix-spherical.txt

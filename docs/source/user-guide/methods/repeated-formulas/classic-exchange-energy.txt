@@ -2,39 +2,39 @@
   &\dfrac{E_{exchange}}{M}
   =
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  S_aS_b
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  S_iS_j
   \Biggl\{
-    J_{ab}^{nn}(\boldsymbol{d}_{ab})\cos\theta_a\cos\theta_b
+    J_{ij}^{nn}(\boldsymbol{d_{ij}})\cos\theta_i\cos\theta_j
     +\\&+
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})+J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
       +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})-J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\boldsymbol{q}\boldsymbol{d}_{ab}+\phi_b-\phi_a)
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})-J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
     \Bigr]
     +\\&+
     \delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}
-    \sin\theta_a\sin\theta_b
+    \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ab}^{uu}(\boldsymbol{d}_{ab})-J_{ab}^{vv}(\boldsymbol{d}_{ab})}{2}\cos(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})-J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
         +
-      \dfrac{J_{ab}^{uv}(\boldsymbol{d}_{ab})+J_{ab}^{vu}(\boldsymbol{d}_{ab})}{2}\sin(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})+J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
     \Bigr]
     +\\&+
     \delta_{\boldsymbol{q},\boldsymbol{G}}
-    \sin\theta_a\cos\theta_b
+    \sin\theta_i\cos\theta_j
     \Bigl[
-      J_{ab}^{un}(\boldsymbol{d}_{ab})\cos\phi_a
+      J_{ij}^{un}(\boldsymbol{d_{ij}})\cos\phi_i
       +
-      J_{ab}^{vn}(\boldsymbol{d}_{ab})\sin\phi_a
+      J_{ij}^{vn}(\boldsymbol{d_{ij}})\sin\phi_i
     \Bigr]
     +\\&+
     \delta_{\boldsymbol{q},\boldsymbol{G}}
-    \cos\theta_a\sin\theta_b
+    \cos\theta_i\sin\theta_j
     \Bigl[
-      J_{ab}^{nu}(\boldsymbol{d}_{ab})\cos(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+      J_{ij}^{nu}(\boldsymbol{d_{ij}})\cos(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
       +
-      J_{ab}^{nv}(\boldsymbol{d}_{ab})\sin(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})
+      J_{ij}^{nv}(\boldsymbol{d_{ij}})\sin(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
     \Bigr]
   \Biggr\}

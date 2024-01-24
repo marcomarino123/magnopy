@@ -1,16 +1,16 @@
 .. math::
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d_{ab}})
+  \boldsymbol{J}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}})
   =
   \begin{pmatrix}
-    J_{ab}^{++}e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}              &
-    J_{ab}^{+-}e^{i\boldsymbol{q}(2\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
-    J_{ab}^{+n}e^{i\boldsymbol{q}\boldsymbol{r}_m}             \\
-    J_{ab}^{-+}e^{-i\boldsymbol{q}(2\boldsymbol{r}_m+\boldsymbol{d}_{ab})} &
-    J_{ab}^{--}e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}               &
-    J_{ab}^{-n}e^{-i\boldsymbol{q}\boldsymbol{r}_m}            \\
-    J_{ab}^{n+}e^{-i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}  &
-    J_{ab}^{n-}e^{i\boldsymbol{q}(\boldsymbol{r}_m+\boldsymbol{d}_{ab})}   &
-    J_{ab}^{nn}                                  \\
+    J_{ij}^{++}e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}              &
+    J_{ij}^{+-}e^{i\boldsymbol{q}(2\boldsymbol{r_m}+\boldsymbol{d_{ij}})}  &
+    J_{ij}^{+n}e^{i\boldsymbol{q}\boldsymbol{r_m}}             \\
+    J_{ij}^{-+}e^{-i\boldsymbol{q}(2\boldsymbol{r_m}+\boldsymbol{d_{ij}})} &
+    J_{ij}^{--}e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}               &
+    J_{ij}^{-n}e^{-i\boldsymbol{q}\boldsymbol{r_m}}            \\
+    J_{ij}^{n+}e^{-i\boldsymbol{q}(\boldsymbol{r_m}+\boldsymbol{d_{ij}})}  &
+    J_{ij}^{n-}e^{i\boldsymbol{q}(\boldsymbol{r_m}+\boldsymbol{d_{ij}})}   &
+    J_{ij}^{nn}                                  \\
   \end{pmatrix}

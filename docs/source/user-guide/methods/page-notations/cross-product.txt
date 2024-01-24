@@ -6,7 +6,7 @@ In :math:`xyz` reference frame:
   \boldsymbol{a} \times \boldsymbol{b}
   =
   \begin{pmatrix}
-  a_yb_z - a_zb_y \\
-  a_zb_x - a_xb_z \\
-  a_xb_y - a_yb_x \\
+  a^yb^z - a^zb^y \\
+  a^zb^x - a^xb^z \\
+  a^xb^y - a^yb^x \\
   \end{pmatrix}

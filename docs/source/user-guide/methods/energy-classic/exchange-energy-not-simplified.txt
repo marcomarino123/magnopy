@@ -2,76 +2,76 @@
   &H
   =
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  (\boldsymbol{S}_a^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  (\boldsymbol{S_i^{ferro}})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   \left[
   \sum_{m}
   \boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d})
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}})
   \right]
-  \boldsymbol{R}(\theta_b,\phi_b)
-  \boldsymbol{S}_b^{ferro}
+  \boldsymbol{R}(\theta_j,\phi_j)
+  \boldsymbol{S_j^{ferro}}
   =\\&=
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  MS_aS_b
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  MS_iS_j
   \left(
-  \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}},
-  \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}},
-  \cos\theta_a
+  \dfrac{\sin\theta_i e^{i\phi_i}}{\sqrt{2}},
+  \dfrac{\sin\theta_i e^{-i\phi_i}}{\sqrt{2}},
+  \cos\theta_i
   \right)
   \begin{pmatrix}
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}} J_{ab}^{++}                                   &
-    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ab}^{+-}  &
-    \delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{+n}                          \\
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ab}^{-+} &
-    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}} J_{ab}^{--}                                    &
-    \delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{-n}                          \\
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{n+}      &
-    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ab}^{n-}       &
-    J_{ab}^{nn}                                                        \\
+    e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}} J_{ij}^{++}                                   &
+    e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ij}^{+-}  &
+    \delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{+n}                          \\
+    e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ij}^{-+} &
+    e^{i\boldsymbol{q}\boldsymbol{d_{ij}}} J_{ij}^{--}                                    &
+    \delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{-n}                          \\
+    e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{n+}      &
+    e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{n-}       &
+    J_{ij}^{nn}                                                        \\
   \end{pmatrix}
   \begin{pmatrix}
-    \dfrac{\sin\theta_b e^{-i\phi_b}}{\sqrt{2}}  \\
-    \dfrac{\sin\theta_b e^{i\phi_b}}{\sqrt{2}}   \\
-    \cos\theta_b                                 \\
+    \dfrac{\sin\theta_j e^{-i\phi_j}}{\sqrt{2}}  \\
+    \dfrac{\sin\theta_j e^{i\phi_j}}{\sqrt{2}}   \\
+    \cos\theta_j                                 \\
   \end{pmatrix}
   =\\&=
   \dfrac{1}{2}
-  \sum_{a, b, \boldsymbol{d}_{ab}}
-  MS_aS_b
+  \sum_{i, j, \boldsymbol{d_{ij}}}
+  MS_iS_j
   \Biggl\{
-    J_{ab}^{nn}\cos\theta_a\cos\theta_b
+    J_{ij}^{nn}\cos\theta_i\cos\theta_j
     +\\&+
     \dfrac{
-    J_{ab}^{++}\sin\theta_a\sin\theta_b e^{i(\phi_a-\phi_b-\boldsymbol{q}\boldsymbol{d}_{ab})}
+    J_{ij}^{++}\sin\theta_i\sin\theta_j e^{i(\phi_i-\phi_j-\boldsymbol{q}\boldsymbol{d_{ij}})}
     +
-    J_{ab}^{--}\sin\theta_a\sin\theta_b e^{-i(\phi_a-\phi_b-\boldsymbol{q}\boldsymbol{d}_{ab})}
+    J_{ij}^{--}\sin\theta_i\sin\theta_j e^{-i(\phi_i-\phi_j-\boldsymbol{q}\boldsymbol{d_{ij}})}
     }{2}
     +\\&+
     \delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}
     \Biggl[
       \dfrac{
-      J_{ab}^{+-}\sin\theta_a\sin\theta_b e^{i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+      J_{ij}^{+-}\sin\theta_i\sin\theta_j e^{i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
       +
-      J_{ab}^{-+}\sin\theta_a\sin\theta_b e^{-i(\phi_a+\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+      J_{ij}^{-+}\sin\theta_i\sin\theta_j e^{-i(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
       }{2}
     \Biggr]
     +\\&+
     \delta_{\boldsymbol{q},\boldsymbol{G}}
     \Biggl[
       \dfrac{
-      J_{ab}^{+n}\sin\theta_a\cos\theta_b e^{i\phi_a}
+      J_{ij}^{+n}\sin\theta_i\cos\theta_j e^{i\phi_i}
       +
-      J_{ab}^{-n}\sin\theta_a\cos\theta_b e^{-i\phi_a}
+      J_{ij}^{-n}\sin\theta_i\cos\theta_j e^{-i\phi_i}
       }{\sqrt{2}}
       +\\&+
       \dfrac{
-      J_{ab}^{n+}\cos\theta_a\sin\theta_b e^{-i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+      J_{ij}^{n+}\cos\theta_i\sin\theta_j e^{-i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
       +
-      J_{ab}^{n-}\cos\theta_a\sin\theta_b e^{i(\phi_b+\boldsymbol{q}\boldsymbol{d}_{ab})}
+      J_{ij}^{n-}\cos\theta_i\sin\theta_j e^{i(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})}
       }{\sqrt{2}}
     \Biggr]
   \Biggr\}

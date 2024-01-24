@@ -1,25 +1,25 @@
 Let us define:
 
-- :math:`\theta^u_m = \boldsymbol{q^u}\boldsymbol{r}_m`
-- :math:`\theta_m = \boldsymbol{q}\boldsymbol{r}_m`
-- :math:`\phi^{\pm} = \phi_a^u \pm \phi_a`
+- :math:`\theta^u_m = \boldsymbol{q^u}\boldsymbol{r_m}`
+- :math:`\theta_m = \boldsymbol{q}\boldsymbol{r_m}`
+- :math:`\phi^{\pm} = \phi_i^u \pm \phi_i`
 - :math:`\theta_m^{\pm} = \theta_m^u \pm \theta_m`
   and
   :math:`\boldsymbol{q^{\pm}}_m = \boldsymbol{q^u}_m \pm \boldsymbol{q}_m`
 
 .. math::
   &\sum_m
-  H_{ma}^u\cos(\theta_m+\phi_a)
+  h_{mi}^u\cos(\theta_m+\phi_i)
   =
-  H^u\cos(\theta^u_m+\phi_a^u)
-  \cos(\theta_m+\phi_a)
+  h^u\cos(\theta^u_m+\phi_i^u)
+  \cos(\theta_m+\phi_i)
   =\\&=
-  H^u\sum_m
+  h^u\sum_m
   \dfrac{1}{4}
-  (e^{i(\theta^u_m+\phi_a^u)}+e^{-i(\theta^u_m+\phi_a^u)})
-  (e^{i(\theta_m+\phi_a)}+e^{-i(\theta_m+\phi_a)})
+  (e^{i(\theta^u_m+\phi_i^u)}+e^{-i(\theta^u_m+\phi_i^u)})
+  (e^{i(\theta_m+\phi_i)}+e^{-i(\theta_m+\phi_i)})
   =\\&=
-  H^u\sum_m
+  h^u\sum_m
   \dfrac{1}{4}
   \left[
   e^{i\theta^+}e^{i\phi^+}
@@ -31,18 +31,18 @@ Let us define:
   e^{-i\theta^-}e^{-i\phi^-}
   \right]
   =\\&=
-  H^u\dfrac{1}{4}
+  h^u\dfrac{1}{4}
   \left[
-  e^{i\phi^+}\sum_m e^{i\boldsymbol{q^+}\boldsymbol{r}_m}
+  e^{i\phi^+}\sum_m e^{i\boldsymbol{q^+}\boldsymbol{r_m}}
   +
-  e^{-i\phi^+}\sum_m e^{-i\boldsymbol{q^+}\boldsymbol{r}_m}
+  e^{-i\phi^+}\sum_m e^{-i\boldsymbol{q^+}\boldsymbol{r_m}}
   +
-  e^{i\phi^-}\sum_m e^{i\boldsymbol{q^-}\boldsymbol{r}_m}
+  e^{i\phi^-}\sum_m e^{i\boldsymbol{q^-}\boldsymbol{r_m}}
   +
-  e^{-i\phi^-}\sum_m e^{-i\boldsymbol{q^-}\boldsymbol{r}_m}
+  e^{-i\phi^-}\sum_m e^{-i\boldsymbol{q^-}\boldsymbol{r_m}}
   \right]
   =\\&=
-  H^uM\dfrac{1}{4}
+  h^uM\dfrac{1}{4}
   \left[
   e^{i\phi^+} \delta_{\boldsymbol{q^+}, \boldsymbol{G}}
   +
@@ -53,16 +53,16 @@ Let us define:
   e^{-i\phi^-}  \delta_{\boldsymbol{q^-}, \boldsymbol{G}}
   \right]
   =\\&=
-  \dfrac{H^uM}{2}
+  \dfrac{h^uM}{2}
   \left[
   \delta_{\boldsymbol{q^+}, \boldsymbol{G}} \cos\phi^+
   +
   \delta_{\boldsymbol{q^-}, \boldsymbol{G}} \cos\phi^-
   \right]
   =\\&=
-  \dfrac{H^uM}{2}
+  \dfrac{h^uM}{2}
   \left[
-  \delta_{\boldsymbol{q^u}_m + \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_a^u + \phi_a)
+  \delta_{\boldsymbol{q^u}_m + \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_i^u + \phi_i)
   +
-  \delta_{\boldsymbol{q^u}_m - \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_a^u - \phi_a)
+  \delta_{\boldsymbol{q^u}_m - \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_i^u - \phi_i)
   \right]

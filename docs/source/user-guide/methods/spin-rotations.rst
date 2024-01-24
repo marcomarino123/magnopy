@@ -14,17 +14,17 @@ Spin rotations
   * .. include:: page-notations/cross-product.txt
   * .. include:: page-notations/in-uvn.txt
 
-Given a spin vector :math:`\boldsymbol{S}_a = S_a\cdot\hat{S}_a`, we define its direction
-with two angles: :math:`\theta_a` and :math:`\phi_a`.
+Given a spin vector :math:`\boldsymbol{S_i} = S_i\cdot\boldsymbol{\hat{S}_i}`, we define its direction
+with two angles: :math:`\theta_i` and :math:`\phi_i`.
 
 .. math::
-  \boldsymbol{S}_a
+  \boldsymbol{S_i}
   =
-  S_a\cdot
+  S_i\cdot
   \begin{pmatrix}
-    \sin\theta_a\cos\phi_a \\
-    \sin\theta_a\sin\phi_a \\
-    \cos\theta_a           \\
+    \sin\theta_i\cos\phi_i \\
+    \sin\theta_i\sin\phi_i \\
+    \cos\theta_i           \\
   \end{pmatrix}
 
 
@@ -32,18 +32,18 @@ with two angles: :math:`\theta_a` and :math:`\phi_a`.
   :file: ../../../images/spin-rotations-symmetric.html
 
 Any direction of the spin vector can be produced from the direction of the
-vector :math:`\boldsymbol{n}` by a rotation around the vector :math:`\boldsymbol{r}` by
-the angle :math:`\theta_a`, similarly to how it was done for the reference
+vector :math:`\boldsymbol{n}` by a rotation around the vector :math:`\boldsymbol{\hat{r}}` by
+the angle :math:`\theta_i`, similarly to how it was done for the reference
 frame change in :ref:`user-guide_methods_uvn-choice`:
 
 .. math::
-  \boldsymbol{r}
+  \boldsymbol{\hat{r}}
   =
-  \dfrac{\hat{n} \times \boldsymbol{S}_a}{\vert\hat{n} \times \boldsymbol{S}_a\vert}
+  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S_i}}{\vert\boldsymbol{\hat{n}} \times \boldsymbol{S_i}\vert}
   =
   \begin{pmatrix}
-    -\sin\phi_a \\
-    \cos\phi_a  \\
+    -\sin\phi_i \\
+    \cos\phi_i  \\
     0           \\
   \end{pmatrix}
 
@@ -53,27 +53,27 @@ frame change in :ref:`user-guide_methods_uvn-choice`:
 Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
 
 .. math::
-  \boldsymbol{S}_a
+  \boldsymbol{S_i}
   =
-  \boldsymbol{R}(\theta_a, \phi_a)\boldsymbol{S}_a^{ferro}
+  \boldsymbol{R}(\theta_i, \phi_i)\boldsymbol{S_i^{ferro}}
   =
-  S_a\cdot \boldsymbol{R}(\theta_a, \phi_a)\hat{S}_a^{ferro}
+  S_i\cdot \boldsymbol{R}(\theta_i, \phi_i)\boldsymbol{\hat{S}_i^{ferro}}
   =
-  S_a\cdot \boldsymbol{R}(\theta_a, \phi_a)\hat{n}
+  S_i\cdot \boldsymbol{R}(\theta_i, \phi_i)\boldsymbol{\hat{n}}
 
 .. dropdown:: Bra-ket notation
 
   .. math::
-    \langle uvn \vert S_a\rangle
+    \langle uvn \vert S_i\rangle
     =
-    \langle uvn \vert R(\theta_a, \phi_a) \vert S_a^{ferro} \rangle
+    \langle uvn \vert R(\theta_i, \phi_i) \vert S_i^{ferro} \rangle
     =
-    \langle uvn \vert R(\theta_a, \phi_a) \vert uvn \rangle
-    \langle uvn \vert S_a^{ferro} \rangle
+    \langle uvn \vert R(\theta_i, \phi_i) \vert uvn \rangle
+    \langle uvn \vert S_i^{ferro} \rangle
     =
-    S_a
+    S_i
     \cdot
-    \langle uvn \vert R(\theta_a, \phi_a) \vert uvn \rangle
+    \langle uvn \vert R(\theta_i, \phi_i) \vert uvn \rangle
     \langle uvn \vert n \rangle
 
 
@@ -82,41 +82,41 @@ Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be writ
   Alternatively one can define two consecutive rotations:
 
   .. math::
-    \boldsymbol{S}_a
+    \boldsymbol{S_i}
     =
-    \boldsymbol{R}(\phi_a) \boldsymbol{R}(\theta_a) \boldsymbol{S}_a^{ferro}
+    \boldsymbol{R}(\phi_i) \boldsymbol{R}(\theta_i) \boldsymbol{S_i^{ferro}}
     =
-    e^{\phi_a\hat{n}\times} e^{\theta_a\hat{v}\times} \boldsymbol{S}_a^{ferro}
+    e^{\phi_i\boldsymbol{\hat{n}}\times} e^{\theta_i\boldsymbol{\hat{v}}\times} \boldsymbol{S_i^{ferro}}
 
   With the rotation matrices defined as:
 
   .. math::
     \begin{matrix}
-      \boldsymbol{R}(\theta_a)
+      \boldsymbol{R}(\theta_i)
       =
       \begin{pmatrix}
-        \cos\theta_a  & 0 & \sin\theta_a \\
+        \cos\theta_i  & 0 & \sin\theta_i \\
         0           & 1 & 0              \\
-        -\sin\theta_a & 0 & \cos\theta_a \\
+        -\sin\theta_i & 0 & \cos\theta_i \\
       \end{pmatrix};
       &
-      \boldsymbol{R}(\phi_a)
+      \boldsymbol{R}(\phi_i)
       =
       \begin{pmatrix}
-        \cos\phi_a & -\sin\phi_a & 0 \\
-        \sin\phi_a & \cos\phi_a  & 0 \\
+        \cos\phi_i & -\sin\phi_i & 0 \\
+        \sin\phi_i & \cos\phi_i  & 0 \\
         0        & 0         & 1     \\
       \end{pmatrix}
     \end{matrix}
 
   .. math::
-      \boldsymbol{R^{\prime}}(\theta_a,\phi_a)
+      \boldsymbol{R^{\prime}}(\theta_i,\phi_i)
       =
-      \boldsymbol{R}(\phi_a) \boldsymbol{R}(\theta_a) =
+      \boldsymbol{R}(\phi_i) \boldsymbol{R}(\theta_i) =
       \begin{pmatrix}
-        \cos\phi_a\cdot\cos\theta_a & -\sin\phi_a & \cos\phi_a\cdot\sin\theta_a \\
-        \sin\phi_a\cdot\cos\theta_a & \cos\phi_a  & \sin\phi_a\cdot\sin\theta_a \\
-        -\sin\theta_a               & 0           & \cos\theta_a                \\
+        \cos\phi_i\cdot\cos\theta_i & -\sin\phi_i & \cos\phi_i\cdot\sin\theta_i \\
+        \sin\phi_i\cdot\cos\theta_i & \cos\phi_i  & \sin\phi_i\cdot\sin\theta_i \\
+        -\sin\theta_i               & 0           & \cos\theta_i                \\
       \end{pmatrix}
 
   .. raw:: html

@@ -46,15 +46,15 @@ And then apply hermitian conjugate to the whole expression:
 
 .. math::
   (\boldsymbol{R}^{\dagger}(\theta_m)
-  \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})
-  \boldsymbol{R}(\theta_{m+d_{ab}}))^{\dagger}
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{R}(\theta_{m+d_{ij}}))^{\dagger}
   =
-  \boldsymbol{R}^{\dagger}(\theta_{m+d_{ab}})
-  \boldsymbol{J_{ab}}^{\dagger}(\boldsymbol{d}_{ab})
+  \boldsymbol{R}^{\dagger}(\theta_{m+d_{ij}})
+  \boldsymbol{J_{ij}}^{\dagger}(\boldsymbol{d_{ij}})
   \boldsymbol{R}(\theta_m)
   =
-  \boldsymbol{R}^{\dagger}(\theta_{m+d_{ab}})
-  \boldsymbol{J_{ba}}(\boldsymbol{d}_{ba})
+  \boldsymbol{R}^{\dagger}(\theta_{m+d_{ij}})
+  \boldsymbol{J_{ji}}(\boldsymbol{d_{ji}})
   \boldsymbol{R}(\theta_m)
 
 
@@ -69,17 +69,17 @@ We write the part of the Hamiltonian for the bond between atoms :math:`1` and :m
 with first atom being located in the unit cell :math:`0` and the second in the unit cell
 :math:`0+d`. Then two entries of the bond are:
 
-* :math:`1 \Rightarrow 2` (:math:`H_{12}`)
+* :math:`1 \Rightarrow 2` (:math:`{\cal H}_{12}`)
 
   - :math:`a = 1`
   - :math:`b = 2`
-  - :math:`\boldsymbol{d}_{ab} = \boldsymbol{d}`
+  - :math:`\boldsymbol{d_{ij}} = \boldsymbol{d}`
   - :math:`m = 0`
-* :math:`2 \Rightarrow 1` (:math:`H_{21}`)
+* :math:`2 \Rightarrow 1` (:math:`{\cal H}_{21}`)
 
   - :math:`a = 2`
   - :math:`b = 1`
-  - :math:`\boldsymbol{d}_{ab} = -\boldsymbol{d}`
+  - :math:`\boldsymbol{d_{ij}} = -\boldsymbol{d}`
   - :math:`m = 0+d`
 
 .. dropdown:: Part of the Hamiltonian
@@ -90,16 +90,16 @@ with first atom being located in the unit cell :math:`0` and the second in the u
 
   .. include:: hermicity-two-bond-part-hc.txt
 
-By comparison of two formulas above we see that :math:`H_{12}=H_{21}^{\dagger}`, therefore:
+By comparison of two formulas above we see that :math:`{\cal H}_{12}={\cal H}_{21}^{\dagger}`, therefore:
 
 .. math::
-  (H_{12} + H_{21})^{\dagger}
+  ({\cal H}_{12} + {\cal H}_{21})^{\dagger}
   =
-  H_{12}^{\dagger} + H_{21}^{\dagger}
+  {\cal H}_{12}^{\dagger} + {\cal H}_{21}^{\dagger}
   =
-  H_{21} + H_{12}
+  {\cal H}_{21} + {\cal H}_{12}
   =
-  H_{12} + H_{21}
+  {\cal H}_{12} + {\cal H}_{21}
 
 Therefor full Hamiltonian :math:`H^{LSWT}` is a sum of hermitian terms and is hermitian
 by itself.
@@ -127,37 +127,37 @@ Fourier transformation
 ======================
 
 In order to describe collective exitations we apply Fourier transformation to the local
-bosonic operators :math:`\hat{a}_{ma}` and move to the collective bosonic operators
-:math:`\hat{a}_{ka}`:
+bosonic operators :math:`a_{mi}` and move to the collective bosonic operators
+:math:`a_{ka}`:
 
 .. math::
-  \hat{a}_{ma}
+  a_{mi}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
-  \hat{a}_{ka}
-  e^{i\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m}
+  a_{ka}
+  e^{i\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}}
   \\
-  \hat{a}_{m+d_{ab},b}
+  a_{m+d_{ij},j}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
-  \hat{a}_{kb}
-  e^{i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m+\boldsymbol{d}_{ab})}
+  a_{kb}
+  e^{i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}+\boldsymbol{d_{ij}})}
   \\
-  \hat{a}_{ma}^{\dagger}
+  a_{mi}^{\dagger}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
-  \hat{a}_{ka}^{\dagger}
-  e^{-i\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m}
+  a_{ka}^{\dagger}
+  e^{-i\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}}
   \\
-  \hat{a}_{m+d_{ab},b}^{\dagger}
+  a_{m+d_{ij},j}^{\dagger}
   &=
   \dfrac{1}{\sqrt{M}}
   \sum_{k}
-  \hat{a}_{kb}^{\dagger}
-  e^{-i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r}_m+\boldsymbol{d}_{ab})}
+  a_{kb}^{\dagger}
+  e^{-i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}+\boldsymbol{d_{ij}})}
 
 .. dropdown:: Details
 
@@ -169,7 +169,7 @@ After we apply the rotated matrix separation to each term in the round parenthes
 we end up with the number of the sums over :math:`m` of the following form:
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r}_m}
+  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r_m}}
 
 where :math:`h(\boldsymbol{k}, \boldsymbol{k}^{\prime})` and :math:`\tilde{h}(\boldsymbol{q})` are corresponding functions of
 the vectors.
@@ -178,7 +178,7 @@ As was discussed in the :ref:`classical energy <user-guide_methods_energy-classi
 section the sums of this form can be simplified:
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r}_m}
+  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r_m}}
   =
   \delta_{h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}), \boldsymbol{G}}
 

@@ -1,11 +1,11 @@
 .. math::
   \boldsymbol{R}(\theta_m)
   =
-  \boldsymbol{R}(\boldsymbol{q}\cdot\boldsymbol{r}_m)
+  \boldsymbol{R}(\boldsymbol{q}\cdot\boldsymbol{r_m})
   =
   \begin{pmatrix}
-    \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m) & -\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m) & 0 \\
-    \sin(\boldsymbol{q}\cdot\boldsymbol{r}_m) & \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)  & 0 \\
+    \cos(\boldsymbol{q}\cdot\boldsymbol{r_m}) & -\sin(\boldsymbol{q}\cdot\boldsymbol{r_m}) & 0 \\
+    \sin(\boldsymbol{q}\cdot\boldsymbol{r_m}) & \cos(\boldsymbol{q}\cdot\boldsymbol{r_m})  & 0 \\
     0                           & 0                            & 1 \\
   \end{pmatrix}
   =

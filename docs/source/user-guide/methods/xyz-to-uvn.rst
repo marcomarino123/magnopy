@@ -51,20 +51,20 @@ Let us write this result explicitly:
 
 .. math::
   \begin{pmatrix}
-    S_u \\
-    S_v \\
-    S_n \\
+    S^u \\
+    S^v \\
+    S^n \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    R_{xx} & R_{xy} & R_{xz} \\
-    R_{yx} & R_{yy} & R_{yz} \\
-    R_{zx} & R_{zy} & R_{zz} \\
+    R^{xx} & R^{xy} & R^{xz} \\
+    R^{yx} & R^{yy} & R^{yz} \\
+    R^{zx} & R^{zy} & R^{zz} \\
   \end{pmatrix}
   \begin{pmatrix}
-    S_x \\
-    S_y \\
-    S_z \\
+    S^x \\
+    S^y \\
+    S^z \\
   \end{pmatrix}
 
 .. note::
@@ -92,17 +92,17 @@ In a matrix form this result is written as:
 
 .. math::
   \begin{pmatrix}
-    J_{ab}^{uu} & J_{ab}^{uv} & J_{ab}^{un} \\
-    J_{ab}^{vu} & J_{ab}^{vv} & J_{ab}^{vn} \\
-    J_{ab}^{nu} & J_{ab}^{nv} & J_{ab}^{nn} \\
+    J_{ij}^{uu} & J_{ij}^{uv} & J_{ij}^{un} \\
+    J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
+    J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
   \end{pmatrix}
   = \boldsymbol{R_{rf}}^{\dagger}
   \begin{pmatrix}
-    J_{ab}^{xx} & J_{ab}^{xy} & J_{ab}^{xz} \\
-    J_{ab}^{yx} & J_{ab}^{yy} & J_{ab}^{yz} \\
-    J_{ab}^{zx} & J_{ab}^{zy} & J_{ab}^{zz} \\
+    J_{ij}^{xx} & J_{ij}^{xy} & J_{ij}^{xz} \\
+    J_{ij}^{yx} & J_{ij}^{yy} & J_{ij}^{yz} \\
+    J_{ij}^{zx} & J_{ij}^{zy} & J_{ij}^{zz} \\
   \end{pmatrix} \boldsymbol{R_{rf}}
 
 .. important::
   In the following pages the reference frame :math:`\vert uvn\rangle`
-  is often used, where :math:`\hat{n}` is a cone axis.
+  is often used, where :math:`\boldsymbol{\hat{n}}` is a cone axis.

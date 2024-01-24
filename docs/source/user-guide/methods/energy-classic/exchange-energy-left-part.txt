@@ -1,23 +1,23 @@
 .. math::
-  (\boldsymbol{S}_a^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  (\boldsymbol{S_i^{ferro}})^{\dagger}
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   =
-  (0,0,S_a)
+  (0,0,S_i)
   \begin{pmatrix}
-    \dfrac{1+\cos\theta_a}{2}                     &
-    \dfrac{(\cos\theta_a - 1)e^{-2i\phi_a}}{2}    &
-    \dfrac{-\sin\theta_a e^{-i\phi_a} }{\sqrt{2}} \\
-    \dfrac{(\cos\theta_a-1)e^{2i\phi_a}}{2}       &
-    \dfrac{1 + \cos\theta_a}{2}                   &
-    \dfrac{-\sin\theta_a e^{i\phi_a}}{\sqrt{2}}   \\
-    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}    &
-    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}}   &
-    \cos\theta_a                                  \\
+    \dfrac{1+\cos\theta_i}{2}                     &
+    \dfrac{(\cos\theta_i - 1)e^{-2i\phi_i}}{2}    &
+    \dfrac{-\sin\theta_i e^{-i\phi_i} }{\sqrt{2}} \\
+    \dfrac{(\cos\theta_i-1)e^{2i\phi_i}}{2}       &
+    \dfrac{1 + \cos\theta_i}{2}                   &
+    \dfrac{-\sin\theta_i e^{i\phi_i}}{\sqrt{2}}   \\
+    \dfrac{\sin\theta_i e^{i\phi_i}}{\sqrt{2}}    &
+    \dfrac{\sin\theta_i e^{-i\phi_i}}{\sqrt{2}}   &
+    \cos\theta_i                                  \\
   \end{pmatrix}
   =
-  S_a
+  S_i
   \left(
-    \dfrac{\sin\theta_a e^{i\phi_a}}{\sqrt{2}}  ,
-    \dfrac{\sin\theta_a e^{-i\phi_a}}{\sqrt{2}} ,
-    \cos\theta_a
+    \dfrac{\sin\theta_i e^{i\phi_i}}{\sqrt{2}}  ,
+    \dfrac{\sin\theta_i e^{-i\phi_i}}{\sqrt{2}} ,
+    \cos\theta_i
   \right)

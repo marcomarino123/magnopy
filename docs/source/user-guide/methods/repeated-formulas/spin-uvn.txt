@@ -1,16 +1,16 @@
 .. math::
-  \langle uvn \vert S_{ma} \rangle
+  \langle uvn \vert S_{mi} \rangle
   =
-  S_a
+  S_i
   \cdot
   \begin{pmatrix}
-    \sin\theta_a\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a) \\
-    \sin\theta_a\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m + \phi_a) \\
-    \cos\theta_a                                     \\
+    \sin\theta_i\cos(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i) \\
+    \sin\theta_i\sin(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i) \\
+    \cos\theta_i                                     \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    S_{ma}^u \\
-    S_{ma}^v \\
-    S_{ma}^n \\
+    S_{mi}^u \\
+    S_{mi}^v \\
+    S_{mi}^n \\
   \end{pmatrix}

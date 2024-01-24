@@ -1,68 +1,68 @@
 .. math::
-  H^{Quartic}
+  {\cal H}^{Quartic}
   =
   \dfrac{1}{2}
-  \sum_{m, \boldsymbol{d}_{ab}, a, b}
-  S_aS_b
+  \sum_{m, \boldsymbol{d_{ij}}, i, j}
+  S_iS_j
   \Biggl\{
-    &\dfrac{1}{S_aS_b}
-    (\boldsymbol{f}_a)^{\dagger}
-    \boldsymbol{\tilde{J}^{mdab}}
-    \boldsymbol{f}_b
+    &\dfrac{1}{S_iS_j}
+    \boldsymbol{f_i}^\dagger
+    \boldsymbol{\tilde{J}_{mdij}}
+    \boldsymbol{f_j}
     \cdot
-    \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
+    a_{mi}^{\dagger}a_{mi}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}
     -\\&-
-    \dfrac{1}{4S_b^{3/2}\sqrt{S_a}}
+    \dfrac{1}{4S_j^{3/2}\sqrt{S_i}}
     \Bigl[
-      (\boldsymbol{p}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{p}_b
+      \boldsymbol{p_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{p_j}
       \cdot
-      \hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
+      a_{mi}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}
       +
-      (\boldsymbol{p}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{t}_b
+      \boldsymbol{p_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{t_j}
       \cdot
-      \hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}
+      a_{mi}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}a_{m+d_{ij},j}
       +\\&+
-      (\boldsymbol{t}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{p}_b
+      \boldsymbol{t_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{p_j}
       \cdot
-      \hat{a}_{ma}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}
+      a_{mi}^{\dagger}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}
       +
-      (\boldsymbol{t}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{t}_b
+      \boldsymbol{t_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{t_j}
       \cdot
-      \hat{a}_{ma}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}
+      a_{mi}^{\dagger}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}a_{m+d_{ij},j}
     \Bigr]
     -\\&-
-    \dfrac{1}{4S_a^{3/2}\sqrt{S_b}}
+    \dfrac{1}{4S_i^{3/2}\sqrt{S_j}}
     \Bigl[
-      (\boldsymbol{p}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{p}_b
+      \boldsymbol{p_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{p_j}
       \cdot
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}
+      a_{mi}^{\dagger}a_{mi}a_{mi}a_{m+d_{ij},j}^{\dagger}
       +
-      (\boldsymbol{t}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{p}_b
+      \boldsymbol{t_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{p_j}
       \cdot
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}^{\dagger}
+      a_{mi}^{\dagger}a_{mi}^{\dagger}a_{mi}a_{m+d_{ij},j}^{\dagger}
       +\\&+
-      (\boldsymbol{p}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{t}_b
+      \boldsymbol{p_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{t_j}
       \cdot
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}
+      a_{mi}^{\dagger}a_{mi}a_{mi}a_{m+d_{ij},j}
       +
-      (\boldsymbol{t}_a)^{\dagger}
-      \boldsymbol{\tilde{J}^{mdab}}
-      \boldsymbol{t}_b
+      \boldsymbol{t_i}^\dagger
+      \boldsymbol{\tilde{J}_{mdij}}
+      \boldsymbol{t_j}
       \cdot
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{m+d_{ab},b}
+      a_{mi}^{\dagger}a_{mi}^{\dagger}a_{mi}a_{m+d_{ij},j}
     \Bigr]
   \Biggr\}

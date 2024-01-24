@@ -1,53 +1,53 @@
 .. math::
   &
-  \boldsymbol{R}(\theta_b,\phi_b)
-  \hat{\boldsymbol{s}}_{m+d_{ab},b}^{ferro}
+  \boldsymbol{R}(\theta_j,\phi_j)
+  \boldsymbol{s_{m+d_{ij},j}^{ferro}}
   =
-  S_b
+  S_j
   \left(
-    \boldsymbol{p}_b,
-    \boldsymbol{t}_b,
-    \boldsymbol{f}_b
+    \boldsymbol{p_j},
+    \boldsymbol{t_j},
+    \boldsymbol{f_j}
   \right)
   \begin{pmatrix}
-    \dfrac{1}{\sqrt{S_b}}
+    \dfrac{1}{\sqrt{S_j}}
     \cdot
     \left[
-      \hat{a}_{m+d_{ab},b}^{\dagger}
+      a_{m+d_{ij},j}^{\dagger}
       -
-      \dfrac{\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}}{4S_b}
+      \dfrac{a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}}{4S_j}
     \right]
     \\
-    \dfrac{1}{\sqrt{S_b}}
+    \dfrac{1}{\sqrt{S_j}}
     \cdot
     \left[
-      \hat{a}_{m+d_{ab},b}
+      a_{m+d_{ij},j}
       -
-      \dfrac{\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}}{4S_b}
+      \dfrac{a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}a_{m+d_{ij},j}}{4S_j}
     \right]
     \\
-    1 - \dfrac{\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}}{S_b}
+    1 - \dfrac{a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}}{S_j}
     \\
   \end{pmatrix}
   =\\&=
-  S_b
+  S_j
   \left[
-    \boldsymbol{f}_b
+    \boldsymbol{f_j}
     +
-    \dfrac{1}{\sqrt{S_b}}
+    \dfrac{1}{\sqrt{S_j}}
     \left(
-      \hat{a}_{m+d_{ab},b}^{\dagger}\boldsymbol{p}_b
+      a_{m+d_{ij},j}^{\dagger}\boldsymbol{p_j}
       +
-      \hat{a}_{m+d_{ab},b}\boldsymbol{t}_b
+      a_{m+d_{ij},j}\boldsymbol{t_j}
     \right)
     -
-    \dfrac{1}{S_b}
-    \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\boldsymbol{f}_b
+    \dfrac{1}{S_j}
+    a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}\boldsymbol{f_j}
     -
-    \dfrac{1}{4S_b^{3/2}}
+    \dfrac{1}{4S_j^{3/2}}
     \left(
-      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\boldsymbol{p}_b
+      a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}\boldsymbol{p_j}
       +
-      \hat{a}_{m+d_{ab},b}^{\dagger}\hat{a}_{m+d_{ab},b}\hat{a}_{m+d_{ab},b}\boldsymbol{t}_b
+      a_{m+d_{ij},j}^{\dagger}a_{m+d_{ij},j}a_{m+d_{ij},j}\boldsymbol{t_j}
     \right)
   \right]

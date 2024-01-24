@@ -16,56 +16,67 @@ Spin Hamiltonian
 
 Before we define the Hamiltonian let us define the system, which we are solving:
 
-* Let :math:`\boldsymbol{r}_m` :math:`(m = 1, ..., M)` be the Bravais lattice vectors
+* Let :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)` be the Bravais lattice vectors
   that define the position of each cell.
 * Each unit cell contains a set of :math:`N` atoms, located at the positions
-  :math:`\boldsymbol{r}_a` :math:`(a = 1, ..., N)` with respect to the position of the cell.
+  :math:`\boldsymbol{r_i}` :math:`(i = 1, ..., N)` with respect to the position of the cell.
   Therefore, each atom is located at the position
-  :math:`\boldsymbol{r}_{ma} = \boldsymbol{r}_m + \boldsymbol{r}_a`.
-* Each atom is characterized by the spin :math:`\boldsymbol{S}_{ma} = \hbar S_a \hat{S}_{ma}`.
+  :math:`\boldsymbol{r_{mi}} = \boldsymbol{r_m} + \boldsymbol{r_i}`.
+* Each atom is characterized by the spin vector
+  :math:`\boldsymbol{S_{mi}} = \hbar S_i \boldsymbol{\hat{S}_{mi}}`.
 
 The Hamiltonian is usually given in some coordinate frame, which we call
-a global :math:`xyz` reference frame. Then the Hamiltonian is given by:
+a global :math:`xyz` reference frame. Then the Hamiltonian is written as
 
 .. math::
   H
   =
-  \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ab}, a\ne b\vert_{\boldsymbol{d}_{ab} = \boldsymbol{0}}}
-  \boldsymbol{S}_{ma}^{\dagger} \boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})\boldsymbol{S}_{m+d,b}
-  + \sum_{m,a} \boldsymbol{S}_{ma}^{\dagger} \boldsymbol{A_a} \boldsymbol{S}_{ma}
-  + \mu_B\boldsymbol{H}^{\dagger}\sum_{m,a} g_a \boldsymbol{S}_{ma}
+  \dfrac{1}{2}
+  \sum_{m, \boldsymbol{d_{ij}}, i\ne j\vert_{\boldsymbol{d_{ij}} = \boldsymbol{0}}}
+  \boldsymbol{S_{mi}}^{\dagger}
+  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
+  \boldsymbol{S_{m+d_{ij},j}}
+  + \sum_{m,i}
+  \boldsymbol{S_{mi}}^{\dagger}
+  \boldsymbol{A_i}
+  \boldsymbol{S_{mi}}
+  +
+  \mu_B\boldsymbol{h}^{\dagger}
+  \sum_{m,i} g_i \boldsymbol{S_{mi}}
 
 .. dropdown:: Bra-ket notation
 
   .. math::
     H
     =
-    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ab}, a\ne b\vert_{\boldsymbol{d}_{ab} = \boldsymbol{0}}}
-    \langle S_{ma}\vert xyz\rangle
-    \langle xyz \vert J_{ab}(\boldsymbol{d}_{ab}) \vert xyz \rangle
-    \langle xyz \vert S_{m+d,b}\rangle
+    \dfrac{1}{2}
+    \sum_{m, \boldsymbol{d_{ij}}, i\ne j\vert_{\boldsymbol{d_{ij}} = \boldsymbol{0}}}
+    \langle S_{mi}\vert xyz\rangle
+    \langle xyz \vert J_{ij}(\boldsymbol{d_{ij}}) \vert xyz \rangle
+    \langle xyz \vert S_{m+d_{ij},j}\rangle
     +
-    \sum_{m,a} \langle S_{ma} \vert xyz \rangle
-    \langle xyz \vert A_a \vert xyz\rangle
-    \langle xyz \vert S_{ma} \rangle
+    \sum_{m,i} \langle S_{mi} \vert xyz \rangle
+    \langle xyz \vert A_i \vert xyz\rangle
+    \langle xyz \vert S_{mi} \rangle
     +
-    \mu_B\langle H\vert xyz\rangle\sum_{m,a} g_a
-    \langle xyz \vert S_{ma}\rangle
+    \mu_B\langle H\vert xyz\rangle
+    \sum_{m,i} g_i
+    \langle xyz \vert S_{mi}\rangle
 
-where vector :math:`\boldsymbol{d}_{ab} = \boldsymbol{r}_{m+d} - \boldsymbol{r}_m`  runs over the neighbors.
-:math:`\boldsymbol{J_{ab}}(\boldsymbol{d}_{ab})` is a :math:`3\times3` exchange matrix, which includes:
+where vector :math:`\boldsymbol{d_{ij}} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r_m}`  runs over the neighbors.
+:math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` exchange matrix, which includes:
 
 * Isotropic exchange:
 
   .. math::
 
-    J_{ab}^{iso} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ab}})}{3}
+    J_{ij}^{iso} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
 
 * Symmetric anisotropy:
 
   .. math::
 
-    \boldsymbol{J_{ab}^{aniso-symm}} = \dfrac{\boldsymbol{J_{ab}} + \boldsymbol{J_{ab}}^T}{2} - J_{ab}^{iso}\cdot \boldsymbol{I}
+    \boldsymbol{J_{ij}^{aniso-symm}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{iso}\cdot \boldsymbol{I}
 
   where :math:`\boldsymbol{I}` is a :math:`3\times3` identity matrix.
 
@@ -73,41 +84,41 @@ where vector :math:`\boldsymbol{d}_{ab} = \boldsymbol{r}_{m+d} - \boldsymbol{r}_
 
   .. math::
 
-    \boldsymbol{J_{ab}^{aniso-asymm}} = \dfrac{\boldsymbol{J_{ab}} - \boldsymbol{J_{ab}}^T}{2}
+    \boldsymbol{J_{ij}^{aniso-asymm}} = \dfrac{\boldsymbol{J_{ij}} - \boldsymbol{J_{ij}}^T}{2}
     =
     \begin{pmatrix}
-      0    & D_z  & -D_y \\
-      -D_z & 0    & D_x  \\
-      D_y  & -D_x & 0    \\
+      0    & D^z  & -D^y \\
+      -D^z & 0    & D^x  \\
+      D^y  & -D^x & 0    \\
     \end{pmatrix}
 
-  It is often described by the vector :math:`\boldsymbol{D} = (D_x,D_y,D_z)^T`.
+  It is often described by the vector :math:`\boldsymbol{D} = (D^x,D^y,D^z)^T`.
 
-:math:`\boldsymbol{A_a}` is a :math:`3\times3` on-site anisotropy matrix.
-The third term describes the Zeeman interaction with the external magnetic field.
+:math:`\boldsymbol{A_i}` is a :math:`3\times3` on-site anisotropy matrix.
+Third term describes the Zeeman interaction with the external magnetic field.
 
 .. note::
 
   * The double counting is explicitly present in the summation:
-    for the pair :math:`(m,a; m+d,b)` the pair :math:`(m+d,b; m,a)` is included.
+    for the pair :math:`(m,i; m+d_{ij},j)` the pair :math:`(m+d_{ij},j; m,i)` is included.
   * Spin vectors are not normalized.
 
 For the simplicity of the latter discussion we combine the exchange and anisotropy terms
 under one sum, defining
-:math:`\boldsymbol{A_a} = \dfrac{1}{2}\boldsymbol{J_{aa}}(\boldsymbol{d}_{aa}=\boldsymbol{0})`,
-then the Hamiltonian is written as:
+:math:`\boldsymbol{A_i} = \dfrac{1}{2}\boldsymbol{J_{ii}}(\boldsymbol{d}_{ii}=\boldsymbol{0})`,
+then the Hamiltonian is written as
 
 .. include:: repeated-formulas/hamiltonian-main-any.txt
 
 .. dropdown:: Bra-ket notation
 
   .. math::
-    H = \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ab}, a, b}
-    \langle S_{ma}\vert xyz\rangle
-    \langle xyz \vert J_{ab}(\boldsymbol{d}_{ab})\vert xyz \rangle
-    \langle xyz \vert S_{m+d,b} \rangle
-    + \mu_B \langle H \vert xyz\rangle\sum_{m,a} g_a
-    \langle xyz\vert S_{ma} \rangle
+    H = \dfrac{1}{2} \sum_{m, \boldsymbol{d_{ij}}, i, j}
+    \langle S_{mi}\vert xyz\rangle
+    \langle xyz \vert J_{ij}(\boldsymbol{d_{ij}})\vert xyz \rangle
+    \langle xyz \vert S_{m+d_{ij},j} \rangle
+    + \mu_B \langle H \vert xyz\rangle\sum_{m,i} g_i
+    \langle xyz\vert S_{mi} \rangle
 
 Symmetries of the Hamiltonian
 =============================

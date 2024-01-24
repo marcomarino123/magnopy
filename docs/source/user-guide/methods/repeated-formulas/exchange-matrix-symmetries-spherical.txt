@@ -1,25 +1,25 @@
 .. math::
   \begin{pmatrix}
-    J_{ab}^{++} & J_{ab}^{+-} & J_{ab}^{+n} \\
-    J_{ab}^{-+} & J_{ab}^{--} & J_{ab}^{-n} \\
-    J_{ab}^{n+} & J_{ab}^{n-} & J_{ab}^{nn} \\
+    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
+    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
+    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    J_{ab}^{++}     & J_{ab}^{+-}     & J_{ab}^{+n}     \\
-    (J_{ab}^{+-})^* & J_{ab}^{--}     & (J_{ab}^{+n})^* \\
-    J_{ab}^{n+}     & (J_{ab}^{n+})^* & J_{ab}^{nn}     \\
+    J_{ij}^{++}     & J_{ij}^{+-}     & J_{ij}^{+n}     \\
+    (J_{ij}^{+-})^* & J_{ij}^{--}     & (J_{ij}^{+n})^* \\
+    J_{ij}^{n+}     & (J_{ij}^{n+})^* & J_{ij}^{nn}     \\
   \end{pmatrix}
 
 .. math::
   \begin{pmatrix}
-    J_{ab}^{++} & J_{ab}^{+-} & J_{ab}^{+n} \\
-    J_{ab}^{-+} & J_{ab}^{--} & J_{ab}^{-n} \\
-    J_{ab}^{n+} & J_{ab}^{n-} & J_{ab}^{nn} \\
+    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
+    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
+    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    (J_{ba}^{++})^* & (J_{ba}^{-+})^* & (J_{ba}^{n+})^* \\
-    (J_{ba}^{+-})^* & (J_{ba}^{--})^* & (J_{ba}^{n-})^* \\
-    (J_{ba}^{+n})^* & (J_{ba}^{-n})^* & (J_{ba}^{nn})^* \\
+    (J_{ji}^{++})^* & (J_{ji}^{-+})^* & (J_{ji}^{n+})^* \\
+    (J_{ji}^{+-})^* & (J_{ji}^{--})^* & (J_{ji}^{n-})^* \\
+    (J_{ji}^{+n})^* & (J_{ji}^{-n})^* & (J_{ji}^{nn})^* \\
   \end{pmatrix}

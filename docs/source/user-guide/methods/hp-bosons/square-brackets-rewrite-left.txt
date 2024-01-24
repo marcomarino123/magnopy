@@ -1,50 +1,50 @@
 .. math::
   &
-  (\hat{\boldsymbol{s}}_{ma}^{ferro})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_a,\phi_a)
+  (\boldsymbol{s_{mi}^{ferro}})^\dagger
+  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   =
-  S_a
+  S_i
   \left(
-    \dfrac{1}{\sqrt{S_a}}
+    \dfrac{1}{\sqrt{S_i}}
     \cdot
     \left[
-      \hat{a}_{ma}
+      a_{mi}
       -
-      \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}}{4S_a}
+      \dfrac{a_{mi}^{\dagger}a_{mi}a_{mi}}{4S_i}
     \right],
-    \dfrac{1}{\sqrt{S_a}}
+    \dfrac{1}{\sqrt{S_i}}
     \cdot
     \left[
-      \hat{a}_{ma}^{\dagger}
+      a_{mi}^{\dagger}
       -
-      \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}}{4S_a}
+      \dfrac{a_{mi}^{\dagger}a_{mi}^{\dagger}a_{mi}}{4S_i}
     \right],
-    1 - \dfrac{\hat{a}_{ma}^{\dagger}\hat{a}_{ma}}{S_a}
+    1 - \dfrac{a_{mi}^{\dagger}a_{mi}}{S_i}
   \right)
   \begin{pmatrix}
-    (\boldsymbol{p}_a)^{\dagger} \\
-    (\boldsymbol{t}_a)^{\dagger} \\
-    (\boldsymbol{f}_a)^{\dagger} \\
+    \boldsymbol{p_i}^\dagger \\
+    \boldsymbol{t_i}^\dagger \\
+    \boldsymbol{f_i}^\dagger \\
   \end{pmatrix}
   =\\&=
-  S_a
+  S_i
   \left[
-    (\boldsymbol{f}_a)^{\dagger}
+    \boldsymbol{f_i}^\dagger
     +
-    \dfrac{1}{\sqrt{S_a}}
+    \dfrac{1}{\sqrt{S_i}}
     \left(
-      \hat{a}_{ma}(\boldsymbol{p}_a)^{\dagger}
+      a_{mi}\boldsymbol{p_i}^\dagger
       +
-      \hat{a}_{ma}^{\dagger}(\boldsymbol{t}_a)^{\dagger}
+      a_{mi}^{\dagger}\boldsymbol{t_i}^\dagger
     \right)
     -
-    \dfrac{1}{S_a}
-    \hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\boldsymbol{f}_a)^{\dagger}
+    \dfrac{1}{S_i}
+    a_{mi}^{\dagger}a_{mi}\boldsymbol{f_i}^\dagger
     -
-    \dfrac{1}{4S_a^{3/2}}
+    \dfrac{1}{4S_i^{3/2}}
     \left(
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}\hat{a}_{ma}(\boldsymbol{p}_a)^{\dagger}
+      a_{mi}^{\dagger}a_{mi}a_{mi}\boldsymbol{p_i}^\dagger
       +
-      \hat{a}_{ma}^{\dagger}\hat{a}_{ma}^{\dagger}\hat{a}_{ma}(\boldsymbol{t}_a)^{\dagger}
+      a_{mi}^{\dagger}a_{mi}^{\dagger}a_{mi}\boldsymbol{t_i}^\dagger
     \right)
   \right]

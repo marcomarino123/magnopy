@@ -16,21 +16,21 @@ Choice of the uvn reference frame
 
 The exchange and on-site anisotropy matrices are usually given in some global
 reference frame :math:`xyz`. However, majority of the derivation happens in the
-:math:`uvn` reference frame, which is defined by the cone axis :math:`\hat{n}`.
-The unit vectors :math:`\hat{u}` and :math:`\hat{v}` can be defined in a several
-ways due to the rotational freedom around :math:`\hat{n}` axis.
+:math:`uvn` reference frame, which is defined by the cone axis :math:`\boldsymbol{\hat{n}}`.
+The unit vectors :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` can be defined in a several
+ways due to the rotational freedom around :math:`\boldsymbol{\hat{n}}` axis.
 
-Here we explain which reference frame we choose given one unit vector :math:`\hat{n}`.
-The idea behind the choice is to rotate the :math:`\hat{z}` axis of the global reference
+Here we explain which reference frame we choose given one unit vector :math:`\boldsymbol{\hat{n}}`.
+The idea behind the choice is to rotate the :math:`\boldsymbol{\hat{z}}` axis of the global reference
 frame to the direction of the given unit vector:
 
 .. math::
 
-  \hat{n} =
+  \boldsymbol{\hat{n}} =
   \begin{pmatrix}
-    n_x \\
-    n_y \\
-    n_z \\
+    n^x \\
+    n^y \\
+    n^z \\
   \end{pmatrix} =
   \begin{pmatrix}
     \cos\beta\sin\alpha \\
@@ -42,25 +42,25 @@ frame to the direction of the given unit vector:
   :file: ../../../images/uvn-choice-n-angles.html
 
 .. note::
-  * The given unit vector is called :math:`\hat{n}`, because in the
+  * The given unit vector is called :math:`\boldsymbol{\hat{n}}`, because in the
     context of magnopy we will use the cone axis as a given vector.
-  * We rotate the :math:`\hat{z}` (not :math:`\hat{x}` nor :math:`\hat{y}`)
-    to match :math:`\hat{n}`, because in the context of magnopy we
+  * We rotate the :math:`\boldsymbol{\hat{z}}` (not :math:`\boldsymbol{\hat{x}}` nor :math:`\boldsymbol{\hat{y}}`)
+    to match :math:`\boldsymbol{\hat{n}}`, because in the context of magnopy we
     choose the cone axis to be the quantization axis.
-  * When :math:`\hat{n} = \pm\hat{z}` the angle :math:`\beta` is not well defined,
+  * When :math:`\boldsymbol{\hat{n}} = \pm\boldsymbol{\hat{z}}` the angle :math:`\beta` is not well defined,
     therefore, these two cases are treated separately.
 
-* If :math:`\hat{n} \ne \pm \hat{z}`, then
+* If :math:`\boldsymbol{\hat{n}} \ne \pm \boldsymbol{\hat{z}}`, then
   :math:`xyz` is rotated by the angle
-  :math:`\alpha` around the axis :math:`\hat{r}`
+  :math:`\alpha` around the axis :math:`\boldsymbol{\hat{r}}`
 
   .. dropdown:: Formulas
 
     .. math::
 
-      \hat{r}(\alpha,\beta)
+      \boldsymbol{\hat{r}}(\alpha,\beta)
       =
-      \dfrac{\hat{z}\times\hat{n}}{\vert\hat{z}\times\hat{n}\vert}
+      \dfrac{\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}}{\vert\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}\vert}
       =
       \begin{pmatrix}
         -\sin\beta \\
@@ -76,9 +76,9 @@ frame to the direction of the given unit vector:
       \boldsymbol{R_{rf}}(\alpha,\beta)
       =
       \begin{pmatrix}
-        1 - \dfrac{n_x^2}{1+n_z} & -\dfrac{n_xn_y}{1+n_z}   & n_x  \\
-        -\dfrac{n_xn_y}{1+n_z}   & 1 - \dfrac{n_y^2}{1+n_z} & n_y  \\
-        -n_x                     & -n_y                     & n_z  \\
+        1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\
+        -\dfrac{n^xn^y}{1+n^z}   & 1 - \dfrac{(n^y)^2}{1+n^z} & n^y  \\
+        -n^x                     & -n^y                     & n^z  \\
       \end{pmatrix}
       =\\&=
       \begin{pmatrix}
@@ -96,14 +96,14 @@ frame to the direction of the given unit vector:
     .. math::
 
       \begin{aligned}
-        \hat{u}
+        \boldsymbol{\hat{u}}
         &=
         \boldsymbol{R_{rf}} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
         =
         \begin{pmatrix}
-          1 - \dfrac{n_x^2}{1+n_z} \\
-          -\dfrac{n_xn_y}{1+n_z}   \\
-          -n_x                     \\
+          1 - \dfrac{(n^x)^2}{1+n^z} \\
+          -\dfrac{n^xn^y}{1+n^z}   \\
+          -n^x                     \\
         \end{pmatrix}
         =
         \begin{pmatrix}
@@ -112,14 +112,14 @@ frame to the direction of the given unit vector:
           -\cos\beta\sin\alpha                   \\
         \end{pmatrix}
         \\
-        \hat{v}
+        \boldsymbol{\hat{v}}
         &=
         \boldsymbol{R_{rf}} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
         =
         \begin{pmatrix}
-          -\dfrac{n_xn_y}{1+n_z}   \\
-          1 - \dfrac{n_y^2}{1+n_z} \\
-          -n_y                     \\
+          -\dfrac{n^xn^y}{1+n^z}   \\
+          1 - \dfrac{(n^y)^2}{1+n^z} \\
+          -n^y                     \\
         \end{pmatrix}
         =
         \begin{pmatrix}
@@ -128,14 +128,14 @@ frame to the direction of the given unit vector:
           -\sin\beta\sin\alpha                   \\
         \end{pmatrix}
         \\
-        \hat{n}
+        \boldsymbol{\hat{n}}
         &=
         \boldsymbol{R_{rf}} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
         =
         \begin{pmatrix}
-          n_x \\
-          n_y \\
-          n_z \\
+          n^x \\
+          n^y \\
+          n^z \\
         \end{pmatrix}
         =
         \begin{pmatrix}
@@ -148,7 +148,7 @@ frame to the direction of the given unit vector:
 .. raw:: html
   :file: ../../../images/uvn-choice-main-case.html
 
-* If :math:`\hat{n} = \pm\hat{z}`
+* If :math:`\boldsymbol{\hat{n}} = \pm\boldsymbol{\hat{z}}`
 
   .. dropdown:: Formulas
 
@@ -164,9 +164,9 @@ frame to the direction of the given unit vector:
       \boldsymbol{R_{rf}}(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
     .. math::
       \begin{aligned}
-        \hat{u} &= \hat{x}    \\
-        \hat{v} &= \pm\hat{y} \\
-        \hat{n} &= \pm\hat{z} \\
+        \boldsymbol{\hat{u}} &= \boldsymbol{\hat{x}}    \\
+        \boldsymbol{\hat{v}} &= \pm\boldsymbol{\hat{y}} \\
+        \boldsymbol{\hat{n}} &= \pm\boldsymbol{\hat{z}} \\
       \end{aligned}
 
 .. raw:: html

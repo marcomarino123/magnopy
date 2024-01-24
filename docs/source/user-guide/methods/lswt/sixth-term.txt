@@ -6,72 +6,72 @@ Now we move on to the full term of the sum:
 
 .. math::
   -\dfrac{1}{2}
-  \sum_{k}\sum_{k^{\prime}}\sum_{\boldsymbol{d}_{ab}, a, b}
-  S_a
+  \sum_{k}\sum_{k^{\prime}}\sum_{\boldsymbol{d_{ij}}, a, b}
+  S_i
   \Biggl(
-    &(\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\boldsymbol{f}_b
+    &(\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_0}\boldsymbol{f}_j
     \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\boldsymbol{f}_b
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_1}\boldsymbol{f}_j
     \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}-\boldsymbol{q}}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\boldsymbol{f}_b
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_2}\boldsymbol{f}_j
     \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}+\boldsymbol{q}}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\boldsymbol{f}_b
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_3}\boldsymbol{f}_j
     \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}-2\boldsymbol{q}}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\boldsymbol{f}_b
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_4}\boldsymbol{f}_j
     \delta_{\boldsymbol{k}^{\prime}, \boldsymbol{G}+\boldsymbol{k}+2\boldsymbol{q}}
   \Biggr)
   \cdot
-  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{d}_{ab}}
-  \hat{a}_{kb}^{\dagger}
-  \hat{a}_{k^{\prime}b}
+  e^{-i(\boldsymbol{k}-\boldsymbol{k}^{\prime})\boldsymbol{d_{ij}}}
+  a_{kb}^{\dagger}
+  a_{k^{\prime}b}
 
 Kronecker delta will restrict the sum over :math:`\boldsymbol{k}^{\prime}` and only the sum over
 :math:`\boldsymbol{k}` remains:
 
 .. math::
   -\dfrac{1}{2}
-  \sum_{k}\sum_{\boldsymbol{d}_{ab}, a, b}
-  S_a
+  \sum_{k}\sum_{\boldsymbol{d_{ij}}, a, b}
+  S_i
   \Biggl(
-    &(\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\boldsymbol{f}_b
-    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k, b}
+    &(\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_0}\boldsymbol{f}_j
+    e^{i\boldsymbol{G}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\boldsymbol{f}_b
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}
-    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k-q, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_1}\boldsymbol{f}_j
+    e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}
+    e^{i\boldsymbol{G}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k-q, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\boldsymbol{f}_b
-    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}
-    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k+q, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_2}\boldsymbol{f}_j
+    e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}
+    e^{i\boldsymbol{G}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k+q, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\boldsymbol{f}_b
-    e^{-i2\boldsymbol{q}\boldsymbol{d}_{ab}}
-    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k-2q, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_3}\boldsymbol{f}_j
+    e^{-i2\boldsymbol{q}\boldsymbol{d_{ij}}}
+    e^{i\boldsymbol{G}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k-2q, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\boldsymbol{f}_b
-    e^{i2\boldsymbol{q}\boldsymbol{d}_{ab}}
-    e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{\boldsymbol{G}+\boldsymbol{k}+2\boldsymbol{q}, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_4}\boldsymbol{f}_j
+    e^{i2\boldsymbol{q}\boldsymbol{d_{ij}}}
+    e^{i\boldsymbol{G}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{\boldsymbol{G}+\boldsymbol{k}+2\boldsymbol{q}, b}
   \Biggr)
 
-Since :math:`\boldsymbol{d}_{ab}` is a lattice vector (it is a difference between
+Since :math:`\boldsymbol{d_{ij}}` is a lattice vector (it is a difference between
 two lattice vectors, see :ref:`here <user-guide_methods_spinham>`), therefore,
 
 .. math::
-  e^{i\boldsymbol{G}\boldsymbol{d}_{ab}}
+  e^{i\boldsymbol{G}\boldsymbol{d_{ij}}}
   =
   e^{i2\pi n}
   =
@@ -81,30 +81,30 @@ where :math:`n \in \mathbb{Z}`
 
 .. math::
   -\dfrac{1}{2}
-  \sum_{k}\sum_{\boldsymbol{d}_{ab}, a, b}
-  S_a
+  \sum_{k}\sum_{\boldsymbol{d_{ij}}, a, b}
+  S_i
   \Biggl(
-    &(\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_0}\boldsymbol{f}_b
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k, b}
+    &(\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_0}\boldsymbol{f}_j
+    a_{kb}^{\dagger}
+    a_{G+k, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_1}\boldsymbol{f}_b
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k-q, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_1}\boldsymbol{f}_j
+    e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k-q, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_2}\boldsymbol{f}_b
-    e^{i\boldsymbol{q}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k+q, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_2}\boldsymbol{f}_j
+    e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k+q, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_3}\boldsymbol{f}_b
-    e^{-i2\boldsymbol{q}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{G+k-2q, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_3}\boldsymbol{f}_j
+    e^{-i2\boldsymbol{q}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{G+k-2q, b}
     +\\&+
-    (\boldsymbol{f}_a)^{\dagger}\boldsymbol{\tilde{J}^{dab}_4}\boldsymbol{f}_b
-    e^{i2\boldsymbol{q}\boldsymbol{d}_{ab}}
-    \hat{a}_{kb}^{\dagger}
-    \hat{a}_{\boldsymbol{G}+\boldsymbol{k}+2\boldsymbol{q}, b}
+    (\boldsymbol{f}_i)^{\dagger}\boldsymbol{\tilde{J}^{dij}_4}\boldsymbol{f}_j
+    e^{i2\boldsymbol{q}\boldsymbol{d_{ij}}}
+    a_{kb}^{\dagger}
+    a_{\boldsymbol{G}+\boldsymbol{k}+2\boldsymbol{q}, b}
   \Biggr)

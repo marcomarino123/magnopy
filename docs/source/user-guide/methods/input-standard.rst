@@ -81,7 +81,7 @@ Atoms
 
   - ``Atoms`` keyword. Indicate the interpretation of the section.
   - ``<Units>``. One of the predefined units for the atom coordinates.
-    Allowed keyword values:
+    Allowed keyword values are
 
     - "Relative" (default)
 
@@ -157,7 +157,7 @@ Parameters
 
   - ``Parameters`` keyword. Indicate the interpretation of the section.
   - ``<Units>``. One of the predefined units for the Hamiltonian parameters.
-    Allowed keyword values:
+    Allowed keyword values are
 
     - meV -  :math:`10^{-3}` electron-Volt (default)
     - eV -  electron-Volt
@@ -184,6 +184,10 @@ Specification of the bond:
     Jxx Jxy Jxz
     Jyx Jyy Jyz
     Jzx Jzy Jzz>
+    <Symmetric anisotropy
+    Sxx Sxy Sxz
+    Sxy Syy Syz
+    Sxz Syz Szz>
     <DMI Dx Dy Dz>
 
 * line 1:
@@ -196,7 +200,11 @@ Specification of the bond:
 * line 2: (optional) Keyword ``Matrix``. Indicates that next three
   non-empty and non-comment lines give the full matrix of the parameter.
 * line 3-5: (optional) Full parameter matrix.
-* line 6: (optional) DMI vector:
+* line 2: (optional) Keyword ``Symmetric anisotropy``. Indicates that next three
+  non-empty and non-comment lines give the symmetric anisotropic part of the parameter's matrix.
+  Note: This matrix has to be traceless.
+* line 7-8: (optional) Full parameter matrix.
+* line 10: (optional) DMI vector:
 
   - ``DMI`` keyword
   - x component
@@ -209,3 +217,5 @@ Additional rules:
   matrix is overwritten.
 * If both ``Matrix`` and ``isotropic parameter`` are given, then
   isotropic part of the matrix is overwritten.
+* If both ``Matrix`` and ``Symmetric anisotropy`` are given, then
+  symmetric anisotropic part of the matrix is overwritten.

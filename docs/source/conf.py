@@ -176,6 +176,7 @@ custom_links = {
         "DOI: 10.1103/PhysRev.58.1098",
         "https://doi.org/10.1103/PhysRev.58.1098",
     ),
+    "UTF-8": ("utf-8", "https://en.wikipedia.org/wiki/UTF-8"),
 }
 rst_epilog += "\n".join(
     map(

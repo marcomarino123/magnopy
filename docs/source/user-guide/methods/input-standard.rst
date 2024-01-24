@@ -4,12 +4,26 @@
 Specification of the input file
 *******************************
 
-* File is expected to have ``utf-8`` encoding.
-* Line is considered to be blank if it consists of any number of spaces (U+0020).
+* File is expected to have |utf-8|_ encoding.
+* Line is considered to be blank if there are no other characters but any number of spaces (U+0020).
 * All blank lines are ignored.
-* If the character ``#`` (U+0023) is read than all symbols until the next
-  line symbol are ignored.
-* Comment lines can appear at any line of the file.
+* Character ``#`` (U+0023) is used for comments. If it is read than all symbols until
+  the next line symbol are ignored. Comments can appear anywhere, even inside a section
+  provided that they do not break the format. An example for the "Cell" section is
+  provided below
+
+  .. code-block:: text
+    :linenos:
+
+    ==========
+    # Comment line
+    Cell <Units> <Scale>
+    a_x a_y a_z # Inline comment
+    b_x b_y b_z
+    # Comment line
+    c_x c_y c_z
+    ==========
+
 * Sections are separated by 10 or more consecutive ``=`` (U+003D) symbols.
 * Subsections inside each section are separated by 10 or more ``-`` (U+002D) symbols.
 * All keywords are case-insensitive.
@@ -18,6 +32,9 @@ Specification of the input file
 
 Sections
 ========
+
+
+
 
 .. note::
   If keyword name is enclosed as <keyword>, then it is optional.

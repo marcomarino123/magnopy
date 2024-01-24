@@ -7,9 +7,9 @@
   \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   \left[
   \sum_{m}
-  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{R}^{\dagger}(\phi_m)
   \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_{m+d_{ij}})
+  \boldsymbol{R}(\phi_{m+d_{ij}})
   \right]
   \boldsymbol{R}(\theta_j,\phi_j)
   \boldsymbol{S_j^{ferro}}

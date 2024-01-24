@@ -252,7 +252,7 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_i,\phi_i)`
 
 .. include:: repeated-formulas/spin-rotation-matrix-spherical.txt
 
-Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
+Rotation matrix :math:`\boldsymbol{R}(\phi_m)`
 ------------------------------------------------
 
 .. dropdown:: Details
@@ -264,14 +264,14 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
   Then we compute the transformation:
 
   .. math::
-    &\langle u^+u^-n \vert R(\theta_m) \vert u^+u^-n \rangle
+    &\langle u^+u^-n \vert R(\phi_m) \vert u^+u^-n \rangle
     =
     \langle u^+u^-n \vert uvn \rangle
-    \langle uvn \vert R(\theta_m) \vert uvn \rangle
+    \langle uvn \vert R(\phi_m) \vert uvn \rangle
     \langle uvn \vert u^+u^-n \rangle
     =\\&=
     \langle uvn \vert T^{\dagger} \vert uvn \rangle
-    \langle uvn \vert R(\theta_m) \vert uvn \rangle
+    \langle uvn \vert R(\phi_m) \vert uvn \rangle
     \langle uvn \vert T \vert uvn \rangle
 
   The exact form of this matrix will be useful later:
@@ -284,8 +284,8 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
       0 &  0 & \sqrt{2} \\
     \end{pmatrix}
     \begin{pmatrix}
-      \cos(\theta_m) & -\sin(\theta_m) & 0 \\
-      \sin(\theta_m) & \cos(\theta_m)  & 0 \\
+      \cos(\phi_m) & -\sin(\phi_m) & 0 \\
+      \sin(\phi_m) & \cos(\phi_m)  & 0 \\
       0              & 0               & 1 \\
     \end{pmatrix}
     \begin{pmatrix}
@@ -296,11 +296,11 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
     =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
-      \cos\theta_m - i\sin\theta_m  &
-      -\sin\theta_m - i\cos\theta_m &
+      \cos\phi_m - i\sin\phi_m  &
+      -\sin\phi_m - i\cos\phi_m &
       0                             \\
-      \cos\theta_m + i\sin\theta_m  &
-      -\sin\theta_m + i\cos\theta_m &
+      \cos\phi_m + i\sin\phi_m  &
+      -\sin\phi_m + i\cos\phi_m &
       0                             \\
       0                             &
       0                             &
@@ -314,8 +314,8 @@ Rotation matrix :math:`\boldsymbol{R}(\theta_m)`
     =\\&=
     \dfrac{1}{2}
     \begin{pmatrix}
-      2e^{-i\theta_m} & 0              & 0 \\
-      0               & 2e^{i\theta_m} & 0 \\
+      2e^{-i\phi_m} & 0              & 0 \\
+      0               & 2e^{i\phi_m} & 0 \\
       0               & 0              & 2 \\
     \end{pmatrix}
 

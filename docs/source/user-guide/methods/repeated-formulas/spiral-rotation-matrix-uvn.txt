@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
   =
   \boldsymbol{R}(\boldsymbol{q}\cdot\boldsymbol{r_m})
   =
@@ -10,7 +10,7 @@
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \cos(\theta_m) & -\sin(\theta_m) & 0 \\
-    \sin(\theta_m) & \cos(\theta_m)  & 0 \\
+    \cos(\phi_m) & -\sin(\phi_m) & 0 \\
+    \sin(\phi_m) & \cos(\phi_m)  & 0 \\
     0              & 0               & 1 \\
   \end{pmatrix}

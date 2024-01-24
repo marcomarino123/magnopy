@@ -5,9 +5,9 @@
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
   (\boldsymbol{s_{mi}^{ferro}})^{\dagger}
   \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
-  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{R}^{\dagger}(\phi_m)
   \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_{m+d_{ij}})
+  \boldsymbol{R}(\phi_{m+d_{ij}})
   \boldsymbol{R}(\theta_j,\phi_j)
   \boldsymbol{s_{m+d_{ij},j}^{ferro}}
   +
@@ -15,6 +15,6 @@
   \boldsymbol{h}^{\dagger}
   \sum_{m,i}
   g_i
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
   \boldsymbol{R}(\theta_i,\phi_i)
   \boldsymbol{s_{mi}^{ferro}}

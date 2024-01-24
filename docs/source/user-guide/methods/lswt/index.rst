@@ -45,17 +45,17 @@ We recall the symmetries of the exchange matrices:
 And then apply hermitian conjugate to the whole expression:
 
 .. math::
-  (\boldsymbol{R}^{\dagger}(\theta_m)
+  (\boldsymbol{R}^{\dagger}(\phi_m)
   \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_{m+d_{ij}}))^{\dagger}
+  \boldsymbol{R}(\phi_{m+d_{ij}}))^{\dagger}
   =
-  \boldsymbol{R}^{\dagger}(\theta_{m+d_{ij}})
+  \boldsymbol{R}^{\dagger}(\phi_{m+d_{ij}})
   \boldsymbol{J_{ij}}^{\dagger}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
   =
-  \boldsymbol{R}^{\dagger}(\theta_{m+d_{ij}})
+  \boldsymbol{R}^{\dagger}(\phi_{m+d_{ij}})
   \boldsymbol{J_{ji}}(\boldsymbol{d_{ji}})
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
 
 
 Hermicity

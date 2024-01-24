@@ -47,9 +47,9 @@ Let us separate the summation over cites in unit cell and over unit cells:
   \sum_{\boldsymbol{d_{ij}}}
   \left[
   \sum_{m}
-  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{R}^{\dagger}(\phi_m)
   \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_{m+d_{ij}})
+  \boldsymbol{R}(\phi_{m+d_{ij}})
   \right]
   \boldsymbol{R}(\theta_j,\phi_j)
   \boldsymbol{S_j^{ferro}}
@@ -60,7 +60,7 @@ Let us separate the summation over cites in unit cell and over unit cells:
   \left[
   \sum_{m}
   \boldsymbol{h_{mi}}^{\dagger}
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
   \right]
   \boldsymbol{R}(\theta_i,\phi_i)
   \boldsymbol{S_{i}^{ferro}}
@@ -159,7 +159,7 @@ Next we turn our attention to the Zeeman term:
   \left[
   \sum_{m}
   \boldsymbol{h_{mi}}^{\dagger}
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
   \right]
   \boldsymbol{R}(\theta_i,\phi_i)
   \boldsymbol{S_{i}^{ferro}}

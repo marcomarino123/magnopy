@@ -1,7 +1,7 @@
 .. math::
-  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{R}^{\dagger}(\phi_m)
   \boldsymbol{J}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_{m+d_{ij}})
+  \boldsymbol{R}(\phi_{m+d_{ij}})
   =
   \begin{pmatrix}
     J_{ij}^{++}e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}              &

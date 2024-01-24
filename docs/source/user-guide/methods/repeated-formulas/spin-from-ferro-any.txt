@@ -1,7 +1,7 @@
 .. math::
   \boldsymbol{S_{mi}}
   =
-  \boldsymbol{R}(\theta_m)
+  \boldsymbol{R}(\phi_m)
   \boldsymbol{R}(\theta_i,\phi_i)
   \boldsymbol{S_{mi}^{ferro}}
   =

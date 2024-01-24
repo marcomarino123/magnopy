@@ -20,7 +20,7 @@ Single-:math:`\boldsymbol{q}` conical state can be described by two vectors:
   :ref:`user-guide_methods_uvn-choice`, therefore, the cone axis :math:`\boldsymbol{\hat{n}}`
   is one of the reference frame axes.
 * Spiral vector :math:`\boldsymbol{q}`. It defines the phase as:
-  :math:`\theta_m = \boldsymbol{q}\cdot\boldsymbol{r_m}`.
+  :math:`\phi_m = \boldsymbol{q}\cdot\boldsymbol{r_m}`.
 
 
 Spiral rotation matrix

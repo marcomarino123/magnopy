@@ -1,23 +1,23 @@
 Let us define:
 
 - :math:`\theta^u_m = \boldsymbol{q^u}\boldsymbol{r_m}`
-- :math:`\theta_m = \boldsymbol{q}\boldsymbol{r_m}`
+- :math:`\phi_m = \boldsymbol{q}\boldsymbol{r_m}`
 - :math:`\phi^{\pm} = \phi_i^u \pm \phi_i`
-- :math:`\theta_m^{\pm} = \theta_m^u \pm \theta_m`
+- :math:`\phi_m^{\pm} = \phi_m^u \pm \phi_m`
   and
   :math:`\boldsymbol{q^{\pm}}_m = \boldsymbol{q^u}_m \pm \boldsymbol{q}_m`
 
 .. math::
   &\sum_m
-  h_{mi}^u\cos(\theta_m+\phi_i)
+  h_{mi}^u\cos(\phi_m+\phi_i)
   =
   h^u\cos(\theta^u_m+\phi_i^u)
-  \cos(\theta_m+\phi_i)
+  \cos(\phi_m+\phi_i)
   =\\&=
   h^u\sum_m
   \dfrac{1}{4}
   (e^{i(\theta^u_m+\phi_i^u)}+e^{-i(\theta^u_m+\phi_i^u)})
-  (e^{i(\theta_m+\phi_i)}+e^{-i(\theta_m+\phi_i)})
+  (e^{i(\phi_m+\phi_i)}+e^{-i(\phi_m+\phi_i)})
   =\\&=
   h^u\sum_m
   \dfrac{1}{4}

@@ -106,9 +106,9 @@ spherical basis. We split the Hamiltonian into three parts as following:
   \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
   \right]
   \left[
-  \boldsymbol{R}^{\dagger}(\theta_m)
+  \boldsymbol{R}^{\dagger}(\phi_m)
   \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\theta_{m+d_{ij}})
+  \boldsymbol{R}(\phi_{m+d_{ij}})
   \right]
   \left[
   \boldsymbol{R}(\theta_j,\phi_j)

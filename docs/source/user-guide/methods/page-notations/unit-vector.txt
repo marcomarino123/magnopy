@@ -1,11 +1,7 @@
-:math:`\hat{r}` is a unit vector, corresponding to the vector
-:math:`\boldsymbol{r}` in Euclidean space:
+Unit vectors are denoted by a hat. An example is
 
 .. math::
 
   \hat{r} = \dfrac{\boldsymbol{r}}{r},
 
-where :math:`r` is a length of the vector :math:`\boldsymbol{r}`.
-
-.. note::
-  Unit vector notations coincides with the notation for the linear operators.
+where :math:`r` is a modulus of the vector :math:`\boldsymbol{r}`.

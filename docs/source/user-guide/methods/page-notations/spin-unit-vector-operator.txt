@@ -1,2 +1,0 @@
-For the spin vector :math:`\boldsymbol{S}` we use capital letter and a hat for the unit vector:
-:math:`\hat{S}` and small letter and a hat for the spin operator: :math:`\hat{s}`.

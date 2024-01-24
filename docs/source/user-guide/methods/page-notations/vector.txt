@@ -1,7 +1,11 @@
-:math:`\boldsymbol{r}` is a vector in 3D Euclidean space.
-In some coordinate system it is represented by a *column* of coordinates:
+Classical vectors are denoted by bold small letters.
+Their coordinates are written in column form. An example is
 
-* :math:`\boldsymbol{r} = (r_x, r_y, r_z)^T` - in some :math:`xyz` reference frame.
-* :math:`\boldsymbol{r} = (r_u, r_v, r_n)^T` - in some :math:`uvn` reference frame.
+.. math::
+  \boldsymbol{r} = (r^x, r^y, r^z)^T= \begin{pmatrix} r^x\\r^y\\r^z\end{pmatrix}
 
-In the majority of cases small letters are used for vectors.
+Arbitrary components of a vector are denoted by greek letter superindices. An example is :math:`r^\alpha`.
+
+Exceptions are spin vectors that are denoted by capital bold letters :math:`{\bf S}` to
+conform with
+the usual notation.

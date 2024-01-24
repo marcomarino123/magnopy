@@ -132,7 +132,7 @@ Notation
 --------
 
 .. code-block:: text
-  :lineos:
+  :linenos:
 
   ==========
   Notation

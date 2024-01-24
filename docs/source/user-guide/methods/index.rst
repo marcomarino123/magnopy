@@ -7,6 +7,7 @@ Methods and algorithms
 .. toctree::
   :maxdepth: 1
 
+  notation
   bra-ket
 
 .. toctree::

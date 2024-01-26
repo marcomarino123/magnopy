@@ -102,11 +102,17 @@ if __name__ == "__main__":
             if control_word.lower().startswith("l"):
                 print("Files that supposed to pass:")
                 print(
-                    "  " + "\n  ".join(["pass/" + basename(f) for f in inputs_to_pass])
+                    "  "
+                    + "\n  ".join(
+                        sorted(["pass/" + basename(f) for f in inputs_to_pass])
+                    )
                 )
                 print("Files that supposed to fail:")
                 print(
-                    "  " + "\n  ".join(["fail/" + basename(f) for f in inputs_to_fail])
+                    "  "
+                    + "\n  ".join(
+                        sorted(["fail/" + basename(f) for f in inputs_to_fail])
+                    )
                 )
             elif control_word.lower().startswith("q"):
                 break

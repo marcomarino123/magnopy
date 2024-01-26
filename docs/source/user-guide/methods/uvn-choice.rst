@@ -17,7 +17,8 @@ Magnopy assumes that the ground state spin arrangement follows a conical configu
 where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`. The program
 goes on and quantizes the atomic spins along :math:`\boldsymbol{n}`.
 
-However, the exchange :math:`J` and on-site anisotropy :math:`A` tensors are usually
+However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
+:math:`\boldsymbol{A}` tensors are usually
 provided in a different global reference frame, say
 :math:`xyz=(\boldsymbol{\hat{x}},\boldsymbol{\hat{y}},\boldsymbol{\hat{z}})`,
 where neither of these three unit vectors is collinear to :math:`\boldsymbol{n}`.

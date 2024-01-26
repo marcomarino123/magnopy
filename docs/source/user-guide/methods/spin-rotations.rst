@@ -14,113 +14,94 @@ Spin rotations
   * .. include:: page-notations/cross-product.txt
   * .. include:: page-notations/in-uvn.txt
 
-Given a spin vector :math:`\boldsymbol{S_i} = S_i\cdot\boldsymbol{\hat{S}_i}`, we define its direction
-with two angles: :math:`\theta_i` and :math:`\phi_i`.
+A key technical tool is the ability to rotate any atomic spin vector
+:math:`\boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}_i}` into
+the unit vector :math:`\hat{\boldsymbol{n}}`, that determines
+the cone axis of the conical state.
+
+.. raw:: html
+  :file: ../../../images/spin-rotations-symmetric.html
+
+The figure above  shows that the atomic spin vector direction in the :math:`(\,u\,v\,n\,)`
+reference frame is determined by the angles :math:`\theta_i` and :math:`\phi_i`,
+so that the unit vector components are
 
 .. math::
-  \boldsymbol{S_i}
+  \hat{\boldsymbol{S_i}}
   =
-  S_i\cdot
   \begin{pmatrix}
     \sin\theta_i\cos\phi_i \\
     \sin\theta_i\sin\phi_i \\
     \cos\theta_i           \\
   \end{pmatrix}
 
-
-.. raw:: html
-  :file: ../../../images/spin-rotations-symmetric.html
-
-Any direction of the spin vector can be produced from the direction of the
-vector :math:`\boldsymbol{n}` by a rotation around the vector :math:`\boldsymbol{\hat{r}}` by
-the angle :math:`\theta_i`, similarly to how it was done for the reference
-frame change in :ref:`user-guide_methods_uvn-choice`:
+Then :math:`\hat{\boldsymbol{S_i}}` can be obtained by rotating :math:`\boldsymbol{n}`
+about the perpendicular unit vector :math:`\boldsymbol{\hat{r}_i}`
+by the angle :math:`\theta_i`,
 
 .. math::
-  \boldsymbol{\hat{r}}
+  \hat{\boldsymbol{S_i}} = \boldsymbol{R_i}\,\boldsymbol{\hat{n}}
+
+where
+
+.. math::
+  \boldsymbol{\hat{r}_i}
   =
-  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S_i}}{\vert\boldsymbol{\hat{n}} \times \boldsymbol{S_i}\vert}
+  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S_i}}{|\,\boldsymbol{\hat{n}} \times \boldsymbol{S_i}\,|}
   =
-  \begin{pmatrix}
-    -\sin\phi_i \\
-    \cos\phi_i  \\
-    0           \\
-  \end{pmatrix}
+  \begin{pmatrix} -\sin\phi_i \\ \cos\phi_i  \\ 0  \\ \end{pmatrix}
 
 .. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
 
 
-Then the spin vector in the :math:`\vert uvn\rangle` reference frame can be written as:
-
-.. math::
-  \boldsymbol{S_i}
-  =
-  \boldsymbol{R}(\theta_i, \phi_i)\boldsymbol{S_i^{ferro}}
-  =
-  S_i\cdot \boldsymbol{R}(\theta_i, \phi_i)\boldsymbol{\hat{S}_i^{ferro}}
-  =
-  S_i\cdot \boldsymbol{R}(\theta_i, \phi_i)\boldsymbol{\hat{n}}
-
 .. dropdown:: Bra-ket notation
 
   .. math::
-    \langle uvn \vert S_i\rangle
+    \braket{\,u\, v\,n\,|\,S_i\,}
     =
-    \langle uvn \vert R(\theta_i, \phi_i) \vert S_i^{ferro} \rangle
+    \braket{\,u\, v\,n\, |\, \boldsymbol{R}_i\,|\, \hat{\boldsymbol{n}} }
     =
-    \langle uvn \vert R(\theta_i, \phi_i) \vert uvn \rangle
-    \langle uvn \vert S_i^{ferro} \rangle
-    =
-    S_i
-    \cdot
-    \langle uvn \vert R(\theta_i, \phi_i) \vert uvn \rangle
-    \langle uvn \vert n \rangle
-
+    \braket{\,u\, v\,n\, |\, \boldsymbol{R}_i\,|\,u\, v\,n\,} \,
+    \braket{\,u\, v\,n\,|\,  \hat{\boldsymbol{n}} }
 
 .. dropdown:: Alternative rotation
 
-  Alternatively one can define two consecutive rotations:
-
-  .. math::
-    \boldsymbol{S_i}
-    =
-    \boldsymbol{R}(\phi_i) \boldsymbol{R}(\theta_i) \boldsymbol{S_i^{ferro}}
-    =
-    e^{\phi_i\boldsymbol{\hat{n}}\times} e^{\theta_i\boldsymbol{\hat{v}}\times} \boldsymbol{S_i^{ferro}}
-
-  With the rotation matrices defined as:
-
-  .. math::
-    \begin{matrix}
-      \boldsymbol{R}(\theta_i)
-      =
-      \begin{pmatrix}
-        \cos\theta_i  & 0 & \sin\theta_i \\
-        0           & 1 & 0              \\
-        -\sin\theta_i & 0 & \cos\theta_i \\
-      \end{pmatrix};
-      &
-      \boldsymbol{R}(\phi_i)
-      =
-      \begin{pmatrix}
-        \cos\phi_i & -\sin\phi_i & 0 \\
-        \sin\phi_i & \cos\phi_i  & 0 \\
-        0        & 0         & 1     \\
-      \end{pmatrix}
-    \end{matrix}
-
-  .. math::
-      \boldsymbol{R^{\prime}}(\theta_i,\phi_i)
-      =
-      \boldsymbol{R}(\phi_i) \boldsymbol{R}(\theta_i) =
-      \begin{pmatrix}
-        \cos\phi_i\cdot\cos\theta_i & -\sin\phi_i & \cos\phi_i\cdot\sin\theta_i \\
-        \sin\phi_i\cdot\cos\theta_i & \cos\phi_i  & \sin\phi_i\cdot\sin\theta_i \\
-        -\sin\theta_i               & 0           & \cos\theta_i                \\
-      \end{pmatrix}
+  Alternatively one can rotate :math:`\boldsymbol{\hat{n}}` first about the
+  :math:`\boldsymbol{\hat{v}}` axis by an angle :math:`\bar{\theta}_i`
+  and afterwards about :math:`\boldsymbol{\hat{n}}` by an angle
+  :math:`\bar{\phi}_i` as shown in the figure
 
   .. raw:: html
     :file: ../../../images/spin-rotations-simple.html
 
+  .. math::
+    \boldsymbol{\hat{S}_i}
+    =
+    \boldsymbol{R}(\bar{\phi}_i) \,\boldsymbol{R}(\bar{\theta}_i) \,\boldsymbol{\hat{n}}
+    =
+    e^{\bar{\phi}_i\,\boldsymbol{\hat{n}}\,\times}\, e^{\bar{\theta}_i\,\boldsymbol{\hat{v}}\,\times}
+    \, \boldsymbol{\hat{n}}
+
+  where the rotation matrices are
+
+  .. math::
+    \begin{matrix}
+      \boldsymbol{R}(\bar{\theta}_i)
+      =
+      \begin{pmatrix}
+        \cos\bar{\theta}_i  & 0 & \sin\bar{\theta}_i \\
+        0           & 1 & 0              \\
+        -\sin\bar{\theta}_i & 0 & \cos\bar{\theta}_i \\
+      \end{pmatrix};
+      &
+      \boldsymbol{R}(\bar{\phi}_i)
+      =
+      \begin{pmatrix}
+        \cos\bar{\phi}_i & -\sin\bar{\phi}_i & 0 \\
+        \sin\bar{\phi}_i & \cos\bar{\phi}_i  & 0 \\
+        0        & 0         & 1     \\
+      \end{pmatrix}
+    \end{matrix}
+
   .. note::
-    We will NOT use the alternative rotation in the following pages.
+    This alternative rotation is NOT used in Magnopy.

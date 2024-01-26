@@ -17,24 +17,29 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 __all__ = [
-    "BOHR_TO_ANGSTROM",
-    "ANGSTROM_TO_BOHR",
-    "JOULE_TO_meV",
-    "meV_TO_JOULE",
-    "K_TO_meV",
-    "meV_TO_K",
-    "Ry_TO_meV",
-    "meV_TO_Ry",
+    "BOHR",
+    "ANGSTROM",
+    "JOULE",
+    "MILLI_ELECTRON_VOLT",
+    "KELVIN",
+    "ELECTRON_VOLT",
+    "RYDBERG",
 ]
 
-BOHR_TO_ANGSTROM = 0.529177210903
-ANGSTROM_TO_BOHR = 1 / BOHR_TO_ANGSTROM
+# Internal units are:
+# - Angstrom for length
+# - meV for parameters
+# Bohr magneton for spins/magnetization
 
-JOULE_TO_meV = 6.241509074e21
-meV_TO_JOULE = 1 / JOULE_TO_meV
+# In this module we list all other supported unit in terms of the internal ones.
 
-meV_TO_K = 11.60451812
-K_TO_meV = 1 / meV_TO_K
+# Length conversion
+BOHR = 0.529177210903  # Angstrom
+ANGSTROM = 1  # Angstrom
 
-Ry_TO_meV = 13605.693122994
-meV_TO_Ry = 1 / Ry_TO_meV
+# Energy conversion
+JOULE = 6.241509074e21  # meV
+MILLI_ELECTRON_VOLT = 1  # meV
+ELECTRON_VOLT = 1e3  # mev
+KELVIN = 1 / 11.60451812  # meV
+RYDBERG = 13605.693122994  # meV

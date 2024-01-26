@@ -48,10 +48,13 @@ install:
 	@python3 -m pip install .
 
 test:
-	@pytest -s
+	@pytest -s -o log_cli=true -o log_cli_level=DEBUG
 
 pictures-for-docs:
 	@python3 docs/images/scripts/uvn-choice.py -rd .
 	@python3 docs/images/scripts/spin-rotations.py -rd .
 	@python3 docs/images/scripts/single-q.py -rd .
 	@python3 docs/images/scripts/minimization-exchange.py -rd .
+
+model-input-examples-run:
+	@python3 utests/io/test_verify.py

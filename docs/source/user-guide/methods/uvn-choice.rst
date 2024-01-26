@@ -13,50 +13,39 @@ Choice of the uvn reference frame
   * .. include:: page-notations/cross-product.txt
   * .. include:: page-notations/in-xyz.txt
 
+Magnopy assumes that the ground state spin arrangement follows a conical configuration,
+where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`. The program
+goes on and quantizes the atomic spins along :math:`\boldsymbol{n}`.
 
-The exchange and on-site anisotropy matrices are usually given in some global
-reference frame :math:`xyz`. However, majority of the derivation happens in the
-:math:`uvn` reference frame, which is defined by the cone axis :math:`\boldsymbol{\hat{n}}`.
-The unit vectors :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` can be defined in a several
-ways due to the rotational freedom around :math:`\boldsymbol{\hat{n}}` axis.
+However, the exchange :math:`J` and on-site anisotropy :math:`A` tensors are usually
+provided in a different global reference frame, say
+:math:`xyz=(\boldsymbol{\hat{x}},\boldsymbol{\hat{y}},\boldsymbol{\hat{z}})`,
+where neither of these three unit vectors is collinear to :math:`\boldsymbol{n}`.
+A rotation is therefore performed on :math:`J` and :math:`A` from :math:`xyz` to
+a new reference frame :math:`uvn`, where there is freedom to choose the unit
+vectors :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` due to
+the rotational symmetry of the system about the :math:`\boldsymbol{\hat{n}}` cone axis.
 
-Here we explain which reference frame we choose given one unit vector :math:`\boldsymbol{\hat{n}}`.
-The idea behind the choice is to rotate the :math:`\boldsymbol{\hat{z}}` axis of the global reference
-frame to the direction of the given unit vector:
-
-.. math::
-
-  \boldsymbol{\hat{n}} =
-  \begin{pmatrix}
-    n^x \\
-    n^y \\
-    n^z \\
-  \end{pmatrix} =
-  \begin{pmatrix}
-    \cos\beta\sin\alpha \\
-    \sin\beta\sin\alpha \\
-    \cos\alpha          \\
-  \end{pmatrix}
+Let :math:`\boldsymbol{\hat{r}}` be a vector perpendicular to both
+:math:`\boldsymbol{\hat{z}}` and :math:`\boldsymbol{\hat{n}}`. Then
+:math:`\boldsymbol{\hat{z}}` is brought to :math:`\boldsymbol{\hat{n}}` by performing
+a rotation :math:`\boldsymbol{R_r}` of magnitude :math:`\alpha` about
+:math:`\boldsymbol{\hat{r}}`. We choose  the :math:`uvn` reference systems by performing
+this same rotation :math:`\boldsymbol{R_{r}}` over all the three unit vectors of
+the :math:`xyz` reference frame.
 
 .. raw:: html
-  :file: ../../../images/uvn-choice-n-angles.html
+  :file: ../../../images/uvn-choice-main-case.html
 
-.. note::
-  * The given unit vector is called :math:`\boldsymbol{\hat{n}}`, because in the
-    context of magnopy we will use the cone axis as a given vector.
-  * We rotate the :math:`\boldsymbol{\hat{z}}` (not :math:`\boldsymbol{\hat{x}}` nor :math:`\boldsymbol{\hat{y}}`)
-    to match :math:`\boldsymbol{\hat{n}}`, because in the context of magnopy we
-    choose the cone axis to be the quantization axis.
-  * When :math:`\boldsymbol{\hat{n}} = \pm\boldsymbol{\hat{z}}` the angle :math:`\beta` is not well defined,
-    therefore, these two cases are treated separately.
+.. dropdown:: Explicit formulas
 
-* If :math:`\boldsymbol{\hat{n}} \ne \pm \boldsymbol{\hat{z}}`, then
-  :math:`xyz` is rotated by the angle
-  :math:`\alpha` around the axis :math:`\boldsymbol{\hat{r}}`
+  The unit vector :math:`\boldsymbol{\hat{r}}` is actually defined by the
+  two angles :math:`\alpha` and :math:`\beta` in the figure
 
-  .. dropdown:: Formulas
+  .. raw:: html
+    :file: ../../../images/uvn-choice-n-angles.html
 
-    .. math::
+  .. math::
 
       \boldsymbol{\hat{r}}(\alpha,\beta)
       =
@@ -68,19 +57,19 @@ frame to the direction of the given unit vector:
         0
       \end{pmatrix}
 
-    .. math::
-      :name: eq:uvn-choice-rot-matrix
+  The rotation matrix is
 
-      &\boldsymbol{R_{rf}}
-      =
-      \boldsymbol{R_{rf}}(\alpha,\beta)
-      =
+  .. math::
+    :name: eq:uvn-choice-rot-matrix
+
+      \boldsymbol{R_r}
+      &=
       \begin{pmatrix}
         1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\
         -\dfrac{n^xn^y}{1+n^z}   & 1 - \dfrac{(n^y)^2}{1+n^z} & n^y  \\
         -n^x                     & -n^y                     & n^z  \\
-      \end{pmatrix}
-      =\\&=
+      \end{pmatrix} &\\
+      &=
       \begin{pmatrix}
         \cos\alpha + \sin^2\beta(1-\cos\alpha) &
         -\sin\beta\cos\beta(1-\cos\alpha)      &
@@ -91,14 +80,16 @@ frame to the direction of the given unit vector:
         -\cos\beta\sin\alpha                   &
         -\sin\beta\sin\alpha                   &
         \cos\alpha \\
-      \end{pmatrix}
+      \end{pmatrix}&
 
-    .. math::
+  The unit vectors of the rotated reference frame are
+
+  .. math::
 
       \begin{aligned}
         \boldsymbol{\hat{u}}
         &=
-        \boldsymbol{R_{rf}} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+        \boldsymbol{R_r} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
         =
         \begin{pmatrix}
           1 - \dfrac{(n^x)^2}{1+n^z} \\
@@ -114,7 +105,7 @@ frame to the direction of the given unit vector:
         \\
         \boldsymbol{\hat{v}}
         &=
-        \boldsymbol{R_{rf}} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+        \boldsymbol{R_r} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
         =
         \begin{pmatrix}
           -\dfrac{n^xn^y}{1+n^z}   \\
@@ -130,7 +121,7 @@ frame to the direction of the given unit vector:
         \\
         \boldsymbol{\hat{n}}
         &=
-        \boldsymbol{R_{rf}} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+        \boldsymbol{R_r} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
         =
         \begin{pmatrix}
           n^x \\
@@ -145,29 +136,30 @@ frame to the direction of the given unit vector:
         \end{pmatrix}
       \end{aligned}
 
+However, the unit vector :math:`\boldsymbol{\hat{r}}` is ill-defined, and so is
+:math:`\boldsymbol{R_r}`, whenever  :math:`\boldsymbol{\hat{n}}` and
+:math:`\pm\boldsymbol{\hat{z}}` are collinear. We then choose
+:math:`\boldsymbol{\hat{r}}=-\boldsymbol{\hat{x}}` and rotate
+:math:`\boldsymbol{\hat{z}}` by either 0 or :math:`\pi` degrees
+for the parallel or antiparallel cases, respectively, as shown in the figure below.
+
 .. raw:: html
-  :file: ../../../images/uvn-choice-main-case.html
+  :file: ../../../images/uvn-choice-special-cases.html
 
-* If :math:`\boldsymbol{\hat{n}} = \pm\boldsymbol{\hat{z}}`
+.. dropdown:: Explicit formulas
 
-  .. dropdown:: Formulas
-
-    .. math::
-      \boldsymbol{R_{rf}}
+  .. math::
+      \boldsymbol{R_r}
       =
       \begin{pmatrix}
         1 & 0     & 0     \\
         0 & \pm 1 & 0     \\
         0 & 0     & \pm 1 \\
       \end{pmatrix}
-      =
-      \boldsymbol{R_{rf}}(\alpha = \dfrac{\pi \mp \pi}{2}, \beta = \pi/2)
-    .. math::
+
+  .. math::
       \begin{aligned}
         \boldsymbol{\hat{u}} &= \boldsymbol{\hat{x}}    \\
         \boldsymbol{\hat{v}} &= \pm\boldsymbol{\hat{y}} \\
         \boldsymbol{\hat{n}} &= \pm\boldsymbol{\hat{z}} \\
       \end{aligned}
-
-.. raw:: html
-  :file: ../../../images/uvn-choice-special-cases.html

@@ -1,8 +1,8 @@
 .. _user-guide_methods_xyz-to-uvn:
 
-**********************
-Change from xyz to uvn
-**********************
+*******************************************************
+Vector and matrix changes from the xyz to the uvn bases
+*******************************************************
 
 .. dropdown:: Notation used on this page
 
@@ -12,42 +12,37 @@ Change from xyz to uvn
   * .. include:: page-notations/bra-ket.txt
 
 
-Here we discuss how the spin vectors and exchange matrices are
-changing under the change from the given to the chosen reference frame.
+The :math:`(x\,y\,z)` to :math:`(u\,v\,n)` basis change modifies the spin vector components
+and the exchange tensor matrix elements. These changes are governed by the rotation
+matrix :math:`\boldsymbol{R_r}` that has been introduced and written explicitly in
+the  :ref:`previous section <eq:uvn-choice-rot-matrix>`.
 
-As shown in the :ref:`previous section <user-guide_methods_uvn-choice>`
-the rotation matrix :math:`\boldsymbol{R_{rf}}` rotate :math:`\vert xyz\rangle`
-reference frame to the :math:`\vert uvn\rangle`
+-----------------
+Basis coordinates
+-----------------
 
-.. math::
-  \vert uvn\rangle
-  =
-  \boldsymbol{R_{rf}} \vert xyz \rangle
-  \Rightarrow
-  \langle uvn \vert
-  =
-  \langle xyz \vert \boldsymbol{R_{rf}}^{\dagger}
-  =
-  \langle xyz R_{rf} \vert
+The :math:`(u\,v\,n)` basis coordinates can be better calculated by using
+Dirac's notation:
 
 .. math::
-  \langle xyz \vert R_{rf} \vert xyz \rangle
-  =
-  \langle xyz \vert uvn \rangle
-
-Let us first work with the arbitrary (spin) vector :math:`\vert S\rangle`:
+  \ket{\,u\,v\,n\,} = \boldsymbol{R_r}\, \ket{\,x\,y\,z\,}
 
 .. math::
-  \langle uvn \vert S \rangle
-  =
-  \langle xyz R_{rf} \vert S\rangle
-  =
-  \langle xyz \vert R_{rf}^{\dagger} \vert S \rangle
-  =
-  \langle xyz \vert R_{rf}^{\dagger} \vert xyz \rangle
-  \langle xyz \vert S \rangle
+  \braket{\,x\,y\,z\,|\,u\,v\,n\,}=\bra{\,x\,y\,z\,}\, \boldsymbol{R_r}\, \ket{\,x\,y\,z\,}
 
-Let us write this result explicitly:
+---------------
+Spin components
+---------------
+The components of a spin vector :math:`\ket{S}` are more easily calculated using Dirac's
+notation
+
+.. math::
+  \braket{\,u\,v\,n\, \,|\, S\,} = \braket{\,x\,y\,z\, |\,\boldsymbol{R_r}\,|\, S\,}
+  =
+  \braket{\,x\,y\,z \,|\,\boldsymbol{R_r}^\dagger\,| \,x\,y\,z\,}
+  \braket{\,x\,y\,z\, | \,S\,}
+
+The components are therefore
 
 .. math::
   \begin{pmatrix}
@@ -67,28 +62,23 @@ Let us write this result explicitly:
     S^z \\
   \end{pmatrix}
 
-.. note::
-  Rotation matrix :math:`\boldsymbol{R_{rf}}` is explicitly written in the
-  :math:`\vert xyz\rangle` reference frame in the
-  :ref:`previous section <eq:uvn-choice-rot-matrix>`.
-
-Next, we write the equations for the exchange matrices:
+-------------------------------
+Exchange tensor matrix elements
+-------------------------------
 
 .. math::
-  \langle uvn \vert J \vert uvn \rangle
-  =
-  \langle uvn \vert xyz \rangle
-  \langle xyz \vert J \vert xyz \rangle
-  \langle xyz \vert uvn \rangle
-  =
-  \langle xyz \vert R_{rf}^{\dagger}
-  \vert xyz \rangle
-  \langle xyz \vert J \vert xyz \rangle
-  \langle xyz \vert
-  R_{rf}
-  \vert xyz \rangle
 
-In a matrix form this result is written as:
+  \braket{\,u\,v\,n \,| \,\boldsymbol{J}\,|\,u\,v\,n\,}
+  =&
+  \braket{\,u\,v\,n \,|\, x\,y\,z\,}\,
+  \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,| \,x\,y\,z\,}\,
+  \braket{\,x\,y\,z \,|\, u\,v\,n\,} \\
+  =&
+  \braket{\,x\,y\,z\, |\, \boldsymbol{R_r}^{\dagger}\,|\,x\,y\,z\,}\,
+  \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,|\,x\,y\,z\,}\,
+  \braket{\,x\,y\,z\, |\,\boldsymbol{R_r}\,|\,x\,y\,z\,}
+
+So the matrix elements are
 
 .. math::
   \begin{pmatrix}
@@ -96,13 +86,9 @@ In a matrix form this result is written as:
     J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
     J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
   \end{pmatrix}
-  = \boldsymbol{R_{rf}}^{\dagger}
+  = \boldsymbol{R_r}^{\dagger}\,
   \begin{pmatrix}
     J_{ij}^{xx} & J_{ij}^{xy} & J_{ij}^{xz} \\
     J_{ij}^{yx} & J_{ij}^{yy} & J_{ij}^{yz} \\
     J_{ij}^{zx} & J_{ij}^{zy} & J_{ij}^{zz} \\
-  \end{pmatrix} \boldsymbol{R_{rf}}
-
-.. important::
-  In the following pages the reference frame :math:`\vert uvn\rangle`
-  is often used, where :math:`\boldsymbol{\hat{n}}` is a cone axis.
+  \end{pmatrix} \,\boldsymbol{R_r}

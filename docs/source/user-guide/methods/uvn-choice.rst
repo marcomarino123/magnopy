@@ -20,10 +20,10 @@ goes on and quantizes the atomic spins along :math:`\boldsymbol{n}`.
 However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
 :math:`\boldsymbol{A}` tensors are usually
 provided in a different global reference frame, say
-:math:`xyz=(\boldsymbol{\hat{x}},\boldsymbol{\hat{y}},\boldsymbol{\hat{z}})`,
+:math:`(x\,y\,z)`,
 where neither of these three unit vectors is collinear to :math:`\boldsymbol{n}`.
-A rotation is therefore performed on :math:`J` and :math:`A` from :math:`xyz` to
-a new reference frame :math:`uvn`, where there is freedom to choose the unit
+A rotation is therefore performed on :math:`J` and :math:`A` from :math:`(x\,y\,z)` to
+a new reference frame :math:`(u\,v\,n)`, where there is freedom to choose the unit
 vectors :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` due to
 the rotational symmetry of the system about the :math:`\boldsymbol{\hat{n}}` cone axis.
 
@@ -31,9 +31,9 @@ Let :math:`\boldsymbol{\hat{r}}` be a vector perpendicular to both
 :math:`\boldsymbol{\hat{z}}` and :math:`\boldsymbol{\hat{n}}`. Then
 :math:`\boldsymbol{\hat{z}}` is brought to :math:`\boldsymbol{\hat{n}}` by performing
 a rotation :math:`\boldsymbol{R_r}` of magnitude :math:`\alpha` about
-:math:`\boldsymbol{\hat{r}}`. We choose  the :math:`uvn` reference systems by performing
+:math:`\boldsymbol{\hat{r}}`. We choose  the :math:`(u\,v\,n)` reference frame by performing
 this same rotation :math:`\boldsymbol{R_{r}}` over all the three unit vectors of
-the :math:`xyz` reference frame.
+the :math:`(x\,y\,z)` reference frame.
 
 .. raw:: html
   :file: ../../../images/uvn-choice-main-case.html

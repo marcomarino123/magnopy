@@ -4,8 +4,10 @@ Their coordinates are written in column form. An example is
 .. math::
   \boldsymbol{r} = (r^x, r^y, r^z)^T= \begin{pmatrix} r^x\\r^y\\r^z\end{pmatrix}
 
-Arbitrary components of a vector are denoted by greek letter superindices. An example is :math:`r^\alpha`.
+Arbitrary components of a vector are denoted by greek letter superindices, such as :math:`r^\alpha`.
+The modulus of a vector is typed with the same, unbolded, letter. So the modulus of vector
+:math:`\boldsymbol{r}`  is just :math:`r`.
 
-Exceptions are spin vectors that are denoted by capital bold letters :math:`{\bf S}` to
+An exception to the rule concerns classical spin vectors. These are denoted by capital bold letters :math:`{\bf S}` to
 conform with
 the usual notation.

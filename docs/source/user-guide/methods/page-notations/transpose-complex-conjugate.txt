@@ -1,5 +1,5 @@
-We are explicitly using complex conjugate :math:`^{\dagger}` instead of the
-transposition :math:`^T` in the places where one would expect to see the
-transposition. The reason is the following: even the real-valued quantities
-can be written with complex numbers if the "complex" reference frame is used
+We are writing the complex conjugate symbol :math:`^{\dagger}` instead of the
+transposition symbol :math:`^T` for a few spin vectors. The reason is
+that even though vector components in a cartesian basis
+frame are real, they become complex when writing them  in a spherical basis
 (see :ref:`user-guide_methods_spherical-rf` for example).

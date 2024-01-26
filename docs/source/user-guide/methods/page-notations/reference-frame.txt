@@ -1,6 +1,11 @@
-"reference frame" = "coordinate system" = "basis".
-Particular reference frame is usually mentioned as ":math:`xyz` reference frame",
-which is understood as the coordinate system defined by the three unit vectors:
-:math:`\boldsymbol{\hat{x}}`, :math:`\boldsymbol{\hat{y}}`, :math:`\boldsymbol{\hat{z}}` and some origin point :math:`O`.
-With the bra-ket notation it is usually written as:
-:math:`\vert xyz \rangle`
+The terms "reference frame" = "coordinate system" = "basis".
+
+Two specific reference frames used in this documentation are
+the conventional cartesian ":math:`xyz`"  and the rotated
+orthogonal ":math:`uvn`" ones.
+These two are spanned by the unit vectors
+:math:`\{\boldsymbol{\hat{x}}`, :math:`\boldsymbol{\hat{y}}`, :math:`\boldsymbol{\hat{z}}\}`
+and
+:math:`\{\boldsymbol{\hat{u}}`, :math:`\boldsymbol{\hat{v}}`, :math:`\boldsymbol{\hat{n}}\}`,
+respectively.
+They can be written in Dirac's bra-ket notation as :math:`\vert xyz \rangle` and :math:`\vert uvn \rangle`.

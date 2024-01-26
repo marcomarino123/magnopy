@@ -1,17 +1,17 @@
-The list of operators used in this documentation is
+The notation for the different operators appearing in this documentation is
 
-* Hamiltonian operator, that is denoted :math:`{\cal H}`
+* The Hamiltonian operator is denoted by :math:`{\cal H}`
 
-* Spin operator components are written as :math:`s^\alpha`
+* Spin operator vector components are written as :math:`s^\alpha`
 
-* Vectors spin operators, that are denoted
+* Vectors spin operators are denoted by
 
   .. math::
     \boldsymbol{\cal S}=(s^x,s^y,s^z)^{\dagger}=\begin{pmatrix} s^x\\s^y\\s^z\end{pmatrix}
 
-* Boson operators, that are denoted by :math:`a` or :math:`b`
+* Boson operators with quantum number :math:`n` are written as :math:`a_n` or :math:`b_n`.
 
-* Vector boson operators, that are denoted by
+* Boson operators are eventually collected into vector boson operators, that are denoted by
 
   .. math::
     \boldsymbol{\cal A}=(a_1,a_2,\dots)^{\dagger}=\begin{pmatrix}a_1\\a_2\\\vdots\end{pmatrix}

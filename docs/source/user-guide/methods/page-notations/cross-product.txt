@@ -1,5 +1,6 @@
-:math:`\boldsymbol{a} \times \boldsymbol{b}` means cross product for vectors of two vectors.
-In :math:`xyz` reference frame:
+:math:`\boldsymbol{a} \times \boldsymbol{b}` means the cross product of vectors
+:math:`\boldsymbol{a}` and :math:`\boldsymbol{b}`.
+The cross product components in the :math:`xyz` reference frame are:
 
 .. math::
 

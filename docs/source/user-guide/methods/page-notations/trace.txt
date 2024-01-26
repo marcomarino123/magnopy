@@ -1,1 +1,1 @@
-:math:`\mathrm{Tr}(\boldsymbol{A}) = \sum_{i} A^{ii}` is a trace of the square matrix :math:`\boldsymbol{A}`.
+:math:`\mathrm{Tr}(\boldsymbol{A}) = \sum_{\alpha} A^{\alphalphaa}` is a trace of the square matrix :math:`\boldsymbol{A}`.

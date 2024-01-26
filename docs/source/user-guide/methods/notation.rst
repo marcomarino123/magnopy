@@ -4,6 +4,7 @@
 Notation used in this documentation
 ******************************************
 
+* .. include:: page-notations/italic.txt
 * .. include:: page-notations/indices.txt
 * .. include:: page-notations/reference-frame.txt
 * .. include:: page-notations/vector.txt

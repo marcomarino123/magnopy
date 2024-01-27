@@ -1,9 +1,3 @@
 .. math::
-  \boldsymbol{S_{mi}}
-  =
-  \boldsymbol{R}(\phi_m)
-  \boldsymbol{R}(\theta_i,\phi_i)
-  \boldsymbol{S_{mi}^{ferro}}
-  =
-  \boldsymbol{R_{mi}}
-  \boldsymbol{S_{mi}^{ferro}}
+  \boldsymbol{S_{mi}}=
+  \boldsymbol{R}_m(\boldsymbol{q})\,\boldsymbol{R_i}\,S_i\,\boldsymbol{\hat{n}}

@@ -1,16 +1,15 @@
 .. math::
-  \langle uvn \vert S_{mi} \rangle
-  =
-  S_i
-  \cdot
-  \begin{pmatrix}
-    \sin\theta_i\cos(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i) \\
-    \sin\theta_i\sin(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i) \\
-    \cos\theta_i                                     \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    S_{mi}^u \\
-    S_{mi}^v \\
-    S_{mi}^n \\
-  \end{pmatrix}
+  \braket{\,u\,v\,n\,| \, S_{mi}\,}
+    =\begin{pmatrix} S_{mi}^u \\ S_{mi}^v \\ S_{mi}^n \\\end{pmatrix}
+    =S_i\,
+     \begin{pmatrix}
+            \sin\theta_i\cos(\phi_{mi}(q)) \\
+            \sin\theta_i\sin(\phi_{mi}(q)) \\
+            \cos\theta_i
+     \end{pmatrix}
+
+where
+
+.. math::
+  \phi_{mi}(q) = \boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i
+               = \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i

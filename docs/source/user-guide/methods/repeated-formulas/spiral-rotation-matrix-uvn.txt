@@ -1,16 +1,8 @@
 .. math::
-  \boldsymbol{R}(\phi_m)
-  =
-  \boldsymbol{R}(\boldsymbol{q}\cdot\boldsymbol{r_m})
+  \boldsymbol{R_m}(\boldsymbol{q})
   =
   \begin{pmatrix}
     \cos(\boldsymbol{q}\cdot\boldsymbol{r_m}) & -\sin(\boldsymbol{q}\cdot\boldsymbol{r_m}) & 0 \\
     \sin(\boldsymbol{q}\cdot\boldsymbol{r_m}) & \cos(\boldsymbol{q}\cdot\boldsymbol{r_m})  & 0 \\
     0                           & 0                            & 1 \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \cos(\phi_m) & -\sin(\phi_m) & 0 \\
-    \sin(\phi_m) & \cos(\phi_m)  & 0 \\
-    0              & 0               & 1 \\
   \end{pmatrix}

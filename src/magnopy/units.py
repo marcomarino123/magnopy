@@ -43,3 +43,9 @@ MILLI_ELECTRON_VOLT = 1  # meV
 ELECTRON_VOLT = 1e3  # mev
 KELVIN = 1 / 11.60451812  # meV
 RYDBERG = 13605.693122994  # meV
+
+# Case insensitive
+TRUE_KEYWORDS = ["true", "t", "1", "yes", "y"]
+
+# Case insensitive
+FALSE_KEYWORDS = ["false", "f", "0", "no", "n"]

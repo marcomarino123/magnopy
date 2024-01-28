@@ -31,7 +31,16 @@ _logger = logging.getLogger(__name__)
 from magnopy._pinfo import logo
 from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.spinham.parameter import ExchangeParameter
-from magnopy.units import ANGSTROM, BOHR, JOULE, KELVIN, RYDBERG
+from magnopy.units import (
+    ANGSTROM,
+    BOHR,
+    ELECTRON_VOLT,
+    JOULE,
+    KELVIN,
+    MILLI_ELECTRON_VOLT,
+    RYDBERG,
+    TRUE_KEYWORDS,
+)
 
 __all__ = ["load_model", "dump_model"]
 
@@ -154,11 +163,6 @@ def dump_model(spinham: SpinHamiltonian, filename):
         f.write("\n".join(text))
 
 
-class FailedToReadModelFile(Exception):
-    def __init__(self, message):
-        super().__init__()
-
-
 def _read_cell(lines, spinham: SpinHamiltonian):
     R"""
     Read information from the cell section as described in the documentation.
@@ -179,19 +183,19 @@ def _read_cell(lines, spinham: SpinHamiltonian):
     ==========
     lines : (4,) list of str
         Cell section of the input file.
-    spinham: :py:class:`.SpinHamiltonian`
+    spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian, where the data are saved.
 
     Returns
     =======
-    cell : (3,3) :numpy:`ndarray`
-        Lattice vectors. Rows - vectors, columns - components.
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian with updated cell.
     """
 
     # Cell <Units> <Scale>
     # or
     # Cell <Scale> <Units>
-    line = lines[i].lower().split()
+    line = lines[0].lower().split()
 
     # Search for the <Units> keyword
     if len(line) == 1:
@@ -214,10 +218,8 @@ def _read_cell(lines, spinham: SpinHamiltonian):
     # Only those two cases are possible, since the input file is pre-verified
     if units.startswith("b"):
         units_conversion = BOHR
-        _logger.info(f"Bohr units are found, will be converted to angstroms.")
     elif units.startswith("a"):
         units_conversion = ANGSTROM
-        _logger.info(f"Angstrom units are used.")
 
     # Process <Scale> keyword
     # Cell <s>
@@ -234,291 +236,322 @@ def _read_cell(lines, spinham: SpinHamiltonian):
         f"Units conversion factor: {units_conversion}; scale factors: {' '.join([str(f) for f in scale_factors])}"
     )
 
-    cell = np.zeros(3, 3, dtype=float)
+    cell = np.zeros((3, 3), dtype=float)
     for i in range(1, 4):
         line = lines[i]
-        cell[i] = [float(x) for x in line.split()[:3]]
+        cell[i - 1] = [float(x) for x in line.split()[:3]]
 
     cell *= units_conversion
-    cell = scale_factors @ cell
+    for i in range(3):
+        cell[i] *= scale_factors[i]
 
-    return cell
+    spinham.cell = cell
+
+    return spinham
 
 
-def _read_atoms(lines, i, spinham: SpinHamiltonian, verbose=False):
+def _read_atoms(lines, spinham: SpinHamiltonian):
     R"""
     Read information from the atoms section as described in the documentation.
 
+    Input lines have to follow the format::
+
+        Atoms <Units>
+        A1 i j k <spin1>
+        ...
+
+    where optional keywords are:
+
+    * <Units> - starts either from "r" or "a" or "b".
+    * <spin> - either one float or three floats or four
+    floats separated by at least one space. Alternatively it can have the format
+    "p<float> t<float> float"
+
     Parameters
     ==========
-    lines : list of str
-        Lines from the input file
-    i : int
-        Index of the section header, which contain keyword "cell"
-    spinham: :py:class:`.SpinHamiltonian`
+    lines : (N,) list of str
+        Atoms section of the input file.
+    spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian, where the data are saved.
-    verbose : bool, default False
-        Whether to output comments about the reading process.
 
     Returns
     =======
     spinham : :py:class:`.SpinHamiltonian`
-        Spin Hamiltonian with the updated cell.
-    index : int
-        Index of the next line after the section.
+        Spin Hamiltonian with added atoms.
     """
 
-    line = lines[i].lower().split()
+    line = lines[0].lower().split()
 
     # Search for the <Units>
-    if len(line) >= 2:
+    if len(line) == 2:
         units = line[1]
-        if verbose:
-            print(f'"{line[1]}" keyword is detected.')
+        _logger.info(f'"{units}" keyword is detected.')
     else:
         units = "relative"
-        if verbose:
-            print(f"No <Units> keyword is detected. Default value (relative) is used.")
+        _logger.info(
+            f"No <Units> keyword is detected. Default value (relative) is used."
+        )
 
     # Decide the case based on <Units>
+    # Only three cases are possible, since the input lines are verified.
     if units.startswith("r"):
         relative = True
-        units_conversion = 1
-        if verbose:
-            print(f"Coordinates are interpreted as relative.")
+        units_conversion = ANGSTROM
     elif units.startswith("b"):
         relative = False
-        units_conversion = BOHR_TO_ANGSTROM
-        if verbose:
-            print(
-                f"Bohr units are used, will be converted to angstroms. Coordinates are absolute."
-            )
+        units_conversion = BOHR
     elif units.startswith("a"):
         relative = False
-        units_conversion = 1
-        if verbose:
-            print(f"Angstrom units are used. Coordinates are absolute.")
-    else:
-        relative = False
-        units_conversion = 1
-        if verbose:
-            cprint(
-                f'Units keyword "{units}" does not match the allowed ones '
-                + '("relative" or "angstrom" or "bohr").\n'
-                + "Atom coordinates are interpreted as relative.",
-                color="red",
-            )
+        units_conversion = ANGSTROM
 
-    if verbose:
-        print(f"Units factor: {units_conversion}")
+    _logger.info(
+        f"Units conversion factor: {units_conversion}; coordinates are relative: {relative}"
+    )
 
     # Read atoms's information
-    i += 1
-    while i < len(lines) and not lines[i].startswith("=" * 10):
-        line = lines[i]
-        if len(line.split()) < 4:
-            raise FailedToReadModelFile(
-                f'Failed to read atom information from the line "{line}"\n'
-                + "Expected at least one string and three numbers."
-            )
-        name = line.split()[0]
-        try:
-            position = [float(x) * units_conversion for x in line.split()[1:4]]
-        except ValueError:
-            raise FailedToReadModelFile(
-                f'Failed to read positions from "{" ".join(line.split()[1:4])}".'
-            )
-
-        # Try to read spin information
+    # A i j k <spin>
+    for line in lines[1:]:
+        line = line.split()
+        label = line[0]
+        coordinates = np.array([float(x) for x in line[1:4]])
         spin_vector = None
-        if len(line.split()) > 4:
-            line = line.split()[4:]
-            if len(line) == 1:
-                try:
-                    spin_vector = [0, 0, float(line[0])]
-                except ValueError:
-                    raise FailedToReadModelFile(
-                        f'Failed to read spin value from "{line[0]}".\n'
-                        + "Expected one number."
-                    )
-            elif len(line) == 4:
-                try:
-                    spin_vector = np.array(
-                        [float(line[j]) for j in range(3)], dtype=float
-                    )
-                    s_value = float(line[3])
-                except ValueError:
-                    raise FailedToReadModelFile(
-                        f'Failed to read spin direction and value from "{" ".join(line)}".\n'
-                        + "Expected four numbers."
-                    )
-                spin_vector = spin_vector / np.linalg.norm(spin_vector) * s_value
-            elif len(line) == 3:
-                if line[0].startswith("p") and line[1].startswith("t"):
-                    try:
-                        phi = float(line[0][1:]) * TORADIANS
-                        theta = float(line[1][1:]) * TORADIANS
-                        s_value = float(line[2])
-                        spin_vector = [
-                            s_value * np.sin(theta) * np.cos(phi),
-                            s_value * np.sin(theta) * np.sin(phi),
-                            s_value * np.cos(theta),
-                        ]
-                    except ValueError:
-                        raise FailedToReadModelFile(
-                            f'Failed to read phi, theta, S from "{" ".join(line)}".\n'
-                            + "Expected three numbers with the format: "
-                            + "p<number> t<number> number"
-                        )
-                else:
-                    try:
-                        spin_vector = [float(line[j]) for j in range(3)]
-                    except ValueError:
-                        raise FailedToReadModelFile(
-                            f'Failed to read spin from "{" ".join(line)}".\n'
-                            + "Expected three numbers."
-                        )
 
-            elif verbose:
-                cprint(
-                    f'Failed to read spin information from "{" ".join(line)}". '
-                    + "Expected either 1 or 3 or 4 numbers.\n"
-                    + f"Proceed with spinless atom {name}",
-                    color="red",
-                )
+        # Only spin value is given
+        if len(line) == 5:
+            spin_vector = [0, 0, float(line[4])]
+
+        # Either spin vector is given or theta, phi and spin value
+        if len(line) == 7:
+            spin_data = " ".join(line[4:7])
+            # Atom i j k p<angle> t<angle> S
+            # or
+            # Atom i j k p<angle> S t<angle>
+            # or
+            # Atom i j k t<angle> p<angle> S
+            # or
+            # Atom i j k t<angle> S p<angle>
+            # or
+            # Atom i j k S p<angle> t<angle>
+            # or
+            # Atom i j k S t<angle> p<angle>
+            if "p" in spin_data:
+                spin_data = spin_data.split()
+                for i in range(3):
+                    if spin_data[i].lower().startswith("p"):
+                        phi = float(spin_data[i][1:]) * TORADIANS
+                    elif spin_data[i].lower().startswith("t"):
+                        theta = float(spin_data[i][1:]) * TORADIANS
+                    else:
+                        S = float(spin_data[i])
+                    spin_vector = [
+                        S * np.cos(phi) * np.sin(theta),
+                        S * np.sin(phi) * np.sin(theta),
+                        S * np.cos(theta),
+                    ]
+            # Atom i j k Sx Sy Sz
+            else:
+                spin_vector = np.array([float(x) for x in line[4:7]])
+        # Spin direction and spin value is given
+        # A i j k sdirx sdiry sdirz S
+        if len(line) == 8:
+            spin_vector = np.array([float(x) for x in line[4:7]])
+            spin_vector = spin_vector / np.linalg.norm(spin_vector) * float(line[7])
 
         # Add atom to the Hamiltonian
-        if spin_vector is not None:
-            spinham.add_atom(name, position=position, spin=spin_vector)
+        if spin_vector is None:
+            spinham.add_atom(
+                new_atom=label,
+                position=coordinates * units_conversion,
+                relative=relative,
+            )
         else:
-            spinham.add_atom(name, position=position)
+            spinham.add_atom(
+                new_atom=label,
+                position=coordinates * units_conversion,
+                spin=spin_vector,
+                relative=relative,
+            )
 
-        i += 1
-    return spinham, i
+    return spinham
 
 
-def _read_parameters(lines, i, spinham, verbose=False):
+def _read_parameters(lines, spinham):
     R"""
-    Read information from the parameters section as described in the documentation.
+    Read information from the parameter section as described in the documentation.
+
+    Input lines have to follow the format::
+
+        Parameters <Units>
+        ----------
+        bond
+        ----------
+        ...
+
+    where optional keywords are:
+
+    * <Units> - starts either from "m" or "e" or "k" or "j" or "r".
 
     Parameters
     ==========
-    lines : list of str
-        Lines from the input file
-    i : int
-        Index of the section header, which contain keyword "cell"
-    spinham: :py:class:`.SpinHamiltonian`
+    lines : (N,) list of str
+        Parameters section of the input file.
+    spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian, where the data are saved.
-    verbose : bool, default False
-        Whether to output comments about the reading process.
 
     Returns
     =======
     spinham : :py:class:`.SpinHamiltonian`
-        Spin Hamiltonian with the updated cell.
-    index : int
-        Index of the next line after the section.
+        Spin Hamiltonian with added bonds.
     """
 
     # Search for the <Units>
-    line = lines[i].lower().split()
+    # Parameters <Units>
+    line = lines[0].lower().split()
     if len(line) >= 2:
         units = line[1]
-        if verbose:
-            print(f'"{line[1]}" keyword is detected.')
+        _logger.info(f'"{units}" keyword is detected.')
     else:
         units = "meV"
-        if verbose:
-            print(f"No <Units> keyword is detected. Default value (meV) is used.")
+        _logger.info(f"No <Units> keyword is detected. Default value (meV) is used.")
 
     # Decide the case based on <Units>
+    # Only those cases are possible, since the input lines are verified.
     if units.startswith("r"):
-        units_conversion = Ry_TO_meV
-        if verbose:
-            print(
-                f"Parameters are provided in Rydberg energy units. Will be converted to meV."
-            )
+        units_conversion = RYDBERG
+        _logger.info(
+            "Parameters are provided in Rydberg energy units. Will be converted to meV."
+        )
     elif units.startswith("j"):
-        units_conversion = JOULE_TO_meV
-        if verbose:
-            print(f"Parameters are provided in Joule. Will be converted to meV.")
+        units_conversion = JOULE
+        _logger.info(f"Parameters are provided in Joule. Will be converted to meV.")
     elif units.startswith("k"):
-        units_conversion = K_TO_meV
-        if verbose:
-            print(f"Parameters are provided in Kelvin. Will be converted to meV.")
+        units_conversion = KELVIN
+        _logger.info(f"Parameters are provided in Kelvin. Will be converted to meV.")
     elif units.startswith("e"):
-        units_conversion = 1e3
-        if verbose:
-            print(
-                f"Parameters are provided in electron-Volts. Will be converted to meV."
-            )
+        units_conversion = ELECTRON_VOLT
+        _logger.info(
+            f"Parameters are provided in electron-Volts. Will be converted to meV."
+        )
     elif units.startswith("m"):
-        units_conversion = 1
-        if verbose:
-            print(f"Parameters are provided in meV.")
-    else:
-        units_conversion = 1
-        if verbose:
-            cprint(
-                f'Units keyword "{units}" does not match the allowed ones '
-                + '("meV", "eV", "K", "J", "Ry").\n'
-                + "Parameters are interpreted as provided in meV.",
-                color="red",
-            )
+        units_conversion = MILLI_ELECTRON_VOLT
+        _logger.info(f"Parameters are provided in meV.")
 
-    if verbose:
-        print(f"Units factor: {units_conversion}")
+    _logger.info(f"Units conversion factor: {units_conversion}")
 
-    i += 1
-    while i < len(lines) and not lines[i].startswith("=" * 10):
-        line = lines[i]
-        if line.startswith("-" * 10):
-            spinham, i = _read_parameters_section(
-                lines, i, spinham, units_conversion=units_conversion, verbose=verbose
-            )
-        else:
+    # Skip first line with the section header
+    i = 1
+    while i < len(lines):
+        # Skip subsection separators
+        while i < len(lines) and lines[i].startswith("-" * 10):
             i += 1
-    return spinham, i
+
+        # Check if we reached the end of the file
+        if i >= len(lines):
+            break
+
+        # Detect the beginning and end of the bond data
+        bond_start = i
+        while i < len(lines) and not lines[i].startswith("-" * 10):
+            i += 1
+        bond_end = i
+
+        # Read bond and add it to the Hamiltonian
+        bond = _read_bond(
+            lines[bond_start:bond_end], spinham, units_conversion=units_conversion
+        )
+
+    return spinham
 
 
-def _read_parameters_section(
-    lines, i, spinham: SpinHamiltonian, units_conversion=1, verbose=False
-):
-    i += 1
-    name1, name2 = lines[i].split()[:2]
-    atom1 = spinham.get_atom(name1)
-    atom2 = spinham.get_atom(name2)
-    R = tuple([int(x) for x in lines[i].split()[2:5]])
-    i += 2
-    matrix = []
-    for j in range(3):
-        line = lines[i + j]
-        matrix.append([float(x) for x in line.split()[:3]])
-    i += 3
-    spinham.add_bond(atom1, atom2, R, matrix=matrix)
+def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
+    R"""
+    Read information from the bond subsection as described in the documentation.
 
-    return spinham, i
+    Input lines have to follow the format::
+
+        A1 A2 i j k <Isotropic parameter>
+        <Matrix
+        Jxx Jxy Jxz
+        Jyx Jyy Jyz
+        Jzx Jzy Jzz>
+        <Symmetric anisotropy
+        Jxx Jxy Jxz
+        Jyx Jyy Jyz
+        Jzx Jzy Jzz>
+        <DMI Dx Dy Dz>
+
+    Parameters
+    ==========
+    lines : (N,) list of str
+        Parameters section of the input file.
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian, where the data are saved.
+
+    Returns
+    =======
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian with added bond.
+    """
+    line = lines[0].split()
+    label1, label2 = line[:2]
+    atom1 = spinham.get_atom(label1)
+    atom2 = spinham.get_atom(label2)
+    R = tuple([int(x) for x in line[2:5]])
+    if len(line) == 6:
+        iso = float(line[5])
+    else:
+        iso = None
+
+    matrix = None
+    symm = None
+    dmi = None
+    i = 1
+    while i < len(lines):
+        if lines[i].lower().startswith("m"):
+            matrix = np.zeros((3, 3), dtype=float)
+            for j in range(3):
+                i += 1
+                matrix[j] = [float(x) for x in lines[i].split()]
+        if lines[i].lower().startswith("d"):
+            print(lines[i])
+            dmi = [float(x) for x in lines[i].split()[1:]]
+        parameter = ExchangeParameter()
+        if matrix is not None:
+            parameter.matrix = matrix
+        if iso is not None:
+            parameter.iso = iso
+        if dmi is not None:
+            parameter.dmi = dmi
+        if symm is not None:
+            parameter.aniso = symm
+        spinham.add_bond(atom1, atom2, R, J=parameter)
+        i += 1
+    return spinham
 
 
-def _read_notation(lines, i, spinham, verbose=False):
-    i += 1
-    for j in range(3):
-        line = lines[i + j]
-        if line.startswith("spin normalized"):
-            spinham.spin_normalized = line.split(":")[1].strip() in ["true", "1"]
-        elif line.startswith("double counting"):
-            spinham.double_counting = line.split(":")[1].strip() in ["true", "1"]
-        elif line.startswith("factor"):
-            spinham.factor = float(line.split(":")[1])
-    return spinham, i + 3
-
-
-SUPPORTED_SECTIONS = {
-    "cell": _read_cell,
-    "atoms": _read_atoms,
-    "notation": _read_notation,
-    "parameters": _read_parameters,
-}
+def _read_notation(lines, spinham):
+    # Skip first line with the section header
+    i = 1
+    while i < len(lines):
+        line = lines[i]
+        # Whether spins are normalized
+        if line.startswith("s"):
+            spinham.spin_normalized = (
+                line.split("=")[1].strip().lower() in TRUE_KEYWORDS
+            )
+        # Whether double counting is present
+        elif line.startswith("d"):
+            spinham.double_counting = (
+                line.split("=")[1].strip().lower() in TRUE_KEYWORDS
+            )
+        # Exchange factor
+        elif line.startswith("e"):
+            spinham.exchange_factor = float(line.split("=")[1])
+        # On-site factor
+        elif line.startswith("o"):
+            spinham.on_site_factor = float(line.split("=")[1])
+        i += 1
+    return spinham
 
 
 def filter_model_file(filename, save_filtered=False):
@@ -587,47 +620,26 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     lines, indices = filter_model_file(filename=filename, save_filtered=save_filtered)
 
     # Verify input
-    verify_model_file(lines, indices)
+    sections = verify_model_file(
+        lines, indices, raise_on_fail=True, return_sections=True
+    )
 
-    # # Read sections
-    # spinham = SpinHamiltonian()
-    # error_messages = []
-    # i = 0
-    # while i < len(filtered_lines):
-    #     if filtered_lines[i].startswith("=" * 10) or i == 0:
-    #         i += int(filtered_lines[i].startswith("=" * 10))
-    #         if i >= len(filtered_lines):
-    #             break
+    # Construct spin Hamiltonian:
+    spinham = SpinHamiltonian()
 
-    #         section_keyword = filtered_lines[i].split()[0].lower()
-    #         if section_keyword in SUPPORTED_SECTIONS:
-    #             _logger.info(f"Found {section_keyword} section, reading...")
-    #             spinham, i = SUPPORTED_SECTIONS[section_keyword](
-    #                 filtered_lines, i, spinham
-    #             )
-    #             _logger.info("Done")
-    #         else:
-    #             raise FailedToReadModelFile(
-    #                 f"Tried to detect the section from the line {line_indices[i]}: "
-    #                 + f'"{filtered_lines[i]}"\n'
-    #                 + "Failed. Supported section keywords are (case-insensitive):\n\n    "
-    #                 + "\n    ".join(SUPPORTED_SECTIONS)
-    #                 + "\n"
-    #             )
-    #             i += 1
-    #     else:
-    #         _logger.warning(
-    #             f'Skipping line {line_indices[i]}: "{filtered_lines[i]}"',
-    #         )
-    #         i += 1
+    _read_cell(lines[slice(*sections["cell"])], spinham)
 
-    # _logger.info("Reached end of the file.")
+    _read_atoms(lines[slice(*sections["atoms"])], spinham)
 
-    # return spinham
+    _read_parameters(lines[slice(*sections["parameters"])], spinham)
+
+    _read_notation(lines[slice(*sections["notation"])], spinham)
+
+    return spinham
 
 
 if __name__ == "__main__":
-    # logging.basicConfig(filename="myapp.log", level=logging.INFO)
+    # logging.basicConfig(filename="log.log", level=logging.INFO)
     logging.info("Started")
     model = load_model("../../../tmp/test.txt", verbose=True)
     logging.info("Finished")

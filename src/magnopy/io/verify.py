@@ -18,7 +18,9 @@
 
 import logging
 
-__all__ = {"verify_model_file"}
+from wulfric.units import FALSE_KEYWORDS, TRUE_KEYWORDS
+
+__all__ = ["verify_model_file", "FailedToVerifyModelFile"]
 
 _logger = logging.getLogger(__name__)
 
@@ -45,7 +47,7 @@ def _is_integer(word):
 
 
 def _is_bool(word):
-    return word.lower() in ["true", "false", "t", "f", "1", "0", "yes", "no"]
+    return word.lower() in TRUE_KEYWORDS + FALSE_KEYWORDS
 
 
 def _verify_cell(lines, line_indices):
@@ -692,7 +694,7 @@ KNOWN_SECTIONS = {
 }
 
 
-def verify_model_file(lines, line_indices, raise_on_fail=True):
+def verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=False):
     r"""
     Verify the content of the input file with the model.
 
@@ -706,6 +708,13 @@ def verify_model_file(lines, line_indices, raise_on_fail=True):
         Original line numbers, before filtering.
     raise_on_fail : bool, default True
         Whether to raise an Error if the file content is incorrect.
+    return_sections : bool, default False
+        Whether to return a dictionary with the positions of the found sections::
+
+            {"keyword" : (start, end)}
+
+        ``lines[start]`` is a first line of the section,
+        ``lines[end-1]`` is the last line of the section.
     """
     error_messages = []
     found_sections = {}
@@ -765,11 +774,5 @@ def verify_model_file(lines, line_indices, raise_on_fail=True):
             _logger.error("\n".join(error_messages))
             _logger.info("Model file verification finished: FAILED")
 
-
-if __name__ == "__main__":
-    from magnopy.io.internal import filter_model_file
-
-    lines, indices = filter_model_file(
-        "/Users/rybakov.ad/Codes/magnopy/utests/io/test_magnopy_inputs/pass/atoms-bohr.txt"
-    )
-    verify_model_file(lines, indices)
+    if return_sections:
+        return found_sections

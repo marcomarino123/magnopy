@@ -29,12 +29,8 @@ Specification of the input file
 * All keywords are case-insensitive.
 * Sections have to follow the order from this page.
 
-
 Sections
 ========
-
-
-
 
 .. note::
   If keyword name is enclosed as <keyword>, then it is optional.
@@ -80,6 +76,8 @@ Unit cell
   If ``<Scale>`` is present, then the coordinates are multiplied by ``s`` or ``s_c``.
 * line 6: Section separator (10 or more ``=`` symbols)
 
+.. _user-guide_methods_input-standard_atoms:
+
 Atoms
 -----
 
@@ -114,7 +112,7 @@ Atoms
 
 * line 3: Information about the first atom, entries are separated by space:
 
-  - ``A1`` - Atoms's symbol.
+  - ``A1`` - Atoms's label. Any string, that does not contain "#" or space symbols.
   - ``i`` - First coordinate.
   - ``j`` -  Second coordinate.
   - ``k`` - Third coordinate.
@@ -137,10 +135,6 @@ Atoms
       - ``p30 t90 0.5`` - two angles and value
       - ``30 90 0.5`` - spin vector
 
-
-
-
-
 * line 4: Information about the second atom.
 * line 5: Information about the third atom.
 * line 6: Section separator (10 or more ``=`` symbols)
@@ -153,16 +147,47 @@ Notation
 
   ==========
   Notation
-  <Spin normalized>
-  <Double counting>
-  <Exchange factor>
-  <On-site factor>
+  Double counting = value #  true or false
+  Spin normalized = value #  true or false
+  Exchange factor = value #  1 or -1 or 0.5 or any number
+  On-site factor  = value #  1 or -1 or any number
   ==========
 
-Magnetic field
---------------
+* line 1: Section separator (10 or more ``=`` symbols)
+* line 2: ``Notation`` keyword. Indicate the interpretation of the section.
+* line 3-6: Four notation properties. The order can be arbitrary, but all four have to
+  be present (If you hamiltonian does not have on-site anisotropy, then just put 1).
 
-# TODO
+  - Double counting. True if both pairs :math:`(m,i;m^{\prime},j)` and :math:`(m^{\prime},j;m,i)`
+    are included in the Hamiltonian. False otherwise.
+  - Spin normalized. True if spin vectors are unit vectors
+    (i.e. if spin value is effectively absorbed in the exchange/on-site anisotropy parameters).
+    False otherwise.
+  - Exchange factor. Numerical factor, that is written before the sum over spin pair.
+    Usually it is either :math:`1`, :math:`-1`, :math:`0.5` or :math:`-0.5`.
+  - On-site factor. Numerical factor, that is written before the sum over spins.
+    Usually it is either :math:`1` or :math:`-1`.
+
+  For the detailed discussion about various notations of spin Hamiltonian go
+  :ref:`here <TODO>`.
+
+  .. dropdown:: Example
+
+    For the Hamiltonian from the user guide of magnopy
+
+    #TODO
+
+    The notation section can be written as
+
+    .. code-block:: text
+
+      ==========
+      Notation
+      Double counting = true
+      Spin normalized = false
+      Exchange factor = 0.5
+      On-site factor  = 1
+      ==========
 
 Parameters
 ----------
@@ -191,7 +216,6 @@ Parameters
     - K - Kelvin
     - Ry - Rydberg units of energy
 
-
     Note: Only the first letter is actually checked.
 
 * line 3: Subsection separator (10 or more ``-`` symbols)
@@ -203,45 +227,97 @@ Parameters
 Specification of the bond:
 
 .. code-block:: text
-    :linenos:
+  :linenos:
 
-    A1 A2 i j k <isotropic parameter>
-    <Matrix
-    Jxx Jxy Jxz
-    Jyx Jyy Jyz
-    Jzx Jzy Jzz>
-    <Symmetric anisotropy
-    Sxx Sxy Sxz
-    Sxy Syy Syz
-    Sxz Syz Szz>
-    <DMI Dx Dy Dz>
+  A1 A2 i j k <isotropic parameter>
+  <Matrix
+  Jxx Jxy Jxz
+  Jyx Jyy Jyz
+  Jzx Jzy Jzz>
+  <Symmetric anisotropy
+  Sxx Sxy Sxz
+  Sxy Syy Syz
+  Sxz Syz Szz>
+  <DMI Dx Dy Dz>
 
 * line 1:
 
-  - A1 - Name of the first atom (in the (0,0,0) unit cell).
-  - A2 - Name of the second atom (in the (i,j,k) unit cell).
-  - i j k - Relative coordinates of the cell for Atom 2.
-  - (optional) Isotropic parameter.
+  - A1 - label of the first atom (in the (0,0,0) unit cell).
+    Label have to be consistent with :ref:`user-guide_methods_input-standard_atoms` section.
+  - A2 - label of the second atom (in the (i,j,k) unit cell).
+    Label have to be consistent with :ref:`user-guide_methods_input-standard_atoms` section.
+  - i j k - Relative coordinates of the cell for Atom 2. Three integers, separated by spaces.
+  - (optional) Isotropic parameter. One number.
 
 * line 2: (optional) Keyword ``Matrix``. Indicates that next three
-  non-empty and non-comment lines give the full matrix of the parameter.
+  lines give the full matrix of the parameter.
 * line 3-5: (optional) Full parameter matrix.
+  Each line has to contain three numbers, separated by spaces.
 * line 2: (optional) Keyword ``Symmetric anisotropy``. Indicates that next three
-  non-empty and non-comment lines give the symmetric anisotropic part of the parameter's matrix.
+  lines give the symmetric anisotropic part of the parameter's matrix.
   Note: This matrix has to be traceless.
-* line 7-8: (optional) Full parameter matrix.
-* line 10: (optional) DMI vector:
+* line 7-8: (optional) Symmetric anisotropic part of full parameter matrix matrix.
+  Each line has to contain three numbers, separated by spaces.
+* line 10: (optional) Dzyaroshinsky-Moria interaction vector.
+  Also referred as antisymmetric anisotropic interaction.
 
   - ``DMI`` keyword
   - x component
   - y component
   - z component
 
-Additional rules:
+Priority of given keywords:
 
 * If both ``Matrix`` and ``DMI`` are given, then antisymmetric part of the
-  matrix is overwritten.
+  matrix is ignored.
 * If both ``Matrix`` and ``isotropic parameter`` are given, then
-  isotropic part of the matrix is overwritten.
+  isotropic part of the matrix is ignored.
 * If both ``Matrix`` and ``Symmetric anisotropy`` are given, then
-  symmetric anisotropic part of the matrix is overwritten.
+  symmetric anisotropic part of the matrix is ignored.
+
+.. hint::
+  For on-site anisotropy parameters the atom labels are the same and the unit
+  cell of the second atom is always :math:`(0,0,0)`, i.e.
+
+  .. code-block:: text
+
+    Fe1 Fe1 0 0 0
+
+
+
+.. dropdown:: Examples
+
+  Usually either a full matrix is given, i.e.
+
+  .. code-block:: text
+
+    Fe1 Fe2 1 0 0
+    Matrix
+     1   -1  0
+     2    3  0.3
+    -0.43 0 -0.5
+
+  or at least one of other parts (Isotropic, symmetric anisotropic or antisymmetric anisotropic)
+  is given, i.e.
+
+  .. code-block:: text
+
+    Fe1 Fe2 1 0 0 1
+
+  or
+
+  .. code-block:: text
+
+      Fe1 Fe2 1 0 0 1
+      DMI 1 0 -0.4
+
+  or
+
+  .. code-block:: text
+
+      Fe1 Fe2 1 0 0
+      DMI 1 0 -0.4
+      Symmetric anisotropy
+       1    0.27 -0.43
+       0.27 0.5   0.3
+      -0.43 0.3  -1.5

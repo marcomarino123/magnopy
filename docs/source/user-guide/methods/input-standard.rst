@@ -7,10 +7,10 @@ Specification of the input file
 * File is expected to have |utf-8|_ encoding.
 * Line is considered to be blank if there are no other characters but any number of spaces (U+0020).
 * All blank lines are ignored.
-* Character ``#`` (U+0023) is used for comments. If it is read than all symbols until
+* Character ``#`` (U+0023) is used for comments. If it is read then all symbols until
   the next line symbol are ignored. Comments can appear anywhere, even inside a section
-  provided that they do not break the format. An example for the "Cell" section is
-  provided below
+  provided that they do not break the format once they are removed. An example for the
+  "Cell" section is provided below
 
   .. code-block:: text
     :linenos:

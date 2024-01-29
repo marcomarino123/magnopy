@@ -22,7 +22,7 @@ import numpy as np
 from wulfric import print_2d_array
 
 from magnopy._pinfo import logo
-from magnopy.spinham.parameter import ExchangeParameter
+from magnopy.spinham.parameter import MatrixParameter
 
 meV_TO_J = 1.602176634e-22
 
@@ -240,12 +240,12 @@ def dump_ucf(
     IID = 0
     for atom1, atom2, (i, j, k), J in spinham:
         if custom_mask is not None:
-            J = ExchangeParameter(custom_mask(J))
+            J = MatrixParameter(custom_mask(J))
         else:
             if not dmi:
-                J = ExchangeParameter(matrix=J.matrix - J.dmi_matrix)
+                J = MatrixParameter(matrix=J.matrix - J.dmi_matrix)
             if not anisotropic:
-                J = ExchangeParameter(matrix=J.matrix - J.aniso)
+                J = MatrixParameter(matrix=J.matrix - J.aniso)
         J = J * meV_TO_J
         fmt = f"{7+decimals}.{decimals}e"
         result.append(

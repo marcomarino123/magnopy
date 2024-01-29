@@ -18,7 +18,7 @@
 
 import logging
 
-from wulfric.units import FALSE_KEYWORDS, TRUE_KEYWORDS
+from magnopy.units import FALSE_KEYWORDS, TRUE_KEYWORDS
 
 __all__ = ["verify_model_file", "FailedToVerifyModelFile"]
 

@@ -21,7 +21,7 @@ import logging
 import numpy as np
 import wulfric
 from termcolor import colored
-from wulfric import Atom, print_2d_array
+from wulfric import Atom
 from wulfric.constants import TORADIANS
 
 from magnopy.io.verify import verify_model_file
@@ -30,7 +30,7 @@ _logger = logging.getLogger(__name__)
 
 from magnopy._pinfo import logo
 from magnopy.spinham.hamiltonian import SpinHamiltonian
-from magnopy.spinham.parameter import ExchangeParameter
+from magnopy.spinham.parameter import MatrixParameter
 from magnopy.units import (
     ANGSTROM,
     BOHR,
@@ -49,36 +49,87 @@ SEPARATOR = "=" * 80
 SUBSEPARATOR = "-" * 80
 
 
-def _write_bond(name1: str, name2: str, ijk: tuple, J: ExchangeParameter):
+def _write_bond(
+    label1: str,
+    label2: str,
+    ijk: tuple,
+    parameter: MatrixParameter,
+    write_matrix=True,
+    write_iso=False,
+    write_dmi=False,
+    write_symm=False,
+    distance=None,
+):
     r"""
     Write a bond to the output file.
 
     Parameters
     ----------
-    name1 : str
+    label1 : str
         Name of the first atom in the bond.
-    name2 : str
+    label2 : str
         Name of the second atom in the bond.
     ijk : (3,) tuple
         Index of the bond.
-    J : :py:class:`.ExchangeParameter`
-        Exchange parameter for the bond.
+    parameter : :py:class:`.MatrixParameter`
+        Parameter.
+    write_matrix : bool, default True
+        Whether to write full matrix of the parameter.
+    write_iso : bool, default False
+        Whether to write isotropic parameter.
+    write_dmi : bool, default False
+        Whether to write DMI vector.
+    write_symm : bool, default False
+        Whether to write Symmetric anisotropic part of the parameter's matrix.
+    distance : float, optional
+        If passed, then it is written as a comment.
     """
 
-    text = [SUBSEPARATOR]
-    text.append(
-        f"{name1:<6} "
-        + f"{name2:<6} "
-        + f"{ijk[0]:>3} {ijk[1]:>3} {ijk[2]:>3} "
-        + f"{J.iso:>8.4}"
+    header_line = []
+    header_line.extend(
+        [
+            f"{label1:<6}",
+            f"{label2:<6}",
+            f"{ijk[0]:>3}",
+            f"{ijk[1]:>3}",
+            f"{ijk[2]:>3}",
+        ]
     )
-    text.append("Matrix")
-    text.append(print_2d_array(J.matrix, fmt="8.4f", print_result=False, borders=False))
+
+    if write_iso:
+        header_line.append(f"{parameter.iso:>8.4f}")
+
+    if distance is not None:
+        header_line.append(f"# {distance:<8.4f}")
+
+    text = [" ".join(header_line)]
+
+    if write_matrix:
+        text.append("Matrix")
+        for i in range(3):
+            text.append(" ".join([f"{parameter.matrix[i][j]:>8.4f}" for j in range(3)]))
+
+    if write_symm:
+        text.append("Symmetric anisotropy")
+        for i in range(3):
+            text.append(" ".join([f"{parameter.aniso[i][j]:>8.4f}" for j in range(3)]))
+
+    if write_dmi:
+        text.append(" ".join(["DMI"] + [f"{parameter.dmi[i]:>8.4f}" for i in range(3)]))
 
     return "\n".join(text)
 
 
-def dump_model(spinham: SpinHamiltonian, filename):
+def dump_model(
+    spinham: SpinHamiltonian,
+    filename,
+    write_matrix=True,
+    write_iso=False,
+    write_dmi=False,
+    write_symm=False,
+    write_distance=False,
+    write_spin_angles=False,
+):
     """
     Dump a SpinHamiltonian object to a .txt file.
 
@@ -88,6 +139,18 @@ def dump_model(spinham: SpinHamiltonian, filename):
         SpinHamiltonian object to dump.
     filename : str
         Filename to dump SpinHamiltonian object to.
+    write_matrix : bool, default True
+        Whether to write full matrix of the parameter.
+    write_iso : bool, default False
+        Whether to write isotropic parameter.
+    write_dmi : bool, default False
+        Whether to write DMI vector.
+    write_symm : bool, default False
+        Whether to write Symmetric anisotropic part of the parameter's matrix.
+    write_distance : bool, default False
+        Whether to write the distance as a comment.
+    write_spin_angles : bool, default False
+        Whether to write spin as (phi, theta, S) or (Sx, Sy, Sz).
     """
 
     # Write logo
@@ -95,68 +158,98 @@ def dump_model(spinham: SpinHamiltonian, filename):
     text.append(SEPARATOR)
 
     # Write unit cell
-    text.append("Cell: Angstrom")
+    text.append("Cell Angstrom")
     text.append(f"# {'x':>10} {'y':>12} {'z':>12}")
-    text.append(
-        wulfric.print_2d_array(
-            spinham.cell,
-            fmt="12.8f",
-            print_result=False,
-            borders=False,
-            footer_column=[
-                "# <- a (first lattice vector)",
-                "# <- b (second lattice vector)",
-                "# <- c (third lattice vector)",
-            ],
+    comment_lines = [
+        "# <- a (first lattice vector)",
+        "# <- b (second lattice vector)",
+        "# <- c (third lattice vector)",
+    ]
+    for i in range(3):
+        text.append(
+            " ".join(
+                [f"{component:12.8f}" for component in spinham.cell[i]]
+                + [comment_lines[i]]
+            )
         )
-    )
+
     text.append(SEPARATOR)
 
     # Write atom's position and spins
-    text.append("Atoms: relative")
+    text.append("Atoms Relative")
     text.append(f"# Name {'x':>10} {'y':>12} {'z':>12}")
+    if write_spin_angles:
+        text[-1] += f" {'phi':>6} {'theta':>6} {'S':>6}"
+    else:
+        text[-1] += f" {'Sx':>8} {'Sy':>8} {'Sz':>8}"
     for atom in spinham.atoms:
         text.append(
-            f"{atom.name:4} "
-            + f"{atom.position[0]:12.8f} "
-            + f"{atom.position[1]:12.8f} "
-            + f"{atom.position[2]:12.8f} "
+            " ".join(
+                [
+                    f"{atom.name:4}",
+                    f"{atom.position[0]:12.8f}",
+                    f"{atom.position[1]:12.8f}",
+                    f"{atom.position[2]:12.8f}",
+                ]
+            )
         )
         try:
-            text[-1] += (
-                f"{atom.spin_vector[0]:8.4f} "
-                + f"{atom.spin_vector[1]:8.4f} "
-                + f"{atom.spin_vector[2]:8.4f}"
-            )
+            if write_spin_angles:
+                # TODO
+                pass
+            else:
+                text[-1] += " " + " ".join(
+                    [
+                        f"{atom.spin_vector[0]:8.4f}",
+                        f"{atom.spin_vector[1]:8.4f}",
+                        f"{atom.spin_vector[2]:8.4f}",
+                    ]
+                )
         except ValueError:
-            pass
+            text[-1] += " #" + " ".join(
+                [
+                    f"{'-':>7}",
+                    f"{'-':>8}",
+                    f"{'-':>8}",
+                ]
+            )
     text.append(SEPARATOR)
 
     # Write notation
-    text.append("Notation: ")
-    try:
-        text.append(f"Spin normalized: {spinham.spin_normalized}")
-        text.append(f"Double counting: {spinham.double_counting}")
-        text.append(f"Factor: {spinham.factor}")
-        text.append("# Latex-styled:")
-        text.append("# " + "\n# ".join(spinham.notation_string.split("\n")))
-    except ValueError:
-        text.append("Undefined")
+    text.append("Notation")
+    text.append(f"Spin normalized = {spinham.spin_normalized}")
+    text.append(f"Double counting = {spinham.double_counting}")
+    text.append(f"Exchange factor = {spinham.exchange_factor}")
+    text.append(f"On-site factor = {spinham.on_site_factor}")
     text.append(SEPARATOR)
 
-    # Define which atom's names are unique
-    names = [atom.name for atom in spinham.atoms]
-    unique_names = [
-        atom.name if names.count(atom.name) == 1 else atom.fullname
-        for atom in spinham.atoms
-    ]
-    unique_names = dict(zip(spinham.atoms, unique_names))
-
-    # Write exchange parameters
-    text.append("Parameters: meV")
-    text.append(f"{'# Atom1 Atom2':<13} {'i':>3} {'j':>3} {'k':>3} {'Jiso':>8}")
-    for atom1, atom2, (i, j, k), J in spinham:
-        text.append(_write_bond(unique_names[atom1], unique_names[atom2], (i, j, k), J))
+    # Write parameters
+    text.append("Parameters meV")
+    text.append(f"{'# Atom1 Atom2':<13} {'i':>3} {'j':>3} {'k':>3}")
+    if write_iso:
+        text[-1] += f" {'Jiso':>8}"
+    if write_distance:
+        text[-1] += f" # {'distance'}"
+    text.append(SUBSEPARATOR)
+    for atom1, atom2, ijk, parameter in spinham:
+        if write_distance:
+            distance = spinham.get_distance(atom1, atom2, ijk)
+        else:
+            distance = None
+        text.append(
+            _write_bond(
+                atom1.name,
+                atom2.name,
+                ijk,
+                parameter,
+                write_matrix=write_matrix,
+                write_iso=write_iso,
+                write_symm=write_symm,
+                write_dmi=write_dmi,
+                distance=distance,
+            )
+        )
+        text.append(SUBSEPARATOR)
     text.append(SEPARATOR)
 
     with open(filename, "w", encoding="utf-8") as f:
@@ -343,11 +436,11 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
                         theta = float(spin_data[i][1:]) * TORADIANS
                     else:
                         S = float(spin_data[i])
-                    spin_vector = [
-                        S * np.cos(phi) * np.sin(theta),
-                        S * np.sin(phi) * np.sin(theta),
-                        S * np.cos(theta),
-                    ]
+                spin_vector = [
+                    S * np.cos(phi) * np.sin(theta),
+                    S * np.sin(phi) * np.sin(theta),
+                    S * np.cos(theta),
+                ]
             # Atom i j k Sx Sy Sz
             else:
                 spin_vector = np.array([float(x) for x in line[4:7]])
@@ -513,9 +606,8 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
                 i += 1
                 matrix[j] = [float(x) for x in lines[i].split()]
         if lines[i].lower().startswith("d"):
-            print(lines[i])
             dmi = [float(x) for x in lines[i].split()[1:]]
-        parameter = ExchangeParameter()
+        parameter = MatrixParameter()
         if matrix is not None:
             parameter.matrix = matrix
         if iso is not None:
@@ -535,20 +627,20 @@ def _read_notation(lines, spinham):
     while i < len(lines):
         line = lines[i]
         # Whether spins are normalized
-        if line.startswith("s"):
+        if line.lower().startswith("s"):
             spinham.spin_normalized = (
                 line.split("=")[1].strip().lower() in TRUE_KEYWORDS
             )
         # Whether double counting is present
-        elif line.startswith("d"):
+        elif line.lower().startswith("d"):
             spinham.double_counting = (
                 line.split("=")[1].strip().lower() in TRUE_KEYWORDS
             )
         # Exchange factor
-        elif line.startswith("e"):
+        elif line.lower().startswith("e"):
             spinham.exchange_factor = float(line.split("=")[1])
         # On-site factor
-        elif line.startswith("o"):
+        elif line.lower().startswith("o"):
             spinham.on_site_factor = float(line.split("=")[1])
         i += 1
     return spinham
@@ -641,5 +733,24 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
 if __name__ == "__main__":
     # logging.basicConfig(filename="log.log", level=logging.INFO)
     logging.info("Started")
-    model = load_model("../../../tmp/test.txt", verbose=True)
+    model = load_model("utests/io/test_magnopy_inputs/pass/simple-correct-input.txt")
+    model.add_atom(name="Br", position=(0.5, 0.5, 0.5))
+    print(model.notation)
+    dump_model(
+        model,
+        "test.txt",
+        write_iso=True,
+        write_dmi=True,
+        write_symm=True,
+        write_distance=True,
+    )
+    model = load_model("test.txt")
+    dump_model(
+        model,
+        "re-test.txt",
+        write_iso=True,
+        write_dmi=True,
+        write_symm=True,
+        write_distance=True,
+    )
     logging.info("Finished")

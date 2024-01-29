@@ -26,7 +26,7 @@ from wulfric import Atom, Crystal
 
 from magnopy.exceptions import NotationError
 from magnopy.spinham.constants import PREDEFINED_NOTATIONS
-from magnopy.spinham.parameter import ExchangeParameter
+from magnopy.spinham.parameter import MatrixParameter
 
 
 class SpinHamiltonian(Crystal):
@@ -34,7 +34,7 @@ class SpinHamiltonian(Crystal):
     Spin Hamiltonian.
 
     By default the notation of the spin Hamiltonian is not defined
-    and could be different in different context.
+    and could be one of many, depending on the context.
     However, in could always be checked via :py:attr:`.notation`.
     In user-specific cases it is the responsibility of the user to
     set the interpretation of the Hamiltonian`s notation.
@@ -43,10 +43,6 @@ class SpinHamiltonian(Crystal):
 
     Child of the :py:class:`.Crystal` class.
 
-    Notes
-    -----
-    You can still use the old name, but it is deprecated and will be removed in the future.
-
     Parameters
     ----------
     crystal : :py:class:`.Crystal`, optional
@@ -54,7 +50,7 @@ class SpinHamiltonian(Crystal):
         By default it is cubic (:math:`a=1`) lattice with no atoms.
     notation : str or tuple of two bool and one float, optional
         One of the predefined notations or tuple with custom notation.
-        See :py:attr:`.notation` for details.
+        See :py:attr:`.notation` for details. #TODO
     **kwargs
         Keyword arguments for the :py:class:`.Crystal` constructor.
 
@@ -72,7 +68,8 @@ class SpinHamiltonian(Crystal):
         # Notation settings
         self._double_counting = None
         self._spin_normalized = None
-        self._factor = None
+        self._exchange_factor = None
+        self._on_site_factor = None
         if notation is not None:
             self.notation = notation
 
@@ -88,12 +85,14 @@ class SpinHamiltonian(Crystal):
         It can be set with a
 
         * string
-            One of the predefined notations: "standard", "TB2J", "SpinW"
+            One of the predefined notations: "standard", "TB2J", "SpinW", "Vampire"
 
-        * iterable with 3 elements
+        * iterable with 3 or 4 elements
             First two elements are converted to ``bool``,
-            third element is interpreted as a float.
-            Order: (double counting, spin normalized, factor).
+            third and fourth element is interpreted as a float.
+            Order: (double counting, spin normalized, exchange_factor, on_site_factor).
+            If only one factor is given, then
+            ``exchange_factor`` = ``on_site_factor`` = ``factor``.
 
         See :ref:`library_spinham_notation` for the detailed description.
 
@@ -102,11 +101,16 @@ class SpinHamiltonian(Crystal):
         --------
         double_counting
         spin_normalized
-        factor
-        set_interpretation
+        exchange_factor
+        on_site_factor
         """
 
-        return (self.double_counting, self.spin_normalized, self.factor)
+        return (
+            self.double_counting,
+            self.spin_normalized,
+            self.exchange_factor,
+            self.on_site_factor,
+        )
 
     @notation.setter
     def notation(self, new_notation):
@@ -119,98 +123,40 @@ class SpinHamiltonian(Crystal):
                     + f"{list(PREDEFINED_NOTATIONS)}, got: {new_notation}"
                 )
             new_notation = PREDEFINED_NOTATIONS[new_notation]
-        # Set the notation from three values, converted to bool
-        elif isinstance(new_notation, Iterable) and len(new_notation) == 3:
-            new_notation = (
-                bool(new_notation[0]),
-                bool(new_notation[1]),
-                float(new_notation[2]),
-            )
+        # Set the notation from three or four values
+        elif isinstance(new_notation, Iterable):
+            if len(new_notation) == 3:
+                new_notation = (
+                    bool(new_notation[0]),
+                    bool(new_notation[1]),
+                    float(new_notation[2]),
+                    float(new_notation[2]),
+                )
+            elif len(new_notation) == 4:
+                new_notation = (
+                    bool(new_notation[0]),
+                    bool(new_notation[1]),
+                    float(new_notation[2]),
+                    float(new_notation[3]),
+                )
+            else:
+                raise ValueError(
+                    "New notation has to be either a string "
+                    + "or an iterable with three or four elements, "
+                    + f"got iterable with {len(new_notation)} elements: {new_notation}"
+                )
         else:
             raise ValueError(
                 "New notation has to be either a string "
-                + "or an iterable with three elements, "
+                + "or an iterable with three or four elements, "
                 + f"got: {new_notation}"
             )
-        (self.double_counting, self.spin_normalized, self.factor) = new_notation
-
-    @property
-    def notation_string(self):
-        r"""
-        Human-readable representation of the notation.
-
-        Returns
-        -------
-        notation_string : str
-            Human-readable representation of the notation.
-        """
-
-        text_result = "H = "
-
-        if self.factor != 1:
-            if self.factor == -1:
-                text_result += "- "
-            elif self.factor == int(self.factor):
-                text_result += f"{self.factor:.0f} "
-            elif self.factor == 0.5:
-                text_result += "1/2 "
-            elif self.factor == -0.5:
-                text_result += "-1/2 "
-            else:
-                text_result += f"{self.factor} "
-
-        text_result += "\sum_{"
-        if self.double_counting:
-            text_result += "i,j}"
-        else:
-            text_result += "i>=j}"
-
-        if self.spin_normalized:
-            text_result += " e_i J_{ij} e_j\n"
-        else:
-            text_result += " S_i J_{ij} S_j\n"
-
-        if self.double_counting:
-            text_result += "Double counting is present.\n"
-        else:
-            text_result += "No double counting.\n"
-
-        if self.spin_normalized:
-            text_result += "Spin vectors are normalized to 1."
-        else:
-            text_result += "Spin vectors are not normalized."
-
-        return text_result
-
-    def set_interpretation(
-        self, double_counting: bool = None, spin_normalized: bool = None, factor=None
-    ):
-        r"""
-        Set the interpretation of the Hamiltonian`s notation.
-
-        It is not changing the J values,
-        but rather indicate how to interpret the J values of the Hamiltonian.
-
-        Parameters
-        ----------
-        double_counting : bool, optional
-        spin_normalized : bool, optional
-        factor : float or int, optional
-
-        See Also
-        --------
-        double_counting
-        spin_normalized
-        factor
-        notation
-        """
-
-        if double_counting is not None:
-            self._double_counting = bool(double_counting)
-        if spin_normalized is not None:
-            self._spin_normalized = bool(spin_normalized)
-        if factor is not None:
-            self._factor = factor
+        (
+            self.double_counting,
+            self.spin_normalized,
+            self.exchange_factor,
+            self.on_site_factor,
+        ) = new_notation
 
     @property
     def double_counting(self) -> bool:
@@ -232,8 +178,10 @@ class SpinHamiltonian(Crystal):
 
         See Also
         --------
-        set_interpretation : to change the interpretation of the Hamiltonian`s notation
-            without the modification of the parameters.
+        spin_normalized
+        exchange_factor
+        on_site_factor
+        notation
         """
 
         if self._double_counting is None:
@@ -269,18 +217,25 @@ class SpinHamiltonian(Crystal):
         bonds = list(self)
 
         for atom1, atom2, (i, j, k), J in bonds:
+            # For on-site parameters there is always only one bond in the model
             if (i, j, k) != (0, 0, 0) or atom1 != atom2:
+                # If this bond has to stay
                 if (
                     i > 0
                     or (i == 0 and j > 0)
                     or (i == 0 and j == 0 and k > 0)
                     or (i == 0 and j == 0 and k == 0 and atom1.index <= atom2.index)
                 ):
+                    # Delete mirrored bond if it is in the model
                     if (atom2, atom1, (-i, -j, -k)) in self:
                         self.remove_bond(atom2, atom1, (-i, -j, -k))
+                # If mirrored bond has to stay
                 else:
+                    # If mirrored bond is not in the model, then add it
                     if (atom2, atom1, (-i, -j, -k)) not in self:
                         self.add_bond(atom2, atom1, (-i, -j, -k), J=J.T)
+                    # Check if the bond is still in the model
+                    if (atom1, atom2, (i, j, k)) in self:
                         self.remove_bond(atom1, atom2, (i, j, k))
 
     @double_counting.setter
@@ -289,25 +244,29 @@ class SpinHamiltonian(Crystal):
         old_value = self._double_counting
         self._double_counting = bool(new_value)
 
+        # If the attribute is redefined we need to scale the value of parameters
         if old_value is not None:
             factor = 1
+            # Mirrored bonds will be removed, remaining have to be doubled
             if old_value and not new_value:
                 factor = 2
+            # Mirror bonds will be added, existing ones have to be halfed
             elif not old_value and new_value:
                 factor = 0.5
+            # Scale parameters
             if factor != 1:
-                if new_value:
-                    self._ensure_double_counting()
-                else:
-                    self._ensure_no_double_counting()
                 for atom1, atom2, R, J in self:
+                    # On-site parameters shall not be scaled,
+                    # since they are not affected by double counting.
                     if R != (0, 0, 0) or atom1 != atom2:
-                        self[atom1, atom2, R] = J * factor
+                        self[atom1, atom2, R].matrix *= factor
+
+        # Add missed mirror bonds if necessary
+        if new_value:
+            self._ensure_double_counting()
+        # Remove mirrored bonds if any
         else:
-            if new_value:
-                self._ensure_double_counting()
-            else:
-                self._ensure_no_double_counting()
+            self._ensure_no_double_counting()
 
     @property
     def spin_normalized(self) -> bool:
@@ -329,8 +288,10 @@ class SpinHamiltonian(Crystal):
 
         See Also
         --------
-        set_interpretation : to change the interpretation of the Hamiltonian`s notation
-            without the modification of the parameters.
+        double_counting
+        exchange_factor
+        on_site_factor
+        notation
         """
 
         if self._spin_normalized is None:
@@ -339,27 +300,29 @@ class SpinHamiltonian(Crystal):
 
     @spin_normalized.setter
     def spin_normalized(self, new_value: bool):
+        # If the property is redefined, one need to scale the parameters
         if self._spin_normalized is not None:
             if self._spin_normalized and not new_value:
                 for atom1, atom2, R, J in self:
-                    self[atom1, atom2, R] = J / atom1.spin / atom2.spin
+                    self[atom1, atom2, R].matrix /= atom1.spin * atom2.spin
             elif not self._spin_normalized and new_value:
                 for atom1, atom2, R, J in self:
-                    self[atom1, atom2, R] = J * atom1.spin * atom2.spin
+                    self[atom1, atom2, R].matrix *= atom1.spin * atom2.spin
+
         self._spin_normalized = bool(new_value)
 
     @property
-    def factor(self) -> float:
+    def exchange_factor(self) -> float:
         r"""
-        Whether any factor is present in the Hamiltonian.
+        Exchange factor of the Hamiltonian.
 
         Access this attribute to check the current notation of the Hamiltonian,
         set this attribute to change the notation of the Hamiltonian.
 
         Returns
         -------
-        factor : float
-            value of the factor before the sum in the Hamiltonian.
+        exchange_factor : float
+            Value of the factor before the exchange sum in the Hamiltonian.
 
         Raises
         ------
@@ -368,24 +331,69 @@ class SpinHamiltonian(Crystal):
 
         See Also
         --------
-        set_interpretation : to change the interpretation of the Hamiltonian`s notation
-            without the modification of the parameters.
+        double_counting
+        spin_normalized
+        on_site_factor
+        notation
         """
 
-        if self._factor is None:
-            raise NotationError("factor")
-        return self._factor
+        if self._exchange_factor is None:
+            raise NotationError("exchange_factor")
+        return self._exchange_factor
 
-    @factor.setter
-    def factor(self, new_factor: bool):
-        if self._factor is not None:
-            factor = self._factor / new_factor
+    @exchange_factor.setter
+    def exchange_factor(self, new_factor: bool):
+        new_factor = float(new_factor)
+        # If factor is changing one need to scale parameters.
+        if self._exchange_factor is not None and self._exchange_factor != new_factor:
+            for atom1, atom2, R, J in self:
+                # Only exchange parameters have to be scaled
+                if R != (0, 0, 0) or atom1 != atom2:
+                    self[atom1, atom2, R].matrix *= factor / self._exchange_factor
 
-            if factor != 1:
-                for atom1, atom2, R, J in self:
-                    self[atom1, atom2, R] = J * factor
+        self._exchange_factor = new_factor
 
-        self._factor = float(new_factor)
+    @property
+    def on_site_factor(self) -> float:
+        r"""
+        On-site factor of the Hamiltonian.
+
+        Access this attribute to check the current notation of the Hamiltonian,
+        set this attribute to change the notation of the Hamiltonian.
+
+        Returns
+        -------
+        on_site_factor : float
+            Value of the factor before the on-site sum in the Hamiltonian.
+
+        Raises
+        ------
+        :py:exc:`.NotationError`
+            If the interpretation of the Hamiltonian`s notation is not set.
+
+        See Also
+        --------
+        double_counting
+        spin_normalized
+        exchange_factor
+        notation
+        """
+
+        if self._on_site_factor is None:
+            raise NotationError("on_site_factor")
+        return self._on_site_factor
+
+    @on_site_factor.setter
+    def on_site_factor(self, new_factor: bool):
+        new_factor = float(new_factor)
+        # If factor is changing one need to scale parameters.
+        if self._on_site_factor is not None and self._on_site_factor != new_factor:
+            for atom1, atom2, R, J in self:
+                # Only on-site parameters have to be scaled
+                if R == (0, 0, 0) and atom1 == atom2:
+                    self[atom1, atom2, R].matrix *= factor / self._on_site_factor
+
+        self._on_site_factor = new_factor
 
     def __iter__(self):
         return SpinHamiltonianIterator(self)
@@ -401,7 +409,7 @@ class SpinHamiltonian(Crystal):
         key = (atom1, atom2, R)
         return key in self._bonds
 
-    def __getitem__(self, key) -> ExchangeParameter:
+    def __getitem__(self, key) -> MatrixParameter:
         atom1, atom2, R = key
         # If atom is a string, get the atom object
         if isinstance(atom1, str):
@@ -413,10 +421,19 @@ class SpinHamiltonian(Crystal):
         return self._bonds[key]
 
     def __getattr__(self, name):
-        # Fix copy/deepcopy RecursionError
-        if name in ["__setstate__"]:
-            raise AttributeError(name)
         raise AttributeError(name)
+
+    def copy(self):
+        R"""
+        Return an independent copy of the Hamiltonian.
+
+        Returns
+        =======
+        spinham : :py:class:`.SpinHamiltonian`
+            An independent copy of the Hamiltonian.
+        """
+
+        return deepcopy(self)
 
     @property
     def crystal(self) -> Crystal:
@@ -425,7 +442,7 @@ class SpinHamiltonian(Crystal):
 
         Return an independent instance of a crystal.
         You can use it to play with the model`s crystal independently,
-        but it will not affect the model itself.
+        but it will not affect the Hamiltonian itself.
 
         Returns
         -------
@@ -439,25 +456,6 @@ class SpinHamiltonian(Crystal):
         return Crystal(self.lattice, self.atoms)
 
     @property
-    def cell_list(self):
-        r"""
-        List of cells from the Hamiltonian.
-
-        Return the list of R for all cell that are present in the Hamiltonian.
-        Not ordered.
-
-        Returns
-        -------
-        cells : (n, 3) :numpy:`ndarray`
-            Array of n unit cells.
-        """
-
-        cells = set()
-        for atom1, atom2, R, J in self:
-            cells.add(R)
-        return np.array(list(cells))
-
-    @property
     def magnetic_atoms(self):
         r"""
         Magnetic atoms of the model.
@@ -465,6 +463,8 @@ class SpinHamiltonian(Crystal):
         Atoms with at least one bond starting or finishing in it.
 
         Atoms are ordered with respect to the :py:attr:`.Atom.index`.
+
+        This property is dynamically computed at every call.
 
         Returns
         -------
@@ -479,116 +479,82 @@ class SpinHamiltonian(Crystal):
         return sorted(list(result), key=lambda x: x.index)
 
     @property
-    def number_spins_in_unit_cell(self):
+    def I(self):
         r"""
         Number of spins (or magnetic atoms) in the unit cell.
 
         Returns
         -------
-        number_spins_in_unit_cell : int
+        I : int
             Number of spins (or magnetic atoms) in the unit cell.
         """
 
         return len(self.magnetic_atoms)
 
-    @property
-    def space_dimensions(self):
-        r"""
-        Model minimum and maximum coordinates in real space.
-
-        Takes into account only an atom which has at least
-        one bond associated with it.
-
-        Returns
-        -------
-        x_min : float
-            Minimum x coordinate.
-        y_min : float
-            Minimum y coordinate.
-        z_min : float
-            Minimum z coordinate.
-        x_max : float
-            Maximum x coordinate.
-        y_max : float
-            Maximum y coordinate.
-        z_max : float
-            Maximum z coordinate.
-        """
-
-        x_max, y_max, z_max = None, None, None
-        x_min, y_min, z_min = None, None, None
-        for atom1, atom2, R in self._bonds:
-            x1, y1, z1 = self.get_atom_coordinates(atom1, relative=False)
-            x2, y2, z2 = self.get_atom_coordinates(atom2, R, relative=False)
-            if x_max is None:
-                x_min, y_min, z_min = x1, y1, z1
-                x_max, y_max, z_max = x1, y1, z1
-            x_max = max(x1, x2, x_max)
-            y_max = max(y1, y2, y_max)
-            z_max = max(z1, z2, z_max)
-            x_min = min(x1, x2, x_min)
-            y_min = min(y1, y2, y_min)
-            z_min = min(z1, z2, z_min)
-        return x_min, y_min, z_min, x_max, y_max, z_max
-
     def __setitem__(self, key, value):
         self.add_bond(*key, value)
 
     def add_bond(
-        self, atom1: Atom, atom2: Atom, R, J: ExchangeParameter = None, **kwargs
+        self, atom1: Atom, atom2: Atom, ijk, J: MatrixParameter = None, **kwargs
     ):
         r"""
         Add one bond to the Hamiltonian.
 
+        It will rewrite an existing one.
+
         Parameters
         ----------
         atom1 : :py:class:`Atom` or str
-            Atom object in (0, 0, 0) unit cell.
+            Atom in (0, 0, 0) unit cell.
             str works only if atom is already in the Hamiltonian.
         atom2 : :py:class:`Atom` or str
-            Atom object in R unit cell.
+            Atom in (i,j,k) unit cell.
             str works only if atom is already in the Hamiltonian.
-        R : tuple of ints
+        ijk : tuple of ints
             Vector of the unit cell for atom2.
             In the relative coordinates (i,j,k).
-        J : :py:class:`.ExchangeParameter`, optional
-            An instance of :py:class:`ExchangeParameter`.
+        J : :py:class:`.MatrixParameter`, optional
+            An instance of :py:class:`MatrixParameter`.
         ** kwargs
-            Keyword arguments for the constructor of :py:class:`ExchangeParameter`.
+            Keyword arguments for the constructor of :py:class:`MatrixParameter`.
             Ignored if J is given.
         """
 
+        # Get the atom by the name
         if isinstance(atom1, str):
             atom1 = self.get_atom(atom1)
         elif atom1 not in self.atoms:
             self.add_atom(atom1)
 
+        # Get the atom by the name
         if isinstance(atom2, str):
             atom2 = self.get_atom(atom2)
         elif atom2 not in self.atoms:
             self.add_atom(atom2)
 
+        # Construct parameter if it is not given
         if J is None:
-            J = ExchangeParameter(**kwargs)
+            J = MatrixParameter(**kwargs)
 
-        self._bonds[(atom1, atom2, R)] = J
+        self._bonds[(atom1, atom2, ijk)] = J
 
         # Check for double counting
-        double_counting = False
         try:
-            double_counting = self.double_counting
+            i, j, k = ijk
+            if self.double_counting and (atom2, atom1, (-i, -j, -k)) not in self:
+                self._bonds[(atom2, atom1, (-i, -j, -k))] = J.T
+        # If it fails, then we do not need to add a mirrored bond
         except NotationError:
             pass
-        i, j, k = R
-        if double_counting and (atom2, atom1, (-i, -j, -k)) not in self:
-            self._bonds[(atom2, atom1, (-i, -j, -k))] = J.T
 
     def __delitem__(self, key):
         self.remove_bond(*key)
 
-    def remove_bond(self, atom1: Atom, atom2: Atom, R):
+    def remove_bond(self, atom1: Atom, atom2: Atom, ijk, raise_if_no_bond=True):
         r"""
         Remove one bond from the Hamiltonian.
+
+        If :py:attr:`.double_counting` is True, then the mirrored bond is removed as well.
 
         Parameters
         ----------
@@ -598,6 +564,8 @@ class SpinHamiltonian(Crystal):
             Atom object in R unit cell.
         R : tuple of ints
             Radius vector of the unit cell for atom2 (i,j,k).
+        raise_if_no_bond : bool, default True
+            Whether to raise KeyError if the bond is not in the model.
         """
 
         # If atom is a string, get the atom object
@@ -607,21 +575,20 @@ class SpinHamiltonian(Crystal):
             atom2 = self.get_atom(atom2)
 
         try:
-            del self._bonds[(atom1, atom2, R)]
+            del self._bonds[(atom1, atom2, ijk)]
         except KeyError:
-            raise KeyError(
-                f"Bond ({atom2.fullname}, {atom2.fullname}, {R}) is not present in the model."
-            )
+            if raise_if_no_bond:
+                raise KeyError(
+                    f"Bond ({atom2.fullname}, {atom2.fullname}, {ijk}) is not present in the model."
+                )
 
         # Check for double counting
-        double_counting = False
         try:
-            double_counting = self.double_counting
+            i, j, k = ijk
+            if self.double_counting and (atom2, atom1, (-i, -j, -k)) in self:
+                del self._bonds[(atom2, atom1, (-i, -j, -k))]
         except NotationError:
             pass
-        i, j, k = R
-        if double_counting and (atom2, atom1, (-i, -j, -k)) in self:
-            del self._bonds[(atom2, atom1, (-i, -j, -k))]
 
     def remove_atom(self, atom):
         r"""
@@ -641,18 +608,19 @@ class SpinHamiltonian(Crystal):
             atom = self.get_atom(atom)
 
         bonds_for_removal = []
-        for atom1, atom2, R, J in self:
+        for atom1, atom2, ijk, J in self:
             if atom1 == atom or atom2 == atom:
-                bonds_for_removal.append((atom1, atom2, R))
-
+                bonds_for_removal.append((atom1, atom2, ijk))
+        # No need to check for double counting explicitly
+        # Both bonds -- ones that start and ones that end in atom -- are removed
         for bond in bonds_for_removal:
             del self[bond]
 
         super().remove_atom(atom)
 
-    def filter(self, max_distance=None, min_distance=None, R_vector=None):
+    def filter(self, max_distance=None, min_distance=None, custom_filter=None):
         r"""
-        Filter the exchange entries based on the given conditions.
+        Filter the parameter entries based on the given conditions.
 
         The result will be defined by logical conjugate of the conditions.
         Saying so the filtering will be performed for each given condition
@@ -661,12 +629,13 @@ class SpinHamiltonian(Crystal):
         Parameters
         ----------
         max_distance : float or int, optional
-            Distance for sorting, the condition is <<less or equal>>.
+            Distance for sorting, the condition is :math:`\le`.
         min_distance : float or int, optional
-            Distance for sorting, the condition is <<more or equal>>.
-        R_vector : tuple of ints or list of tuples of ints
-            Tuple of 3 integers or list of tuples, specifying the R vectors,
-            which will be kept after filtering.
+            Distance for sorting, the condition is :math:`\ge`.
+        custom_filter : function, optional
+            Custom function, that takes :py:class:`.MatrixParameter` as an input
+            and returns ``bool``. If it returns ``True``, then the bond is
+            kept in the Hamiltonian.
 
         See Also
         --------
@@ -677,41 +646,32 @@ class SpinHamiltonian(Crystal):
         This method modifies the instance at which it is called.
         """
 
-        if R_vector is not None:
-            if type(R_vector) == tuple:
-                R_vector = {R_vector}
-            elif type(R_vector) == list:
-                R_vector = set(R_vector)
-            else:
-                raise TypeError("Type is not supported, supported: list.")
+        # Convert min/max value to matrix form is necessary
+        if isinstance(min_value, float) or isinstance(min_value, int):
+            min_value = min_value * np.ones((3, 3), dtype=float)
+        if isinstance(max_value, float) or isinstance(max_value, int):
+            max_value = max_value * np.ones((3, 3), dtype=float)
+
         bonds_for_removal = set()
-        for atom1, atom2, R, J in self:
-            i, j, k = R
-            dis = self.get_distance(atom1, atom2, R)
+        for atom1, atom2, ijk, parameter in self:
+            dis = self.get_distance(atom1, atom2, ijk)
 
             if max_distance is not None and dis > max_distance:
-                bonds_for_removal.add((atom1, atom2, R))
+                bonds_for_removal.add((atom1, atom2, ijk))
 
             if min_distance is not None and dis < min_distance:
-                bonds_for_removal.add((atom1, atom2, R))
+                bonds_for_removal.add((atom1, atom2, ijk))
 
-            # This behaviour should depend on the notation of the Hamiltonian
-            condition = R_vector is not None and R not in R_vector
-            try:
-                if self.double_counting:
-                    condition = condition and (-i, -j, -k) not in R_vector
-            except NotationError:
-                pass
-            if condition:
-                bonds_for_removal.add((atom1, atom2, R))
+            if custom_filter is not None and not custom_filter(parameter):
+                bonds_for_removal.add((atom1, atom2, ijk))
 
-        for atom1, atom2, R in bonds_for_removal:
+        for bond in bonds_for_removal:
             try:
-                del self[atom1, atom2, R]
+                del self[bond]
             except KeyError:
                 pass
 
-    def filtered(self, max_distance=None, min_distance=None, R_vector=None):
+    def filtered(self, **kwargs):
         r"""
         Create filtered spin Hamiltonian based on the given conditions.
 
@@ -724,13 +684,7 @@ class SpinHamiltonian(Crystal):
 
         Parameters
         ----------
-        max_distance : float or int, optional
-            Distance for sorting, the condition is <<less or equal>>.
-        min_distance : float or int, optional
-            Distance for sorting, the condition is <<more or equal>>.
-        R_vector : tuple of ints or list of tuples of ints
-            Tuple of 3 integers or list of tuples, specifying the R vectors,
-            which will be kept after filtering.
+        **kwargs : keyword argument, that will be passed to the :py:attr:`.filter` method.
 
         Returns
         -------
@@ -744,112 +698,12 @@ class SpinHamiltonian(Crystal):
         Notes
         -----
         This method is not modifying the instance at which it is called.
-        It creates a new instance (through deepcopy).
+        It creates a new instance (see :py:attr:`.copy`).
         """
 
-        filtered_model = deepcopy(self)
-        filtered_model.filter(
-            max_distance=max_distance,
-            min_distance=min_distance,
-            R_vector=R_vector,
-        )
+        filtered_model = self.copy()
+        filtered_model.filter(**kwargs)
         return filtered_model
-
-    def ferromagnetic_energy(self, theta=0, phi=0):
-        r"""
-        Compute energy of the Hamiltonian assuming ferromagnetic state.
-
-        Notes
-        -----
-        Notation of the Hamiltonian has to be known.
-        See :py:meth:`.set_interpretation` and :py:attr:`.notation`.
-
-        Parameters
-        ----------
-        theta : float or (N,) |array_like|_, default 0
-            Angle between z axis and direction of the magnetization.
-            :math:`0^{\circ} \le \theta \le 180^{\circ}`.
-        phi : float or (N,) |array_like|_, default 0
-            angle between x axis and projection of
-            magnetization`s direction on xy plane.
-            :math:`0^{\circ} \le \phi < 360^{\circ}`.
-
-        Returns
-        -------
-        energy : float or (N,) :numpy:`ndarray`
-            Energy of ferromagnetic Hamiltonian with magnetization direction defined
-            by ``theta`` and ``phi``. In the units of J values.
-        """
-
-        # Compute spin direction
-        theta = np.array(theta) * np.pi / 180
-        phi = np.array(phi) * np.pi / 180
-        if theta.shape == ():
-            theta = np.array([theta])
-        if phi.shape == ():
-            phi = np.array([phi])
-        spin_direction = np.array(
-            [np.cos(phi) * np.sin(theta), np.sin(phi) * np.sin(theta), np.cos(theta)]
-        )
-
-        energy = np.zeros((3, 3), dtype=float)
-        for atom1, atom2, R, J in self:
-            if self.spin_normalized:
-                energy += self.factor * J.matrix
-            else:
-                energy += self.factor * J.matrix * atom1.spin * atom2.spin
-
-        energy = np.einsum("ni,ij,jn->n", spin_direction.T, energy, spin_direction)
-        if len(energy) == 1:
-            energy = energy[0]
-        return energy
-
-    def input_for_magnons(self, nodmi=False, noaniso=False, custom_mask=None):
-        r"""
-        Input from the spin Hamiltonian.
-
-        This function prepare the list of exchange parameters to
-        be used as an input for magnon dispersion calculation.
-
-        Parameters
-        ----------
-        nodmi : bool, default=False
-            If True, then DMI is not included in the dispersion.
-        noaniso : bool, default=False
-            If True, then anisotropy is not included in the dispersion.
-        custom_mask : func
-            Custom mask for the exchange parameter. Function which take (3,3) numpy:`ndarray`
-            as an input and returns (3,3) numpy:`ndarray` as an output.
-
-        Returns
-        -------
-        Jij : list
-        i : list
-        j : list
-        dij : list
-        """
-
-        Jij = []
-        i = []
-        j = []
-        dij = []
-        magnetic_atoms = self.magnetic_atoms
-        atom_index = dict([(atom, i) for i, atom in enumerate(magnetic_atoms)])
-        for atom1, atom2, R, J in self:
-            if custom_mask is not None:
-                result = custom_mask(J.matrix)
-            else:
-                result = J.matrix
-                if nodmi:
-                    result -= J.dmi_matrix
-                if noaniso:
-                    result -= J.aniso
-            Jij.append(result)
-            i.append(atom_index[atom1])
-            j.append(atom_index[atom2])
-            dij.append(self.get_vector(atom1, atom1, R))
-
-        return Jij, i, j, dij
 
 
 class SpinHamiltonianIterator:
@@ -862,7 +716,7 @@ class SpinHamiltonianIterator:
         )
         self._index = 0
 
-    def __next__(self) -> Tuple[Atom, Atom, tuple, ExchangeParameter]:
+    def __next__(self) -> Tuple[Atom, Atom, tuple, MatrixParameter]:
         if self._index < len(self._bonds):
             result = self._bonds[self._index]
             self._index += 1

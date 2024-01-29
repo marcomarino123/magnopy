@@ -16,25 +16,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__all__ = ["ExchangeParameter"]
+__all__ = ["MatrixParameter"]
 
 # SELF is introduced in python 3.11, it is too fresh for my taste
 from typing import TypeVar
 
-Self = TypeVar("Self", bound="ExchangeParameter")
+Self = TypeVar("Self", bound="MatrixParameter")
 
 import numpy as np
 from wulfric import print_2d_array
 
 
-class ExchangeParameter:
+class MatrixParameter:
     r"""
     Exchange parameter (:math:`\boldsymbol{J}`) class.
 
     Basically it is a wrapper around :numpy:`ndarray`
     with predefined exchange-specific attributes.
     Any function, which work on :numpy:`ndarray` should work on
-    :py:class:`.ExchangeParameter` as well. It will act on the
+    :py:class:`.MatrixParameter` as well. It will act on the
     :py:attr:`.matrix` attribute.
 
     If ``matrix`` is specified then ``iso``, ``aniso`` and ``dmi`` are
@@ -77,7 +77,7 @@ class ExchangeParameter:
         return print_2d_array(self.matrix, fmt=fmt, print_result=False, borders=False)
 
     def __repr__(self):
-        return f"ExchangeParameter({self.matrix.__repr__()})"
+        return f"MatrixParameter({self.matrix.__repr__()})"
 
     @property
     def __array_interface__(self):
@@ -88,16 +88,16 @@ class ExchangeParameter:
         r"""
         Transposes a matrix of the exchange parameter.
 
-        It returns new instance of the :py:class`.ExchangeParameter`
+        It returns new instance of the :py:class`.MatrixParameter`
         with transposed matrix.
 
         Returns
         -------
-        ExchangeParameter : :py:class`.ExchangeParameter`
-            New instance of the :py:class`.ExchangeParameter`
+        MatrixParameter : :py:class`.MatrixParameter`
+            New instance of the :py:class`.MatrixParameter`
             with transposed matrix.
         """
-        return ExchangeParameter(matrix=self.matrix.T)
+        return MatrixParameter(matrix=self.matrix.T)
 
     @property
     def matrix(self) -> np.ndarray:
@@ -465,8 +465,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.xx
             1.0
             >>> J.matrix[0][0]
@@ -492,8 +492,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.xy
             2.0
             >>> J.matrix[0][1]
@@ -519,8 +519,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.xz
             3.0
             >>> J.matrix[0][2]
@@ -546,8 +546,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.yx
             4.0
             >>> J.matrix[1][0]
@@ -573,8 +573,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.yy
             5.0
             >>> J.matrix[1][1]
@@ -600,8 +600,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.yz
             6.0
             >>> J.matrix[1][2]
@@ -627,8 +627,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.zx
             7.0
             >>> J.matrix[2][0]
@@ -654,8 +654,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.zy
             8.0
             >>> J.matrix[2][1]
@@ -681,8 +681,8 @@ class ExchangeParameter:
 
         .. doctest::
 
-            >>> from magnopy import ExchangeParameter
-            >>> J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+            >>> from magnopy import MatrixParameter
+            >>> J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
             >>> J.zz
             9.0
             >>> J.matrix[2][2]
@@ -703,25 +703,25 @@ class ExchangeParameter:
 
     # + (add)
     def __add__(self, other) -> Self:
-        if isinstance(other, ExchangeParameter):
+        if isinstance(other, MatrixParameter):
             matrix = self.matrix + other.matrix
         else:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for +: 'ExchangeParameter' and '{other.__class__.__name__}'"
+                + f"for +: 'MatrixParameter' and '{other.__class__.__name__}'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # - (sub)
     def __sub__(self, other) -> Self:
-        if isinstance(other, ExchangeParameter):
+        if isinstance(other, MatrixParameter):
             matrix = self.matrix - other.matrix
         else:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for -: 'ExchangeParameter' and '{other.__class__.__name__}'"
+                + f"for -: 'MatrixParameter' and '{other.__class__.__name__}'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # *
     def __mul__(self, number) -> Self:
@@ -730,9 +730,9 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for *: 'ExchangeParameter' and '{number.__class__.__name__}'"
+                + f"for *: 'MatrixParameter' and '{number.__class__.__name__}'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # @
     def __matmul__(self, other) -> np.ndarray:
@@ -741,7 +741,7 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for @: 'ExchangeParameter' and '{other.__class__.__name__}'"
+                + f"for @: 'MatrixParameter' and '{other.__class__.__name__}'"
             )
         return result
 
@@ -752,9 +752,9 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for /: 'ExchangeParameter' and '{number.__class__.__name__}'"
+                + f"for /: 'MatrixParameter' and '{number.__class__.__name__}'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # //
     def __floordiv__(self, number) -> Self:
@@ -763,9 +763,9 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for //: 'ExchangeParameter' and '{number.__class__.__name__}'"
+                + f"for //: 'MatrixParameter' and '{number.__class__.__name__}'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # %
     def __mod__(self, number) -> Self:
@@ -774,9 +774,9 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for %: 'ExchangeParameter' and '{number.__class__.__name__}'"
+                + f"for %: 'MatrixParameter' and '{number.__class__.__name__}'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # *
     def __rmul__(self, number) -> Self:
@@ -785,9 +785,9 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for *: '{number.__class__.__name__}' and 'ExchangeParameter'"
+                + f"for *: '{number.__class__.__name__}' and 'MatrixParameter'"
             )
-        return ExchangeParameter(matrix=matrix)
+        return MatrixParameter(matrix=matrix)
 
     # @
     def __rmatmul__(self, other) -> np.ndarray:
@@ -796,25 +796,25 @@ class ExchangeParameter:
         except:
             raise TypeError(
                 f"TypeError: unsupported operand type(s) "
-                + f"for @: '{other.__class__.__name__}' and 'ExchangeParameter'"
+                + f"for @: '{other.__class__.__name__}' and 'MatrixParameter'"
             )
         return result
 
     # - (neg)
     def __neg__(self) -> Self:
-        return ExchangeParameter(matrix=-self.matrix)
+        return MatrixParameter(matrix=-self.matrix)
 
     # + (pos)
     def __pos__(self) -> Self:
-        return ExchangeParameter(matrix=self.matrix)
+        return MatrixParameter(matrix=self.matrix)
 
     # abs()
     def __abs__(self) -> Self:
-        return ExchangeParameter(matrix=np.abs(self.matrix))
+        return MatrixParameter(matrix=np.abs(self.matrix))
 
     # ==
     def __eq__(self, other):
-        if isinstance(other, ExchangeParameter):
+        if isinstance(other, MatrixParameter):
             return (self.matrix == other.matrix).all()
         try:
             other = np.array(other, dtype=float)
@@ -830,5 +830,5 @@ class ExchangeParameter:
 
 
 if __name__ == "__main__":
-    J = ExchangeParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     print(J.xy)

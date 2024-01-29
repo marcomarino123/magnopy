@@ -43,27 +43,15 @@
     \mu_B
     \sum_i
     g_i  S_i
-    \Bigg\{
-      \cos\theta_i
-      h^n
-      \delta_{\boldsymbol{q^n}, \boldsymbol{G}}
-      \cos\phi^n_i
-      +\\+&
-      \dfrac{\sin\theta_i}{2}
-      \Biggl(
-        h^u
-        \Bigl[
-          \delta_{\boldsymbol{q^u}_m + \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_i^u + \phi_i)
-          +
-          \delta_{\boldsymbol{q^u}_m - \boldsymbol{q}_m, \boldsymbol{G}} \cos(\phi_i^u - \phi_i)
-        \Bigr]
-        +\\&+
-        h^v
-        \Bigl[
-          \delta_{\boldsymbol{q^v}_m + \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_i^v + \phi_i)
-          -
-          \delta_{\boldsymbol{q^v}_m - \boldsymbol{q}_m, \boldsymbol{G}} \sin(\phi_i^v - \phi_i)
-        \Bigr]
-      \Biggr)
-    \Biggr\}
+    \left[
+    \sin\theta_i
+    \delta_{\boldsymbol{q},\boldsymbol{G}}
+    \left(
+      h^u\cos(\phi_i)
+      +
+      h^v\sin(\phi_i)
+    \right)
+    +
+    h^n\cos\theta_i
+    \right]
   \end{aligned}

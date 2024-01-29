@@ -32,10 +32,10 @@ Let us separate the summation over cites in unit cell and over unit cells:
         =
         \boldsymbol{S_i^{ferro}}
 
-    We assume that magnetic field can vary in space:
+    We assume that magnetic field is uniform in space:
 
     .. math::
-        \boldsymbol{h} = \boldsymbol{h}(\boldsymbol{r_{mi}}) = \boldsymbol{h_{mi}}
+        \boldsymbol{h} = (h^u, h^v, h^n)^{\dagger}
 
 .. math::
   H
@@ -57,9 +57,9 @@ Let us separate the summation over cites in unit cell and over unit cells:
   \mu_B
   \sum_i
   g_i
+  \boldsymbol{h}^{\dagger}
   \left[
   \sum_{m}
-  \boldsymbol{h_{mi}}^{\dagger}
   \boldsymbol{R}(\phi_m)
   \right]
   \boldsymbol{R}(\theta_i,\phi_i)
@@ -158,7 +158,7 @@ Next we turn our attention to the Zeeman term:
   g_i
   \left[
   \sum_{m}
-  \boldsymbol{h_{mi}}^{\dagger}
+  \boldsymbol{h}^{\dagger}
   \boldsymbol{R}(\phi_m)
   \right]
   \boldsymbol{R}(\theta_i,\phi_i)
@@ -186,7 +186,7 @@ Magnetic field in the spherical reference frame is written as:
   .. math::
     \langle uvn \vert h_{mi}\rangle
     =
-    \left(h_{mi}^u, h_{mi}^v, h_{mi}^n\right)^{\dagger}
+    \left(h^u, h^v, h^n\right)^{\dagger}
 
   Let us recall the transformation matrix:
 
@@ -195,13 +195,13 @@ Magnetic field in the spherical reference frame is written as:
   And compute the magnetic field in the spherical reference frame:
 
   .. math::
-    \langle u^+u^-n \vert h_{mi} \rangle
+    \langle u^+u^-n \vert h \rangle
     =
     \langle u^+u^-n \vert uvn \rangle
-    \langle uvn \vert h_{mi} \rangle
+    \langle uvn \vert h \rangle
     =
     \langle uvn \vert T^{\dagger} \vert uvn \rangle
-    \langle uvn \vert h_{mi} \rangle
+    \langle uvn \vert h \rangle
 
   Which leads to the expression:
 
@@ -213,21 +213,40 @@ Magnetic field in the spherical reference frame is written as:
     0 &  0 & \sqrt{2} \\
   \end{pmatrix}
   \begin{pmatrix}
-    h_{mi}^u \\
-    h_{mi}^v \\
-    h_{mi}^n \\
+    h^u \\
+    h^v \\
+    h^n \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \dfrac{h_{mi}^u - ih_{mi}^v}{\sqrt{2}} \\
-    \dfrac{h_{mi}^u + ih_{mi}^v}{\sqrt{2}} \\
-    h_{mi}^n     \\
+    \dfrac{h^u - ih^v}{\sqrt{2}} \\
+    \dfrac{h^u + ih^v}{\sqrt{2}} \\
+    h^n     \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \dfrac{h_{mi}^{-}}{\sqrt{2}}       \\
-    \dfrac{h_{mi}^{+}}{\sqrt{2}}       \\
-    h_{mi}^n \\
+    \dfrac{h^{-}}{\sqrt{2}}       \\
+    \dfrac{h^{+}}{\sqrt{2}}       \\
+    h^n \\
+  \end{pmatrix}
+
+Before we compute the expression for energy work with the sum over :math:`m`:
+
+.. math::
+  \sum_{m}
+  \boldsymbol{R}(\phi_m)
+  =
+  \begin{pmatrix}
+    \sum_{m}e^{-i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0                          & 0 \\
+    0                           & \sum_{m}e^{i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0 \\
+    0                           & 0                          & \sum_{m}1 \\
+  \end{pmatrix}
+  =
+  M
+  \begin{pmatrix}
+    \delta_{\boldsymbol{q},\boldsymbol{G}} & 0                           & 0 \\
+    0                           & \delta_{\boldsymbol{q},\boldsymbol{G}} & 0 \\
+    0                           & 0                          & 1             \\
   \end{pmatrix}
 
 Then the energy is:
@@ -236,61 +255,8 @@ Then the energy is:
 
   .. include:: field-energy-details.txt
 
-.. math::
-  \mu_B
-  \sum_i
-  g_i  S_i
-  \sum_{m}
-  \left[
-  \sin\theta_i
-  \left(
-    h_{mi}^u\cos(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)
-    +
-    h_{mi}^v\sin(\boldsymbol{q}\cdot\boldsymbol{r_m}+\phi_i)
-  \right)
-  +
-  h_{mi}^n\cos\theta_i
-  \right]
-
-Let us set each component of the magnetic field to be a harmonic function in the
-:math:`uvn` reference frame:
-
-.. math::
-  \begin{aligned}
-    h_{mi}^u
-    &=
-    h^u\cos(\boldsymbol{q^u}(\boldsymbol{r_m}+\boldsymbol{r_i})+\varphi^u)
-    =
-    h^u\cos(\boldsymbol{q^u}\boldsymbol{r_m}+\phi_i^u) \\
-    h_{mi}^v
-    &=
-    h^v\cos(\boldsymbol{q^v}(\boldsymbol{r_m}+\boldsymbol{r_i})+\varphi^v)
-    =
-    h^v\cos(\boldsymbol{q^v}\boldsymbol{r_m}+\phi_i^v) \\
-    h_{mi}^n
-    &=
-    h^n\cos(\boldsymbol{q^n}(\boldsymbol{r_m}+\boldsymbol{r_i})+\varphi^n)
-    =
-    h^n\cos(\boldsymbol{q^n}\boldsymbol{r_m}+\phi_i^n) \\
-  \end{aligned}
-
-Then we can write:
-
-.. dropdown:: Details
-
-  * :math:`\boldsymbol{\hat{u}}` component
-
-    .. include:: field-sum-u-component-details.txt
-
-  * :math:`\boldsymbol{\hat{v}}` component
-
-    .. include:: field-sum-v-component-details.txt
-
-  * :math:`\boldsymbol{\hat{n}}` component
-
-    .. include:: field-sum-n-component-details.txt
-
 .. include:: ../repeated-formulas/classic-zeeman-energy.txt
+
 
 Total energy
 ============

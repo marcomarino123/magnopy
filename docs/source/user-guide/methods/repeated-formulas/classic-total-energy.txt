@@ -43,15 +43,15 @@
     \mu_B
     \sum_i
     g_i  S_i
-    \left[
-    \sin\theta_i
+    \Biggl\{
     \delta_{\boldsymbol{q},\boldsymbol{G}}
-    \left(
+    \sin\theta_i
+    \Bigl[
       h^u\cos(\phi_i)
       +
       h^v\sin(\phi_i)
-    \right)
+    \Bigr]
     +
     h^n\cos\theta_i
-    \right]
+    \Biggr\}
   \end{aligned}

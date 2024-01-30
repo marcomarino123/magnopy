@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{S}=
+  \boldsymbol{S^s}=
   \begin{pmatrix} S^+ \\  S^- \\   S^n \end{pmatrix}
   =
   \begin{pmatrix}S^u + iS^v\\ S^u - iS^v\\  S^n\end{pmatrix}

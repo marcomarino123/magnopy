@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{S}\approx
+  \boldsymbol{S^s}\approx
   \begin{pmatrix}
   \sqrt{2S}\,\, \left(a - \dfrac{a^{\dagger}aa}{4S}\right)
   \\

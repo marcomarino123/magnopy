@@ -12,148 +12,77 @@ Holstein-Primakoff bosons
   * .. include:: ../page-notations/operators.txt
   * .. include:: ../page-notations/bra-ket.txt
 
-
-
-In order to describe the excitations we will use Holstein-Primakoff (HP) bosons [1]_
-for the ferromagnetic state in the :math:`uvn` reference frame.
-
-Before we proceed to the transformation we need to mention the transition from the
-spin-vectors to the spin-operators. We choose the direction of vector :math:`\boldsymbol{\hat{n}}`
-of the :math:`uvn` basis as a quantization axis and substitute the vector
-components of the spin with the corresponding spin operators:
-
-.. math::
-
-  \begin{pmatrix}
-    S^u \\
-    S^v \\
-    S^n \\
-  \end{pmatrix}
-  \Rightarrow
-  \begin{pmatrix}
-    s^u \\
-    s^v \\
-    s^n \\
-  \end{pmatrix}
-
-Next, we write the HP transformation for the *ferromagnetic* ground state:
+Decomposition of spin operators into Holstein-Primakoff bosons
+--------------------------------------------------------------
+Magnopy considers spins in the local rotated spherical :math:`(\,u^+\,u^-\,n\,)`
+reference frame where all those spins are collinear
+(see :ref:`spherical reference frame <user-guide_methods_spherical-rf>`).
+It then chooses :math:`\boldsymbol{\hat{n}}` as the quantization axis direction
+and decomposes the quantum spin operator components in the spherical basis
+in terms of Holstein-Primakoff (HP) bosons [1]_
 
 .. include:: ../repeated-formulas/hp-general-uvn.txt
 
-In the following treatment we work with the terms with at most 4
-creation/annihilation operators, therefore, we expand the square root up to the first
-power of the :math:`1/S`, because already the :math:`1/S^2` gives the five-operator term:
+Expansion of the square roots above leads to an infinite series in :math:`1/S`,
+that translates into the Heisenberg Hamiltonian. This :math:`1/S` expansion of the
+Hamiltonian in truncated at :math:`1/S^2` order, where terms up to four-boson
+products are kept. This can be easily shown to be equivalent to
+truncating the square roots above at :math:`1/S` order
 
 .. include:: ../repeated-formulas/hp-expanded-uvn.txt
 
-Next we write the vector of spin operators in the
-:ref:`spherical reference frame <user-guide_methods_spherical-rf>`:
-
-.. dropdown:: Details
-
-  .. include:: spin-in-spherical-details.txt
-
-.. math::
-  &\langle u^+u^-n \vert s \rangle
-  =
-  \begin{pmatrix}
-    \dfrac{s^-}{\sqrt{2}} \\
-    \dfrac{s^+}{\sqrt{2}} \\
-    s^n                   \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \sqrt{S}
-    \cdot
-    \left[
-      a^{\dagger}
-      -
-      \dfrac{a^{\dagger}a^{\dagger}a}{4S}
-    \right] \\
-    \sqrt{S}
-    \cdot \left[
-      a
-      -
-      \dfrac{a^{\dagger}aa}{4S}
-    \right] \\
-    S - a^{\dagger}a \\
-  \end{pmatrix}
-
-Now we move on to the Hamiltonian in the
-:ref:`spherical reference frame <user-guide_methods_spherical-rf>`:
+Quantum Hamiltonian in the :math:`(\,u^+\,u^-\,n\,)` basis
+----------------------------------------------------------
+The quantum Heisenberg Hamiltonian looks exactly the same as its classical
+counterpart, where all the classical spin vectors are replaced by quantum
+spin vectors
 
 .. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any.txt
 
 .. note::
-  Before this section the parameters :math:`\boldsymbol{n}`, :math:`\theta_i`, :math:`\phi_i`,
-  :math:`\boldsymbol{q}` were unknown. Starting from this section we assume that the ground
-  state is known and we want to compute the low energy excitations to it.
+  The cone-state parameters :math:`\boldsymbol{n}`, :math:`\theta_i`, :math:`\phi_i`
+  and :math:`\boldsymbol{q}` must be determined previously as explained
+  :ref:`here <user-guide_methods_energy-minimization_index>`.
+  This section assumes that those parameters are known already.
 
-and cast classical spin vectors to vector spin operators:
-
-.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any-operators.txt
-
-From this moment we focus on the exchange part of the Hamiltonian and work in the
-spherical basis. We split the Hamiltonian into three parts as following:
+The exchange term in the Hamiltonian is split into three pieces as follows
 
 .. math::
   {\cal H}^{exchange}
-  =
+  =&
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
   \left[
-  (\boldsymbol{s_{mi}^{ferro}})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
-  \right]
-  \left[
-  \boldsymbol{R}^{\dagger}(\phi_m)
-  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\phi_{m+d_{ij}})
-  \right]
-  \left[
-  \boldsymbol{R}(\theta_j,\phi_j)
-  \boldsymbol{s_{m+d_{ij},j}^{ferro}}
-  \right]
-  \\=
+  (\boldsymbol{S_{mi}^s})^{\dagger}\,\boldsymbol{R_i}^{\dagger}\,\right]\,
+  \left[\boldsymbol{R_m}^{\dagger}\,\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})\,
+  \boldsymbol{R_{m+d_{ij}}}\right]\,
+  \left[\boldsymbol{R_j}\,\boldsymbol{S_{m+d_{ij},j}^s}\right]
+  \\=&
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  \left[
-  (\boldsymbol{s_{mi}^{ferro}})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
-  \right]
-  \boldsymbol{\tilde{J}_{mdij}}
-  \left[
-  \boldsymbol{R}(\theta_j,\phi_j)
-  \boldsymbol{s_{m+d_{ij},j}^{ferro}}
-  \right]
+  (\boldsymbol{\tilde{S}_{mi}^s})^{\dagger}\,
+  \boldsymbol{\tilde{J}_{mdij}}\,
+  \boldsymbol{\tilde{S}_{m+d_{ij},j}^s}
 
-Defining auxiliary vectors :math:`\boldsymbol{p_i}`, :math:`\boldsymbol{t_i}`, :math:`\boldsymbol{f_i}`
-we rewrite the Hamiltonian as:
+where the rotated exchange tensor is
 
-.. dropdown:: Details
+.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-uvn.txt
 
-  First we recall the rotation matrix in a spherical reference frame:
+The expressions in the first and third square brackets are
 
-  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.txt
+.. include:: square-brackets-rewrite-left.txt
 
-  And define the vectors:
+.. include:: square-brackets-rewrite-right.txt
 
-  .. include:: ptf-definition.txt
+The vectors :math:`\boldsymbol{p},\,\boldsymbol{t}` and :math:`\boldsymbol{f}`
+result from splitting the intra-cell rotation matrix as follows
 
-  Then:
-
-  .. math::
+.. math::
     \begin{matrix}
-      R(\theta_i,\phi_i)
-      =
-      \left(
-        \boldsymbol{p_i},
-        \boldsymbol{t_i},
-        \boldsymbol{f_i}
-      \right);
+      \boldsymbol{R_i}
+      =\left(\boldsymbol{p_i}\,\boldsymbol{t_i}\,\boldsymbol{f_i}\right);
       &
-      R(\theta_i,\phi_i)^{\dagger}
-      =
+      \boldsymbol{R_i}^\dagger=
       \begin{pmatrix}
         \boldsymbol{p_i}^{\dagger} \\
         \boldsymbol{t_i}^{\dagger} \\
@@ -161,60 +90,60 @@ we rewrite the Hamiltonian as:
       \end{pmatrix}
     \end{matrix}
 
-  Next, we rewrite the expressions in the square brackets:
+.. dropdown:: Details
 
-  .. include:: square-brackets-rewrite-left.txt
+  The rotation matrix in the spherical reference frame is
 
-  .. include:: square-brackets-rewrite-right.txt
+  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.txt
+
+  so that the above three vectors are
+
+  .. include:: ptf-definition.txt
+
+Hamiltonian splitting
+---------------------
+The exchange part of the Hamiltonian can be decomposed into different pieces
+according to their order in a :math:`1/S` expansion by assuming that
+:math:`S_i = S_j = S`. The different pieces also correspond to terms having
+zero, two, three and four bosons fields. Terms containing more than four boson
+terms are cut, that could be justified as dropping terms further than :math:`1/S^2`
+in the conventional :math:`1/S` expansion.
+
+.. math::
+  {\cal H}^{exchange}=E^{Cl}+{\cal H}^{LSWT}
+                      +{\cal H}^{Cubic}+{\cal H}^{Biquadratic}
+
+* The :ref:`classical energy piece is <user-guide_methods_energy-classic>`
+
+.. math::
+  {\cal H}^{Cl}=\dfrac{1}{2}
+  \sum_{m, \boldsymbol{d_{ij}}, i, j}
+  S_i\,S_j\,\boldsymbol{f_i}^\dagger\,\boldsymbol{\tilde{J}_{mdij}}\,
+  \boldsymbol{f_j}
+
+* The :ref:`Linear Spin Wave Theory piece <user-guide_methods_lswt>` is
+
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.txt
+
+* The piece containing :ref:`cubic terms <user-guide_methods_hp-cubic-terms>` is
+
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-qubic-part.txt
+
+* And the piece containing :ref:`Quartic terms <user-guide_methods_hp-quartic-terms>` is
+
+.. include:: ../repeated-formulas/hamiltonian-hp-expansion-quartic-part.txt
 
 
-.. include:: ../repeated-formulas/hamiltonian-hp-expansion-full.txt
+.. important::
+  We keep the magnitude of each atomic spin :math:`S_i` in the above expressions.
+  Note that if the unit cell spins have different spin magnitudes, then
+  the expansion becomes anbiguous. For example, the magnitude of a cubic term
+  could be similar to some terms at LSWT order, so one should judiciously
+  evaluate which terms should be kept for a particular system of interest.
 
 .. dropdown:: Omitted terms
 
   .. include:: omitted-terms.txt
-
-In the previous formula the terms are grouped with respect to the power of
-:math:`1/S` if one would assume :math:`S_i = S_j = S`. Now we will separate them and
-discuss each one in details:
-
-.. math::
-
-  {\cal H}^{exchange} = {\cal H}^{Cl} + {\cal H}^{LSWT} + {\cal H}^{Qubic} + {\cal H}^{Quatric}
-
-* :ref:`Classical energy <user-guide_methods_energy-classic>`
-
-  .. math::
-    {\cal H}^{Cl}
-    =
-    \dfrac{1}{2}
-    \sum_{m, \boldsymbol{d_{ij}}, i, j}
-    S_iS_j
-    \boldsymbol{f_i}^\dagger
-    \boldsymbol{\tilde{J}_{mdij}}
-    \boldsymbol{f_j}
-
-* :ref:`Linear Spin Wave Theory <user-guide_methods_lswt>`
-
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.txt
-
-* :ref:`Qubic terms <user-guide_methods_hp-cubic-terms>`
-
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-qubic-part.txt
-
-* :ref:`Quartic terms <user-guide_methods_hp-quartic-terms>`
-
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-quartic-part.txt
-
-.. important::
-  We keep the indices of the spin numbers :math:`S_i` and :math:`S_j` for the derivation.
-  If all atoms in the unit cell has the same
-  spin number: :math:`S_i = S_j = S`, then the terms of the Hamiltonian from above
-  belongs to the effects of the descending order (:math:`1`, :math:`1/S`,
-  :math:`1/S^{3/2}`, :math:`1/S^2`, ...). However, if atoms in the unit cell have
-  different spin numbers, then, for example, the order of some the qubic terms can
-  be the same as of some terms of the LSWT terms and one should be cautious with the terms
-  of the Hamiltonian to consider for the particular system.
 
 References
 ==========

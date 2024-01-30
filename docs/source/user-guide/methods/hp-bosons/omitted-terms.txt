@@ -1,6 +1,6 @@
-In the Hamiltonian we omit the terms which are smaller then the
-:math:`1/S^2` (if one assume :math:`S_i = S_j = S`). In other words we omit the terms
-with more than four bosonic operators. Here are those terms:
+This expression of the exchange Hamiltonian cuts all terms having more than
+four bosonic operators. This corresponed to terms of order smaller than
+:math:`1/S^2` (if one assumes :math:`S_i = S_j = S`). Examples are:
 
 .. math::
   \dfrac{1}{4S_iS_j^{3/2}}

@@ -1,8 +1,8 @@
 .. _user-guide_methods_spinham-spherical:
 
-********************************************
-Hamiltonian in a "spherical" reference frame
-********************************************
+*****************************************************
+Exchange Hamiltonian in the Spherical reference frame
+*****************************************************
 
 .. dropdown:: Notation used on this page
 
@@ -12,46 +12,63 @@ Hamiltonian in a "spherical" reference frame
   * .. include:: page-notations/in-uvn.txt
   * .. include:: page-notations/parentheses.txt
 
-.. note::
-  In this page we discuss only the exchange (with on-site anisotropy) part of the Hamiltonian.
-
-The reference frame of the given Hamiltonian is changed from :math:`xyz` to :math:`uvn`
-as described in :ref:`user-guide_methods_xyz-to-uvn`. We start this section from a
-Hamiltonian written in a :math:`uvn` reference frame:
-
-.. include:: repeated-formulas/hamiltonian-main-any.txt
-
-Exchange matrices
-=================
-
-The transformation of spin vectors to the spherical reference frame was discussed
-in the :ref:`previous section <user-guide_methods_spherical-rf>`.
-In this section we focus our attention on the transformation of the exchange
-matrices. The exchange matrices are transformed as follows:
-
-.. math::
-  &\langle u^+u^-n \vert J_{ij}(\boldsymbol{d_{ij}}) \vert u^+u^-n \rangle
-  =
-  \langle u^+u^-n \vert uvn \rangle
-  \langle uvn \vert J_{ij}(\boldsymbol{d_{ij}}) \vert uvn \rangle
-  \langle uvn \vert u^+u^-n \rangle
-  =\\&=
-  \langle uvn \vert T^{\dagger} \vert uvn \rangle
-  \langle uvn \vert J_{ij}(\boldsymbol{d_{ij}}) \vert uvn \rangle
-  \langle uvn \vert T\vert uvn \rangle
-
-Now we recall the definition of the transformation matrix
-(from :ref:`here <user-guide_methods_spherical-rf>`):
-
-.. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.txt
-
-and separate exchange matrix into isotropic, symmetric anisotropic and antisymmetric parts:
+The exchange tensor :math:`\boldsymbol{J_{ij}}`
+in the :math:`(\,u\,v\,n\,)` reference frame , that was discussed
+:ref:`here <user-guide_methods_xyz-to-uvn>`, can be split into
+isotropic, symmetric and anti-symmetric (DM) matrices as follows
 
 .. include:: repeated-formulas/exchange-matrix-decomposition-uvn.txt
 
-Which leads to the exchange matrix in a spherical reference frame:
+This page discusses how this exchange tensor looks in the spherical
+:math:`(\,u^+ \,u^-\,n\,)` reference frame introduced
+:ref:`here <user-guide_methods_spherical-rf>`, and which is defined by the
+transformation matrix
+
+.. math::
+  \boldsymbol{T} =\braket{\,u\,v\,n\,|\, \boldsymbol{T} \,|\, u\,v\,n\,}
+  =
+  \dfrac{1}{\sqrt{2}}\,
+  \begin{pmatrix}
+    1 &  1 & 0        \\
+    i & -i & 0        \\
+    0 &  0 & \sqrt{2} \\
+  \end{pmatrix}
+
+Little algebra shows that the exchange matrix in the spherical reference frame is
+
+.. math:: \boldsymbol{J^s_{ij}} =&
+  \begin{pmatrix}
+    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
+    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
+    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
+  \end{pmatrix}\,=\,
+  \boldsymbol{T}^\dagger\,\boldsymbol{J^s_{ij}}\,\boldsymbol{T}\,=
+  \\=&
+  \begin{pmatrix}
+    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &
+    \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}                              &
+    \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} \\
+    \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} + iS_{ij}^{uv}                              &
+    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n                       &
+    \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} \\
+    \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} &
+    \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} &
+    J^{iso} + S_{ij}^{nn}                                                  \\
+  \end{pmatrix}
+
 
 .. dropdown:: Details
+
+  .. math::
+    \braket{ \,u^+\,u^-\,n\, |\, J_{ij} \,|\, u^+\,u^-\,n\,}
+    =&
+    \braket{\,u^+\,u^-\,n \,|\,u\,v\,n\,} \,
+    \braket{\,u\,v\,n\,|\, J_{ij}\,|\, u\,v\,n\,} \,
+    \braket{\,u\,v\,n\,|\, u^+\,u^-\,n\,}
+    =\\=&
+    \braket{\,u\,v\,n\,|\, T^{\dagger}\,|\, u\,v\,n\,}\,
+    \braket{\,u\,v\,n\,|\, J_{ij}\,|\,u\,v\,n\,} \,
+    \braket{\,u\,v\,n\,|\, T\,|\, u\,v\,n\,}
 
   .. math::
     &\langle u^+u^-n \vert J_{ij}(\boldsymbol{d_{ij}}) \vert u^+u^-n \rangle
@@ -116,8 +133,6 @@ Which leads to the exchange matrix in a spherical reference frame:
       2J^{iso} + 2S_{ij}^{nn}                      \\
     \end{pmatrix}
 
-.. include:: repeated-formulas/exchange-matrix-spherical.txt
-
 Let us note a few symmetries of the exchange matrix in a spherical reference frame:
 
 .. include:: repeated-formulas/exchange-matrix-symmetries-spherical.txt
@@ -136,13 +151,13 @@ Let us note a few symmetries of the exchange matrix in a spherical reference fra
 
   .. math::
     \begin{pmatrix}
-      J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n &
+      J_{ij}^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n &
       \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}        &
-      S^- - D^+                                   \\
+      S_{ij}^- - D_{ij}^+                                   \\
       \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} + iS_{ij}^{uv}        &
-      J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n &
-      S^+ - D^-                                   \\
-      S^+ + D^-                                   &
-      S^- + D^+                                   &
-      J^{iso} + S_{ij}^{nn}                            \\
+      J_{ij}^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n &
+      S_{ij}^+ - D_{ij}^-                                   \\
+      S_{ij}^+ + D_{ij}^-                                   &
+      S_{ij}^- + D_{ij}^+                                   &
+      J_{ij}^{iso} + S_{ij}^{nn}                            \\
     \end{pmatrix}

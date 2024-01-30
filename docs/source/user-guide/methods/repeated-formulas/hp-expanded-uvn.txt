@@ -1,15 +1,9 @@
 .. math::
-  &
-  \hat{s}^+
-  \approx
-  \sqrt{2S}
-  \cdot
-  \left(a - \dfrac{a^{\dagger}aa}{4S}\right)
-  \\&
-  \hat{s}^-
-  \approx
-  \sqrt{2S}
-  \cdot
-  \left(a^{\dagger} - \dfrac{a^{\dagger}a^{\dagger}a}{4S}\right)
-  \\&
-  \hat{s}^n = S - a^{\dagger}a
+  \boldsymbol{S}\approx
+  \begin{pmatrix}
+  \sqrt{2S}\,\, \left(a - \dfrac{a^{\dagger}aa}{4S}\right)
+  \\
+  \sqrt{2S}\,\,\left(a^{\dagger} - \dfrac{a^{\dagger}a^{\dagger}a}{4S}\right)
+  \\
+  S \,(1- \dfrac{a^{\dagger}a}{S})
+  \end{pmatrix}

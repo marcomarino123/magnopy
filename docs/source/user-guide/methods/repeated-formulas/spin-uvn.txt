@@ -7,9 +7,3 @@
             \sin\theta_i\sin(\phi_{mi}(q)) \\
             \cos\theta_i
      \end{pmatrix}
-
-where
-
-.. math::
-  \phi_{mi}(q) = \boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i
-               = \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i

@@ -1,23 +1,13 @@
 .. math::
-  &
-  s^+
+  \boldsymbol{S}=
+  \begin{pmatrix} S^+ \\  S^- \\   S^n \end{pmatrix}
   =
-  s^u + is^v
+  \begin{pmatrix}S^u + iS^v\\ S^u - iS^v\\  S^n\end{pmatrix}
   =
-  \sqrt{2S}
-  \cdot
-  \sqrt{1 - \dfrac{a^{\dagger}a}{2S}}
-  \cdot
-  a
-  \\&
-  s^-
-  =
-  s^u - is^v
-  =
-  \sqrt{2S}
-  \cdot
-  a^{\dagger}
-  \cdot
-  \sqrt{1 - \dfrac{a^{\dagger}a}{2S}}
-  \\&
-  s^n = S - a^{\dagger}a
+  \begin{pmatrix}
+  \sqrt{2S}\,\,\sqrt{1 - \dfrac{a^{\dagger}a}{2S}}\,\,a
+  \\
+  \sqrt{2S} \,\, a^{\dagger} \,\,\sqrt{1 - \dfrac{a^{\dagger}a}{2S}}
+  \\
+   S\,\,(1 - \dfrac{a^{\dagger}\,a}{S})
+  \end{pmatrix}

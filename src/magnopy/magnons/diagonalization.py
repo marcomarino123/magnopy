@@ -68,7 +68,7 @@ def solve_via_colpa(D):
 
     Parameters
     ----------
-    D : (2N, 2N) |array_like|_
+    D : (2N, 2N) |array-like|_
         Grand dynamical matrix. Must be Hermitian and positive-defined.
 
         .. math::

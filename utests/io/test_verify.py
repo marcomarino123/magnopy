@@ -21,8 +21,8 @@ from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.internal import filter_model_file
-from magnopy.io.verify import FailedToVerifyModelFile, verify_model_file
+from magnopy.io.internal import _filter_model_file
+from magnopy.io.verify import FailedToVerifyModelFile, _verify_model_file
 
 resources_path = join("utests", "io", "test_magnopy_inputs")
 
@@ -39,16 +39,16 @@ inputs_to_pass = [
 
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
-def test_load_model_pass(filename):
-    lines, indices = filter_model_file(filename)
-    verify_model_file(lines, indices)
+def test_verify_model_pass(filename):
+    lines, indices = _filter_model_file(filename)
+    _verify_model_file(lines, indices)
 
 
 @pytest.mark.parametrize("filename", inputs_to_fail)
-def test_load_model_fail(filename):
+def test_verify_model_fail(filename):
     try:
-        lines, indices = filter_model_file(filename)
-        verify_model_file(lines, indices)
+        lines, indices = _filter_model_file(filename)
+        _verify_model_file(lines, indices)
         assert False
     except FailedToVerifyModelFile:
         assert True
@@ -122,8 +122,8 @@ if __name__ == "__main__":
                     name = f' {control_word.replace("-", " ").split(".")[0]} '
                     print(f"{'':=^80}")
                     print(f"verifying file {input_file}")
-                    lines, indices = filter_model_file(filename=input_file)
-                    verify_model_file(lines, indices, raise_on_fail=False)
+                    lines, indices = _filter_model_file(filename=input_file)
+                    _verify_model_file(lines, indices, raise_on_fail=False)
                     print(f"{' Done ':=^80}")
                 else:
                     print("No such file")
@@ -151,7 +151,7 @@ if __name__ == "__main__":
         name = f' {basename(input_file).replace("-", " ").split(".")[0]} '
         print(f"{name:=^80}")
         print(f"verifying file {input_file}")
-        lines, indices = filter_model_file(filename=input_file)
-        verify_model_file(lines, indices, raise_on_fail=False)
+        lines, indices = _filter_model_file(filename=input_file)
+        _verify_model_file(lines, indices, raise_on_fail=False)
         print(f"{' Done, press ENTER for next file ':=^80}")
         input()

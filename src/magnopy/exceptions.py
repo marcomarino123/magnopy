@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__all__ = ["ColpaFailed", "NotationError"]
+__all__ = ["ColpaFailed", "NotationError", "FailedToVerifyModelFile"]
 
 
 class ColpaFailed(Exception):
@@ -33,9 +33,9 @@ class ColpaFailed(Exception):
 
 class NotationError(ValueError):
     r"""
-    Raised when the notation (or individual property) is not defined.
+    Raised when the notation (or individual property) of :py:class:`.SpinHamiltonian` is not defined.
 
-    Gives a summary of the notation (or individual property) and how to set it.
+    Gives a summary of the notation (or individual property) and hint on how to set it.
 
     Parameters
     ----------
@@ -45,18 +45,24 @@ class NotationError(ValueError):
     """
 
     def __init__(self, name):
-        self.message = (
-            f"\n\nNotation`s interpretation is not set for the property {name}.\n"
-            + f"Set the notation first:\n"
-            + f"    SpinHamiltonian.{name} = True  "
-            + f"or  SpinHamiltonian.{name} = False\n\n"
-            + f"Note: When the attribute is set for the first time it sets the interpretation, "
-            + "afterwards it change the notation.\n\n"
-            + f"If you want to set the interpretation again, use \n"
-            + f"    SpinHamiltonian.set_interpretation({name} = True)"
-            + "\nor\n"
-            + f"    SpinHamiltonian.set_interpretation({name} = False)\n"
+        name = name.replace("_", " ")
+
+        message = " ".join(
+            [
+                f'Notation`s property "{name}" is not set.'
+                "Note: When the notation is set for the first time, parameters are not changed,",
+                "when it is set again the parameters are adjusted if necessary.",
+            ]
         )
 
     def __str__(self):
         return self.message
+
+
+class FailedToVerifyModelFile(Exception):
+    R"""
+    Raise if the format of the model input file is invalid.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)

@@ -35,7 +35,7 @@ def span_orthonormal_set(vec):
 
     Parameters
     ----------
-    vec : (3,) |array_like|_
+    vec : (3,) |array-like|_
         Vector, which serves as :math:`e_3`
 
     Returns
@@ -80,12 +80,12 @@ class MagnonDispersion:
     ----------
     model : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian.
-    Q : (3,) |array_like|_
+    Q : (3,) |array-like|_
         Ordering wave vector of the spin-spiral.
         In relative coordinates with respect to the model`s reciprocal cell.
         It rotates spins from unit cell to unit cell,
         but not from atom to atom in (0, 0, 0) unit cell.
-    n : (3,) |array_like|_, optional
+    n : (3,) |array-like|_, optional
         Global rotational axis. If None provided, then it is set to the direction of ``Q``.
     nodmi : bool, default=False
         If True, then DMI is not included in the dispersion.
@@ -195,7 +195,7 @@ class MagnonDispersion:
 
         Parameters
         ----------
-        k : (3,) |array_like|_
+        k : (3,) |array-like|_
             Reciprocal vector.
             In absolute coordinates.
         """
@@ -224,7 +224,7 @@ class MagnonDispersion:
 
         Parameters
         ----------
-        k : (3,) |array_like|_
+        k : (3,) |array-like|_
             Reciprocal vector.
             In absolute coordinates.
         """
@@ -255,7 +255,7 @@ class MagnonDispersion:
 
         Parameters
         ----------
-        k : (3,) |array_like|_
+        k : (3,) |array-like|_
             Reciprocal vector.
             In absolute coordinates.
         """
@@ -315,7 +315,7 @@ class MagnonDispersion:
 
         Parameters
         ----------
-        k : (3,) |array_like|_
+        k : (3,) |array-like|_
             Reciprocal vector.
             In absolute coordinates.
         zeros_to_none : bool, default=False
@@ -388,7 +388,7 @@ class MagnonDispersion:
 
         Parameters
         ----------
-        kpoints : (M, 3) |array_like|_
+        kpoints : (M, 3) |array-like|_
             K points in absolute coordinates.
         zeros_to_none : bool, default=False
             If True, then return ``None`` instead of 0 if Colpa fails.

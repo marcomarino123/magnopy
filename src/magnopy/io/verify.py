@@ -18,16 +18,12 @@
 
 import logging
 
-from magnopy.units import FALSE_KEYWORDS, TRUE_KEYWORDS
+from magnopy.exceptions import FailedToVerifyModelFile
+from magnopy.units import _FALSE_KEYWORDS, _TRUE_KEYWORDS
 
-__all__ = ["verify_model_file", "FailedToVerifyModelFile"]
+_all_ = []
 
 _logger = logging.getLogger(__name__)
-
-
-class FailedToVerifyModelFile(Exception):
-    def __init__(self, message):
-        super().__init__(message)
 
 
 def _is_float(word):
@@ -47,7 +43,7 @@ def _is_integer(word):
 
 
 def _is_bool(word):
-    return word.lower() in TRUE_KEYWORDS + FALSE_KEYWORDS
+    return word.lower() in _TRUE_KEYWORDS + _FALSE_KEYWORDS
 
 
 def _verify_cell(lines, line_indices):
@@ -684,9 +680,9 @@ def _verify_parameters(lines, line_indices):
 
 # Rules
 
-REQUIRED_SECTIONS = ["cell", "atoms", "parameters", "notation"]
+_REQUIRED_SECTIONS = ["cell", "atoms", "parameters", "notation"]
 
-KNOWN_SECTIONS = {
+_KNOWN_SECTIONS = {
     "cell": _verify_cell,
     "atoms": _verify_atoms,
     "notation": _verify_notation,
@@ -694,11 +690,11 @@ KNOWN_SECTIONS = {
 }
 
 
-def verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=False):
+def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=False):
     r"""
     Verify the content of the input file with the model.
 
-    The input file shall be filtered. See :py:func:`.filter_model_file`.
+    The input file shall be filtered. See :py:func:`._filter_model_file`.
 
     Parameters
     ==========
@@ -748,16 +744,16 @@ def verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=F
 
         found_sections[section_keyword.lower()] = (section_start, section_end)
 
-    for name in KNOWN_SECTIONS:
+    for name in _KNOWN_SECTIONS:
         if name in found_sections:
             error_messages.extend(
-                KNOWN_SECTIONS[name](
+                _KNOWN_SECTIONS[name](
                     lines[slice(*found_sections[name])],
                     line_indices[slice(*found_sections[name])],
                 )
             )
 
-    for r_section in REQUIRED_SECTIONS:
+    for r_section in _REQUIRED_SECTIONS:
         if r_section not in found_sections:
             error_messages.append(f'Failed to find required section "{r_section}"')
 

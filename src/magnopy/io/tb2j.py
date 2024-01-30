@@ -43,7 +43,7 @@ def load_tb2j(filename, quiet=True, bravais_type=None) -> SpinHamiltonian:
 
     Distance between the atoms are not read from the atoms,
     but rather computed from the unit cell and atom positions
-    (see :py:meth:`.Crystal.get_distance`). If the distance read from the file
+    (see :py:meth:`.SpinHamiltonian.get_distance`). If the distance read from the file
     is different from the computed one and ``quiet=False``, the warning is printed.
     It is usual for the computed and read distances to differ in the last digits, since
     the unit cell is provided with the same precision as the distance in
@@ -152,7 +152,7 @@ def load_tb2j(filename, quiet=True, bravais_type=None) -> SpinHamiltonian:
         while model.eps_rel < 1 and model.type() != bravais_type:
             model.eps_rel *= 10
         if model.type() != bravais_type:
-            raise ValueError(f"Bravais type {bravais_type} could not be reached.")
+            raise ValueError(f"Bravais type {bravais_type} can not be reached.")
 
     while line:
         while line and minor_sep not in line:

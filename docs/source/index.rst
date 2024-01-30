@@ -7,6 +7,7 @@ Magnopy
     :hidden:
 
     User Guide <user-guide/index>
+    api/index
     support
     contribute/index
     cite

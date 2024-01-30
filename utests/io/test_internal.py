@@ -16,13 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from .constants import *
-from .energy import *
-from .hamiltonian import *
-from .parameter import *
+from os import listdir, remove
+from os.path import abspath, basename, isfile, join
 
-__all__ = []
-__all__.extend(constants.__all__)
-__all__.extend(hamiltonian.__all__)
-__all__.extend(parameter.__all__)
-__all__.extend(energy.__all__)
+import pytest
+
+from magnopy.io.internal import _filter_model_file, dump_model, load_model
+
+resources_path = join("utests", "io", "test_magnopy_inputs")
+
+inputs_to_pass = [
+    (abspath(join(resources_path, "pass", f)))
+    for f in listdir(join(resources_path, "pass"))
+    if isfile(join(resources_path, "pass", f))
+]
+
+
+@pytest.mark.parametrize("filename", inputs_to_pass)
+def test_load_dump_model(filename):
+    model = load_model(filename)
+    lines_dumped_loaded = dump_model(model, print_if_none=False)

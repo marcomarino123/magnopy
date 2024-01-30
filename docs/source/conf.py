@@ -147,6 +147,10 @@ del frozen_locals
 extlinks = {
     "DOI": ("https://doi.org/%s", "DOI: %s"),
     "issue": ("https://github.com/magnopy/magnopy/issues/%s", "issue #%s"),
+    "numpy": (
+        "https://numpy.org/doc/stable/reference/generated/numpy.%s.html",
+        "numpy.%s",
+    ),
 }
 
 # Static external links
@@ -177,6 +181,9 @@ custom_links = {
         "https://doi.org/10.1103/PhysRev.58.1098",
     ),
     "UTF-8": ("utf-8", "https://en.wikipedia.org/wiki/UTF-8"),
+    "PearsonSymbol": ("Pearson symbol", "https://en.wikipedia.org/wiki/Pearson_symbol"),
+    "TB2J": ("TB2J", "https://tb2j.readthedocs.io/en/latest/"),
+    "Vampire": ("Vampire", "https://vampire.york.ac.uk/"),
 }
 rst_epilog += "\n".join(
     map(

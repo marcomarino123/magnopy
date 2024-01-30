@@ -46,11 +46,11 @@ class MatrixParameter:
     ----------
     iso : int or float, optional
         Value of isotropic exchange parameter.
-    aniso : (3, 3) |array_like|_, optional
+    aniso : (3, 3) |array-like|_, optional
         3 x 3 matrix of symmetric anisotropic exchange.
-    dmi : (3,) |array_like|_, optional
+    dmi : (3,) |array-like|_, optional
         Dzyaroshinsky-Moria interaction vector :math:`(D_x, D_y, D_z)`.
-    matrix : (3, 3) |array_like|_, optional
+    matrix : (3, 3) |array-like|_, optional
         Exchange matrix.
     """
 
@@ -130,7 +130,7 @@ class MatrixParameter:
         try:
             new_matrix = np.array(new_matrix, dtype=float)
         except:
-            raise ValueError(f"New matrix is not array_like: \n{new_matrix}")
+            raise ValueError(f"New matrix is not array-like: \n{new_matrix}")
         if new_matrix.shape != (3, 3):
             raise ValueError("Matrix shape has to be equal to (3, 3)")
         self._matrix = new_matrix
@@ -276,7 +276,7 @@ class MatrixParameter:
         try:
             new_aniso = np.array(new_aniso, dtype=float)
         except:
-            raise ValueError(f"New aniso is not array_like: \n{new_aniso}")
+            raise ValueError(f"New aniso is not array-like: \n{new_aniso}")
         if new_aniso.shape != (3, 3):
             raise ValueError("Aniso matrix shape have " + "to be equal to (3, 3)")
         # correction is correct (see matrix update)
@@ -367,7 +367,7 @@ class MatrixParameter:
         try:
             new_dmi = np.array(new_dmi, dtype=float)
         except:
-            raise ValueError(f"New DMI is not array_like: \n{new_dmi}")
+            raise ValueError(f"New DMI is not array-like: \n{new_dmi}")
         if new_dmi.shape != (3,):
             raise ValueError(f"DMI have to be a 3 component vector. {new_dmi}")
         new_dmi = new_dmi - self.dmi
@@ -819,7 +819,7 @@ class MatrixParameter:
         try:
             other = np.array(other, dtype=float)
         except:
-            raise ValueError(f"Other is not array_like: \n{other}")
+            raise ValueError(f"Other is not array-like: \n{other}")
         if other.shape != (3, 3):
             raise ValueError("Other has to be equal to (3, 3)")
         return (self.matrix == other).all()
@@ -827,8 +827,3 @@ class MatrixParameter:
     # !=
     def __neq__(self, other):
         return not self == other
-
-
-if __name__ == "__main__":
-    J = MatrixParameter(matrix=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    print(J.xy)

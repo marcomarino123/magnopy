@@ -1,8 +1,8 @@
 .. _user-guide_methods_energy-minimization:
 
-*********************************************
-Minimization of the classical exchange energy
-*********************************************
+************************************
+Minimization of the classical energy
+************************************
 
 .. dropdown:: Notation used on this page
 
@@ -12,9 +12,9 @@ Minimization of the classical exchange energy
   * .. include:: ../page-notations/parentheses.txt
   * .. include:: ../page-notations/kronecker-delta.txt
 
-Let us recall the expression for the exchange energy:
+Let us recall the expression for the classical energy:
 
-.. include:: ../repeated-formulas/classic-exchange-energy.txt
+.. include:: ../repeated-formulas/classic-total-energy.txt
 
 In order to minimize this equation and find ground state we split all possible cases into
 three distinct ones:
@@ -84,7 +84,7 @@ then :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1` as well,
 therefore, the expression for the energy is simplified to:
 
 .. math::
-  &\dfrac{E_{exchange}}{M}
+  &\dfrac{E}{M}
   =
   \dfrac{1}{2}
   \sum_{i, j, \boldsymbol{d_{ij}}}
@@ -94,16 +94,13 @@ therefore, the expression for the energy is simplified to:
     +\\&+
     \sin\theta_i\sin\theta_j
     \Bigl[
-      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_j-\phi_i)
+      J_{ij}^{uu}(\boldsymbol{d_{ij}})\cos\phi_i\cos\phi_j
       +
-      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})-J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_j-\phi_i)
-    \Bigr]
-    +\\&+
-    \sin\theta_i\sin\theta_j
-    \Bigl[
-      \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})-J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_i+\phi_j)
-        +
-      \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})+J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_i+\phi_j)
+      J_{ij}^{vv}(\boldsymbol{d_{ij}})\sin\phi_i\sin\phi_j
+      +\\&+
+      J_{ij}^{uv}(\boldsymbol{d_{ij}})\cos\phi_i\sin\phi_j
+      +
+      J_{ij}^{vu}(\boldsymbol{d_{ij}})\sin\phi_i\cos\phi_j
     \Bigr]
     +\\&+
     \sin\theta_i\cos\theta_j
@@ -120,6 +117,20 @@ therefore, the expression for the energy is simplified to:
       J_{ij}^{nv}(\boldsymbol{d_{ij}})\sin\phi_j
     \Bigr]
   \Biggr\}
+  +\\&+
+  \mu_B
+  \sum_i
+  g_i  S_i
+  \left[
+  \sin\theta_i
+  \left(
+    h^u\cos(\phi_i)
+    +
+    h^v\sin(\phi_i)
+  \right)
+  +
+  h^n\cos\theta_i
+  \right]
 
 
 Antiferromagnetic cone
@@ -186,7 +197,7 @@ If :math:`n = 2k+1`, than :math:`\delta_{\boldsymbol{q},\boldsymbol{G}} = 0`,
 therefore, the expression for the energy is simplified to:
 
 .. math::
-  &\dfrac{E_{exchange}}{M}
+  &\dfrac{E}{M}
   =
   \dfrac{1}{2}
   \sum_{i, j, \boldsymbol{d_{ij}}}
@@ -208,7 +219,57 @@ therefore, the expression for the energy is simplified to:
       \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})+J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_i+\phi_j)
     \Bigr]
   \Biggr\}
-
-
+  +\\&+
+  \mu_B
+  h^n
+  \sum_i
+  g_i  S_i
+  \sin\theta_i\cos\theta_i
 
 .. include:: spiral-case.txt
+
+Minimization strategy
+=====================
+
+* We note, that for ferromagnetic case and antiferromagnetic cone case the choice of
+  :math:`(uvn)` is arbitrary, therefore for those two cases we choose :math:`(uvn) = (xyz)`,
+  which means that we do not need to minimize against :math:`\alpha` and :math:`\beta` angles.
+* For the spiral case the minimization with respect to the angles :math:`\alpha` and :math:`\beta`
+  (for any given set of other parameters) can be formulated as:
+
+  .. math::
+    \min_{||\boldsymbol{n}|| = 1}
+    \left(
+      \boldsymbol{n}^T
+      \boldsymbol{C}
+      \boldsymbol{n}
+      +
+      \boldsymbol{b}^T
+      \boldsymbol{n}
+    \right)
+
+  Where matrix :math:`\boldsymbol{C}` and vector :math:`\boldsymbol{b}` are defined as
+
+  .. math::
+    \boldsymbol{C}
+    =
+    \dfrac{1}{2}
+    \sum_{i, j, \boldsymbol{d_{ij}}}
+    \boldsymbol{J_{ij}^S}(\boldsymbol{d_{ij}})
+    S_iS_j
+    \Biggl[
+      \cos\theta_i\cos\theta_j
+      -
+      \sin\theta_i\sin\theta_j
+      \cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
+    \Biggr]
+
+  .. math::
+    \boldsymbol{b}
+    =
+    \dfrac{1}{2}
+    \sum_{i, j, \boldsymbol{d_{ij}}}
+    \boldsymbol{D_{ij}}(\boldsymbol{d_{ij}})
+    S_iS_j
+    \sin\theta_i\sin\theta_j
+    \sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)

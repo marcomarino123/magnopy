@@ -24,6 +24,8 @@ __all__ = [
     "KELVIN",
     "ELECTRON_VOLT",
     "RYDBERG",
+    "TESLA",
+    "MU_BOHR",
 ]
 
 # Internal units are:
@@ -35,17 +37,23 @@ __all__ = [
 
 # Length conversion
 BOHR = 0.529177210903  # Angstrom
-ANGSTROM = 1  # Angstrom
+ANGSTROM = 1.0  # Angstrom
 
 # Energy conversion
 JOULE = 6.241509074e21  # meV
-MILLI_ELECTRON_VOLT = 1  # meV
+MILLI_ELECTRON_VOLT = 1.0  # meV
 ELECTRON_VOLT = 1e3  # mev
 KELVIN = 1 / 11.60451812  # meV
 RYDBERG = 13605.693122994  # meV
 
-# Case insensitive
-TRUE_KEYWORDS = ["true", "t", "1", "yes", "y"]
+# Magnetisation
+MU_BOHR = 5.7883818060e-2  # meV/T
+
+# Magnetic field
+TESLA = 1.0  # Tesla
 
 # Case insensitive
-FALSE_KEYWORDS = ["false", "f", "0", "no", "n"]
+_TRUE_KEYWORDS = ["true", "t", "1", "yes", "y"]
+
+# Case insensitive
+_FALSE_KEYWORDS = ["false", "f", "0", "no", "n"]

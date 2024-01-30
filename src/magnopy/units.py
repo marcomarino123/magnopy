@@ -44,6 +44,12 @@ ELECTRON_VOLT = 1e3  # mev
 KELVIN = 1 / 11.60451812  # meV
 RYDBERG = 13605.693122994  # meV
 
+# Magnetisation
+MU_BOHR = 5.7883818060e-2  # meV/T
+
+# Magnetic field
+TESLA = 1  # Tesla
+
 # Case insensitive
 TRUE_KEYWORDS = ["true", "t", "1", "yes", "y"]
 

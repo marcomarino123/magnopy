@@ -52,6 +52,9 @@ DMI vector onto the direction of the vector :math:`\boldsymbol{\hat{n}}`:
 .. math::
   D^n
   =
+  \boldsymbol{D}^T
+  \boldsymbol{\hat{n}}
+  =
   D^x \cos\beta\sin\alpha
   +
   D^y \sin\beta\sin\alpha
@@ -64,6 +67,14 @@ solely by the symmetric anisotropic part of the matrix in :math:`(xyz)` basis.
 .. math::
   &S^{nn}
   =
+  \boldsymbol{\hat{n}}^T
+  \begin{pmatrix}
+    S^{xx} & S^{xy} & S^{xz} \\
+    S^{xy} & S^{yy} & S^{yz} \\
+    S^{xz} & S^{yz} & S^{zz} \\
+  \end{pmatrix}
+  \boldsymbol{\hat{n}}
+  =\\&=
   S^{xx}(\cos^2\beta\sin^2\alpha-\cos^2\alpha)
   +
   S^{yy}(\sin^2\beta\sin^2\alpha-\cos^2\alpha)

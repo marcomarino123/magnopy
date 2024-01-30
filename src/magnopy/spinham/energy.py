@@ -20,290 +20,479 @@ import numpy as np
 from wulfric.geometry import absolute_to_relative
 
 from magnopy.spinham.hamiltonian import SpinHamiltonian
+from magnopy.units import MILLI_ELECTRON_VOLT, MU_BOHR, TESLA
 
 
-def vector_to_angles(vector):
-    if np.allclose(vector / np.linalg.norm(vector), [0.0, 0.0, 1.0]):
-        return 0, np.pi / 2
-    if np.allclose(vector / np.linalg.norm(vector), [0.0, 0.0, -1.0]):
-        return np.pi, np.pi / 2
+def _ensure_theta_phi_input_shape(theta, phi, I):
+    R"""
+    Check that input values are consistent with each other and
+    with amount of atoms in unit cell.
 
-    theta = np.dot(vector, [0, 0, 1])
-    theta /= np.linalg.norm(vector)
-    theta = np.arccos(theta)
-    vector = np.array([vector[0], vector[1], 0])
-    phi = np.dot(vector, [1, 0, 0])
-    phi /= np.linalg.norm(vector)
-    phi = np.arccos(phi)
+    Parameters
+    ==========
+    theta : float or (I,) or (N,) or (N,I) |array-like|_
+        Polar angle or array of polar angles.
+        I is an amount of atoms in the unit cell.
+    phi : float or (I,) or (N,) or (N,I) |array-like|_
+        Azimuthal angle or array of azimuthal angles.
+        I is an amount of atoms in the unit cell.
+    I : int
+        Amount of atoms in unit cell.
+
+    Return
+    ======
+    theta : (N,I) |array-like|_
+        Polar angle or array of polar angles.
+        I is an amount of atoms in the unit cell.
+    phi : (N,I) |array-like|_
+        Azimuthal angle or array of azimuthal angles.
+        I is an amount of atoms in the unit cell.
+
+    """
+
+    # Make two-dimensional array out of a single number.
+    if isinstance(theta, float) or isinstance(theta, float):
+        theta = np.array([[theta]], dtype=float)
+    # Or convert into numpy ndarray
+    else:
+        theta = np.array(theta, dtype=float)
+
+    # Make two-dimensional array out of a single number.
+    if isinstance(phi, float) or isinstance(phi, float):
+        phi = np.array([[phi]], dtype=float)
+    # Or convert into numpy ndarray
+    else:
+        phi = np.array(phi, dtype=float)
+
+    # If one-dimensional arrays are given
+    if len(theta.shape) == 1:
+        # If there is only one atom per unit cell, then theta is interpreted as
+        # an array of different trial configurations.
+        if I == 1:
+            # First index for configuration, second index for atom
+            theta = np.array([theta]).T
+        # Otherwise it is interpreted as one configuration.
+        elif len(theta) != I:
+            raise ValueError(
+                " ".join(
+                    [
+                        f"{I} atoms in unit cell,",
+                        f"but {len(theta)} theta angles provided",
+                    ]
+                )
+            )
+        else:
+            theta = np.array([theta], dtype=float)
+
+    # If one-dimensional arrays are given
+    if len(phi.shape) == 1:
+        # If there is only one atom per unit cell, then phi is interpreted as
+        # an array of different trial configurations.
+        if I == 1:
+            # First index for configuration, second index for atom
+            phi = np.array([phi]).T
+        # Otherwise it is interpreted as one configuration.
+        elif len(phi) != I:
+            raise ValueError(
+                " ".join(
+                    [
+                        f"{I} atoms in unit cell,",
+                        f"but {len(phi)} phi angles provided",
+                    ]
+                )
+            )
+        else:
+            phi = np.array([phi], dtype=float)
+
+    # If two-dimensional arrays are given:
+    if theta.shape[1] != I:
+        raise ValueError(
+            " ".join(
+                [
+                    f"{I} atoms in unit cell,",
+                    f"but {theta.shape[1]} theta angles provided",
+                ]
+            )
+        )
+    if phi.shape[1] != I:
+        raise ValueError(
+            " ".join(
+                [
+                    f"{I} atoms in unit cell,",
+                    f"but {phi.shape[1]} phi angles provided",
+                ]
+            )
+        )
+
+    # If higher dimensional arrays are given
+    if len(theta.shape) > 2:
+        raise ValueError(
+            " ".join(
+                [
+                    f"Expected float or one/two dimensional array,",
+                    f"got {len(theta.shape)}-dimensional array for theta.",
+                ]
+            )
+        )
+
+    # If higher dimensional arrays are given
+    if len(phi.shape) > 2:
+        raise ValueError(
+            " ".join(
+                [
+                    f"Expected float or one/two dimensional array,",
+                    f"got {len(phi.shape)}-dimensional array for phi.",
+                ]
+            )
+        )
+
+    # If size are not consistent
+    if theta.shape[0] != phi.shape[0]:
+        raise ValueError(
+            " ".join(
+                [
+                    f"Amount of theta angles ({theta.shape[0]})"
+                    f"does not match the amount of phi angles ({phi.shape[0]})"
+                ]
+            )
+        )
+
     return theta, phi
 
 
-class Energy(SpinHamiltonian):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.cone_axis = None
-        self._spiral_vector = None
-        self.mu_b = 5.7883818060e-2  # Bohr magneton in meV/T
+class Energy:
+    R"""
+    Describe total energy of given :py:class:`.SpinHamiltonian`.
 
-    def copy(self):
-        from copy import deepcopy
+    Allows one to access separate terms of it.
 
-        return deepcopy(self)
+    Parameters
+    ==========
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian.
+    """
+
+    def __init__(self, spinham: SpinHamiltonian):
+        self._spinham = spinham
+        self._magnetic_field = np.zeros(3, dtype=float)
 
     @property
-    def spiral_vector(self):
-        return self._spiral_vector
+    def magnetic_field(self):
+        R"""
+        Uniform magnetic field vector.
+        Given in the same basis as the exchange Hamiltonian (xyz).
 
-    @spiral_vector.setter
-    def spiral_vector(self, value):
-        self._spiral_vector = np.array(value) @ self.reciprocal_cell
-
-    def __call__(
-        self,
-        Q=((0, 0, 0), (0, 0, 0), (0, 0, 0)),
-        H=(0, 0, 0),
-        phase=(0, 0, 0),
-        spiral_vector=(0, 0, 0),
-    ):
-        if spiral_vector is not None:
-            self.spiral_vector = spiral_vector
-        return self.exchange() + self.zeeman(H, Q, phase)
-
-    def exchange(self):
-        r"""
-        Compute exchange energy
+        Returns
+        =======
+        h : (3,) |array-like|_
+            Magnetic field vector.
         """
 
-        return (
-            self.exchange_smooth()
-            + self.is_r_lattice_vector(self.spiral_vector) * self.exchange_G()
-            + self.is_r_lattice_vector(2 * self.spiral_vector) * self.exchange_G_half()
+        return self._magnetic_field
+
+    @magnetic_field.setter
+    def magnetic_field(self, new_value):
+        new_value = np.array(new_value)
+        if new_value.shape != (3,):
+            raise ValueError(f"Magnetic field is a 3 component vector, got {new_value}")
+        self._magnetic_field = new_value
+
+    @property
+    def spinham(self) -> SpinHamiltonian:
+        R"""
+        Spin Hamiltonian.
+
+        Returns
+        =======
+        spinham : :py:class:`.SpinHamiltonian`
+            Spin Hamiltonian.
+        """
+
+        return self._spinham
+
+    @spinham.setter
+    def spinham(self, new_spinham):
+        if not isinstance(new_spinham, SpinHamiltonian):
+            raise ValueError(
+                "New spin Hamiltonian is not an instance of SpinHamiltonian class."
+            )
+        self._spinham = new_spinham
+
+    def ferromagnetic(self, theta, phi):
+        R"""
+        Computes energy of the spin Hamiltonian, assuming ferromagnetic aligment between the unit cells.
+
+        Parameters
+        ==========
+        theta : float or (I,) or (N,) or (I, N) |array-like|_
+            Polar angle or array of polar angles.
+            I is an amount of atoms in the unit cell.
+        phi : float or (I,) or (N,) or (I, N) |array-like|_
+            Azimuthal angle or array of azimuthal angles.
+            I is an amount of atoms in the unit cell.
+
+        Returns
+        =======
+        energy : float or (N,)  :numpy:`ndarray`
+            Ferromagnetic energy or array of ferromagnetic energies, depending on the type of
+        """
+
+        theta, phi = _ensure_theta_phi_input_shape(theta, phi, self.spinham.I)
+
+        energy = 0
+        for atom1, atom2, ijk, J in self.spinham:
+            i = atom1.index
+            j = atom2.index
+            Si = atom1.spin
+            Sj = atom2.spin
+            if atom1 == atom2 and ijk == (0, 0, 0):
+                factor = self.spinham.on_site_factor
+            else:
+                factor = self.spinham.exchange_factor
+            energy += (
+                factor
+                * MILLI_ELECTRON_VOLT
+                * Si
+                * Sj
+                * (
+                    J.zz * np.cos(theta[i]) * np.cos(theta[j])
+                    + np.sin(theta[i])
+                    * np.sin(
+                        theta[j]
+                        * (
+                            J.xx * np.cos(phi[i]) * np.cos(phi[j])
+                            + J.yy * np.sin(phi[i]) * np.sin(phi[j])
+                            + J.xy * np.cos(phi[i]) * np.sin(phi[j])
+                            + J.yx * np.sin(phi[i]) * np.cos(phi[j])
+                        )
+                    )
+                    + np.sin(theta[i])
+                    * np.cos(theta[j])
+                    * (J.xz * np.cos(phi[i]) + J.yz * np.sin(phi[i]))
+                    + np.cos(theta[i])
+                    * np.sin(theta[j])
+                    * (J.zx * np.cos(phi[j]) + J.zy * np.sin(phi[j]))
+                )
+            )
+
+        spins = np.array([atom.spin for atom in self.spinham])
+
+        energy += (
+            MU_BOHR
+            * TESLA
+            * np.sum(
+                spins
+                * (
+                    np.sin(theta)
+                    * (
+                        self.magnetic_field[0] * np.cos(phi)
+                        + self.magnetic_field[1] * np.sin(phi)
+                    )
+                    + self.magnetic_field[2] * np.cos(theta)
+                ),
+                axis=0,
+            )
         )
 
-    def exchange_smooth(self):
-        energy = 0
-        for atom1, atom2, (i, j, k), J in self:
-            theta_a, phi_a = vector_to_angles(atom1.spin_vector)
-            theta_b, phi_b = vector_to_angles(atom2.spin_vector)
-            S_a = atom1.spin if not self.spin_normalized else 1
-            S_b = atom2.spin if not self.spin_normalized else 1
-            J_nn = J.zz
-            J_minus = (J.xy - J.yx) / 2
-            J_plus = (J.xx + J.yy) / 2
-            d = (i, j, k) @ self.cell
-
-            energy += (
-                self.factor
-                * S_a
-                * S_b
-                * (
-                    J_nn * np.cos(theta_a) * np.cos(theta_b)
-                    + np.sin(theta_a)
-                    * np.sin(theta_b)
-                    * (
-                        J_plus * np.cos(self.spiral_vector @ d + phi_b - phi_a)
-                        + J_minus * np.sin(self.spiral_vector @ d + phi_b - phi_a)
-                    )
-                )
-            )
         return energy
 
-    def exchange_G(self):
-        energy = 0
-        for atom1, atom2, (i, j, k), J in self:
-            theta_a, phi_a = vector_to_angles(atom1.spin_vector)
-            theta_b, phi_b = vector_to_angles(atom2.spin_vector)
-            S_a = atom1.spin if not self.spin_normalized else 1
-            S_b = atom2.spin if not self.spin_normalized else 1
-            J_un = J.xz
-            J_vn = J.yz
-            J_nu = J.zx
-            J_nv = J.zy
-
-            d = (i, j, k) @ self.cell
-
-            energy += (
-                self.factor
-                * S_a
-                * S_b
-                * (
-                    np.sin(theta_a)
-                    * np.cos(theta_b)
-                    * (J_un * np.cos(phi_a) + J_vn * np.sin(phi_a))
-                    + np.cos(theta_a)
-                    * np.sin(theta_b)
-                    * (
-                        J_nu * np.cos(phi_b + self.spiral_vector @ d)
-                        + J_nv * np.sin(phi_b + self.spiral_vector @ d)
-                    )
-                )
-            )
-        return energy
-
-    def exchange_G_half(self):
-        energy = 0
-        for atom1, atom2, (i, j, k), J in self:
-            theta_a, phi_a = vector_to_angles(atom1.spin_vector)
-            theta_b, phi_b = vector_to_angles(atom2.spin_vector)
-            S_a = atom1.spin if not self.spin_normalized else 1
-            S_b = atom2.spin if not self.spin_normalized else 1
-            J_minus = (J.xx - J.yy) / 2
-            J_plus = (J.xy + J.yx) / 2
-            d = (i, j, k) @ self.cell
-
-            energy += (
-                self.factor
-                * S_a
-                * S_b
-                * (
-                    np.sin(theta_a)
-                    * np.sin(theta_b)
-                    * (
-                        J_minus * np.cos(self.spiral_vector @ d + phi_b + phi_a)
-                        + J_plus * np.sin(self.spiral_vector @ d + phi_b + phi_a)
-                    )
-                )
-            )
-        return energy
-
-    def is_r_lattice_vector(self, Q, eps=1e-3):
-        r"""
-        Check whether the Q is the lattice vector.
+    def antiferromagnetic_cone(self, theta, phi):
+        R"""
+        Computes energy of the spin Hamiltonian, assuming antiferromagnetic cone between the unit cells.
 
         Parameters
-        ----------
-        Q : (3,) |array-like|_
-            Vector to be checked.
-        eps : float
-            Tolerance for the check.
+        ==========
+        theta : float or (I,) or (N,) or (I, N) |array-like|_
+            Polar angle or array of polar angles.
+            I is an amount of atoms in the unit cell.
+        phi : float or (I,) or (N,) or (I, N) |array-like|_
+            Azimuthal angle or array of azimuthal angles.
+            I is an amount of atoms in the unit cell.
+
+        Returns
+        =======
+        energy : float or (N,)  :numpy:`ndarray`
+            Antiferromagnetic cone energy or array of ferromagnetic energies, depending on the type of
         """
 
-        Q = np.array(Q)
-        Q = absolute_to_relative(Q, self.reciprocal_cell)
-        return int(np.allclose(Q, np.round(Q, 0), atol=eps))
+        theta, phi = _ensure_theta_phi_input_shape(theta, phi, self.spinham.I)
 
-    def zeeman(self, H, Q, phase):
-        r"""
-        Compute Zeeman energy
+        energy = 0
+        for atom1, atom2, ijk, J in self.spinham:
+            i = atom1.index
+            j = atom2.index
+            Si = atom1.spin
+            Sj = atom2.spin
+            if atom1 == atom2 and ijk == (0, 0, 0):
+                factor = self.spinham.on_site_factor
+            else:
+                factor = self.spinham.exchange_factor
+            energy += (
+                factor
+                * MILLI_ELECTRON_VOLT
+                * Si
+                * Sj
+                * (
+                    J.zz * np.cos(theta[i]) * np.cos(theta[j])
+                    - np.sin(theta[i])
+                    * np.sin(
+                        theta[j]
+                        * (
+                            J.xx * np.cos(phi[i]) * np.cos(phi[j])
+                            + J.yy * np.sin(phi[i]) * np.sin(phi[j])
+                            + J.xy * np.cos(phi[i]) * np.sin(phi[j])
+                            + J.yx * np.sin(phi[i]) * np.cos(phi[j])
+                        )
+                    )
+                )
+            )
 
-        Parameters
-        ----------
-        H : (3,) |array-like|_
-            External magnetic field vector amplitudes in units of Tesla:
-            :math:`H^u, H^v, H^n`.
-        Q : (3,3) |array-like|_
-            External magnetic field vector periods, relative to the
-            reciprocal lattice vectors. Rows are the vectors, columns are
-            the components.
-        phase : (3,) |array-like|_
-            Phase of the external magnetic field.
-        """
-        H = np.array(H)
-        Q = np.array(Q)
-        phase = np.array(phase)
-        return (
-            self.zeeman_u(Q[0], H[0], phase[0])
-            + self.zeeman_v(Q[1], H[1], phase[1])
-            + self.zeeman_n(Q[2], H[2], phase[2])
+        spins = np.array([atom.spin for atom in self.spinham])
+
+        energy += (
+            MU_BOHR
+            * TESLA
+            * np.sum(
+                spins * self.magnetic_field[2] * np.cos(theta),
+                axis=0,
+            )
         )
 
-    def zeeman_n(self, Q, H, phase):
-        r"""
-        Compute Zeeman energy along the n axis
+        return energy
+
+    def spiral(self, theta, phi, q, alpha, beta):
+        R"""
+        Computes energy of the spin Hamiltonian, assuming antiferromagnetic cone between the unit cells.
 
         Parameters
-        ----------
-        Q : (3,) |array-like|_
-            External magnetic field vector periods, relative to the
-            reciprocal lattice vectors.
-        H : float
-            Amplitude of the external magnetic field vector in units of Tesla.
-        phase : float
-            Phase of the external magnetic field in radians.
+        ==========
+        theta : float or (I,) or (I, N) |array-like|_
+            Polar angle or array of polar angles.
+            I is an amount of atoms in the unit cell.
+        phi : float or (I,) or (I, N) |array-like|_
+            Azimuthal angle or array of azimuthal angles.
+            I is an amount of atoms in the unit cell.
+        q : (3,) or (N,3) |array-like|_
+            Spiral phase vector.
+        alpha : float or (N,) |array-like|_
+            Global rotation axis polar angle.
+        beta : float or (N,) |array-like|_
+            Global rotation axis azimuthal angle.
+
+        Returns
+        =======
+        energy : float or (N,)  :numpy:`ndarray`
+            Antiferromagnetic cone energy or array of ferromagnetic energies, depending on the type of
         """
-        Q = np.array(Q) @ self.reciprocal_cell
-        energy = 0
-        for atom in self.magnetic_atoms:
-            r_a = atom.position @ self.cell
-            S_a = atom.spin if not self.spin_normalized else 1
-            theta_a, _ = vector_to_angles(atom.spin_vector)
 
-            energy += S_a * (
-                H
-                * self.is_r_lattice_vector(Q)
-                * np.cos(theta_a)
-                * np.cos(phase + Q @ r_a)
-            )
-        return energy * self.mu_b
+        theta, phi = _ensure_theta_phi_input_shape(theta, phi, self.spinham.I)
 
-    def zeeman_u(self, Q, H, phase):
-        r"""
-        Compute Zeeman energy along the u axis
+        if isinstance(alpha, float) or isinstance(alpha, float):
+            alpha = np.array([alpha], dtype=float)
+        else:
+            alpha = np.array(alpha, dtype=float)
+        if isinstance(beta, float) or isinstance(beta, float):
+            beta = np.array([beta], dtype=float)
+        else:
+            beta = np.array(beta, dtype=float)
 
-        Parameters
-        ----------
-        Q : (3,) |array-like|_
-            External magnetic field vector periods, relative to the
-            reciprocal lattice vectors.
-        H : float
-            Amplitude of the external magnetic field vector in units of Tesla.
-        phase : float
-            Phase of the external magnetic field in radians.
-        """
-        Q = np.array(Q) @ self.reciprocal_cell
-        energy = 0
-        for atom in self.magnetic_atoms:
-            r_a = atom.position @ self.cell
-            S_a = atom.spin if not self.spin_normalized else 1
-            phi_au = Q @ r_a + phase
-
-            theta_a, phi_a = vector_to_angles(atom.spin_vector)
-
-            energy += S_a * (
-                H
-                * np.sin(theta_a)
-                * (
-                    self.is_r_lattice_vector(Q + self.spiral_vector)
-                    * np.cos(phi_au + phi_a)
-                    + self.is_r_lattice_vector(Q - self.spiral_vector)
-                    * np.cos(phi_au - phi_a)
+        if alpha.shape[0] != theta.shape[0]:
+            raise ValueError(
+                " ".join(
+                    [
+                        f"Amount of alpha angles ({alpha.shape[0]})"
+                        f"does not match the amount of theta and phi angles ({theta.shape[0]})"
+                    ]
                 )
-                / 2
             )
-            return energy * self.mu_b
-
-    def zeeman_v(self, Q, H, phase):
-        r"""
-        Compute Zeeman energy along the u axis
-
-        Parameters
-        ----------
-        Q : (3,) |array-like|_
-            External magnetic field vector periods, relative to the
-            reciprocal lattice vectors.
-        H : float
-            Amplitude of the external magnetic field vector in units of Tesla.
-        phase : float
-            Phase of the external magnetic field in radians.
-        """
-        Q = np.array(Q) @ self.reciprocal_cell
-        energy = 0
-        for atom in self.magnetic_atoms:
-            r_a = atom.position @ self.cell
-            S_a = atom.spin if not self.spin_normalized else 1
-            phi_av = Q @ r_a + phase
-
-            theta_a, phi_a = vector_to_angles(atom.spin_vector)
-
-            energy += S_a * (
-                H
-                * np.sin(theta_a)
-                * (
-                    self.is_r_lattice_vector(Q + self.spiral_vector)
-                    * np.sin(phi_av + phi_a)
-                    - self.is_r_lattice_vector(Q - self.spiral_vector)
-                    * np.sin(phi_av - phi_a)
+        elif len(alpha.shape) > 1:
+            raise ValueError(
+                f"Expected float or one-dimensional array for alpha, got {len(alpha.shape)}-dimensional array."
+            )
+        if beta.shape[0] != theta.shape[0]:
+            raise ValueError(
+                " ".join(
+                    [
+                        f"Amount of beta angles ({beta.shape[0]})"
+                        f"does not match the amount of theta and phi angles ({theta.shape[0]})"
+                    ]
                 )
-                / 2
             )
-        return energy * self.mu_b
+        elif len(beta.shape) > 1:
+            raise ValueError(
+                f"Expected float or one-dimensional array for beta, got {len(beta.shape)}-dimensional array."
+            )
+
+        q = np.array(q, dtype=float)
+
+        if q.shape == (3,):
+            pass
+        elif q.shape[0] != theta.shape[0]:
+            raise ValueError(
+                " ".join(
+                    [
+                        f"Amount of q vectors ({q.shape[0]})"
+                        f"does not match the amount of theta and phi angles ({theta.shape[1]})"
+                    ]
+                )
+            )
+        elif len(q.shape) > 2:
+            raise ValueError(
+                f"Expected one/two-dimensional array for q vector, got {len(q.shape)}-dimensional array."
+            )
+
+        energy = 0
+        cosa = np.cos(alpha)
+        sina = np.sin(alpha)
+        cosb = np.cos(beta)
+        sinb = np.sin(beta)
+        costheta = np.cos(theta)
+        sintheta = np.sin(theta)
+        for atom1, atom2, ijk, J in self.spinham:
+            i = atom1.index
+            j = atom2.index
+            Si = atom1.spin
+            Sj = atom2.spin
+            if atom1 == atom2 and ijk == (0, 0, 0):
+                factor = self.spinham.on_site_factor
+            else:
+                factor = self.spinham.exchange_factor
+            distance = self.spinham.get_distance(atom1, atom2, ijk)
+            theta_m = np.einsum("nj,j->n", q, distance)
+            Dn = J.dmi[0] * cosb * sina + J.dmi[1] * sinb * sina + J.dmi[2] * cosa
+            Snn = (
+                J.aniso[0][0] * (cosb**2 * sina**2 - cosa**2)
+                + J.aniso[1][1] * (sinb**2 * sina**2 - cosa**2)
+                + 2 * J.aniso[0][1] * sinb * cosb * sina**2
+                + 2 * J.aniso[0][2] * cosb * sina * cosa
+                + 2 * J.aniso[0][2] * sinb * sina * cosa
+            )
+            energy += (
+                factor
+                * Si
+                * Sj
+                * MILLI_ELECTRON_VOLT
+                * (
+                    Snn
+                    * (
+                        costheta[i] * costheta[j]
+                        - sintheta[i] * sintheta[j] * np.cos(theta_m + phi[j] - phi[i])
+                    )
+                    + J.iso
+                    * (
+                        costheta[i] * costheta[j]
+                        + sintheta[i] * sintheta[j] * np.cos(theta_m + phi[j] - phi[i])
+                    )
+                    + Dn * sintheta[i] * sintheta[j] * np.sin(theta_m + phi[j] - phi[i])
+                )
+            )
+
+        energy += (
+            MU_BOHR
+            * TESLA
+            * np.sum(
+                spins * self.magnetic_field[2] * np.cos(theta),
+                axis=0,
+            )
+        )
+        return energy

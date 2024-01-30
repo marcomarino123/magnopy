@@ -21,3 +21,6 @@ __pycache__
 
 # On-the-fly-tests
 tmp*
+
+# Docs generated files
+docs/source/**/generated

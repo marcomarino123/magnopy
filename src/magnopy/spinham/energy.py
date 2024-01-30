@@ -22,6 +22,8 @@ from wulfric.geometry import absolute_to_relative
 from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.units import MILLI_ELECTRON_VOLT, MU_BOHR, TESLA
 
+__all__ = ["Energy"]
+
 
 def _ensure_theta_phi_input_shape(theta, phi, I):
     R"""

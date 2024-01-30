@@ -31,12 +31,9 @@ doctest:
 
 clean:
 	-@rm -r docs/build
-	-@rm -r docs/source/api/generated
-	-@rm -r docs/source/api/crystal/generated
-	-@rm -r docs/source/api/exchange/generated
-	-@rm -r docs/source/api/spinham/generated
-	-@rm -r docs/source/api/magnons/generated
-	-@rm -r docs/source/api/_autosummary
+	-@rm -r docs/source/*/generated
+	-@rm -r docs/source/*/*/generated
+	-@rm -r docs/source/*/*/*/generated
 	-@rm -r magnopy/magnopy.egg-info
 	-@rm -r build
 	-@rm -r dist

@@ -176,21 +176,20 @@ class Energy:
 
         Notes
         =====
-        Shape of ``theta`` always has to match the shape of ``phi``.
+        Shape of ``theta`` has to match the shape of ``phi``.
 
         * If ``I = 1``
           Allows you to pass n-dimensional array of different configurations.
         * If ``I > 1``
           For both arrays first index is running over atoms in unit cell
-          (i.e. ``theta.shape[0] == I`` ``phi.shape[0] == I``).
-          Other dimensions are not restricted and corresponds to different configurations.
+          (i.e. ``theta.shape[0] == I`` and ``phi.shape[0] == I``).
 
         Returns
         =======
-        energy : (I, ...) :numpy:`ndarray`
-            Energy of the Hamiltonian, assuming ferromagnetic alignment between the unit cells.
-            If ``I==1``, then one dimension of length 1 is added at the beginning,
-            otherwise matches the input dimensions of ``theta`` and ``phi``.
+        energy : (...) :numpy:`ndarray`
+            Energy of the Hamiltonian, assuming ferromagnetic alignment between the
+            unit cells. It matches matches the dimensions of the input arrays ``theta``
+            and ``phi`` without the ``I`` dimension.
         """
 
         theta, phi = _check_input_shape(
@@ -201,8 +200,12 @@ class Energy:
         for atom1, atom2, ijk, J in self.spinham:
             i = atom1.index - 1
             j = atom2.index - 1
-            Si = atom1.spin
-            Sj = atom2.spin
+            if self.spinham.spin_normalized:
+                Si = 1
+                Sj = 1
+            else:
+                Si = atom1.spin
+                Sj = atom2.spin
             if atom1 == atom2 and ijk == (0, 0, 0):
                 factor = self.spinham.on_site_factor
             else:
@@ -253,7 +256,7 @@ class Energy:
 
         return energy
 
-    def antiferromagnetic_cone(self, theta, phi, in_degrees=True):
+    def antiferromagnetic_cone(self, theta, phi, q, is_relative=True, in_degrees=True):
         R"""
         Computes energy of the spin Hamiltonian, assuming antiferromagnetic
         conical alignment between the unit cells.
@@ -264,47 +267,65 @@ class Energy:
             Polar angle or array of polar angles. See notes below for correct shape.
         phi : (I, ...) or (...) |array-like|_
             Azimuthal angle or array of azimuthal angles. See notes below for correct shape.
-        I : int
-            Amount of atoms in unit cell.
+        q : (3,) |array-like|_
+            On contrary with the :py:attr:`.spiral` only one value of the q vector is allowed.
+            Only the vectors, which fulfill :math:`\boldsymbol{q} = \boldsymbol{G}/2` condition are allowed.
         in_degrees : bool, default True
             Whether angles are given in degrees or radians.
+        is_relative : bool, default=True
+            Whether ``q`` is given in relative (with respect to the reciprocal cell) coordinates.
 
         Notes
         =====
-        Shape of ``theta`` always has to match the shape of ``phi``.
+        Shape of ``theta``  has to match the shape of ``phi``.
 
         * If ``I = 1``
           Allows you to pass n-dimensional array of different configurations.
         * If ``I > 1``
           For both arrays first index is running over atoms in unit cell
-          (i.e. ``theta.shape[0] == I`` ``phi.shape[0] == I``).
-          Other dimensions are not restricted and corresponds to different configurations.
+          (i.e. ``theta.shape[0] == I`` and ``phi.shape[0] == I``).
 
         Returns
         =======
-        energy : (I, ...) :numpy:`ndarray`
+        energy : (...) :numpy:`ndarray`
             Energy of the Hamiltonian, assuming antiferromagnetic conical alignment
-            between the unit cells. If ``I==1``, then one dimension of length 1 is
-            added at the beginning, otherwise matches the input dimensions of
-            ``theta`` and ``phi``.
+            between the unit cells. It matches matches the dimensions of the input arrays
+            ``theta`` and ``phi`` without the ``I`` dimension.
         """
-
-        raise NotImplementedError
 
         theta, phi = _check_input_shape(
             theta, phi, self.spinham.I, in_degrees=in_degrees
         )
 
+        if not is_relative:
+            q = absolute_to_relative(q, self.spinham.reciprocal_cell)
+
+        if (
+            not (np.allclose(abs(q[0]), 0) or np.allclose(abs(q[0]), 0.5))
+            or not (np.allclose(abs(q[1]), 0) or np.allclose(abs(q[1]), 0.5))
+            or not (np.allclose(abs(q[2]), 0) or np.allclose(abs(q[2]), 0.5))
+        ):
+            raise ValueError(
+                f"q vector has to have components equal to 0 or 0.5 (in relative coordinates)"
+                + f"got {q[0]} {q[1]} {q[2]}"
+            )
+        q = q @ self.spinham.reciprocal_cell
+
         energy = np.zeros(theta.shape[1:], dtype=float)
         for atom1, atom2, ijk, J in self.spinham:
             i = atom1.index - 1
             j = atom2.index - 1
-            Si = atom1.spin
-            Sj = atom2.spin
+            if self.spinham.spin_normalized:
+                Si = 1
+                Sj = 1
+            else:
+                Si = atom1.spin
+                Sj = atom2.spin
             if atom1 == atom2 and ijk == (0, 0, 0):
                 factor = self.spinham.on_site_factor
             else:
                 factor = self.spinham.exchange_factor
+            d_vector = self.spinham.get_vector(atom1, atom2, ijk)
             energy += (
                 factor
                 * MILLI_ELECTRON_VOLT
@@ -315,10 +336,10 @@ class Energy:
                     + np.sin(theta[i])
                     * np.sin(theta[j])
                     * (
-                        J.xx * np.cos(phi[i]) * np.cos(phi[j])
-                        + J.yy * np.sin(phi[i]) * np.sin(phi[j])
-                        + J.xy * np.cos(phi[i]) * np.sin(phi[j])
-                        + J.yx * np.sin(phi[i]) * np.cos(phi[j])
+                        J.xx * np.cos(phi[i]) * np.cos(phi[j] + q @ d_vector)
+                        + J.yy * np.sin(phi[i]) * np.sin(phi[j] + q @ d_vector)
+                        + J.xy * np.cos(phi[i]) * np.sin(phi[j] + q @ d_vector)
+                        + J.yx * np.sin(phi[i]) * np.cos(phi[j] + q @ d_vector)
                     )
                 )
             )
@@ -345,17 +366,17 @@ class Energy:
 
         Parameters
         ==========
-        theta : float or (I,) or (I, N) |array-like|_
+        theta : (I, ...) or (...) |array-like|_
             Polar angle or array of polar angles.
             I is an amount of atoms in the unit cell.
-        phi : float or (I,) or (I, N) |array-like|_
+        phi : (I, ...) or (...) |array-like|_
             Azimuthal angle or array of azimuthal angles.
             I is an amount of atoms in the unit cell.
-        q : (3,) or (N,3) |array-like|_
+        q : (3,) or (... ,3) |array-like|_
             Spiral phase vector.
-        alpha : float or (N,) |array-like|_, optional
+        alpha : (...) |array-like|_, optional
             Global rotation axis polar angle.
-        beta : float or (N,) |array-like|_, optional
+        beta : (...) |array-like|_, optional
             Global rotation axis azimuthal angle.
         is_relative : bool, default True
             Whether q vector is given in relative coordinates
@@ -365,25 +386,25 @@ class Energy:
 
         Notes
         =====
-        Shape of ``theta``, ``phi`` and ``alpha``, ``beta`` (if the latter two are given)
-        always has to be the same.
+        Shape of ``theta``, ``phi`` has to be the same. Shape of and ``alpha``,
+        ``beta`` (if provided) has to match the shape of ``theta`` and ``phi``,
+        apart from the first dimension of ``theta`` and ``phi`` if ``I > 1`:
 
-        Shape of ``q`` has to match the shape of given angles, with extra dimension of the length 3
-        at the end.
+        Shape of ``q`` has to match the shape of given angles, with extra
+        dimension of the length 3 at the end and no dimension of ``I`` if present.
 
-        * If ``I = 1``
-          Allows you to pass n-dimensional array of different configurations.
-        * If ``I > 1``
-          For all arrays first index is running over atoms in unit cell
-          (i.e. ``theta.shape[0] == I`` ``q.shape[0] == I``, ...).
-          Other dimensions are not restricted and corresponds to different configurations.
+        * ``theta.shape == phi.shape``
+        * ``theta.shape[0] == I`` if there is ``I > 1`` atom per unit cell
+        * ``alpha.shape == beta.shape``
+        * ``alpha.shape == theta.shape`` if there is one atom per unit cell
+        * ``alpha.shape == theta.shape[1:]`` if there are more than one atom per unit cell
+        * ``q.shape[:-1] == alpha.shape``
+        * ``q.shape[-1] == 3``
 
         Returns
         =======
-        energy : (I, ...) :numpy:`ndarray`
+        energy : (...) :numpy:`ndarray`
             Energy of the Hamiltonian, assuming true spiral state.
-            If ``I==1``, then one dimension of length 1 is added at the beginning,
-            otherwise matches the input dimensions of ``theta`` and ``phi``.
         """
 
         theta, phi = _check_input_shape(
@@ -435,8 +456,12 @@ class Energy:
         for atom1, atom2, ijk, J in self.spinham:
             i = atom1.index - 1
             j = atom2.index - 1
-            Si = atom1.spin
-            Sj = atom2.spin
+            if self.spinham.spin_normalized:
+                Si = 1
+                Sj = 1
+            else:
+                Si = atom1.spin
+                Sj = atom2.spin
             if atom1 == atom2 and ijk == (0, 0, 0):
                 factor = self.spinham.on_site_factor
             else:

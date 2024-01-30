@@ -16,20 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__version__ = "0.0.0"
-__doclink__ = "magnopy.org"
-__release_date__ = "undefined"
+from os import listdir, remove
+from os.path import abspath, basename, isfile, join
 
-from . import exceptions, io, magnons, spinham, units
-from .exceptions import *
-from .io import *
-from .magnons import *
-from .spinham import *
-from .units import *
+import pytest
 
-__all__ = ["__version__", "__doclink__", "__release_date__"]
-__all__.extend(spinham.__all__)
-__all__.extend(io.__all__)
-__all__.extend(magnons.__all__)
-__all__.extend(exceptions.__all__)
-__all__.extend(units.__all__)
+from magnopy.io.internal import _filter_model_file, dump_model, load_model
+
+resources_path = join("utests", "io", "test_magnopy_inputs")
+
+inputs_to_pass = [
+    (abspath(join(resources_path, "pass", f)))
+    for f in listdir(join(resources_path, "pass"))
+    if isfile(join(resources_path, "pass", f))
+]
+
+
+@pytest.mark.parametrize("filename", inputs_to_pass)
+def test_load_dump_model(filename):
+    model = load_model(filename)
+    lines_dumped_loaded = dump_model(model, print_if_none=False)

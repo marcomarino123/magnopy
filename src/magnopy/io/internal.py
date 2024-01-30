@@ -24,7 +24,7 @@ from termcolor import colored
 from wulfric import Atom
 from wulfric.constants import TORADIANS
 
-from magnopy.io.verify import verify_model_file
+from magnopy.io.verify import _verify_model_file
 
 _logger = logging.getLogger(__name__)
 
@@ -32,6 +32,7 @@ from magnopy._pinfo import logo
 from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.spinham.parameter import MatrixParameter
 from magnopy.units import (
+    _TRUE_KEYWORDS,
     ANGSTROM,
     BOHR,
     ELECTRON_VOLT,
@@ -39,7 +40,6 @@ from magnopy.units import (
     KELVIN,
     MILLI_ELECTRON_VOLT,
     RYDBERG,
-    TRUE_KEYWORDS,
 )
 
 __all__ = ["load_model", "dump_model"]
@@ -122,23 +122,25 @@ def _write_bond(
 
 def dump_model(
     spinham: SpinHamiltonian,
-    filename,
+    filename=None,
     write_matrix=True,
     write_iso=False,
     write_dmi=False,
     write_symm=False,
     write_distance=False,
     write_spin_angles=False,
+    print_if_none=True,
 ):
-    """
+    r"""
     Dump a SpinHamiltonian object to a .txt file.
 
     Parameters
     ----------
     spinham : :py:class`.SpinHamiltonian`
         SpinHamiltonian object to dump.
-    filename : str
+    filename : str, optional
         Filename to dump SpinHamiltonian object to.
+        If none provided, then the text is passed to the standard output (terminal).
     write_matrix : bool, default True
         Whether to write full matrix of the parameter.
     write_iso : bool, default False
@@ -151,6 +153,17 @@ def dump_model(
         Whether to write the distance as a comment.
     write_spin_angles : bool, default False
         Whether to write spin as (phi, theta, S) or (Sx, Sy, Sz).
+    print_if_none : bools, default True
+        Whether to print the lines if ``filename`` is ``None`` or return them as a list.
+
+    Returns
+    =======
+    text : list of str
+        Model as a text in magnopy format. Only returned if ``filename is None`` and
+        ``print_if_none == True``.
+        Note: next line symbols are not included. In order to print/write the text
+        we advise to use ``"\n".join(text)``
+
     """
 
     # Write logo
@@ -252,8 +265,13 @@ def dump_model(
         text.append(SUBSEPARATOR)
     text.append(SEPARATOR)
 
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write("\n".join(text))
+    if filename is not None:
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write("\n".join(text))
+    elif print_if_none:
+        print("\n".join(text))
+    else:
+        return text
 
 
 def _read_cell(lines, spinham: SpinHamiltonian):
@@ -415,7 +433,7 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
 
         # Either spin vector is given or theta, phi and spin value
         if len(line) == 7:
-            spin_data = " ".join(line[4:7])
+            spin_data = " ".join(line[4:7]).lower()
             # Atom i j k p<angle> t<angle> S
             # or
             # Atom i j k p<angle> S t<angle>
@@ -430,9 +448,9 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
             if "p" in spin_data:
                 spin_data = spin_data.split()
                 for i in range(3):
-                    if spin_data[i].lower().startswith("p"):
+                    if spin_data[i].startswith("p"):
                         phi = float(spin_data[i][1:]) * TORADIANS
-                    elif spin_data[i].lower().startswith("t"):
+                    elif spin_data[i].startswith("t"):
                         theta = float(spin_data[i][1:]) * TORADIANS
                     else:
                         S = float(spin_data[i])
@@ -629,12 +647,12 @@ def _read_notation(lines, spinham):
         # Whether spins are normalized
         if line.lower().startswith("s"):
             spinham.spin_normalized = (
-                line.split("=")[1].strip().lower() in TRUE_KEYWORDS
+                line.split("=")[1].strip().lower() in _TRUE_KEYWORDS
             )
         # Whether double counting is present
         elif line.lower().startswith("d"):
             spinham.double_counting = (
-                line.split("=")[1].strip().lower() in TRUE_KEYWORDS
+                line.split("=")[1].strip().lower() in _TRUE_KEYWORDS
             )
         # Exchange factor
         elif line.lower().startswith("e"):
@@ -646,14 +664,16 @@ def _read_notation(lines, spinham):
     return spinham
 
 
-def filter_model_file(filename, save_filtered=False):
+def _filter_model_file(filename=None, lines=None, save_filtered=False):
     R"""
     Filter out all comments and blank lines from the model input file.
 
     Parameters
     ==========
-    filename : str
+    filename : str, optional
         Path to the file.
+    lines : list of str, optional
+        Lines of the model input file.
     save_filtered : bool, default False
         Whether to save filtered copy as a separate file.
         A name is the same as of the original file with ".filtered" added to the end.
@@ -665,9 +685,11 @@ def filter_model_file(filename, save_filtered=False):
     lines_indices : (N,) list
         Indices of filtered lines in the original file.
     """
-    # Read the content of the file
-    with open(filename, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+
+    if lines is None:
+        # Read the content of the file
+        with open(filename, "r", encoding="utf-8") as f:
+            lines = f.readlines()
 
     # Filter comments and blank lines
     filtered_lines = []
@@ -709,10 +731,14 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
         SpinHamiltonian object loaded from file.
     """
 
-    lines, indices = filter_model_file(filename=filename, save_filtered=save_filtered)
+    # Read the content of the file
+    with open(filename, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    lines, indices = _filter_model_file(filename=filename, save_filtered=save_filtered)
 
     # Verify input
-    sections = verify_model_file(
+    sections = _verify_model_file(
         lines, indices, raise_on_fail=True, return_sections=True
     )
 
@@ -728,29 +754,3 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     _read_notation(lines[slice(*sections["notation"])], spinham)
 
     return spinham
-
-
-if __name__ == "__main__":
-    # logging.basicConfig(filename="log.log", level=logging.INFO)
-    logging.info("Started")
-    model = load_model("utests/io/test_magnopy_inputs/pass/simple-correct-input.txt")
-    model.add_atom(name="Br", position=(0.5, 0.5, 0.5))
-    print(model.notation)
-    dump_model(
-        model,
-        "test.txt",
-        write_iso=True,
-        write_dmi=True,
-        write_symm=True,
-        write_distance=True,
-    )
-    model = load_model("test.txt")
-    dump_model(
-        model,
-        "re-test.txt",
-        write_iso=True,
-        write_dmi=True,
-        write_symm=True,
-        write_distance=True,
-    )
-    logging.info("Finished")

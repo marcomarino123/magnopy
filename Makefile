@@ -45,7 +45,7 @@ install:
 	@python3 -m pip install .
 
 test:
-	@pytest -s -o log_cli=true -o log_cli_level=DEBUG
+	@pytest -s #-o log_cli=true -o log_cli_level=DEBUG
 
 pictures-for-docs:
 	@python3 docs/images/scripts/uvn-choice.py -rd .

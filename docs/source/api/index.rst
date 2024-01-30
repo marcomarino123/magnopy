@@ -22,3 +22,5 @@ The main interface to the package may be imported as
 
    spinham/index
    io/index
+   units
+   exceptions

@@ -23,8 +23,7 @@ from wulfric import print_2d_array
 
 from magnopy._pinfo import logo
 from magnopy.spinham.parameter import MatrixParameter
-
-meV_TO_J = 1.602176634e-22
+from magnopy.units import JOULE
 
 
 def dump_vampire(
@@ -240,13 +239,13 @@ def dump_ucf(
     IID = 0
     for atom1, atom2, (i, j, k), J in spinham:
         if custom_mask is not None:
-            J = MatrixParameter(custom_mask(J))
+            J = MatrixParameter(custom_mask(J.matrix))
         else:
             if not dmi:
                 J = MatrixParameter(matrix=J.matrix - J.dmi_matrix)
             if not anisotropic:
                 J = MatrixParameter(matrix=J.matrix - J.aniso)
-        J = J * meV_TO_J
+        J = J / JOULE
         fmt = f"{7+decimals}.{decimals}e"
         result.append(
             f"{IID:<2} {atom_indices[atom1]:>2} {atom_indices[atom2]:>2} {i:>2} {j:>2} {k:>2} "

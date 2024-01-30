@@ -6,37 +6,37 @@
     \sum_{i, j, \boldsymbol{d_{ij}}}
     S_iS_j
     \Biggl\{
-      J_{ij}^{nn}\cos\theta_i\cos\theta_j
+      J_{ij}^{nn}(\boldsymbol{d_{ij}})\cos\theta_i\cos\theta_j
       +\\&+
       \sin\theta_i\sin\theta_j
       \Bigl[
-        \dfrac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
+        \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})+J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
         +
-        \dfrac{J_{ij}^{uv}-J_{ij}^{vu}}{2}\sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
+        \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})-J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
       \Bigr]
       +\\&+
       \delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}
       \sin\theta_i\sin\theta_j
       \Bigl[
-        \dfrac{J_{ij}^{uu}-J_{ij}^{vv}}{2}\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
+        \dfrac{J_{ij}^{uu}(\boldsymbol{d_{ij}})-J_{ij}^{vv}(\boldsymbol{d_{ij}})}{2}\cos(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
           +
-        \dfrac{J_{ij}^{uv}+J_{ij}^{vu}}{2}\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
+        \dfrac{J_{ij}^{uv}(\boldsymbol{d_{ij}})+J_{ij}^{vu}(\boldsymbol{d_{ij}})}{2}\sin(\phi_i+\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
       \Bigr]
       +\\&+
       \delta_{\boldsymbol{q},\boldsymbol{G}}
       \sin\theta_i\cos\theta_j
       \Bigl[
-        J_{ij}^{un}\cos\phi_i
+        J_{ij}^{un}(\boldsymbol{d_{ij}})\cos\phi_i
         +
-        J_{ij}^{vn}\sin\phi_i
+        J_{ij}^{vn}(\boldsymbol{d_{ij}})\sin\phi_i
       \Bigr]
       +\\&+
       \delta_{\boldsymbol{q},\boldsymbol{G}}
       \cos\theta_i\sin\theta_j
       \Bigl[
-        J_{ij}^{nu}\cos(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
+        J_{ij}^{nu}(\boldsymbol{d_{ij}})\cos(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
         +
-        J_{ij}^{nv}\sin(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
+        J_{ij}^{nv}(\boldsymbol{d_{ij}})\sin(\phi_j+\boldsymbol{q}\boldsymbol{d_{ij}})
       \Bigr]
     \Biggr\}
     +\\&+

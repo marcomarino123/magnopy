@@ -38,18 +38,6 @@ def main(root_directory):
         camera_keywords=dict(eye=dict(x=1.25 * zoom, y=1.25 * zoom, z=1 * zoom)),
     )
 
-    fig = plot_example(
-        spins=[(0, 0, 0, 5 * np.pi / 6, np.pi), (0.5, 0.5, 0, np.pi / 6, 0)],
-        Q=(np.pi, 0, 0),
-        N=(5, 1, 1),
-    )
-    zoom = 1.5
-    save_figure(
-        fig,
-        os.path.join(images_dir, "minimization-antiferro.html"),
-        camera_keywords=dict(eye=dict(x=1.25 * zoom, y=-1.25 * zoom, z=1 * zoom)),
-    )
-
 
 if __name__ == "__main__":
     parser = ArgumentParser()

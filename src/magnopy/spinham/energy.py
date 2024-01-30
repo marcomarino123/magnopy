@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import numpy as np
-from wulfric.geometry import absolute_to_relative
+from wulfric import TORADIANS, absolute_to_relative
 
 from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.units import MILLI_ELECTRON_VOLT, MU_BOHR, TESLA
@@ -25,141 +25,79 @@ from magnopy.units import MILLI_ELECTRON_VOLT, MU_BOHR, TESLA
 __all__ = ["Energy"]
 
 
-def _ensure_theta_phi_input_shape(theta, phi, I):
+def _check_input_shape(angle1, angle2, I, in_degrees=True):
     R"""
     Check that input values are consistent with each other and
     with amount of atoms in unit cell.
 
     Parameters
     ==========
-    theta : float or (I,) or (N,) or (N,I) |array-like|_
-        Polar angle or array of polar angles.
-        I is an amount of atoms in the unit cell.
-    phi : float or (I,) or (N,) or (N,I) |array-like|_
-        Azimuthal angle or array of azimuthal angles.
-        I is an amount of atoms in the unit cell.
+    angle1 : (I, ...) or (...) |array-like|_
+        Polar angle or array of polar angles. See notes below for correct shape.
+    angle2 : (I, ...) or (...) |array-like|_
+        Azimuthal angle or array of azimuthal angles. See notes below for correct shape.
     I : int
         Amount of atoms in unit cell.
+    in_degrees : bool, default True
+        Whether angles are given in degrees or radians.
 
-    Return
-    ======
-    theta : (N,I) |array-like|_
-        Polar angle or array of polar angles.
-        I is an amount of atoms in the unit cell.
-    phi : (N,I) |array-like|_
-        Azimuthal angle or array of azimuthal angles.
-        I is an amount of atoms in the unit cell.
+    Notes
+    =====
+    Shape of ``angle1`` always has to match the shape of ``angle2``.
 
+    * If ``I = 1``
+      Allows you to pass n-dimensional array of different configurations.
+    * If ``I > 1``
+      For both arrays first index is running over atoms in unit cell
+      (i.e. ``angle1.shape[0] == I`` ``angle2.shape[0] == I``).
+      Other dimensions are not restricted and corresponds to different configurations.
+
+    Returns
+    =======
+    angle1 : (I, ...) :numpy:`ndarray`
+        Polar angle or array of polar angles. If ``I==1``, then one dimension of
+        length 1 is added at the beginning, otherwise matches
+        the input dimensions of ``angle1`` and ``angle2``.
+    angle2 : (I, ...) :numpy:`ndarray`
+        Azimuthal angle or array of azimuthal angles. If ``I==1``, then one dimension of
+        length 1 is added at the beginning, otherwise matches
+        the input dimensions of ``angle1`` and ``angle2``.
     """
 
-    # Make two-dimensional array out of a single number.
-    if isinstance(theta, float) or isinstance(theta, float):
-        theta = np.array([[theta]], dtype=float)
-    # Or convert into numpy ndarray
+    # Check constrains on I
+    if not isinstance(I, int):
+        raise ValueError(f"Expected int, got I = {I}")
+    if I < 1:
+        raise ValueError(f"Expected at least one atom per unit cell, got I = {I}")
+
+    if I == 1:
+        angle1 = np.array([angle1], dtype=float)
+        angle2 = np.array([angle2], dtype=float)
     else:
-        theta = np.array(theta, dtype=float)
+        angle1 = np.array(angle1, dtype=float)
+        angle2 = np.array(angle2, dtype=float)
 
-    # Make two-dimensional array out of a single number.
-    if isinstance(phi, float) or isinstance(phi, float):
-        phi = np.array([[phi]], dtype=float)
-    # Or convert into numpy ndarray
-    else:
-        phi = np.array(phi, dtype=float)
-
-    # If one-dimensional arrays are given
-    if len(theta.shape) == 1:
-        # If there is only one atom per unit cell, then theta is interpreted as
-        # an array of different trial configurations.
-        if I == 1:
-            # First index for configuration, second index for atom
-            theta = np.array([theta]).T
-        # Otherwise it is interpreted as one configuration.
-        elif len(theta) != I:
-            raise ValueError(
-                " ".join(
-                    [
-                        f"{I} atoms in unit cell,",
-                        f"but {len(theta)} theta angles provided",
-                    ]
-                )
-            )
-        else:
-            theta = np.array([theta], dtype=float)
-
-    # If one-dimensional arrays are given
-    if len(phi.shape) == 1:
-        # If there is only one atom per unit cell, then phi is interpreted as
-        # an array of different trial configurations.
-        if I == 1:
-            # First index for configuration, second index for atom
-            phi = np.array([phi]).T
-        # Otherwise it is interpreted as one configuration.
-        elif len(phi) != I:
-            raise ValueError(
-                " ".join(
-                    [
-                        f"{I} atoms in unit cell,",
-                        f"but {len(phi)} phi angles provided",
-                    ]
-                )
-            )
-        else:
-            phi = np.array([phi], dtype=float)
-
-    # If two-dimensional arrays are given:
-    if theta.shape[1] != I:
+    # Check that input arrays are matching the amount of atoms per unit cell.
+    if angle1.shape[0] != I:
         raise ValueError(
-            " ".join(
-                [
-                    f"{I} atoms in unit cell,",
-                    f"but {theta.shape[1]} theta angles provided",
-                ]
-            )
+            f"Expected first dimension of length {I} for angle1, got {angle1.shape[0]}"
         )
-    if phi.shape[1] != I:
+    if angle2.shape[0] != I:
         raise ValueError(
-            " ".join(
-                [
-                    f"{I} atoms in unit cell,",
-                    f"but {phi.shape[1]} phi angles provided",
-                ]
-            )
+            f"Expected first dimension of length {I} for angle2, got {angle2.shape[0]}"
         )
 
-    # If higher dimensional arrays are given
-    if len(theta.shape) > 2:
+    # Check that input arrays have the same sizes.
+    if angle1.shape != angle2.shape:
         raise ValueError(
-            " ".join(
-                [
-                    f"Expected float or one/two dimensional array,",
-                    f"got {len(theta.shape)}-dimensional array for theta.",
-                ]
-            )
+            f"Expected to have matching shapes for angle1 and angle2, got {angle1.shape} != {angle2.shape}"
         )
 
-    # If higher dimensional arrays are given
-    if len(phi.shape) > 2:
-        raise ValueError(
-            " ".join(
-                [
-                    f"Expected float or one/two dimensional array,",
-                    f"got {len(phi.shape)}-dimensional array for phi.",
-                ]
-            )
-        )
+    if in_degrees:
+        angle1 *= TORADIANS
+        angle2 *= TORADIANS
 
-    # If size are not consistent
-    if theta.shape[0] != phi.shape[0]:
-        raise ValueError(
-            " ".join(
-                [
-                    f"Amount of theta angles ({theta.shape[0]})"
-                    f"does not match the amount of phi angles ({phi.shape[0]})"
-                ]
-            )
-        )
-
-    return theta, phi
+    return angle1, angle2
 
 
 class Energy:
@@ -220,37 +158,56 @@ class Energy:
             )
         self._spinham = new_spinham
 
-    def ferromagnetic(self, theta, phi):
+    def ferromagnetic(self, theta, phi, in_degrees=True):
         R"""
-        Computes energy of the spin Hamiltonian, assuming ferromagnetic aligment between the unit cells.
+        Computes energy of the spin Hamiltonian, assuming ferromagnetic
+        alignment between the unit cells.
 
         Parameters
         ==========
-        theta : float or (I,) or (N,) or (I, N) |array-like|_
-            Polar angle or array of polar angles.
-            I is an amount of atoms in the unit cell.
-        phi : float or (I,) or (N,) or (I, N) |array-like|_
-            Azimuthal angle or array of azimuthal angles.
-            I is an amount of atoms in the unit cell.
+        theta : (I, ...) or (...) |array-like|_
+            Polar angle or array of polar angles. See notes below for correct shape.
+        phi : (I, ...) or (...) |array-like|_
+            Azimuthal angle or array of azimuthal angles. See notes below for correct shape.
+        I : int
+            Amount of atoms in unit cell.
+        in_degrees : bool, default True
+            Whether angles are given in degrees or radians.
+
+        Notes
+        =====
+        Shape of ``theta`` always has to match the shape of ``phi``.
+
+        * If ``I = 1``
+          Allows you to pass n-dimensional array of different configurations.
+        * If ``I > 1``
+          For both arrays first index is running over atoms in unit cell
+          (i.e. ``theta.shape[0] == I`` ``phi.shape[0] == I``).
+          Other dimensions are not restricted and corresponds to different configurations.
 
         Returns
         =======
-        energy : float or (N,)  :numpy:`ndarray`
-            Ferromagnetic energy or array of ferromagnetic energies, depending on the type of
+        energy : (I, ...) :numpy:`ndarray`
+            Energy of the Hamiltonian, assuming ferromagnetic alignment between the unit cells.
+            If ``I==1``, then one dimension of length 1 is added at the beginning,
+            otherwise matches the input dimensions of ``theta`` and ``phi``.
         """
 
-        theta, phi = _ensure_theta_phi_input_shape(theta, phi, self.spinham.I)
+        theta, phi = _check_input_shape(
+            theta, phi, self.spinham.I, in_degrees=in_degrees
+        )
 
-        energy = 0
+        energy = np.zeros(theta.shape[1:], dtype=float)
         for atom1, atom2, ijk, J in self.spinham:
-            i = atom1.index
-            j = atom2.index
+            i = atom1.index - 1
+            j = atom2.index - 1
             Si = atom1.spin
             Sj = atom2.spin
             if atom1 == atom2 and ijk == (0, 0, 0):
                 factor = self.spinham.on_site_factor
             else:
                 factor = self.spinham.exchange_factor
+
             energy += (
                 factor
                 * MILLI_ELECTRON_VOLT
@@ -259,14 +216,12 @@ class Energy:
                 * (
                     J.zz * np.cos(theta[i]) * np.cos(theta[j])
                     + np.sin(theta[i])
-                    * np.sin(
-                        theta[j]
-                        * (
-                            J.xx * np.cos(phi[i]) * np.cos(phi[j])
-                            + J.yy * np.sin(phi[i]) * np.sin(phi[j])
-                            + J.xy * np.cos(phi[i]) * np.sin(phi[j])
-                            + J.yx * np.sin(phi[i]) * np.cos(phi[j])
-                        )
+                    * np.sin(theta[j])
+                    * (
+                        J.xx * np.cos(phi[i]) * np.cos(phi[j])
+                        + J.yy * np.sin(phi[i]) * np.sin(phi[j])
+                        + J.xy * np.cos(phi[i]) * np.sin(phi[j])
+                        + J.yx * np.sin(phi[i]) * np.cos(phi[j])
                     )
                     + np.sin(theta[i])
                     * np.cos(theta[j])
@@ -277,7 +232,7 @@ class Energy:
                 )
             )
 
-        spins = np.array([atom.spin for atom in self.spinham])
+        spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
         energy += (
             MU_BOHR
@@ -298,31 +253,52 @@ class Energy:
 
         return energy
 
-    def antiferromagnetic_cone(self, theta, phi):
+    def antiferromagnetic_cone(self, theta, phi, in_degrees=True):
         R"""
-        Computes energy of the spin Hamiltonian, assuming antiferromagnetic cone between the unit cells.
+        Computes energy of the spin Hamiltonian, assuming antiferromagnetic
+        conical alignment between the unit cells.
 
         Parameters
         ==========
-        theta : float or (I,) or (N,) or (I, N) |array-like|_
-            Polar angle or array of polar angles.
-            I is an amount of atoms in the unit cell.
-        phi : float or (I,) or (N,) or (I, N) |array-like|_
-            Azimuthal angle or array of azimuthal angles.
-            I is an amount of atoms in the unit cell.
+        theta : (I, ...) or (...) |array-like|_
+            Polar angle or array of polar angles. See notes below for correct shape.
+        phi : (I, ...) or (...) |array-like|_
+            Azimuthal angle or array of azimuthal angles. See notes below for correct shape.
+        I : int
+            Amount of atoms in unit cell.
+        in_degrees : bool, default True
+            Whether angles are given in degrees or radians.
+
+        Notes
+        =====
+        Shape of ``theta`` always has to match the shape of ``phi``.
+
+        * If ``I = 1``
+          Allows you to pass n-dimensional array of different configurations.
+        * If ``I > 1``
+          For both arrays first index is running over atoms in unit cell
+          (i.e. ``theta.shape[0] == I`` ``phi.shape[0] == I``).
+          Other dimensions are not restricted and corresponds to different configurations.
 
         Returns
         =======
-        energy : float or (N,)  :numpy:`ndarray`
-            Antiferromagnetic cone energy or array of ferromagnetic energies, depending on the type of
+        energy : (I, ...) :numpy:`ndarray`
+            Energy of the Hamiltonian, assuming antiferromagnetic conical alignment
+            between the unit cells. If ``I==1``, then one dimension of length 1 is
+            added at the beginning, otherwise matches the input dimensions of
+            ``theta`` and ``phi``.
         """
 
-        theta, phi = _ensure_theta_phi_input_shape(theta, phi, self.spinham.I)
+        raise NotImplementedError
 
-        energy = 0
+        theta, phi = _check_input_shape(
+            theta, phi, self.spinham.I, in_degrees=in_degrees
+        )
+
+        energy = np.zeros(theta.shape[1:], dtype=float)
         for atom1, atom2, ijk, J in self.spinham:
-            i = atom1.index
-            j = atom2.index
+            i = atom1.index - 1
+            j = atom2.index - 1
             Si = atom1.spin
             Sj = atom2.spin
             if atom1 == atom2 and ijk == (0, 0, 0):
@@ -336,20 +312,18 @@ class Energy:
                 * Sj
                 * (
                     J.zz * np.cos(theta[i]) * np.cos(theta[j])
-                    - np.sin(theta[i])
-                    * np.sin(
-                        theta[j]
-                        * (
-                            J.xx * np.cos(phi[i]) * np.cos(phi[j])
-                            + J.yy * np.sin(phi[i]) * np.sin(phi[j])
-                            + J.xy * np.cos(phi[i]) * np.sin(phi[j])
-                            + J.yx * np.sin(phi[i]) * np.cos(phi[j])
-                        )
+                    + np.sin(theta[i])
+                    * np.sin(theta[j])
+                    * (
+                        J.xx * np.cos(phi[i]) * np.cos(phi[j])
+                        + J.yy * np.sin(phi[i]) * np.sin(phi[j])
+                        + J.xy * np.cos(phi[i]) * np.sin(phi[j])
+                        + J.yx * np.sin(phi[i]) * np.cos(phi[j])
                     )
                 )
             )
 
-        spins = np.array([atom.spin for atom in self.spinham])
+        spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
         energy += (
             MU_BOHR
@@ -362,9 +336,12 @@ class Energy:
 
         return energy
 
-    def spiral(self, theta, phi, q, alpha, beta):
+    def spiral(
+        self, theta, phi, q, alpha=None, beta=None, is_relative=True, in_degrees=True
+    ):
         R"""
-        Computes energy of the spin Hamiltonian, assuming antiferromagnetic cone between the unit cells.
+        Computes energy of the spin Hamiltonian,
+        assuming antiferromagnetic cone between the unit cells.
 
         Parameters
         ==========
@@ -376,74 +353,79 @@ class Energy:
             I is an amount of atoms in the unit cell.
         q : (3,) or (N,3) |array-like|_
             Spiral phase vector.
-        alpha : float or (N,) |array-like|_
+        alpha : float or (N,) |array-like|_, optional
             Global rotation axis polar angle.
-        beta : float or (N,) |array-like|_
+        beta : float or (N,) |array-like|_, optional
             Global rotation axis azimuthal angle.
+        is_relative : bool, default True
+            Whether q vector is given in relative coordinates
+            (with respect ot the reciprocal lattice).
+        in_degrees : bool, default True
+            Whether angles are given in degrees or radians.
+
+        Notes
+        =====
+        Shape of ``theta``, ``phi`` and ``alpha``, ``beta`` (if the latter two are given)
+        always has to be the same.
+
+        Shape of ``q`` has to match the shape of given angles, with extra dimension of the length 3
+        at the end.
+
+        * If ``I = 1``
+          Allows you to pass n-dimensional array of different configurations.
+        * If ``I > 1``
+          For all arrays first index is running over atoms in unit cell
+          (i.e. ``theta.shape[0] == I`` ``q.shape[0] == I``, ...).
+          Other dimensions are not restricted and corresponds to different configurations.
 
         Returns
         =======
-        energy : float or (N,)  :numpy:`ndarray`
-            Antiferromagnetic cone energy or array of ferromagnetic energies, depending on the type of
+        energy : (I, ...) :numpy:`ndarray`
+            Energy of the Hamiltonian, assuming true spiral state.
+            If ``I==1``, then one dimension of length 1 is added at the beginning,
+            otherwise matches the input dimensions of ``theta`` and ``phi``.
         """
 
-        theta, phi = _ensure_theta_phi_input_shape(theta, phi, self.spinham.I)
+        theta, phi = _check_input_shape(
+            theta, phi, self.spinham.I, in_degrees=in_degrees
+        )
 
-        if isinstance(alpha, float) or isinstance(alpha, float):
-            alpha = np.array([alpha], dtype=float)
+        if (alpha is None) ^ (beta is None):
+            raise ValueError(
+                "Either both beta and alpha has to be given or none of them."
+            )
+        if alpha is None and beta is None:
+            raise NotImplementedError
         else:
             alpha = np.array(alpha, dtype=float)
-        if isinstance(beta, float) or isinstance(beta, float):
-            beta = np.array([beta], dtype=float)
-        else:
             beta = np.array(beta, dtype=float)
 
-        if alpha.shape[0] != theta.shape[0]:
-            raise ValueError(
-                " ".join(
-                    [
-                        f"Amount of alpha angles ({alpha.shape[0]})"
-                        f"does not match the amount of theta and phi angles ({theta.shape[0]})"
-                    ]
+            # Check that input arrays have the same sizes.
+            if alpha.shape != beta.shape:
+                raise ValueError(
+                    f"Expected to have matching shapes for alpha and beta, got {alpha.shape} != {beta.shape}"
                 )
-            )
-        elif len(alpha.shape) > 1:
+
+            if in_degrees:
+                alpha *= TORADIANS
+                beta *= TORADIANS
+
+        if alpha.shape != theta.shape[1:]:
             raise ValueError(
-                f"Expected float or one-dimensional array for alpha, got {len(alpha.shape)}-dimensional array."
-            )
-        if beta.shape[0] != theta.shape[0]:
-            raise ValueError(
-                " ".join(
-                    [
-                        f"Amount of beta angles ({beta.shape[0]})"
-                        f"does not match the amount of theta and phi angles ({theta.shape[0]})"
-                    ]
-                )
-            )
-        elif len(beta.shape) > 1:
-            raise ValueError(
-                f"Expected float or one-dimensional array for beta, got {len(beta.shape)}-dimensional array."
+                f"Wrong shape of alpha and beta: {alpha.shape}, expected {theta.shape[1:]}"
             )
 
         q = np.array(q, dtype=float)
 
-        if q.shape == (3,):
-            pass
-        elif q.shape[0] != theta.shape[0]:
+        if q.shape[:-1] != theta.shape[1:]:
             raise ValueError(
-                " ".join(
-                    [
-                        f"Amount of q vectors ({q.shape[0]})"
-                        f"does not match the amount of theta and phi angles ({theta.shape[1]})"
-                    ]
-                )
-            )
-        elif len(q.shape) > 2:
-            raise ValueError(
-                f"Expected one/two-dimensional array for q vector, got {len(q.shape)}-dimensional array."
+                f"Wrong shape of q: {q.shape}, expected ({', '.join(theta.shape[1:])},3)"
             )
 
-        energy = 0
+        if is_relative:
+            q = np.einsum("...i,ij->...j", q, self.spinham.reciprocal_cell)
+
+        energy = np.zeros(theta.shape[1:], dtype=float)
         cosa = np.cos(alpha)
         sina = np.sin(alpha)
         cosb = np.cos(beta)
@@ -451,16 +433,16 @@ class Energy:
         costheta = np.cos(theta)
         sintheta = np.sin(theta)
         for atom1, atom2, ijk, J in self.spinham:
-            i = atom1.index
-            j = atom2.index
+            i = atom1.index - 1
+            j = atom2.index - 1
             Si = atom1.spin
             Sj = atom2.spin
             if atom1 == atom2 and ijk == (0, 0, 0):
                 factor = self.spinham.on_site_factor
             else:
                 factor = self.spinham.exchange_factor
-            distance = self.spinham.get_distance(atom1, atom2, ijk)
-            theta_m = np.einsum("nj,j->n", q, distance)
+            d_vector = self.spinham.get_vector(atom1, atom2, ijk)
+            theta_m = np.einsum("...j,j->...", q, d_vector)
             Dn = J.dmi[0] * cosb * sina + J.dmi[1] * sinb * sina + J.dmi[2] * cosa
             Snn = (
                 J.aniso[0][0] * (cosb**2 * sina**2 - cosa**2)
@@ -488,6 +470,8 @@ class Energy:
                     + Dn * sintheta[i] * sintheta[j] * np.sin(theta_m + phi[j] - phi[i])
                 )
             )
+
+        spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
         energy += (
             MU_BOHR

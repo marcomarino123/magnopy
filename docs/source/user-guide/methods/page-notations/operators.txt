@@ -2,12 +2,15 @@ The notation for the different operators appearing in this documentation is
 
 * The Hamiltonian operator is denoted by :math:`{\cal H}`
 
+* Magnopy's spin notation does not distinguish between classical or quantum spins.
+  These are understood by their context.
+
 * Spin operator vector components are written as :math:`s^\alpha`
 
 * Vectors spin operators are denoted by
 
   .. math::
-    \boldsymbol{\cal S}=(s^x,s^y,s^z)^{\dagger}=\begin{pmatrix} s^x\\s^y\\s^z\end{pmatrix}
+    \boldsymbol{\cal S}=(S^x,S^y,S^z)^{\dagger}=\begin{pmatrix} S^x\\S^y\\S^z\end{pmatrix}
 
 * Boson operators with quantum number :math:`n` are written as :math:`a_n` or :math:`b_n`.
 

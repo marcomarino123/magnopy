@@ -43,9 +43,3 @@ Methods and algorithms
   :caption: Schwinger bosons
 
   schwinger-bosons
-
-.. toctree::
-  :maxdepth: 1
-  :caption: Input file specification
-
-  input-standard

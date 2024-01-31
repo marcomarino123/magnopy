@@ -14,3 +14,5 @@ Getting started
     start/installation
 
     methods/index
+
+    input/index

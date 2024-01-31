@@ -1,5 +1,5 @@
 .. math::
-  {\cal H}
+  H
   =
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}

@@ -1,8 +1,8 @@
 .. _user-guide_methods_xyz-to-uvn:
 
-*******************************************************
-Vector and matrix changes from the xyz to the uvn bases
-*******************************************************
+***********************************************************************
+Vector and matrix elements in the :math:`(\,u\,v\,n\,)` reference frame
+***********************************************************************
 
 .. dropdown:: Notation used on this page
 
@@ -22,27 +22,42 @@ Basis coordinates
 -----------------
 
 The :math:`(u\,v\,n)` basis coordinates can be better calculated by using
-Dirac's notation:
+Dirac's notation, where the rotation matrix elements are
 
 .. math::
-  \ket{\,u\,v\,n\,} = \boldsymbol{R_r}\, \ket{\,x\,y\,z\,}
+  \ket{\,u\,v\,n\,} = \boldsymbol{\cal R_r}\, \ket{\,x\,y\,z\,}
 
 .. math::
-  \braket{\,x\,y\,z\,|\,u\,v\,n\,}=\bra{\,x\,y\,z\,}\, \boldsymbol{R_r}\, \ket{\,x\,y\,z\,}
+  \boldsymbol{R_r}=&
+  \braket{\,x\,y\,z\,|\,u\,v\,n\,}=
+  \bra{\,x\,y\,z\,}\, \boldsymbol{\cal R_r}\, \ket{\,x\,y\,z\,}\\\\
+   =&
+      \begin{pmatrix}
+        \cos\alpha + \sin^2\beta\,\,(1-\cos\alpha) &
+        -\sin\beta\,\cos\beta\,\,(1-\cos\alpha)      &
+        \cos\beta\,\sin\alpha                    \\
+        -\sin\beta\,\cos\beta\,\,(1-\cos\alpha)      &
+        \cos\alpha + \cos^2\beta\,\,(1-\cos\alpha) &
+        \sin\beta\,\sin\alpha                    \\
+        -\cos\beta\,\sin\alpha                   &
+        -\sin\beta\,\sin\alpha                   &
+        \cos\alpha \\
+      \end{pmatrix}
 
 ---------------
 Spin components
 ---------------
-The components of a spin vector :math:`\ket{S}` are more easily calculated using Dirac's
-notation
+The components of a spin vector :math:`\ket{S}` are also more easily calculated
+using Dirac's notation
 
 .. math::
-  \braket{\,u\,v\,n\, \,|\, S\,} = \braket{\,x\,y\,z\, |\,\boldsymbol{R_r}\,|\, S\,}
+  \braket{\,u\,v\,n\, \,|\, S\,} = \braket{\,u\,v\,n\, \,|\,x\,y\,z\,}\,
+  \braket{\,x\,y\,z\,|\, S\,}
   =
-  \braket{\,x\,y\,z \,|\,\boldsymbol{R_r}^\dagger\,| \,x\,y\,z\,}
+  \braket{\,x\,y\,z \,|\,\boldsymbol{\cal R_r}^\dagger\,| \,x\,y\,z\,}
   \braket{\,x\,y\,z\, | \,S\,}
 
-The components are therefore
+The spin components in the :math:`(\,u\,v\,n\,)` basis are therefore
 
 .. math::
   \begin{pmatrix}
@@ -51,11 +66,18 @@ The components are therefore
     S^n \\
   \end{pmatrix}
   =
-  \begin{pmatrix}
-    R^{xx} & R^{xy} & R^{xz} \\
-    R^{yx} & R^{yy} & R^{yz} \\
-    R^{zx} & R^{zy} & R^{zz} \\
-  \end{pmatrix}
+       \begin{pmatrix}
+        \cos\alpha + \sin^2\beta\,\,(1-\cos\alpha) &
+        -\sin\beta\,\cos\beta\,\,(1-\cos\alpha)      &
+        -\,\cos\beta\,\sin\alpha                    \\
+        -\,\sin\beta\,\cos\beta\,\,(1-\cos\alpha)      &
+        \cos\alpha + \cos^2\beta\,\,(1-\cos\alpha) &
+        -\,\sin\beta\,\sin\alpha                    \\
+        \cos\beta\,\sin\alpha                   &
+        \sin\beta\,\sin\alpha                   &
+        \cos\alpha \\
+      \end{pmatrix}
+      \,
   \begin{pmatrix}
     S^x \\
     S^y \\
@@ -65,20 +87,21 @@ The components are therefore
 -------------------------------
 Exchange tensor matrix elements
 -------------------------------
+Similarly, the exchange tensor matrix elements in the :math:`(\,u\,v\,n\,)` basis
+can be computed using Dirac's notation as follows
 
 .. math::
-
   \braket{\,u\,v\,n \,| \,\boldsymbol{J}\,|\,u\,v\,n\,}
   =&
   \braket{\,u\,v\,n \,|\, x\,y\,z\,}\,
   \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,| \,x\,y\,z\,}\,
   \braket{\,x\,y\,z \,|\, u\,v\,n\,} \\
   =&
-  \braket{\,x\,y\,z\, |\, \boldsymbol{R_r}^{\dagger}\,|\,x\,y\,z\,}\,
+  \braket{\,x\,y\,z\, |\, \boldsymbol{\cal R_r}^{\dagger}\,|\,x\,y\,z\,}\,
   \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,|\,x\,y\,z\,}\,
-  \braket{\,x\,y\,z\, |\,\boldsymbol{R_r}\,|\,x\,y\,z\,}
+  \braket{\,x\,y\,z\, |\,\boldsymbol{\cal R_r}\,|\,x\,y\,z\,}
 
-So the matrix elements are
+So those matrix elements are
 
 .. math::
   \begin{pmatrix}

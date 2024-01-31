@@ -15,7 +15,8 @@ Choice of the uvn reference frame
 
 Magnopy assumes that the ground state spin arrangement follows a conical configuration,
 where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`. The program
-goes on and quantizes the atomic spins along :math:`\boldsymbol{n}`.
+rotates every atomic spin to make it collinear to :math:`\boldsymbol{n}`.
+Magnopy subsequently quantizes the spin vectors along :math:`\boldsymbol{n}`.
 
 However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
 :math:`\boldsymbol{A}` tensors are usually
@@ -40,11 +41,7 @@ the :math:`(x\,y\,z)` reference frame.
 
 .. dropdown:: Explicit formulas
 
-  The unit vector :math:`\boldsymbol{\hat{r}}` is actually defined by the
-  two angles :math:`\alpha` and :math:`\beta` in the figure
-
-  .. raw:: html
-    :file: ../../../images/uvn-choice-n-angles.html
+  The unit vector
 
   .. math::
 
@@ -57,6 +54,12 @@ the :math:`(x\,y\,z)` reference frame.
         \cos\beta \\
         0
       \end{pmatrix}
+
+  is actually defined by the two angles :math:`\alpha` and :math:`\beta`
+  in the figure
+
+  .. raw:: html
+    :file: ../../../images/uvn-choice-n-angles.html
 
   The rotation matrix is
 

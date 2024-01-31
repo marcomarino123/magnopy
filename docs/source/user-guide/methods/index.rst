@@ -20,9 +20,12 @@ Methods and algorithms
   single-q
   spherical-rf
   spin-fourier
-  spinham-spherical
+  exchange-spherical
+  classical-hamiltonian
   energy-classic/index
   energy-minimization/index
+
+  quantum-hamiltonian/index
 
 .. toctree::
   :maxdepth: 1

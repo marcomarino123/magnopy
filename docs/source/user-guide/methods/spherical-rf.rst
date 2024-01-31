@@ -25,7 +25,7 @@ from a local collinear reference frame by
 .. include:: repeated-formulas/spin-from-ferro-any.txt
 
 where all atomic vectors
-are collinear :math:`\boldsymbol{S^n_{mi}}=S_i\,\boldsymbol{n}`.
+are collinear :math:`\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{n}`.
 
 Coordinate system with circular polarization
 ============================================
@@ -97,23 +97,19 @@ Change to the spherical basis
 
 Spin vector
 -----------
-
 The spin vector :math:`\boldsymbol{S_{mi}^s}` can be written
 in the spherical reference frame as
 
 .. math::
   \boldsymbol{S_{mi}^s}
-  =&
-  \begin{pmatrix}
-    S_{mi}^{-} \\
-    S_{mi}^{+} \\
-    S_{mi}^{n} \\
-  \end{pmatrix}
-   =\, \boldsymbol{T}^\dagger\,\boldsymbol{S_{mi}}\\
    =&
+   \, \boldsymbol{T}^\dagger\,\boldsymbol{S_{mi}}
+   =
+   \boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}
+   \\\\=&
    \begin{pmatrix}
-    \frac{1}{\sqrt{2}}\,(S_{mi}^u-S_{mi}^v) \\
-    \frac{1}{\sqrt{2}}\,(S_{mi}^u+S_{mi}^v) \\
+    \frac{1}{\sqrt{2}}\,S_{mi}^- \\
+    \frac{1}{\sqrt{2}}\,S_{mi}^+ \\
      S_{mi}^{n} \\
    \end{pmatrix}
   =
@@ -124,6 +120,11 @@ in the spherical reference frame as
      \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
      \cos\theta_i                                                                 \\
   \end{pmatrix}
+
+where
+
+.. math::
+  S_{mi}^{\pm}=S_{mi}^u \pm iS_{mi}^v
 
 .. dropdown:: Details
 
@@ -148,12 +149,6 @@ in the spherical reference frame as
       S_{mi}^{v} \\
       S_{mi}^{n} \\
     \end{pmatrix}
-    = \dfrac{1}{\sqrt{2}}
-    \begin{pmatrix}
-      S_{mi}^{u} - iS_{mi}^{u} \\
-      S_{mi}^{v} + iS_{mi}^{u} \\
-      \sqrt{2}S_{mi}^{n}
-    \end{pmatrix}
     =
     \begin{pmatrix}
       S_{mi}^{-} \\
@@ -165,16 +160,13 @@ in the spherical reference frame as
 
   .. math::
       S_{mi}^{\pm}
-      =&
-      \dfrac{S_{mi}^u \pm iS_{mi}^v}{\sqrt{2}}
-      =
+      =\,
       S_i\,\dfrac{
         \sin\theta_i[
           \cos(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)
           \pm
           i\sin(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)]}{\sqrt{2}}
-      =\\
-      =&
+      =\,
       S_i\,\dfrac{\sin\theta_i}{\sqrt{2}}
       \,e^{\pm i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)}
 
@@ -211,7 +203,7 @@ in the spherical basis can be obtained from the expression
     \braket{\,u\,v\,n\,|\,  R_i \,|\, u\,v\,n\,} \,
     \braket{\,u\,v\,n \,|\, T\,|\, u\,v\,n\, }
 
-    where the rotation matrix in the :math:`(\,u\,v\,n\,)\` reference frame is
+  where the rotation matrix in the :math:`(\,u\,v\,n\,)` reference frame is
 
   .. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
 

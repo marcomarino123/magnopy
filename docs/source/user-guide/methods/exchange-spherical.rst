@@ -1,7 +1,7 @@
 .. _user-guide_methods_spinham-spherical:
 
 *****************************************************
-Exchange Hamiltonian in the Spherical reference frame
+Exchange tensor in the spherical reference frame
 *****************************************************
 
 .. dropdown:: Notation used on this page

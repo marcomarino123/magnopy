@@ -16,31 +16,33 @@ Spin rotations
 
 A key technical tool is the ability to rotate any atomic spin vector
 :math:`\boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}_i}` into
-the unit vector :math:`\hat{\boldsymbol{n}}`, that determines
-the cone axis of the conical state.
+the direction defined by the unit vector :math:`\hat{\boldsymbol{n}}`,
+that determines the cone axis of the conical state. This rotated
+spin vector will be denoted :math:`\boldsymbol{S_i^F}=S_i\,\boldsymbol{\hat{n}}`
+henceforth.
 
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html
 
-The figure above  shows that the atomic spin vector direction in the :math:`(\,u\,v\,n\,)`
-reference frame is determined by the angles :math:`\theta_i` and :math:`\phi_i`,
-so that the unit vector components are
+The figure above  shows that :math:`\boldsymbol{S_i^F}` is determined by the
+angles :math:`\theta_i` and :math:`\phi_i`,
+so that
 
 .. math::
-  \hat{\boldsymbol{S_i}}
-  =
+  \boldsymbol{S_i}
+  =\,S_i\,
   \begin{pmatrix}
     \sin\theta_i\cos\phi_i \\
     \sin\theta_i\sin\phi_i \\
     \cos\theta_i           \\
   \end{pmatrix}
 
-Then :math:`\hat{\boldsymbol{S_i}}` can be obtained by rotating :math:`\boldsymbol{n}`
+Then :math:`\boldsymbol{S_i}` can be obtained by rotating :math:`\boldsymbol{S_i^F}`
 about the perpendicular unit vector :math:`\boldsymbol{\hat{r}_i}`
 by the angle :math:`\theta_i`,
 
 .. math::
-  \hat{\boldsymbol{S_i}} = \boldsymbol{R_i}\,\boldsymbol{\hat{n}}
+  \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F}
 
 where
 
@@ -59,10 +61,10 @@ where
   .. math::
     \braket{\,u\, v\,n\,|\,S_i\,}
     =
-    \braket{\,u\, v\,n\, |\, \boldsymbol{R}_i\,|\, \hat{\boldsymbol{n}} }
+    S_i\,\braket{\,u\, v\,n\, |\, \boldsymbol{\cal R}_i\,|\, n }
     =
-    \braket{\,u\, v\,n\, |\, \boldsymbol{R}_i\,|\,u\, v\,n\,} \,
-    \braket{\,u\, v\,n\,|\,  \hat{\boldsymbol{n}} }
+    S_i\,\braket{\,u\, v\,n\, |\, \boldsymbol{\cal R}_i\,|\,u\, v\,n\,} \,
+    \braket{\,u\, v\,n\,|\,  n}
 
 .. dropdown:: Alternative rotation
 
@@ -75,12 +77,12 @@ where
     :file: ../../../images/spin-rotations-simple.html
 
   .. math::
-    \boldsymbol{\hat{S}_i}
+    \boldsymbol{S_i}
     =
-    \boldsymbol{R}(\bar{\phi}_i) \,\boldsymbol{R}(\bar{\theta}_i) \,\boldsymbol{\hat{n}}
+    \boldsymbol{R}(\bar{\phi}_i) \,\boldsymbol{R}(\bar{\theta}_i) \,\boldsymbol{S_i^F}
     =
     e^{\bar{\phi}_i\,\boldsymbol{\hat{n}}\,\times}\, e^{\bar{\theta}_i\,\boldsymbol{\hat{v}}\,\times}
-    \, \boldsymbol{\hat{n}}
+    \, \boldsymbol{S_i^F}
 
   where the rotation matrices are
 

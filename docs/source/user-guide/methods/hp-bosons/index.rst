@@ -21,7 +21,12 @@ It then chooses :math:`\boldsymbol{\hat{n}}` as the quantization axis direction
 and decomposes the quantum spin operator components in the spherical basis
 in terms of Holstein-Primakoff (HP) bosons [1]_
 
-.. include:: ../repeated-formulas/hp-general-uvn.txt
+.. include:: ../repeated-formulas/hp-general-spherical.txt
+
+.. note::
+  Note that the definition above departs slightly from convention, because
+  :math:`{\cal S}^\pm` are divided by 2. The rationale behind this departure lies in
+  the connection to the spherical basis, where :math:`\hat{S}^\pm` are unit vectors.
 
 Expansion of the square roots above leads to an infinite series in :math:`1/S`,
 that translates into the Heisenberg Hamiltonian. This :math:`1/S` expansion of the
@@ -42,7 +47,7 @@ spin vectors
 .. note::
   The cone-state parameters :math:`\boldsymbol{n}`, :math:`\theta_i`, :math:`\phi_i`
   and :math:`\boldsymbol{q}` must be determined previously as explained
-  :ref:`here <user-guide_methods_energy-minimization_index>`.
+  :ref:`here <user-guide_methods_energy-minimization>`.
   This section assumes that those parameters are known already.
 
 The exchange term in the Hamiltonian is split into three pieces as follows
@@ -70,9 +75,9 @@ where the rotated exchange tensor is
 
 The expressions in the first and third square brackets are
 
-.. include:: square-brackets-rewrite-left.txt
+.. include:: ../quantum-hamiltonian/square-brackets-rewrite-left.txt
 
-.. include:: square-brackets-rewrite-right.txt
+.. include:: ../quantum-hamiltonian/square-brackets-rewrite-right.txt
 
 The vectors :math:`\boldsymbol{p},\,\boldsymbol{t}` and :math:`\boldsymbol{f}`
 result from splitting the intra-cell rotation matrix as follows
@@ -98,7 +103,7 @@ result from splitting the intra-cell rotation matrix as follows
 
   so that the above three vectors are
 
-  .. include:: ptf-definition.txt
+  .. include:: ../repeated-formulas/ptf-definition.txt
 
 Hamiltonian splitting
 ---------------------

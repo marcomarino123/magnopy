@@ -14,35 +14,44 @@ Spin Hamiltonian
   * .. include:: page-notations/transpose-complex-conjugate.txt
   * .. include:: page-notations/trace.txt
 
-* Let be a Bravais lattice that is described by the Bravais vectors :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)`.
+* Let be a Bravais lattice that is described by the Bravais vectors
+  :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)`.
+
 * Let each unit cell contain a set of :math:`I` atoms, where each atomic position
   :math:`\boldsymbol{r_i}` is measured  with respecto to the cell origin.
-* Let an atom at site :math:`i` in cell :math:`m` be denoted by :math:`(m,i)`. Then its atom position is
+
+* Let an atom at site :math:`i` in cell :math:`m` be denoted by :math:`(m,i)`.
+  Then its atom position is
   :math:`\boldsymbol{r_{mi}} = \boldsymbol{r_m} + \boldsymbol{r_i}`.
-* We populate each atomic site in the lattice with its own spin vector :math:`\boldsymbol{S_{mi}} = \hbar \,S_i\, \boldsymbol{\hat{S}_{mi}}`, where :math:`S_i` is the spin modulus.
-* We denote the bond between atoms (m,i) and (m',j) by (m,i;m',j).
 
-The Hamiltonian governing the interactions among all the lattice atomic spins is
+* Each atomic site in the lattice is populated with its own spin vector
+  :math:`\boldsymbol{S_{mi}} = \hbar \,S_i\, \boldsymbol{\hat{S}_{mi}}`,
+  where :math:`S_i` is the spin modulus. :math:`\hbar` is henceforth set to 1.
 
-.. math::
-  H
-  =
-  \dfrac{1}{2}
-  \sum_{m, \boldsymbol{d_{ij}}, i\ne j\vert_{\boldsymbol{d_{ij}} = \boldsymbol{0}}}
-  \boldsymbol{S_{mi}}^{\dagger}\,
-  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})\,
-  \boldsymbol{S_{m+d_{ij},j}}\,
-  + \,\sum_{m,i}\,
-  \boldsymbol{S_{mi}}^{\dagger}\,
-  \boldsymbol{A_i}\,
-  \boldsymbol{S_{mi}}\,
-  +\,
-  \mu_B\,\boldsymbol{h}^{\dagger}\,
-  \sum_{m,i}\, g_i\, \boldsymbol{S_{mi}}
+* The bond between atoms (m,i) and (m',j) is denoted by (m,i;m',j).
 
-where the first sum runs over all the lattice bonds :math:`(m,i;m+\boldsymbol{d_{i j}},j)`
-and the vector :math:`\boldsymbol{d_{ij}} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r_m}`  runs over
-all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
+* The Hamiltonian governing the interactions among all the lattice atomic spins is
+
+  .. math::
+    H
+    =
+    \dfrac{1}{2}
+    \sum_{m, \boldsymbol{d_{ij}}, i\ne j\vert_{\boldsymbol{d_{ij}} = \boldsymbol{0}}}
+    \boldsymbol{S_{mi}}^{\dagger}\,
+    \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})\,
+    \boldsymbol{S_{m+d_{ij},j}}\,
+    + \,\sum_{m,i}\,
+    \boldsymbol{S_{mi}}^{\dagger}\,
+    \boldsymbol{A_i}\,
+    \boldsymbol{S_{mi}}\,
+    +\,
+    \mu_B\,\boldsymbol{h}^{\dagger}\,
+    \sum_{m,i}\, g_i\, \boldsymbol{S_{mi}}
+
+  where the first sum runs over all the lattice bonds
+  :math:`(m,i;m+\boldsymbol{d_{i j}},j)` and the vector
+  :math:`\boldsymbol{d_{ij}} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r_m}`
+  runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
 * The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that includes:
 
@@ -54,41 +63,50 @@ all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
   * The symmetric anisotropy:
 
-  .. math::
+    .. math::
+      \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{iso}\, \boldsymbol{I}
 
-    \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{iso}\cdot \boldsymbol{I}
+    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
-  where :math:`\boldsymbol{I}` is a :math:`3\times3` identity matrix.
+  * The antisymmetric anisotropy that encapsulates the Dzyaloshinskii-Moriya
+    (DM) Interaction
 
-  * The antisymmetric anisotropy that encapsulates the Dzyaloshinskii-Moriya (DM) Interaction
+    .. math::
+      \boldsymbol{J_{ij}^{A}} = \dfrac{\boldsymbol{J_{ij}} - \boldsymbol{J_{ij}}^T}{2}
+      =
+      \begin{pmatrix}
+        0    & D^z  & -D^y \\
+        -D^z & 0    & D^x  \\
+        D^y  & -D^x & 0    \\
+      \end{pmatrix}
 
-  .. math::
+    :math:`\boldsymbol{J_{ij}^{A}}` is often recast in terms of the DM
+    vector :math:`\boldsymbol{D} = (D^x,\,D^y,\,D^z)^T`.
 
-    \boldsymbol{J_{ij}^{A}} = \dfrac{\boldsymbol{J_{ij}} - \boldsymbol{J_{ij}}^T}{2}
-    =
-    \begin{pmatrix}
-      0    & D^z  & -D^y \\
-      -D^z & 0    & D^x  \\
-      D^y  & -D^x & 0    \\
-    \end{pmatrix}
+* The intra-atomic anisotropy tensor :math:`\boldsymbol{A_i}` is also
+  a :math:`3\times3` matrix which is always symmetric.
 
-  :math:`\boldsymbol{J_{ij}^{A}}` can and is often recast in terms of the DM vector :math:`\boldsymbol{D} = (D^x,D^y,D^z)^T`.
+* The final term describes the Zeeman interaction of an external magnetic field
+  :math:`\boldsymbol{h}` with the atomic spins where the interaction strength is
+  given by the atomic g-factors :math:`g_i`.
 
-  * The intra-atomic anisotropy tensor :math:`\boldsymbol{A_i}` is also a :math:`3\times3` matrix which is always symmetric.
+* The spin Hamiltonian can be recast in the simplified form
 
-  * The final term describes the Zeeman interaction of an external magnetic field :math:`\boldsymbol{h}` with the atomic spins where the interaction strength is given by the atomic g-factors :math:`g_i`.
+  .. include:: repeated-formulas/hamiltonian-main-any.txt
+
+  by defining
+  :math:`\dfrac{1}{2}\boldsymbol{J_{ii}}(\boldsymbol{d}_{ii}=\boldsymbol{0})=\boldsymbol{A_i}`
+
+
+* The Spin Hamiltonian possesses the symmetry property
+
+  .. include:: repeated-formulas/spinham-parameter-symmetries.txt
 
 .. note::
 
-  The summation above double-counts each bond, because both :math:`(m,i; m+d_{ij},j)` and
+  The summation in the exchange piece of the Hamiltonian double-counts each bond,
+  because both :math:`(m,i; m+d_{ij},j)` and
   :math:`(m+d_{ij},j; m,i)` are included in it.
-
-The spin Hamiltonian can be recast in the simplified form
-
-.. include:: repeated-formulas/hamiltonian-main-any.txt
-
-by defining
-:math:`\dfrac{1}{2}\boldsymbol{J_{ii}}(\boldsymbol{d}_{ii}=\boldsymbol{0})=\boldsymbol{A_i}`
 
 .. dropdown:: Bra-ket notation
 
@@ -99,7 +117,3 @@ by defining
     \langle xyz \vert S_{m+d_{ij},j} \rangle
     + \mu_B \langle H \vert xyz\rangle\sum_{m,i} g_i
     \langle xyz\vert S_{mi} \rangle
-
-The Spin Hamiltonian possesses the symmetry property
-
-.. include:: repeated-formulas/spinham-parameter-symmetries.txt

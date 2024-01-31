@@ -707,11 +707,11 @@ class SpinHamiltonian(Crystal):
 
 
 class SpinHamiltonianIterator:
-    def __init__(self, exchange_model: SpinHamiltonian) -> None:
+    def __init__(self, spinham: SpinHamiltonian) -> None:
         self._bonds = list(
             map(
-                lambda x: (x[0], x[1], x[2], exchange_model._bonds[x]),
-                exchange_model._bonds,
+                lambda x: (x[0], x[1], x[2], spinham._bonds[x]),
+                spinham._bonds,
             )
         )
         self._index = 0

@@ -31,7 +31,7 @@ This section is optional and contains the information about the ground state of 
     The modulus can be arbitrary, since the vector is converted to the unit one upon reading.
   - :math:`a\alpha` :math:`b\beta` - two strings, separated by space.
     Two angles, that define the direction of the global rotation axis as described
-    :ref:`here <user-guide_methods_uvn-choice>`. The order can be arbitrary. Examples:
+    :ref:`here <user-guide_methods_uvn>`. The order can be arbitrary. Examples:
 
     - ``a90 b0``
     - ``b0 a90``

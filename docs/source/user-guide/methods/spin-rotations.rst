@@ -7,12 +7,12 @@ Spin rotations
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: page-notations/vector.txt
-  * .. include:: page-notations/unit-vector.txt
-  * .. include:: page-notations/matrix.txt
-  * .. include:: page-notations/reference-frame.txt
-  * .. include:: page-notations/cross-product.txt
-  * .. include:: page-notations/in-uvn.txt
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/unit-vector.inc
+  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/reference-frame.inc
+  * .. include:: page-notations/cross-product.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
 
 A key technical tool is the ability to rotate any atomic spin vector
 :math:`\boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}_i}` into
@@ -53,7 +53,7 @@ where
   =
   \begin{pmatrix} -\sin\phi_i \\ \cos\phi_i  \\ 0  \\ \end{pmatrix}
 
-.. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
+.. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
 
 .. dropdown:: Bra-ket notation

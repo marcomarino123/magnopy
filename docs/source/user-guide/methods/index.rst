@@ -14,18 +14,14 @@ Methods and algorithms
   :maxdepth: 1
 
   spinham
-  uvn-choice
-  xyz-to-uvn
+  uvn-rf
   spin-rotations
   single-q
   spherical-rf
   spin-fourier
-  exchange-spherical
-  classical-hamiltonian
   energy-classic/index
   energy-minimization/index
-
-  quantum-hamiltonian/index
+  classic-to-quantum
 
 .. toctree::
   :maxdepth: 1
@@ -35,7 +31,7 @@ Methods and algorithms
   energy-quantum-correction
   lswt/index
   hp-cubic-terms
-  hp-quartic-terms
+  hp-biquadratic-terms
   diagonalisation
 
 .. toctree::

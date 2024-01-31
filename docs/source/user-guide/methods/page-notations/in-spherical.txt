@@ -1,1 +1,0 @@
-In this page all vectors and matrices are written in the :math:`u^+u^-n` reference frame.

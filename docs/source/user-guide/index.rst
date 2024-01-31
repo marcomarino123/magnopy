@@ -16,3 +16,5 @@ Getting started
     methods/index
 
     input/index
+
+    hamiltonian-notation

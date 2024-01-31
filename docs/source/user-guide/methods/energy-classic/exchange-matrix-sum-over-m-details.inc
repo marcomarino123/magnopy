@@ -1,0 +1,41 @@
+.. math::
+  &\sum_m
+  (\boldsymbol{R^s_m})^{\dagger}(\boldsymbol{q})
+  \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})
+  \boldsymbol{R_{m+d_{ij}}^s}(\boldsymbol{q})
+  =\\&=
+  \begin{pmatrix}
+    J_{ij}^{++}\sum_m e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}              &
+    J_{ij}^{+-}\sum_m e^{i\boldsymbol{q}(2\boldsymbol{r_m}+\boldsymbol{d_{ij}})}  &
+    J_{ij}^{+n}\sum_m e^{i\boldsymbol{q}\boldsymbol{r_m}}             \\
+    J_{ij}^{-+}\sum_m e^{-i\boldsymbol{q}(2\boldsymbol{r_m}+\boldsymbol{d_{ij}})} &
+    J_{ij}^{--}\sum_m e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}               &
+    J_{ij}^{-n}\sum_m e^{-i\boldsymbol{q}\boldsymbol{r_m}}            \\
+    J_{ij}^{n+}\sum_m e^{-i\boldsymbol{q}(\boldsymbol{r_m}+\boldsymbol{d_{ij}})}  &
+    J_{ij}^{n-}\sum_m e^{i\boldsymbol{q}(\boldsymbol{r_m}+\boldsymbol{d_{ij}})}   &
+    J_{ij}^{nn}\sum_m 1                                 \\
+  \end{pmatrix}
+  =\\&=
+  \begin{pmatrix}
+    J_{ij}^{++}e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}\sum_m 1                        &
+    J_{ij}^{+-}e^{i\boldsymbol{q}\boldsymbol{d_{ij}}} \sum_m e^{i\boldsymbol{q}2\boldsymbol{r_m}}   &
+    J_{ij}^{+n}\sum_m e^{i\boldsymbol{q}\boldsymbol{r_m}}                        \\
+    J_{ij}^{-+}e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}} \sum_m e^{-i\boldsymbol{q}2\boldsymbol{r_m}} &
+    J_{ij}^{--}e^{i\boldsymbol{q}\boldsymbol{d_{ij}}}\sum_m 1                         &
+    J_{ij}^{-n}\sum_m e^{-i\boldsymbol{q}\boldsymbol{r_m}}                       \\
+    J_{ij}^{n+}e^{-i\boldsymbol{q}\boldsymbol{d_{ij}}} \sum_m e^{-i\boldsymbol{q}\boldsymbol{r_m}}  &
+    J_{ij}^{n-}e^{i\boldsymbol{q}\boldsymbol{d_{ij}}} \sum_m e^{i\boldsymbol{q}\boldsymbol{r_m}}    &
+    M\cdot J_{ij}^{nn}                                             \\
+  \end{pmatrix}
+  =\\&=
+  \begin{pmatrix}
+    Me^{-i\boldsymbol{q}\boldsymbol{d_{ij}}} J_{ij}^{++}                                   &
+    Me^{i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ij}^{+-}  &
+    M\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{+n}                          \\
+    Me^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} J_{ij}^{-+} &
+    Me^{i\boldsymbol{q}\boldsymbol{d_{ij}}} J_{ij}^{--}                                    &
+    M\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{-n}                          \\
+    Me^{-i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{n+}      &
+    Me^{i\boldsymbol{q}\boldsymbol{d_{ij}}}\delta_{\boldsymbol{q},\boldsymbol{G}}\cdot J_{ij}^{n-}       &
+    M\cdot J_{ij}^{nn}                                                  \\
+  \end{pmatrix}

@@ -29,7 +29,7 @@ Notation
     Usually it is either :math:`1` or :math:`-1`.
 
   For the detailed discussion about various notations of spin Hamiltonian go
-  :ref:`here <TODO>`.
+  :ref:`here <user-guide_hamiltonian-notation>`.
 
   .. dropdown:: Example
 

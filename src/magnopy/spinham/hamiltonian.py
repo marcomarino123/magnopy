@@ -100,7 +100,7 @@ class SpinHamiltonian(Crystal):
             If only one factor is given, then
             ``exchange_factor`` = ``on_site_factor`` = ``factor``.
 
-        See :ref:`library_spinham_notation` for the detailed description.
+        See :ref:`user-guide_hamiltonian-notation` for the detailed description.
 
 
         See Also

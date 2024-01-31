@@ -6,13 +6,13 @@ Spin Hamiltonian
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: page-notations/vector.txt
-  * .. include:: page-notations/unit-vector.txt
-  * .. include:: page-notations/matrix.txt
-  * .. include:: page-notations/bra-ket.txt
-  * .. include:: page-notations/reference-frame.txt
-  * .. include:: page-notations/transpose-complex-conjugate.txt
-  * .. include:: page-notations/trace.txt
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/unit-vector.inc
+  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/bra-ket.inc
+  * .. include:: page-notations/reference-frame.inc
+  * .. include:: page-notations/transpose-complex-conjugate.inc
+  * .. include:: page-notations/trace.inc
 
 * Let be a Bravais lattice that is described by the Bravais vectors
   :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)`.
@@ -92,7 +92,7 @@ Spin Hamiltonian
 
 * The spin Hamiltonian can be recast in the simplified form
 
-  .. include:: repeated-formulas/hamiltonian-main-any.txt
+  .. include:: repeated-formulas/hamiltonian-main-any.inc
 
   by defining
   :math:`\dfrac{1}{2}\boldsymbol{J_{ii}}(\boldsymbol{d}_{ii}=\boldsymbol{0})=\boldsymbol{A_i}`
@@ -100,7 +100,7 @@ Spin Hamiltonian
 
 * The Spin Hamiltonian possesses the symmetry property
 
-  .. include:: repeated-formulas/spinham-parameter-symmetries.txt
+  .. include:: repeated-formulas/spinham-parameter-symmetries.inc
 
 .. note::
 

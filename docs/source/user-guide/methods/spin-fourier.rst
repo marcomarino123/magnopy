@@ -6,39 +6,40 @@ Fourier transformation
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: page-notations/vector.txt
-  * .. include:: page-notations/bra-ket.txt
-  * .. include:: page-notations/parentheses.txt
-  * .. include:: page-notations/kronecker-delta.txt
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/bra-ket.inc
+  * .. include:: page-notations/parentheses.inc
+  * .. include:: page-notations/kronecker-delta.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
 
 As it is evident at the end, the reference frame :math:`\vert u^+u^-n \rangle`
 is the most convenient one for the fourier transformation. First, we recall the
 coordinate representation of the spin vector :math:`\vert S_{mi} \rangle`
 from :ref:`previous section <user-guide_methods_spherical-rf>`:
 
-.. include:: repeated-formulas/spin-spherical.txt
+.. include:: repeated-formulas/spin-spherical.inc
 
 We compute the fourier transform of it:
 
 .. dropdown:: Details
 
   .. math::
-      \vert S_{ka} \rangle
+      \boldsymbol{S_{ki}^s}
       =
-      \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \vert S_{mi} \rangle
+      \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \boldsymbol{S_{mi}^s}
       &=
       S_i
       \cdot
       \Biggl[
         \dfrac{\sin\theta_i\cdot e^{-i\phi_i}}{\sqrt{2}}
-        \vert u^+\rangle
+        \boldsymbol{\hat{u}^+}
         \left(
           \dfrac{1}{M}
           \sum_{m}e^{-i\boldsymbol{r_m}(\boldsymbol{k}+\boldsymbol{q})}
         \right)
         +\\&+
         \dfrac{\sin\theta_i\cdot e^{i\phi_i}}{\sqrt{2}}
-        \vert u^-\rangle
+        \boldsymbol{\hat{u}^-}
         \left(
           \dfrac{1}{M}
           \sum_{m}e^{-i\boldsymbol{r_m}(\boldsymbol{k}-\boldsymbol{q})}
@@ -49,35 +50,35 @@ We compute the fourier transform of it:
           \dfrac{1}{M}
           \sum_{m}e^{-i\boldsymbol{k}\boldsymbol{r_m}}
         \right)
-        \vert v \rangle
+        \boldsymbol{\hat{v}}
       \Biggr]
 
   where :math:`m = 1, ..., M`
 
 .. math::
-  \vert S_{ka} \rangle
+  \boldsymbol{S_{ki}^s}
   =
   S_i
   \cdot
   \left[
     \delta_{\boldsymbol{k}, -\boldsymbol{q}}
     \dfrac{\sin\theta_i\cdot e^{-i\phi_i}}{\sqrt{2}}
-    \vert u^+\rangle
+    \boldsymbol{\hat{u}^+}
     +
     \delta_{\boldsymbol{k}, \boldsymbol{q}}
     \dfrac{\sin\theta_i\cdot e^{i\phi_i}}{\sqrt{2}}
-    \vert u^-\rangle
+    \boldsymbol{\hat{u}^-}
     +
     \delta_{\boldsymbol{k}, \boldsymbol{0}}
     \cdot
     \cos\theta
-    \vert v \rangle
+    \boldsymbol{\hat{v}}
   \right]
 
-Structural factor in the :math:`\vert u^+u^-n\rangle` reference frame:
+Structural factor in the :math:`(\,u^+\,u^-\,n\,)` reference frame:
 
 .. math::
-  \langle u^+u^-n \vert S_{ka} \rangle
+  \boldsymbol{S_{ki}^s}
   =
   S_i
   \cdot
@@ -87,10 +88,10 @@ Structural factor in the :math:`\vert u^+u^-n\rangle` reference frame:
     \cos\theta \delta_{\boldsymbol{k}, \boldsymbol{0}}                                        \\
   \end{pmatrix}
 
-Structural factor in the :math:`\vert uvn\rangle` reference frame:
+Structural factor in the :math:`(\,u\,v\,n\,)` reference frame:
 
 .. math::
-  \langle uvn\vert S_{ka} \rangle
+  \boldsymbol{S_{ki}}
   =
   S_i
   \cdot

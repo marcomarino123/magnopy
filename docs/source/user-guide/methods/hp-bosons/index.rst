@@ -6,14 +6,15 @@ Holstein-Primakoff bosons
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.txt
-  * .. include:: ../page-notations/matrix.txt
-  * .. include:: ../page-notations/parentheses.txt
-  * .. include:: ../page-notations/operators.txt
-  * .. include:: ../page-notations/bra-ket.txt
+  * .. include:: ../page-notations/vector.inc
+  * .. include:: ../page-notations/matrix.inc
+  * .. include:: ../page-notations/parentheses.inc
+  * .. include:: ../page-notations/operators.inc
+  * .. include:: ../page-notations/bra-ket.inc
+  * .. include:: ../page-notations/uvn-or-spherical.inc
 
 Decomposition of spin operators into Holstein-Primakoff bosons
---------------------------------------------------------------
+==============================================================
 Magnopy considers spins in the local rotated spherical :math:`(\,u^+\,u^-\,n\,)`
 reference frame where all those spins are collinear
 (see :ref:`spherical reference frame <user-guide_methods_spherical-rf>`).
@@ -21,12 +22,13 @@ It then chooses :math:`\boldsymbol{\hat{n}}` as the quantization axis direction
 and decomposes the quantum spin operator components in the spherical basis
 in terms of Holstein-Primakoff (HP) bosons [1]_
 
-.. include:: ../repeated-formulas/hp-general-spherical.txt
+.. include:: ../repeated-formulas/hp-general-spherical.inc
 
 .. note::
   Note that the definition above departs slightly from convention, because
-  :math:`{\cal S}^\pm` are divided by 2. The rationale behind this departure lies in
-  the connection to the spherical basis, where :math:`\hat{S}^\pm` are unit vectors.
+  :math:`{\cal S}^\pm` are divided by :math:`\sqrt{2}`. The rationale behind this
+  departure lies in the connection to the spherical basis, where :math:`\hat{S}^\pm/\sqrt{2}`
+  are unit vectors.
 
 Expansion of the square roots above leads to an infinite series in :math:`1/S`,
 that translates into the Heisenberg Hamiltonian. This :math:`1/S` expansion of the
@@ -34,21 +36,14 @@ Hamiltonian in truncated at :math:`1/S^2` order, where terms up to four-boson
 products are kept. This can be easily shown to be equivalent to
 truncating the square roots above at :math:`1/S` order
 
-.. include:: ../repeated-formulas/hp-expanded-uvn.txt
+.. include:: ../repeated-formulas/hp-expanded-uvn.inc
 
+==========================================================
 Quantum Hamiltonian in the :math:`(\,u^+\,u^-\,n\,)` basis
-----------------------------------------------------------
-The quantum Heisenberg Hamiltonian looks exactly the same as its classical
-counterpart, where all the classical spin vectors are replaced by quantum
-spin vectors
+==========================================================
+Let us recall the quantum Hamiltonian in the spherical basis:
 
-.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any.txt
-
-.. note::
-  The cone-state parameters :math:`\boldsymbol{n}`, :math:`\theta_i`, :math:`\phi_i`
-  and :math:`\boldsymbol{q}` must be determined previously as explained
-  :ref:`here <user-guide_methods_energy-minimization>`.
-  This section assumes that those parameters are known already.
+.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-spherical-quantum.inc
 
 The exchange term in the Hamiltonian is split into three pieces as follows
 
@@ -58,40 +53,48 @@ The exchange term in the Hamiltonian is split into three pieces as follows
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
   \left[
-  (\boldsymbol{S_{mi}^s})^{\dagger}\,\boldsymbol{R_i}^{\dagger}\,\right]\,
-  \left[\boldsymbol{R_m}^{\dagger}\,\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})\,
-  \boldsymbol{R_{m+d_{ij}}}\right]\,
-  \left[\boldsymbol{R_j}\,\boldsymbol{S_{m+d_{ij},j}^s}\right]
+    (\boldsymbol{S_{mi}^s})^{\dagger}\,
+    (\boldsymbol{R_i^s})^{\dagger}\,
+  \right]\,
+  \left[
+    (\boldsymbol{R_m^s})^{\dagger}\,
+    \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})\,
+    \boldsymbol{R_{m+d_{ij}}^s}
+  \right]\,
+  \left[
+    \boldsymbol{R_j^s}\,
+    \boldsymbol{S_{m+d_{ij},j}^s}
+  \right]
   \\=&
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
   (\boldsymbol{\tilde{S}_{mi}^s})^{\dagger}\,
-  \boldsymbol{\tilde{J}_{mdij}}\,
+  \boldsymbol{\tilde{J}_{mdij}^s}\,
   \boldsymbol{\tilde{S}_{m+d_{ij},j}^s}
 
 where the rotated exchange tensor is
 
-.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-uvn.txt
+.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
 
 The expressions in the first and third square brackets are
 
-.. include:: ../quantum-hamiltonian/square-brackets-rewrite-left.txt
+.. include:: square-brackets-rewrite-left.inc
 
-.. include:: ../quantum-hamiltonian/square-brackets-rewrite-right.txt
+.. include:: square-brackets-rewrite-right.inc
 
-The vectors :math:`\boldsymbol{p},\,\boldsymbol{t}` and :math:`\boldsymbol{f}`
+The vectors :math:`\boldsymbol{p_i^s},\,\boldsymbol{t_i^s}` and :math:`\boldsymbol{f_i^s}`
 result from splitting the intra-cell rotation matrix as follows
 
 .. math::
     \begin{matrix}
-      \boldsymbol{R_i}
-      =\left(\boldsymbol{p_i}\,\boldsymbol{t_i}\,\boldsymbol{f_i}\right);
+      \boldsymbol{R_i^s}
+      =\left(\boldsymbol{p_i^s}\,\boldsymbol{t_i^s}\,\boldsymbol{f_i^s}\right);
       &
-      \boldsymbol{R_i}^\dagger=
+      (\boldsymbol{R_i^s})^\dagger=
       \begin{pmatrix}
-        \boldsymbol{p_i}^{\dagger} \\
-        \boldsymbol{t_i}^{\dagger} \\
-        \boldsymbol{f_i}^{\dagger} \\
+        (\boldsymbol{p_i^s})^{\dagger} \\
+        (\boldsymbol{t_i^s})^{\dagger} \\
+        (\boldsymbol{f_i^s})^{\dagger} \\
       \end{pmatrix}
     \end{matrix}
 
@@ -99,14 +102,15 @@ result from splitting the intra-cell rotation matrix as follows
 
   The rotation matrix in the spherical reference frame is
 
-  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.txt
+  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.inc
 
   so that the above three vectors are
 
-  .. include:: ../repeated-formulas/ptf-definition.txt
+  .. include:: ../repeated-formulas/ptf-definition.inc
 
+=====================
 Hamiltonian splitting
----------------------
+=====================
 The exchange part of the Hamiltonian can be decomposed into different pieces
 according to their order in a :math:`1/S` expansion by assuming that
 :math:`S_i = S_j = S`. The different pieces also correspond to terms having
@@ -123,20 +127,20 @@ in the conventional :math:`1/S` expansion.
 .. math::
   {\cal H}^{Cl}=\dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  S_i\,S_j\,\boldsymbol{f_i}^\dagger\,\boldsymbol{\tilde{J}_{mdij}}\,
-  \boldsymbol{f_j}
+  S_i\,S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,
+  \boldsymbol{f_j^s}
 
 * The :ref:`Linear Spin Wave Theory piece <user-guide_methods_lswt>` is
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.txt
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
 
 * The piece containing :ref:`cubic terms <user-guide_methods_hp-cubic-terms>` is
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-qubic-part.txt
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-qubic-part.inc
 
 * And the piece containing :ref:`Quartic terms <user-guide_methods_hp-quartic-terms>` is
 
-.. include:: ../repeated-formulas/hamiltonian-hp-expansion-quartic-part.txt
+.. include:: ../repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
 
 
 .. important::
@@ -148,8 +152,9 @@ in the conventional :math:`1/S` expansion.
 
 .. dropdown:: Omitted terms
 
-  .. include:: omitted-terms.txt
+  .. include:: omitted-terms.inc
 
+==========
 References
 ==========
 

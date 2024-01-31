@@ -6,32 +6,33 @@ Spherical reference frame
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: page-notations/vector.txt
-  * .. include:: page-notations/matrix.txt
-  * .. include:: page-notations/bra-ket.txt
-  * .. include:: page-notations/in-uvn.txt
-  * .. include:: page-notations/parentheses.txt
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/bra-ket.inc
+  * .. include:: page-notations/parentheses.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
 
 This section discusses basis changes, that are more easily understood and checked
 using Dirac's vector notation.
 The :ref:`previous section <user-guide_methods_single-q>` has shown
 how each lattice spin with components
 
-.. include:: repeated-formulas/spin-uvn.txt
+.. include:: repeated-formulas/spin-uvn.inc
 
 in the :math:`(\,u\,v\,n\,)` reference frame can be obtained
 from a local collinear reference frame by
 
-.. include:: repeated-formulas/spin-from-ferro-any.txt
+.. include:: repeated-formulas/spin-from-ferro-any.inc
 
 where all atomic vectors
-are collinear :math:`\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{n}`.
+are collinear :math:`\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{\hat{n}}`.
 
+============================================
 Coordinate system with circular polarization
 ============================================
 The spin algebra indicates that spin waves are often circularly polarized,
 so this section discusses its proper reference frame that is termed
-the spherical reference frame :math:`(\,u^+\,v,u^-\,n\,)` where the basis
+the spherical reference frame :math:`(\,u^+\,u^-\,n\,)` where the basis
 vectors are
 
 .. math::
@@ -48,7 +49,7 @@ The basis transformation matrix
 
 is
 
-.. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.txt
+.. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.inc
 
 .. dropdown:: Unitary check
 
@@ -92,21 +93,21 @@ is
     \Rightarrow
     \boldsymbol{T}^{\dagger} = \boldsymbol{T}^{-1}
 
+=============================
 Change to the spherical basis
 =============================
 
-Spin vector
------------
-The spin vector :math:`\boldsymbol{S_{mi}^s}` can be written
+-----------------------------------------------------------------------
+Spin vector :math:`\boldsymbol{S_{mi}}\rightarrow\boldsymbol{S_{mi}^s}`
+-----------------------------------------------------------------------
+The spin vector :math:`\boldsymbol{S_{mi}}` can be written
 in the spherical reference frame as
 
 .. math::
   \boldsymbol{S_{mi}^s}
    =&
    \, \boldsymbol{T}^\dagger\,\boldsymbol{S_{mi}}
-   =
-   \boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}
-   \\\\=&
+   =&
    \begin{pmatrix}
     \frac{1}{\sqrt{2}}\,S_{mi}^- \\
     \frac{1}{\sqrt{2}}\,S_{mi}^+ \\
@@ -170,25 +171,13 @@ where
       S_i\,\dfrac{\sin\theta_i}{\sqrt{2}}
       \,e^{\pm i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)}
 
-Intra-atomic rotation matrix :math:`\boldsymbol{R^s_i}`
--------------------------------------------------------------
+----------------------------------------------------------------------------------
+Intra-atomic rotation matrix :math:`\boldsymbol{R_i}\rightarrow\boldsymbol{R^s_i}`
+----------------------------------------------------------------------------------
 The matrix elements of the rotation matrix :math:`\boldsymbol{R_i}`
 in the spherical basis can be obtained from the expression
 
-.. math::
-  \boldsymbol{R_i^{s}}=\boldsymbol{T}^\dagger\,\boldsymbol{R_i}\,\boldsymbol{T}
-  =\dfrac{1}{2}
-    \begin{pmatrix}
-      1+\cos\theta_i                     &
-      (\cos\theta_i-1)e^{-2i\phi_i}      &
-      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
-      (\cos\theta_i - 1)e^{2i\phi_i}     &
-      1 + \cos\theta_i                   &
-      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
-      -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
-      -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
-      2\cos\theta_i                      \\
-    \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
 
 .. dropdown:: Details
 
@@ -205,27 +194,21 @@ in the spherical basis can be obtained from the expression
 
   where the rotation matrix in the :math:`(\,u\,v\,n\,)` reference frame is
 
-  .. include:: repeated-formulas/spin-rotation-matrix-uvn.txt
+  .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
-Inter-cell rotation matrix :math:`\boldsymbol{R_m^s}(\boldsymbol{q})`
----------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+Inter-cell rotation matrix :math:`\boldsymbol{R_m}(\boldsymbol{q})\rightarrow\boldsymbol{R_m^s}(\boldsymbol{q})`
+----------------------------------------------------------------------------------------------------------------
 The matrix elements of the rotation matrix :math:`\boldsymbol{R_m}`
 in the spherical basis can be obtained from the expression
 
-.. math::
-  \boldsymbol{R_m^{s}}=\boldsymbol{T}^\dagger\,\boldsymbol{R_m}\,\boldsymbol{T}
-  =
-  \begin{pmatrix}
-    e^{-i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0                          & 0 \\
-    0                           & e^{i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0 \\
-    0                           & 0                          & 1 \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spiral-rotation-matrix-spherical.inc
 
 .. dropdown:: Details
 
   First we recall the rotation matrix in the :math:`\vert uvn\rangle` reference frame:
 
-  .. include:: repeated-formulas/spiral-rotation-matrix-uvn.txt
+  .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
 
   Then we compute the transformation:
 
@@ -282,4 +265,203 @@ in the spherical basis can be obtained from the expression
       e^{-i\phi_m} & 0              & 0 \\
       0               & e^{i\phi_m} & 0 \\
       0               & 0              & 1 \\
+    \end{pmatrix}
+
+.. _user-guide_methods_spherical-rf_exchange-tensor:
+
+---------------------------------------------------------------------------
+Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`
+---------------------------------------------------------------------------
+
+The exchange tensor :math:`\boldsymbol{J_{ij}}`
+in the :math:`(\,u\,v\,n\,)` reference frame, can be split into
+isotropic, symmetric and anti-symmetric (DM) matrices as follows
+
+.. include:: repeated-formulas/exchange-matrix-decomposition-uvn.inc
+
+Little algebra shows that the exchange matrix in the spherical reference frame is
+
+.. math:: \boldsymbol{J^s_{ij}} =&
+  \begin{pmatrix}
+    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
+    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
+    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
+  \end{pmatrix}\,=\,
+  \boldsymbol{T}^\dagger\,\boldsymbol{J^s_{ij}}\,\boldsymbol{T}\,=
+  \\=&
+  \begin{pmatrix}
+    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &
+    \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}                              &
+    \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} \\
+    \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} + iS_{ij}^{uv}                              &
+    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n                       &
+    \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} \\
+    \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} &
+    \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} &
+    J^{iso} + S_{ij}^{nn}                                                  \\
+  \end{pmatrix}
+
+
+.. dropdown:: Details
+
+  .. math::
+    \braket{ \,u^+\,u^-\,n\, |\, J_{ij} \,|\, u^+\,u^-\,n\,}
+    =&
+    \braket{\,u^+\,u^-\,n \,|\,u\,v\,n\,} \,
+    \braket{\,u\,v\,n\,|\, J_{ij}\,|\, u\,v\,n\,} \,
+    \braket{\,u\,v\,n\,|\, u^+\,u^-\,n\,}
+    =\\=&
+    \braket{\,u\,v\,n\,|\, T^{\dagger}\,|\, u\,v\,n\,}\,
+    \braket{\,u\,v\,n\,|\, J_{ij}\,|\,u\,v\,n\,} \,
+    \braket{\,u\,v\,n\,|\, T\,|\, u\,v\,n\,}
+
+  .. math::
+    &\langle u^+u^-n \vert J_{ij}(\boldsymbol{d_{ij}}) \vert u^+u^-n \rangle
+    =
+    \dfrac{1}{2}
+    \begin{pmatrix}
+      1 & -i & 0        \\
+      1 &  i & 0        \\
+      0 &  0 & \sqrt{2} \\
+    \end{pmatrix}
+    \begin{pmatrix}
+      J_{ij}^{uu} & J_{ij}^{uv} & J_{ij}^{un} \\
+      J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
+      J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 &  1 & 0        \\
+      i & -i & 0        \\
+      0 &  0 & \sqrt{2} \\
+    \end{pmatrix}
+    =\\&=
+    \dfrac{1}{2}
+    \begin{pmatrix}
+      J_{ij}^{uu} - i J_{ij}^{vu} & J_{ij}^{uv} - i J_{ij}^{vv} & J_{ij}^{un} - i J_{ij}^{vn} \\
+      J_{ij}^{uu} + i J_{ij}^{vu} & J_{ij}^{uv} + i J_{ij}^{vv} & J_{ij}^{un} + i J_{ij}^{vn} \\
+      \sqrt{2}J_{ij}^{nu}    & \sqrt{2}J_{ij}^{nv}    & \sqrt{2}J_{ij}^{nn}    \\
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 &  1 & 0        \\
+      i & -i & 0        \\
+      0 &  0 & \sqrt{2} \\
+    \end{pmatrix}
+    =\\&=
+    \dfrac{1}{2}
+    \begin{pmatrix}
+      (J_{ij}^{uu} + J_{ij}^{vv}) + i(J_{ij}^{uv} - J_{ij}^{vu}) &
+      (J_{ij}^{uu} - J_{ij}^{vv}) - i(J_{ij}^{uv} + J_{ij}^{vu}) &
+      \sqrt{2}(J_{ij}^{un} - iJ_{ij}^{vn})             \\
+      (J_{ij}^{uu} - J_{ij}^{vv}) + i(J_{ij}^{uv} + J_{ij}^{vu}) &
+      (J_{ij}^{uu} + J_{ij}^{vv}) - i(J_{ij}^{uv} - J_{ij}^{vu}) &
+      \sqrt{2}(J_{ij}^{un} + iJ_{ij}^{vn})             \\
+      \sqrt{2}(J_{ij}^{nu} + iJ_{ij}^{nv})             &
+      \sqrt{2}(J_{ij}^{nu} - iJ_{ij}^{nv})             &
+      2J_{ij}^{nn}                                \\
+    \end{pmatrix}
+
+  Which gives:
+
+  .. math::
+    \langle u^+u^-n \vert J_{ij}(\boldsymbol{d_{ij}})\vert u^+u^-n \rangle
+    =
+    \dfrac{1}{2}
+    \begin{pmatrix}
+      2J^{iso} + S_{ij}^{uu} + S_{ij}^{vv} + 2iD_{ij}^n      &
+      S_{ij}^{uu} - S_{ij}^{vv} - 2iS_{ij}^{uv}              &
+      \sqrt{2}(S_{ij}^{un} - iS_{ij}^{vn} - D_{ij}^v - iD_{ij}^u) \\
+      S_{ij}^{uu} - S_{ij}^{vv} + 2iS_{ij}^{uv}              &
+      2J^{iso} + S_{ij}^{uu} + S_{ij}^{vv} - 2iD_{ij}^n      &
+      \sqrt{2}(S_{ij}^{un} + iS_{ij}^{vn} - D_{ij}^v + iD_{ij}^u) \\
+      \sqrt{2}(S_{ij}^{un} + iS_{ij}^{vn} + D_{ij}^v - iD_{ij}^u) &
+      \sqrt{2}(S_{ij}^{un} - iS_{ij}^{vn} + D_{ij}^v + iD_{ij}^u) &
+      2J^{iso} + 2S_{ij}^{nn}                      \\
+    \end{pmatrix}
+
+Let us note a few symmetries of the exchange matrix in a spherical reference frame:
+
+.. include:: repeated-formulas/exchange-matrix-symmetries-spherical.inc
+
+.. dropdown:: Alternative way to write the matrix
+
+  If we define:
+
+  .. math::
+    \begin{matrix}
+      D^{\pm} = \dfrac{D_{ij}^v \pm iD_{ij}^u}{\sqrt{2}};      &
+      S^{\pm} = \dfrac{S_{ij}^{un} \pm iS_{ij}^{vn}}{\sqrt{2}} \\
+    \end{matrix}
+
+  Then we can write the exchange matrix in the spherical reference frame as:
+
+  .. math::
+    \begin{pmatrix}
+      J_{ij}^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n &
+      \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}        &
+      S_{ij}^- - D_{ij}^+                                   \\
+      \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} + iS_{ij}^{uv}        &
+      J_{ij}^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n &
+      S_{ij}^+ - D_{ij}^-                                   \\
+      S_{ij}^+ + D_{ij}^-                                   &
+      S_{ij}^- + D_{ij}^+                                   &
+      J_{ij}^{iso} + S_{ij}^{nn}                            \\
+    \end{pmatrix}
+
+----------------------------------------------------------------
+Magnetic field :math:`\boldsymbol{h}\rightarrow\boldsymbol{h}^s`
+----------------------------------------------------------------
+The magnetic field vector :math:`\boldsymbol{h}` can be written
+in the spherical reference frame as
+
+.. include:: repeated-formulas/magnetic-field-spherical.inc
+
+.. dropdown:: Details
+
+  Magnetic field in the :math:`uvn` reference frame is written as:
+
+  .. math::
+    \boldsymbol{h_{mi}}
+    =
+    \begin{pmatrix}
+      h^u \\
+      h^v \\
+      h^n \\
+    \end{pmatrix}
+
+  Let us compute the magnetic field in the spherical reference frame:
+
+  .. math::
+    \langle u^+u^-n \vert h \rangle
+    =
+    \langle u^+u^-n \vert uvn \rangle
+    \langle uvn \vert h \rangle
+    =
+    \langle uvn \vert T^{\dagger} \vert uvn \rangle
+    \langle uvn \vert h \rangle
+
+  Which leads to the expression:
+
+  .. math::
+    \dfrac{1}{\sqrt{2}}
+    \begin{pmatrix}
+      1 & -i & 0        \\
+      1 &  i & 0        \\
+      0 &  0 & \sqrt{2} \\
+    \end{pmatrix}
+    \begin{pmatrix}
+      h^u \\
+      h^v \\
+      h^n \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      \frac{1}{\sqrt{2}}\,(h^u - ih^v) \\
+      \frac{1}{\sqrt{2}}\,(h^u + ih^v) \\
+      h^n     \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      \frac{1}{\sqrt{2}}\,h^{-} \\
+      \frac{1}{\sqrt{2}}\,h^{+} \\
+      h^n                        \\
     \end{pmatrix}

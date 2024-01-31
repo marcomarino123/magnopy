@@ -6,94 +6,103 @@ Classical energy
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.txt
-  * .. include:: ../page-notations/matrix.txt
-  * .. include:: ../page-notations/reference-frame.txt
-  * .. include:: ../page-notations/transpose-complex-conjugate.txt
-  * .. include:: ../page-notations/in-spherical.txt
-  * .. include:: ../page-notations/parentheses.txt
-  * .. include:: ../page-notations/kronecker-delta.txt
+  * .. include:: ../page-notations/vector.inc
+  * .. include:: ../page-notations/matrix.inc
+  * .. include:: ../page-notations/reference-frame.inc
+  * .. include:: ../page-notations/transpose-complex-conjugate.inc
+  * .. include:: ../page-notations/parentheses.inc
+  * .. include:: ../page-notations/kronecker-delta.inc
+  * .. include:: ../page-notations/uvn-or-spherical.inc
 
 
 Let us recall the Hamiltonian:
 
-.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any.txt
+.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any-classic.inc
+
+In the classical picture the Hamiltonian describes the total energy of the system,
+therefore, we write :math:`E` instead of :math:`H`, where appropriate.
 
 
 Let us separate the summation over cites in unit cell and over unit cells:
 
 .. note::
-    Ferromagnetic spin does not depend on the unit cell index:
+    Ferromagnetic classical spin vector does not depend on the unit cell index:
 
     .. math::
-        \boldsymbol{S_{mi}^{ferro}}
+        \boldsymbol{S_{mi}^{F}}
         =
         (0, 0, S_i )^T
         =
-        \boldsymbol{S_i^{ferro}}
+        S_i \boldsymbol{\hat{n}}
+        =
+        \boldsymbol{S_i^{F}}
 
     We assume that magnetic field is uniform in space:
 
     .. math::
         \boldsymbol{h} = (h^u, h^v, h^n)^{\dagger}
 
+
+It os convenient to wcompute the expression for the classical energy in the spherical reference frame:
+
 .. math::
   H
   =
   \dfrac{1}{2}
   \sum_{a, b}
-  (\boldsymbol{S_i^{ferro}})^{\dagger}
-  \boldsymbol{R}^{\dagger}(\theta_i,\phi_i)
+  (\boldsymbol{S_i^{F,s}})^{\dagger}
+  (\boldsymbol{R_i^s})^{\dagger}
   \sum_{\boldsymbol{d_{ij}}}
   \left[
   \sum_{m}
-  \boldsymbol{R}^{\dagger}(\phi_m)
-  \boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})
-  \boldsymbol{R}(\phi_{m+d_{ij}})
+  (\boldsymbol{R_m^s})^{\dagger}(\boldsymbol{q})
+  \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})
+  \boldsymbol{R_{m+d_{ij}}^s}(\boldsymbol{q})
   \right]
-  \boldsymbol{R}(\theta_j,\phi_j)
-  \boldsymbol{S_j^{ferro}}
+  \boldsymbol{R_j^s}
+  \boldsymbol{S_j^{F, s}}
   +
   \mu_B
   \sum_i
   g_i
-  \boldsymbol{h}^{\dagger}
+  (\boldsymbol{h^s})^{\dagger}
   \left[
   \sum_{m}
-  \boldsymbol{R}(\phi_m)
+  \boldsymbol{R_m^s}(\boldsymbol{q})
   \right]
-  \boldsymbol{R}(\theta_i,\phi_i)
-  \boldsymbol{S_{i}^{ferro}}
+  \boldsymbol{R_i^s}
+  \boldsymbol{S_{i}^{F,s}}
 
 We focus our attention on the expressions in the square brackets:
 
+===============
 Exchange energy
 ===============
 
 We recall
-:ref:`exchange matrix in a spherical reference frame <user-guide_methods_spinham-spherical>`
+:ref:`exchange matrix in a spherical reference frame <user-guide_methods_spherical-rf_exchange-tensor>`
 and
 :ref:`rotation matrix in a spherical reference frame <user-guide_methods_spherical-rf>`
 from previous sections:
 
-.. include:: ../repeated-formulas/exchange-matrix-spherical.txt
+.. include:: ../repeated-formulas/exchange-matrix-spherical.inc
 
-.. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.txt
+.. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.inc
 
 Next we write the expression under the sum explicitly:
 
 .. dropdown:: Details
 
-  .. include:: exchange-matrix-spiral-rotated-details.txt
+  .. include:: exchange-matrix-spiral-rotated-details.inc
 
 
-.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-uvn.txt
+.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
 
 .. _user-guide_methods_energy-classic_sum-over-m-condition:
 
 Next we write back the sum over :math:`m`, and using the facts that:
 
-* :math:`\boldsymbol{d} = \sum_{i}\boldsymbol{a}_in_i`, where :math:`\boldsymbol{a}_i` are the lattice vectors
+* :math:`\boldsymbol{d_{ij}} = \sum_{i}\boldsymbol{a}_in_i`, where :math:`\boldsymbol{a}_i` are the lattice vectors
   and :math:`n_i \in \mathbb{Z}`, :math:`i = 1,2,3`.
 * :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})`
   does not depend on the index :math:`m`
@@ -103,15 +112,15 @@ Next we write back the sum over :math:`m`, and using the facts that:
 
   .. dropdown:: Details [1]_
 
-    .. include:: exchange-details-on-fourier-identities.txt
+    .. include:: exchange-details-on-fourier-identities.inc
 
 we get an expression for the sum:
 
 .. dropdown:: Details
 
-  .. include:: exchange-matrix-sum-over-m-details.txt
+  .. include:: exchange-matrix-sum-over-m-details.inc
 
-.. include:: ../repeated-formulas/exchange-matrix-rotated-and-summed-over-m.txt
+.. include:: ../repeated-formulas/exchange-matrix-rotated-and-summed-over-m.inc
 
 Which leads to the expression for the exchange part of total energy:
 
@@ -119,34 +128,34 @@ Which leads to the expression for the exchange part of total energy:
 
   First, we recall the rotation matrix in the spherical reference frame:
 
-  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.txt
+  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.inc
 
   Then we compute:
 
-  .. include:: exchange-energy-left-part.txt
+  .. include:: exchange-energy-left-part.inc
 
   and
 
-  .. include:: exchange-energy-right-part.txt
+  .. include:: exchange-energy-right-part.inc
 
   Finally, we compute the exchange energy:
 
-  .. include:: exchange-energy-not-simplified.txt
+  .. include:: exchange-energy-not-simplified.inc
 
 
   Now we simplify each term of the sum separately:
 
-  .. include:: exchange-energy-simplify-ppmm.txt
+  .. include:: exchange-energy-simplify-ppmm.inc
 
-  .. include:: exchange-energy-simplify-pmmp.txt
+  .. include:: exchange-energy-simplify-pmmp.inc
 
-  .. include:: exchange-energy-simplify-pnmn.txt
+  .. include:: exchange-energy-simplify-pnmn.inc
 
-  .. include:: exchange-energy-simplify-npnm.txt
+  .. include:: exchange-energy-simplify-npnm.inc
 
-.. include:: ../repeated-formulas/classic-exchange-energy.txt
+.. include:: ../repeated-formulas/classic-exchange-energy.inc
 
-
+=====================
 Magnetic field energy
 =====================
 
@@ -158,17 +167,17 @@ Next we turn our attention to the Zeeman term:
   g_i
   \left[
   \sum_{m}
-  \boldsymbol{h}^{\dagger}
-  \boldsymbol{R}(\phi_m)
+  (\boldsymbol{h^s})^{\dagger}
+  \boldsymbol{R_m^s}
   \right]
-  \boldsymbol{R}(\theta_i,\phi_i)
-  \boldsymbol{S_{i}^{ferro}}
+  \boldsymbol{R_i^s}
+  \boldsymbol{S_{i}^{F,s}}
 
 Let us compute part of the expression:
 
 .. math::
-  \boldsymbol{R}(\theta_i,\phi_i)
-  \boldsymbol{S_i^{ferro}}
+  \boldsymbol{R_i^s}
+  \boldsymbol{S_i^{F,s}}
   =
   S_i
   \begin{pmatrix}
@@ -179,62 +188,13 @@ Let us compute part of the expression:
 
 Magnetic field in the spherical reference frame is written as:
 
-.. dropdown:: Details
-
-  Magnetic field in the :math:`uvn` reference frame is written as:
-
-  .. math::
-    \langle uvn \vert h_{mi}\rangle
-    =
-    \left(h^u, h^v, h^n\right)^{\dagger}
-
-  Let us recall the transformation matrix:
-
-  .. include:: ../repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.txt
-
-  And compute the magnetic field in the spherical reference frame:
-
-  .. math::
-    \langle u^+u^-n \vert h \rangle
-    =
-    \langle u^+u^-n \vert uvn \rangle
-    \langle uvn \vert h \rangle
-    =
-    \langle uvn \vert T^{\dagger} \vert uvn \rangle
-    \langle uvn \vert h \rangle
-
-  Which leads to the expression:
-
-.. math::
-  \dfrac{1}{\sqrt{2}}
-  \begin{pmatrix}
-    1 & -i & 0        \\
-    1 &  i & 0        \\
-    0 &  0 & \sqrt{2} \\
-  \end{pmatrix}
-  \begin{pmatrix}
-    h^u \\
-    h^v \\
-    h^n \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \dfrac{h^u - ih^v}{\sqrt{2}} \\
-    \dfrac{h^u + ih^v}{\sqrt{2}} \\
-    h^n     \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \dfrac{h^{-}}{\sqrt{2}}       \\
-    \dfrac{h^{+}}{\sqrt{2}}       \\
-    h^n \\
-  \end{pmatrix}
+.. include:: ../repeated-formulas/magnetic-field-spherical.inc
 
 Before we compute the expression for energy work with the sum over :math:`m`:
 
 .. math::
   \sum_{m}
-  \boldsymbol{R}(\phi_m)
+  \boldsymbol{R_m^s}
   =
   \begin{pmatrix}
     \sum_{m}e^{-i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0                          & 0 \\
@@ -253,9 +213,9 @@ Then the energy is:
 
 .. dropdown:: Details
 
-  .. include:: field-energy-details.txt
+  .. include:: field-energy-details.inc
 
-.. include:: ../repeated-formulas/classic-zeeman-energy.txt
+.. include:: ../repeated-formulas/classic-zeeman-energy.inc
 
 
 Total energy
@@ -263,4 +223,4 @@ Total energy
 
 Finally, we can write the total classical energy:
 
-.. include:: ../repeated-formulas/classic-total-energy.txt
+.. include:: ../repeated-formulas/classic-total-energy.inc

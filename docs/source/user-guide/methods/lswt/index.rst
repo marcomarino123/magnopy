@@ -6,17 +6,17 @@ Linear Spin-Wave Theory
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.txt
-  * .. include:: ../page-notations/matrix.txt
-  * .. include:: ../page-notations/parentheses.txt
-  * .. include:: ../page-notations/operators.txt
-  * .. include:: ../page-notations/bra-ket.txt
-  * .. include:: ../page-notations/kronecker-delta.txt
+  * .. include:: ../page-notations/vector.inc
+  * .. include:: ../page-notations/matrix.inc
+  * .. include:: ../page-notations/parentheses.inc
+  * .. include:: ../page-notations/operators.inc
+  * .. include:: ../page-notations/bra-ket.inc
+  * .. include:: ../page-notations/kronecker-delta.inc
 
 
 The part of Hamiltonian, which is discussed in this page is
 
-.. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.txt
+.. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
 
 Rotated exchange matrices
 =========================
@@ -24,23 +24,23 @@ Rotated exchange matrices
 Before we proceed with the solution of the Hamiltonian we take a close look at the rotated
 exchange matrices:
 
-.. include:: ../repeated-formulas/J-abmd-matrix-definition-any.txt
+.. include:: ../repeated-formulas/J-abmd-matrix-definition-any.inc
 
 .. dropdown:: Relevant matrices in the spherical reference frame
 
-    .. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.txt
+    .. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.inc
 
-    .. include:: ../repeated-formulas/exchange-matrix-spherical.txt
+    .. include:: ../repeated-formulas/exchange-matrix-spherical.inc
 
 First of all we recall it's form in the
 :ref:`spherical basis <user-guide_methods_spherical-rf>`:
 
-.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-uvn.txt
+.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
 
 Next we derive symmetry of the rotated exchange matrices.
 We recall the symmetries of the exchange matrices:
 
-.. include:: ../repeated-formulas/spinham-parameter-symmetries.txt
+.. include:: ../repeated-formulas/spinham-parameter-symmetries.inc
 
 And then apply hermitian conjugate to the whole expression:
 

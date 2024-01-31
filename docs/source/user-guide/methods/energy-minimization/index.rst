@@ -6,15 +6,16 @@ Minimization of the classical energy
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.txt
-  * .. include:: ../page-notations/matrix.txt
-  * .. include:: ../page-notations/bra-ket.txt
-  * .. include:: ../page-notations/parentheses.txt
-  * .. include:: ../page-notations/kronecker-delta.txt
+  * .. include:: ../page-notations/vector.inc
+  * .. include:: ../page-notations/matrix.inc
+  * .. include:: ../page-notations/bra-ket.inc
+  * .. include:: ../page-notations/parentheses.inc
+  * .. include:: ../page-notations/kronecker-delta.inc
+  * .. include:: ../page-notations/uvn-or-spherical.inc
 
 Let us recall the expression for the classical energy:
 
-.. include:: ../repeated-formulas/classic-total-energy.txt
+.. include:: ../repeated-formulas/classic-total-energy.inc
 
 In order to minimize this equation and find ground state we split all possible cases into
 three distinct ones:
@@ -30,13 +31,13 @@ Before we proceed to the detailed discussion about each of the three cases
 let us recall the equation for the spin vector in the :math:`uvn`
 reference frame:
 
-.. include:: ../repeated-formulas/spin-uvn.txt
+.. include:: ../repeated-formulas/spin-uvn.inc
 
-.. include:: ferromagnetic-case.txt
+.. include:: ferromagnetic-case.inc
 
-.. include:: afm-cone-case.txt
+.. include:: afm-cone-case.inc
 
-.. include:: spiral-case.txt
+.. include:: spiral-case.inc
 
 Minimization strategy
 =====================

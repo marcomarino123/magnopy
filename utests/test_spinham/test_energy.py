@@ -16,11 +16,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__all__ = ["PREDEFINED_NOTATIONS"]
-
-PREDEFINED_NOTATIONS = {
-    "standard": (True, False, -1, -1),
-    "tb2j": (True, True, -1, -1),
-    "spinw": (True, False, 1, 1),
-    "vampire": (True, True, -0.5, -1),
-}
+import pytest

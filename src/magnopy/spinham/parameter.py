@@ -88,7 +88,7 @@ class MatrixParameter:
         r"""
         Transposes a matrix of the exchange parameter.
 
-        It returns new instance of the :py:class`.MatrixParameter`
+        It returns new instance of the :py:class:`.MatrixParameter`
         with transposed matrix.
 
         Returns
@@ -142,7 +142,7 @@ class MatrixParameter:
 
         .. math::
 
-            J_{symm} = \dfrac{J + J^T}{2}
+            \boldsymbol{J^{symm}} = \dfrac{\boldsymbol{J} + \boldsymbol{J}^T}{2}
 
         Returns
         -------
@@ -161,12 +161,12 @@ class MatrixParameter:
 
     @property
     def asymm_matrix(self) -> np.ndarray:
-        """
+        r"""
         Asymmetric part of exchange :py:attr:`.matrix`.
 
         .. math::
 
-            J_{asymm} = \dfrac{J - J^T}{2}
+            \boldsymbol{J^{asymm}} = \dfrac{\boldsymbol{J} - \boldsymbol{J}^T}{2}
 
         Returns
         -------
@@ -188,10 +188,10 @@ class MatrixParameter:
         r"""
         Value of isotropic exchange parameter.
 
-        Derived from the exchange matrix (:math:`\mathbf{J}`) as
+        Derived from the exchange matrix (:math:`\boldsymbol{J}`) as
 
         .. math::
-            J^{iso} = \dfrac{1}{3}Tr(\mathbf{J})
+            J^{iso} = \dfrac{1}{3}Tr(\boldsymbol{J})
 
         Returns
         -------
@@ -251,8 +251,8 @@ class MatrixParameter:
         Derived from the exchange matrix (:math:`\mathbf{J}`) as
 
         .. math::
-            \mathbf{J}_{aniso} = \mathbf{J}_{symm} - \dfrac{1}{3}Tr(\mathbf{J})
-            \cdot \mathbf{I}
+            \boldsymbol{J^{aniso}} = \boldsymbol{J^{symm} }- \dfrac{1}{3}Tr(\boldsymbol{J})
+            \cdot \boldsymbol{I}
 
         where :math:`\mathbf{I}` is a :math:`3\times3` identity matrix.
 
@@ -827,3 +827,7 @@ class MatrixParameter:
     # !=
     def __neq__(self, other):
         return not self == other
+
+    I = iso
+    A = dmi_matrix
+    S = aniso

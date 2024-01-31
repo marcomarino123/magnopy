@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__all__ = ["SpinHamiltonian"]
+__all__ = ["SpinHamiltonian", "PREDEFINED_NOTATIONS"]
 
 from copy import deepcopy
 from typing import Iterable, Tuple
@@ -25,8 +25,14 @@ import numpy as np
 from wulfric import Atom, Crystal
 
 from magnopy.exceptions import NotationError
-from magnopy.spinham.constants import PREDEFINED_NOTATIONS
 from magnopy.spinham.parameter import MatrixParameter
+
+PREDEFINED_NOTATIONS = {
+    "magnopy": (True, False, 0.5, 1),
+    "tb2j": (True, True, -1, -1),
+    "spinw": (True, False, 1, 1),
+    "vampire": (True, True, -0.5, -1),
+}
 
 
 class SpinHamiltonian(Crystal):
@@ -85,7 +91,7 @@ class SpinHamiltonian(Crystal):
         It can be set with a
 
         * string
-            One of the predefined notations: "standard", "TB2J", "SpinW", "Vampire"
+            One of the predefined notations: "Magnopy", "TB2J", "SpinW", "Vampire"
 
         * iterable with 3 or 4 elements
             First two elements are converted to ``bool``,
@@ -342,14 +348,14 @@ class SpinHamiltonian(Crystal):
         return self._exchange_factor
 
     @exchange_factor.setter
-    def exchange_factor(self, new_factor: bool):
+    def exchange_factor(self, new_factor: float):
         new_factor = float(new_factor)
         # If factor is changing one need to scale parameters.
         if self._exchange_factor is not None and self._exchange_factor != new_factor:
             for atom1, atom2, R, J in self:
                 # Only exchange parameters have to be scaled
                 if R != (0, 0, 0) or atom1 != atom2:
-                    self[atom1, atom2, R].matrix *= factor / self._exchange_factor
+                    self[atom1, atom2, R].matrix *= self._exchange_factor / new_factor
 
         self._exchange_factor = new_factor
 
@@ -384,14 +390,14 @@ class SpinHamiltonian(Crystal):
         return self._on_site_factor
 
     @on_site_factor.setter
-    def on_site_factor(self, new_factor: bool):
+    def on_site_factor(self, new_factor: float):
         new_factor = float(new_factor)
         # If factor is changing one need to scale parameters.
         if self._on_site_factor is not None and self._on_site_factor != new_factor:
             for atom1, atom2, R, J in self:
                 # Only on-site parameters have to be scaled
                 if R == (0, 0, 0) and atom1 == atom2:
-                    self[atom1, atom2, R].matrix *= factor / self._on_site_factor
+                    self[atom1, atom2, R].matrix *= self._on_site_factor / new_factor
 
         self._on_site_factor = new_factor
 
@@ -645,12 +651,6 @@ class SpinHamiltonian(Crystal):
         -----
         This method modifies the instance at which it is called.
         """
-
-        # Convert min/max value to matrix form is necessary
-        if isinstance(min_value, float) or isinstance(min_value, int):
-            min_value = min_value * np.ones((3, 3), dtype=float)
-        if isinstance(max_value, float) or isinstance(max_value, int):
-            max_value = max_value * np.ones((3, 3), dtype=float)
 
         bonds_for_removal = set()
         for atom1, atom2, ijk, parameter in self:

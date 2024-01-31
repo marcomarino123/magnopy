@@ -49,6 +49,7 @@ Isotropic exchange
 
     MatrixParameter.iso
     MatrixParameter.iso_matrix
+    MatrixParameter.I
 
 Symmetric anisotropic exchange
 ==============================
@@ -59,6 +60,7 @@ Symmetric anisotropic exchange
     MatrixParameter.aniso
     MatrixParameter.aniso_diagonal
     MatrixParameter.aniso_diagonal_matrix
+    MatrixParameter.S
 
 Dzyaroshinsky-Moria
 ===================
@@ -70,6 +72,7 @@ Dzyaroshinsky-Moria
     MatrixParameter.dmi_module
     MatrixParameter.dmi_matrix
     MatrixParameter.rel_dmi
+    MatrixParameter.A
 
 Other
 =====

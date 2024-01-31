@@ -25,6 +25,32 @@ from magnopy.units import MILLI_ELECTRON_VOLT, MU_BOHR, TESLA
 __all__ = ["Energy"]
 
 
+def _find_minimum(C, b):
+    R"""
+
+    Parameters
+    ==========
+    C : (...,3,3) |array-like|_
+    b : (...,3) |array-like|_
+
+    Returns
+    =======
+    alpha : (...) :numpy:`ndarray`
+        In radians.
+    beta : (...) :numpy:`ndarray`
+        In radians.
+    """
+
+    if np.allclose(np.zeros(C), C):
+        pass
+
+    eigval, eigvec = np.linalg.eig(C)
+
+    betas = np.einsum("...i,...ji->...j", b, eigvec)
+
+    raise NotImplementedError
+
+
 def _check_input_shape(angle1, angle2, I, in_degrees=True):
     R"""
     Check that input values are consistent with each other and
@@ -388,7 +414,7 @@ class Energy:
         =====
         Shape of ``theta``, ``phi`` has to be the same. Shape of and ``alpha``,
         ``beta`` (if provided) has to match the shape of ``theta`` and ``phi``,
-        apart from the first dimension of ``theta`` and ``phi`` if ``I > 1`:
+        apart from the first dimension of ``theta`` and ``phi`` if ``I > 1``:
 
         Shape of ``q`` has to match the shape of given angles, with extra
         dimension of the length 3 at the end and no dimension of ``I`` if present.
@@ -416,7 +442,45 @@ class Energy:
                 "Either both beta and alpha has to be given or none of them."
             )
         if alpha is None and beta is None:
-            raise NotImplementedError
+            C = np.zeros((*theta.shape[1:], 3, 3), dtype=float)
+            b = np.zeros((*theta.shape[1:], 3), dtype=float)
+            for atom1, atom2, ijk, J in self.spinham:
+                i = atom1.index - 1
+                j = atom2.index - 1
+                if self.spinham.spin_normalized:
+                    Si = 1
+                    Sj = 1
+                else:
+                    Si = atom1.spin
+                    Sj = atom2.spin
+                d_vector = self.spinham.get_vector(atom1, atom2, ijk)
+                theta_m = np.einsum("...j,j->...", q, d_vector)
+
+                C += np.einsum(
+                    "...,ij->...ij",
+                    Si
+                    * Sj
+                    * (
+                        np.cos(theta[i]) * np.cos(theta[i])
+                        - np.sin(theta[i])
+                        * np.sin(theta[j])
+                        * np.cos(theta_m + phi[j] - phi[i])
+                    ),
+                    J.S,
+                )
+                b += np.einsum(
+                    "...,i->...i",
+                    Si
+                    * Sj
+                    * (
+                        np.sin(theta[i])
+                        * np.sin(theta[j])
+                        * np.sin(theta_m + phi[j] - phi[i])
+                    ),
+                    J.dmi,
+                )
+            alpha, beta = _find_minimum(C, b)
+
         else:
             alpha = np.array(alpha, dtype=float)
             beta = np.array(beta, dtype=float)

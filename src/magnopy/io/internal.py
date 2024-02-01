@@ -931,6 +931,8 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
         lines, indices, raise_on_fail=True, return_sections=True
     )
 
+    print(sections)
+
     # Construct spin Hamiltonian:
     spinham = SpinHamiltonian()
 
@@ -944,8 +946,8 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     _read_notation(lines[slice(*sections["n"])], spinham)
 
     # If present read exchange parameters
-    if "p" in sections:
-        _read_exchange(lines[slice(*sections["p"])], spinham)
+    if "e" in sections:
+        _read_exchange(lines[slice(*sections["e"])], spinham)
 
     # If present read on-site parameters
     if "o" in sections:

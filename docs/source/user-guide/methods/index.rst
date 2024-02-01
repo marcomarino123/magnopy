@@ -25,7 +25,7 @@ Methods and algorithms
 
 .. toctree::
   :maxdepth: 1
-  :caption: Holstein-Primakoff bosons
+  :caption: Spin Wave Theory
 
   hp-bosons/index
   energy-quantum-correction

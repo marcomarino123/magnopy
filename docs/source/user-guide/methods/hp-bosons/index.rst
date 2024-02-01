@@ -130,23 +130,25 @@ in the conventional :math:`1/S` expansion.
   S_i\,S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,
   \boldsymbol{f_j^s}
 
-* The :ref:`Linear Spin Wave Theory piece <user-guide_methods_lswt>` is
+* The :ref:`Linear Spin Wave Theory (LSWT) piece <user-guide_methods_lswt>` is
 
   .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
 
 * The piece containing :ref:`cubic terms <user-guide_methods_hp-cubic-terms>` is
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-qubic-part.inc
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
 
-* And the piece containing :ref:`Quartic terms <user-guide_methods_hp-quartic-terms>` is
+* And the piece containing
+  :ref:`biquadratic terms <user-guide_methods_hp-quartic-terms>` is
 
 .. include:: ../repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
 
 
 .. important::
-  We keep the magnitude of each atomic spin :math:`S_i` in the above expressions.
+  We keep the magnitude of each atomic spin :math:`S_i,\,S_j` in the above expressions.
   Note that if the unit cell spins have different spin magnitudes, then
-  the expansion becomes anbiguous. For example, the magnitude of a cubic term
+  the :math:`1/S` expansion becomes anbiguous. For example, the magnitude of
+  a cubic term
   could be similar to some terms at LSWT order, so one should judiciously
   evaluate which terms should be kept for a particular system of interest.
 

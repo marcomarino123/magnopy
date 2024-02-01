@@ -3,10 +3,9 @@
   =
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  S_iS_j
   \Biggl\{
     &-
-    \dfrac{1}{S_j\sqrt{S_i}}
+    \sqrt{S_i}
     \Bigl[
       (\boldsymbol{p_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
@@ -19,7 +18,7 @@
       \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
     \Bigr]
     -\\&-
-    \dfrac{1}{S_i\sqrt{S_j}}
+    \sqrt{S_j}
     \Bigl[
       (\boldsymbol{f_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
@@ -32,7 +31,7 @@
       \,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}
     \Bigr]
     -\\&-
-    \dfrac{1}{4S_i^{3/2}}
+    \dfrac{S_j}{4\,S_i^{1/2}}
     \Bigl[
       (\boldsymbol{p_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
@@ -45,7 +44,7 @@
       \,a_{mi}^{\dagger}\,a_{mi}^{\dagger}\,a_{mi}
     \Bigr]
     -\\&-
-    \dfrac{1}{4S_j^{3/2}}
+    \dfrac{S_i}{4\,S_j^{º/2}}
     \Bigl[
       (\boldsymbol{f_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,

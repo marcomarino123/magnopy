@@ -3,16 +3,14 @@
   =
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  S_iS_j
-  \Biggl\{
-    &\dfrac{1}{S_iS_j}
+  \Biggl\{&
     (\boldsymbol{f_i^s})^\dagger\,
     \boldsymbol{\tilde{J}_{mdij}^s}\,
     \boldsymbol{f_j^s}
     \,
     \,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
     -\\&-
-    \dfrac{1}{4S_j^{3/2}\sqrt{S_i}}
+    \dfrac{1}{4}\,\left(\frac{S_i}{S_j}\right)^{1/2}\,
     \Bigl[
       (\boldsymbol{p_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
@@ -35,7 +33,7 @@
       \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}
     \Bigr]
     -\\&-
-    \dfrac{1}{4S_i^{3/2}\sqrt{S_j}}
+    \dfrac{1}{4}\,\left(\frac{S_j}{S_i}\right)^{1/2}\,
     \Bigl[
       (\boldsymbol{p_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,

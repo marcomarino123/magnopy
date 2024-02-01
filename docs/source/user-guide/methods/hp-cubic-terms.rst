@@ -1,7 +1,7 @@
 .. _user-guide_methods_hp-cubic-terms:
 
-*******************************************
-Qubic terms of Holstein-Primakoff expansion
-*******************************************
+*************************************************
+Cubic piece of the Holstein-Primakoff Hamiltonian
+*************************************************
 
 #TODO

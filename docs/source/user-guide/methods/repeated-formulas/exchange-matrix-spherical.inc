@@ -1,10 +1,12 @@
 .. math::
+  \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})
+  =&
   \begin{pmatrix}
     J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
     J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
     J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}
-  =
+  \\=&
   \begin{pmatrix}
     J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &
     \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}                              &

@@ -3,44 +3,37 @@
   =
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  S_iS_j
-  \Biggl\{
-    &(\boldsymbol{f_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{f_j^s}\,
-    +\\&+
-    \dfrac{1}{\sqrt{S_iS_j}}
+  \Biggl\{&
+    \sqrt{S_i\,S_j}
     \Bigl[
       (\boldsymbol{p_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{p_j^s}
+      \boldsymbol{p_j^s}\,
       \,a_{mi}\,a_{m+d_{ij},j}^{\dagger}
       +
       (\boldsymbol{p_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{t_j^s}
+      \boldsymbol{t_j^s}\,
       \,a_{mi}\,a_{m+d_{ij},j}
       +\\&+
       (\boldsymbol{t_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{p_j^s}
+      \boldsymbol{p_j^s}\,
       \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}
       +
       (\boldsymbol{t_i^s})^\dagger\,
       \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{t_j^s}
+      \boldsymbol{t_j^s}\,
       \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}
     \Bigr]
     -\\&-
-    \dfrac{1}{S_i}
-    (\boldsymbol{f_i^s})^\dagger\,
+    S_j\,(\boldsymbol{f_i^s})^\dagger\,
     \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{f_j^s}
+    \boldsymbol{f_j^s}\,
     \,a_{mi}^{\dagger}\,a_{mi}
     -
-    \dfrac{1}{S_j}
-    (\boldsymbol{f_i^s})^\dagger\,
+    S_i\,(\boldsymbol{f_i^s})^\dagger\,
     \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{f_j^s}
+    \boldsymbol{f_j^s}\,
     \,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
   \Biggr\}

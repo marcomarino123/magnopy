@@ -1,39 +1,31 @@
 .. math::
   \boldsymbol{\tilde{S}_{m+d_{ij},j}^s}
   =&\,
-  S_j\,
-  \left(
+  \left(\,
     \boldsymbol{p_j^s}\,
     \boldsymbol{t_j^s}\,
-    \boldsymbol{f_j^s}
+    \boldsymbol{f_j^s}\,
   \right)\,
   \begin{pmatrix}
-    \dfrac{1}{\sqrt{S_j}}\,
-    \left[a_{m+d_{ij},j}^{\dagger}-
-      \dfrac{a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}}{4S_j}
-    \right]
+   \sqrt{S_j}\, a_{m+d_{ij},j}^{\dagger}-
+      \dfrac{a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}}{4\,\sqrt{S_j}}
     \\
-    \dfrac{1}{\sqrt{S_j}}\,
-    \left[a_{m+d_{ij},j}-
-      \dfrac{a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}}{4S_j}
-    \right]
+    \sqrt{S_j}\,a_{m+d_{ij},j}-
+      \dfrac{a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}}{4\,\sqrt{S_j}}
     \\
-    1 - \dfrac{a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}}{S_j}
+    S_j - a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
     \\
   \end{pmatrix}
   =\\=&\,
-  S_j\,
-  \Biggl[
-    \boldsymbol{f_j^s}+
-    \dfrac{1}{\sqrt{S_j}}
+  S_j\,\boldsymbol{f_j^s}+
+    \sqrt{S_j}\,
     \left(
       a_{m+d_{ij},j}^{\dagger}\,\boldsymbol{p_j^s}
       +a_{m+d_{ij},j}\,\boldsymbol{t_j}
     \right)
-    -\dfrac{1}{S_j}
-    a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\boldsymbol{f_j^s}
+    -a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\boldsymbol{f_j^s}
     -\\&-
-    \dfrac{1}{4\,S_j^{3/2}}\,
+    \dfrac{1}{4\,S_j^{1/2}}\,
     \left(
       a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,\boldsymbol{p_j^s}
       +a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}\,\boldsymbol{t_j^s}

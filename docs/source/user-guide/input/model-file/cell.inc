@@ -17,8 +17,8 @@ Cell
 * line 2: From one to three entries, separated by spaces:
 
   - ``Cell`` keyword. Only the first letter is actually checked.
-  - (optional) ``<Units>``. One of the predefined keywords. Define the units of the lattice vectors.
-    Allowed values are
+  - (optional) ``<Units>``. One of the predefined keywords.
+    Defines the units of the lattice vectors. Allowed values are
 
     - ``Angstrom`` (default)
     - ``Bohr``
@@ -42,10 +42,9 @@ Cell
 
 .. dropdown:: Examples
 
-  Below we ist several ways to specify the same lattice:
+  Below we list several ways to specify the same lattice:
 
   .. code-block:: text
-    :linenos:
 
     ==========
     Cell
@@ -55,7 +54,6 @@ Cell
     ==========
 
   .. code-block:: text
-    :linenos:
 
     ==========
     Cell Angstrom
@@ -65,11 +63,73 @@ Cell
     ==========
 
   .. code-block:: text
-    :linenos:
 
     ==========
     Cell Bohr
-    10.529177210903 0 0
+    1.88972612462577 0 0
+    0 3.77945224925154 0
+    0 0 5.66917837387731
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell Bohr 1.88972612462577
+    1 0 0
     0 2 0
     0 0 3
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell Angstrom 2
+    0.5 0 0
+    0   1 0
+    0   0 1.5
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell 2 Angstrom
+    0.5 0 0
+    0   1 0
+    0   0 1.5
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell 2
+    0.5 0 0
+    0   1 0
+    0   0 1.5
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell Angstrom 1 2 3
+    1 0 0
+    0 1 0
+    0 0 1
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell 1 2 3 Angstrom
+    1 0 0
+    0 1 0
+    0 0 1
+    ==========
+
+  .. code-block:: text
+
+    ==========
+    Cell 1 2 3
+    1 0 0
+    0 1 0
+    0 0 1
     ==========

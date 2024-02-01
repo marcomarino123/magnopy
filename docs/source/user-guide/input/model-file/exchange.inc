@@ -1,3 +1,5 @@
+.. _user-guide_input_model-file_exchange:
+
 Exchange parameters (bilinear)
 ==============================
 
@@ -20,12 +22,11 @@ Parameters of the bilinear exchange part of the Hamiltonian:
   ==========
 
 * line 1: Section separator (10 or more ``=`` symbols)
-* line 2: One or two keyword entries:
+* line 2: One or two entries:
 
-  - ``Exchange`` keyword. Indicate the interpretation of the section.
-    Only the first letter is actually checked.
-  - ``<Units>``. One of the predefined units for the Hamiltonian parameters.
-    Allowed keyword values are
+  - ``Exchange`` keyword. Only the first letter is actually checked.
+  - ``<Units>``. One of the predefined keywords.
+    Defines the units of the exchange parameters. Allowed values are
 
     - meV -  :math:`10^{-3}` electron-Volt (default)
     - eV -  electron-Volt
@@ -60,11 +61,11 @@ Specification of the bond
   Jzx Jzy Jzz>
   <Symmetric-anisotropy Sxx Syy Sxy Sxz Syz>
 
-* line 1: Header of the bond, specify the pair of atoms. Five entries, separated by spaces:
+* line 1: Five entries, separated by spaces:
 
-  - ``A1`` - label of the first atom (in the (0,0,0) unit cell).
+  - ``A1`` - label of the first atom (the one in the (0,0,0) unit cell).
     Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
-  - ``A2`` - label of the second atom (in the (i,j,k) unit cell).
+  - ``A2`` - label of the second atom (the one in the (i,j,k) unit cell).
     Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
   - ``i j k`` - Relative coordinates of the cell for Atom 2. Three integers, separated
     by spaces. Second atom is understood to be located in the cell with the origin at the
@@ -73,8 +74,8 @@ Specification of the bond
     are the lattice vectors
 * line 2: (optional) Isotropic part of the exchange matrix. Two entries, separated by spaces:
 
-  - Keyword ``Isotropic``. Only the first letter is actually checked.
-  - Value of isotropic parameter. One number.
+  - ``Isotropic`` keyword. Only the first letter is actually checked.
+  - Value of isotropic parameter.
 * line 3: (optional) Dzyaroshinsky-Moria interaction vector.
   Also referred as antisymmetric anisotropic interaction. Four entries, separated by spaces:
 
@@ -84,14 +85,14 @@ Specification of the bond
   - z component: :math:`D^z`
 * line 4-7: (optional) Full matrix of exchange parameter.
 
-  - line 4: Keyword ``Matrix``. Only the first letter is actually checked.
+  - line 4: ``Matrix`` keyword. Only the first letter is actually checked.
   - line 5: Three numbers, separated by spaces: Jxx Jxy Jxz
   - line 6: Three numbers, separated by spaces: Jyx Jyy Jyz
   - line 7: Three numbers, separated by spaces: Jzx Jzy Jzz
 * line 8: (optional) Symmetric anisotropic part of full matrix of exchange parameter.
   Six entries, separated by spaces:
 
-  - Keyword ``Symmetric-anisotropy``. Only the first letter is actually checked.
+  - ``Symmetric-anisotropy`` keyword. Only the first letter is actually checked.
   - Five numbers, separated by spaces: ``Sxx Syy Sxy Sxz Syz``. In a matrix form they translates into:
 
     .. math::

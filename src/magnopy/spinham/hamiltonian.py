@@ -70,6 +70,8 @@ class SpinHamiltonian(Crystal):
         super().__init__(**kwargs)
 
         self._bonds = {}
+        self._spiral_vector = None
+        self._cone_axis = None
 
         # Notation settings
         self._double_counting = None
@@ -81,6 +83,61 @@ class SpinHamiltonian(Crystal):
 
     def __len__(self):
         return self._bonds.__len__()
+
+    @property
+    def spiral_vector(self):
+        R"""
+        Spin spiral vector of the spiral ground state.
+        In relative coordinates, with respect to the reciprocal cell.
+
+        Returns
+        =======
+        spiral_vector : (3,) :numpy:`ndarray`
+            Spiral vector :math:`\boldsymbol{q}`.
+        """
+
+        return self._spiral_vector
+
+    @spiral_vector.setter
+    def spiral_vector(self, new_vector):
+        try:
+            new_vector = np.array(new_vector, dtype=float)
+        except:
+            raise ValueError(f"New spiral vector is not array-like: {new_vector}")
+
+        if new_vector.shape != (3,):
+            raise ValueError(
+                f"New spiral vector has to be a 3 component vector, got {new_vector.setflagshape}"
+            )
+
+        self._cone_axis = new_vector
+
+    @property
+    def cone_axis(self):
+        R"""
+        Cone axis (or global rotation axis) :math:`\boldsymbol{\hat{n}}`
+
+        Returns
+        =======
+        n : (3,) :numpy:`ndarray`
+            Unit vector of a cone axis.
+        """
+
+        return self._cone_axis
+
+    @cone_axis.setter
+    def cone_axis(self, new_axis):
+        try:
+            new_axis = np.array(new_axis, dtype=float)
+        except:
+            raise ValueError(f"New axis is not array-like: {new_axis}")
+
+        if new_axis.shape != (3,):
+            raise ValueError(
+                f"New axis has to be a 3 component vector, got {new_axis.shape}"
+            )
+
+        self._cone_axis = new_axis / np.linalg.norm(new_axis)
 
     # Notation attributes
     @property

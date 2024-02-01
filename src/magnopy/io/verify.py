@@ -995,7 +995,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             import sys
 
             sys.tracebacklimit = 0
-            raise FailedToVerifyModelFile("\n".join(error_messages))
+            raise FailedToVerifyModelFile("\n  ".join([""] + error_messages))
         else:
             _logger.error("\n  ".join([""] + error_messages))
             _logger.info("Model file verification finished: FAILED")

@@ -162,7 +162,7 @@ Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a con
 LSWT term and higher harmonics as follows
 
 .. math::
-  {\cal H}^{LSWT}=\sum_{n=0,\pm 1,\pm 2}\, {\cal H^n}
+  {\cal H}^{LSWT}=E^{QC}+\sum_{n=0,\pm 1,\pm 2}\, {\cal H^n}
 
 with
 

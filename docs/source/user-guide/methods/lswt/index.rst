@@ -97,7 +97,7 @@ can be split into the following five pieces
     {\cal H}_{12} + {\cal H}_{21}
 
 
-Fourier transformation
+Hamiltonian reordering
 ======================
 The LSWT Hamiltonian can be rearranged into a more convenient form
 by noting that each bond is counted twice, and taking advantage of the
@@ -105,9 +105,10 @@ hermiticy relations for the exchange matrix :math:`\boldsymbol{\tilde{J}_{mdij}^
 
 .. math::
   {\cal H}^{LSWT}=
+   E^{QC}+
   \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}}, i, j} \,
    \Big(&
-  \,(E_{mdij}+E_{mdij}^*)\,a_{mi}^\dagger\,a_{mi}
+  \,(E_{mdij}+E_{mdij}^*)\,\,a_{mi}^\dagger\,a_{mi}
   \\&+
   T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
   T_{mdij}^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
@@ -116,58 +117,89 @@ hermiticy relations for the exchange matrix :math:`\boldsymbol{\tilde{J}_{mdij}^
   \Delta_{mdij}^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
   \Big)
 
-where on-site, hopping and off-diagonal energy terms are
+where
 
 .. math::
-  E_{mdij} =&
+  E^{QC}=-\frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}}, i, j} \,E_{mdij}^*
+
+is a quantum correction to the classical ground state energy.
+The on-site, hopping and off-diagonal energy terms can be expanded in higher
+harmonics as follows
+
+.. math::
+  E_{mdij} =&\,
              S_j\,(\boldsymbol{f_i^s})^\dagger\,
-             \boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{f_j^s}\,
+             \boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{f_j^s} =
+              \sum_{n=0,\pm 1,\pm 2}
+              E_{dij}^n\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
              \\\\
-  T_{mdij} =&
+  T_{mdij} =&\,
              S_i^{1/2}\,S_j^{1/2}\,
-            (\boldsymbol{p_i^s})^\dagger\,
-             \boldsymbol{\tilde{J}_{mdij}^s}\,
-              \boldsymbol{p_j^s}
+            (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{p_j^s}=
+            \sum_{n=0,\pm 1,\pm 2}
+              T_{dij}^n\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
               \\\\
-  \Delta_{mdij} =&
+  \Delta_{mdij} =&\,
                S_i^{1/2}\,S_j^{1/2}\,
-                  (\boldsymbol{p_i^s})^\dagger\,
-                  \boldsymbol{\tilde{J}_{mdij}^s}\,
-                  \boldsymbol{t_j^s}\,
+                  (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,
+                  \boldsymbol{t_j^s}\,=
+                  \sum_{n=0,\pm 1,\pm 2}
+                  \Delta_{dij}^n\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
 
-In order to describe collective exitations we apply Fourier transformation to the local
-bosonic operators :math:`a_{mi}` and move to the collective bosonic operators
-:math:`a_{ka}`:
+where
 
 .. math::
-  a_{mi}
-  &=
-  \dfrac{1}{\sqrt{M}}
-  \sum_{k}
-  a_{ka}
-  e^{i\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}}
-  \\
-  a_{m+d_{ij},j}
-  &=
-  \dfrac{1}{\sqrt{M}}
-  \sum_{k}
-  a_{kb}
-  e^{i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}+\boldsymbol{d_{ij}})}
-  \\
-  a_{mi}^{\dagger}
-  &=
-  \dfrac{1}{\sqrt{M}}
-  \sum_{k}
-  a_{ka}^{\dagger}
-  e^{-i\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}}
-  \\
-  a_{m+d_{ij},j}^{\dagger}
-  &=
-  \dfrac{1}{\sqrt{M}}
-  \sum_{k}
-  a_{kb}^{\dagger}
-  e^{-i(\boldsymbol{\boldsymbol{k}}\boldsymbol{r_m}+\boldsymbol{d_{ij}})}
+  E_{dij}^n =&\,
+        S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^n}\,\boldsymbol{f_j^s}\\
+  T_{dij}^n =&\,
+        S_i^{1/2}\,S_j^{1/2}\,
+            (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^n}\,\boldsymbol{p_j^s}\\
+  \Delta_{dij}^n=&\,
+        S_i^{1/2}\,S_j^{1/2}\,
+                  (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^n}\,\boldsymbol{t_j^s}
 
+Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a conventional
+LSWT term and higher harmonics as follows
+
+.. math::
+  {\cal H}^{LSWT}=\sum_{n=0,\pm 1,\pm 2}\, {\cal H^n}
+
+with
+
+.. math::
+  {\cal H^n}=
+    \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}}, i, j} \,
+   \Big(&
+  \,(E_{dij}^n+(E_{dij}^n)^*)\,a_{mi}^\dagger\,a_{mi}
+  \\&+
+  T_{dij}^n\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
+  (T_{dij}^n)^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
+  \\&+
+  \Delta_{dij}^n\,b_{m+d_{ij}\,j}\,b_{mi} +
+  (\Delta_{dij}^n)^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
+  \Big)\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
+
+Fourier-transformed Hamiltonian
+===============================
+
+The above Hamiltonian simplifies by Fourier-transforming the local
+bosonic operators
+
+.. math::
+  a_{mi}=\dfrac{1}{\sqrt{M}}\,\sum_{k}\,a_{ka}
+  \,e^{i\,\boldsymbol{\boldsymbol{k}}\cdot\boldsymbol{r_m}}
+
+and using the identity
+
+.. math::
+  \dfrac{1}{M}\sum_m e^{i\,(\boldsymbol{k}\pm \boldsymbol{k'}\pm
+  n\,\boldsymbol{q})\cdot\boldsymbol{r_m}}
+  =
+  \delta_{\boldsymbol{k}\pm \boldsymbol{k'}\pm
+  n\,\boldsymbol{q},\, \boldsymbol{G}}
+
+where :math:`\boldsymbol{G}` is a reciprocal lattice vector.
+The L
 .. dropdown:: Details
 
   .. include:: fourier-hamiltonian-grouping-details.txt

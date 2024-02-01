@@ -14,7 +14,7 @@ Atoms
   ==========
 
 * line 1: Section separator (10 or more ``=`` symbols)
-* line 2: One or two entries, separated by spaces:
+* line 2: One or two entries, separated by spaces, the order is fixed:
 
   - ``Atoms`` keyword. Only the first letter is actually checked.
   - (optional) ``<Units>``. One of the predefined keywords.
@@ -35,7 +35,8 @@ Atoms
 
     Note: Only the first letter is actually checked.
 
-* line 3: Information about the first atom, five, seven or eight entries, separated by spaces:
+* line 3: Information about the first atom, five, seven or eight entries,
+  separated by spaces, the order is fixed:
 
   - ``A1`` - atom's label. Any string, that does not contain "#" or space symbols and
     starts with a letter (lowercase or uppercase) or a number.
@@ -49,17 +50,17 @@ Atoms
     - :math:`S` - spin value. It is oriented along
       :math:`z` direction, i.e. :math:`\boldsymbol{S} = (0,\,0,\,S)^T`.
 
-    - :math:`S_x` :math:`S_y` :math:`S_z` - spin vector.
+    - :math:`S_x` :math:`S_y` :math:`S_z` - spin vector. The order is fixed.
       :math:`\boldsymbol{S} = (S^x,\,S^y,\,S^z)^T`.
     - :math:`S_x` :math:`S_y` :math:`S_z` :math:`S` - direction of spin vector and its value.
-      The module of the vector is ignored and the provided value is used.
+      The module of the vector is ignored and the provided value is used. The order is fixed.
 
       .. math::
         \boldsymbol{S^{dir}} &= (S^x,\,S^y,\,S^z)^T
 
         \boldsymbol{S} &= S\,\dfrac{\boldsymbol{S^{dir}}}{S^{dir}}
     - :math:`p\phi` :math:`t\theta` :math:`S` - polar (:math:`p\phi`) and
-      azimuthal (:math:`t\theta`) angles and spin Value. Order is arbitrary.
+      azimuthal (:math:`t\theta`) angles and spin Value. The order is arbitrary.
       Two angles, that define the direction of the spin as described
       :ref:`here <user-guide_methods_spin-rotations>`. :math:`p` and :math:`t` are used
       to distinguish this case from the spin vector one, i.e.

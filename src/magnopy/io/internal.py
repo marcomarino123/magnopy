@@ -24,6 +24,7 @@ from termcolor import colored
 from wulfric import Atom
 from wulfric.constants import TORADIANS
 
+from magnopy.geometry import vector_to_angles
 from magnopy.io.verify import _verify_model_file
 
 _logger = logging.getLogger(__name__)
@@ -49,7 +50,7 @@ SEPARATOR = "=" * 80
 SUBSEPARATOR = "-" * 80
 
 
-def _write_bond(
+def _write_exchange(
     label1: str,
     label2: str,
     ijk: tuple,
@@ -96,26 +97,29 @@ def _write_bond(
         ]
     )
 
-    if write_iso:
-        header_line.append(f"{parameter.iso:>8.4f}")
-
     if distance is not None:
         header_line.append(f"# {distance:<8.4f}")
 
     text = [" ".join(header_line)]
 
+    if write_iso:
+        text.append(f"Isotropic {parameter.iso:>8.4f}")
+
+    if write_dmi:
+        text.append(" ".join(["DMI"] + [f"{parameter.dmi[i]:>8.4f}" for i in range(3)]))
+
+    if write_symm:
+        text.append("Symmetric-anisotropy")
+        J_symm = parameter.aniso
+        text.append(
+            f"{J_symm[0][0]:>8.4f} {J_symm[1][1]:>8.4f} "
+            + f"{J_symm[0][1]:>8.4f} {J_symm[0][2]:>8.4f} {J_symm[1][2]:>8.4f}"
+        )
+
     if write_matrix:
         text.append("Matrix")
         for i in range(3):
             text.append(" ".join([f"{parameter.matrix[i][j]:>8.4f}" for j in range(3)]))
-
-    if write_symm:
-        text.append("Symmetric anisotropy")
-        for i in range(3):
-            text.append(" ".join([f"{parameter.aniso[i][j]:>8.4f}" for j in range(3)]))
-
-    if write_dmi:
-        text.append(" ".join(["DMI"] + [f"{parameter.dmi[i]:>8.4f}" for i in range(3)]))
 
     return "\n".join(text)
 
@@ -208,8 +212,14 @@ def dump_model(
         )
         try:
             if write_spin_angles:
-                # TODO
-                pass
+                S, theta, phi = vector_to_angles(atom.spin_vector, in_degreees=True)
+                text[-1] += " " + " ".join(
+                    [
+                        f"t{theta:8.4f}",
+                        f"p{phi:8.4f}",
+                        f"{S:8.4f}",
+                    ]
+                )
             else:
                 text[-1] += " " + " ".join(
                     [
@@ -230,27 +240,27 @@ def dump_model(
 
     # Write notation
     text.append("Notation")
-    text.append(f"Spin normalized = {spinham.spin_normalized}")
-    text.append(f"Double counting = {spinham.double_counting}")
-    text.append(f"Exchange factor = {spinham.exchange_factor}")
-    text.append(f"On-site factor = {spinham.on_site_factor}")
+    text.append(f"Spin-normalized {spinham.spin_normalized}")
+    text.append(f"Double-counting {spinham.double_counting}")
+    text.append(f"Exchange-factor {spinham.exchange_factor}")
+    text.append(f"On-site-factor {spinham.on_site_factor}")
     text.append(SEPARATOR)
 
-    # Write parameters
-    text.append("Parameters meV")
+    # Write exchange parameters
+    text.append("Exchange meV")
     text.append(f"{'# Atom1 Atom2':<13} {'i':>3} {'j':>3} {'k':>3}")
-    if write_iso:
-        text[-1] += f" {'Jiso':>8}"
     if write_distance:
         text[-1] += f" # {'distance'}"
     text.append(SUBSEPARATOR)
     for atom1, atom2, ijk, parameter in spinham:
+        if atom1 == atom2 and ijk == (0, 0, 0):
+            continue
         if write_distance:
             distance = spinham.get_distance(atom1, atom2, ijk)
         else:
             distance = None
         text.append(
-            _write_bond(
+            _write_exchange(
                 atom1.name,
                 atom2.name,
                 ijk,
@@ -263,6 +273,19 @@ def dump_model(
             )
         )
         text.append(SUBSEPARATOR)
+    text.append(SEPARATOR)
+
+    # Write on-site parameters
+    text.append("On-site meV")
+    text.append(SUBSEPARATOR)
+    for atom1, atom2, ijk, parameter in spinham:
+        if atom1 == atom2 and ijk == (0, 0, 0):
+            text.append(atom1.name)
+            text.append(
+                f"{parameter.xx:>8.4f} {parameter.yy:>8.4f} {parameter.zz:>8.4f} "
+                + f"{parameter.xy:>8.4f} {parameter.xz:>8.4f} {parameter.yz:>8.4f}"
+            )
+            text.append(SUBSEPARATOR)
     text.append(SEPARATOR)
 
     if filename is not None:
@@ -322,17 +345,20 @@ def _read_cell(lines, spinham: SpinHamiltonian):
             units = line.pop(-1).lower()
             _logger.info(f'"{units}" keyword is detected.')
         else:
-            _logger.info("No <Units> keywords is detected.")
+            _logger.info(
+                "No <Units> keywords is detected. Fall back to default (Angstrom)."
+            )
             units = "angstroms"
 
     # Process <Units> keyword
-    # Only those two cases are possible, since the input file is pre-verified
+    # Only those two cases are possible since the input file is pre-verified
     if units.startswith("b"):
         units_conversion = BOHR
     elif units.startswith("a"):
         units_conversion = ANGSTROM
 
     # Process <Scale> keyword
+    # The <Units> keyword is already popped out of the line list
     # Cell <s>
     # or
     # Cell <s_x s_y s_z>
@@ -400,7 +426,7 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
     else:
         units = "relative"
         _logger.info(
-            f"No <Units> keyword is detected. Default value (relative) is used."
+            f"No <Units> keyword is detected. Fall back to default (Relative)."
         )
 
     # Decide the case based on <Units>
@@ -416,24 +442,28 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
         units_conversion = ANGSTROM
 
     _logger.info(
-        f"Units conversion factor: {units_conversion}; coordinates are relative: {relative}"
+        f"Units conversion factor: {units_conversion}; coordinates are {'relative' if relative else 'absolute'}"
     )
 
     # Read atoms's information
     # A i j k <spin>
     for line in lines[1:]:
         line = line.split()
+        # Label is always present, since file is pre-verified
         label = line[0]
+        # Coordinates are always present, since file is pre-verified
         coordinates = np.array([float(x) for x in line[1:4]])
         spin_vector = None
 
+        # Now trying to detect the spin vector
+        line = line[4:]
+
         # Only spin value is given
-        if len(line) == 5:
-            spin_vector = [0, 0, float(line[4])]
+        if len(line) == 1:
+            spin_vector = [0, 0, float(line[0])]
 
         # Either spin vector is given or theta, phi and spin value
-        if len(line) == 7:
-            spin_data = " ".join(line[4:7]).lower()
+        if len(line) == 3:
             # Atom i j k p<angle> t<angle> S
             # or
             # Atom i j k p<angle> S t<angle>
@@ -445,15 +475,15 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
             # Atom i j k S p<angle> t<angle>
             # or
             # Atom i j k S t<angle> p<angle>
-            if "p" in spin_data:
-                spin_data = spin_data.split()
+            # It is enough to check for "p", since the file is pre-verified
+            if "p" in " ".join(line).lower():
                 for i in range(3):
-                    if spin_data[i].startswith("p"):
-                        phi = float(spin_data[i][1:]) * TORADIANS
-                    elif spin_data[i].startswith("t"):
-                        theta = float(spin_data[i][1:]) * TORADIANS
+                    if line[i].lower().startswith("p"):
+                        phi = float(line[i][1:]) * TORADIANS
+                    elif line[i].lower().startswith("t"):
+                        theta = float(line[i][1:]) * TORADIANS
                     else:
-                        S = float(spin_data[i])
+                        S = float(line[i])
                 spin_vector = [
                     S * np.cos(phi) * np.sin(theta),
                     S * np.sin(phi) * np.sin(theta),
@@ -461,12 +491,12 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
                 ]
             # Atom i j k Sx Sy Sz
             else:
-                spin_vector = np.array([float(x) for x in line[4:7]])
+                spin_vector = np.array([float(x) for x in line])
         # Spin direction and spin value is given
         # A i j k sdirx sdiry sdirz S
-        if len(line) == 8:
-            spin_vector = np.array([float(x) for x in line[4:7]])
-            spin_vector = spin_vector / np.linalg.norm(spin_vector) * float(line[7])
+        if len(line) == 4:
+            spin_vector = np.array([float(x) for x in line[:3]])
+            spin_vector = spin_vector / np.linalg.norm(spin_vector) * float(line[3])
 
         # Add atom to the Hamiltonian
         if spin_vector is None:
@@ -486,13 +516,34 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
     return spinham
 
 
-def _read_parameters(lines, spinham):
+def _read_notation(lines, spinham):
+    # Skip first line with the section header
+    i = 1
+    while i < len(lines):
+        line = lines[i]
+        # Whether spins are normalized
+        if line.lower().startswith("s"):
+            spinham.spin_normalized = line.split()[1].lower() in _TRUE_KEYWORDS
+        # Whether double counting is present
+        elif line.lower().startswith("d"):
+            spinham.double_counting = line.split()[1].lower() in _TRUE_KEYWORDS
+        # Exchange factor
+        elif line.lower().startswith("e"):
+            spinham.exchange_factor = float(line.split()[1])
+        # On-site factor
+        elif line.lower().startswith("o"):
+            spinham.on_site_factor = float(line.split()[1])
+        i += 1
+    return spinham
+
+
+def _read_exchange(lines, spinham):
     R"""
-    Read information from the parameter section as described in the documentation.
+    Read information from the exchange section as described in the documentation.
 
     Input lines have to follow the format::
 
-        Parameters <Units>
+        Exchange <Units>
         ----------
         bond
         ----------
@@ -516,36 +567,40 @@ def _read_parameters(lines, spinham):
     """
 
     # Search for the <Units>
-    # Parameters <Units>
+    # Exchange <Units>
     line = lines[0].lower().split()
     if len(line) >= 2:
         units = line[1]
         _logger.info(f'"{units}" keyword is detected.')
     else:
         units = "meV"
-        _logger.info(f"No <Units> keyword is detected. Default value (meV) is used.")
+        _logger.info(f"No <Units> keyword is detected. Fall back to default (meV).")
 
     # Decide the case based on <Units>
-    # Only those cases are possible, since the input lines are verified.
+    # Only those cases are possible, since the input lines are pre-verified.
     if units.startswith("r"):
         units_conversion = RYDBERG
         _logger.info(
-            "Parameters are provided in Rydberg energy units. Will be converted to meV."
+            "Exchange parameters are provided in Rydberg energy units. Will be converted to meV."
         )
     elif units.startswith("j"):
         units_conversion = JOULE
-        _logger.info(f"Parameters are provided in Joule. Will be converted to meV.")
+        _logger.info(
+            f"Exchange parameters are provided in Joule. Will be converted to meV."
+        )
     elif units.startswith("k"):
         units_conversion = KELVIN
-        _logger.info(f"Parameters are provided in Kelvin. Will be converted to meV.")
+        _logger.info(
+            f"Exchange parameters are provided in Kelvin. Will be converted to meV."
+        )
     elif units.startswith("e"):
         units_conversion = ELECTRON_VOLT
         _logger.info(
-            f"Parameters are provided in electron-Volts. Will be converted to meV."
+            f"Exchange parameters are provided in electron-Volts. Will be converted to meV."
         )
     elif units.startswith("m"):
         units_conversion = MILLI_ELECTRON_VOLT
-        _logger.info(f"Parameters are provided in meV.")
+        _logger.info(f"Exchange parameters are provided in meV.")
 
     _logger.info(f"Units conversion factor: {units_conversion}")
 
@@ -580,15 +635,13 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
 
     Input lines have to follow the format::
 
-        A1 A2 i j k <Isotropic parameter>
+        A1 A2 i j k
+        <Isotropic Jiso>
         <Matrix
         Jxx Jxy Jxz
         Jyx Jyy Jyz
         Jzx Jzy Jzz>
-        <Symmetric anisotropy
-        Jxx Jxy Jxz
-        Jyx Jyy Jyz
-        Jzx Jzy Jzz>
+        <Symmetric anisotropy Sxx Syy Sxy Sxz Syz>
         <DMI Dx Dy Dz>
 
     Parameters
@@ -603,64 +656,200 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
     spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian with added bond.
     """
+    # Two labels and a unit cell relative position are always present,
+    # since the files are pre-verified.
     line = lines[0].split()
     label1, label2 = line[:2]
     atom1 = spinham.get_atom(label1)
     atom2 = spinham.get_atom(label2)
     R = tuple([int(x) for x in line[2:5]])
-    if len(line) == 6:
-        iso = float(line[5])
-    else:
-        iso = None
 
+    iso = None
     matrix = None
     symm = None
     dmi = None
+
     i = 1
     while i < len(lines):
+        if lines[i].lower().startswith("i"):
+            iso = float(lines[i].split()[1])
+        if lines[i].lower().startswith("d"):
+            dmi = [float(x) for x in lines[i].split()[1:]]
+        if lines[i].lower().startswith("s"):
+            Sxx, Syy, Sxy, Sxz, Syz = [float(x) for x in lines[i].split()[1:]]
+            symm = [[Sxx, Sxy, Sxz], [Sxy, Syy, Syz], [Sxz, Syz, -Sxx - Syy]]
         if lines[i].lower().startswith("m"):
             matrix = np.zeros((3, 3), dtype=float)
             for j in range(3):
                 i += 1
                 matrix[j] = [float(x) for x in lines[i].split()]
-        if lines[i].lower().startswith("d"):
-            dmi = [float(x) for x in lines[i].split()[1:]]
-        parameter = MatrixParameter()
-        if matrix is not None:
-            parameter.matrix = matrix
-        if iso is not None:
-            parameter.iso = iso
-        if dmi is not None:
-            parameter.dmi = dmi
-        if symm is not None:
-            parameter.aniso = symm
-        spinham.add_bond(atom1, atom2, R, J=parameter)
+        spinham.add_bond(atom1, atom2, R, matrix=matrix, iso=iso, aniso=symm, dmi=dmi)
         i += 1
     return spinham
 
 
-def _read_notation(lines, spinham):
+def _read_on_site(lines, spinham: SpinHamiltonian):
+    R"""
+    Read information from the on-site section as described in the documentation.
+
+    Input lines have to follow the format::
+
+        On-site <Units>
+        ----------
+        A1
+        Axx Ayy Azz Axy Axz Ayz
+        ----------
+        ...
+
+    where optional keywords are:
+
+    * <Units> - starts either from "m" or "e" or "k" or "j" or "r".
+
+    Parameters
+    ==========
+    lines : (N,) list of str
+        Parameters section of the input file.
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian, where the data are saved.
+
+    Returns
+    =======
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian with added on-site anisotropy.
+    """
+
+    # Search for the <Units>
+    # On-site <Units>
+    line = lines[0].lower().split()
+    if len(line) >= 2:
+        units = line[1]
+        _logger.info(f'"{units}" keyword is detected.')
+    else:
+        units = "meV"
+        _logger.info(f"No <Units> keyword is detected. Fall back to default (meV).")
+
+    # Decide the case based on <Units>
+    # Only those cases are possible, since the input lines are pre-verified.
+    if units.startswith("r"):
+        units_conversion = RYDBERG
+        _logger.info(
+            "On-site anisotropy parameters are provided in Rydberg energy units. Will be converted to meV."
+        )
+    elif units.startswith("j"):
+        units_conversion = JOULE
+        _logger.info(
+            f"On-site anisotropy parameters are provided in Joule. Will be converted to meV."
+        )
+    elif units.startswith("k"):
+        units_conversion = KELVIN
+        _logger.info(
+            f"On-site anisotropy parameters are provided in Kelvin. Will be converted to meV."
+        )
+    elif units.startswith("e"):
+        units_conversion = ELECTRON_VOLT
+        _logger.info(
+            f"On-site anisotropy parameters are provided in electron-Volts. Will be converted to meV."
+        )
+    elif units.startswith("m"):
+        units_conversion = MILLI_ELECTRON_VOLT
+        _logger.info(f"On-site anisotropy parameters are provided in meV.")
+
+    _logger.info(f"Units conversion factor: {units_conversion}")
+
     # Skip first line with the section header
     i = 1
     while i < len(lines):
-        line = lines[i]
-        # Whether spins are normalized
-        if line.lower().startswith("s"):
-            spinham.spin_normalized = (
-                line.split("=")[1].strip().lower() in _TRUE_KEYWORDS
-            )
-        # Whether double counting is present
-        elif line.lower().startswith("d"):
-            spinham.double_counting = (
-                line.split("=")[1].strip().lower() in _TRUE_KEYWORDS
-            )
-        # Exchange factor
-        elif line.lower().startswith("e"):
-            spinham.exchange_factor = float(line.split("=")[1])
-        # On-site factor
-        elif line.lower().startswith("o"):
-            spinham.on_site_factor = float(line.split("=")[1])
+        # Skip subsection separators
+        while i < len(lines) and lines[i].startswith("-" * 10):
+            i += 1
+
+        # Check if we reached the end of the file
+        if i >= len(lines):
+            break
+
+        # Read atom's label:
+        atom = spinham.get_atom(lines[i].strip())
+
         i += 1
+
+        Axx, Ayy, Azz, Axy, Axz, Ayz = [float(lines[i].split()[j]) for j in range(6)]
+        matrix = (
+            np.array([[Axx, Axy, Axz], [Axy, Ayy, Ayz], [Axz, Ayz, Azz]], dtype=float)
+            * units_conversion
+        )
+
+        # Pass to the next line once matrix parameters are read
+        i += 1
+
+        # Add On-site anisotropy to the Hamiltonian as a bond
+        spinham.add_bond(atom, atom, (0, 0, 0), matrix=matrix)
+
+    return spinham
+
+
+def _read_ground_state(lines, spinham: SpinHamiltonian):
+    R"""
+    Read information from the ground state section as described in the documentation.
+
+    Input lines have to follow the format::
+
+        Ground-state <Units>
+        qx qy qz
+        nx ny nz
+
+    or::
+
+        Ground-state <Units>
+        qx qy qz
+        a<alpha> b<beta>
+
+    where optional keywords are:
+
+    * <Units> - starts either from "a" or "r".
+
+    Parameters
+    ==========
+    lines : (N,) list of str
+        Parameters section of the input file.
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian, where the data are saved.
+
+    Returns
+    =======
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian with added ground-state information.
+    """
+
+    # Search for the <Units>
+    # On-site <Units>
+    line = lines[0].lower().split()
+    if len(line) >= 2:
+        units = line[1]
+        _logger.info(f'"{units}" keyword is detected.')
+    else:
+        units = "relative"
+        _logger.info(
+            f"No <Units> keyword is detected. Fall back to default (Relative)."
+        )
+
+    # Decide the case based on <Units>
+    # Only those cases are possible, since the input lines are pre-verified.
+    if units.startswith("r"):
+        relative = True
+        _logger.info(
+            "Spiral vector is provided in the relative coordinates (with respect to the reciprocal cell)"
+        )
+    elif units.startswith("a"):
+        relative = False
+        _logger.info("Spiral vector is provided in the absolute coordinates")
+
+    _logger.info(
+        f"Spiral vector is in {'relative' if relative else 'absolute'} coordinates."
+    )
+
+    # TODO
+    # decide where to save the ground state info.abs
+
     return spinham
 
 
@@ -745,12 +934,25 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     # Construct spin Hamiltonian:
     spinham = SpinHamiltonian()
 
-    _read_cell(lines[slice(*sections["cell"])], spinham)
+    # Read the cell
+    _read_cell(lines[slice(*sections["c"])], spinham)
 
-    _read_atoms(lines[slice(*sections["atoms"])], spinham)
+    # Read atoms
+    _read_atoms(lines[slice(*sections["a"])], spinham)
 
-    _read_parameters(lines[slice(*sections["parameters"])], spinham)
+    # Read notation
+    _read_notation(lines[slice(*sections["n"])], spinham)
 
-    _read_notation(lines[slice(*sections["notation"])], spinham)
+    # If present read exchange parameters
+    if "p" in sections:
+        _read_exchange(lines[slice(*sections["p"])], spinham)
+
+    # If present read on-site parameters
+    if "o" in sections:
+        _read_on_site(lines[slice(*sections["o"])], spinham)
+
+    # If present read ground state
+    if "g" in sections:
+        _read_ground_state(lines[slice(*sections["g"])], spinham)
 
     return spinham

@@ -167,8 +167,9 @@ class TestMatrixParameter:
         assert (
             parameter.aniso == np.array([[1, 1, 0], [1, -0.5, 0], [0, 0, -0.5]])
         ).all()
-        parameter = MatrixParameter(iso=23, matrix=[[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-        assert parameter.iso == 1
+        parameter = MatrixParameter(iso=23, matrix=[[1, 1, 0], [-1, 1, 0], [0, 0, 1]])
+        assert parameter.iso == 23
+        assert parameter.dmi[2] == 1
 
     def test_matrix(self):
         parameter = MatrixParameter()

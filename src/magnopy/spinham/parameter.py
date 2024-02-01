@@ -38,8 +38,7 @@ class MatrixParameter:
     :py:attr:`.matrix` attribute.
 
     If ``matrix`` is specified then ``iso``, ``aniso`` and ``dmi`` are
-    ignored and derived from ``matrix``. If ``matrix`` is not specified
-    then it is derived from ``iso``, ``aniso`` and ``dmi``.
+    overwriting the corresponding part of the matrix.
     If nothing is provided exchange matrix is set to zero matrix.
 
     Parameters
@@ -60,15 +59,15 @@ class MatrixParameter:
         self._aniso = np.zeros((3, 3), dtype=float)
         self._dmi = np.zeros(3, dtype=float)
 
-        if matrix is None:
-            if iso is not None:
-                self.iso = iso
-            if dmi is not None:
-                self.dmi = dmi
-            if aniso is not None:
-                self.aniso = aniso
-        else:
+        if matrix is not None:
             self.matrix = matrix
+        # Overwrite part of the matrix, if it is provided.
+        if iso is not None:
+            self.iso = iso
+        if dmi is not None:
+            self.dmi = dmi
+        if aniso is not None:
+            self.aniso = aniso
 
     def __format__(self, fmt):
         return self.__str__(fmt=fmt)

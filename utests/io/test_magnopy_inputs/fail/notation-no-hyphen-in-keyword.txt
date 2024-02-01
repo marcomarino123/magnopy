@@ -5,14 +5,14 @@ Cell
 0.0   1.0   0.0 # <- b
 0.0   0.0   1.0 # <- c
 ================================================================================
-Atoms cats
+Atoms
 # Name  x  y  z
 Fe      0  0  0 p90 t90 2
 ================================================================================
 Notation
-Spin-normalized  False
+Spin normalized  False
 Double-counting  True
-Exchange-factor  -0.5
+Exchange factor  -0.5
 On-site-factor   -0.5
 ================================================================================
 Exchange

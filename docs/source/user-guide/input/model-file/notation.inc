@@ -34,7 +34,7 @@ Notation
 
   Note: Only the first letter is actually checked.
 
-  Allowed values for boolean values are (case-insensitive):
+  Allowed values for boolean values are (case-insensitive, full word is checked):
 
   - False: ``false``, ``f``, ``0``, ``no``, ``n``
   - True: ``true``, ``t``, ``1``, ``yes``, ``y``

@@ -22,7 +22,7 @@ from wulfric.constants import TODEGREES
 
 def vector_to_angles(vector, in_degreees=True):
     R"""
-    Convert the vector to the (modulus, theta, phi) format
+    Convert the vector to the (modulus, polar, azimuthal) format
 
     Parameters
     ==========
@@ -32,9 +32,9 @@ def vector_to_angles(vector, in_degreees=True):
     =======
     modulus : float
         Length of the ``vector``
-    theta : float
+    polar : float
         Polar angle. Returned in degrees if ``in_degrees = True``, in radians otherwise.
-    phi : float
+    azimuthal : float
         Azimuthal angle. Returned in degrees if ``in_degrees = True``, in radians otherwise.
     in_degrees : bool, default True
         Whether to return angles in degrees or radians.
@@ -43,17 +43,17 @@ def vector_to_angles(vector, in_degreees=True):
     modulus = np.linalg.notm(vector)
 
     if np.allclose(vector / modulus, [0.0, 0.0, 1.0]):
-        theta, phi = 0, np.pi / 2
+        polar, azimuthal = 0, np.pi / 2
     elif np.allclose(vector / modulus, [0.0, 0.0, -1.0]):
-        theta, phi = np.pi, np.pi / 2
+        polar, azimuthal = np.pi, np.pi / 2
     else:
-        theta = np.arccos(np.dot(vector, [0, 0, 1]) / modulus)
+        polar = np.arccos(np.dot(vector, [0, 0, 1]) / modulus)
         xy_projection = np.array([vector[0], vector[1], 0])
-        phi = np.arccos(
+        azimuthal = np.arccos(
             np.dot(xy_projection, [1, 0, 0]) / np.linalg.norm(xy_projection)
         )
 
     if in_degreees:
-        return modulus, theta * TODEGREES, phi * TODEGREES
+        return modulus, polar * TODEGREES, azimuthal * TODEGREES
     else:
-        return modulus, theta, phi
+        return modulus, polar, azimuthal

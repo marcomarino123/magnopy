@@ -10,13 +10,13 @@ Atoms
 Fe      0  0  0 p90 t90 2
 ================================================================================
 Notation
-Spin normalized =  False
-Double counting =  True
-Exchange factor =  -0.5
-On-site factor  =  -0.5
+Spin-normalized  False
+Double-counting  True
+Exchange-factor  -0.5
+On-site-factor   -0.5
 ================================================================================
-Parameters
-# Atom1 Atom2   i   j   k     Jiso
+Exchange
+# Atom1 Atom2   i   j   k
 --------------------------------------------------------------------------------
 Fe     Fe      -1   0
 Matrix
@@ -24,7 +24,7 @@ Matrix
    0.0   1.0   0.0
    0.0   0.0   1.0
 --------------------------------------------------------------------------------
-Fe        1   0   0    1
+Fe        1   0   0
 Matrix
    1.0   0.0   0.0
    0.0   1.0   0.0

@@ -14,7 +14,7 @@ Cell
     ==========
 
 * line 1: Section separator (10 or more ``=`` symbols)
-* line 2: From one to three entries, separated by spaces:
+* line 2: From one to five entries, separated by spaces:
 
   - ``Cell`` keyword. Only the first letter is actually checked.
   - (optional) ``<Units>``. One of the predefined keywords.
@@ -30,14 +30,20 @@ Cell
 
     - ``<s>`` - scale factor for the whole cell.
 
-    - ``<s_a s_b s_c>`` - individual scale factors for each lattice vector.
+    - ``<s_a s_b s_c>`` - individual scale factors for each lattice vector. The order is fixed.
 
-* line 3: Three numbers, separated by spaces. Coordinates of the first lattice vector.
-  If ``<Scale>`` is present, then the coordinates are multiplied by ``s`` or ``s_a``.
-* line 4: Three numbers, separated by spaces. Coordinates of the second lattice vector.
-  If ``<Scale>`` is present, then the coordinates are multiplied by ``s`` or ``s_b``.
-* line 5: Three numbers, separated by spaces. Coordinates of the third lattice vector.
-  If ``<Scale>`` is present, then the coordinates are multiplied by ``s`` or ``s_c``.
+  Note: The order of ``<Scale>`` and ``<Units>`` can be changed, but ``Cell`` keyword
+  has to be at the beginning of the line.
+
+* line 3: Three numbers, separated by spaces. The order is fixed.
+  Coordinates of the first lattice vector. If ``<Scale>`` is present, then the
+  coordinates are multiplied by ``s`` or ``s_a``.
+* line 4: Three numbers, separated by spaces. The order is fixed.
+  Coordinates of the second lattice vector. If ``<Scale>`` is present, then the
+  coordinates are multiplied by ``s`` or ``s_b``.
+* line 5: Three numbers, separated by spaces. The order is fixed.
+  Coordinates of the third lattice vector. If ``<Scale>`` is present, then the
+  coordinates are multiplied by ``s`` or ``s_c``.
 * line 6: Section separator (10 or more ``=`` symbols)
 
 .. dropdown:: Examples

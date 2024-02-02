@@ -32,7 +32,7 @@ class MatrixParameter:
     Exchange parameter (:math:`\boldsymbol{J}`) class.
 
     Basically it is a wrapper around :numpy:`ndarray`
-    with predefined exchange-specific attributes.
+    with predefined parameter-specific attributes.
     Any function, which work on :numpy:`ndarray` should work on
     :py:class:`.MatrixParameter` as well. It will act on the
     :py:attr:`.matrix` attribute.
@@ -69,6 +69,9 @@ class MatrixParameter:
         if aniso is not None:
             self.aniso = aniso
 
+    ################################################################################
+    #                     String representation and formatting                     #
+    ################################################################################
     def __format__(self, fmt):
         return self.__str__(fmt=fmt)
 
@@ -78,6 +81,9 @@ class MatrixParameter:
     def __repr__(self):
         return f"MatrixParameter({self.matrix.__repr__()})"
 
+    ################################################################################
+    #                            Array interface (numpy)                            #
+    ################################################################################
     @property
     def __array_interface__(self):
         return self.matrix.__array_interface__
@@ -98,6 +104,9 @@ class MatrixParameter:
         """
         return MatrixParameter(matrix=self.matrix.T)
 
+    ################################################################################
+    #                         Full matrix of the parameter                         #
+    ################################################################################
     @property
     def matrix(self) -> np.ndarray:
         r"""
@@ -134,6 +143,9 @@ class MatrixParameter:
             raise ValueError("Matrix shape has to be equal to (3, 3)")
         self._matrix = new_matrix
 
+    ################################################################################
+    #              Symmetric part of the full matrix of the parameter              #
+    ################################################################################
     @property
     def symm_matrix(self) -> np.ndarray:
         r"""
@@ -158,6 +170,9 @@ class MatrixParameter:
 
         return (self.matrix + self.matrix.T) / 2
 
+    ################################################################################
+    #            Antisymmetric part of the full matrix of the parameter            #
+    ################################################################################
     @property
     def asymm_matrix(self) -> np.ndarray:
         r"""
@@ -182,6 +197,12 @@ class MatrixParameter:
 
         return (self.matrix - self.matrix.T) / 2
 
+    # Alternative name for antisymmetric part of the full matrix of parameter
+    A = dmi_matrix
+
+    ################################################################################
+    #              Isotropic part of the full matrix of the parameter              #
+    ################################################################################
     @property
     def iso(self) -> float:
         r"""
@@ -204,6 +225,9 @@ class MatrixParameter:
         """
 
         return np.trace(self.symm_matrix) / 3
+
+    # Alternative name for isotropic parameter
+    I = iso
 
     @iso.setter
     def iso(self, new_iso):
@@ -236,6 +260,9 @@ class MatrixParameter:
 
         return self.iso * np.identity(3, dtype=float)
 
+    ################################################################################
+    #        Symmetric anisotropic part of the full matrix of the parameter        #
+    ################################################################################
     @property
     def aniso(self) -> np.ndarray:
         r"""
@@ -269,6 +296,9 @@ class MatrixParameter:
         """
 
         return self.symm_matrix - self.iso * np.identity(3, dtype=float)
+
+    # Alternative name for symmetric anisotropic part of the full matrix
+    S = aniso
 
     @aniso.setter
     def aniso(self, new_aniso):
@@ -332,6 +362,9 @@ class MatrixParameter:
 
         return np.diag(np.diag(self.aniso))
 
+    ################################################################################
+    #         Antisymmetric (DMI) part of the full matrix of the parameter         #
+    ################################################################################
     @property
     def dmi(self) -> np.ndarray:
         r"""
@@ -455,6 +488,9 @@ class MatrixParameter:
 
         return self.dmi_module / abs(self.iso)
 
+    ################################################################################
+    #           individual components of the full matrix of the parameter           #
+    ################################################################################
     @property
     def xx(self) -> float:
         r"""
@@ -698,9 +734,11 @@ class MatrixParameter:
     def zz(self, new_zz):
         self._matrix[2][2] = float(new_zz)
 
-    # Definition of arithmetic operationst
+    ################################################################################
+    #                             Arithmetic operations                            #
+    ################################################################################
 
-    # + (add)
+    # + (addition)
     def __add__(self, other) -> Self:
         if isinstance(other, MatrixParameter):
             matrix = self.matrix + other.matrix
@@ -711,7 +749,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # - (sub)
+    # - (subtraction)
     def __sub__(self, other) -> Self:
         if isinstance(other, MatrixParameter):
             matrix = self.matrix - other.matrix
@@ -722,7 +760,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # *
+    # * (multiplication by a number or matrix of a same size (element-wise) on the right)
     def __mul__(self, number) -> Self:
         try:
             matrix = self.matrix * number
@@ -733,7 +771,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # @
+    # @ (matrix multiplication on the right)
     def __matmul__(self, other) -> np.ndarray:
         try:
             result = self.matrix @ other
@@ -744,7 +782,7 @@ class MatrixParameter:
             )
         return result
 
-    # /
+    # / (True division)
     def __truediv__(self, number) -> Self:
         try:
             matrix = self.matrix / number
@@ -755,7 +793,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # //
+    # // (division without reminder)
     def __floordiv__(self, number) -> Self:
         try:
             matrix = self.matrix // number
@@ -766,7 +804,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # %
+    # % (reminder)
     def __mod__(self, number) -> Self:
         try:
             matrix = self.matrix % number
@@ -777,7 +815,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # *
+    # * (multiplication by a number or a matrix (element-wise) on the left)
     def __rmul__(self, number) -> Self:
         try:
             matrix = number * self.matrix
@@ -788,7 +826,7 @@ class MatrixParameter:
             )
         return MatrixParameter(matrix=matrix)
 
-    # @
+    # @ (matrix multiplication on the left)
     def __rmatmul__(self, other) -> np.ndarray:
         try:
             result = other @ self.matrix
@@ -826,7 +864,3 @@ class MatrixParameter:
     # !=
     def __neq__(self, other):
         return not self == other
-
-    I = iso
-    A = dmi_matrix
-    S = aniso

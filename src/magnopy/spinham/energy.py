@@ -223,7 +223,7 @@ class Energy:
         )
 
         energy = np.zeros(theta.shape[1:], dtype=float)
-        for atom1, atom2, ijk, J in self.spinham:
+        for atom1, atom2, ijk, J in self.spinham.exchange_like:
             i = atom1.index - 1
             j = atom2.index - 1
             if self.spinham.spin_normalized:
@@ -232,10 +232,7 @@ class Energy:
             else:
                 Si = atom1.spin
                 Sj = atom2.spin
-            if atom1 == atom2 and ijk == (0, 0, 0):
-                factor = self.spinham.on_site_factor
-            else:
-                factor = self.spinham.exchange_factor
+            factor = self.spinham.exchange_factor
 
             energy += (
                 factor
@@ -338,7 +335,7 @@ class Energy:
         q = q @ self.spinham.reciprocal_cell
 
         energy = np.zeros(theta.shape[1:], dtype=float)
-        for atom1, atom2, ijk, J in self.spinham:
+        for atom1, atom2, ijk, J in self.spinham.exchange_like:
             i = atom1.index - 1
             j = atom2.index - 1
             if self.spinham.spin_normalized:
@@ -347,10 +344,7 @@ class Energy:
             else:
                 Si = atom1.spin
                 Sj = atom2.spin
-            if atom1 == atom2 and ijk == (0, 0, 0):
-                factor = self.spinham.on_site_factor
-            else:
-                factor = self.spinham.exchange_factor
+            factor = self.spinham.exchange_factor
             d_vector = self.spinham.get_vector(atom1, atom2, ijk)
             energy += (
                 factor
@@ -444,7 +438,7 @@ class Energy:
         if alpha is None and beta is None:
             C = np.zeros((*theta.shape[1:], 3, 3), dtype=float)
             b = np.zeros((*theta.shape[1:], 3), dtype=float)
-            for atom1, atom2, ijk, J in self.spinham:
+            for atom1, atom2, ijk, J in self.spinham.exchange_like:
                 i = atom1.index - 1
                 j = atom2.index - 1
                 if self.spinham.spin_normalized:
@@ -517,7 +511,7 @@ class Energy:
         sinb = np.sin(beta)
         costheta = np.cos(theta)
         sintheta = np.sin(theta)
-        for atom1, atom2, ijk, J in self.spinham:
+        for atom1, atom2, ijk, J in self.spinham.exchange_like:
             i = atom1.index - 1
             j = atom2.index - 1
             if self.spinham.spin_normalized:
@@ -526,10 +520,7 @@ class Energy:
             else:
                 Si = atom1.spin
                 Sj = atom2.spin
-            if atom1 == atom2 and ijk == (0, 0, 0):
-                factor = self.spinham.on_site_factor
-            else:
-                factor = self.spinham.exchange_factor
+            factor = self.spinham.exchange_factor
             d_vector = self.spinham.get_vector(atom1, atom2, ijk)
             theta_m = np.einsum("...j,j->...", q, d_vector)
             Dn = J.dmi[0] * cosb * sina + J.dmi[1] * sinb * sina + J.dmi[2] * cosa

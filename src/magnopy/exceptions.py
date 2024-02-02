@@ -47,9 +47,9 @@ class NotationError(ValueError):
     def __init__(self, name):
         name = name.replace("_", " ")
 
-        message = " ".join(
+        self.message = " ".join(
             [
-                f'Notation`s property "{name}" is not set.'
+                f'Notation`s property "{name}" is not set.',
                 "Note: When the notation is set for the first time, parameters are not changed,",
                 "when it is set again the parameters are adjusted if necessary.",
             ]

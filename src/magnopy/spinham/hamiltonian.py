@@ -154,10 +154,10 @@ class SpinHamiltonian(Crystal):
 
         if new_vector.shape != (3,):
             raise ValueError(
-                f"New spiral vector has to be a 3 component vector, got {new_vector.setflagshape}"
+                f"New spiral vector has to be a 3 component vector, got {new_vector.shape}"
             )
 
-        self._cone_axis = new_vector
+        self._spiral_vector = new_vector
 
     @property
     def cone_axis(self):
@@ -183,6 +183,9 @@ class SpinHamiltonian(Crystal):
             raise ValueError(
                 f"New axis has to be a 3 component vector, got {new_axis.shape}"
             )
+
+        if np.allclose(new_axis, np.zeros(3)):
+            raise ValueError("New cone axis can not be a zero vector")
 
         self._cone_axis = new_axis / np.linalg.norm(new_axis)
 
@@ -436,7 +439,7 @@ class SpinHamiltonian(Crystal):
                 for atom1, atom2, ijk in self._exchange:
                     self[atom1, atom2, ijk].matrix *= atom1.spin * atom2.spin
                 # For on-site
-                for atom1 in self._on_site:
+                for atom in self._on_site:
                     self[atom].matrix *= atom.spin**2
 
         self._spin_normalized = bool(new_value)

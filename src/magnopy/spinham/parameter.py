@@ -489,7 +489,7 @@ class MatrixParameter:
         return self.dmi_module / abs(self.iso)
 
     ################################################################################
-    #           individual components of the full matrix of the parameter           #
+    #           Individual components of the full matrix of the parameter          #
     ################################################################################
     @property
     def xx(self) -> float:

@@ -39,63 +39,7 @@ can be split into the following five pieces
 
 .. dropdown:: Proof of Hermiticities in the LSWT Hamiltonian
 
-  and fulfills the hermiticity property
-
-  .. math::
-    ((\boldsymbol{R_m^s})^{\dagger}
-    \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})
-    \boldsymbol{R_{m+d_{ij}}^s})^{\dagger}
-    =
-    (\boldsymbol{R_{m+d_{ij}}^s})^{\dagger}
-    (\boldsymbol{J_{ij}^s})^{\dagger}(\boldsymbol{d_{ij}})
-    \boldsymbol{R_m^s}
-    =
-    (\boldsymbol{R_{m+d_{ij}}^s})^{\dagger}
-    \boldsymbol{J_{ji}^s}(\boldsymbol{d_{ji}})
-    \boldsymbol{R_m^s}
-
-  Before we proceed with derivation let us demonstrate hermicity of the Hamiltonian.
-  The easiest way to do so is to write two entries of the same bond for arbitrary bond
-  and show that their sum is unchanged under the application of the hermitian conjugate.
-
-  We write the part of the Hamiltonian for the bond between atoms
-  :math:`1` and :math:`2`,
-  with first atom being located in the unit cell :math:`0` and the second in
-  the unit cell :math:`0+d`. Then two entries of the bond are:
-
-  * :math:`1 \Rightarrow 2` (:math:`{\cal H}_{12}`)
-
-    - :math:`a = 1`
-    - :math:`b = 2`
-    - :math:`\boldsymbol{d_{ij}} = \boldsymbol{d}`
-    - :math:`m = 0`
-  * :math:`2 \Rightarrow 1` (:math:`{\cal H}_{21}`)
-
-    - :math:`a = 2`
-    - :math:`b = 1`
-    - :math:`\boldsymbol{d_{ij}} = -\boldsymbol{d}`
-    - :math:`m = 0+d`
-
-  Then
-
-  .. include:: hermicity-two-bond-part.txt
-
-  and
-
-  .. include:: hermicity-two-bond-part-hc.txt
-
-  By comparison of two formulas above we see that
-  :math:`{\cal H}_{12}={\cal H}_{21}^{\dagger}`, therefore:
-
-  .. math::
-    ({\cal H}_{12} + {\cal H}_{21})^{\dagger}
-    =
-    {\cal H}_{12}^{\dagger} + {\cal H}_{21}^{\dagger}
-    =
-    {\cal H}_{21} + {\cal H}_{12}
-    =
-    {\cal H}_{12} + {\cal H}_{21}
-
+  .. include:: ../repeated-formulas/hermiticity.inc
 
 Hamiltonian reordering
 ======================
@@ -104,9 +48,9 @@ by noting that each bond is counted twice, and taking advantage of the
 hermiticy relations for the exchange matrix :math:`\boldsymbol{\tilde{J}_{mdij}^s}`
 
 .. math::
-  {\cal H}^{LSWT}=
-   E^{QC}+
-  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}}, i, j} \,
+  {\cal H}^{LSWT}
+  =
+  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
    \Big(&
   \,(E_{mdij}+E_{mdij}^*)\,\,a_{mi}^\dagger\,a_{mi}
   \\&+
@@ -117,12 +61,24 @@ hermiticy relations for the exchange matrix :math:`\boldsymbol{\tilde{J}_{mdij}^
   \Delta_{mdij}^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
   \Big)
 
+The first term in the sum is better rearranged to make it explicitly hermitian
+
+.. math::
+  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
+  \,(E_{mdij}+E_{mdij}^*)\,\,a_{mi}^\dagger\,a_{mi}
+    =
+  E^{QC-LSWT}+
+  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
+  \,(E_{mdij}\,a_{mi}^\dagger\,a_{mi}+E_{mdij}^*\,a_{mi}\,a_{mi}^\dagger)
+
 where
 
 .. math::
-  E^{QC}=-\frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}}, i, j} \,E_{mdij}^*
+  E^{QC-LSWT}=-\frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij} i, j}} \,E_{mdij}^*
 
-is a quantum correction to the classical ground state energy.
+is a quantum correction to the classical ground state
+energy. Higher-order quantum corrections shall also appear from the bi-quadratic
+piece of the Hamiltonian.
 The on-site, hopping and off-diagonal energy terms can be expanded in higher
 harmonics as follows
 
@@ -130,54 +86,60 @@ harmonics as follows
   E_{mdij} =&\,
              S_j\,(\boldsymbol{f_i^s})^\dagger\,
              \boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{f_j^s} =
-              \sum_{n=0,\pm 1,\pm 2}
-              E_{dij}^n\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
+              \sum_{\nu=0,\pm 1,\pm 2}
+              E_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
              \\\\
   T_{mdij} =&\,
              S_i^{1/2}\,S_j^{1/2}\,
             (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{p_j^s}=
-            \sum_{n=0,\pm 1,\pm 2}
-              T_{dij}^n\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
+            \sum_{\nu=0,\pm 1,\pm 2}
+              T_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
               \\\\
   \Delta_{mdij} =&\,
                S_i^{1/2}\,S_j^{1/2}\,
                   (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,
                   \boldsymbol{t_j^s}\,=
-                  \sum_{n=0,\pm 1,\pm 2}
-                  \Delta_{dij}^n\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
+                  \sum_{\nu=0,\pm 1,\pm 2}
+                  \Delta_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
 
-where
+where the matrix elements are independent of the site :math:`m` now,
 
 .. math::
-  E_{dij}^n =&\,
-        S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^n}\,\boldsymbol{f_j^s}\\
-  T_{dij}^n =&\,
+  E_{dij}^\nu =&\,
+        S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^\nu}\,\boldsymbol{f_j^s}\\
+  T_{dij}^\nu =&\,
         S_i^{1/2}\,S_j^{1/2}\,
-            (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^n}\,\boldsymbol{p_j^s}\\
-  \Delta_{dij}^n=&\,
+            (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^\nu}\,\boldsymbol{p_j^s}\\
+  \Delta_{dij}^\nu=&\,
         S_i^{1/2}\,S_j^{1/2}\,
-                  (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^n}\,\boldsymbol{t_j^s}
+                  (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^\nu}\,\boldsymbol{t_j^s}
 
 Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a conventional
 LSWT term and higher harmonics as follows
 
 .. math::
-  {\cal H}^{LSWT}=E^{QC}+\sum_{n=0,\pm 1,\pm 2}\, {\cal H^n}
+  {\cal H}^{LSWT}=E^{QC-LSWT}+\sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}
 
 with
 
 .. math::
-  {\cal H^n}=
-    \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}}, i, j} \,
+  {\cal H^\nu}=
+    \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}, i, j} \,
    \Big(&
-  \,(E_{dij}^n+(E_{dij}^n)^*)\,a_{mi}^\dagger\,a_{mi}
+  \,E_{dij}^\nu\,{\cal E^\nu_{i}}+(E_{dij}^\nu\,{\cal E^\nu_{i}})^\dagger
+  +T_{dij}^\nu\,{\cal T_{dij}^\nu} + (T_{dij}^\nu\,{\cal T_{dij}^\nu})^\dagger
   \\&+
-  T_{dij}^n\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
-  (T_{dij}^n)^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
-  \\&+
-  \Delta_{dij}^n\,b_{m+d_{ij}\,j}\,b_{mi} +
-  (\Delta_{dij}^n)^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
-  \Big)\,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
+  \Delta_{dij}^\nu\,{\cal D_{dij}^\nu}+(\Delta_{dij}^\nu\,{\cal D_{dij}^\nu})^\dagger
+  \Big)
+
+where
+
+.. math::
+  {\cal E_{mi}^\nu}=& \sum_m \big(a_{mi}^\dagger\,a_{mi}\,
+     e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}\,\big)\\
+  {\cal T_{dij}^\nu}=& \sum_m \big(a_{mi}^\dagger\,a_{m+d_{ij}\,j}
+  \,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}} \big)\\
+  {\cal D_{dij}^\nu}=&\sum_m \big( a_{m+d_{ij}\,j}\,a_{mi} \,e^{i\,n\,\boldsymbol{q}\cdot\boldsymbol{r_m}}\big)
 
 Fourier-transformed Hamiltonian
 ===============================
@@ -186,47 +148,57 @@ The above Hamiltonian simplifies by Fourier-transforming the local
 bosonic operators
 
 .. math::
-  a_{mi}=\dfrac{1}{\sqrt{M}}\,\sum_{k}\,a_{ka}
+  a_{mi}=\dfrac{1}{\sqrt{M}}\,\sum_{k}\,a_{\boldsymbol{k} i}
   \,e^{i\,\boldsymbol{\boldsymbol{k}}\cdot\boldsymbol{r_m}}
 
 and using the identity
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i\,(\boldsymbol{k}\pm \boldsymbol{k'}\pm
-  n\,\boldsymbol{q})\cdot\boldsymbol{r_m}}
+  \dfrac{1}{M}\sum_m e^{i\,(\pm(\boldsymbol{k'}\pm \boldsymbol{k})+
+  \nu\,\boldsymbol{q})\cdot\boldsymbol{r_m}}
   =
-  \delta_{\boldsymbol{k}\pm \boldsymbol{k'}\pm
-  n\,\boldsymbol{q},\, \boldsymbol{G}}
+  \delta_{\pm(\boldsymbol{k'}\pm \boldsymbol{k})+
+  \nu\,\boldsymbol{q},\, \boldsymbol{G}}
 
 where :math:`\boldsymbol{G}` is a reciprocal lattice vector.
-The L
-.. dropdown:: Details
-
-  .. include:: fourier-hamiltonian-grouping-details.txt
-
-.. include:: fourier-hamiltonian-grouping.txt
-
-After we apply the rotated matrix separation to each term in the round parentheses
-we end up with the number of the sums over :math:`m` of the following form:
+Then the operators become
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r_m}}
+  {\cal E_{mi}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
+  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}\,
+  \\
+  {\cal T_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
+  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}\,
+  e^{i\,(\boldsymbol{k}+\boldsymbol{G}-\nu \boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  \\
+  {\cal D_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}\,a_{\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q}, j}\,
+  e^{-i\,(\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
 
-where :math:`h(\boldsymbol{k}, \boldsymbol{k}^{\prime})` and :math:`\tilde{h}(\boldsymbol{q})` are corresponding functions of
-the vectors.
+where :math:`\boldsymbol{G}` is chosen to bring sums bak to the First Brillouin zone.
+:math:`\boldsymbol{G}` will be dropped henceforth, with the implicit understanding
+that :math:`\boldsymbol{k}+\nu\,\boldsymbol{q}` summations must stay always inside
+the Brillouin zone.
 
-As was discussed in the :ref:`classical energy <user-guide_methods_energy-classic_sum-over-m-condition>`
-section the sums of this form can be simplified:
+Each harmonic piece of the LSWT Hamiltonian can be written
 
 .. math::
-  \dfrac{1}{M}\sum_m e^{i(h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}))\boldsymbol{r_m}}
-  =
-  \delta_{h(\boldsymbol{k}, \boldsymbol{k}^{\prime})+\tilde{h}(\boldsymbol{q}), \boldsymbol{G}}
+  {\cal H}^\nu =
+    \frac{1}{2}\,\sum_{\boldsymbol{k}, \boldsymbol{d_{ij}}, i, j} \,
+   \Big(&
+  \,E_{dij}^\nu\,
+  a_{\boldsymbol{k} i}^\dagger\,
+  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}
+   +(\,E_{dij}^\nu\,
+  a_{\boldsymbol{k} i}^\dagger\,
+  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i})^\dagger\\
+  &+T_{dij}^\nu\,a_{\boldsymbol{k} i}^\dagger\,
+  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}\,
+  e^{i\,(\boldsymbol{k}+\boldsymbol{G}-\nu \boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  {\cal T_{dij}^\nu} + (T_{dij}^\nu)^*\,({\cal T_{dij}^\nu})^\dagger
+  \\&+
+  \Delta_{dij}^\nu\,{\cal D_{dij}^\nu}+(\Delta_{dij}^\nu)^*\,({\cal D_{dij}^\nu})^\dagger
+  \Big)
 
-where :math:`\boldsymbol{G}` is a reciprocal lattice vector.
-
-
-Now we focus on each term of the sum separately:
 
 .. dropdown:: First term
 

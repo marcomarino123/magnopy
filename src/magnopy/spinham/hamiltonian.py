@@ -54,9 +54,9 @@ class SpinHamiltonian(Crystal):
     crystal : :py:class:`.Crystal`, optional
         Crystal on which the spin Hamiltonian is build.
         By default it is cubic (:math:`a=1`) lattice with no atoms.
-    notation : str or tuple of two bool and one float, optional
+    notation : str or tuple of two bool and one or two floats, optional
         One of the predefined notations or tuple with custom notation.
-        See :py:attr:`.notation` for details. #TODO
+        See :py:attr:`.notation` for details.
     **kwargs
         Keyword arguments for the :py:class:`.Crystal` constructor.
 
@@ -69,7 +69,8 @@ class SpinHamiltonian(Crystal):
 
         super().__init__(**kwargs)
 
-        self._bonds = {}
+        self._exchange = {}
+        self._on_site = {}
         self._spiral_vector = None
         self._cone_axis = None
 
@@ -81,9 +82,55 @@ class SpinHamiltonian(Crystal):
         if notation is not None:
             self.notation = notation
 
-    def __len__(self):
-        return self._bonds.__len__()
+    ################################################################################
+    #                            Parameter's properties                            #
+    ################################################################################
 
+    @property
+    def exchange(self):
+        R"""
+        Exchange parameters of the Hamiltonian together with the bond data::
+
+            ``atom1, atom2, (i,j,k), parameter``
+
+        It is an iterator.
+        """
+        return _SpinHamiltonianExchangeIterator(self)
+
+    @property
+    def on_site(self):
+        R"""
+        On-site parameters of the Hamiltonian together with the atom data::
+
+            ``atom, parameter``
+
+        It is an iterator.
+        """
+        return _SpinHamiltonianExchangeIterator(self)
+
+    @property
+    def exchange_like(self):
+        R"""
+        Parameters of the Hamiltonian, that can be written in the exchange form
+        together with the bond data::
+
+            ``atom1, atom2, (i,j,k), parameter``
+
+        It combines:
+
+        * Exchange parameters: ``atom1, atom2, (i,j,k), parameter``
+        * On-site parameters: ``atom, atom, (0,0,0), parameter``
+
+        On-site parameters are scaled with the factor
+        :py:attr:`.exchange_factor`/:py:attr:`.on_site_factor`
+
+        It is an iterator.
+        """
+        return _SpinHamiltonianExchangeLikeIterator(self)
+
+    ################################################################################
+    #                           Ground state properties                            #
+    ################################################################################
     @property
     def spiral_vector(self):
         R"""
@@ -139,7 +186,9 @@ class SpinHamiltonian(Crystal):
 
         self._cone_axis = new_axis / np.linalg.norm(new_axis)
 
-    # Notation attributes
+    ################################################################################
+    #                             Notation properties                              #
+    ################################################################################
     @property
     def notation(self):
         r"""
@@ -152,7 +201,7 @@ class SpinHamiltonian(Crystal):
 
         * iterable with 3 or 4 elements
             First two elements are converted to ``bool``,
-            third and fourth element is interpreted as a float.
+            third and fourth element are interpreted as floats.
             Order: (double counting, spin normalized, exchange_factor, on_site_factor).
             If only one factor is given, then
             ``exchange_factor`` = ``on_site_factor`` = ``factor``.
@@ -259,10 +308,15 @@ class SpinHamiltonian(Crystal):
         (atom2, atom1, -R) is present in the Hamiltonian.
         """
 
-        bonds = list(self)
-        for atom1, atom2, (i, j, k), J in bonds:
-            if (atom2, atom1, (-i, -j, -k)) not in self:
-                self.add_bond(atom2, atom1, (-i, -j, -k), J=J.T)
+        bonds_to_add = []
+        for atom1, atom2, (i, j, k), parameter in self.exchange:
+            # Remember the mirrored bond if it is not in the Hamiltonian yet
+            if (atom2, atom1, (-i, -j, -k)) not in self.exchange:
+                bonds_to_add.append((atom2, atom1, (-i, -j, -k), parameter.T))
+
+        # Add all missing bonds
+        for bond in bonds_to_add:
+            self.add_exchange(*bond)
 
     def _ensure_no_double_counting(self):
         r"""
@@ -277,29 +331,35 @@ class SpinHamiltonian(Crystal):
         * i = 0, j = 0, k = 0 and atom1.index <= atom2.index
         """
 
-        bonds = list(self)
+        bonds_to_remove = []
+        bonds_to_add = []
 
-        for atom1, atom2, (i, j, k), J in bonds:
-            # For on-site parameters there is always only one bond in the model
-            if (i, j, k) != (0, 0, 0) or atom1 != atom2:
-                # If this bond has to stay
-                if (
-                    i > 0
-                    or (i == 0 and j > 0)
-                    or (i == 0 and j == 0 and k > 0)
-                    or (i == 0 and j == 0 and k == 0 and atom1.index <= atom2.index)
-                ):
-                    # Delete mirrored bond if it is in the model
-                    if (atom2, atom1, (-i, -j, -k)) in self:
-                        self.remove_bond(atom2, atom1, (-i, -j, -k))
-                # If mirrored bond has to stay
-                else:
-                    # If mirrored bond is not in the model, then add it
-                    if (atom2, atom1, (-i, -j, -k)) not in self:
-                        self.add_bond(atom2, atom1, (-i, -j, -k), J=J.T)
-                    # Check if the bond is still in the model
-                    if (atom1, atom2, (i, j, k)) in self:
-                        self.remove_bond(atom1, atom2, (i, j, k))
+        for atom1, atom2, (i, j, k), parameter in self.exchange:
+            # If this bond has to stay
+            if (
+                i > 0
+                or (i == 0 and j > 0)
+                or (i == 0 and j == 0 and k > 0)
+                or (i == 0 and j == 0 and k == 0 and atom1.index <= atom2.index)
+            ):
+                # Remember  mirrored bond  for removal, if it is in the model
+                if (atom2, atom1, (-i, -j, -k)) in self:
+                    bonds_to_remove.append(atom2, atom1, (-i, -j, -k))
+            # If mirrored bond has to stay
+            else:
+                # If mirrored bond is not in the model, then remember it for addition
+                if (atom2, atom1, (-i, -j, -k)) not in self:
+                    bonds_to_add.append(
+                        atom2, atom1, (-i, -j, -k), parameter=parameter.T
+                    )
+                # Remember the bond for removal
+                bonds_to_remove.append(atom1, atom2, (i, j, k))
+
+        for bond in bonds_to_add:
+            self.add_exchange(*bond)
+
+        for bond in bonds_to_remove:
+            self.remove_exchange(*bond, raise_if_no_bond=False)
 
     @double_counting.setter
     def double_counting(self, new_value: bool):
@@ -318,11 +378,11 @@ class SpinHamiltonian(Crystal):
                 factor = 0.5
             # Scale parameters
             if factor != 1:
-                for atom1, atom2, R, J in self:
+                for atom1, atom2, ijk, J in self.exchange:
                     # On-site parameters shall not be scaled,
                     # since they are not affected by double counting.
                     if R != (0, 0, 0) or atom1 != atom2:
-                        self[atom1, atom2, R].matrix *= factor
+                        self[atom1, atom2, ijk].matrix *= factor
 
         # Add missed mirror bonds if necessary
         if new_value:
@@ -365,12 +425,22 @@ class SpinHamiltonian(Crystal):
     def spin_normalized(self, new_value: bool):
         # If the property is redefined, one need to scale the parameters
         if self._spin_normalized is not None:
+            # Remove the spin out of parameters
             if self._spin_normalized and not new_value:
-                for atom1, atom2, R, J in self:
-                    self[atom1, atom2, R].matrix /= atom1.spin * atom2.spin
+                # For exchange
+                for atom1, atom2, ijk, _ in self.exchange:
+                    self[atom1, atom2, ijk].matrix /= atom1.spin * atom2.spin
+                # For on-site
+                for atom, _ in self.on_site:
+                    self[atom].matrix /= atom.spin**2
+            # Absorb spin in the parameters
             elif not self._spin_normalized and new_value:
-                for atom1, atom2, R, J in self:
-                    self[atom1, atom2, R].matrix *= atom1.spin * atom2.spin
+                # For exchange
+                for atom1, atom2, ijk, _ in self.exchange:
+                    self[atom1, atom2, ijk].matrix *= atom1.spin * atom2.spin
+                # For on-site
+                for atom1, _ in self.on_site:
+                    self[atom].matrix *= atom.spin**2
 
         self._spin_normalized = bool(new_value)
 
@@ -409,10 +479,9 @@ class SpinHamiltonian(Crystal):
         new_factor = float(new_factor)
         # If factor is changing one need to scale parameters.
         if self._exchange_factor is not None and self._exchange_factor != new_factor:
-            for atom1, atom2, R, J in self:
-                # Only exchange parameters have to be scaled
-                if R != (0, 0, 0) or atom1 != atom2:
-                    self[atom1, atom2, R].matrix *= self._exchange_factor / new_factor
+            # Only exchange parameters have to be scaled
+            for atom1, atom2, ijk, _ in self.exchange:
+                self[atom1, atom2, ijk].matrix *= self._exchange_factor / new_factor
 
         self._exchange_factor = new_factor
 
@@ -451,79 +520,112 @@ class SpinHamiltonian(Crystal):
         new_factor = float(new_factor)
         # If factor is changing one need to scale parameters.
         if self._on_site_factor is not None and self._on_site_factor != new_factor:
-            for atom1, atom2, R, J in self:
-                # Only on-site parameters have to be scaled
-                if R == (0, 0, 0) and atom1 == atom2:
-                    self[atom1, atom2, R].matrix *= self._on_site_factor / new_factor
+            # Only on-site parameters have to be scaled
+            for atom, _ in self.on_site:
+                self[atom].matrix *= self._on_site_factor / new_factor
 
         self._on_site_factor = new_factor
 
-    def __iter__(self):
-        return SpinHamiltonianIterator(self)
+    ################################################################################
+    #                           Dictionary-like behavior                           #
+    ################################################################################
+    def __contains__(self, key) -> bool:
+        # User is asking for on-site terms
+        if isinstance(key, str) or isinstance(key, Atom):
+            # If atom is a string, get the atom object
+            if isinstance(key, str):
+                key = self.get_atom(key)
+            return key in self._on_site
+        # User is asking for exchange terms
+        elif isinstance(key, Iterable) and len(key) == 3:
+            atom1, atom2, R = key
+            # If atom is a string, get the atom object
+            if isinstance(atom1, str):
+                atom1 = self.get_atom(atom1)
+            if isinstance(atom2, str):
+                atom2 = self.get_atom(atom2)
 
-    def __contains__(self, key):
-        atom1, atom2, R = key
-        # If atom is a string, get the atom object
-        if isinstance(atom1, str):
-            atom1 = self.get_atom(atom1)
-        if isinstance(atom2, str):
-            atom2 = self.get_atom(atom2)
-
-        key = (atom1, atom2, R)
-        return key in self._bonds
+            key = (atom1, atom2, R)
+            return key in self._exchange
+        else:
+            raise KeyError(
+                f"Key is either a string an Atom or a tuple of length three:"
+                + f"two Atoms or strings and a tuple of three integers. Got {key}"
+            )
 
     def __getitem__(self, key) -> MatrixParameter:
-        atom1, atom2, R = key
-        # If atom is a string, get the atom object
-        if isinstance(atom1, str):
-            atom1 = self.get_atom(atom1)
-        if isinstance(atom2, str):
-            atom2 = self.get_atom(atom2)
+        # User is asking for on-site terms
+        if isinstance(key, str) or isinstance(key, Atom):
+            # If atom is a string, get the atom object
+            if isinstance(key, str):
+                key = self.get_atom(key)
+            return self._on_site[key]
+        # User is asking for exchange terms
+        elif isinstance(key, Iterable) and len(key) == 3:
+            atom1, atom2, R = key
+            # If atom is a string, get the atom object
+            if isinstance(atom1, str):
+                atom1 = self.get_atom(atom1)
+            if isinstance(atom2, str):
+                atom2 = self.get_atom(atom2)
 
-        key = (atom1, atom2, R)
-        return self._bonds[key]
+            return self._exchange[atom1, atom2, R]
+        else:
+            raise KeyError(
+                f"Key is either a string an Atom or a tuple of length three:"
+                + f"two Atoms or strings and a tuple of three integers. Got {key}"
+            )
 
-    def __getattr__(self, name):
-        raise AttributeError(name)
+    def __setitem__(self, key, value):
+        # User is giving parameter for on-site term
+        if isinstance(key, str) or isinstance(key, Atom):
+            self.add_on_site(key, value)
+        # User is giving parameter for exchange term
+        elif isinstance(key, Iterable) and len(key) == 3:
+            self.add_exchange(*key, value)
+        else:
+            raise KeyError(
+                f"Key is either a string an Atom or a tuple of length three:"
+                + f"two Atoms or strings and a tuple of three integers. Got {key}"
+            )
 
+    def __delitem__(self, key):
+        # User wants to remove an on-site term
+        if isinstance(key, str) or isinstance(key, Atom):
+            self.remove_on_site(key, value)
+        # User wants to remove an exchange term
+        elif isinstance(key, Iterable) and len(key) == 3:
+            self.remove_exchange(*key, value)
+        else:
+            raise KeyError(
+                f"Key is either a string an Atom or a tuple of length three:"
+                + f"two Atoms or strings and a tuple of three integers. Got {key}"
+            )
+
+    ################################################################################
+    #                                  Copy getter                                 #
+    ################################################################################
     def copy(self):
         R"""
-        Return an independent copy of the Hamiltonian.
+        Return a new instance of the same Hamiltonian.
 
         Returns
         =======
         spinham : :py:class:`.SpinHamiltonian`
-            An independent copy of the Hamiltonian.
+            A new instance of the same Hamiltonian.
         """
 
         return deepcopy(self)
 
-    @property
-    def crystal(self) -> Crystal:
-        r"""
-        Crystal of the Hamiltonian.
-
-        Return an independent instance of a crystal.
-        You can use it to play with the model`s crystal independently,
-        but it will not affect the Hamiltonian itself.
-
-        Returns
-        -------
-        crystal : :py:class:`.Crystal`
-            Crystal of the Hamiltonian.
-
-        See Also
-        --------
-        Crystal
-        """
-        return Crystal(self.lattice, self.atoms)
-
+    ################################################################################
+    #                          Magnetic atoms in unit cell                         #
+    ################################################################################
     @property
     def magnetic_atoms(self):
         r"""
         Magnetic atoms of the model.
 
-        Atoms with at least one bond starting or finishing in it.
+        Atoms with at least one parameter associated with it.
 
         Atoms are ordered with respect to the :py:attr:`.Atom.index`.
 
@@ -535,33 +637,41 @@ class SpinHamiltonian(Crystal):
             List of magnetic atoms.
         """
         result = set()
-        for atom1, atom2, R, J in self:
+        # Look through the exchange terms
+        for atom1, atom2, _, _ in self.exchange:
             result.add(atom1)
             result.add(atom2)
+        # Look through the on-site terms
+        for atom, _ in self.on_site:
+            result.add(atom)
 
         return sorted(list(result), key=lambda x: x.index)
 
     @property
     def I(self):
         r"""
-        Number of spins (or magnetic atoms) in the unit cell.
+        Number of spins (magnetic atoms) in the unit cell.
 
         Returns
         -------
         I : int
-            Number of spins (or magnetic atoms) in the unit cell.
+            Number of spins (magnetic atoms) in the unit cell.
+
+        See Also
+        --------
+        magnetic_atoms
         """
 
         return len(self.magnetic_atoms)
 
-    def __setitem__(self, key, value):
-        self.add_bond(*key, value)
-
-    def add_bond(
-        self, atom1: Atom, atom2: Atom, ijk, J: MatrixParameter = None, **kwargs
+    ################################################################################
+    #                          Manipulations with exchange                         #
+    ################################################################################
+    def add_exchange(
+        self, atom1: Atom, atom2: Atom, ijk, parameter: MatrixParameter = None, **kwargs
     ):
         r"""
-        Add one bond to the Hamiltonian.
+        Add one exchange bond to the Hamiltonian.
 
         It will rewrite an existing one.
 
@@ -576,11 +686,11 @@ class SpinHamiltonian(Crystal):
         ijk : tuple of ints
             Vector of the unit cell for atom2.
             In the relative coordinates (i,j,k).
-        J : :py:class:`.MatrixParameter`, optional
+        parameter : :py:class:`.MatrixParameter`, optional
             An instance of :py:class:`MatrixParameter`.
         ** kwargs
             Keyword arguments for the constructor of :py:class:`MatrixParameter`.
-            Ignored if J is given.
+            Ignored if ``parameter`` is given.
         """
 
         # Get the atom by the name
@@ -596,24 +706,26 @@ class SpinHamiltonian(Crystal):
             self.add_atom(atom2)
 
         # Construct parameter if it is not given
-        if J is None:
-            J = MatrixParameter(**kwargs)
+        if parameter is None:
+            parameter = MatrixParameter(**kwargs)
 
-        self._bonds[(atom1, atom2, ijk)] = J
+        self._exchange[(atom1, atom2, ijk)] = parameter
 
         # Check for double counting
         try:
             i, j, k = ijk
-            if self.double_counting and (atom2, atom1, (-i, -j, -k)) not in self:
-                self._bonds[(atom2, atom1, (-i, -j, -k))] = J.T
-        # If it fails, then we do not need to add a mirrored bond
+            if (
+                self.double_counting
+                and (atom2, atom1, (-i, -j, -k)) not in self._exchange
+            ):
+                self._exchange[(atom2, atom1, (-i, -j, -k))] = parameter.T
+        # If it fails, then we do not need to add a mirrored bond, since the notation
+        # is not defined yet and it is not clear wether the mirrored bond has to
+        # be added or not
         except NotationError:
             pass
 
-    def __delitem__(self, key):
-        self.remove_bond(*key)
-
-    def remove_bond(self, atom1: Atom, atom2: Atom, ijk, raise_if_no_bond=True):
+    def remove_exchange(self, atom1: Atom, atom2: Atom, ijk, raise_if_no_bond=True):
         r"""
         Remove one bond from the Hamiltonian.
 
@@ -625,7 +737,7 @@ class SpinHamiltonian(Crystal):
             Atom object in (0, 0, 0) unit cell.
         atom2 : py:class:`.Atom`
             Atom object in R unit cell.
-        R : tuple of ints
+        ijk : tuple of ints
             Radius vector of the unit cell for atom2 (i,j,k).
         raise_if_no_bond : bool, default True
             Whether to raise KeyError if the bond is not in the model.
@@ -638,49 +750,84 @@ class SpinHamiltonian(Crystal):
             atom2 = self.get_atom(atom2)
 
         try:
-            del self._bonds[(atom1, atom2, ijk)]
+            del self._exchange[(atom1, atom2, ijk)]
         except KeyError:
             if raise_if_no_bond:
                 raise KeyError(
-                    f"Bond ({atom2.fullname}, {atom2.fullname}, {ijk}) is not present in the model."
+                    f"Bond ({atom2.fullname}, {atom2.fullname}, {ijk}) "
+                    + "is not present in the Hamiltonian."
                 )
 
         # Check for double counting
         try:
             i, j, k = ijk
-            if self.double_counting and (atom2, atom1, (-i, -j, -k)) in self:
-                del self._bonds[(atom2, atom1, (-i, -j, -k))]
+            if self.double_counting and (atom2, atom1, (-i, -j, -k)) in self._exchange:
+                del self._exchange[(atom2, atom1, (-i, -j, -k))]
         except NotationError:
             pass
 
-    def remove_atom(self, atom):
+    ################################################################################
+    #                           Manipulations with on-site                         #
+    ################################################################################
+    def add_on_site(self, atom: Atom, parameter: MatrixParameter = None, **kwargs):
         r"""
-        Remove magnetic atom from the Hamiltonian.
+        Add one on-site parameter to the Hamiltonian.
 
-        Note: this method will remove atom itself and all the
-        bonds, which starts or ends in this atom, if atom is magnetic.
+        It will rewrite an existing one.
 
         Parameters
         ----------
-        atom : :py:class:`.Atom`
-            Atom object.
+        atom : :py:class:`Atom` or str
+            Atom to which ``parameter`` is added.
+            ``str`` works only if atom is already in the Hamiltonian.
+        parameter : :py:class:`.MatrixParameter`, optional
+            An instance of :py:class:`MatrixParameter`.
+        ** kwargs
+            Keyword arguments for the constructor of :py:class:`MatrixParameter`.
+            Ignored if ``parameter`` is given.
         """
 
-        # If atom given as a string, get the atom object
+        # Get the atom by the name
         if isinstance(atom, str):
-            atom = self.get_atom(atom)
+            atom1 = self.get_atom(atom)
+        # Add atom to the Hamiltonian if it is not in it
+        # Only works for Atom class
+        elif atom not in self.atoms:
+            self.add_atom(atom)
 
-        bonds_for_removal = []
-        for atom1, atom2, ijk, J in self:
-            if atom1 == atom or atom2 == atom:
-                bonds_for_removal.append((atom1, atom2, ijk))
-        # No need to check for double counting explicitly
-        # Both bonds -- ones that start and ones that end in atom -- are removed
-        for bond in bonds_for_removal:
-            del self[bond]
+        # Construct parameter if it is not given
+        if parameter is None:
+            parameter = MatrixParameter(**kwargs)
 
-        super().remove_atom(atom)
+        self._on_site[atom] = parameter
 
+    def remove_on_site(self, atom: Atom, raise_if_no_bond=True):
+        r"""
+        Remove one one-site parameter from the Hamiltonian.
+
+        Parameters
+        ----------
+        atom : py:class:`.Atom`
+            Atom for which the parameter will be removed.
+        raise_if_no_bond : bool, default True
+            Whether to raise KeyError if the parameter for ``atom`` is not in the Hamiltonian.
+        """
+
+        # If atom is a string, get the atom object
+        if isinstance(atom, str):
+            atom1 = self.get_atom(atom)
+
+        try:
+            del self._on_site[atom]
+        except KeyError:
+            if raise_if_no_bond:
+                raise KeyError(
+                    f"There are not on-site anisotropy for the atom {atom.fullname} in the Hamiltonian."
+                )
+
+    ################################################################################
+    #                                    Filters                                   #
+    ################################################################################
     def filter(self, max_distance=None, min_distance=None, custom_filter=None):
         r"""
         Filter the parameter entries based on the given conditions.
@@ -709,22 +856,34 @@ class SpinHamiltonian(Crystal):
         This method modifies the instance at which it is called.
         """
 
-        bonds_for_removal = set()
-        for atom1, atom2, ijk, parameter in self:
+        parameters_for_removal = set()
+
+        # Filter the exchange interactions
+        for atom1, atom2, ijk, parameter in self.exchange:
             dis = self.get_distance(atom1, atom2, ijk)
 
             if max_distance is not None and dis > max_distance:
-                bonds_for_removal.add((atom1, atom2, ijk))
+                parameters_for_removal.add((atom1, atom2, ijk))
 
             if min_distance is not None and dis < min_distance:
-                bonds_for_removal.add((atom1, atom2, ijk))
+                parameters_for_removal.add((atom1, atom2, ijk))
 
             if custom_filter is not None and not custom_filter(parameter):
-                bonds_for_removal.add((atom1, atom2, ijk))
+                parameters_for_removal.add((atom1, atom2, ijk))
 
-        for bond in bonds_for_removal:
+        # Filter the on-site parameters (only for custom_filter and min_distance,
+        # since the distance for on-site is always 0)
+        for atom, parameter in self.on_site:
+            if min_distance is not None and min_distance > 0:
+                parameters_for_removal.add(atom)
+            if custom_filter is not None and not custom_filter(parameter):
+                parameters_for_removal.add(atom)
+
+        for parameter in parameters_for_removal:
             try:
-                del self[bond]
+                # Parameter has different type (tuple or atom) but the same syntax
+                # works for both, see __delitem__ for details
+                del self[parameter]
             except KeyError:
                 pass
 
@@ -762,21 +921,136 @@ class SpinHamiltonian(Crystal):
         filtered_model.filter(**kwargs)
         return filtered_model
 
+    ################################################################################
+    #                          Manipulations with crystal                          #
+    ################################################################################
+    def remove_atom(self, atom):
+        r"""
+        Remove magnetic atom from the Hamiltonian.
 
-class SpinHamiltonianIterator:
+        Note: this method will remove atom itself and all the
+        parameters associated with it.
+
+        Parameters
+        ----------
+        atom : :py:class:`.Atom`
+            Atom object.
+        """
+
+        # If atom given as a string, get the atom object
+        if isinstance(atom, str):
+            atom = self.get_atom(atom)
+
+        parameters_for_removal = []
+        # Look through exchange parameters
+        for atom1, atom2, ijk in self._exchange:
+            if atom1 == atom or atom2 == atom:
+                parameters_for_removal.append((atom1, atom2, ijk))
+        # Look through on-site parameters
+        if atom in self._on_site:
+            parameters_for_removal.append(atom)
+        # No need to check for double counting explicitly
+        # Both bonds -- ones that start and ones that end in atom -- are removed
+        for parameter in parameters_for_removal:
+            # Parameter has different type (tuple or atom) but the same syntax
+            # works for both, see __delitem__ for details
+            del self[parameter]
+
+        # Remove an atom from the crystal
+        super().remove_atom(atom)
+
+    @property
+    def crystal(self) -> Crystal:
+        r"""
+        Crystal of the Hamiltonian.
+
+        Return an independent instance of a crystal.
+        You can use it to play with the model`s crystal independently,
+        but it will not affect the Hamiltonian itself.
+
+        Returns
+        -------
+        crystal : :py:class:`.Crystal`
+            Crystal of the Hamiltonian.
+
+        See Also
+        --------
+        Crystal
+        """
+        return Crystal(self.lattice, self.atoms)
+
+
+class _SpinHamiltonianExchangeIterator:
+    R"""
+    Iterator for exchange parameters of the Hamiltonian
+    """
+
     def __init__(self, spinham: SpinHamiltonian) -> None:
-        self._bonds = list(
-            map(
-                lambda x: (x[0], x[1], x[2], spinham._bonds[x]),
-                spinham._bonds,
-            )
-        )
+        self._container = spinham._exchange
         self._index = 0
 
     def __next__(self) -> Tuple[Atom, Atom, tuple, MatrixParameter]:
-        if self._index < len(self._bonds):
-            result = self._bonds[self._index]
+        if self._index < len(self._container):
+            atom1, atom2, ijk = self._container.__next__()
+            result = (atom1, atom2, ijk, self._container[atom1, atom2, ijk])
             self._index += 1
+            return result
+        raise StopIteration
+
+    def __iter__(self):
+        return self
+
+
+class _SpinHamiltonianExchangeIterator:
+    R"""
+    Iterator for on-site parameters of the Hamiltonian
+    """
+
+    def __init__(self, spinham: SpinHamiltonian) -> None:
+        self._container = spinham._on_site
+        self._index = 0
+
+    def __next__(self) -> Tuple[Atom, MatrixParameter]:
+        if self._index < len(self._container):
+            atom = self._container.__next__()
+            result = (atom, self._container[atom])
+            self._index += 1
+            return result
+        raise StopIteration
+
+    def __iter__(self):
+        return self
+
+
+class _SpinHamiltonianExchangeLikeIterator:
+    R"""
+    Iterator for parameters of the Hamiltonian, that can be written in the
+    form of exchange parameters:
+
+    * exchange parameters: atom1, atom2, (i,j,k)
+    * on-site parameters: atom, atom, (0,0,0)
+    """
+
+    def __init__(self, spinham: SpinHamiltonian) -> None:
+        self._container1 = spinham._on_site
+        self._container2 = spinham._exchange
+        self._index1 = 0
+        self._index2 = 0
+        self.scale_factor = spinham.exchange_factor / spinham.on_site_factor
+
+    def __next__(self) -> Tuple[Atom, Atom, tuple, MatrixParameter]:
+        # First return all on-site terms
+        # Note: they are scaled in order to have an exchange factor instead of the on-site one.
+        if self._index1 < len(self._container1):
+            atom = self._container1.__next__()
+            result = (atom, atom, (0, 0, 0), self._container1[atom] * self.scale_factor)
+            self._index1 += 1
+            return result
+        # Then return all exchange terms
+        elif self._index2 < len(self._container2):
+            atom1, atom2, ijk = self._container2.__next__()
+            result = (atom1, atom2, ijk, self._container2[atom1, atom2, ijk])
+            self._index1 += 1
             return result
         raise StopIteration
 

@@ -1,15 +1,7 @@
 .. math::
   \boldsymbol{\tilde{J}_{mdij}}
-  =
-  \boldsymbol{\tilde{J}_{dij}^0}
-  +
-  \boldsymbol{\tilde{J}_{dij}^1}\,e^{i\,\boldsymbol{q}\,\boldsymbol{r_m}}
-  +
-  \boldsymbol{\tilde{J}_{dij}^{-1}}\,e^{-i\,\boldsymbol{q}\,\boldsymbol{r_m}}
-  +
-  \boldsymbol{\tilde{J}_{dij}^2}e^{2\,i\,\boldsymbol{q}\,\boldsymbol{r_m}}
-  +
-  \boldsymbol{\tilde{J}_{dij}^{-2}}e^{-\,2\,i\,\boldsymbol{q}\,\boldsymbol{r_m}}
+  =\sum_{\nu=0,\pm 1,\pm 2}\,
+  \boldsymbol{\tilde{J}_{dij}^\nu}\,e^{i\,\nu\,\boldsymbol{q}\,\boldsymbol{r_m}}
 
 where the dependence on :math:`\boldsymbol{r_m}` has been made explicit.
 This feature is useful later on when the LSWT be Fourier-transformed.

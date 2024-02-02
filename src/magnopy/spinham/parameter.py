@@ -198,7 +198,7 @@ class MatrixParameter:
         return (self.matrix - self.matrix.T) / 2
 
     # Alternative name for antisymmetric part of the full matrix of parameter
-    A = dmi_matrix
+    A = asymm_matrix
 
     ################################################################################
     #              Isotropic part of the full matrix of the parameter              #

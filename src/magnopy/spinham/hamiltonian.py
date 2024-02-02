@@ -106,7 +106,7 @@ class SpinHamiltonian(Crystal):
 
         It is an iterator.
         """
-        return _SpinHamiltonianExchangeIterator(self)
+        return _SpinHamiltonianOnSiteIterator(self)
 
     @property
     def exchange_like(self):
@@ -344,7 +344,7 @@ class SpinHamiltonian(Crystal):
             ):
                 # Remember  mirrored bond  for removal, if it is in the model
                 if (atom2, atom1, (-i, -j, -k)) in self:
-                    bonds_to_remove.append(atom2, atom1, (-i, -j, -k))
+                    bonds_to_remove.append((atom2, atom1, (-i, -j, -k)))
             # If mirrored bond has to stay
             else:
                 # If mirrored bond is not in the model, then remember it for addition
@@ -353,7 +353,7 @@ class SpinHamiltonian(Crystal):
                         atom2, atom1, (-i, -j, -k), parameter=parameter.T
                     )
                 # Remember the bond for removal
-                bonds_to_remove.append(atom1, atom2, (i, j, k))
+                bonds_to_remove.append((atom1, atom2, (i, j, k)))
 
         for bond in bonds_to_add:
             self.add_exchange(*bond)
@@ -376,13 +376,10 @@ class SpinHamiltonian(Crystal):
             # Mirror bonds will be added, existing ones have to be halfed
             elif not old_value and new_value:
                 factor = 0.5
-            # Scale parameters
+            # Scale exchange parameters
             if factor != 1:
-                for atom1, atom2, ijk, J in self.exchange:
-                    # On-site parameters shall not be scaled,
-                    # since they are not affected by double counting.
-                    if R != (0, 0, 0) or atom1 != atom2:
-                        self[atom1, atom2, ijk].matrix *= factor
+                for atom1, atom2, ijk in self._exchange:
+                    self[atom1, atom2, ijk].matrix *= factor
 
         # Add missed mirror bonds if necessary
         if new_value:
@@ -428,18 +425,18 @@ class SpinHamiltonian(Crystal):
             # Remove the spin out of parameters
             if self._spin_normalized and not new_value:
                 # For exchange
-                for atom1, atom2, ijk, _ in self.exchange:
+                for atom1, atom2, ijk in self._exchange:
                     self[atom1, atom2, ijk].matrix /= atom1.spin * atom2.spin
                 # For on-site
-                for atom, _ in self.on_site:
+                for atom in self._on_site:
                     self[atom].matrix /= atom.spin**2
             # Absorb spin in the parameters
             elif not self._spin_normalized and new_value:
                 # For exchange
-                for atom1, atom2, ijk, _ in self.exchange:
+                for atom1, atom2, ijk in self._exchange:
                     self[atom1, atom2, ijk].matrix *= atom1.spin * atom2.spin
                 # For on-site
-                for atom1, _ in self.on_site:
+                for atom1 in self._on_site:
                     self[atom].matrix *= atom.spin**2
 
         self._spin_normalized = bool(new_value)
@@ -480,7 +477,7 @@ class SpinHamiltonian(Crystal):
         # If factor is changing one need to scale parameters.
         if self._exchange_factor is not None and self._exchange_factor != new_factor:
             # Only exchange parameters have to be scaled
-            for atom1, atom2, ijk, _ in self.exchange:
+            for atom1, atom2, ijk in self._exchange:
                 self[atom1, atom2, ijk].matrix *= self._exchange_factor / new_factor
 
         self._exchange_factor = new_factor
@@ -521,7 +518,7 @@ class SpinHamiltonian(Crystal):
         # If factor is changing one need to scale parameters.
         if self._on_site_factor is not None and self._on_site_factor != new_factor:
             # Only on-site parameters have to be scaled
-            for atom, _ in self.on_site:
+            for atom in self._on_site:
                 self[atom].matrix *= self._on_site_factor / new_factor
 
         self._on_site_factor = new_factor
@@ -592,10 +589,10 @@ class SpinHamiltonian(Crystal):
     def __delitem__(self, key):
         # User wants to remove an on-site term
         if isinstance(key, str) or isinstance(key, Atom):
-            self.remove_on_site(key, value)
+            self.remove_on_site(key)
         # User wants to remove an exchange term
         elif isinstance(key, Iterable) and len(key) == 3:
-            self.remove_exchange(*key, value)
+            self.remove_exchange(*key)
         else:
             raise KeyError(
                 f"Key is either a string an Atom or a tuple of length three:"
@@ -638,11 +635,11 @@ class SpinHamiltonian(Crystal):
         """
         result = set()
         # Look through the exchange terms
-        for atom1, atom2, _, _ in self.exchange:
+        for atom1, atom2, _ in self._exchange:
             result.add(atom1)
             result.add(atom2)
         # Look through the on-site terms
-        for atom, _ in self.on_site:
+        for atom in self._on_site:
             result.add(atom)
 
         return sorted(list(result), key=lambda x: x.index)
@@ -789,7 +786,7 @@ class SpinHamiltonian(Crystal):
 
         # Get the atom by the name
         if isinstance(atom, str):
-            atom1 = self.get_atom(atom)
+            atom = self.get_atom(atom)
         # Add atom to the Hamiltonian if it is not in it
         # Only works for Atom class
         elif atom not in self.atoms:
@@ -839,9 +836,9 @@ class SpinHamiltonian(Crystal):
         Parameters
         ----------
         max_distance : float or int, optional
-            Distance for sorting, the condition is :math:`\le`.
+            Distance for sorting, the condition to keep the bond is :math:`\le`.
         min_distance : float or int, optional
-            Distance for sorting, the condition is :math:`\ge`.
+            Distance for sorting, the condition to keep thebond is :math:`\ge`.
         custom_filter : function, optional
             Custom function, that takes :py:class:`.MatrixParameter` as an input
             and returns ``bool``. If it returns ``True``, then the bond is
@@ -878,7 +875,6 @@ class SpinHamiltonian(Crystal):
                 parameters_for_removal.add(atom)
             if custom_filter is not None and not custom_filter(parameter):
                 parameters_for_removal.add(atom)
-
         for parameter in parameters_for_removal:
             try:
                 # Parameter has different type (tuple or atom) but the same syntax
@@ -986,40 +982,50 @@ class _SpinHamiltonianExchangeIterator:
     """
 
     def __init__(self, spinham: SpinHamiltonian) -> None:
-        self._container = spinham._exchange
-        self._index = 0
+        self.length = len(spinham._exchange)
+        self.container = spinham._exchange
+        self.iterator = spinham._exchange.__iter__()
+        self.index = 0
 
     def __next__(self) -> Tuple[Atom, Atom, tuple, MatrixParameter]:
-        if self._index < len(self._container):
-            atom1, atom2, ijk = self._container.__next__()
-            result = (atom1, atom2, ijk, self._container[atom1, atom2, ijk])
-            self._index += 1
+        if self.index < self.length:
+            atom1, atom2, ijk = self.iterator.__next__()
+            result = (atom1, atom2, ijk, self.container[atom1, atom2, ijk])
+            self.index += 1
             return result
         raise StopIteration
 
     def __iter__(self):
         return self
 
+    def __len__(self):
+        return self.length
 
-class _SpinHamiltonianExchangeIterator:
+
+class _SpinHamiltonianOnSiteIterator:
     R"""
     Iterator for on-site parameters of the Hamiltonian
     """
 
     def __init__(self, spinham: SpinHamiltonian) -> None:
-        self._container = spinham._on_site
-        self._index = 0
+        self.length = len(spinham._on_site)
+        self.container = spinham._on_site
+        self.iterator = spinham._on_site.__iter__()
+        self.index = 0
 
     def __next__(self) -> Tuple[Atom, MatrixParameter]:
-        if self._index < len(self._container):
-            atom = self._container.__next__()
-            result = (atom, self._container[atom])
-            self._index += 1
+        if self.index < self.length:
+            atom = self.iterator.__next__()
+            result = (atom, self.container[atom])
+            self.index += 1
             return result
         raise StopIteration
 
     def __iter__(self):
         return self
+
+    def __len__(self):
+        return self.length
 
 
 class _SpinHamiltonianExchangeLikeIterator:
@@ -1032,27 +1038,34 @@ class _SpinHamiltonianExchangeLikeIterator:
     """
 
     def __init__(self, spinham: SpinHamiltonian) -> None:
-        self._container1 = spinham._on_site
-        self._container2 = spinham._exchange
-        self._index1 = 0
-        self._index2 = 0
+        self.length1 = len(spinham._on_site)
+        self.length2 = len(spinham._exchange)
+        self.container1 = spinham._on_site
+        self.container2 = spinham._exchange
+        self.iterator1 = spinham._on_site.__iter__()
+        self.iterator2 = spinham._exchange.__iter__()
+        self.index1 = 0
+        self.index2 = 0
         self.scale_factor = spinham.exchange_factor / spinham.on_site_factor
 
     def __next__(self) -> Tuple[Atom, Atom, tuple, MatrixParameter]:
         # First return all on-site terms
         # Note: they are scaled in order to have an exchange factor instead of the on-site one.
-        if self._index1 < len(self._container1):
-            atom = self._container1.__next__()
-            result = (atom, atom, (0, 0, 0), self._container1[atom] * self.scale_factor)
-            self._index1 += 1
+        if self.index1 < self.length1:
+            atom = self.iterator1.__next__()
+            result = (atom, atom, (0, 0, 0), self.container1[atom] * self.scale_factor)
+            self.index1 += 1
             return result
         # Then return all exchange terms
-        elif self._index2 < len(self._container2):
-            atom1, atom2, ijk = self._container2.__next__()
-            result = (atom1, atom2, ijk, self._container2[atom1, atom2, ijk])
-            self._index1 += 1
+        elif self.index2 < self.length2:
+            atom1, atom2, ijk = self.iterator2.__next__()
+            result = (atom1, atom2, ijk, self.container2[atom1, atom2, ijk])
+            self.index1 += 1
             return result
         raise StopIteration
 
     def __iter__(self):
         return self
+
+    def __len__(self):
+        return self.length1 + self.length2

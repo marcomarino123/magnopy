@@ -19,10 +19,8 @@
 import logging
 
 import numpy as np
-import wulfric
 from termcolor import colored
-from wulfric import Atom
-from wulfric.constants import TORADIANS
+from wulfric import TORADIANS, Atom, absolute_to_relative
 
 from magnopy.geometry import vector_to_angles
 from magnopy.io.verify import _verify_model_file
@@ -252,7 +250,7 @@ def dump_model(
     if write_distance:
         text[-1] += f" # {'distance'}"
     text.append(SUBSEPARATOR)
-    for atom1, atom2, ijk, parameter in spinham:
+    for atom1, atom2, ijk, parameter in spinham.exchange:
         if atom1 == atom2 and ijk == (0, 0, 0):
             continue
         if write_distance:
@@ -278,14 +276,13 @@ def dump_model(
     # Write on-site parameters
     text.append("On-site meV")
     text.append(SUBSEPARATOR)
-    for atom1, atom2, ijk, parameter in spinham:
-        if atom1 == atom2 and ijk == (0, 0, 0):
-            text.append(atom1.name)
-            text.append(
-                f"{parameter.xx:>8.4f} {parameter.yy:>8.4f} {parameter.zz:>8.4f} "
-                + f"{parameter.xy:>8.4f} {parameter.xz:>8.4f} {parameter.yz:>8.4f}"
-            )
-            text.append(SUBSEPARATOR)
+    for atom, parameter in spinham.on_site:
+        text.append(atom.name)
+        text.append(
+            f"{parameter.xx:>8.4f} {parameter.yy:>8.4f} {parameter.zz:>8.4f} "
+            + f"{parameter.xy:>8.4f} {parameter.xz:>8.4f} {parameter.yz:>8.4f}"
+        )
+        text.append(SUBSEPARATOR)
     text.append(SEPARATOR)
 
     if filename is not None:
@@ -683,7 +680,9 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
             for j in range(3):
                 i += 1
                 matrix[j] = [float(x) for x in lines[i].split()]
-        spinham.add_bond(atom1, atom2, R, matrix=matrix, iso=iso, aniso=symm, dmi=dmi)
+        spinham.add_exchange(
+            atom1, atom2, R, matrix=matrix, iso=iso, aniso=symm, dmi=dmi
+        )
         i += 1
     return spinham
 
@@ -782,7 +781,7 @@ def _read_on_site(lines, spinham: SpinHamiltonian):
         i += 1
 
         # Add On-site anisotropy to the Hamiltonian as a bond
-        spinham.add_bond(atom, atom, (0, 0, 0), matrix=matrix)
+        spinham.add_on_site(atom, matrix=matrix)
 
     return spinham
 
@@ -847,8 +846,24 @@ def _read_ground_state(lines, spinham: SpinHamiltonian):
         f"Spiral vector is in {'relative' if relative else 'absolute'} coordinates."
     )
 
-    # TODO
-    # decide where to save the ground state info.abs
+    q = [float(x) for x in lines[1].split()]
+
+    if not relative:
+        q = absolute_to_relative(q, spinham.reciprocal_cell)
+
+    spinham.spiral_vector = q
+
+    if "a" in lines[2]:
+        for entry in lines[2].split():
+            if entry.lower().startswith("a"):
+                alpha = float(entry[1:]) * TORADIANS
+            if entry.lower().startswith("b"):
+                beta = float(entry[1:]) * TORADIANS
+        n = (np.cos(beta) * np.sin(alpha), np.sin(beta) * np.sin(alpha), np.cos(alpha))
+    else:
+        n = [float(x) for x in lines[2].split()]
+
+    spinham.cone_axis = n
 
     return spinham
 
@@ -930,8 +945,6 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     sections = _verify_model_file(
         lines, indices, raise_on_fail=True, return_sections=True
     )
-
-    print(sections)
 
     # Construct spin Hamiltonian:
     spinham = SpinHamiltonian()

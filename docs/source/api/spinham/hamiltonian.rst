@@ -34,7 +34,7 @@ Adding elements
     :toctree: generated/
 
     SpinHamiltonian.add_atom
-    SpinHamiltonian.add_bond
+    SpinHamiltonian.add_exchange
 
 Removing elements
 -----------------
@@ -43,7 +43,7 @@ Removing elements
     :toctree: generated/
 
     SpinHamiltonian.remove_atom
-    SpinHamiltonian.remove_bond
+    SpinHamiltonian.remove_exchange
 
 Filtering the model
 -------------------

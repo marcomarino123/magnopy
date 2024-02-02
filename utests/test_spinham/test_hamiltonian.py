@@ -30,7 +30,7 @@ from magnopy.spinham.parameter import MatrixParameter
 ################################################################################
 #                                 Legacy Tests                                 #
 ################################################################################
-def test_iteration():
+def test_iteration_exchange():
     model = SpinHamiltonian()
     Cr1 = Atom("Cr1", (0.25, 0.25, 0))
     Cr2 = Atom("Cr2", (0.75, 0.75, 0))
@@ -51,12 +51,25 @@ def test_iteration():
         (-2.35, Cr1, Cr2, (-2, -2, 0)),
     ]
     for iso, atom1, atom2, R in bonds:
-        model.add_bond(atom1, atom2, R, iso=iso)
-    for i, (atom1, atom2, R, J) in enumerate(model):
+        model.add_exchange(atom1, atom2, R, iso=iso)
+    for i, (atom1, atom2, R, parameter) in enumerate(model.exchange):
         assert isinstance(atom1, Atom)
         assert isinstance(atom2, Atom)
         assert isinstance(R, tuple)
-        assert J == MatrixParameter(iso=bonds[i][0])
+        assert parameter == MatrixParameter(iso=bonds[i][0])
+
+
+def test_iteration_on_site():
+    model = SpinHamiltonian()
+    Cr1 = Atom("Cr1", (0.25, 0.25, 0))
+    Cr2 = Atom("Cr2", (0.75, 0.75, 0))
+    model.add_atom(Cr1)
+    model.add_atom(Cr2)
+    model.add_on_site("Cr1", matrix=np.eye(3))
+    model.add_on_site("Cr1", matrix=np.eye(3))
+    for i, (atom, parameter) in enumerate(model.on_site):
+        assert isinstance(atom, Atom)
+        assert parameter == MatrixParameter(matrix=np.eye(3))
 
 
 def test_contains():
@@ -80,7 +93,7 @@ def test_contains():
         (12, Cr1, Cr2, (-2, -2, 0)),
     ]
     for iso, atom1, atom2, R in bonds:
-        model.add_bond(atom1, atom2, R, iso=iso)
+        model.add_exchange(atom1, atom2, R, iso=iso)
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr2, (1, 0, 0)) in model
     assert (Cr1, Cr2, (4, 0, 0)) not in model
@@ -108,7 +121,7 @@ def test_getitem():
         (12, Cr1, Cr2, (-2, -2, 0)),
     ]
     for iso, atom1, atom2, R in bonds:
-        model.add_bond(atom1, atom2, R, iso=iso)
+        model.add_exchange(atom1, atom2, R, iso=iso)
     assert compare_numerically(model[(Cr1, Cr2, (0, 0, 0))].iso, "==", 12)
     assert compare_numerically(model[(Cr2, Cr2, (1, 0, 0))].iso, "==", 12)
     assert compare_numerically(model[(Cr1, Cr2, (-2, -2, 0))].iso, "==", 12)
@@ -129,13 +142,13 @@ def test_I():
     model = SpinHamiltonian()
     model.add_atom(Cr1)
     assert model.I == 0
-    model.add_bond("Cr1", "Cr1", (1, 0, 0), iso=1)
+    model.add_exchange("Cr1", "Cr1", (1, 0, 0), iso=1)
     assert model.I == 1
     model.add_atom(Cr2)
     assert model.I == 1
     model.add_atom(Cr3)
     assert model.I == 1
-    model.add_bond("Cr2", "Cr3", (0, 0, 0), iso=1)
+    model.add_exchange("Cr2", "Cr3", (0, 0, 0), iso=1)
     assert model.I == 3
     model.remove_atom(Cr1)
     assert model.I == 2
@@ -145,7 +158,7 @@ def test_I():
     assert model.I == 0
 
 
-def test_add_bond():
+def test_add_exchange():
     model = SpinHamiltonian()
     Cr1 = Atom("Cr1", (2, 5, 1))
     Cr2 = Atom("Cr2", (4, 2, 1))
@@ -154,22 +167,22 @@ def test_add_bond():
     bond13 = MatrixParameter(iso=13)
     bond23 = MatrixParameter(iso=23)
     bond31 = MatrixParameter(iso=31)
-    model.add_bond(Cr1, Cr2, (0, 0, 0), J=bond12)
-    model.add_bond(Cr2, Cr3, (0, 0, 0), J=bond23)
-    model.add_bond(Cr3, Cr1, (0, 0, 0), J=bond31)
-    assert len(model) == 3
+    model.add_exchange(Cr1, Cr2, (0, 0, 0), parameter=bond12)
+    model.add_exchange(Cr2, Cr3, (0, 0, 0), parameter=bond23)
+    model.add_exchange(Cr3, Cr1, (0, 0, 0), parameter=bond31)
+    assert len(model.exchange) == 3
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) in model
-    model.add_bond(Cr1, Cr3, (0, 0, 0), J=bond13)
-    assert len(model) == 4
+    model.add_exchange(Cr1, Cr3, (0, 0, 0), parameter=bond13)
+    assert len(model.exchange) == 4
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) in model
     assert (Cr1, Cr3, (0, 0, 0)) in model
 
 
-def test_remove_bond():
+def test_remove_exchange():
     model = SpinHamiltonian()
     Cr1 = Atom("Cr1", (2, 5, 1))
     Cr2 = Atom("Cr2", (4, 2, 1))
@@ -178,27 +191,54 @@ def test_remove_bond():
     bond13 = MatrixParameter(iso=13)
     bond23 = MatrixParameter(iso=23)
     bond31 = MatrixParameter(iso=31)
-    model.add_bond(Cr1, Cr2, (0, 0, 0), J=bond12)
-    model.add_bond(Cr2, Cr3, (0, 0, 0), J=bond23)
-    model.add_bond(Cr3, Cr1, (0, 0, 0), J=bond31)
-    model.add_bond(Cr1, Cr3, (0, 0, 0), J=bond13)
-    assert len(model) == 4
+    model.add_exchange(Cr1, Cr2, (0, 0, 0), parameter=bond12)
+    model.add_exchange(Cr2, Cr3, (0, 0, 0), parameter=bond23)
+    model.add_exchange(Cr3, Cr1, (0, 0, 0), parameter=bond31)
+    model.add_exchange(Cr1, Cr3, (0, 0, 0), parameter=bond13)
+    assert len(model.exchange) == 4
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) in model
     assert (Cr1, Cr3, (0, 0, 0)) in model
-    model.remove_bond(Cr1, Cr2, (0, 0, 0))
-    assert len(model) == 3
+    model.remove_exchange(Cr1, Cr2, (0, 0, 0))
+    assert len(model.exchange) == 3
     assert (Cr1, Cr2, (0, 0, 0)) not in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) in model
     assert (Cr1, Cr3, (0, 0, 0)) in model
-    model.remove_bond(Cr3, Cr1, (0, 0, 0))
-    assert len(model) == 2
+    model.remove_exchange(Cr3, Cr1, (0, 0, 0))
+    assert len(model.exchange) == 2
     assert (Cr1, Cr2, (0, 0, 0)) not in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) not in model
     assert (Cr1, Cr3, (0, 0, 0)) in model
+
+
+def test_remove_on_site():
+    model = SpinHamiltonian()
+    Cr1 = Atom("Cr1", (2, 5, 1))
+    Cr2 = Atom("Cr2", (4, 2, 1))
+    Cr3 = Atom("Cr3", (5, 1, 8))
+    bond1 = MatrixParameter(iso=1)
+    bond2 = MatrixParameter(iso=2)
+    bond3 = MatrixParameter(iso=3)
+    model.add_on_site(Cr1, parameter=bond2)
+    model.add_on_site(Cr2, parameter=bond2)
+    model.add_on_site(Cr3, parameter=bond3)
+    assert len(model.on_site) == 3
+    assert Cr1 in model
+    assert Cr2 in model
+    assert Cr3 in model
+    model.remove_on_site(Cr1)
+    assert len(model.on_site) == 2
+    assert Cr1 not in model
+    assert Cr2 in model
+    assert Cr3 in model
+    model.remove_on_site(Cr3)
+    assert len(model.on_site) == 1
+    assert Cr1 not in model
+    assert Cr2 in model
+    assert Cr3 not in model
 
 
 def test_add_atom():
@@ -231,27 +271,33 @@ def test_remove_atom():
     Cr1 = Atom("Cr1", (2, 5, 1))
     Cr2 = Atom("Cr2", (4, 2, 1))
     Cr3 = Atom("Cr3", (5, 1, 8))
+    bond1 = MatrixParameter(iso=1)
     bond12 = MatrixParameter(iso=12)
     bond13 = MatrixParameter(iso=13)
     bond23 = MatrixParameter(iso=23)
     bond31 = MatrixParameter(iso=31)
-    model.add_bond(Cr1, Cr2, (0, 0, 0), J=bond12)
-    model.add_bond(Cr2, Cr3, (0, 0, 0), J=bond23)
-    model.add_bond(Cr3, Cr1, (0, 0, 0), J=bond31)
-    model.add_bond(Cr1, Cr3, (0, 0, 0), J=bond13)
-    assert len(model) == 4
+    model.add_exchange(Cr1, Cr2, (0, 0, 0), parameter=bond12)
+    model.add_exchange(Cr2, Cr3, (0, 0, 0), parameter=bond23)
+    model.add_exchange(Cr3, Cr1, (0, 0, 0), parameter=bond31)
+    model.add_exchange(Cr1, Cr3, (0, 0, 0), parameter=bond13)
+    model.add_on_site(Cr1, parameter=bond1)
+    assert len(model.exchange) == 4
+    assert len(model.on_site) == 1
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) in model
     assert (Cr1, Cr3, (0, 0, 0)) in model
+    assert Cr1 in model
     assert len(model.magnetic_atoms) == 3
     model.remove_atom(Cr1)
     assert len(model.magnetic_atoms) == 2
-    assert len(model) == 1
+    assert len(model.exchange) == 1
+    assert len(model.on_site) == 0
     assert (Cr1, Cr2, (0, 0, 0)) not in model
     assert (Cr2, Cr3, (0, 0, 0)) in model
     assert (Cr3, Cr1, (0, 0, 0)) not in model
     assert (Cr1, Cr3, (0, 0, 0)) not in model
+    assert Cr1 not in model
 
 
 def test_get_atom_coordinates():
@@ -355,8 +401,8 @@ def test_filter():
         (12, Cr1, Cr2, (-2, -2, 0)),
     ]
     for iso, atom1, atom2, R in bonds:
-        model.add_bond(atom1, atom2, R, iso=iso)
-    assert len(model) == 12
+        model.add_exchange(atom1, atom2, R, iso=iso)
+    assert len(model.exchange) == 12
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr1, (0, 0, 0)) in model
     assert (Cr1, Cr1, (1, 0, 0)) in model
@@ -370,7 +416,7 @@ def test_filter():
     assert (Cr2, Cr1, (2, 2, 0)) in model
     assert (Cr1, Cr2, (-2, -2, 0)) in model
     filtered_model = model.filtered(max_distance=1)
-    assert len(filtered_model) == 6
+    assert len(filtered_model.exchange) == 6
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr1, (0, 0, 0)) in model
     assert (Cr1, Cr1, (1, 0, 0)) in model
@@ -378,7 +424,7 @@ def test_filter():
     assert (Cr2, Cr2, (1, 0, 0)) in model
     assert (Cr2, Cr2, (-1, 0, 0)) in model
     filtered_model = model.filtered(min_distance=1)
-    assert len(filtered_model) == 10
+    assert len(filtered_model.exchange) == 10
     assert (Cr1, Cr1, (1, 0, 0)) in model
     assert (Cr1, Cr1, (-1, 0, 0)) in model
     assert (Cr2, Cr2, (1, 0, 0)) in model
@@ -390,7 +436,7 @@ def test_filter():
     assert (Cr2, Cr1, (2, 2, 0)) in model
     assert (Cr1, Cr2, (-2, -2, 0)) in model
     filtered_model = model.filtered(min_distance=1, max_distance=2)
-    assert len(filtered_model) == 8
+    assert len(filtered_model.exchange) == 8
     assert (Cr1, Cr1, (1, 0, 0)) in model
     assert (Cr1, Cr1, (-1, 0, 0)) in model
     assert (Cr2, Cr2, (1, 0, 0)) in model
@@ -418,19 +464,19 @@ def test_notation_manipulation():
 
     model.notation = "magnopy"
     assert compare_numerically(model[Cr, Cr, (1, 0, 0)].iso, "==", 1)
-    assert len(model) == 2
+    assert len(model.exchange) == 2
     model.notation = "magnopy"
     assert compare_numerically(model[Cr, Cr, (1, 0, 0)].iso, "==", 1)
-    assert len(model) == 2
+    assert len(model.exchange) == 2
 
     assert model.double_counting
-    assert len(model) == 2
+    assert len(model.exchange) == 2
     model.double_counting = False
     assert compare_numerically(model[Cr, Cr, (1, 0, 0)].iso, "==", 2)
-    assert len(model) == 1
+    assert len(model.exchange) == 1
     model.double_counting = True
     assert compare_numerically(model[Cr, Cr, (1, 0, 0)].iso, "==", 1)
-    assert len(model) == 2
+    assert len(model.exchange) == 2
 
     assert not model.spin_normalized
     model.spin_normalized = True
@@ -518,23 +564,23 @@ def test_predefined_notations():
     )
 
 
-def test_add_remove_bond_with_notation():
+def test_add_remove_exchange_with_notation():
     model = SpinHamiltonian()
     Cr1 = Atom("Cr1", (2, 5, 1))
     Cr2 = Atom("Cr2", (4, 2, 1))
     bond = MatrixParameter(iso=1)
     model.double_counting = False
-    model.add_bond(Cr1, Cr2, (0, 0, 0), J=bond)
+    model.add_exchange(Cr1, Cr2, (0, 0, 0), parameter=bond)
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr1, (0, 0, 0)) not in model
-    model.remove_bond(Cr1, Cr2, (0, 0, 0))
+    model.remove_exchange(Cr1, Cr2, (0, 0, 0))
     assert (Cr1, Cr2, (0, 0, 0)) not in model
     assert (Cr2, Cr1, (0, 0, 0)) not in model
 
     model.double_counting = True
-    model.add_bond(Cr1, Cr2, (0, 0, 0), J=bond)
+    model.add_exchange(Cr1, Cr2, (0, 0, 0), parameter=bond)
     assert (Cr1, Cr2, (0, 0, 0)) in model
     assert (Cr2, Cr1, (0, 0, 0)) in model
-    model.remove_bond(Cr2, Cr1, (0, 0, 0))
+    model.remove_exchange(Cr2, Cr1, (0, 0, 0))
     assert (Cr1, Cr2, (0, 0, 0)) not in model
     assert (Cr2, Cr1, (0, 0, 0)) not in model

@@ -1,0 +1,51 @@
+.. math::
+  \Delta_{ij}^0(\boldsymbol{k})
+     = \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}}\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{d_{ij}}}\,
+       \bigg(&
+          J_{ij}^{nn}\,e^{i\,(\phi_j+\phi_i)}\,\sin \theta_i\, \sin \theta_j
+          \\-&
+          (J_{ij}^{u v +}+i\,D_{ij}^n)
+          \,\cos^2 (\theta_i/2)\,\sin^2 (\theta_j/2)\,
+          e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d_{ij}}+\phi_j)}
+          \\-&
+          (J_{ij}^{u v +}-i\,D_{ij}^n\,\sin^2 (\theta_i/2)\,\cos^2 (\theta_j/2)\,
+          e^{-i\,\phi_i}
+       \bigg)
+
+.. math::
+  \Delta_{ij}^1(\boldsymbol{k})
+     = \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}}\,
+       e^{i\,\boldsymbol{k}\cdot\boldsymbol{d_{ij}}}\,
+       \bigg(&
+        (S_{ij}^v-D_{ij}^v+i\,S_{ij}^u+i\,D_{ij}^u)\,\sin^2 (\theta_i/2)\,\sin \theta_j\,
+        e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d_{ij}}-\phi_j-2\,\phi_i)}\\
+        +&
+         (S_{ij}^v+D_{ij}^v+i\,S_{ij}^u-i\,D_{ij}^u)\,\sin \theta_i\,\sin^2 (\theta_j/2)\,
+        e^{-i\,(2\,\phi_j+\phi_i}
+       \bigg)
+
+.. math::
+  \Delta_{ij}^{-1}(\boldsymbol{k})
+     = \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}}\,
+       e^{i\,\boldsymbol{k}\cdot\boldsymbol{d_{ij}}}\,
+       \bigg(&
+        (-S_{ij}^v+D_{ij}^v+i\,S_{ij}^u+i\,D_{ij}^u)\,\cos^2 (\theta_i/2)\,\sin \theta_j\,
+        e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d_{ij}}+\phi_j}\\
+        -&
+         (S_{ij}^v+D_{ij}^v-i\,S_{ij}^u-i\,D_{ij}^u)\,\sin \theta_i\,\cos^2 (\theta_j/2)\,
+        e^{i\,\phi_i}
+       \bigg)
+
+.. math::
+  \Delta_{ij}^2(\boldsymbol{k})
+     = \sum_{\boldsymbol{d_{ij}}}\,
+     e^{i\,\boldsymbol{k}\cdot\boldsymbol{d_{ij}}}\,
+        (J_{ij}^{u v -}+i\,S_{ij}^n)\,sin^2(\theta_i/2)\,\sin^2(\theta_j/2)\,
+        e^{i\,\boldsymbol{q}\cdot\boldsymbol{d_{ij}}-2\,(\phi_j+\phi_i)}
+
+.. math::
+  \Delta_{ij}^{-2}(\boldsymbol{k})
+     = \sum_{\boldsymbol{d_{ij}}}\,
+     e^{i\,\boldsymbol{k}\cdot\boldsymbol{d_{ij}}}\,
+        (J_{ij}^{u v -}-i\,S_{ij}^n)\,cos^2(\theta_i/2)\,\cos^2(\theta_j/2)\,
+        e^{-i\,\boldsymbol{q}\cdot\boldsymbol{d_{ij}}}

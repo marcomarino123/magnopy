@@ -17,6 +17,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 __all__ = [
+    "LENGTH_UNITS",
+    "LENGTH_UNITS_NAME",
+    "ENERGY_UNITS",
+    "ENERGY_UNITS_NAME",
+    "MAGNETIC_FIELD_UNITS",
+    "MAGNETIC_FIELD_UNITS_NAME",
     "BOHR",
     "ANGSTROM",
     "JOULE",
@@ -26,34 +32,78 @@ __all__ = [
     "RYDBERG",
     "TESLA",
     "MU_BOHR",
+    "MU_BOHR_UNITS_NAME",
+    "K_BOLTZMANN",
+    "K_BOLTZMANN_UNITS_NAME",
 ]
+# TODO work accurately with units
 
-# Internal units are:
-# - Angstrom for length
-# - meV for parameters
-# Bohr magneton for spins/magnetization
+# In this module we list all other supported unit in the units of International System of Units
+################################################################################
+#                                    Units                                     #
+################################################################################
+########################################
+#                Length                #
+########################################
+BOHR = 1 / 0.529177210903e-10  # Bohr / Meter
+ANGSTROM = 1e10  # Angstrom / Meter
+# Internal units
+LENGTH_UNITS = ANGSTROM
+LENGTH_UNITS_NAME = "Angstrom"
 
-# In this module we list all other supported unit in terms of the internal ones.
+########################################
+#                Energy                #
+########################################
+JOULE = 1  # Joule
+ELECTRON_VOLT = 1.602176634e-19  # Joule
+MILLI_ELECTRON_VOLT = ELECTRON_VOLT / 1000  # Joule
+RYDBERG = 13.605693122994 * ELECTRON_VOLT  # Joule
+# Internal units
+ENERGY_UNITS = MILLI_ELECTRON_VOLT
+ENERGY_UNITS_NAME = "meV"
 
-# Length conversion
-BOHR = 0.529177210903  # Angstrom
-ANGSTROM = 1.0  # Angstrom
+########################################
+#              Temperature             #
+########################################
+KELVIN = 1  # Kelvin
+# Internal units
+TEMPERATURE_UNITS = KELVIN
+TEMPERATURE_UNITS_NAME = KELVIN
 
-# Energy conversion
-JOULE = 6.241509074e21  # meV
-MILLI_ELECTRON_VOLT = 1.0  # meV
-ELECTRON_VOLT = 1e3  # mev
-KELVIN = 1 / 11.60451812  # meV
-RYDBERG = 13605.693122994  # meV
 
-# Magnetisation
-MU_BOHR = 5.7883818060e-2  # meV/T
-
-# Magnetic field
+########################################
+#            Magnetic field            #
+########################################
 TESLA = 1.0  # Tesla
+# Internal units
+MAGNETIC_FIELD_UNITS = TESLA
+MAGNETIC_FIELD_UNITS_NAME = "Tesla"
 
+################################################################################
+#                                  Constants                                   #
+################################################################################
+
+########################################
+#           Boolean keywords           #
+########################################
 # Case insensitive
 _TRUE_KEYWORDS = ["true", "t", "1", "yes", "y"]
 
 # Case insensitive
 _FALSE_KEYWORDS = ["false", "f", "0", "no", "n"]
+
+########################################
+#             Bohr magneton            #
+########################################
+MU_BOHR = 9.2740100783e-24  # Joule / Tesla
+# Convert to internal units
+MU_BOHR /= ENERGY_UNITS / MAGNETIC_FIELD_UNITS  # meV/Tesla
+MU_BOHR_UNITS_NAME = f"{ENERGY_UNITS_NAME}/{MAGNETIC_FIELD_UNITS_NAME}"
+
+########################################
+#          Boltzmann constant          #
+########################################
+K_BOLTZMANN = 1.380649e-23  # Joule / Kelvin
+# Convert to internal units
+K_BOLTZMANN /= ENERGY_UNITS / KELVIN
+K_BOLTZMANN_UNITS_NAME = f"{ENERGY_UNITS_NAME}/{TEMPERATURE_UNITS_NAME}"

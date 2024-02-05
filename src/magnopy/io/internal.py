@@ -35,8 +35,12 @@ from magnopy.units import (
     ANGSTROM,
     BOHR,
     ELECTRON_VOLT,
+    ENERGY_UNITS,
+    ENERGY_UNITS_NAME,
     JOULE,
-    KELVIN,
+    K_BOLTZMANN,
+    LENGTH_UNITS,
+    LENGTH_UNITS_NAME,
     MILLI_ELECTRON_VOLT,
     RYDBERG,
 )
@@ -331,7 +335,7 @@ def _read_cell(lines, spinham: SpinHamiltonian):
     # Search for the <Units> keyword
     if len(line) == 1:
         _logger.info("No <Units> nor <Scale> keywords are detected.")
-        units = "angstroms"
+        units = LENGTH_UNITS_NAME
     if len(line) >= 2:
         # <Units> keyword can be first in the keyword list. Only the <Units> keyword is alphabetic.
         if str.isalpha(line[1]):
@@ -343,16 +347,16 @@ def _read_cell(lines, spinham: SpinHamiltonian):
             _logger.info(f'"{units}" keyword is detected.')
         else:
             _logger.info(
-                "No <Units> keywords is detected. Fall back to default (Angstrom)."
+                f"No <Units> keywords is detected. Fall back to default ({LENGTH_UNITS_NAME})."
             )
-            units = "angstroms"
+            units = LENGTH_UNITS_NAME
 
     # Process <Units> keyword
     # Only those two cases are possible since the input file is pre-verified
     if units.startswith("b"):
-        units_conversion = BOHR
+        units_conversion = LENGTH_UNITS / BOHR
     elif units.startswith("a"):
-        units_conversion = ANGSTROM
+        units_conversion = LENGTH_UNITS / ANGSTROM
 
     # Process <Scale> keyword
     # The <Units> keyword is already popped out of the line list
@@ -430,13 +434,13 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
     # Only three cases are possible, since the input lines are verified.
     if units.startswith("r"):
         relative = True
-        units_conversion = ANGSTROM
+        units_conversion = 1
     elif units.startswith("b"):
         relative = False
-        units_conversion = BOHR
+        units_conversion = LENGTH_UNITS / BOHR
     elif units.startswith("a"):
         relative = False
-        units_conversion = ANGSTROM
+        units_conversion = LENGTH_UNITS / ANGSTROM
 
     _logger.info(
         f"Units conversion factor: {units_conversion}; coordinates are {'relative' if relative else 'absolute'}"
@@ -576,28 +580,35 @@ def _read_exchange(lines, spinham):
     # Decide the case based on <Units>
     # Only those cases are possible, since the input lines are pre-verified.
     if units.startswith("r"):
-        units_conversion = RYDBERG
+        units_conversion = ENERGY_UNITS / RYDBERG
         _logger.info(
-            "Exchange parameters are provided in Rydberg energy units. Will be converted to meV."
+            "Exchange parameters are provided in Rydberg energy units. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}.",
         )
     elif units.startswith("j"):
-        units_conversion = JOULE
+        units_conversion = ENERGY_UNITS / JOULE
         _logger.info(
-            f"Exchange parameters are provided in Joule. Will be converted to meV."
+            "Exchange parameters are provided in Joule. "
+            + f" Will be converted to {ENERGY_UNITS_NAME}.",
         )
     elif units.startswith("k"):
-        units_conversion = KELVIN
+        units_conversion = K_BOLTZMANN
         _logger.info(
-            f"Exchange parameters are provided in Kelvin. Will be converted to meV."
+            "Exchange parameters are provided in Kelvin. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}.",
         )
     elif units.startswith("e"):
-        units_conversion = ELECTRON_VOLT
+        units_conversion = ENERGY_UNITS / ELECTRON_VOLT
         _logger.info(
-            f"Exchange parameters are provided in electron-Volts. Will be converted to meV."
+            "Exchange parameters are provided in electron-Volts. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}.",
         )
     elif units.startswith("m"):
-        units_conversion = MILLI_ELECTRON_VOLT
-        _logger.info(f"Exchange parameters are provided in meV.")
+        units_conversion = ENERGY_UNITS / MILLI_ELECTRON_VOLT
+        _logger.info(
+            f"Exchange parameters are provided in meV. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}.",
+        )
 
     _logger.info(f"Units conversion factor: {units_conversion}")
 
@@ -725,33 +736,42 @@ def _read_on_site(lines, spinham: SpinHamiltonian):
         _logger.info(f'"{units}" keyword is detected.')
     else:
         units = "meV"
-        _logger.info(f"No <Units> keyword is detected. Fall back to default (meV).")
+        _logger.info(
+            f"No <Units> keyword is detected. Fall back to default ({ENERGY_UNITS_NAME})."
+        )
 
     # Decide the case based on <Units>
     # Only those cases are possible, since the input lines are pre-verified.
     if units.startswith("r"):
-        units_conversion = RYDBERG
+        units_conversion = ENERGY_UNITS / RYDBERG
         _logger.info(
-            "On-site anisotropy parameters are provided in Rydberg energy units. Will be converted to meV."
+            "On-site anisotropy parameters are provided in Rydberg energy units. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}."
         )
     elif units.startswith("j"):
-        units_conversion = JOULE
+        units_conversion = ENERGY_UNITS / JOULE
         _logger.info(
-            f"On-site anisotropy parameters are provided in Joule. Will be converted to meV."
+            f"On-site anisotropy parameters are provided in Joule. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}."
         )
     elif units.startswith("k"):
-        units_conversion = KELVIN
+        units_conversion = K_BOLTZMANN
         _logger.info(
-            f"On-site anisotropy parameters are provided in Kelvin. Will be converted to meV."
+            f"On-site anisotropy parameters are provided in Kelvin. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}."
         )
     elif units.startswith("e"):
-        units_conversion = ELECTRON_VOLT
+        units_conversion = ENERGY_UNITS / ELECTRON_VOLT
         _logger.info(
-            f"On-site anisotropy parameters are provided in electron-Volts. Will be converted to meV."
+            f"On-site anisotropy parameters are provided in electron-Volts. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}."
         )
     elif units.startswith("m"):
-        units_conversion = MILLI_ELECTRON_VOLT
-        _logger.info(f"On-site anisotropy parameters are provided in meV.")
+        units_conversion = ENERGY_UNITS / MILLI_ELECTRON_VOLT
+        _logger.info(
+            f"On-site anisotropy parameters are provided in meV. "
+            + f"Will be converted to {ENERGY_UNITS_NAME}."
+        )
 
     _logger.info(f"Units conversion factor: {units_conversion}")
 

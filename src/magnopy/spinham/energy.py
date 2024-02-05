@@ -20,7 +20,7 @@ import numpy as np
 from wulfric import TORADIANS, absolute_to_relative
 
 from magnopy.spinham.hamiltonian import SpinHamiltonian
-from magnopy.units import MILLI_ELECTRON_VOLT, MU_BOHR, TESLA
+from magnopy.units import MU_BOHR, TESLA
 
 __all__ = ["Energy"]
 
@@ -236,7 +236,6 @@ class Energy:
 
             energy += (
                 factor
-                * MILLI_ELECTRON_VOLT
                 * Si
                 * Sj
                 * (
@@ -260,21 +259,17 @@ class Energy:
 
         spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
-        energy += (
-            MU_BOHR
-            * TESLA
-            * np.sum(
-                spins
+        energy += MU_BOHR * np.sum(
+            spins
+            * (
+                np.sin(theta)
                 * (
-                    np.sin(theta)
-                    * (
-                        self.magnetic_field[0] * np.cos(phi)
-                        + self.magnetic_field[1] * np.sin(phi)
-                    )
-                    + self.magnetic_field[2] * np.cos(theta)
-                ),
-                axis=0,
-            )
+                    self.magnetic_field[0] * np.cos(phi)
+                    + self.magnetic_field[1] * np.sin(phi)
+                )
+                + self.magnetic_field[2] * np.cos(theta)
+            ),
+            axis=0,
         )
 
         return energy
@@ -348,7 +343,6 @@ class Energy:
             d_vector = self.spinham.get_vector(atom1, atom2, ijk)
             energy += (
                 factor
-                * MILLI_ELECTRON_VOLT
                 * Si
                 * Sj
                 * (
@@ -535,7 +529,6 @@ class Energy:
                 factor
                 * Si
                 * Sj
-                * MILLI_ELECTRON_VOLT
                 * (
                     Snn
                     * (

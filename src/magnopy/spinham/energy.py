@@ -20,7 +20,6 @@ import numpy as np
 from wulfric import TORADIANS, absolute_to_relative
 
 from magnopy.spinham.hamiltonian import SpinHamiltonian
-from magnopy.units import MU_BOHR, TESLA
 
 __all__ = ["Energy"]
 

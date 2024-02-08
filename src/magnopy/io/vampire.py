@@ -19,15 +19,15 @@
 __all__ = ["dump_vampire", "dump_mat", "dump_ucf"]
 
 import numpy as np
-from wulfric import print_2d_array
 
 from magnopy._pinfo import logo
+from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.spinham.parameter import MatrixParameter
-from magnopy.units import JOULE
+from magnopy.units.inside import ENERGY
 
 
 def dump_vampire(
-    spinham,
+    spinham: SpinHamiltonian,
     seedname="vampire",
     anisotropic=True,
     dmi=True,
@@ -86,15 +86,23 @@ def dump_vampire(
         nologo=nologo,
     )
     with open("input", "w", encoding="utf-8") as file:
+        if not nologo:
+            file.write(logo(comment=True, date_time=True) + "\n")
+
         file.write(
-            "#------------------------------------------\n"
-            f"material:file={seedname}.mat\n"
-            f"material:unit-cell-file = {seedname}.UCF\n"
-            "#------------------------------------------\n"
+            "\n".join(
+                [
+                    "#------------------------------------------",
+                    f"material:file={seedname}.mat",
+                    f"material:unit-cell-file = {seedname}.UCF",
+                    "#------------------------------------------",
+                    "# TODO: your simulation parameters",
+                ]
+            )
         )
 
 
-def dump_mat(spinham, filename=None, materials=None, nologo=False):
+def dump_mat(spinham: SpinHamiltonian, filename=None, materials=None, nologo=False):
     """
     Write .mat file for |Vampire|_.
 
@@ -113,46 +121,47 @@ def dump_mat(spinham, filename=None, materials=None, nologo=False):
         Whether to print the logo in the output files.
     """
     if nologo:
-        result = []
+        text = []
     else:
-        result = [logo(comment=True, date_time=True) + "\n"]
+        text = [logo(comment=True, date_time=True)]
     if materials is not None:
-        result.append(f"material:num-materials = {max(materials)+1}\n")
+        text.append(f"material:num-materials = {max(materials)+1}")
     else:
-        result.append(f"material:num-materials = {len(spinham.magnetic_atoms)}\n")
+        text.append(f"material:num-materials = {len(spinham.magnetic_atoms)}")
     for i, atom in enumerate(spinham.magnetic_atoms):
         if materials is None or materials[i] not in materials[:i]:
             if materials is not None:
                 m_i = materials[i] + 1
             else:
                 m_i = i + 1
-            result.append("#---------------------------------------------------\n")
-            result.append(f"# Material {m_i} \n")
-            result.append("#---------------------------------------------------\n")
-            result.append(f"material[{m_i}]:material-name = {atom.name}\n")
-            result.append(f"material[{m_i}]:material-element = {atom.type}\n")
-            result.append(f"material[{m_i}]:atomic-spin-moment={atom.spin} ! muB\n")
+            text.append("#---------------------------------------------------")
+            text.append(f"# Material {m_i} \n")
+            text.append("#---------------------------------------------------")
+            text.append(f"material[{m_i}]:material-name = {atom.name}")
+            text.append(f"material[{m_i}]:material-element = {atom.type}")
+            # Here we assume g=2
+            text.append(f"material[{m_i}]:atomic-spin-moment={atom.spin*2} ! muB")
             if atom._spin_direction is not None:
-                result.append(
-                    f"material[{m_i}]:initial-spin-direction = {atom.spin_direction[0]:.8f},{atom.spin_direction[1]:.8f},{atom.spin_direction[2]:.8f}\n"
+                text.append(
+                    f"material[{m_i}]:initial-spin-direction = {atom.spin_direction[0]:.8f},{atom.spin_direction[1]:.8f},{atom.spin_direction[2]:.8f}"
                 )
             else:
-                result.append(f"material[{m_i}]:initial-spin-direction = random\n")
-            result.append(f"material[{m_i}]:damping-constant=0.1\n")
-            result.append(f"material[{m_i}]:uniaxial-anisotropy-constant=0.0\n")
-    result.append("#---------------------------------------------------\n")
+                text.append(f"material[{m_i}]:initial-spin-direction = random")
+            text.append(f"material[{m_i}]:damping-constant=0.1")
+            text.append(f"material[{m_i}]:uniaxial-anisotropy-constant=0.0")
+    text.append("#---------------------------------------------------")
 
-    result = "".join(result)
+    text = "\n".join(text)
 
     if filename is None:
-        return "".join(result)
+        return "".join(text)
 
     with open(filename, "w", encoding="utf-8") as file:
-        file.write("".join(result))
+        file.write("".join(text))
 
 
 def dump_ucf(
-    spinham,
+    spinham: SpinHamiltonian,
     filename=None,
     anisotropic=True,
     dmi=True,
@@ -193,51 +202,33 @@ def dump_ucf(
     content : str
         Content of the .UCF file if ``filename`` is not given.
     """
+    if materials is None:
+        materials = [i for i in range(len(spinham.magnetic_atoms))]
     original_notation = spinham.notation
     spinham.notation = "vampire"
     if nologo:
-        result = []
+        text = []
     else:
-        result = [logo(comment=True, date_time=True) + "\n"]
-    result.append("# Unit cell size:\n")
-    result.append(f"{spinham.a:.8f} {spinham.b:.8f} {spinham.c:.8f}\n")
-    result.append("# Unit cell lattice vectors:\n")
-    result.append(
-        print_2d_array(
-            spinham.a1, borders=False, print_result=False, fmt=".8f"
-        ).lstrip()
-        + "\n"
-    )
-    result.append(
-        print_2d_array(
-            spinham.a2, borders=False, print_result=False, fmt=".8f"
-        ).lstrip()
-        + "\n"
-    )
-    result.append(
-        print_2d_array(
-            spinham.a3, borders=False, print_result=False, fmt=".8f"
-        ).lstrip()
-        + "\n"
-    )
-    result.append("# Atoms\n")
-    result.append(f"{len(spinham.magnetic_atoms)} {len(np.unique(materials))}\n")
+        text = [logo(comment=True, date_time=True)]
+    text.append("# Unit cell size:")
+    text.append(f"{spinham.a:.8f} {spinham.b:.8f} {spinham.c:.8f}")
+    text.append("# Unit cell lattice vectors:")
+    text.append(f"{spinham.a1[0]:15.8f} {spinham.a1[1]:15.8f} {spinham.a1[2]:15.8f}")
+    text.append(f"{spinham.a2[0]:15.8f} {spinham.a2[1]:15.8f} {spinham.a2[2]:15.8f}")
+    text.append(f"{spinham.a3[0]:15.8f} {spinham.a3[1]:15.8f} {spinham.a3[2]:15.8f}")
+    text.append("# Atoms")
+    text.append(f"{len(spinham.magnetic_atoms)} {len(np.unique(materials))}")
     atom_indices = {}
     for a_i, atom in enumerate(spinham.magnetic_atoms):
-        result.append(
-            f"{a_i} {atom.position[0]:.8f} {atom.position[1]:.8f} {atom.position[2]:.8f}"
+        text.append(
+            f"{a_i:<5} {atom.position[0]:15.8f} {atom.position[1]:15.8f} {atom.position[2]:15.8f} {materials[a_i]:>5}"
         )
-        if materials is not None:
-            result.append(f" {materials[a_i]}")
-        else:
-            result.append(f" {a_i}")
-        result.append("\n")
         atom_indices[atom] = a_i
-    result.append("# Interactions\n")
-    result.append(f"{len(spinham)} tensorial\n")
+    text.append("# Interactions")
+    text.append(f"{len(spinham.exchange_like)} tensorial")
 
     IID = 0
-    for atom1, atom2, (i, j, k), J in spinham:
+    for atom1, atom2, (i, j, k), J in spinham.exchange_like:
         if custom_mask is not None:
             J = MatrixParameter(custom_mask(J.matrix))
         else:
@@ -245,22 +236,22 @@ def dump_ucf(
                 J = MatrixParameter(matrix=J.matrix - J.dmi_matrix)
             if not anisotropic:
                 J = MatrixParameter(matrix=J.matrix - J.aniso)
-        J = J / JOULE
+        J = J * ENERGY
         fmt = f"{7+decimals}.{decimals}e"
-        result.append(
-            f"{IID:<2} {atom_indices[atom1]:>2} {atom_indices[atom2]:>2} {i:>2} {j:>2} {k:>2} "
+        text.append(
+            f"{IID:<5} {atom_indices[atom1]:>3} {atom_indices[atom2]:>3}  {i:>2} {j:>2} {k:>2}  "
+            f"{J.xx:{fmt}} {J.xy:{fmt}} {J.xz:{fmt}} "
+            f"{J.yx:{fmt}} {J.yy:{fmt}} {J.yz:{fmt}} "
+            f"{J.zx:{fmt}} {J.zy:{fmt}} {J.zz:{fmt}}"
         )
-        result.append(f"{J.xx:{fmt}} {J.xy:{fmt}} {J.xz:{fmt}} ")
-        result.append(f"{J.yx:{fmt}} {J.yy:{fmt}} {J.yz:{fmt}} ")
-        result.append(f"{J.zx:{fmt}} {J.zy:{fmt}} {J.zz:{fmt}}\n")
         IID += 1
 
     spinham.notation = original_notation
 
-    result = "".join(result)
+    text = "\n".join(text)
 
     if filename is None:
-        return result
+        return text
 
     with open(filename, "w", encoding="utf-8") as file:
-        file.write(result)
+        file.write(text)

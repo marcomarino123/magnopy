@@ -19,7 +19,7 @@
 import logging
 
 from magnopy.exceptions import FailedToVerifyModelFile
-from magnopy.units import _FALSE_KEYWORDS, _TRUE_KEYWORDS
+from magnopy.units.inside import FALSE_KEYWORDS, TRUE_KEYWORDS
 
 _all_ = []
 
@@ -43,7 +43,7 @@ def _is_integer(word):
 
 
 def _is_bool(word):
-    return word.lower() in _TRUE_KEYWORDS + _FALSE_KEYWORDS
+    return word.lower() in TRUE_KEYWORDS + FALSE_KEYWORDS
 
 
 def _is_atom_label(word, line_index):
@@ -381,10 +381,10 @@ def _verify_notation(lines, line_indices):
         'expected line starting with "s" (for spi-normalized)',
     ]
     on_value_fail = [
-        f'expected {" or ".join(_TRUE_KEYWORDS+_FALSE_KEYWORDS)}',
+        f'expected {" or ".join(TRUE_KEYWORDS+FALSE_KEYWORDS)}',
         "expected one number",
         "expected one number",
-        f'expected {" or ".join(_TRUE_KEYWORDS+_FALSE_KEYWORDS)}',
+        f'expected {" or ".join(TRUE_KEYWORDS+FALSE_KEYWORDS)}',
     ]
     value_verify_function = [_is_bool, _is_float, _is_float, _is_bool]
     # Check every property:

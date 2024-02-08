@@ -20,8 +20,13 @@ import numpy as np
 from wulfric import TORADIANS, absolute_to_relative
 
 from magnopy.spinham.hamiltonian import SpinHamiltonian
+from magnopy.units.inside import ENERGY
+from magnopy.units.si import BOHR_MAGNETON
 
 __all__ = ["Energy"]
+
+# Convert to the internal units of energy
+BOHR_MAGNETON /= ENERGY
 
 
 def _find_minimum(C, b):
@@ -258,7 +263,7 @@ class Energy:
 
         spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
-        energy += MU_BOHR * np.sum(
+        energy += BOHR_MAGNETON * np.sum(
             spins
             * (
                 np.sin(theta)
@@ -359,13 +364,9 @@ class Energy:
 
         spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
-        energy += (
-            MU_BOHR
-            * TESLA
-            * np.sum(
-                spins * self.magnetic_field[2] * np.cos(theta),
-                axis=0,
-            )
+        energy += BOHR_MAGNETON * np.sum(
+            spins * self.magnetic_field[2] * np.cos(theta),
+            axis=0,
         )
 
         return energy
@@ -545,12 +546,8 @@ class Energy:
 
         spins = np.array([atom.spin for atom in self.spinham.magnetic_atoms])
 
-        energy += (
-            MU_BOHR
-            * TESLA
-            * np.sum(
-                spins * self.magnetic_field[2] * np.cos(theta),
-                axis=0,
-            )
+        energy += BOHR_MAGNETON * np.sum(
+            spins * self.magnetic_field[2] * np.cos(theta),
+            axis=0,
         )
         return energy

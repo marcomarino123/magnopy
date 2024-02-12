@@ -350,9 +350,9 @@ def _read_cell(lines, spinham: SpinHamiltonian):
 
     # Process <Units> keyword
     # Only those two cases are possible since the input file is pre-verified
-    if units.startswith("b"):
+    if units.lower().startswith("b"):
         units_conversion = BOHR_RADIUS / LENGTH
-    elif units.startswith("a"):
+    elif units.lower().startswith("a"):
         units_conversion = ANGSTROM / LENGTH
 
     # Process <Scale> keyword
@@ -458,7 +458,7 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
 
         # Only spin value is given
         if len(line) == 1:
-            spin_vector = [0, 0, float(line[0])]
+            spin_vector = np.array([0, 0, float(line[0])], dtype=float)
 
         # Either spin vector is given or theta, phi and spin value
         if len(line) == 3:
@@ -482,11 +482,14 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
                         theta = float(line[i][1:]) * TORADIANS
                     else:
                         S = float(line[i])
-                spin_vector = [
-                    S * np.cos(phi) * np.sin(theta),
-                    S * np.sin(phi) * np.sin(theta),
-                    S * np.cos(theta),
-                ]
+                spin_vector = np.array(
+                    [
+                        S * np.cos(phi) * np.sin(theta),
+                        S * np.sin(phi) * np.sin(theta),
+                        S * np.cos(theta),
+                    ],
+                    dtype=float,
+                )
             # Atom i j k Sx Sy Sz
             else:
                 spin_vector = np.array([float(x) for x in line])

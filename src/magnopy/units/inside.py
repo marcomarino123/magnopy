@@ -66,4 +66,4 @@ TEMPERATURE_NAME = "Kelvin"
 #                               Technical units                                #
 ################################################################################
 TRUE_KEYWORDS = ["true", "t", "yes", "y", "1"]
-FALSE_KEYWORDS = ["false", "f", "no", "n", "o"]
+FALSE_KEYWORDS = ["false", "f", "no", "n", "0"]

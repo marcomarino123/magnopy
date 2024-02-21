@@ -184,6 +184,7 @@ custom_links = {
     "PearsonSymbol": ("Pearson symbol", "https://en.wikipedia.org/wiki/Pearson_symbol"),
     "TB2J": ("TB2J", "https://tb2j.readthedocs.io/en/latest/"),
     "Vampire": ("Vampire", "https://vampire.york.ac.uk/"),
+    "wulfric": ("Wulfric", "https://docs.wulfric.org/en/latest/"),
 }
 rst_epilog += "\n".join(
     map(

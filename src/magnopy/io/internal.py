@@ -19,7 +19,6 @@
 import logging
 
 import numpy as np
-from termcolor import colored
 from wulfric import TORADIANS, Atom, absolute_to_relative
 
 from magnopy.geometry import vector_to_angles

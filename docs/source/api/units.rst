@@ -7,39 +7,41 @@ units
 .. currentmodule:: magnopy
 
 
-Length
-======
+Standard system of units
+========================
 
 .. autosummary::
     :toctree: generated/
 
-    BOHR = 0.529177210903
-    ANGSTROM = 1
+    si.ANGSTROM
+    si.ELECTRON_VOLT
+    si.SECOND
+    si.KELVIN
+    si.TESLA
+    si.K_BOLTZMANN
+    si.BOHR_RADIUS
+    si.BOHR_MAGNETON
+    si.PLANK_CONSTANT
+    si.SPEED_OF_LIGHT
+    si.RYDBERG_CONSTANT
+    si.RYDBERG_ENERGY
+    si.ELEMENTARY_CHARGE
 
-Energy
-======
-
-.. autosummary::
-    :toctree: generated/
-
-    JOULE = 6.241509074e21
-    MILLI_ELECTRON_VOLT = 1
-    ELECTRON_VOLT = 1e3
-    KELVIN = 1 / 11.60451812
-    RYDBERG = 13605.693122994
-
-Mganetisation
-=============
-
-.. autosummary::
-    :toctree: generated/
-
-    MU_BOHR = 5.7883818060e-2
-
-Magnetic field
-==============
+Internal units of the code
+==========================
 
 .. autosummary::
     :toctree: generated/
 
-    TESLA = 1
+    LENGTH
+    ENERGY
+    TIME
+    MAGNETIC_FIELD
+    TEMPERATURE
+    LENGTH_NAME
+    ENERGY_NAME
+    TIME_NAME
+    MAGNETIC_FIELD_NAME
+    TEMPERATURE_NAME
+    TRUE_KEYWORDS
+    FALSE_KEYWORDS

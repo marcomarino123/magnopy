@@ -19,6 +19,8 @@ help:
 	@echo "    install - install the package"
 	@echo "    test - execute unit tests"
 	@echo "    pictures-for-docs - plot all pictures for the documentation"
+	@echo "    model-input-examples-run - run the model input examples"
+	@echo "    requirements - install all requirements"
 
 html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
@@ -55,3 +57,9 @@ pictures-for-docs:
 
 model-input-examples-run:
 	@python3 utests/io/test_verify.py
+
+requirements:
+	@pip install -r requirements.txt --no-cache
+	@pip install -r requirements-dev.txt --no-cache
+	@pip install -r docs/requirements.txt --no-cache
+	@pip install -r utests/requirements.txt --no-cache

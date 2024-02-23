@@ -5,7 +5,7 @@
 .vscode
 
 # Virtual environments
-.venv
+.venv*
 .env*
 
 # Unit tests

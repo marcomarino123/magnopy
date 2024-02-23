@@ -11,58 +11,64 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
   \boldsymbol{S_i}
 
 .. code-block:: text
-    :linenos:
+  :linenos:
 
-    ==========
-    On-site <Units>
-    ----------
-    A1
-    Axx Ayy Azz Axy Axz Ayz
-    ----------
-    ...
-    ==========
+  ==============================
+  On-site <Units>
+  ------------------------------
+  A1
+  Axx Ayy Azz Axy Axz Ayz
+  ------------------------------
+  ...
+  ------------------------------
+  An
+  Axx  Ayy Azz Axy Axz Ayz
+  ------------------------------
+  ==============================
 
-* line 1: Section separator (10 or more ``=`` symbols)
-* line 2: One or two entries:
+.. dropdown:: Description
 
-  - ``On-site`` keyword. Only the first letter is actually checked.
-  - (optional) ``<Units>``. One of the predefined keywords.
-    Defines the units of the on-site anisotropy parameters. Allowed values are
+  * line 1: Section separator (10 or more ``=`` symbols)
+  * line 2: One or two entries:
 
-    - meV -  :math:`10^{-3}` electron-Volt (default)
-    - eV -  electron-Volt
-    - J - Joule
-    - K - Kelvin
-    - Ry - Rydberg units of energy
+    - ``On-site`` keyword. Only the first letter is actually checked.
+    - (optional) ``<Units>``. One of the predefined keywords.
+      Defines the units of the on-site anisotropy parameters. Allowed values are
 
-    Note: Only the first letter is actually checked.
+      - meV -  :math:`10^{-3}` electron-Volt (default)
+      - eV -  electron-Volt
+      - J - Joule
+      - K - Kelvin
+      - Ry - Rydberg units of energy
 
-* line 3: Subsection separator (10 or more ``-`` symbols)
-* line 4-5: On-site anisotropy parameter for atom ``A1``, exactly two lines.
+      Note: Only the first letter is actually checked.
 
-  - line 4: ``A1`` - atom's label. Have to be consistent with
-    :ref:`user-guide_input_model-file_atoms` section.
-  - line 5: ``Axx Ayy Azz Axy Axz Ayz`` - unique values of the anisotropy matrix.
-    Six numbers, separated by spaces. They translates into the matrix form as:
+  * line 3: Subsection separator (10 or more ``-`` symbols)
+  * line 4-5: On-site anisotropy parameter for atom ``A1``, exactly two lines.
 
-    .. math::
-      \boldsymbol{A}
-      =
-      \begin{pmatrix}
-        A^{xx} & A^{xy} & A^{xz} \\
-        A^{xy} & A^{yy} & A^{yz} \\
-        A^{xz} & A^{yz} & A^{zz} \\
-      \end{pmatrix}
+    - line 4: ``A1`` - atom's label. Have to be consistent with
+      :ref:`user-guide_input_model-file_atoms` section.
+    - line 5: ``Axx Ayy Azz Axy Axz Ayz`` - unique values of the anisotropy matrix.
+      Six numbers, separated by spaces. They translates into the matrix form as:
 
-* line 6: Subsection separator (10 or more ``-`` symbols)
-* line 7: Specification of the anisotropy for other atom
-* line 8: Section separator (10 or more ``=`` symbols)
+      .. math::
+        \boldsymbol{A}
+        =
+        \begin{pmatrix}
+          A^{xx} & A^{xy} & A^{xz} \\
+          A^{xy} & A^{yy} & A^{yz} \\
+          A^{xz} & A^{yz} & A^{zz} \\
+        \end{pmatrix}
+
+  * line 6: Subsection separator (10 or more ``-`` symbols)
+  * line 7: Specification of the anisotropy for other atom
+  * line 8: Section separator (10 or more ``=`` symbols)
 
 .. dropdown:: Examples
 
   Below we provide several ways to write the same on-site anisotropy.
 
-  .. code-block:: text
+  ::
 
     ==========
     On-site
@@ -72,7 +78,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
     ----------
     ==========
 
-  .. code-block:: text
+  ::
 
     ==========
     On-site meV
@@ -82,7 +88,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
     ----------
     ==========
 
-  .. code-block:: text
+  ::
 
     ==========
     On-site eV
@@ -92,7 +98,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
     ----------
     ==========
 
-  .. code-block:: text
+  ::
 
     ==========
     On-site K
@@ -102,7 +108,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
     ----------
     ==========
 
-  .. code-block:: text
+  ::
 
     ==========
     On-site Ry
@@ -112,7 +118,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
     ----------
     ==========
 
-  .. code-block:: text
+  ::
 
     ==========
     On-site J
@@ -121,3 +127,41 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
     1.6021766341182764e-22 0 0 0 0 0
     ----------
     ==========
+
+
+.hdf5 file
+----------
+
+::
+
+  spinham/                      # this is a Group
+  ├─── ...
+  ├─── on-site/                 # this is a Group
+  │    ├──> units               # this is a Dataset
+  │    └─── parameters/         # this is a Group
+  │         ├─── 1/             # this is a Group
+  │         │    ├──> atom      # this is a Dataset
+  │         │    └──> matrix    # this is a Dataset
+  │         ├─── ...            # this is a Dataset
+  │         └─── n/             # this is a Group
+  │              ├──> atom      # this is a Dataset
+  │              └──> matrix    # this is a Dataset
+  └─── ...
+
+.. dropdown:: Description
+
+  All names of Datasets and Groups are lowercase.
+
+  One Datasets is required:
+
+  * "units" - one of the following: "meV", "eV", "Joule", "Kelvin", "Ry"
+
+  One group is required:
+
+  * "parameters"
+
+    At least one group is required. Every group describe one parameter.
+    Inside every group two Datasets are required:
+
+    - "atom" - a string.
+    - "matrix" - :math:`3\times3` matrix of numbers.

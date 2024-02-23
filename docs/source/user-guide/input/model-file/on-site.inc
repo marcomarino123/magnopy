@@ -10,21 +10,10 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
   \boldsymbol{A_{ii}}
   \boldsymbol{S_i}
 
-.. code-block:: text
+.. literalinclude:: full-txt.inc
   :linenos:
-
-  ==============================
-  On-site <Units>
-  ------------------------------
-  A1
-  Axx Ayy Azz Axy Axz Ayz
-  ------------------------------
-  ...
-  ------------------------------
-  An
-  Axx  Ayy Azz Axy Axz Ayz
-  ------------------------------
-  ==============================
+  :lines: 44-55
+  :language: text
 
 .. dropdown:: Description
 
@@ -132,21 +121,10 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 .hdf5 file
 ----------
 
-::
-
-  spinham/                      # this is a Group
-  ├─── ...
-  ├─── on-site/                 # this is a Group
-  │    ├──> units               # this is a Dataset
-  │    └─── parameters/         # this is a Group
-  │         ├─── 1/             # this is a Group
-  │         │    ├──> atom      # this is a Dataset
-  │         │    └──> matrix    # this is a Dataset
-  │         ├─── ...            # this is a Dataset
-  │         └─── n/             # this is a Group
-  │              ├──> atom      # this is a Dataset
-  │              └──> matrix    # this is a Dataset
-  └─── ...
+.. literalinclude:: full-hdf5.inc
+  :linenos:
+  :lines: 1,2,45-55
+  :language: text
 
 .. dropdown:: Description
 

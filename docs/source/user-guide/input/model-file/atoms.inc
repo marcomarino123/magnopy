@@ -6,15 +6,10 @@ Atoms
 .txt file
 ---------
 
-.. code-block:: text
+.. literalinclude:: full-txt.inc
   :linenos:
-
-  ==========
-  Atoms <Units>
-  A1 i j k <spin1>
-  ...
-  An i j k <spinn>
-  ==========
+  :lines: 6-11
+  :language: text
 
 .. dropdown:: Description
 
@@ -195,24 +190,10 @@ Atoms
 .hdf5 file
 ----------
 
-::
-
-  spinham/                 # this is a Group
-  ├─── ...
-  ├─── atoms/              # this is a Group
-  │    ├──> units          # This is a Dataset
-  │    ├─── 1/             # this is a Group
-  │    │    ├──> name      # this is a Dataset
-  │    │    ├──> position  # this is a Dataset
-  │    │    ├──> spin      # this is a Dataset
-  │    │    └──> g-factor  # this is a Dataset
-  │    ├─── ...            # this is a Dataset
-  │    └─── n/             # this is a Group
-  │    │    ├──> name      # this is a Dataset
-  │    │    ├──> position  # this is a Dataset
-  │    │    ├──> spin      # this is a Dataset
-  │    │    └──> g-factor  # this is a Dataset
-  └─── ...
+.. literalinclude:: full-hdf5.inc
+  :linenos:
+  :lines: 1,2,9-21,55
+  :language: text
 
 .. dropdown:: Description
 

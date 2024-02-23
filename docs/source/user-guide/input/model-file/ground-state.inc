@@ -8,14 +8,10 @@ Ground-state
 
 This section is optional and contains the information about the ground state of the model.
 
-.. code-block:: text
+.. literalinclude:: full-txt.inc
   :linenos:
-
-  ==========
-  Ground-state <Units>
-  q1 q2 q3
-  nx ny nz # or a<number> b<number>
-  ==========
+  :lines: 17-21
+  :language: text
 
 .. dropdown:: Description
 
@@ -92,15 +88,10 @@ This section is optional and contains the information about the ground state of 
 ----------
 
 
-::
-
-  spinham/                 # this is a Group
-  ├─── ...
-  ├─── ground-state/       # this is a Group
-  │    ├──> units          # This is a Dataset
-  │    ├──> spiral-vector  # this is a Dataset
-  │    └──> cone-axis      # this is a Dataset
-  └─── ...
+.. literalinclude:: full-hdf5.inc
+  :linenos:
+  :lines: 1,2,27-30,55
+  :language: text
 
 .. dropdown:: Description
 

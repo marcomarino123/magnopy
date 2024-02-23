@@ -13,33 +13,10 @@ Parameters of the bilinear exchange part of the Hamiltonian:
   \boldsymbol{J_{ij}}
   \boldsymbol{S_j}
 
-.. code-block:: text
+.. literalinclude:: full-txt.inc
   :linenos:
-
-  ====================
-  Exchange <Units>
-  --------------------
-  atom-1 atom-2 i j k
-  <Isotropic Jiso>
-  <DMI Dx Dy Dz>
-  <Matrix
-  Jxx Jxy Jxz
-  Jyx Jyy Jyz
-  Jzx Jzy Jzz>
-  <Symmetric-anisotropy Sxx Syy Sxy Sxz Syz>
-  --------------------
-  ...
-  --------------------
-  atom-1 atom-2 i j k
-  <Isotropic Jiso>
-  <DMI Dx Dy Dz>
-  <Matrix
-  Jxx Jxy Jxz
-  Jyx Jyy Jyz
-  Jzx Jzy Jzz>
-  <Symmetric-anisotropy Sxx Syy Sxy Sxz Syz>
-  --------------------
-  ====================
+  :lines: 21-44
+  :language: text
 
 .. dropdown:: Description
 
@@ -205,25 +182,10 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 ----------
 
 
-::
-
-  spinham/                      # this is a Group
-  ├─── ...
-  ├─── exchange/                # this is a Group
-  │    ├──> units               # this is a Dataset
-  │    └─── parameters/         # this is a Group
-  │         ├─── 1/             # this is a Group
-  │         │    ├──> atom-1    # this is a Dataset
-  │         │    ├──> atom-2    # this is a Dataset
-  │         │    ├──> ijk       # this is a Dataset
-  │         │    └──> matrix    # this is a Dataset
-  │         ├─── ...            # this is a Dataset
-  │         └─── n/             # this is a Group
-  │              ├──> atom-1    # this is a Dataset
-  │              ├──> atom-2    # this is a Dataset
-  │              ├──> ijk       # this is a Dataset
-  │              └──> matrix    # this is a Dataset
-  └─── ...
+.. literalinclude:: full-hdf5.inc
+  :linenos:
+  :lines: 1,2,31-44,55
+  :language: text
 
 .. dropdown:: Description
 

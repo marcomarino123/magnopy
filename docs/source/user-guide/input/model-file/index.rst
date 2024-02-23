@@ -88,3 +88,19 @@ General comment for both files
 .. include:: exchange.inc
 
 .. include:: on-site.inc
+
+
+Full specification reference
+============================
+
+.txt file
+---------
+
+.. literalinclude:: full-txt.inc
+  :language: text
+
+.hdf5 file
+----------
+
+.. literalinclude:: full-hdf5.inc
+  :language: text

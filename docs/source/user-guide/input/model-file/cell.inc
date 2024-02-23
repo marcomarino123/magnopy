@@ -6,15 +6,10 @@ Cell
 .txt file
 ---------
 
-.. code-block:: text
+.. literalinclude:: full-txt.inc
   :linenos:
-
-  ==========
-  Cell <units> <scale>
-  a_x a_y a_z
-  b_x b_y b_z
-  c_x c_y c_z
-  ==========
+  :lines: 1-6
+  :language: text
 
 .. dropdown:: Description
 
@@ -150,17 +145,10 @@ Cell
 .hdf5 file
 ----------
 
-::
-
-  spinham/           # this is a Group
-  ├─── ...
-  ├─── cell/         # this is a Group
-  │    ├──> units    # this is a Dataset
-  │    ├──> scale    # this is a Dataset
-  │    ├──> a1       # this is a Dataset
-  │    ├──> a2       # this is a Dataset
-  │    ├──> a3       # this is a Dataset
-  └─── ...
+.. literalinclude:: full-hdf5.inc
+  :linenos:
+  :lines: 1-8,55
+  :language: text
 
 .. dropdown:: Description
 

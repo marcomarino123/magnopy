@@ -6,16 +6,11 @@ Notation
 .txt file
 ---------
 
-.. code-block:: text
+.. literalinclude:: full-txt.inc
   :linenos:
+  :lines: 11-17
+  :language: text
 
-  ==========
-  Notation
-  Double-counting  value  #  true or false
-  Spin-normalized  value  #  true or false
-  Exchange-factor  number #  1 or -1 or 0.5 or any number
-  On-site-factor   number #  1 or -1 or any number
-  ==========
 .. dropdown:: Description
 
   * line 1: Section separator (10 or more ``=`` symbols)
@@ -147,16 +142,10 @@ Notation
 ----------
 
 
-::
-
-  spinham/                     # this is a Group
-  ├─── ...
-  ├─── notation/               # this is a Group
-  │    ├──> double-counting    # this is a Dataset
-  │    ├──> spin-normalized    # this is a Dataset
-  │    ├──> exchange-factor    # this is a Dataset
-  │    ├──> on-site-factor     # this is a Dataset
-  └─── ...
+.. literalinclude:: full-hdf5.inc
+  :linenos:
+  :lines: 1,2,22-26,55
+  :language: text
 
 .. dropdown:: Description
 

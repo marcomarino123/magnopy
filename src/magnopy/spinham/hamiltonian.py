@@ -47,18 +47,18 @@ class SpinHamiltonian(Crystal):
 
     For the predefined notations see :py:meth:`.notation`.
 
-    Child of the :py:class:`.Crystal` class.
+    Child of the :ref:`wulfric:api_crystal` class.
 
     Parameters
     ----------
-    crystal : :py:class:`.Crystal`, optional
+    crystal : :ref:`wulfric:api_crystal`, optional
         Crystal on which the spin Hamiltonian is build.
         By default it is cubic (:math:`a=1`) lattice with no atoms.
     notation : str or tuple of two bool and one or two floats, optional
         One of the predefined notations or tuple with custom notation.
         See :py:attr:`.notation` for details.
     **kwargs
-        Keyword arguments for the :py:class:`.Crystal` constructor.
+        Keyword arguments for the :ref:`wulfric:api_crystal` constructor.
 
     """
 
@@ -633,7 +633,7 @@ class SpinHamiltonian(Crystal):
 
         Returns
         -------
-        magnetic_atoms : list of :py:class:`.Atom`
+        magnetic_atoms : list of :ref:`wulfric:api_Atom`
             List of magnetic atoms.
         """
         result = set()
@@ -807,7 +807,7 @@ class SpinHamiltonian(Crystal):
 
         Parameters
         ----------
-        atom : py:class:`.Atom`
+        atom : :ref:`wulfric:api_Atom`
             Atom for which the parameter will be removed.
         raise_if_no_bond : bool, default True
             Whether to raise KeyError if the parameter for ``atom`` is not in the Hamiltonian.
@@ -932,7 +932,7 @@ class SpinHamiltonian(Crystal):
 
         Parameters
         ----------
-        atom : :py:class:`.Atom`
+        atom : :ref:`wulfric:api_Atom`
             Atom object.
         """
 
@@ -969,7 +969,7 @@ class SpinHamiltonian(Crystal):
 
         Returns
         -------
-        crystal : :py:class:`.Crystal`
+        crystal : :ref:`wulfric:api_crystal`
             Crystal of the Hamiltonian.
 
         See Also

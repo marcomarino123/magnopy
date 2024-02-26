@@ -15,80 +15,136 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 21-44
+  :lines: 24-47
   :language: text
 
 .. dropdown:: Description
 
-  * line 1: Section separator (10 or more ``=`` symbols)
-  * line 2: One or two entries:
+  ======  ========================================================================
+  Line    Content
+  ======  ========================================================================
+  1       Section separator (10 or more ``=`` symbols)
+  2       One or two blocks, the order is fixed:
 
-    - ``Exchange`` keyword. Only the first letter is actually checked.
-    - ``<Units>``. One of the predefined keywords.
-      Defines the units of the exchange parameters. Allowed values are
+          * ``exchange`` keyword.
 
-      - meV -  :math:`10^{-3}` electron-Volt (default)
-      - eV -  electron-Volt
-      - J - Joule
-      - K - Kelvin
-      - Ry - Rydberg units of energy
+            * Required
+            * Full word is checked
 
-      Note: Only the first letter is actually checked.
+          * ``units``
 
-  * line 3: Subsection separator (10 or more ``-`` symbols)
-  * line 4: Specification of the first bond.
-  * line 5: Subsection separator (10 or more ``-`` symbols)
-  * line 6: Specification of the second bond.
-  * line 7: Section separator (10 or more ``=`` symbols)
+            Defines the units of the exchange parameters.
 
-  Specification of the bond:
+            * Optional
+            * Only first letter is actually checked
+            * Recognized values:
+
+              * ``meV`` -  :math:`10^{-3}` electron-Volt (default)
+              * ``eV`` -  electron-Volt
+              * ``J`` - Joule
+              * ``K`` - Kelvin
+              * ``Ry`` - Rydberg units of energy
+
+  3       Subsection separator (10 or more ``-`` symbols)
+  4       Five blocks, separated by spaces, the order is fixed:
+
+          * ``atom-1``
+
+            Label of the first atom (the one in the (0,0,0) unit cell).
+            Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
+
+            * Required
+
+          * ``atom-2``
+
+            Label of the second atom (the one in the (i,j,k) unit cell).
+            Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
+
+            * Required
+
+          * ``i j k``
+
+            Relative coordinates of the cell for atom-2. Three integers, separated
+            by spaces. Second atom is understood to be located in the cell with the
+            origin at the
+
+            .. math::
+              \boldsymbol{r}
+              =
+              i\cdot\boldsymbol{a}
+              +
+              j\cdot\boldsymbol{b}
+              +
+              k\cdot\boldsymbol{c}
+
+            where :math:`\boldsymbol{a}`, :math:`\boldsymbol{b}`, :math:`\boldsymbol{c}`
+            are the lattice vectors
+
+  5       Isotropic part of the exchange matrix, optional. Two blocks, separated by spaces:
+
+          * ``isotropic`` keyword
+
+            * Only the first letter is actually checked
+
+          * ``Jiso``
+
+            Values of isotropic exchange
+
+            * One number
+
+  6       Dzyaroshinsky-Moria interaction vector, optional. Four blocks, separated by spaces:
+
+          * ``DMI`` keyword
+
+            * Only the first letter is actually checked
+
+          * x component: :math:`D^x`
+          * y component: :math:`D^y`
+          * z component: :math:`D^z`
+
+  7-10    Full matrix of exchange parameter, optional. Four lines.
+
+          * ``matrix`` keyword
+
+            * Only the first letter is actually checked
+
+          * line 5: Three numbers, separated by spaces: Jxx Jxy Jxz
+          * line 6: Three numbers, separated by spaces: Jyx Jyy Jyz
+          * line 7: Three numbers, separated by spaces: Jzx Jzy Jzz
+
+  11      Symmetric anisotropic part of full matrix of exchange parameter, optional.
+          Six entries, separated by spaces:
+
+          * ``symmetric-anisotropy`` keyword
+
+            * Only the first letter is actually checked
+
+          * ``Sxx Syy Sxy Sxz Syz``
+
+            * Five numbers, separated by spaces, the order is fixed
+            * In a matrix form they translates into:
+
+            .. math::
+              \boldsymbol{J^{SA}}
+              =
+              \begin{pmatrix}
+              S^{xx} & S^{xy} & S^{xz} \\
+                S^{xy} & S^{yy} & S^{yz} \\
+                S^{xz} & S^{yz} & -S^{xx} - S^{yy} \\
+              \end{pmatrix}
+
+  12      Subsection separator (10 or more ``-`` symbols)
+  13      Specifications of bonds
+  14      Subsection separator (10 or more ``-`` symbols)
+  15-22   Specification of the last bond.
+  23      Subsection separator (10 or more ``=`` symbols)
+  24      Section separator (10 or more ``=`` symbols)
+  ======  ========================================================================
+
 
   .. note::
-    At least one of the optional entries with the parameter's value has to be present
-    in each bond
-
-  * line 1: Five entries, separated by spaces:
-
-    - ``A1`` - label of the first atom (the one in the (0,0,0) unit cell).
-      Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
-    - ``A2`` - label of the second atom (the one in the (i,j,k) unit cell).
-      Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
-    - ``i j k`` - Relative coordinates of the cell for Atom 2. Three integers, separated
-      by spaces. Second atom is understood to be located in the cell with the origin at the
-      :math:`\boldsymbol{r} = i\cdot\boldsymbol{a} + j\cdot\boldsymbol{b} + k\cdot\boldsymbol{c}`,
-      where :math:`\boldsymbol{a}`, :math:`\boldsymbol{b}`, :math:`\boldsymbol{c}`
-      are the lattice vectors
-  * line 2: (optional) Isotropic part of the exchange matrix. Two entries, separated by spaces:
-
-    - ``Isotropic`` keyword. Only the first letter is actually checked.
-    - Value of isotropic parameter.
-  * line 3: (optional) Dzyaroshinsky-Moria interaction vector.
-    Also referred as antisymmetric anisotropic interaction. Four entries, separated by spaces:
-
-    - ``DMI`` keyword. Only the first letter is actually checked
-    - x component: :math:`D^x`
-    - y component: :math:`D^y`
-    - z component: :math:`D^z`
-  * line 4-7: (optional) Full matrix of exchange parameter.
-
-    - line 4: ``Matrix`` keyword. Only the first letter is actually checked.
-    - line 5: Three numbers, separated by spaces: Jxx Jxy Jxz
-    - line 6: Three numbers, separated by spaces: Jyx Jyy Jyz
-    - line 7: Three numbers, separated by spaces: Jzx Jzy Jzz
-  * line 8: (optional) Symmetric anisotropic part of full matrix of exchange parameter.
-    Six entries, separated by spaces:
-
-    - ``Symmetric-anisotropy`` keyword. Only the first letter is actually checked.
-    - Five numbers, separated by spaces: ``Sxx Syy Sxy Sxz Syz``. In a matrix form they translates into:
-
-      .. math::
-        \boldsymbol{J^{SA}}
-        =
-        \begin{pmatrix}
-          S^{xx} & S^{xy} & S^{xz} \\
-          S^{xy} & S^{yy} & S^{yz} \\
-          S^{xz} & S^{yz} & -S^{xx} - S^{yy} \\
-        \end{pmatrix}
+    At least one of the optional blocks with the parameter's value has to be present
+    for each bond
 
   Priority of parameter parts:
 
@@ -146,37 +202,44 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
   Usually either a full matrix is given, i.e.
 
-  ::
+  .. code-block:: text
 
+    -------------
     Fe1 Fe2 1 0 0
     Matrix
     1   -1  0
     2    3  0.3
     -0.43 0 -0.5
+    -------------
 
   or at least one of other parts (Isotropic, symmetric anisotropic or antisymmetric anisotropic)
   is given, i.e.
 
-  ::
+  .. code-block:: text
 
+    -------------
     Fe1 Fe2 1 0 0
     Isotropic 1
+    -------------
 
   or
 
-  ::
+  .. code-block:: text
 
+      ---------------
       Fe1 Fe2 1 0 0 1
       DMI 1 0 -0.4
+      ---------------
 
   or
 
-  ::
+  .. code-block:: text
 
+    -----------------------------------------
     Fe1 Fe2 1 0 0
     DMI 1 0 -0.4
     Symmetric-anisotropy 1 0.27 -0.43 0.5 0.3
-
+    -----------------------------------------
 
 .hdf5 file
 ----------
@@ -184,26 +247,23 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,31-44,55
+  :lines: 1,2,32-44,54
   :language: text
 
 .. dropdown:: Description
 
-  All names of Datasets and Groups are lowercase.
+  All names of datasets, groups and attributes are lowercase.
 
-  One Datasets is required:
+  * Attributes
 
-  * "units" - one of the following: "meV", "eV", "Joule", "Kelvin", "Ry"
+    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg"
 
-  One group is required:
+  * Groups
 
-  * "parameters"
+    At least one group is required (:math:`n \ge 1`), every group describes one parameter.
+    Inside each group four datasets are required:
 
-    At least one group is required (:math:`n \ge 1`). Every group describes one parameter.
-    Inside every group four Datasets are required:
-
-    - "atom-1" - a string.
-    - "atom-2" - a string.
-    - "ijk" - three integers.
-
-    - "matrix" - :math:`3\times3` matrix of numbers.
+    * "atom-1" - a string.
+    * "atom-2" - a string.
+    * "ijk" - three integers.
+    * "matrix" - :math:`3\times3` matrix of numbers.

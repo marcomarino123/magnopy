@@ -8,74 +8,134 @@ Atoms
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 6-11
+  :lines: 6-12
   :language: text
 
 .. dropdown:: Description
 
-  * line 1: Section separator (10 or more ``=`` symbols)
-  * line 2: One or two entries, separated by spaces, the order is fixed:
+  ====  ========================================================================
+  Line  Content
+  ====  ========================================================================
+  1     Section separator (10 or more ``=`` symbols)
+  2     One or two blocks, separated by spaces, the order is fixed:
 
-    - ``Atoms`` keyword. Only the first letter is actually checked.
-    - (optional) ``<Units>``. One of the predefined keywords.
-      Defines the units of the atom's coordinates. Allowed values are
+        * ``atoms`` keyword.
 
-      - ``Relative`` (default)
+          * Required
+          * Full word is checked
 
-        Atom coordinates are relative to the cell vectors:
-        :math:`\boldsymbol{r} = i\boldsymbol{a} + j\boldsymbol{a} + k\boldsymbol{c}`
-      - ``Angstrom``
+        * ``units``
 
-        Atom coordinates are absolute and given in Angstroms.
-        :math:`\boldsymbol{r} = (i, j, k)^T`
-      - ``Bohr``
+          Defines the units of the atom's coordinates.
+          Affect the result only if <x y z> is present in the header (line 3).
 
-        Atom coordinates are absolute and given in Bohr.
-        :math:`\boldsymbol{r} = (i, j, k)^T`
+          * Optional
+          * Only first letter is checked
+          * Recognized values:
 
-      Note: Only the first letter is actually checked.
+            * ``Angstrom`` (default)
+            * ``Bohr``
 
-  * line 3: Information about the first atom, five, seven or eight entries,
-    separated by spaces, the order is fixed:
+  3     Data headers. Blocks are separated by spaces. Order is arbitrary.
+        Each block defines the data interpretation of the corresponding column.
+        If some block has to be skipped for some atoms use ``-`` symbol.
 
-    - ``A1`` - atom's label. Any string, that does not contain "#" or space symbols and
-      starts with a letter (lowercase or uppercase) or a number.
-      Atom's labels have to be unique.
-    - ``i`` - first coordinate.
-    - ``j`` -  second coordinate.
-    - ``k`` - third coordinate.
-    - (optional) ``<spin1>`` -  spin of the first atom. Spins are given in Bohr magnetons.
-      Either one, three or four entries separated by space:
+        * ``name`` keyword
 
-      - :math:`S` - spin value. It is oriented along
-        :math:`z` direction, i.e. :math:`\boldsymbol{S} = (0,\,0,\,S)^T`.
+          Name of the atom.
 
-      - :math:`S_x` :math:`S_y` :math:`S_z` - spin vector. The order is fixed.
-        :math:`\boldsymbol{S} = (S^x,\,S^y,\,S^z)^T`.
-      - :math:`S_x` :math:`S_y` :math:`S_z` :math:`S` - direction of spin vector and its value.
-        The module of the vector is ignored and the provided value is used. The order is fixed.
+          * Required
+          * Full word is checked.
 
-        .. math::
-          \boldsymbol{S^{dir}} &= (S^x,\,S^y,\,S^z)^T
+        * ``r1``, ``r2``, ``r3`` keywords
 
-          \boldsymbol{S} &= S\,\dfrac{\boldsymbol{S^{dir}}}{S^{dir}}
-      - :math:`p\phi` :math:`t\theta` :math:`S` - polar (:math:`p\phi`) and
-        azimuthal (:math:`t\theta`) angles and spin Value. The order is arbitrary.
-        Two angles, that define the direction of the spin as described
-        :ref:`here <user-guide_methods_spin-rotations>`. :math:`p` and :math:`t` are used
-        to distinguish this case from the spin vector one, i.e.
+          Relative coordinates of the atom in the unit cell:
 
-        - ``p30 t90 0.5`` - two angles and value
-        - ``30 90 0.5`` - spin vector
+          .. math::
+            \boldsymbol{r}
+            =
+            r_1\boldsymbol{a}
+            +
+            r_2\boldsymbol{b}
+            +
+            r_3\boldsymbol{c}
 
-        Angles are given in degrees :math:`0^{\circ} \le \phi \le 360^{\circ}`,
-        :math:`0^{\circ} \le \theta \le 180^{\circ}`
+          * Either <r1 r2 r3> or <x y z> have to be present.
+            If both present, then they should be consistent.
+          * Full word is checked.
 
-        :math:`\boldsymbol{S} = S\,(\cos\phi\sin\theta,\,\sin\phi\sin\theta,\,\cos\theta)^T`
+        * ``x``, ``y``, ``z`` keywords
 
-  * line 4: Information about the second atom.
-  * line 5: Information about the third atom.
-  * line 6: Section separator (10 or more ``=`` symbols)
+          Absolute coordinates of the atom in the unit cell.
+
+          * Either <r1 r2 r3> or <x y z> have to be present.
+            If both present, then they should be consistent.
+
+        * ``sx``, ``sy``, ``sz``, ``s``, ``sp``, ``st`` keywords
+
+          Spin momentum (:math:`\boldsymbol{S}`)
+
+          * Optional
+          * Full word is checked
+          * Recognized combinations:
+
+            * ``s`` - spin value. It is oriented along
+              :math:`z` direction, i.e. :math:`\boldsymbol{S} = (0,\,0,\,S)^T`.
+
+            * ``sx``, ``sy``, ``sz`` - spin vector. The order is fixed.
+              :math:`\boldsymbol{S} = (S^x,\,S^y,\,S^z)^T`.
+
+            * ``sp``, ``st``, ``s`` - polar (:math:`\phi`) and
+              azimuthal (:math:`\theta`) angles and spin value.
+              Two angles, that define the direction of the spin as described
+              :ref:`here <user-guide_methods_spin-rotations>`.
+
+              Angles are given in degrees :math:`0^{\circ} \le \phi \le 360^{\circ}`,
+              :math:`0^{\circ} \le \theta \le 180^{\circ}`
+
+              .. math::
+                \boldsymbol{S}
+                =
+                S
+                \begin{pmatrix}
+                  \cos\phi\sin\theta \\
+                  \sin\phi\sin\theta \\
+                  \cos\theta
+                \end{pmatrix}
+
+        * ``lx``, ``ly``, ``lz``, ``l``, ``lp``, ``lt`` keywords
+
+          Orbital momentum (:math:`\boldsymbol{L}`).
+
+          * Optional
+          * Full word is checked
+          * See spin keywords for the allowed combinations.
+
+        * ``jx``, ``jy``, ``jz``, ``j``, ``jp``, ``jt`` keywords
+
+          Total momentum (:math:`\boldsymbol{J}`).
+
+          * Optional
+          * Full word is checked
+          * See spin keywords for the allowed combinations.
+
+        * ``g`` keyword
+
+          g factor of an atom.
+
+          * Optional
+
+        * ``q`` keyword
+
+          Electric charge of an atom.
+
+          * Optional
+
+  4-6   Information about the atoms.
+        The data are recognized with respect to the header at line 3.
+  7     Section separator (10 or more ``=`` symbols)
+  ====  ========================================================================
+
 
 .. dropdown:: Examples
 
@@ -84,7 +144,7 @@ Atoms
 
   The cell for all provided cases is
 
-  ::
+  .. code-block:: text
 
     ==========
     Cell
@@ -93,120 +153,102 @@ Atoms
     0 0 3
     ==========
 
-  ::
+  .. code-block:: text
 
-    ==========
+    ================
     Atoms
-    Fe1 0 0 0.5
-    Fe2 0.1 0.5 0
-    ==========
+    name r1  r2  r3
+    Fe1  0   0   0.5
+    Fe2  0.1 0.5 0
+    ================
 
-  ::
+  .. code-block:: text
 
-    ==========
+    ================
     Atoms Relative
-    Fe1 0 0 0.5
-    Fe2 0.1 0.5 0
-    ==========
+    name r1  r2  r3
+    Fe1  0   0   0.5
+    Fe2  0.1 0.5 0
+    ================
 
-  ::
+  .. code-block:: text
 
-    ==========
+    ================
     Atoms Angstrom
-    Fe1 0 0 1.5
-    Fe2 0.1 1 0
-    ==========
+    name x   y   z
+    Fe1  0   0   0.5
+    Fe2  0.1 0.5 0
+    ================
 
-  ::
+  .. code-block:: text
 
-    ==========
+    =============================================
     Atoms Bohr
-    Fe1 0         0           2.8345891869386555
-    Fe2 0.18897261246257702 1.8897261246257702 0
-    ==========
+    name x y z
+    Fe1  0         0           2.8345891869386555
+    Fe2  0.18897261246257702 1.8897261246257702 0
+    =============================================
 
   Below we list a few ways to provide two atoms with the same spin in each case.
 
-  ::
+  .. code-block:: text
 
-    ==========
+    =========================================================
     Atoms
-    #               Sx                 Sy                 Sz
-    Fe1 0   0   0.5 1.2247448713915892 1.2247448713915892 1
-    #               Sx Sy Sz
-    Fe2 0.1 0.5 0   0  0  2
-    ==========
+    name r1  r2  r3  Sx                 Sy                 Sz
+    Fe1  0   0   0.5 1.2247448713915892 1.2247448713915892 1
+    Fe2  0.1 0.5 0   0  0  2
+    =========================================================
 
-  ::
+  .. code-block:: text
 
-    ==========
+    ========================
     Atoms
-    #               Sx Sy Sz                S
-    Fe1 0   0   0.5 3  3  2.449489742783178 2
-    #               S
-    Fe2 0.1 0.5 0   2
-    ==========
+    name r1  r2  r3  sp st S
+    Fe1  0   0   0.5 45 60 2
+    Fe2  0.1 0.5 0   0   0 2
+    ========================
 
-  ::
+  .. code-block:: text
 
-    ==========
+    ========================
     Atoms
-    #               phi  theta S
-    Fe1 0   0   0.5 p45  t60   2
-    #               Sx Sy Sz S
-    Fe2 0.1 0.5 0   0  0  1  2
-    ==========
+    name r1  r2  r3  st sp S
+    Fe1  0   0   0.5 60 45 2
+    Fe2  0.1 0.5 0   0   0 2
+    ========================
 
-  ::
+  .. code-block:: text
 
-    ==========
+    ========================
     Atoms
-    #               theta phi S
-    Fe1 0   0   0.5 t60   p45 2
-    #               S theta phi
-    Fe2 0.1 0.5 0   2 t0    p0
-    ==========
+    name r1  r2  r3  st S st
+    Fe1  0   0   0.5 60 2 45
+    Fe2  0.1 0.5 0   0  2 0
+    ========================
 
-  ::
-
-    ==========
-    Atoms
-    #               theta S phi
-    Fe1 0   0   0.5 t60   2 p45
-    #               S phi theta
-    Fe2 0.1 0.5 0   2 p0  t0
-    ==========
-
-  ::
-
-    ==========
-    Atoms
-    #               phi S theta
-    Fe1 0   0   0.5 p45 2 t60
-    #               S phi theta
-    Fe2 0.1 0.5 0   2 p29 t0 # Note that phi can be anything if t is 0 or 180
-    ==========
 
 .hdf5 file
 ----------
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,9-21,55
+  :lines: 1,2,7-24,54
   :language: text
 
 .. dropdown:: Description
 
-  All names of Datasets and Groups are lowercase.
+  All names of datasets and groups are lowercase.
 
-  One Datasets is required:
+  * Groups
 
-  * "units" - one of the following: "Relative", "Angstrom", "Bohr"
+    At least one group is required. Every group describes an atom.
+    Inside each group following datasets are recognized:
 
-  At least one group is required. Every group describes an atom.
-  Inside each group four Datasets are required:
-
-  * "name" - a string
-  * "position" - three numbers
-  * "spin" - three numbers
-  * "g-factor" - one number
+    * "name" - a string
+    * "position" - three numbers (relative position)
+    * "spin" - three numbers
+    * "g-factor" - one number
+    * "charge" - one number
+    * "orbital-moment" - three numbers
+    * "total-moment" - three numbers

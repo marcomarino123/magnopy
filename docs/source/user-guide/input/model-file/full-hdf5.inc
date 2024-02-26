@@ -1,35 +1,35 @@
 spinham/
 ├─── ...
-├─── cell/
-│    ├──> units
-│    ├──> scale
+├─── cell/ (attr: units)
 │    ├──> a1
 │    ├──> a2
 │    └──> a3
 ├─── atoms/
-│    ├──> units
 │    ├─── 1/
 │    │    ├──> name
-│    │    ├──> position
+│    │    ├──> position  # Always relative to the cell
 │    │    ├──> spin
-│    │    └──> g-factor
+│    │    ├──> g-factor
+│    │    ├──> charge
+│    │    ├──> orbital-moment
+│    │    └──> total-moment
 │    ├─── ...
 │    └─── n/
 │         ├──> name
-│         ├──> position
+│         ├──> position  # Always relative to the cell
 │         ├──> spin
-│         └──> g-factor
+│         ├──> g-factor
+│         ├──> charge
+│         ├──> orbital-moment
+│         └──> total-moment
 ├─── notation/
 │    ├──> double-counting
 │    ├──> spin-normalized
 │    ├──> exchange-factor
 │    └──> on-site-factor
-├─── ground-state/
-│    ├──> units
-│    ├──> spiral-vector
-│    └──> cone-axis
-├─── exchange/
-│    ├──> units
+├──> spiral-vector (attr: units)
+├──> cone-axis (attr: units)
+├─── exchange/ (attr: units)
 │    └─── parameters/
 │         ├─── 1/
 │         │    ├──> atom-1
@@ -42,8 +42,7 @@ spinham/
 │              ├──> atom-2
 │              ├──> ijk
 │              └──> matrix
-├─── on-site/
-│    ├──> units
+├─── on-site/ (attr: units)
 │    └─── parameters/
 │         ├─── 1/
 │         │    ├──> atom

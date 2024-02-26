@@ -11,31 +11,17 @@ the context of magnopy. Magnopy by itself offers a conversion from one format to
 
 We suggest to use |myHDF5|_ web-site to browse the content of the .hdf5 file.
 
-Comparison of the formats
-=========================
+Comment about the .hdf5 file
+============================
 
-.txt file is designed to be more verbose and more relaxed, while the .hdf5 file is more
-strict on the content and format. In any case two files have to represent exactly the same model,
-when read by magnopy.
+* One full .txt file corresponds to the group in .hdf5 file with the attribute "type"
+  set to the value "SpinHamiltonian". In this guide we reference this root group as
+  "spinham/"
+* All keywords are lowercase.
+* All string dataset **data** are case-insensitive.
 
-================  =====================
-.txt file         .hdf5 file
-================  =====================
-Section           Group
-Subsection        Group
-Keyword           Group or Dataset name
-Value             data of the Dataset
-================  =====================
-
-General comment about the .hdf5 file
-====================================
-
-One full .txt file corresponds to the group in .hdf5 file with the attribute "type"
-set to the value "SpinHamiltonian". In this guide we reference this root group as
-"spinham/"
-
-General comment about .txt file
-===============================
+Comment about .txt file
+=======================
 
 * File is read assuming |utf-8|_ encoding (works with almost all plain text files).
 * All blank lines are ignored. Line is considered to be blank if there are no other
@@ -48,22 +34,22 @@ General comment about .txt file
   .. code-block:: text
     :linenos:
 
-    ==========
+    ============================
     # Comment line
     Cell <Units> <Scale>
     a_x a_y a_z # Inline comment
     b_x b_y b_z
     # Comment line
     c_x c_y c_z
-    ==========
+    ============================
 
 * Sections are separated by 10 or more consecutive ``=`` (U+003D) symbols.
 * Subsections inside each section are separated by 10 or more ``-`` (U+002D) symbols.
 * All keywords are case-insensitive.
 * Keywords can not contain spaces.
 
-General comment for both files
-==============================
+Comment for both files
+=======================
 * Sections
   :ref:`user-guide_input_model-file_cell`,
   :ref:`user-guide_input_model-file_atoms`,
@@ -72,8 +58,8 @@ General comment for both files
 * At least one of the sections
   :ref:`user-guide_input_model-file_exchange`,
   :ref:`user-guide_input_model-file_on-site`
-  is required.
-* Section :ref:`user-guide_input_model-file_ground-state` is optional.
+  is required.z
+* Sections :ref:`user-guide_input_model-spiral-vector`, :ref:`user-guide_input_model-cone-axis` are optional.
 
 
 
@@ -83,7 +69,9 @@ General comment for both files
 
 .. include:: notation.inc
 
-.. include:: ground-state.inc
+.. include:: spiral-vector.inc
+
+.. include:: cone-axis.inc
 
 .. include:: exchange.inc
 

@@ -25,15 +25,13 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
         * ``on-site`` keyword
 
-          * Required
-          * Full word is checked
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          Defines the units of the exchange parameters.
-
-          * Optional
-          * Only first letter is actually checked
+          * Optional.
+          * Only first letter is actually checked, case-insensitive.
           * Recognized values:
 
             * ``meV`` -  :math:`10^{-3}` electron-Volt (default)
@@ -42,17 +40,25 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
             * ``K`` - Kelvin
             * ``Ry`` - Rydberg units of energy
 
+          Defines the units of the exchange parameters.
+
   3     Subsection separator (10 or more ``-`` symbols)
   4-5   On-site anisotropy parameter for atom ``atom-1``, exactly two lines.
 
         * ``atom-1``
 
-          Atom's label. Have to be consistent with
-          :ref:`user-guide_input_model-file_atoms` section.
+          * Required.
+          * Have to be consistent with :ref:`user-guide_input_model-file_atoms` section.
+          * Case-sensitive.
+
+          Atom's name.
 
         * ``Axx Ayy Azz Axy Axz Ayz``
 
-          Unique values of the anisotropy matrix. Six numbers, separated by spaces.
+          * Six numbers, separated by spaces.
+          * The order is fixed.
+
+          Unique values of the anisotropy matrix.
           They translates into the matrix form as:
 
           .. math::

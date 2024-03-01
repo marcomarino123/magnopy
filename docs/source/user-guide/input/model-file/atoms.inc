@@ -19,22 +19,22 @@ Atoms
   1     Section separator (10 or more ``=`` symbols)
   2     One or two blocks, separated by spaces, the order is fixed:
 
-        * ``atoms`` keyword.
+        * ``atoms`` keyword
 
-          * Required
-          * Full word is checked
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          Defines the units of the atom's coordinates.
-          Affect the result only if <x y z> is present in the header (line 3).
-
-          * Optional
-          * Only first letter is checked
+          * Optional.
+          * Only first letter is checked, case-insensitive.
           * Recognized values:
 
             * ``Angstrom`` (default)
             * ``Bohr``
+
+          Defines the units of the atom's coordinates.
+          Affect the result only if <x y z> is present in the header (line 3).
 
   3     Data headers. Blocks are separated by spaces. Order is arbitrary.
         Each block defines the data interpretation of the corresponding column.
@@ -42,12 +42,16 @@ Atoms
 
         * ``name`` keyword
 
+          * Required.
+          * Full word is checked, case-insensitive.
+
           Name of the atom.
 
-          * Required
-          * Full word is checked.
-
         * ``r1``, ``r2``, ``r3`` keywords
+
+          * Either <r1 r2 r3> or <x y z> have to be present.
+            If both present, then they should be consistent.
+          * Full word is checked, case-insensitive.
 
           Relative coordinates of the atom in the unit cell:
 
@@ -60,23 +64,18 @@ Atoms
             +
             r_3\boldsymbol{c}
 
+        * ``x``, ``y``, ``z`` keywords
+
           * Either <r1 r2 r3> or <x y z> have to be present.
             If both present, then they should be consistent.
-          * Full word is checked.
-
-        * ``x``, ``y``, ``z`` keywords
+          * Full word is checked, case-insensitive.
 
           Absolute coordinates of the atom in the unit cell.
 
-          * Either <r1 r2 r3> or <x y z> have to be present.
-            If both present, then they should be consistent.
-
         * ``sx``, ``sy``, ``sz``, ``s``, ``sp``, ``st`` keywords
 
-          Spin momentum (:math:`\boldsymbol{S}`)
-
-          * Optional
-          * Full word is checked
+          * Optional.
+          * Full word is checked, case-insensitive.
           * Recognized combinations:
 
             * ``s`` - spin value. It is oriented along
@@ -103,33 +102,37 @@ Atoms
                   \cos\theta
                 \end{pmatrix}
 
+          Spin momentum (:math:`\boldsymbol{S}`)
+
         * ``lx``, ``ly``, ``lz``, ``l``, ``lp``, ``lt`` keywords
+
+          * Optional.
+          * Full word is checked, case-insensitive.
+          * See spin keywords for the allowed combinations.
 
           Orbital momentum (:math:`\boldsymbol{L}`).
 
-          * Optional
-          * Full word is checked
-          * See spin keywords for the allowed combinations.
-
         * ``jx``, ``jy``, ``jz``, ``j``, ``jp``, ``jt`` keywords
+
+          * Optional.
+          * Full word is checked, case-insensitive.
+          * See spin keywords for the allowed combinations.
 
           Total momentum (:math:`\boldsymbol{J}`).
 
-          * Optional
-          * Full word is checked
-          * See spin keywords for the allowed combinations.
-
         * ``g`` keyword
+
+          * Optional.
+          * Full word is checked, case-insensitive.
 
           g factor of an atom.
 
-          * Optional
-
         * ``q`` keyword
 
-          Electric charge of an atom.
+          * Optional.
+          * Full word is checked, case-insensitive.
 
-          * Optional
+          Electric charge of an atom.
 
   4-6   Information about the atoms.
         The data are recognized with respect to the header at line 3.

@@ -24,13 +24,13 @@ spiral vector, that describe the spiral ground state of the spin Hamiltonian.
 
         * ``spiral-vector`` keyword
 
-          * Required
-          * Full word is checked.
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          * Optional
-          * Only first letter is actually checked
+          * Optional.
+          * Only first letter is actually checked, case-insensitive.
           * Recognized values:
 
             * ``relative`` (default)

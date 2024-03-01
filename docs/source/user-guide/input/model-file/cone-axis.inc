@@ -24,13 +24,13 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 
         * ``cone-axis`` keyword
 
-          * Required
-          * Full word is checked.
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          * Optional
-          * Only first letter is actually checked
+          * Optional.
+          * Only first letter is actually checked, case-insensitive.
           * Recognized values:
 
             * ``relative`` (default)
@@ -55,7 +55,7 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 
         Direction of the cone axis :math:`\boldsymbol{\hat{n}}` (i.e. global rotation axis).
 
-        * Required
+        * Required.
         * Recognized combinations:
 
           * ``nx ny nz`` - direction of the cone axis. The modulus can be arbitrary,

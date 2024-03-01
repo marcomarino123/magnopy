@@ -28,15 +28,13 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
           * ``exchange`` keyword.
 
-            * Required
-            * Full word is checked
+            * Required.
+            * Full word is checked, case-insensitive.
 
           * ``units``
 
-            Defines the units of the exchange parameters.
-
-            * Optional
-            * Only first letter is actually checked
+            * Optional.
+            * Only first letter is actually checked, case-insensitive.
             * Recognized values:
 
               * ``meV`` -  :math:`10^{-3}` electron-Volt (default)
@@ -45,24 +43,30 @@ Parameters of the bilinear exchange part of the Hamiltonian:
               * ``K`` - Kelvin
               * ``Ry`` - Rydberg units of energy
 
+            Defines the units of the exchange parameters.
+
   3       Subsection separator (10 or more ``-`` symbols)
   4       Five blocks, separated by spaces, the order is fixed:
 
           * ``atom-1``
 
-            Label of the first atom (the one in the (0,0,0) unit cell).
-            Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
+            * Required.
+            * Should be consistent with :ref:`user-guide_input_model-file_atoms` section.
+            * Case-sensitive.
 
-            * Required
+            Label of the first atom (the one in the (0,0,0) unit cell).
 
           * ``atom-2``
 
-            Label of the second atom (the one in the (i,j,k) unit cell).
-            Label has to be consistent with :ref:`user-guide_input_model-file_atoms` section.
+            * Required.
+            * Should be consistent with :ref:`user-guide_input_model-file_atoms` section.
+            * Case-sensitive.
 
-            * Required
+            Label of the second atom (the one in the (i,j,k) unit cell).
 
           * ``i j k``
+
+            * Required.
 
             Relative coordinates of the cell for atom-2. Three integers, separated
             by spaces. Second atom is understood to be located in the cell with the
@@ -84,29 +88,45 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
           * ``isotropic`` keyword
 
-            * Only the first letter is actually checked
+            * Only the first letter is actually checked, case-insensitive.
 
           * ``Jiso``
 
+            * One number.
+
             Values of isotropic exchange
 
-            * One number
-
-  6       Dzyaroshinsky-Moria interaction vector, optional. Four blocks, separated by spaces:
+  6       Dzyaroshinsky-Moria interaction vector, optional.
+          Four blocks, separated by spaces, the order is fixed:
 
           * ``DMI`` keyword
 
-            * Only the first letter is actually checked
+            * Only the first letter is actually checked, case-insensitive.
 
-          * x component: :math:`D^x`
-          * y component: :math:`D^y`
-          * z component: :math:`D^z`
+          * ``Dx``
+
+            * One number.
+
+            x component of the DMI vector
+
+          * ``Dy``
+
+            * One number.
+
+            y component of the DMI vector
+
+          * ``Dz``
+
+            * One number.
+
+            z component of the DMI vector
+
 
   7-10    Full matrix of exchange parameter, optional. Four lines.
 
           * ``matrix`` keyword
 
-            * Only the first letter is actually checked
+            * Only the first letter is actually checked, case-insensitive.
 
           * line 5: Three numbers, separated by spaces: Jxx Jxy Jxz
           * line 6: Three numbers, separated by spaces: Jyx Jyy Jyz
@@ -117,11 +137,12 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
           * ``symmetric-anisotropy`` keyword
 
-            * Only the first letter is actually checked
+            * Only the first letter is actually checked, case-insensitive.
 
           * ``Sxx Syy Sxy Sxz Syz``
 
-            * Five numbers, separated by spaces, the order is fixed
+            * Five numbers, separated by spaces.
+            * The order is fixed.
             * In a matrix form they translates into:
 
             .. math::

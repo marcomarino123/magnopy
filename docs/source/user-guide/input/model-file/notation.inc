@@ -19,22 +19,22 @@ Notation
   1     Section separator (10 or more ``=`` symbols)
   2     ``notation`` keyword
 
-        * Required
-        * Full word is checked.
+        * Required.
+        * Full word is checked, case-insensitive.
 
   3     Two blocks, separated by spaces, the order is fixed:
 
         * ``double-counting`` keyword
 
+          * Required.
+          * Only first letter is checked, case-insensitive.
+
           True if both pairs :math:`(m,i;m^{\prime},j)` and
           :math:`(m^{\prime},j;m,i)` are included in the Hamiltonian.
 
-          * Required
-          * Only first letter is checked
-
         * ``value``
 
-          * Required
+          * Required.
           * Recognized values:
 
             * For ``True``: ``true``, ``t``, ``1``, ``yes``, ``y``
@@ -44,16 +44,16 @@ Notation
 
         * ``spin-normalized`` keyword
 
+          * Required.
+          * Only first letter is checked, case-insensitive.
+
           True if spin vectors
           are unit vectors (i.e. if spin value is effectively absorbed in the
           exchange/on-site anisotropy parameters).
 
-          * Required
-          * Only first letter is checked
-
         * ``value``
 
-          * Required
+          * Required.
           * Recognized values:
 
             * For ``True``: ``true``, ``t``, ``1``, ``yes``, ``y``
@@ -63,32 +63,32 @@ Notation
 
         * ``exchange-factor`` keyword
 
+          * Required.
+          * Only first letter is checked, case-insensitive.
+
           Numerical factor, that is written before the sum over spin pair.
           Usually it is either :math:`1`, :math:`-1`, :math:`0.5`
           or :math:`-0.5`.
 
-          * Required
-          * Only first letter is checked
-
         * ``value``
 
-          * Required
-          * One number
+          * Required.
+          * One number.
 
   6     Two blocks, separated by spaces, the order is fixed:
 
         * ``on-site-factor`` keyword
 
+          * Required.
+          * Only first letter is checked, case-insensitive.
+
           Numerical factor, that is written before the sum over spins.
           Usually it is either :math:`1` or :math:`-1`.
 
-          * Required
-          * Only first letter is checked
-
         * ``value``
 
-          * Required
-          * One number
+          * Required.
+          * One number.
 
   7     Section separator (10 or more ``=`` symbols)
   ====  ========================================================================

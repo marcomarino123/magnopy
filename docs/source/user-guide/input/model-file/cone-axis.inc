@@ -116,7 +116,7 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,31,54
+  :lines: 1,2,31,52
   :language: text
 
 .. dropdown:: Description
@@ -127,4 +127,5 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 
   * Attributes
 
-    * "units" - either "Relative" or "Absolute"
+    * "units" - either "Relative" or "Absolute". Case-insensitive. Full word is
+      checked.

@@ -148,7 +148,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,45-54
+  :lines: 1,2,44-52
   :language: text
 
 .. dropdown:: Description
@@ -157,12 +157,16 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
   * Attributes
 
-    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg"
+    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg". Case-insensitive. Full word is
+      checked.
 
   * Groups
 
-    At least one group is required (:math:`n \ge 1`), every group describes one parameter.
-    Inside each group two datasets are required:
+    * <number from 1 to n>
 
-    * "atom" - a string.
-    * "matrix" - :math:`3\times3` matrix of numbers.
+      Every group describes one on-site parameter.
+      There may be no groups.
+      Inside each group two datasets are required:
+
+      * "atom" - a string.
+      * "matrix" - :math:`3\times3` matrix of numbers.

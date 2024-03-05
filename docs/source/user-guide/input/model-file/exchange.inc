@@ -268,7 +268,7 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,32-44,54
+  :lines: 1,2,32-43,52
   :language: text
 
 .. dropdown:: Description
@@ -277,14 +277,18 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
   * Attributes
 
-    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg"
+    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg". Case-insensitive. Full word is
+      checked.
 
   * Groups
 
-    At least one group is required (:math:`n \ge 1`), every group describes one parameter.
-    Inside each group four datasets are required:
+    * <number from 1 to n>
 
-    * "atom-1" - a string.
-    * "atom-2" - a string.
-    * "ijk" - three integers.
-    * "matrix" - :math:`3\times3` matrix of numbers.
+      Every group describes one exchange parameter.
+      There may be no groups.
+      Inside each group four datasets are required:
+
+      * "atom-1" - a string.
+      * "atom-2" - a string.
+      * "ijk" - three integers.
+      * "matrix" - :math:`3\times3` matrix of numbers.

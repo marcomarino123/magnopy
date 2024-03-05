@@ -236,7 +236,7 @@ Atoms
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,7-24,54
+  :lines: 1,2,7-24,52
   :language: text
 
 .. dropdown:: Description

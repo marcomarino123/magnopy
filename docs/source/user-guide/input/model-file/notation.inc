@@ -199,7 +199,7 @@ Notation
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,25-29,54
+  :lines: 1,2,25-29,52
   :language: text
 
 .. dropdown:: Description

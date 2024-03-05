@@ -166,7 +166,7 @@ Cell
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1-6,54
+  :lines: 1-6,52
   :language: text
 
 .. dropdown:: Description
@@ -175,7 +175,8 @@ Cell
 
   * Attributes
 
-    * "units" - either "Angstrom" or "Bohr".
+    * "units" - either "Angstrom" or "Bohr". Case-insensitive. Full word is
+      checked.
 
   * Datasets
 

@@ -49,6 +49,10 @@ the corresponding links below.
 
       git remote add upstream https://github.com/magnopy/magnopy.git
 
+   * initialize submodules::
+
+      git submodule update --init --recursive
+
 2. Set up the environment.
 
    We recommend to use virtual environment. Once the virtual environment is created,

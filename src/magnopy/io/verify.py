@@ -27,6 +27,14 @@ _logger = logging.getLogger(__name__)
 
 
 def _is_float(word):
+    r"""
+    Check if the ``word`` can be converted to ``float``
+
+    Returns
+    -------
+    bool
+        Whether the word can be converted to a float.
+    """
     try:
         word = float(word)
         return True
@@ -35,6 +43,15 @@ def _is_float(word):
 
 
 def _is_integer(word):
+    r"""
+    Check if the ``word`` can be converted to ``int``
+
+    Returns
+    -------
+    bool
+        Whether the word can be converted to an integer.
+    """
+
     try:
         word = int(word)
         return True
@@ -43,18 +60,32 @@ def _is_integer(word):
 
 
 def _is_bool(word):
+    r"""
+    Check if the ``word`` is one of the supported keywords for boolean values.
+
+    Returns
+    -------
+    bool
+        Whether the word is one of the supported keywords for boolean values.
+    """
     return word.lower() in TRUE_KEYWORDS + FALSE_KEYWORDS
 
 
 def _is_atom_label(word, line_index):
     error_messages = []
-    # Atom label has to start from a number or a letter and should not contain any "#"
-    if not (str.isalnum(word[0]) and word.count("#") == 0):
+    # Atom's name has to start from a number or a letter and should not contain any "#".abs
+    # Atom's name should not start nor end with double underscore "__"
+    if (
+        not (str.isalnum(word[0]) and word.count("#") == 0)
+        or word.startswith("__")
+        or word.endswith("__")
+    ):
         error_messages.append(
             " ".join(
                 [
                     f"Line {line_index}: Atom labels have to start with a",
-                    'letter or a number and should not contain any "#" symbols,',
+                    'letter or a number and should not contain any "#" symbols',
+                    'and should not start nor end with double underscore "__",',
                     f"got {word}",
                 ]
             )

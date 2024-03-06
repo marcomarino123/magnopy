@@ -46,6 +46,7 @@ Atoms
           * Full word is checked.
           * In the next lines, the atom name has to start with a letter (a-zA-Z)
             or a digit (0-9) and should not contain "#" symbol.
+            Atom's name can not end nor start with a double underscore "__".
 
           Name of the atom
 

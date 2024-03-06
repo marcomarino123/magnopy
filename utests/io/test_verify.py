@@ -24,17 +24,17 @@ import pytest
 from magnopy.io.internal import _filter_model_file
 from magnopy.io.verify import FailedToVerifyModelFile, _verify_model_file
 
-resources_path = join("utests", "io", "test_magnopy_inputs")
+resources_path = join("utests", "io", "model-file-examples")
 
 inputs_to_fail = [
-    (abspath(join(resources_path, "fail", f)))
-    for f in listdir(join(resources_path, "fail"))
-    if isfile(join(resources_path, "fail", f))
+    (abspath(join(resources_path, "incorrect", "txt", f)))
+    for f in listdir(join(resources_path, "incorrect", "txt"))
+    if isfile(join(resources_path, "incorrect", "txt", f))
 ]
 inputs_to_pass = [
-    (abspath(join(resources_path, "pass", f)))
-    for f in listdir(join(resources_path, "pass"))
-    if isfile(join(resources_path, "pass", f))
+    (abspath(join(resources_path, "correct", "txt", f)))
+    for f in listdir(join(resources_path, "correct", "txt"))
+    if isfile(join(resources_path, "correct", "txt", f))
 ]
 
 

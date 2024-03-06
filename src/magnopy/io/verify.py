@@ -94,25 +94,45 @@ def _is_atom_label(word, line_index):
 
 
 def _verify_cell(lines, line_indices):
+    r"""
+    Check that the found "cell" section is following the input file specification.
+
+    Parameters
+    ==========
+    lines : list of str
+        List of the "cell" section lines from the input file.
+        Without comments and blank lines.
+        ``len(lines) == len(line_indices)``
+    line_indices : list of int
+        Original line numbers, before filtering.
+        ``len(line_indices) == len(lines)``
+    """
+    # At the beginning we assume that the first line starts with the
+    # case-insensitive word "cell", followed by the next line symbol or a space.
+
+    # Checker for the cell units
+    def is_units_keyword(word):
+        return word.lower().startswith("a") or word.lower().startswith("b")
+
+    # Error messages list
     error_messages = []
 
-    # Check size of the cell section
+    # Check size of the cell section it has to have exactly 4 lines
     if len(lines) != 4:
         error_messages.append(
-            f'"cell" section has to have exactly 4 lines, {len(lines)} found\n'
-            + "\n".join(lines)
+            f'Line {line_indices[0]}: "cell" section has to have exactly 4 lines, '
+            + f"{len(lines)} found:\n    "
+            + "\n    ".join(lines)
         )
-        # Do not proceed with the rest of the checks
+        # Do not proceed with the rest of the checks,
+        # since the behavior of the rest of the checks is unpredictable
         return error_messages
 
-    def is_units_keyword(word):
-        return word.startswith("a") or word.startswith("b")
-
-    # At this moment there are four lines present
+    # Starting from this line it is assumed that the section has exactly 4 lines
     line = lines[0].lower().split()
-    # If <Units> keyword present:
+    # If  only <units> keyword present:
     # Cell Angstrom
-    # or <Scale> keyword present and it is one number
+    # or only <scale> keyword present and it is one number:
     # Cell 1.5
     if len(line) == 2:
         if not (_is_float(line[1]) or is_units_keyword(line[1])):
@@ -124,16 +144,16 @@ def _verify_cell(lines, line_indices):
                     ]
                 )
             )
-    # If both <Units> and <Scale> keywords are present and <Scale> is one number:
+    # If both <units> and <scale> keywords are present and <scale> is one number:
     # Cell Angstrom 1.5
     # or
     # Cell 1.5 Angstrom
     elif len(line) == 3:
-        if (_is_float(line[1]) and is_units_keyword(line[2])) or (
-            _is_float(line[2]) and is_units_keyword(line[1])
+        if not (
+            _is_float(line[1])
+            and is_units_keyword(line[2])
+            or is_units_keyword(line[1] and _is_float(line[2]))
         ):
-            pass
-        else:
             error_messages.append(
                 " ".join(
                     [
@@ -143,12 +163,10 @@ def _verify_cell(lines, line_indices):
                     ]
                 )
             )
-    # If only <Scale> keyword is present and three numbers are given:
+    # If only <scale> keyword is present and three numbers are given:
     # Cell 1.2 1.4 1.1
     elif len(line) == 4:
-        if _is_float(line[1]) and _is_float(line[2]) and _is_float(line[3]):
-            pass
-        else:
+        if not (_is_float(line[1]) and _is_float(line[2]) and _is_float(line[3])):
             error_messages.append(
                 " ".join(
                     [
@@ -157,25 +175,26 @@ def _verify_cell(lines, line_indices):
                     ]
                 )
             )
-    # If both <Units> and <Scale> keywords are present
-    # and <Scale> is given by three numbers:
+    # If both <units> and <scale> keywords are present
+    # and <scale> is given by three numbers:
     # Cell Angstrom 1.2 1.4 1.1
     # or
     # Cell 1.2 1.4 1.1 Angstrom
     elif len(line) == 5:
-        if (
-            _is_float(line[1])
-            and _is_float(line[2])
-            and _is_float(line[3])
-            and is_units_keyword(line[4])
-        ) or (
-            is_units_keyword(line[1])
-            and _is_float(line[2])
-            and _is_float(line[3])
-            and _is_float(line[4])
+        if not (
+            (
+                _is_float(line[1])
+                and _is_float(line[2])
+                and _is_float(line[3])
+                and is_units_keyword(line[4])
+            )
+            or (
+                is_units_keyword(line[1])
+                and _is_float(line[2])
+                and _is_float(line[3])
+                and _is_float(line[4])
+            )
         ):
-            pass
-        else:
             error_messages.append(
                 " ".join(
                     [
@@ -187,18 +206,20 @@ def _verify_cell(lines, line_indices):
                     ]
                 )
             )
+    # If there are too many entries
     elif len(line) != 1:
         error_messages.append(
             " ".join(
                 [
                     f'Line {line_indices[0]}: expected "cell" keyword',
-                    "and/or <Units> and/or <Scale>",
-                    "(from 1 to 5 entries, separated by spaces),",
+                    "and optional <units> and/or <scale>",
+                    "(from 1 to 5 blocks in total, separated by spaces),",
                     f'got "{" ".join(lines[0])}"',
                 ]
             )
         )
 
+    # Check that every lattice vector is provided as three numbers separated by spaces.
     for i in range(1, 4):
         line = lines[i].split()
         if not (
@@ -209,7 +230,7 @@ def _verify_cell(lines, line_indices):
                 " ".join(
                     [
                         f"Line {line_indices[i]}: expected three numbers,",
-                        f'got "{" ".join(line[1:])}"',
+                        f'got "{lines[i]}"',
                     ]
                 )
             )
@@ -1026,7 +1047,9 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             import sys
 
             sys.tracebacklimit = 0
-            raise FailedToVerifyModelFile("\n  ".join([""] + error_messages))
+            raise FailedToVerifyModelFile(
+                "\n  ".join([""] + "\n".join(error_messages).split("\n"))
+            )
         else:
             _logger.error("\n  ".join([""] + error_messages))
             _logger.info("Model file verification finished: FAILED")

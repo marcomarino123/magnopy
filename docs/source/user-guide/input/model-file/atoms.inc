@@ -41,11 +41,13 @@ Atoms
         If some block has to be skipped for some atoms use ``-`` symbol.
 
         * ``name`` keyword
+        
+          * Required
+          * Full word is checked.
+          * In the next lines, the atom name has to start with a letter (a-zA-Z)
+            or a digit (0-9) and should not contain "#" symbol.
 
-          * Required.
-          * Full word is checked, case-insensitive.
-
-          Name of the atom.
+          Name of the atom
 
         * ``r1``, ``r2``, ``r3`` keywords
 

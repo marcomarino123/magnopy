@@ -83,8 +83,8 @@ if __name__ == "__main__":
         inputs = inputs_to_pass + inputs_to_fail
     elif failed_or_passed.startswith("i"):
         control_word = ""
-        inputs = ["pass/" + basename(f) for f in inputs_to_pass] + [
-            "fail/" + basename(f) for f in inputs_to_fail
+        inputs = ["correct/txt/" + basename(f) for f in inputs_to_pass] + [
+            "incorrect/txt/" + basename(f) for f in inputs_to_fail
         ]
         while True:
             control_word = input(
@@ -104,14 +104,14 @@ if __name__ == "__main__":
                 print(
                     "  "
                     + "\n  ".join(
-                        sorted(["pass/" + basename(f) for f in inputs_to_pass])
+                        sorted(["correct/txt/" + basename(f) for f in inputs_to_pass])
                     )
                 )
                 print("Files that supposed to fail:")
                 print(
                     "  "
                     + "\n  ".join(
-                        sorted(["fail/" + basename(f) for f in inputs_to_fail])
+                        sorted(["incorrect/txt/" + basename(f) for f in inputs_to_fail])
                     )
                 )
             elif control_word.lower().startswith("q"):

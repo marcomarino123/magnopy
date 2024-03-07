@@ -20,7 +20,7 @@ import numpy as np
 from wulfric.constants import TODEGREES
 
 
-def vector_to_angles(vector, in_degreees=True):
+def vector_to_angles(vector, in_degrees=True):
     R"""
     Convert the vector to the (modulus, polar, azimuthal) format
 

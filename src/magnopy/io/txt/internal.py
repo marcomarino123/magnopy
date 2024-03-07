@@ -21,12 +21,10 @@ import logging
 import numpy as np
 from wulfric import TORADIANS, Atom, absolute_to_relative
 
+from magnopy._pinfo import logo
+from magnopy.exceptions import NotationError
 from magnopy.geometry import vector_to_angles
 from magnopy.io.txt.verify import _verify_model_file
-
-_logger = logging.getLogger(__name__)
-
-from magnopy._pinfo import logo
 from magnopy.spinham.hamiltonian import SpinHamiltonian
 from magnopy.spinham.parameter import MatrixParameter
 from magnopy.units.inside import ENERGY, ENERGY_NAME, LENGTH, LENGTH_NAME, TRUE_KEYWORDS
@@ -37,6 +35,8 @@ from magnopy.units.si import (
     K_BOLTZMANN,
     RYDBERG_ENERGY,
 )
+
+_logger = logging.getLogger(__name__)
 
 __all__ = ["load_model", "dump_model"]
 
@@ -104,10 +104,12 @@ def _write_exchange(
         text.append(" ".join(["DMI"] + [f"{parameter.dmi[i]:>8.4f}" for i in range(3)]))
 
     if write_symm:
-        text.append("Symmetric-anisotropy")
+        text.append(
+            "#" + " " * 20 + f"{'Axx':>8} {'Ayy':>8} {'Axy':>8} {'Axz':>8} {'Ayz':>8}"
+        )
         J_symm = parameter.aniso
         text.append(
-            f"{J_symm[0][0]:>8.4f} {J_symm[1][1]:>8.4f} "
+            f"Symmetric-anisotropy {J_symm[0][0]:>8.4f} {J_symm[1][1]:>8.4f} "
             + f"{J_symm[0][1]:>8.4f} {J_symm[0][2]:>8.4f} {J_symm[1][2]:>8.4f}"
         )
 
@@ -188,10 +190,10 @@ def dump_model(
     text.append(SEPARATOR)
 
     # Write atom's position and spins
-    text.append("Atoms Relative")
-    text.append(f"# Name {'x':>10} {'y':>12} {'z':>12}")
+    text.append("Atoms")
+    text.append(f"name {'r1':>10} {'r2':>12} {'r3':>12}")
     if write_spin_angles:
-        text[-1] += f" {'phi':>6} {'theta':>6} {'S':>6}"
+        text[-1] += f" {'St':>6} {'Sp':>6} {'S':>6}"
     else:
         text[-1] += f" {'Sx':>8} {'Sy':>8} {'Sz':>8}"
     for atom in spinham.atoms:
@@ -207,9 +209,7 @@ def dump_model(
         )
         try:
             if write_spin_angles:
-                S, theta, phi = vector_to_angles(atom.spin_vector, in_degreees=True)
-                # We assume g = 2
-                S *= 2
+                S, theta, phi = vector_to_angles(atom.spin_vector, in_degrees=True)
                 text[-1] += " " + " ".join(
                     [
                         f"t{theta:8.4f}",
@@ -218,18 +218,17 @@ def dump_model(
                     ]
                 )
             else:
-                # We assume g=2
                 text[-1] += " " + " ".join(
                     [
-                        f"{2*atom.spin_vector[0]:8.4f}",
-                        f"{2*atom.spin_vector[1]:8.4f}",
-                        f"{2*atom.spin_vector[2]:8.4f}",
+                        f"{atom.spin_vector[0]:8.4f}",
+                        f"{atom.spin_vector[1]:8.4f}",
+                        f"{atom.spin_vector[2]:8.4f}",
                     ]
                 )
         except ValueError:
-            text[-1] += " #" + " ".join(
+            text[-1] += " " + " ".join(
                 [
-                    f"{'-':>7}",
+                    f"{'-':>8}",
                     f"{'-':>8}",
                     f"{'-':>8}",
                 ]
@@ -238,10 +237,22 @@ def dump_model(
 
     # Write notation
     text.append("Notation")
-    text.append(f"Spin-normalized {spinham.spin_normalized}")
-    text.append(f"Double-counting {spinham.double_counting}")
-    text.append(f"Exchange-factor {spinham.exchange_factor}")
-    text.append(f"On-site-factor {spinham.on_site_factor}")
+    try:
+        text.append(f"Spin-normalized {spinham.spin_normalized}")
+    except NotationError:
+        pass
+    try:
+        text.append(f"Double-counting {spinham.double_counting}")
+    except NotationError:
+        pass
+    try:
+        text.append(f"Exchange-factor {spinham.exchange_factor}")
+    except NotationError:
+        pass
+    try:
+        text.append(f"On-site-factor {spinham.on_site_factor}")
+    except NotationError:
+        pass
     text.append(SEPARATOR)
 
     # Write exchange parameters
@@ -391,15 +402,8 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
     Input lines have to follow the format::
 
         Atoms <Units>
-        A1 i j k <spin1>
+        name r1 r2 r3 ...
         ...
-
-    where optional keywords are:
-
-    * <Units> - starts either from "r" or "a" or "b".
-    * <spin> - either one float or three floats or four
-    floats separated by at least one space. Alternatively it can have the format
-    "p<float> t<float> float"
 
     Parameters
     ==========
@@ -444,7 +448,7 @@ def _read_atoms(lines, spinham: SpinHamiltonian):
 
     # Read atoms's information
     # A i j k <spin>
-    for line in lines[1:]:
+    for line in lines[2:]:
         line = line.split()
         # Label is always present, since file is pre-verified
         label = line[0]
@@ -807,21 +811,19 @@ def _read_on_site(lines, spinham: SpinHamiltonian):
     return spinham
 
 
-def _read_ground_state(lines, spinham: SpinHamiltonian):
+def _read_cone_axis(lines, spinham: SpinHamiltonian):
     R"""
-    Read information from the ground state section as described in the documentation.
+    Read information from the cone-axis section as described in the documentation.
 
     Input lines have to follow the format::
 
-        Ground-state <Units>
-        qx qy qz
+        Cone-axis <Units>
         nx ny nz
 
     or::
 
-        Ground-state <Units>
-        qx qy qz
-        a<alpha> b<beta>
+        Cone-axis <Units>
+        alpha beta
 
     where optional keywords are:
 
@@ -857,34 +859,90 @@ def _read_ground_state(lines, spinham: SpinHamiltonian):
     if units.startswith("r"):
         relative = True
         _logger.info(
+            "Cone axis is provided in the relative coordinates (with respect to the unit cell)"
+        )
+    elif units.startswith("a"):
+        relative = False
+        _logger.info("Cone axis is provided in the absolute coordinates")
+
+    n = [float(x) for x in lines[1].split()]
+
+    if len(n) == 2:
+        alpha, beta = n
+        n = (np.cos(beta) * np.sin(alpha), np.sin(beta) * np.sin(alpha), np.cos(alpha))
+        _logger.info(
+            "<Units> keyword for cone axis is ignored. Cone axis is provided with alpha and beta angles."
+        )
+    else:
+        if relative:
+            n = n @ spinham.cell
+        n /= np.linalg.norm(n)
+
+    spinham.cone_axis = n
+
+    return spinham
+
+
+def _read_spiral_vector(lines, spinham: SpinHamiltonian):
+    R"""
+    Read information from the spiral-vector section as described in the documentation.
+
+    Input lines have to follow the format::
+
+        Spiral-vector <Units>
+        nx ny nz
+
+    or::
+
+        Spiral-vector <Units>
+        alpha beta
+
+    where optional keywords are:
+
+    * <Units> - starts either from "a" or "r".
+
+    Parameters
+    ==========
+    lines : (N,) list of str
+        Parameters section of the input file.
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian, where the data are saved.
+
+    Returns
+    =======
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian with added spiral-vector information.
+    """
+
+    # Search for the <Units>
+    # On-site <Units>
+    line = lines[0].lower().split()
+    if len(line) >= 2:
+        units = line[1]
+        _logger.info(f'"{units}" keyword is detected.')
+    else:
+        units = "relative"
+        _logger.info(
+            f"No <Units> keyword is detected. Fall back to default (Relative)."
+        )
+
+    # Decide the case based on <Units>
+    # Only those cases are possible, since the input lines are pre-verified.
+    if units.startswith("r"):
+        relative = True
+        _logger.info(
             "Spiral vector is provided in the relative coordinates (with respect to the reciprocal cell)"
         )
     elif units.startswith("a"):
         relative = False
         _logger.info("Spiral vector is provided in the absolute coordinates")
 
-    _logger.info(
-        f"Spiral vector is in {'relative' if relative else 'absolute'} coordinates."
-    )
-
     q = [float(x) for x in lines[1].split()]
 
-    if not relative:
-        q = absolute_to_relative(q, spinham.reciprocal_cell)
+    if relative:
+        q = q @ spinham.reciprocal_cell
 
-    spinham.spiral_vector = q
-
-    if "a" in lines[2]:
-        for entry in lines[2].split():
-            if entry.lower().startswith("a"):
-                alpha = float(entry[1:]) * TORADIANS
-            if entry.lower().startswith("b"):
-                beta = float(entry[1:]) * TORADIANS
-        n = (np.cos(beta) * np.sin(alpha), np.sin(beta) * np.sin(alpha), np.cos(alpha))
-    else:
-        n = [float(x) for x in lines[2].split()]
-
-    spinham.cone_axis = n
+    spinham.spi_vector = q
 
     return spinham
 
@@ -971,24 +1029,28 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     spinham = SpinHamiltonian()
 
     # Read the cell
-    _read_cell(lines[slice(*sections["c"])], spinham)
+    _read_cell(lines[slice(*sections["cell"])], spinham)
 
     # Read atoms
-    _read_atoms(lines[slice(*sections["a"])], spinham)
+    _read_atoms(lines[slice(*sections["atoms"])], spinham)
 
     # Read notation
-    _read_notation(lines[slice(*sections["n"])], spinham)
+    _read_notation(lines[slice(*sections["notation"])], spinham)
 
     # If present read exchange parameters
-    if "e" in sections:
-        _read_exchange(lines[slice(*sections["e"])], spinham)
+    if "exchange" in sections:
+        _read_exchange(lines[slice(*sections["exchange"])], spinham)
 
     # If present read on-site parameters
-    if "o" in sections:
-        _read_on_site(lines[slice(*sections["o"])], spinham)
+    if "on-site" in sections:
+        _read_on_site(lines[slice(*sections["on-site"])], spinham)
 
-    # If present read ground state
-    if "g" in sections:
-        _read_ground_state(lines[slice(*sections["g"])], spinham)
+    # If present read cone axis
+    if "cone-axis" in sections:
+        _read_cone_axis(lines[slice(*sections["cone-axis"])], spinham)
+
+    # If present read spiral-vector
+    if "spiral-vector" in sections:
+        _read_spiral_vector(lines[slice(*sections["spiral-vector"])], spinham)
 
     return spinham

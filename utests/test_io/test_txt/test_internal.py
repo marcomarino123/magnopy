@@ -33,6 +33,11 @@ inputs_to_pass = [
 
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
-def test_load_dump_model(filename):
+def test_load_model(filename):
+    model = load_model(filename)
+
+
+@pytest.mark.parametrize("filename", inputs_to_pass)
+def test_dump_model(filename):
     model = load_model(filename)
     lines_dumped_loaded = dump_model(model, print_if_none=False)

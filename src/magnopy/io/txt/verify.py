@@ -556,12 +556,12 @@ def _verify_notation(
         Whether the double-counting property is expected to be present.
     """
     error_messages = []
-    # Check condition about the size of the section the minimum amount of lines is 3
-    if len(lines) < 3:
+    # Check condition about the size of the section the minimum amount of lines is 2
+    if len(lines) < 2:
         error_messages.append(
             " ".join(
                 [
-                    f'"notation" section has to contain at least 3 lines',
+                    f'"notation" section has to contain at least 2 lines',
                     f"{len(lines)} found\n",
                     "\n".join(lines),
                 ]

@@ -77,9 +77,9 @@ Atoms
 
         * ``sx``, ``sy``, ``sz``, ``s``, ``sp``, ``st`` keywords
 
-          * Optional.
-          * Full word is checked, case-insensitive.
-          * Recognized combinations:
+          * Optional
+          * Full word is checked
+          * Recognized combinations (only one combination can be present):
 
             * ``s`` - spin value. It is oriented along
               :math:`z` direction, i.e. :math:`\boldsymbol{S} = (0,\,0,\,S)^T`.

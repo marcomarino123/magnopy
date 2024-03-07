@@ -63,32 +63,36 @@ Notation
 
         * ``exchange-factor`` keyword
 
-          * Required.
+          * Required if :ref:`"exchange" <user-guide_input_model-file_exchange>`
+            section is present.
           * Only first letter is checked, case-insensitive.
-
-          Numerical factor, that is written before the sum over spin pair.
-          Usually it is either :math:`1`, :math:`-1`, :math:`0.5`
-          or :math:`-0.5`.
 
         * ``value``
 
-          * Required.
+          * Required if :ref:`"exchange" <user-guide_input_model-file_exchange>`
+            section is present.
           * One number.
+
+        Numerical factor, that is written before the sum over spin pair.
+        Usually it is either :math:`1`, :math:`-1`, :math:`0.5`
+        or :math:`-0.5`.
 
   6     Two blocks, separated by spaces, the order is fixed:
 
         * ``on-site-factor`` keyword
 
-          * Required.
+          * Required if :ref:`"on-site" <user-guide_input_model-file_on-site>`
+            section is present.
           * Only first letter is checked, case-insensitive.
-
-          Numerical factor, that is written before the sum over spins.
-          Usually it is either :math:`1` or :math:`-1`.
 
         * ``value``
 
-          * Required.
+          * Required if :ref:`"on-site" <user-guide_input_model-file_on-site>`
+            section is present.
           * One number.
+
+        Numerical factor, that is written before the sum over spins.
+          Usually it is either :math:`1` or :math:`-1`.
 
   7     Section separator (10 or more ``=`` symbols)
   ====  ========================================================================

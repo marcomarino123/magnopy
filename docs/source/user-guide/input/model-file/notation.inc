@@ -26,7 +26,8 @@ Notation
 
         * ``double-counting`` keyword
 
-          * Required.
+          * Required if :ref:`"exchange" <user-guide_input_model-file_exchange>`
+            section is present.
           * Only first letter is checked, case-insensitive.
 
           True if both pairs :math:`(m,i;m^{\prime},j)` and
@@ -34,7 +35,8 @@ Notation
 
         * ``value``
 
-          * Required.
+          * Required if :ref:`"exchange" <user-guide_input_model-file_exchange>`
+            section is present.
           * Recognized values:
 
             * For ``True``: ``true``, ``t``, ``1``, ``yes``, ``y``

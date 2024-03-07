@@ -18,7 +18,7 @@
 
 import logging
 
-from magnopy.exceptions import FailedToVerifyModelFile
+from magnopy.exceptions import FailedToVerifyTxtModelFile
 from magnopy.units.inside import FALSE_KEYWORDS, TRUE_KEYWORDS
 
 _all_ = []
@@ -86,7 +86,7 @@ def _is_atom_label(word, line_index):
                     f"Line {line_index}: Atom labels have to start with a",
                     'letter or a number and should not contain any "#" symbols',
                     'and should not start nor end with double underscore "__",',
-                    f"got {word}",
+                    f'got "{word}"',
                 ]
             )
         )
@@ -215,7 +215,7 @@ def _verify_cell(lines, line_indices):
                     f'Line {line_indices[0]}: expected "cell" keyword',
                     "and optional <units> and/or <scale>",
                     "(from 1 to 5 blocks in total, separated by spaces),",
-                    f'got "{" ".join(lines[0])}"',
+                    f'got "{lines[0]}"',
                 ]
             )
         )
@@ -325,7 +325,7 @@ def _check_atoms_data_header(line, line_index):
             " ".join(
                 [
                     f"Line {line_index}: expected unique blocks in the data header,",
-                    f'got {" ".join(keywords)}',
+                    f'got "{" ".join(keywords)}"',
                 ]
             )
         )
@@ -452,9 +452,9 @@ def _verify_atoms(lines, line_indices):
                     f'Line {line_indices[0]}: "atoms" section has to contain a section ',
                     "header, a data header and at least one atom (at least 3 lines in total),",
                     f"{len(lines)} found\n    ",
-                    "\n    ".join(lines),
                 ]
             )
+            + "\n    ".join(lines),
         )
         # Do not proceed with the rest of the checks,
         # since the behavior of the rest of the checks is unpredictable
@@ -500,7 +500,7 @@ def _verify_atoms(lines, line_indices):
                 " ".join(
                     [
                         f"Line {line_indices[i]}: expected to have {N} blocks",
-                        f" as per data header, got {lines[i]}",
+                        f'as per data header, got "{lines[i]}"',
                     ]
                 )
             )
@@ -520,7 +520,7 @@ def _verify_atoms(lines, line_indices):
                 error_messages.append(
                     " ".join(
                         [
-                            f"Line {line_indices[i]}, block {b_i}: expected a number,",
+                            f"Line {line_indices[i]}, block {b_i+1}: expected a number,",
                             f'got "{block}"',
                         ]
                     )
@@ -576,7 +576,7 @@ def _verify_notation(
             " ".join(
                 [
                     f'Line {line_indices[0]}: expected only the "notation" keyword,',
-                    f"got {lines[0]}",
+                    f'got "{lines[0]}"',
                 ]
             )
         )
@@ -589,8 +589,8 @@ def _verify_notation(
             error_messages.append(
                 " ".join(
                     [
-                        f"Line {line_indices[i]}: expected to have two entries,",
-                        f"separated by spaces, got {lines[i]}",
+                        f"Line {line_indices[i]}: expected to have two blocks,",
+                        f'separated by spaces, got "{lines[i]}"',
                     ]
                 )
             )
@@ -640,7 +640,8 @@ def _verify_notation(
         if prop not in found_properties:
             if expected[prop]:
                 error_messages.append(
-                    f"Did not find the {full_names[prop]} property in the notation section"
+                    f"Line {line_indices[0]}: did not "
+                    f'find the "{full_names[prop]}" property in the notation section'
                 )
         else:
             if not verify_functions[prop](found_properties[prop][0]):
@@ -744,7 +745,7 @@ def _verify_bond(lines, line_indices):
                     " ".join(
                         [
                             f"Line {line_indices[i]}:",
-                            f'expected one number, got {" ".join(line[1:])}',
+                            f'expected one number, got "{" ".join(line[1:])}"',
                         ]
                     )
                 )
@@ -760,7 +761,7 @@ def _verify_bond(lines, line_indices):
                         [
                             f"Line {line_indices[i]}:",
                             f'expected "DMI" keyword and three numbers,',
-                            f'got {" ".join(line)}',
+                            f'got "{" ".join(line)}"',
                         ]
                     )
                 )
@@ -770,7 +771,7 @@ def _verify_bond(lines, line_indices):
                     " ".join(
                         [
                             f"Line {line_indices[i]}:",
-                            f'expected three numbers, got {" ".join(line[1:])}',
+                            f'expected three numbers, got "{" ".join(line[1:])}"',
                         ]
                     )
                 )
@@ -785,8 +786,8 @@ def _verify_bond(lines, line_indices):
                     " ".join(
                         [
                             f"Line {line_indices[i]}:",
-                            f'expected "Symmetric-anisotropy" keyword and five numbers,',
-                            f'got {" ".join(line)}',
+                            f'expected "symmetric-anisotropy" keyword and five numbers,',
+                            f'got "{" ".join(line)}"',
                         ]
                     )
                 )
@@ -802,7 +803,7 @@ def _verify_bond(lines, line_indices):
                     " ".join(
                         [
                             f"Line {line_indices[i]}:",
-                            f'expected five numbers, got {" ".join(line[1:])}',
+                            f'expected five numbers, got "{" ".join(line[1:])}"',
                         ]
                     )
                 )
@@ -821,7 +822,7 @@ def _verify_bond(lines, line_indices):
                         [
                             f"Line {line_indices[i]}:",
                             f'expected "Matrix" keyword and nothing else,',
-                            f'got {" ".join(line)}',
+                            f'got "{" ".join(line)}"',
                         ]
                     )
                 )
@@ -852,7 +853,7 @@ def _verify_bond(lines, line_indices):
                             " ".join(
                                 [
                                     f"Line {line_indices[i]}: expected three numbers,",
-                                    f"separated by spaces, got {' '.join(line)}",
+                                    f'separated by spaces, got "{" ".join(line)}"',
                                 ]
                             )
                         )
@@ -867,7 +868,7 @@ def _verify_bond(lines, line_indices):
             error_messages.append(
                 " ".join(
                     [
-                        f'Found more than one "{key}" entry.',
+                        f'Line {line_indices[0]}: found more than one "{key}" entry.',
                         f"Check the bond on lines {line_indices[0]}-{line_indices[-1]}",
                     ]
                 )
@@ -878,7 +879,7 @@ def _verify_bond(lines, line_indices):
         error_messages.append(
             " ".join(
                 [
-                    "Did not find any information about the parameter value",
+                    f"Line {line_indices[0]}: did not find any information about the parameter value.",
                     f"Check the bond on lines {line_indices[0]}-{line_indices[-1]}",
                 ]
             )
@@ -916,7 +917,7 @@ def _verify_exchange(lines, line_indices):
                 " ".join(
                     [
                         f"Line {line_indices[0]}: expected",
-                        f'"meV" or "eV" or "J" or "K" or "Ry", got {line[1]}',
+                        f'"meV" or "eV" or "J" or "K" or "Ry", got "{line[1]}"',
                     ]
                 )
             )
@@ -926,7 +927,7 @@ def _verify_exchange(lines, line_indices):
                 [
                     f'Line {line_indices[0]}: expected one or two blocks, "exchange" keyword',
                     f'and/or <units> keyword ("meV" or "eV" or "J" or "K" or "Ry"),',
-                    f'got {" ".join(line)}',
+                    f'got "{" ".join(line)}"',
                 ]
             )
         )
@@ -1371,7 +1372,9 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
     # Check if all required sections are found
     for r_section in _REQUIRED_SECTIONS:
         if r_section not in found_sections:
-            error_messages.append(f'Failed to find required section "{r_section}"')
+            error_messages.append(
+                f'File: failed to find required section "{r_section}"'
+            )
 
     # Check that at least one section of parameters is found
     parameters_sections = 0
@@ -1380,7 +1383,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             parameters_sections += 1
     if parameters_sections == 0:
         error_messages.append(
-            f"Failed to find at least one of the following sections:"
+            f"File: failed to find at least one of the following sections:"
             + ", ".join([r_section for r_section in _PARAMETERS_SECTIONS]),
         )
 
@@ -1393,7 +1396,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             import sys
 
             sys.tracebacklimit = 0
-            raise FailedToVerifyModelFile(
+            raise FailedToVerifyTxtModelFile(
                 "\n  ".join([""] + "\n".join(error_messages).split("\n"))
             )
         else:

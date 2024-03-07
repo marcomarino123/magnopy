@@ -22,7 +22,7 @@ import numpy as np
 from wulfric import TORADIANS, Atom, absolute_to_relative
 
 from magnopy.geometry import vector_to_angles
-from magnopy.io.verify import _verify_model_file
+from magnopy.io.txt.verify import _verify_model_file
 
 _logger = logging.getLogger(__name__)
 

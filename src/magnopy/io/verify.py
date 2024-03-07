@@ -152,7 +152,8 @@ def _verify_cell(lines, line_indices):
         if not (
             _is_float(line[1])
             and is_units_keyword(line[2])
-            or is_units_keyword(line[1] and _is_float(line[2]))
+            or is_units_keyword(line[1])
+            and _is_float(line[2])
         ):
             error_messages.append(
                 " ".join(
@@ -267,6 +268,7 @@ def _check_vector_keywords(keywords, liter, line_index):
     # <liter>x <liter>y <liter>z
     # or
     # <liter> <liter>p <liter>t
+    # or nothing
     keywords.sort()
 
     error_messages = []
@@ -274,13 +276,14 @@ def _check_vector_keywords(keywords, liter, line_index):
         keywords == [liter]
         or keywords == [f"{liter}x", f"{liter}y", f"{liter}z"]
         or keywords == [liter, f"{liter}p", f"{liter}t"]
+        or not keywords
     ):
         error_messages.append(
             " ".join(
                 [
-                    f"Line {line_index}: expected to have only {liter} or",
-                    f"{liter}x {liter}y {liter}z or {liter} {liter}p {liter}t",
-                    f"got {' '.join(keywords)}",
+                    f"Line {line_index}: expected to have only {liter} or {liter}x",
+                    f"{liter}y {liter}z or {liter} {liter}p {liter}t or nothing",
+                    f'got "{" ".join(keywords)}"',
                 ]
             )
         )
@@ -288,7 +291,7 @@ def _check_vector_keywords(keywords, liter, line_index):
     return error_messages
 
 
-def _check_atoms_data_header(line):
+def _check_atoms_data_header(line, line_index):
     r"""
     Check the data header of the "atoms" section.
 
@@ -296,6 +299,8 @@ def _check_atoms_data_header(line):
     ----------
     line : str
         The second line of the "atoms" section.
+    line_index : int
+        Original line number, before filtering.
 
     Returns
     -------
@@ -319,7 +324,7 @@ def _check_atoms_data_header(line):
         error_messages.append(
             " ".join(
                 [
-                    f"Line {line_indices[1]}: expected unique blocks in the data header,",
+                    f"Line {line_index}: expected unique blocks in the data header,",
                     f'got {" ".join(keywords)}',
                 ]
             )
@@ -333,7 +338,7 @@ def _check_atoms_data_header(line):
         error_messages.append(
             " ".join(
                 [
-                    f"Line {line_indices[1]}: expected to have the atom's name",
+                    f"Line {line_index}: expected to have the atom's name",
                     "in the data header, got none",
                 ]
             )
@@ -371,7 +376,7 @@ def _check_atoms_data_header(line):
         error_messages.append(
             " ".join(
                 [
-                    f"Line {line_indices[1]}: expected to have three position keywords.",
+                    f"Line {line_index}: expected to have three position keywords.",
                     f'Either "r1 r2 r3" or "x y z", got "{" ".join(position_keywords)}"',
                 ]
             )
@@ -381,14 +386,14 @@ def _check_atoms_data_header(line):
         keywords.remove(keyword)
 
     # Check spin keywords
-    error_messages.extend(_check_vector_keywords(spin_keywords, "s", line_indices[1]))
+    error_messages.extend(_check_vector_keywords(spin_keywords, "s", line_index))
     # Remove spin keywords from the list
     for keyword in spin_keywords:
         keywords.remove(keyword)
 
     # Check orbital moment keywords
     error_messages.extend(
-        _check_vector_keywords(orbital_moment_keywords, "l", line_indices[1])
+        _check_vector_keywords(orbital_moment_keywords, "l", line_index)
     )
     # Remove orbital moment keywords from the list
     for keyword in orbital_moment_keywords:
@@ -396,7 +401,7 @@ def _check_atoms_data_header(line):
 
     # Check total moment keywords
     error_messages.extend(
-        _check_vector_keywords(total_moment_keywords, "j", line_indices[1])
+        _check_vector_keywords(total_moment_keywords, "j", line_index)
     )
     # Remove total moment keywords from the list
     for keyword in total_moment_keywords:
@@ -407,7 +412,7 @@ def _check_atoms_data_header(line):
         error_messages.append(
             " ".join(
                 [
-                    f"Line {line_indices[1]}: unsupported keywords in the data header:",
+                    f"Line {line_index}: unsupported keywords in the data header:",
                     f'"{" ".join(keywords)}"',
                 ]
             )
@@ -482,7 +487,7 @@ def _verify_atoms(lines, line_indices):
         )
 
     # Check the data header
-    N, name_index, errors = _check_atoms_data_header(lines[1])
+    N, name_index, errors = _check_atoms_data_header(lines[1], line_indices[1])
     error_messages.extend(errors)
 
     # Check each atom line
@@ -660,6 +665,8 @@ def _verify_notation(
                 ]
             )
         )
+
+    return error_messages
 
 
 def _verify_bond(lines, line_indices):
@@ -1339,12 +1346,12 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
         # Save the position of the found section
         found_sections[section_keyword] = (section_start, section_end)
 
-    for name in _SUPPORTED_SECTION:
+    for name in _SUPPORTED_SECTIONS:
         if name in found_sections:
             # Custom call for notation section
             if name == "notation":
                 error_messages.extend(
-                    _SUPPORTED_SECTION[name](
+                    _SUPPORTED_SECTIONS[name](
                         lines[slice(*found_sections[name])],
                         line_indices[slice(*found_sections[name])],
                         expect_exchange_factor="exchange" in found_sections,
@@ -1355,7 +1362,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             # Universal call for all other sections
             else:
                 error_messages.extend(
-                    _SUPPORTED_SECTION[name](
+                    _SUPPORTED_SECTIONS[name](
                         lines[slice(*found_sections[name])],
                         line_indices[slice(*found_sections[name])],
                     )

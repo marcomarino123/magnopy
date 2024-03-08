@@ -270,9 +270,9 @@ class MatrixParameter:
 
         .. code-block:: python
 
-            [[J_xx, J_xy, J_xz],
-             [J_xy, J_yy, J_yz],
-             [J_xz, J_yz, J_zz]]
+            [[J_xx-J_iso, J_xy      , J_xz],  # JFR
+             [J_xy      , J_yy-J_iso, J_yz],
+             [J_xz      , J_yz      , J_zz-J_iso]]
 
         Derived from the exchange matrix (:math:`\mathbf{J}`) as
 
@@ -298,7 +298,7 @@ class MatrixParameter:
         return self.symm_matrix - self.iso * np.identity(3, dtype=float)
 
     # Alternative name for symmetric anisotropic part of the full matrix
-    S = aniso
+    S = aniso  # ?? JFR
 
     @aniso.setter
     def aniso(self, new_aniso):
@@ -343,9 +343,9 @@ class MatrixParameter:
 
         .. code-block:: python
 
-            [[J_xx, 0, 0],
-             [0, J_yy, 0],
-             [0, 0, J_zz]]
+            [[J_xx-J_iso, 0         , 0         ],   # JFR
+             [0         , J_yy-J_iso, 0         ],
+             [0         , 0         , J_zz-J_iso]]
 
         Returns
         -------

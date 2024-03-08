@@ -39,7 +39,13 @@ Spin Hamiltonian
   :math:`\boldsymbol{d_{ij}} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r_m}`
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
-* The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that includes:
+* The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that
+  is into isotropic exchange, symmetric anisotropic and anti-simmetric anisotropic parts as follows
+
+  .. math::
+    \boldsymbol{J}_{ij} = J_{ij}^{iso}\,\boldsymbol{I}+\boldsymbol{J_{ij}^{S}}+\boldsymbol{J_{ij}^{A}}
+
+    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
   * The isotropic exchange:
 
@@ -58,8 +64,7 @@ Spin Hamiltonian
         S_{ij}^{zx} & S_{ij}^{zy} & S_{ij}^{zz} \\
       \end{pmatrix}
 
-    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix,
-    and :math:`S^{xx}_{ij}+S^{yy}_{ij}+S^{zz}_{ij}=0`.
+    where :math:`S^{xx}_{ij}+S^{yy}_{ij}+S^{zz}_{ij}=0`.
 
   * The antisymmetric anisotropy that encapsulates the Dzyaloshinskii-Moriya
     (DM) Interaction

@@ -30,25 +30,23 @@ spinham/
 ├──> spiral-vector (attr: units)
 ├──> cone-axis (attr: units)
 ├─── exchange/ (attr: units)
-│    └─── parameters/
-│         ├─── 1/
-│         │    ├──> atom-1
-│         │    ├──> atom-2
-│         │    ├──> ijk
-│         │    └──> matrix
-│         ├─── ...
-│         └─── n/
-│              ├──> atom-1
-│              ├──> atom-2
-│              ├──> ijk
-│              └──> matrix
+│    ├─── 1/
+│    │    ├──> atom-1
+│    │    ├──> atom-2
+│    │    ├──> ijk
+│    │    └──> matrix
+│    ├─── ...
+│    └─── n/
+│         ├──> atom-1
+│         ├──> atom-2
+│         ├──> ijk
+│         └──> matrix
 ├─── on-site/ (attr: units)
-│    └─── parameters/
-│         ├─── 1/
-│         │    ├──> atom
-│         │    └──> matrix
-│         ├─── ...
-│         └─── n/
-│               ├──> atom
-│               └──> matrix
+│    ├─── 1/
+│    │    ├──> atom
+│    │    └──> matrix
+│    ├─── ...
+│    └─── n/
+│          ├──> atom
+│          └──> matrix
 └─── ...

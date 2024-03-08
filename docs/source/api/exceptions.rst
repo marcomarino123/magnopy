@@ -11,4 +11,4 @@ exceptions
     :toctree: generated/
 
     NotationError
-    FailedToVerifyModelFile
+    FailedToVerifyTxtModelFile

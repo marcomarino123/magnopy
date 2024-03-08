@@ -1,0 +1,3 @@
+[submodule "utests/test_io/model-file-examples"]
+	path = utests/test_io/model-file-examples
+	url = git@github.com:magnopy/model-file-examples.git

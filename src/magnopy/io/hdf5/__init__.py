@@ -16,9 +16,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from .hdf5 import *
-from .txt import *
-
 __all__ = []
-__all__.extend(txt.__all__)
-__all__.extend(hdf5.__all__)

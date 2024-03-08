@@ -2,8 +2,8 @@ The notation for the different operators appearing in this documentation is
 
 * The Hamiltonian operator is denoted by :math:`{\cal H}`
 
-* Magnopy's spin notation does not distinguish between classical or quantum spins.
-  These are understood by their context.
+#* Magnopy's spin notation does not distinguish between classical or quantum spins.
+#  These are understood by their context.
 
 * Spin operator vector components are written as :math:`{\cal S}^\alpha`
 

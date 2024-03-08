@@ -40,17 +40,16 @@ Spin Hamiltonian
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
 * The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that
-  is into isotropic exchange, symmetric anisotropic and anti-simmetric anisotropic parts as follows
+  is into isotropic exchange, symmetric anisotropic and anti-simmetric anisotropic parts as follows:
 
   .. math::
     \boldsymbol{J}_{ij} = J_{ij}^{iso}\,\boldsymbol{I}+\boldsymbol{J_{ij}^{S}}+\boldsymbol{J_{ij}^{A}}
 
-    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
+  where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
   * The isotropic exchange:
 
   .. math::
-
     J_{ij}^{iso} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
 
   * The symmetric anisotropy:

@@ -139,6 +139,14 @@ the :math:`(x\,y\,z)` reference frame.
         \end{pmatrix}
       \end{aligned}
 
+  Notice also that these vectors can be written in Dirac's notation as
+
+  .. math::
+    \begin{aligned}
+        \boldsymbol{\hat{u}} &= \braket{x\,y\,z\,|u}\\
+        \boldsymbol{\hat{v}} &= \braket{x\,y\,z\,|v}\\
+        \boldsymbol{\hat{n}} &= \braket{x\,y\,z\,|n}
+
 However, the unit vector :math:`\boldsymbol{\hat{r}}` is ill-defined, and so is
 :math:`\boldsymbol{R_r}`, whenever  :math:`\boldsymbol{\hat{n}}` and
 :math:`\pm\boldsymbol{\hat{z}}` are collinear. We then choose

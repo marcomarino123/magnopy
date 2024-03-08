@@ -45,14 +45,21 @@ Spin Hamiltonian
 
   .. math::
 
-    J_{ij}^{I} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
+    J_{ij}^{iso} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
 
   * The symmetric anisotropy:
 
     .. math::
       \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{iso}\, \boldsymbol{I}
+      =
+      \begin{pmatrix}
+        S_{ij}^{xx} & S_{ij}^{xy} & S_{ij}^{xz} \\
+        S_{ij}^{yx} & S_{ij}^{yy} & S_{ij}^{yz} \\
+        S_{ij}^{zx} & S_{ij}^{zy} & S_{ij}^{zz} \\
+      \end{pmatrix}
 
-    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
+    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix,
+    and :math:`S^{xx}_{ij}+S^{yy}_{ij}+S^{zz}_{ij}=0`.
 
   * The antisymmetric anisotropy that encapsulates the Dzyaloshinskii-Moriya
     (DM) Interaction

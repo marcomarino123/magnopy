@@ -215,6 +215,97 @@ def _verify_section_header(line, line_index, units_names):
     return error_messages
 
 
+def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
+    r"""
+    Verify one data block.
+
+    Data block starts with the keyword (only the first letter is compared) and might be followed
+    by any number of lines with numbers. ``data_specs`` is a list of amount of numbers on each line.
+    ``data_specs[0]`` - amount of numbers in the same line as the keyword.
+    ``data_specs[1:]`` - amount of numbers in the following lines.
+
+    Parameters
+    ----------
+    lines : list of str
+        List of the data block lines from the input file.
+        ``len(lines) == len(line_indices) == len(data_specs) > 0``.
+    data_specs : list of (int or list of int)
+        List of the amount of numbers on each line.
+        ``len(data_specs) == len(line_indices) == len(lines) > 0``.
+        if ``data_specs[i]`` is a list, then the line has to have one of the amounts of numbers
+        from the list.
+    line_indices : list of int
+        Original line numbers, before filtering.
+        ``len(line_indices) == len(data_specs) == len(lines) > 0``.
+    keyword : str, optional
+        The keyword of the data block. Case insensitive.
+
+    Returns
+    -------
+    error_messages : list of str
+        List of error messages.
+    """
+
+    # Error messages list
+    error_messages = []
+
+    # Check that every line
+    for l_i, line in enumerate(lines):
+        line = line.lower().split()
+
+        keyword_error_addition = ""
+
+        # If the keyword is present in the first line
+        if l_i == 0 and keyword is not None:
+            # Check that the keyword is the expected one
+            if keyword.lower()[0] != line[0][0]:
+                error_messages.append(
+                    " ".join(
+                        [
+                            f"Line {line_indices[l_i]}: expected to have the",
+                            f'"{keyword}" keyword (only first letter is checked),'
+                            f'got "{line[0][0]}"',
+                        ]
+                    )
+                )
+            # Remove the keyword from the line
+            line = line[1:]
+            # Add the keyword to the error message
+            keyword_error_addition = f'"{keyword}" keyword followed by'
+
+        # Check the amount of numbers in the line
+        amount_is_correct = False
+        for amount in data_specs[l_i]:
+            if len(line) == amount:
+                amount_is_correct = True
+                break
+
+        if not amount_is_correct:
+            possible_amounts = " or ".join([str(i) for i in data_specs[l_i]])
+            error_messages.append(
+                " ".join(
+                    [
+                        f"Line {line_indices[l_i]}: expected to have",
+                        keyword_error_addition,
+                        f"{possible_amounts} numbers, got {len(line)} numbers",
+                    ]
+                )
+            )
+        # Check that every number is convertible to a float
+        for n_i, number in enumerate(line):
+            if not _is_float(number):
+                error_messages.append(
+                    " ".join(
+                        [
+                            f"Line {line_indices[l_i]}, block {n_i+1}: expected a number,",
+                            f'got "{number}"',
+                        ]
+                    )
+                )
+
+    return error_messages
+
+
 ################################################################################
 #                             Cell section checker                             #
 ################################################################################
@@ -235,17 +326,13 @@ def _verify_cell(lines, line_indices):
     # At the beginning we assume that the first line starts with the
     # case-insensitive word "cell", followed by the next line symbol or a space.
 
-    # Checker for the cell units
-    def is_units_keyword(word):
-        return word.lower().startswith("a") or word.lower().startswith("b")
-
     # Error messages list
     error_messages = []
 
-    # Check size of the cell section it has to have exactly 4 lines
-    if len(lines) != 4:
+    # Check size of the cell section it has to have at least 4 lines
+    if len(lines) != 4 and len(lines) != 5:
         error_messages.append(
-            f'Line {line_indices[0]}: "cell" section has to have exactly 4 lines, '
+            f'Line {line_indices[0]}: "cell" section has to have exactly 4 or 5 lines, '
             + f"{len(lines)} found:\n    "
             + "\n    ".join(lines)
         )
@@ -253,117 +340,27 @@ def _verify_cell(lines, line_indices):
         # since the behavior of the rest of the checks is unpredictable
         return error_messages
 
-    # Starting from this line it is assumed that the section has exactly 4 lines
+    # Starting from this line it is assumed that the section has exactly 4 or 5 lines
 
-    # # Check the section header
-    # error_messages.extend(_verify_section_header(lines[0], line_indices[0], []))
+    # Check the section header
+    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "b"]))
 
-    line = lines[0].lower().split()
-    # If  only <units> keyword present:
-    # Cell Angstrom
-    # or only <scale> keyword present and it is one number:
-    # Cell 1.5
-    if len(line) == 2:
-        if not (_is_float(line[1]) or is_units_keyword(line[1])):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected a number",
-                        f'or a word starting from "a" or "b", got "{line[1]}"',
-                    ]
-                )
-            )
-    # If both <units> and <scale> keywords are present and <scale> is one number:
-    # Cell Angstrom 1.5
-    # or
-    # Cell 1.5 Angstrom
-    elif len(line) == 3:
-        if not (
-            _is_float(line[1])
-            and is_units_keyword(line[2])
-            or is_units_keyword(line[1])
-            and _is_float(line[2])
-        ):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected a number",
-                        f'and a word starting from "a" or "b",',
-                        f'got "{" ".join(line[1:])}"',
-                    ]
-                )
-            )
-    # If only <scale> keyword is present and three numbers are given:
-    # Cell 1.2 1.4 1.1
-    elif len(line) == 4:
-        if not (_is_float(line[1]) and _is_float(line[2]) and _is_float(line[3])):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected three numbers,",
-                        f'got "{" ".join(line[1:])}"',
-                    ]
-                )
-            )
-    # If both <units> and <scale> keywords are present
-    # and <scale> is given by three numbers:
-    # Cell Angstrom 1.2 1.4 1.1
-    # or
-    # Cell 1.2 1.4 1.1 Angstrom
-    elif len(line) == 5:
-        if not (
-            (
-                _is_float(line[1])
-                and _is_float(line[2])
-                and _is_float(line[3])
-                and is_units_keyword(line[4])
-            )
-            or (
-                is_units_keyword(line[1])
-                and _is_float(line[2])
-                and _is_float(line[3])
-                and _is_float(line[4])
-            )
-        ):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}:",
-                        "expected three numbers and",
-                        'a word starting from "a" or "b"',
-                        'or a word starting from "a" or "b" and three numbers,',
-                        f'got "{" ".join(line[1:])}"',
-                    ]
-                )
-            )
-    # If there are too many entries
-    elif len(line) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected "cell" keyword',
-                    "and optional <units> and/or <scale>",
-                    "(from 1 to 5 blocks in total, separated by spaces),",
-                    f'got "{lines[0]}"',
-                ]
-            )
+    # If scale factor is present
+    if len(lines) == 5:
+        error_messages.extend(
+            _verify_numerical_data_block([lines[1]], [[1, 3]], [line_indices[1]])
         )
+        cell_lines = lines[2:]
+        cell_lines_indices = line_indices[2:]
+    # If no scale factor is present
+    else:
+        cell_lines = lines[1:]
+        cell_lines_indices = line_indices[1:]
 
     # Check that every lattice vector is provided as three numbers separated by spaces.
-    for i in range(1, 4):
-        line = lines[i].split()
-        if not (
-            len(line) == 3
-            and (_is_float(line[0]) and _is_float(line[1]) and _is_float(line[2]))
-        ):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[i]}: expected three numbers,",
-                        f'got "{lines[i]}"',
-                    ]
-                )
-            )
+    error_messages.extend(
+        _verify_numerical_data_block(cell_lines, [3, 3, 3], cell_lines_indices)
+    )
 
     return error_messages
 

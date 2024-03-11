@@ -8,7 +8,7 @@ Notation
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 12-18
+  :lines: 13-19
   :language: text
 
 .. dropdown:: Description
@@ -46,7 +46,9 @@ Notation
 
         * ``spin-normalized`` keyword
 
-          * Required.
+          * Required if :ref:`"exchange" <user-guide_input_model-file_exchange>`
+            or :ref:`"on-site" <user-guide_input_model-file_on-site>`
+            section is present.
           * Only first letter is checked, case-insensitive.
 
           True if spin vectors

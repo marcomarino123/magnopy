@@ -15,7 +15,7 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 24-47
+  :lines: 25-48
   :language: text
 
 .. dropdown:: Description

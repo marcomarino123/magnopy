@@ -12,7 +12,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 47-58
+  :lines: 48-59
   :language: text
 
 .. dropdown:: Description

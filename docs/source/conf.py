@@ -194,6 +194,7 @@ custom_links = {
     "Vampire": ("Vampire", "https://vampire.york.ac.uk/"),
     "wulfric": ("Wulfric", "https://docs.wulfric.org/en/latest/"),
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
+    "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
 }
 rst_epilog += "\n".join(
     map(

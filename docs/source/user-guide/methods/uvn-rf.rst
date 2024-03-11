@@ -189,16 +189,13 @@ the  :ref:`previous section <eq:uvn-rf-rot-matrix>`.
 Basis coordinates
 =================
 
-The :math:`(u\,v\,n)` basis coordinates can be better calculated by using
-Dirac's notation, where the rotation matrix elements are
-
-.. math::
-  \ket{\,u\,v\,n\,} = \boldsymbol{\cal R_r}\, \ket{\,x\,y\,z\,}
+The  rotation matrix is easily determined:
 
 .. math::
   \boldsymbol{R_r}=&
   \braket{\,x\,y\,z\,|\,u\,v\,n\,}=
-  \bra{\,x\,y\,z\,}\, \boldsymbol{\cal R_r}\, \ket{\,x\,y\,z\,}\\\\
+  \left(\,\boldsymbol{u}\, \boldsymbol{v}\, \boldsymbol{n}\,\right)
+  \\\\
    =&
       \begin{pmatrix}
         \cos\alpha + \sin^2\beta\,\,(1-\cos\alpha) &
@@ -211,7 +208,6 @@ Dirac's notation, where the rotation matrix elements are
         -\sin\beta\,\sin\alpha                   &
         \cos\alpha \\
       \end{pmatrix}\\
-      =&\left(\boldsymbol{u} \boldsymbol{v} \boldsymbol{n})
 
 ===============
 Spin components

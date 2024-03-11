@@ -93,6 +93,94 @@ def _is_atom_label(word, line_index):
     return error_messages
 
 
+def _verify_section_header(line, line_index, units_names):
+    r"""
+    Check the section header.
+
+    Parameters
+    ----------
+    line : str
+        The first line of the section.
+    line_index : int
+        Original line number, before filtering.
+    units_names : list of str
+        List of the supported units names for the section.
+        It is check if the units start with one of the names from the list.
+
+    Returns
+    -------
+    error_messages : list of str
+        List of error messages.
+
+    Notes
+    -----
+    The section name is checked at the other place.
+    """
+    error_messages = []
+
+    # Checker for the atom's coordinate units
+    def is_units_keyword(word):
+        for entry in units_names:
+            if word.lower().startswith(entry):
+                return True
+
+        return False
+
+    # Both section name and units are case insensitive
+    line = line.lower().split()
+    section_name = line[0]
+
+    # If <units> are present, then line has 2 blocks:
+    # Section_name <units>
+    if len(line) == 2:
+        # Check that units are expected
+        if len(units_names) == 0:
+            error_messages.append(
+                " ".join(
+                    [
+                        f"Line {line_index}: expected only the section name",
+                        f'and no <units>, got "{" ".join(line)}".',
+                    ]
+                )
+            )
+        # If units are expected check that they are one of the supported ones
+        elif not is_units_keyword(line[1]):
+            error_messages.append(
+                " ".join(
+                    [
+                        f"Line {line_index}, block 2: expected word starting from",
+                        ", ".join([f'"{i}"' for i in units_names]),
+                        f'got "{line[1]}".',
+                    ]
+                )
+            )
+    # If <units> are not present, then the line has only one block:
+    # section_name
+    elif len(line) != 1:
+        # If optional units are expected
+        if len(units_names) > 0:
+            error_messages.append(
+                " ".join(
+                    [
+                        f'Line {line_index}: expected "{section_name}" keyword',
+                        f'and/or <units>, got "{" ".join(line)}".',
+                    ]
+                )
+            )
+        # If no units are expected
+        else:
+            error_messages.append(
+                " ".join(
+                    [
+                        f'Line {line_index}: expected "{section_name}" keyword',
+                        f'and no <units>, got "{" ".join(line)}".',
+                    ]
+                )
+            )
+
+    return error_messages
+
+
 def _verify_cell(lines, line_indices):
     r"""
     Check that the found "cell" section is following the input file specification.
@@ -129,6 +217,7 @@ def _verify_cell(lines, line_indices):
         return error_messages
 
     # Starting from this line it is assumed that the section has exactly 4 lines
+
     line = lines[0].lower().split()
     # If  only <units> keyword present:
     # Cell Angstrom
@@ -438,10 +527,6 @@ def _verify_atoms(lines, line_indices):
     # At the beginning we assume that the first line starts with the
     # case-insensitive word "atoms", followed by the next line symbol or a space.
 
-    # Checker for the atom's coordinate units
-    def is_units_keyword(word):
-        return word.lower().startswith("a") or word.lower().startswith("b")
-
     error_messages = []
     # Check condition about the size of the section
     # At least two lines have to be present: header and at least one atom
@@ -461,30 +546,9 @@ def _verify_atoms(lines, line_indices):
         return error_messages
 
     # Starting from this line it is assumed that the section has at least 3 lines
-    line = lines[0].lower().split()
-    # If <units> are present, then line has 2 blocks:
-    # Atoms <units>
-    if len(line) == 2:
-        if not is_units_keyword(line[1]):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected word starting from",
-                        f'"a" or "b", got "{line[1]}"',
-                    ]
-                )
-            )
-    # If <units> are not present, then the line has only one block:
-    # Atoms
-    elif len(line) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected "atoms" keyword',
-                    f'and/or <units>, got "{" ".join(line)}"',
-                ]
-            )
-        )
+
+    # Check the section header
+    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "b"]))
 
     # Check the data header
     N, name_index, errors = _check_atoms_data_header(lines[1], line_indices[1])
@@ -570,16 +634,8 @@ def _verify_notation(
         # Do not proceed with the rest of the checks
         return error_messages
 
-    # Check that first line contains only the "notation" keyword
-    if len(lines[0].split()) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected only the "notation" keyword,',
-                    f'got "{lines[0]}"',
-                ]
-            )
-        )
+    # Check the section header
+    error_messages.extend(_verify_section_header(lines[0], line_indices[0], []))
 
     # Dictionary of the found properties
     found_properties = {}
@@ -908,29 +964,10 @@ def _verify_exchange(lines, line_indices):
     # Error messages list
     error_messages = []
 
-    line = lines[0].lower().split()
-    # Check <units> keyword
-    # Either meV, eV, J, K or Ry
-    if len(line) == 2:
-        if not (line[1][0] in ["m", "e", "j", "k", "r"]):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected",
-                        f'"meV" or "eV" or "J" or "K" or "Ry", got "{line[1]}"',
-                    ]
-                )
-            )
-    elif len(line) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected one or two blocks, "exchange" keyword',
-                    f'and/or <units> keyword ("meV" or "eV" or "J" or "K" or "Ry"),',
-                    f'got "{" ".join(line)}"',
-                ]
-            )
-        )
+    # Check the section header
+    error_messages.extend(
+        _verify_section_header(lines[0], line_indices[0], ["m", "e", "j", "k", "r"])
+    )
 
     # Find all bonds.
     # Skip first line with the section header
@@ -997,29 +1034,10 @@ def _verify_on_site(lines, line_indices):
     # Error messages list
     error_messages = []
 
-    line = lines[0].lower().split()
-    # Check <units> keyword
-    # Either meV, eV, J, K or Ry
-    if len(line) == 2:
-        if not (line[1][0] in ["m", "e", "j", "k", "r"]):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected",
-                        f'"meV" or "eV" or "J" or "K" or "Ry", got "{line[1]}"',
-                    ]
-                )
-            )
-    elif len(line) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected one or two entries, "on-site" keyword',
-                    f'and/or <units> ("meV" or "eV" or "J" or "K" or "Ry"),',
-                    f'got "{" ".join(line)}"',
-                ]
-            )
-        )
+    # Check the section header
+    error_messages.extend(
+        _verify_section_header(lines[0], line_indices[0], ["m", "e", "j", "k", "r"])
+    )
 
     # Find all bonds.
     # Skip first line with the section header
@@ -1120,10 +1138,6 @@ def _verify_cone_axis(lines, line_indices):
     # Error messages list
     error_messages = []
 
-    # Checker for the cell units
-    def is_units_keyword(word):
-        return word.lower().startswith("r") or word.lower().startswith("a")
-
     # Check size of the cone-axis section, it has to have exactly 2 lines
     if len(lines) != 2:
         error_messages.append(
@@ -1136,30 +1150,9 @@ def _verify_cone_axis(lines, line_indices):
         return error_messages
 
     # Starting from this line it is assumed that the section has exactly 2 lines
-    line = lines[0].lower().split()
-    # If  <units> keyword present:
-    # cone-axis <units>
-    if len(line) == 2:
-        if not is_units_keyword(line[1]):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected",
-                        f'a word starting from "r" or "a", got "{line[1]}"',
-                    ]
-                )
-            )
-    # If there are too many entries
-    elif len(line) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected "cone-axis" keyword',
-                    "and optional <units> (one or two blocks in total,",
-                    f'separated by spaces), got "{lines[0]}"',
-                ]
-            )
-        )
+
+    # Check the section header
+    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "r"]))
 
     # Check that next line contain three or two numbers
     line = lines[1].split()
@@ -1205,10 +1198,6 @@ def _verify_spiral_vector(lines, line_indices):
     # Error messages list
     error_messages = []
 
-    # Checker for the cell units
-    def is_units_keyword(word):
-        return word.lower().startswith("r") or word.lower().startswith("a")
-
     # Check size of the spiral-vector section, it has to have exactly 2 lines
     if len(lines) != 2:
         error_messages.append(
@@ -1221,30 +1210,9 @@ def _verify_spiral_vector(lines, line_indices):
         return error_messages
 
     # Starting from this line it is assumed that the section has exactly 2 lines
-    line = lines[0].lower().split()
-    # If  <units> keyword present:
-    # spiral-vector <units>
-    if len(line) == 2:
-        if not is_units_keyword(line[1]):
-            error_messages.append(
-                " ".join(
-                    [
-                        f"Line {line_indices[0]}: expected",
-                        f'a word starting from "r" or "a", got "{line[1]}"',
-                    ]
-                )
-            )
-    # If there are too many entries
-    elif len(line) != 1:
-        error_messages.append(
-            " ".join(
-                [
-                    f'Line {line_indices[0]}: expected "spiral-vector" keyword',
-                    "and optional <units> (one or two blocks in total,",
-                    f'separated by spaces), got "{lines[0]}"',
-                ]
-            )
-        )
+
+    # Check the section header
+    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "r"]))
 
     # Check that next line contain three  numbers
     line = lines[1].split()

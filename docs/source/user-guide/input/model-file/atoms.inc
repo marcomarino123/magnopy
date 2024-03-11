@@ -39,6 +39,8 @@ Atoms
   3     Data headers. Blocks are separated by spaces. Order is arbitrary.
         Each block defines the data interpretation of the corresponding column.
         If some block has to be skipped for some atoms use ``-`` symbol.
+        Below we list the keywords supported by magnopy, but other keywords are
+        allowed by the format and ignored by magnopy.
 
         * ``name`` keyword
 

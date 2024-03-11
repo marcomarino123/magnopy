@@ -41,7 +41,7 @@ Atoms
         If some block has to be skipped for some atoms use ``-`` symbol.
 
         * ``name`` keyword
-        
+
           * Required
           * Full word is checked.
           * In the next lines, the atom name has to start with a letter (a-zA-Z)
@@ -246,9 +246,14 @@ Atoms
 
   All names of datasets and groups are lowercase.
 
+  Group's name: "atoms".
+
   * Groups
 
     At least one group is required. Every group describes an atom.
+    Name of the first group is "1", the second "2", etc. Name of the last
+    group is "n", where "n" is the number of atoms.
+
     Inside each group following datasets are recognized:
 
     * "name" - a string

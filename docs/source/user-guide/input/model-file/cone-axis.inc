@@ -123,6 +123,8 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 
   All names of datasets and groups are lowercase.
 
+  Dataset's name: "cone-axis".
+
   It is a dataset with three numbers.
 
   * Attributes

@@ -212,6 +212,8 @@ Notation
 
   All names of datasets and groups are lowercase.
 
+  Group's name: "notation".
+
   * Datasets
 
     * "double counting" - either 0 or 1.

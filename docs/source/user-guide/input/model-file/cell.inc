@@ -173,6 +173,8 @@ Cell
 
   All names of datasets, groups and attributes are lowercase.
 
+  Group's name: "cell".
+
   * Attributes
 
     * "units" - either "Angstrom" or "Bohr". Case-insensitive. Full word is

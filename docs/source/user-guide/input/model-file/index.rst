@@ -17,8 +17,9 @@ Comment about the .hdf5 file
 * One full .txt file corresponds to the group in .hdf5 file with the attribute "type"
   set to the value "SpinHamiltonian". In this guide we reference this root group as
   "spinham/"
-* All keywords are lowercase.
-* All string dataset **data** are case-insensitive.
+* All dataset's, group's, and attributes's **names** are lowercase
+  (i.e "units", "spinham", "cell", ...).
+
 
 Comment about .txt file
 =======================
@@ -53,13 +54,7 @@ Comment for both files
 * Sections
   :ref:`user-guide_input_model-file_cell`,
   :ref:`user-guide_input_model-file_atoms`,
-  :ref:`user-guide_input_model-file_notation`
-  are required.
-* At least one of the sections
-  :ref:`user-guide_input_model-file_exchange`,
-  :ref:`user-guide_input_model-file_on-site`
-  is required.z
-* Sections :ref:`user-guide_input_model-spiral-vector`, :ref:`user-guide_input_model-cone-axis` are optional.
+  are required. Other sections are optional in general.
 
 
 

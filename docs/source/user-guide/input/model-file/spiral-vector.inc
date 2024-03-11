@@ -24,13 +24,13 @@ spiral vector, that describe the spiral ground state of the spin Hamiltonian.
 
         * ``spiral-vector`` keyword
 
-          * Required
-          * Full word is checked.
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          * Optional
-          * Only first letter is actually checked
+          * Optional.
+          * Only first letter is actually checked, case-insensitive.
           * Recognized values:
 
             * ``relative`` (default)
@@ -80,7 +80,7 @@ spiral vector, that describe the spiral ground state of the spin Hamiltonian.
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,30,54
+  :lines: 1,2,30,52
   :language: text
 
 .. dropdown:: Description
@@ -91,4 +91,5 @@ spiral vector, that describe the spiral ground state of the spin Hamiltonian.
 
   * Attributes
 
-    * "units" - either "Relative" or "Absolute"
+    * "units" - either "Relative" or "Absolute". Case-insensitive. Full word is
+      checked.

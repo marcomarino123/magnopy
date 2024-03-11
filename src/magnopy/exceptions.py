@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__all__ = ["ColpaFailed", "NotationError", "FailedToVerifyModelFile"]
+__all__ = ["ColpaFailed", "NotationError", "FailedToVerifyTxtModelFile"]
 
 
 class ColpaFailed(Exception):
@@ -59,7 +59,7 @@ class NotationError(ValueError):
         return self.message
 
 
-class FailedToVerifyModelFile(Exception):
+class FailedToVerifyTxtModelFile(Exception):
     R"""
     Raise if the format of the model input file is invalid.
     """

@@ -21,20 +21,20 @@ from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.internal import _filter_model_file
-from magnopy.io.verify import FailedToVerifyModelFile, _verify_model_file
+from magnopy.io.txt.internal import _filter_model_file
+from magnopy.io.txt.verify import FailedToVerifyTxtModelFile, _verify_model_file
 
-resources_path = join("utests", "io", "test_magnopy_inputs")
+resources_path = join("utests", "test_io", "model-file-examples")
 
 inputs_to_fail = [
-    (abspath(join(resources_path, "fail", f)))
-    for f in listdir(join(resources_path, "fail"))
-    if isfile(join(resources_path, "fail", f))
+    (abspath(join(resources_path, "incorrect", "txt", f)))
+    for f in listdir(join(resources_path, "incorrect", "txt"))
+    if isfile(join(resources_path, "incorrect", "txt", f))
 ]
 inputs_to_pass = [
-    (abspath(join(resources_path, "pass", f)))
-    for f in listdir(join(resources_path, "pass"))
-    if isfile(join(resources_path, "pass", f))
+    (abspath(join(resources_path, "correct", "txt", f)))
+    for f in listdir(join(resources_path, "correct", "txt"))
+    if isfile(join(resources_path, "correct", "txt", f))
 ]
 
 
@@ -50,7 +50,7 @@ def test_verify_model_fail(filename):
         lines, indices = _filter_model_file(filename)
         _verify_model_file(lines, indices)
         assert False
-    except FailedToVerifyModelFile:
+    except FailedToVerifyTxtModelFile:
         assert True
 
 
@@ -83,8 +83,8 @@ if __name__ == "__main__":
         inputs = inputs_to_pass + inputs_to_fail
     elif failed_or_passed.startswith("i"):
         control_word = ""
-        inputs = ["pass/" + basename(f) for f in inputs_to_pass] + [
-            "fail/" + basename(f) for f in inputs_to_fail
+        inputs = ["correct/txt/" + basename(f) for f in inputs_to_pass] + [
+            "incorrect/txt/" + basename(f) for f in inputs_to_fail
         ]
         while True:
             control_word = input(
@@ -104,14 +104,14 @@ if __name__ == "__main__":
                 print(
                     "  "
                     + "\n  ".join(
-                        sorted(["pass/" + basename(f) for f in inputs_to_pass])
+                        sorted(["correct/txt/" + basename(f) for f in inputs_to_pass])
                     )
                 )
                 print("Files that supposed to fail:")
                 print(
                     "  "
                     + "\n  ".join(
-                        sorted(["fail/" + basename(f) for f in inputs_to_fail])
+                        sorted(["incorrect/txt/" + basename(f) for f in inputs_to_fail])
                     )
                 )
             elif control_word.lower().startswith("q"):
@@ -134,7 +134,7 @@ if __name__ == "__main__":
                         print(
                             "".join(
                                 [
-                                    f"{i+1}: {line}"
+                                    f"{f'{i+1}:':4} {line}"
                                     for i, line in enumerate(file.readlines())
                                 ]
                             )
@@ -150,7 +150,15 @@ if __name__ == "__main__":
         input_file = input_file
         name = f' {basename(input_file).replace("-", " ").split(".")[0]} '
         print(f"{name:=^80}")
-        print(f"verifying file {input_file}")
+        print(f"verifying file {input_file}:\n")
+        print(f"File content:\n")
+        with open(input_file, "r") as file:
+            print(
+                "".join(
+                    [f"{f'{i+1}:':4} {line}" for i, line in enumerate(file.readlines())]
+                )
+            )
+        print(f"Magnopy output:\n")
         lines, indices = _filter_model_file(filename=input_file)
         _verify_model_file(lines, indices, raise_on_fail=False)
         print(f"{' Done, press ENTER for next file ':=^80}")

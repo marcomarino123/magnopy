@@ -139,6 +139,15 @@ the :math:`(x\,y\,z)` reference frame.
         \end{pmatrix}
       \end{aligned}
 
+  Notice also that these vectors can be written in Dirac's notation as
+
+  .. math::
+    \begin{aligned}
+        \boldsymbol{\hat{u}} &= \braket{x\,y\,z\,|u}=\braket{x\,y\,z\,|\,R\,|x}\\
+        \boldsymbol{\hat{v}} &= \braket{x\,y\,z\,|v}=\braket{x\,y\,z\,|\,R\,|y}\\
+        \boldsymbol{\hat{n}} &= \braket{x\,y\,z\,|n}=\braket{x\,y\,z\,|\,R\,|z}
+    \end{aligned}
+
 However, the unit vector :math:`\boldsymbol{\hat{r}}` is ill-defined, and so is
 :math:`\boldsymbol{R_r}`, whenever  :math:`\boldsymbol{\hat{n}}` and
 :math:`\pm\boldsymbol{\hat{z}}` are collinear. We then choose
@@ -201,7 +210,8 @@ Dirac's notation, where the rotation matrix elements are
         -\cos\beta\,\sin\alpha                   &
         -\sin\beta\,\sin\alpha                   &
         \cos\alpha \\
-      \end{pmatrix}
+      \end{pmatrix}\\
+      =&\left(\boldsymbol{u} \boldsymbol{v} \boldsymbol{n})
 
 ===============
 Spin components

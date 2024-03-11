@@ -449,7 +449,7 @@ class Energy:
                     Si
                     * Sj
                     * (
-                        np.cos(theta[i]) * np.cos(theta[i])
+                        np.cos(theta[i]) * np.cos(theta[j])
                         - np.sin(theta[i])
                         * np.sin(theta[j])
                         * np.cos(theta_m + phi[j] - phi[i])

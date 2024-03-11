@@ -39,23 +39,36 @@ Spin Hamiltonian
   :math:`\boldsymbol{d_{ij}} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r_m}`
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
-* The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that includes:
-
-  * The isotropic exchange:
+* The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that
+  is split into isotropic exchange, as well as into traceless symmetric  and anti-symmetric
+  anisotropy matrices as follows:
 
   .. math::
+    \boldsymbol{J}_{ij} = J_{ij}^{iso}\,\boldsymbol{I}+\boldsymbol{J_{ij}^{S}}+\boldsymbol{J_{ij}^{A}}
 
-    J_{ij}^{I} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
+  where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
-  * The symmetric anisotropy:
+  * The isotropic exchange is:
+
+  .. math::
+    J_{ij}^{iso} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
+
+  * The symmetric anisotropy is:
 
     .. math::
       \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
+      =
+      \begin{pmatrix}
+        S_{ij}^{xx} & S_{ij}^{xy} & S_{ij}^{xz} \\
+        S_{ij}^{yx} & S_{ij}^{yy} & S_{ij}^{yz} \\
+        S_{ij}^{zx} & S_{ij}^{zy} & S_{ij}^{zz} \\
+      \end{pmatrix}
+>>>>>>> refs/remotes/origin/main
 
-    where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
+    where :math:`S^{xx}_{ij}+S^{yy}_{ij}+S^{zz}_{ij}=0`.
 
   * The antisymmetric anisotropy that encapsulates the Dzyaloshinskii-Moriya
-    (DM) Interaction
+    (DM) Interaction is:
 
     .. math::
       \boldsymbol{J_{ij}^{A}} = \dfrac{\boldsymbol{J_{ij}} - \boldsymbol{J_{ij}}^T}{2}
@@ -69,8 +82,8 @@ Spin Hamiltonian
     :math:`\boldsymbol{J_{ij}^{A}}` is often recast in terms of the DM
     vector :math:`\boldsymbol{D} = (D^x,\,D^y,\,D^z)^T`.
 
-* The intra-atomic anisotropy tensor :math:`\boldsymbol{A_i}` is also
-  a :math:`3\times3` matrix which is always symmetric.
+* The intra-atomic anisotropy tensor :math:`\boldsymbol{A_i}` is symmetric
+  :math:`3\times3` matrix.
 
 * The final term describes the Zeeman interaction of an external magnetic field
   :math:`\boldsymbol{h}` with the atomic spins where the interaction strength is

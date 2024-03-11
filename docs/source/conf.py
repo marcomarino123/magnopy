@@ -53,7 +53,15 @@ extensions = [
     "sphinx_copybutton",  # Copybutton for the blocks
     "numpydoc",  # For the numpy-style docstrings
     "sphinx_design",  # For the design elements on the from page
+    "sphinx.ext.intersphinx",  # Link to other projects
 ]
+
+##########################################################################################
+##                                  Intersphinx mapping                                 ##
+##########################################################################################
+intersphinx_mapping = {
+    "wulfric": ("https://docs.wulfric.org/en/latest/", None),
+}
 
 ##########################################################################################
 ##                                  Build configuration                                 ##

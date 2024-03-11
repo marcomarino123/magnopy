@@ -16,9 +16,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from .hdf5 import *
-from .txt import *
+from os import listdir, remove
+from os.path import abspath, basename, isfile, join
 
-__all__ = []
-__all__.extend(txt.__all__)
-__all__.extend(hdf5.__all__)
+import pytest
+
+from magnopy.io.txt.internal import _filter_model_file, dump_model, load_model
+
+resources_path = join("utests", "test_io", "model-file-examples")
+
+inputs_to_pass = [
+    (abspath(join(resources_path, "correct", "txt", f)))
+    for f in listdir(join(resources_path, "correct", "txt"))
+    if isfile(join(resources_path, "correct", "txt", f))
+]
+
+
+@pytest.mark.parametrize("filename", inputs_to_pass)
+def test_load_model(filename):
+    model = load_model(filename)
+
+
+@pytest.mark.parametrize("filename", inputs_to_pass)
+def test_dump_model(filename):
+    model = load_model(filename)
+    lines_dumped_loaded = dump_model(model, print_if_none=False)

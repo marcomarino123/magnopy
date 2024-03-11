@@ -25,15 +25,13 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
         * ``on-site`` keyword
 
-          * Required
-          * Full word is checked
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          Defines the units of the exchange parameters.
-
-          * Optional
-          * Only first letter is actually checked
+          * Optional.
+          * Only first letter is actually checked, case-insensitive.
           * Recognized values:
 
             * ``meV`` -  :math:`10^{-3}` electron-Volt (default)
@@ -42,17 +40,25 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
             * ``K`` - Kelvin
             * ``Ry`` - Rydberg units of energy
 
+          Defines the units of the exchange parameters.
+
   3     Subsection separator (10 or more ``-`` symbols)
   4-5   On-site anisotropy parameter for atom ``atom-1``, exactly two lines.
 
         * ``atom-1``
 
-          Atom's label. Have to be consistent with
-          :ref:`user-guide_input_model-file_atoms` section.
+          * Required.
+          * Have to be consistent with :ref:`user-guide_input_model-file_atoms` section.
+          * Case-sensitive.
+
+          Atom's name.
 
         * ``Axx Ayy Azz Axy Axz Ayz``
 
-          Unique values of the anisotropy matrix. Six numbers, separated by spaces.
+          * Six numbers, separated by spaces.
+          * The order is fixed.
+
+          Unique values of the anisotropy matrix.
           They translates into the matrix form as:
 
           .. math::
@@ -142,7 +148,7 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1,2,45-54
+  :lines: 1,2,44-52
   :language: text
 
 .. dropdown:: Description
@@ -151,12 +157,16 @@ Parameters of the on-site anisotropy part of the Hamiltonian:
 
   * Attributes
 
-    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg"
+    * "units" - one of the following: "milli-electron-Volt", "electron-Volt", "Joule", "Kelvin", "Rydberg". Case-insensitive. Full word is
+      checked.
 
   * Groups
 
-    At least one group is required (:math:`n \ge 1`), every group describes one parameter.
-    Inside each group two datasets are required:
+    * <number from 1 to n>
 
-    * "atom" - a string.
-    * "matrix" - :math:`3\times3` matrix of numbers.
+      Every group describes one on-site parameter.
+      There may be no groups.
+      Inside each group two datasets are required:
+
+      * "atom" - a string.
+      * "matrix" - :math:`3\times3` matrix of numbers.

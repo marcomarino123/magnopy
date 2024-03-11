@@ -56,7 +56,7 @@ pictures-for-docs:
 	@python3 docs/images/scripts/minimization-exchange.py -rd .
 
 model-input-examples-run:
-	@python3 utests/io/test_verify.py
+	@python3 utests/test_io/test_txt/test_verify.py
 
 requirements:
 	@pip install -r requirements.txt --no-cache

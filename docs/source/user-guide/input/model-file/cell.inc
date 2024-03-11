@@ -21,23 +21,21 @@ Cell
 
         * ``cell`` keyword
 
-          * Required
-          * Full word is checked
+          * Required.
+          * Full word is checked, case-insensitive.
 
         * ``units``
 
-          Defines the units of the lattice vectors.
-
-          * Optional
-          * Only first letter is checked
+          * Optional.
+          * Only first letter is checked, case-insensitive.
           * Recognized values:
 
             * ``Angstrom`` (default)
             * ``Bohr``
 
-        * ``scale``
+          Defines the units of the lattice vectors.
 
-          Common or individual scale factors for the lattice vectors.
+        * ``scale``
 
           * Optional
           * One or three numbers, separated by spaces
@@ -47,6 +45,8 @@ Cell
 
             * ``s_a s_b s_c`` - three numbers, individual scale factors for
               each lattice vector. The order is fixed.
+
+          Common or individual scale factors for the lattice vectors.
 
         Note: The order of ``<scale>`` and ``<units>`` can be changed, but
         ``cell`` keyword has to be at the beginning of the line.
@@ -166,7 +166,7 @@ Cell
 
 .. literalinclude:: full-hdf5.inc
   :linenos:
-  :lines: 1-6,54
+  :lines: 1-6,52
   :language: text
 
 .. dropdown:: Description
@@ -175,7 +175,8 @@ Cell
 
   * Attributes
 
-    * "units" - either "Angstrom" or "Bohr".
+    * "units" - either "Angstrom" or "Bohr". Case-insensitive. Full word is
+      checked.
 
   * Datasets
 

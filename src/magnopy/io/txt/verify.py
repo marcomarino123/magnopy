@@ -255,8 +255,8 @@ def _verify_cell(lines, line_indices):
 
     # Starting from this line it is assumed that the section has exactly 4 lines
 
-    # Check the section header
-    error_messages.extend(_verify_section_header(lines[0], line_indices[0], []))
+    # # Check the section header
+    # error_messages.extend(_verify_section_header(lines[0], line_indices[0], []))
 
     line = lines[0].lower().split()
     # If  only <units> keyword present:
@@ -1403,11 +1403,11 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             # If verification function is not implemented
             else:
                 _logger.warning(
-                    f"Verification function for the section '{section_name}' is not implemented."
+                    f"Verification function for the section '{section}' is not implemented."
                 )
         # If the section is not supported
         else:
-            _logger.warning(f"Section '{section_name}' is not supported.")
+            _logger.warning(f"Section '{section}' is not supported.")
 
     # Check if all required sections are found
     for r_section in _REQUIRED_SECTIONS:

@@ -50,7 +50,7 @@ Spin Hamiltonian
   * The symmetric anisotropy:
 
     .. math::
-      \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{iso}\, \boldsymbol{I}
+      \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
 
     where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 

@@ -30,7 +30,11 @@ Each cell contains :math:`I` atoms with intra-cell positions
 
 Magnopy construct the single-q conical state by populating the lattice sites with the
 collinear spin vectors :math:`\boldsymbol{S^F_{mi}}`, oriented along the direction of
-the vector :math:`\boldsymbol{n}`: :math:`\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{\hat{n}}`
+the vector :math:`\boldsymbol{n}`:
+
+  .. math::
+    \boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{\hat{n}}
+
 and subsequently rotating them with the rotation :math:`\boldsymbol{R_i}`, which does not
 depend on the position of the unit cell in the lattice and with the conical rotation
 :math:`\boldsymbol{R_m}(\boldsymbol{q})`, which act based on the position of the unit
@@ -38,21 +42,6 @@ cell and does not depend on the position of the atom within unit cell. Therefore
 single-q conical state :math:`\boldsymbol{S_{mi}}` can be written as:
 
 .. include:: repeated-formulas/spin-from-ferro-any.inc
-
-Cone direction, pitch vector and rotation matrix
-================================================
-A single-:math:`\boldsymbol{q}` conical spin state can be described by two vectors
-
-* The unit vector :math:`\boldsymbol{\hat{n}}` that defines the cone axis direction.
-  Magnopy uses the :math:`(\,u\,v\,n\,)` reference frame where :math:`n` refers to
-  the cone vector, as described in the section :ref:`user-guide_methods_uvn`.
-* A pitch vector :math:`\boldsymbol{q}` that defines the spiral propagation through
-  the azimut phase
-  :math:`\phi_m(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_m}`
-
-Both vectors define the cone-state rotation matrix
-
-.. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
 
 Intra-cell spin generation
 ==========================
@@ -69,6 +58,21 @@ to the local collinear spin vector
 
 .. math::
    \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S^F_i}
+
+Cone direction, pitch vector and rotation matrix
+================================================
+A single-:math:`\boldsymbol{q}` conical spin state can be described by two vectors
+
+* The unit vector :math:`\boldsymbol{\hat{n}}` that defines the cone axis direction.
+  Magnopy uses the :math:`(\,u\,v\,n\,)` reference frame where :math:`n` refers to
+  the cone vector, as described in the section :ref:`user-guide_methods_uvn`.
+* A pitch vector :math:`\boldsymbol{q}` that defines the spiral propagation through
+  the azimut phase
+  :math:`\phi_m(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_m}`
+
+Both vectors define the cone-state rotation matrix
+
+.. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
 
 Full cone-state generation
 ==========================

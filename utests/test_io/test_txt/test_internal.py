@@ -21,7 +21,7 @@ from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.txt.internal import _filter_model_file, dump_model, load_model
+from magnopy.io.txt.internal import _filter_txt_file, dump_model, load_model
 
 resources_path = join("utests", "test_io", "model-file-examples")
 
@@ -41,3 +41,11 @@ def test_load_model(filename):
 def test_dump_model(filename):
     model = load_model(filename)
     lines_dumped_loaded = dump_model(model, print_if_none=False)
+
+
+def test__filter_txt_file_raises():
+    with pytest.raises(ValueError):
+        _filter_txt_file("file.txt", lines=[])
+
+    with pytest.raises(ValueError):
+        _filter_txt_file()

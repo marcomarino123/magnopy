@@ -21,7 +21,7 @@ from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.txt.internal import _filter_model_file
+from magnopy.io.txt.internal import _filter_txt_file
 from magnopy.io.txt.verify import FailedToVerifyTxtModelFile, _verify_model_file
 
 resources_path = join("utests", "test_io", "model-file-examples")
@@ -40,14 +40,14 @@ inputs_to_pass = [
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
 def test_verify_model_pass(filename):
-    lines, indices = _filter_model_file(filename)
+    lines, indices = _filter_txt_file(filename)
     _verify_model_file(lines, indices)
 
 
 @pytest.mark.parametrize("filename", inputs_to_fail)
 def test_verify_model_fail(filename):
     try:
-        lines, indices = _filter_model_file(filename)
+        lines, indices = _filter_txt_file(filename)
         _verify_model_file(lines, indices)
         assert False
     except FailedToVerifyTxtModelFile:
@@ -122,7 +122,7 @@ if __name__ == "__main__":
                     name = f' {control_word.replace("-", " ").split(".")[0]} '
                     print(f"{'':=^80}")
                     print(f"verifying file {input_file}")
-                    lines, indices = _filter_model_file(filename=input_file)
+                    lines, indices = _filter_txt_file(filename=input_file)
                     _verify_model_file(lines, indices, raise_on_fail=False)
                     print(f"{' Done ':=^80}")
                 else:
@@ -159,7 +159,7 @@ if __name__ == "__main__":
                 )
             )
         print(f"Magnopy output:\n")
-        lines, indices = _filter_model_file(filename=input_file)
+        lines, indices = _filter_txt_file(filename=input_file)
         _verify_model_file(lines, indices, raise_on_fail=False)
         print(f"{' Done, press ENTER for next file ':=^80}")
         input()

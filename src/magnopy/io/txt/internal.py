@@ -947,51 +947,76 @@ def _read_spiral_vector(lines, spinham: SpinHamiltonian):
     return spinham
 
 
-def _filter_model_file(filename=None, lines=None, save_filtered=False):
+def _filter_txt_file(filename=None, lines=None, save_filtered=False):
     R"""
     Filter out all comments and blank lines from the model input file.
 
     Parameters
-    ==========
+    ----------
     filename : str, optional
-        Path to the file.
+        Path to the file. Either ``filename`` or ``lines`` have to be provided.
     lines : list of str, optional
-        Lines of the model input file.
+        Lines of the model input file. Either ``filename`` or ``lines`` have to be provided.
     save_filtered : bool, default False
         Whether to save filtered copy as a separate file.
-        A name is the same as of the original file with ".filtered" added to the end.
+        A name is the same as of the original file with "filtered_" added to the beginning.
 
     Returns
-    =======
+    -------
     filtered_lines : (N,) list of str
         Content of the file without comments and blank lines.
     lines_indices : (N,) list
         Indices of filtered lines in the original file.
+
+    Raises
+    ------
+    ValueError
+        If neither ``filename`` nor ``lines`` are provided.
+        If both ``filename`` and ``lines`` are provided.
+
     """
 
+    # Verify input parameters
+    if filename is None and lines is None:
+        raise ValueError("Either filename or lines have to be provided.")
+
+    if filename is not None and lines is not None:
+        raise ValueError("Only one of filename or lines can be provided.")
+
+    # Read the content of the file if lines are not provided
     if lines is None:
         # Read the content of the file
         with open(filename, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
-    # Filter comments and blank lines
+    # Filtered lines
     filtered_lines = []
+    # Original line indices
     line_indices = []
+
+    # Filter comments and blank lines
     for l_i, line in enumerate(lines):
+        # Remove comment lines
         if line.startswith("#"):
             continue
-        line = line.strip().split("#")[0]
+        # Remove inline comments and leading/trailing whitespaces
+        line = line.split("#")[0].strip()
+        # Remove empty lines
         if line:
             filtered_lines.append(line)
             line_indices.append(l_i + 1)
 
+    # Save filtered copy of the file
     if save_filtered:
-        with open(filename + ".filtered", "w", encoding="utf-8") as f:
+        filtered_filename = f"filtered_{filename}"
+        with open(filtered_filename, "w", encoding="utf-8") as f:
             f.write("\n".join(filtered_lines))
         _logger.debug(
-            f"Filtered input file is saved in {os.path.abspath(filename + '.filtered')}"
+            f"Filtered input file is saved in {os.path.abspath(filtered_filename)}"
         )
 
+    # Return filtered lines and original line indices
+    # for the line filtered_lines[i] the original line index is line_indices[i]
     return filtered_lines, line_indices
 
 
@@ -1018,7 +1043,7 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     with open(filename, "r", encoding="utf-8") as f:
         lines = f.readlines()
 
-    lines, indices = _filter_model_file(filename=filename, save_filtered=save_filtered)
+    lines, indices = _filter_txt_file(filename=filename, save_filtered=save_filtered)
 
     # Verify input
     sections = _verify_model_file(

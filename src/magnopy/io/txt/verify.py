@@ -1286,7 +1286,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
     r"""
     Verify the content of the input file with the model.
 
-    The input file shall be filtered. See :py:func:`._filter_model_file`.
+    The input file shall be filtered. See :py:func:`._filter_txt_file`.
 
     Parameters
     -------------

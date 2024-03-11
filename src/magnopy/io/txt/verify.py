@@ -26,6 +26,37 @@ _all_ = []
 _logger = logging.getLogger(__name__)
 
 
+################################################################################
+#                   Rules (check additional ones at the end)                   #
+################################################################################
+
+_REQUIRED_SECTIONS = ["cell", "atoms", "notation"]  # Cell  # Atoms  # Notation
+_PARAMETERS_SECTIONS = ["exchange", "on-site"]  # Exchange # On-site
+
+_SUPPORTED_SECTIONS = {
+    "cell",
+    "atoms",
+    "notation",
+    "exchange",
+    "on-site",
+    "cone-axis",
+    "spiral-vector",
+}
+
+_SUPPORTED_UNITS = {
+    "cell": ["bohr", "angstrom"],
+    "atoms": ["a", "r"],
+    "notation": [],
+    "exchange": ["m", "e", "j", "k", "r"],
+    "on-site": ["m", "e", "j", "k", "r"],
+    "cone-axis": ["a", "r"],
+    "spiral-vector": ["a", "r"],
+}
+
+
+################################################################################
+#                              Data type checkers                              #
+################################################################################
 def _is_float(word):
     r"""
     Check if the ``word`` can be converted to ``float``
@@ -93,6 +124,9 @@ def _is_atom_label(word, line_index):
     return error_messages
 
 
+################################################################################
+#                                Common checker                                #
+################################################################################
 def _verify_section_header(line, line_index, units_names):
     r"""
     Check the section header.
@@ -181,6 +215,9 @@ def _verify_section_header(line, line_index, units_names):
     return error_messages
 
 
+################################################################################
+#                             Cell section checker                             #
+################################################################################
 def _verify_cell(lines, line_indices):
     r"""
     Check that the found "cell" section is following the input file specification.
@@ -217,6 +254,9 @@ def _verify_cell(lines, line_indices):
         return error_messages
 
     # Starting from this line it is assumed that the section has exactly 4 lines
+
+    # Check the section header
+    error_messages.extend(_verify_section_header(lines[0], line_indices[0], []))
 
     line = lines[0].lower().split()
     # If  only <units> keyword present:
@@ -328,6 +368,9 @@ def _verify_cell(lines, line_indices):
     return error_messages
 
 
+################################################################################
+#                            Atoms section checker                             #
+################################################################################
 def _check_vector_keywords(keywords, liter, line_index):
     r"""
     Check that one of the three sets is provided:
@@ -593,6 +636,9 @@ def _verify_atoms(lines, line_indices):
     return error_messages
 
 
+################################################################################
+#                           Notation section checker                           #
+################################################################################
 def _verify_notation(
     lines,
     line_indices,
@@ -726,6 +772,9 @@ def _verify_notation(
     return error_messages
 
 
+################################################################################
+#                          Exchange section checker                            #
+################################################################################
 def _verify_bond(lines, line_indices):
     R"""
     Check that the found "bond" section is following the input file specification.
@@ -1014,6 +1063,9 @@ def _verify_exchange(lines, line_indices):
     return error_messages
 
 
+################################################################################
+#                           On-site section checker                            #
+################################################################################
 def _verify_on_site(lines, line_indices):
     r"""
     Check that the found "on-site" section is following the input file specification.
@@ -1117,6 +1169,9 @@ def _verify_on_site(lines, line_indices):
     return error_messages
 
 
+################################################################################
+#                          Cone-axis section checker                           #
+################################################################################
 def _verify_cone_axis(lines, line_indices):
     r"""
     Check that the found "cone-axis" section is following the input file specification.
@@ -1177,6 +1232,9 @@ def _verify_cone_axis(lines, line_indices):
     return error_messages
 
 
+################################################################################
+#                        Spiral-vector section checker                         #
+################################################################################
 def _verify_spiral_vector(lines, line_indices):
     r"""
     Check that the found "spiral-vector" section is following the input file specification.
@@ -1234,12 +1292,11 @@ def _verify_spiral_vector(lines, line_indices):
     return error_messages
 
 
-# Rules
+################################################################################
+#                      Mapping of verification functions                       #
+################################################################################
 
-_REQUIRED_SECTIONS = ["cell", "atoms", "notation"]  # Cell  # Atoms  # Notation
-_PARAMETERS_SECTIONS = ["exchange", "on-site"]  # Exchange # On-site
-
-_SUPPORTED_SECTIONS = {
+_VERIFY = {
     "cell": _verify_cell,
     "atoms": _verify_atoms,
     "notation": _verify_notation,
@@ -1250,6 +1307,9 @@ _SUPPORTED_SECTIONS = {
 }
 
 
+################################################################################
+#                              Full file checker                               #
+################################################################################
 def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=False):
     r"""
     Verify the content of the input file with the model.
@@ -1315,27 +1375,39 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
         # Save the position of the found section
         found_sections[section_keyword] = (section_start, section_end)
 
-    for name in _SUPPORTED_SECTIONS:
-        if name in found_sections:
-            # Custom call for notation section
-            if name == "notation":
-                error_messages.extend(
-                    _SUPPORTED_SECTIONS[name](
-                        lines[slice(*found_sections[name])],
-                        line_indices[slice(*found_sections[name])],
-                        expect_exchange_factor="exchange" in found_sections,
-                        expect_on_site_factor="on-site" in found_sections,
-                        expect_double_counting="exchange" in found_sections,
+    # Verify each found section
+    for section in found_sections:
+        # Only verify sections that are supported
+        if section in _SUPPORTED_SECTIONS:
+            # Check if the verification function is implemented
+            if section in _VERIFY:
+                # Custom call for notation section
+                if section == "notation":
+                    error_messages.extend(
+                        _VERIFY[section](
+                            lines[slice(*found_sections[section])],
+                            line_indices[slice(*found_sections[section])],
+                            expect_exchange_factor="exchange" in found_sections,
+                            expect_on_site_factor="on-site" in found_sections,
+                            expect_double_counting="exchange" in found_sections,
+                        )
                     )
-                )
-            # Universal call for all other sections
+                # Universal call for all other sections
+                else:
+                    error_messages.extend(
+                        _VERIFY[section](
+                            lines[slice(*found_sections[section])],
+                            line_indices[slice(*found_sections[section])],
+                        )
+                    )
+            # If verification function is not implemented
             else:
-                error_messages.extend(
-                    _SUPPORTED_SECTIONS[name](
-                        lines[slice(*found_sections[name])],
-                        line_indices[slice(*found_sections[name])],
-                    )
+                _logger.warning(
+                    f"Verification function for the section '{section_name}' is not implemented."
                 )
+        # If the section is not supported
+        else:
+            _logger.warning(f"Section '{section_name}' is not supported.")
 
     # Check if all required sections are found
     for r_section in _REQUIRED_SECTIONS:

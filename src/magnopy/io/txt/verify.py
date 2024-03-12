@@ -785,6 +785,17 @@ def _verify_atoms(lines, line_indices):
                     )
                 )
 
+    if len(allowed_atoms) != len(lines) - 2:
+        errors = True
+        _logger.error(
+            " ".join(
+                [
+                    f"Line {line_indices[2]}-{line_indices[-1]}: expected to have unique",
+                    f"atom's names, got duplicates. {len(allowed_atoms)} unique names found.",
+                ]
+            )
+        )
+
     return allowed_atoms, errors
 
 

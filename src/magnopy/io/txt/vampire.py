@@ -139,8 +139,7 @@ def dump_mat(spinham: SpinHamiltonian, filename=None, materials=None, nologo=Fal
             text.append("#---------------------------------------------------")
             text.append(f"material[{m_i}]:material-name = {atom.name}")
             text.append(f"material[{m_i}]:material-element = {atom.type}")
-            # Here we assume g=2
-            text.append(f"material[{m_i}]:atomic-spin-moment={atom.spin*2} ! muB")
+            text.append(f"material[{m_i}]:atomic-spin-moment={atom.spin} ! muB")
             if atom._spin_direction is not None:
                 text.append(
                     f"material[{m_i}]:initial-spin-direction = {atom.spin_direction[0]:.8f},{atom.spin_direction[1]:.8f},{atom.spin_direction[2]:.8f}"

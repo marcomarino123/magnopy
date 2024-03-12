@@ -44,14 +44,14 @@ Spin Hamiltonian
   anisotropy matrices as follows:
 
   .. math::
-    \boldsymbol{J}_{ij} = J_{ij}^{iso}\,\boldsymbol{I}+\boldsymbol{J_{ij}^{S}}+\boldsymbol{J_{ij}^{A}}
+    \boldsymbol{J}_{ij} = J_{ij}^{I}\,\boldsymbol{I}+\boldsymbol{J_{ij}^{S}}+\boldsymbol{J_{ij}^{A}}
 
   where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
   * The isotropic exchange is:
 
   .. math::
-    J_{ij}^{iso} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
+    J_{ij}^{I} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
 
   * The symmetric anisotropy is:
 

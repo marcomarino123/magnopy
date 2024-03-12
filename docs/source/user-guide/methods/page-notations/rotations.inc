@@ -5,7 +5,7 @@ the  unit vector defining the rotation axis and whose argument indicates the rot
   \boldsymbol{R_n}(\theta)= e^{\theta\,\boldsymbol{n} \,\times}
 
 corresponds to a rotation by an angle :math:`\theta` about an axis defined by the unit
-vector :math:`\boldsymbol{\hat{n}}`.
+vector :math:`\boldsymbol{\hat{n}}`
 
 Exceptions to the above rule are as follows. A rotation matrix :math:`\boldsymbol{R}_{r(\phi)}(\theta)`
 whose axis depends on an angle :math:`\phi` will be denoted by :math:`\boldsymbol{R}_{r}(\theta,\phi)`.

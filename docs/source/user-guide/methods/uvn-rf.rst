@@ -43,7 +43,6 @@ the :math:`(x\,y\,z)` reference frame.
   The unit vector
 
   .. math::
-
       \boldsymbol{\hat{r}}(\beta)
       =
       \dfrac{\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}}{\vert\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}\vert}
@@ -54,8 +53,7 @@ the :math:`(x\,y\,z)` reference frame.
         0
       \end{pmatrix}
 
-  is defined by the angle :math:`\beta`
-  in the figure
+  is defined by the angle :math:`\beta` in the figure
 
   .. raw:: html
     :file: ../../../images/uvn-rf-n-angles.html
@@ -63,7 +61,6 @@ the :math:`(x\,y\,z)` reference frame.
   The rotation matrix is
 
   .. math::
-    :name: eq:uvn-rf-rot-matrix
       \boldsymbol{R_{r}(\alpha,\beta)
       &=
       \begin{pmatrix}

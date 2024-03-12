@@ -77,9 +77,9 @@ def _is_bool(word) -> bool:
 ################################################################################
 #                                Common checker                                #
 ################################################################################
-def _verify_atom_label(word, line_index) -> bool:
+def _verify_atom_name(word, line_index) -> bool:
     r"""
-    Check if the ``word`` is a valid atom's label.
+    Check if the ``word`` is a valid atom's name.
 
     Parameters
     ----------
@@ -103,7 +103,7 @@ def _verify_atom_label(word, line_index) -> bool:
         _logger.error(
             " ".join(
                 [
-                    f"Line {line_index}: Atom labels have to start with a",
+                    f"Line {line_index}: Atom names have to start with a",
                     'letter or a number and should not contain any "#" symbols',
                     'and should not start nor end with double underscore "__",',
                     f'got "{word}"',
@@ -764,7 +764,7 @@ def _verify_atoms(lines, line_indices):
 
         # Check atom's names if any
         if name_index is not None:
-            errors = errors or _verify_atom_label(line[name_index], line_indices[i])
+            errors = errors or _verify_atom_name(line[name_index], line_indices[i])
             allowed_atoms.add(line[name_index])
 
         # Check other data fields
@@ -977,7 +977,7 @@ def _verify_bond(lines, line_indices, allowed_atoms) -> bool:
         ``True`` if errors are found, ``False`` otherwise.
     """
     # At the beginning we assume that the the bond has at least one line in it
-    # with the atom's labels and ijk.
+    # with the atom's names and ijk.
 
     # There are no errors yet
     errors = False
@@ -993,15 +993,15 @@ def _verify_bond(lines, line_indices, allowed_atoms) -> bool:
         _logger.error(
             " ".join(
                 [
-                    f"Line {line_indices[0]}: expected two atom labels",
+                    f"Line {line_indices[0]}: expected two atom names",
                     f'and three integers separated by spaces, got "{" ".join(line)}"',
                 ]
             )
         )
     else:
         # Check the atom names
-        errors = errors or _verify_atom_label(line[0], line_indices[0])
-        errors = errors or _verify_atom_label(line[1], line_indices[0])
+        errors = errors or _verify_atom_name(line[0], line_indices[0])
+        errors = errors or _verify_atom_name(line[1], line_indices[0])
         # Check that atom names are present in the atoms section
         for i in [0, 1]:
             if line[i] not in allowed_atoms:
@@ -1009,7 +1009,7 @@ def _verify_bond(lines, line_indices, allowed_atoms) -> bool:
                 _logger.error(
                     " ".join(
                         [
-                            f"Line {line_indices[0]}, block {i+1}: atom label {line[i]}",
+                            f"Line {line_indices[0]}, block {i+1}: atom name {line[i]}",
                             "is not present in the atoms section",
                         ]
                     )
@@ -1027,7 +1027,7 @@ def _verify_bond(lines, line_indices, allowed_atoms) -> bool:
                 )
             )
 
-    # Skip first line with atom's labels and ijk.
+    # Skip first line with atom's names and ijk.
     i = 1
     while i < len(lines):
         line = lines[i].lower().split()
@@ -1232,26 +1232,26 @@ def _verify_on_site(lines, line_indices, allowed_atoms) -> bool:
         if i >= len(lines):
             break
 
-        # Check that the atom's label is present
+        # Check that the atom's name is present
         if len(lines[i].split()) != 1:
             errors = True
             _logger.error(
                 " ".join(
                     [
-                        f"Line {line_indices[i]}: expected only the atom's label,",
+                        f"Line {line_indices[i]}: expected only the atom's name,",
                         f'got "{lines[i]}"',
                     ]
                 )
             )
-        # Check the atom's label
-        errors = errors or _verify_atom_label(lines[i].split()[0], line_indices[i])
+        # Check the atom's name
+        errors = errors or _verify_atom_name(lines[i].split()[0], line_indices[i])
         # Check that atom names are present in the atoms section
         if lines[i].split()[0] not in allowed_atoms:
             errors = True
             _logger.error(
                 " ".join(
                     [
-                        f"Line {line_indices[i]}: atom label {lines[i].split()[0]}",
+                        f"Line {line_indices[i]}: atom name {lines[i].split()[0]}",
                         "is not present in the atoms section",
                     ]
                 )

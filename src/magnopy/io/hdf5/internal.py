@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import h5py
+
 from magnopy.spinham import SpinHamiltonian
 
 __all__ = ["load_model", "dump_model"]

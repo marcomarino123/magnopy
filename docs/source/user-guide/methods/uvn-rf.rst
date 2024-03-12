@@ -65,7 +65,7 @@ the :math:`(x\,y\,z)` reference frame.
   .. math::
     :name: eq:uvn-rf-rot-matrix
 
-      \boldsymbol{R_r(\beta)}(\alpha)
+      \boldsymbol{R_{r(\beta)}(\alpha)
       &=
       \begin{pmatrix}
         1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\

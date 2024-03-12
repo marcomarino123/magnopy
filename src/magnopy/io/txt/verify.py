@@ -27,33 +27,6 @@ _logger = logging.getLogger(__name__)
 
 
 ################################################################################
-#                   Rules (check additional ones at the end)                   #
-################################################################################
-
-_REQUIRED_SECTIONS = ["cell", "atoms"]
-
-_SUPPORTED_SECTIONS = {
-    "cell",
-    "atoms",
-    "notation",
-    "exchange",
-    "on-site",
-    "cone-axis",
-    "spiral-vector",
-}
-
-_SUPPORTED_UNITS = {
-    "cell": ["bohr", "angstrom"],
-    "atoms": ["a", "r"],
-    "notation": [],
-    "exchange": ["m", "e", "j", "k", "r"],
-    "on-site": ["m", "e", "j", "k", "r"],
-    "cone-axis": ["a", "r"],
-    "spiral-vector": ["a", "r"],
-}
-
-
-################################################################################
 #                              Data type checkers                              #
 ################################################################################
 def _is_float(word) -> bool:
@@ -726,7 +699,7 @@ def _verify_atoms_data_header(line, line_index):
     return N, name_index, errors
 
 
-def _verify_atoms(lines, line_indices) -> bool:
+def _verify_atoms(lines, line_indices):
     r"""
     Check that the found "atoms" section is following the input file specification.
 
@@ -742,9 +715,13 @@ def _verify_atoms(lines, line_indices) -> bool:
 
     Returns
     -------
+    allowed_atoms : set of str
+        Set of the allowed atom's names.
     errors : bool
         ``True`` if errors are found, ``False`` otherwise.
     """
+
+    allowed_atoms = set()
     # At the beginning we assume that the first line starts with the
     # case-insensitive word "atoms", followed by the next line symbol or a space.
 
@@ -756,7 +733,7 @@ def _verify_atoms(lines, line_indices) -> bool:
         "atoms", lines, line_indices[0], 3, exact=False
     )
     if _verify_size_of_section("atoms", lines, line_indices[0], 3, exact=False):
-        return True
+        return set(), True
 
     # Starting from this line it is assumed that the section has at least 3 lines
 
@@ -788,6 +765,7 @@ def _verify_atoms(lines, line_indices) -> bool:
         # Check atom's names if any
         if name_index is not None:
             errors = errors or _verify_atom_label(line[name_index], line_indices[i])
+            allowed_atoms.add(line[name_index])
 
         # Check other data fields
         for b_i, block in enumerate(line):
@@ -807,7 +785,7 @@ def _verify_atoms(lines, line_indices) -> bool:
                     )
                 )
 
-    return errors
+    return allowed_atoms, errors
 
 
 ################################################################################
@@ -966,7 +944,7 @@ def _verify_notation(
 ################################################################################
 #                          Exchange section checker                            #
 ################################################################################
-def _verify_bond(lines, line_indices) -> bool:
+def _verify_bond(lines, line_indices, allowed_atoms) -> bool:
     R"""
     Check that the found "bond" section is following the input file specification.
 
@@ -979,6 +957,8 @@ def _verify_bond(lines, line_indices) -> bool:
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+    allowed_atoms : set of str
+        Set of the allowed atom's names.
 
     Returns
     -------
@@ -1008,9 +988,22 @@ def _verify_bond(lines, line_indices) -> bool:
             )
         )
     else:
-        # Check the atom labels
+        # Check the atom names
         errors = errors or _verify_atom_label(line[0], line_indices[0])
         errors = errors or _verify_atom_label(line[1], line_indices[0])
+        # Check that atom names are present in the atoms section
+        for i in [0, 1]:
+            if line[i] not in allowed_atoms:
+                errors = True
+                _logger.error(
+                    " ".join(
+                        [
+                            f"Line {line_indices[0]}, block {i+1}: atom label {line[i]}",
+                            "is not present in the atoms section",
+                        ]
+                    )
+                )
+
         # Check i j k
         if not (_is_integer(line[2]) and _is_integer(line[3]) and _is_integer(line[4])):
             errors = True
@@ -1100,7 +1093,7 @@ def _verify_bond(lines, line_indices) -> bool:
     return errors
 
 
-def _verify_exchange(lines, line_indices) -> bool:
+def _verify_exchange(lines, line_indices, allowed_atoms) -> bool:
     R"""
     Check that the found "exchange" section is following the input file specification.
 
@@ -1113,6 +1106,8 @@ def _verify_exchange(lines, line_indices) -> bool:
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+    allowed_atoms : set of str
+        Set of the allowed atom's names.
 
     Returns
     -------
@@ -1165,7 +1160,9 @@ def _verify_exchange(lines, line_indices) -> bool:
         _logger.error('Found 0 bonds in the "exchange" section, expected at least one')
 
     for bond in found_bonds:
-        errors = errors or _verify_bond(lines[slice(*bond)], line_indices[slice(*bond)])
+        errors = errors or _verify_bond(
+            lines[slice(*bond)], line_indices[slice(*bond)], allowed_atoms=allowed_atoms
+        )
 
     return errors
 
@@ -1173,7 +1170,7 @@ def _verify_exchange(lines, line_indices) -> bool:
 ################################################################################
 #                           On-site section checker                            #
 ################################################################################
-def _verify_on_site(lines, line_indices) -> bool:
+def _verify_on_site(lines, line_indices, allowed_atoms) -> bool:
     r"""
     Check that the found "on-site" section is following the input file specification.
 
@@ -1186,6 +1183,8 @@ def _verify_on_site(lines, line_indices) -> bool:
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+    allowed_atoms : set of str
+        Set of the allowed atom's names.
 
     Returns
     -------
@@ -1235,6 +1234,17 @@ def _verify_on_site(lines, line_indices) -> bool:
             )
         # Check the atom's label
         errors = errors or _verify_atom_label(lines[i].split()[0], line_indices[i])
+        # Check that atom names are present in the atoms section
+        if lines[i].split()[0] not in allowed_atoms:
+            errors = True
+            _logger.error(
+                " ".join(
+                    [
+                        f"Line {line_indices[i]}: atom label {lines[i].split()[0]}",
+                        "is not present in the atoms section",
+                    ]
+                )
+            )
 
         # go to the next line
         i += 1
@@ -1367,6 +1377,21 @@ def _verify_spiral_vector(lines, line_indices) -> bool:
 
 
 ################################################################################
+#                   Rules (check additional ones at the end)                   #
+################################################################################
+
+_REQUIRED_SECTIONS = ["cell", "atoms"]
+
+_SUPPORTED_SECTIONS = {
+    "cell",
+    "atoms",
+    "notation",
+    "exchange",
+    "on-site",
+    "cone-axis",
+    "spiral-vector",
+}
+################################################################################
 #                      Mapping of verification functions                       #
 ################################################################################
 
@@ -1449,32 +1474,56 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
         # Save the position of the found section
         found_sections[section_keyword] = (section_start, section_end)
 
-    # Verify each found section
+    # Check if all required sections are found
+    for r_section in _REQUIRED_SECTIONS:
+        if r_section not in found_sections:
+            errors = True
+            _logger.error(f'File: failed to find required section "{r_section}"')
+
+    # Verify atoms section in advance, since we need to know a set of allowed atoms.
+    if "atoms" in found_sections:
+        allowed_atoms, atoms_errors = _verify_atoms(
+            lines[slice(*found_sections["atoms"])],
+            line_indices[slice(*found_sections["atoms"])],
+        )
+        errors = errors or atoms_errors
+    else:
+        allowed_atoms = set()
+
+    # Set up keywords for the custom verification calls
+    kwargs = {}
+    # Generic keywords
+    for section in _SUPPORTED_SECTIONS:
+        kwargs[section] = {}
+
+    # Custom keywords for notation section
+    kwargs["notation"]["expect_exchange_factor"] = "exchange" in found_sections
+    kwargs["notation"]["expect_on_site_factor"] = "on-site" in found_sections
+    kwargs["notation"]["expect_double_counting"] = "exchange" in found_sections
+    kwargs["notation"]["expect_spin_normalized"] = (
+        "exchange" in found_sections or "on-site" in found_sections
+    )
+
+    # Custom keywords for exchange section
+    kwargs["exchange"]["allowed_atoms"] = allowed_atoms
+
+    # Custom keywords for on-site section
+    kwargs["on-site"]["allowed_atoms"] = allowed_atoms
+
+    # Verify other found sections
     for section in found_sections:
+        # Skip atoms section, because it was verified before
+        if section == "atoms":
+            continue
         # Only verify sections that are supported
         if section in _SUPPORTED_SECTIONS:
             # Check if the verification function is implemented
             if section in _VERIFY:
-                # Custom call for notation section
-                if section == "notation":
-                    errors = errors or _VERIFY[section](
-                        lines[slice(*found_sections[section])],
-                        line_indices[slice(*found_sections[section])],
-                        expect_exchange_factor="exchange" in found_sections,
-                        expect_on_site_factor="on-site" in found_sections,
-                        expect_double_counting="exchange" in found_sections,
-                        expect_spin_normalized=(
-                            "exchange" in found_sections or "on-site" in found_sections
-                        ),
-                    )
-
-                # Universal call for all other sections
-                else:
-                    errors = errors or _VERIFY[section](
-                        lines[slice(*found_sections[section])],
-                        line_indices[slice(*found_sections[section])],
-                    )
-
+                errors = errors or _VERIFY[section](
+                    lines[slice(*found_sections[section])],
+                    line_indices[slice(*found_sections[section])],
+                    **kwargs[section],
+                )
             # If verification function is not implemented
             else:
                 _logger.warning(
@@ -1484,13 +1533,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
         else:
             _logger.warning(f"Section '{section}' is not supported.")
 
-    # Check if all required sections are found
-    for r_section in _REQUIRED_SECTIONS:
-        if r_section not in found_sections:
-            errors = True
-            _logger.error(f'File: failed to find required section "{r_section}"')
-
-    # Process all errors if any
+    # Finalize the check and raise an error if needed
     if not errors:
         _logger.info("Model file verification finished: PASSED")
     else:

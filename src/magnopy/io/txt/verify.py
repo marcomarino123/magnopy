@@ -56,7 +56,7 @@ _SUPPORTED_UNITS = {
 ################################################################################
 #                              Data type checkers                              #
 ################################################################################
-def _is_float(word):
+def _is_float(word) -> bool:
     r"""
     Check if the ``word`` can be converted to ``float``
 
@@ -72,7 +72,7 @@ def _is_float(word):
         return False
 
 
-def _is_integer(word):
+def _is_integer(word) -> bool:
     r"""
     Check if the ``word`` can be converted to ``int``
 
@@ -89,7 +89,7 @@ def _is_integer(word):
         return False
 
 
-def _is_bool(word):
+def _is_bool(word) -> bool:
     r"""
     Check if the ``word`` is one of the supported keywords for boolean values.
 
@@ -101,8 +101,25 @@ def _is_bool(word):
     return word.lower() in TRUE_KEYWORDS + FALSE_KEYWORDS
 
 
-def _is_atom_label(word, line_index):
-    error_messages = []
+################################################################################
+#                                Common checker                                #
+################################################################################
+def _verify_atom_label(word, line_index) -> bool:
+    r"""
+    Check if the ``word`` is a valid atom's label.
+
+    Parameters
+    ----------
+    word : str
+        The word to check.
+    line_index : int
+        Original line number, before filtering.
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
+    """
     # Atom's name has to start from a number or a letter and should not contain any "#".abs
     # Atom's name should not start nor end with double underscore "__"
     if (
@@ -110,7 +127,7 @@ def _is_atom_label(word, line_index):
         or word.startswith("__")
         or word.endswith("__")
     ):
-        error_messages.append(
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_index}: Atom labels have to start with a",
@@ -120,13 +137,11 @@ def _is_atom_label(word, line_index):
                 ]
             )
         )
-    return error_messages
+        return True
+    return False
 
 
-################################################################################
-#                                Common checker                                #
-################################################################################
-def _verify_section_header(line, line_index, units_names):
+def _verify_section_header(line, line_index, units_names) -> bool:
     r"""
     Check the section header.
 
@@ -142,14 +157,15 @@ def _verify_section_header(line, line_index, units_names):
 
     Returns
     -------
-    error_messages : list of str
-        List of error messages.
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
 
     Notes
     -----
     The section name is checked at the other place.
     """
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Checker for the atom's coordinate units
     def is_units_keyword(word):
@@ -168,7 +184,8 @@ def _verify_section_header(line, line_index, units_names):
     if len(line) == 2:
         # Check that units are expected
         if len(units_names) == 0:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_index}: expected only the section name",
@@ -178,7 +195,8 @@ def _verify_section_header(line, line_index, units_names):
             )
         # If units are expected check that they are one of the supported ones
         elif not is_units_keyword(line[1]):
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_index}, block 2: expected word starting from",
@@ -192,7 +210,8 @@ def _verify_section_header(line, line_index, units_names):
     elif len(line) != 1:
         # If optional units are expected
         if len(units_names) > 0:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f'Line {line_index}: expected "{section_name}" keyword',
@@ -202,7 +221,8 @@ def _verify_section_header(line, line_index, units_names):
             )
         # If no units are expected
         else:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f'Line {line_index}: expected "{section_name}" keyword',
@@ -211,10 +231,10 @@ def _verify_section_header(line, line_index, units_names):
                 )
             )
 
-    return error_messages
+    return errors
 
 
-def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
+def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None) -> bool:
     r"""
     Verify one data block.
 
@@ -241,16 +261,17 @@ def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
 
     Returns
     -------
-    error_messages : list of str
-        List of error messages.
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check the amount of lines
     if len(lines) != len(data_specs):
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_indices[0]}: Expected to have {len(data_specs)} lines,"
@@ -269,7 +290,8 @@ def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
         if l_i == 0 and keyword is not None:
             # Check that the keyword is the expected one
             if keyword.lower()[0] != line[0][0]:
-                error_messages.append(
+                errors = True
+                _logger.error(
                     " ".join(
                         [
                             f"Line {line_indices[l_i]}: expected to have the",
@@ -296,7 +318,8 @@ def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
             possible_amounts = " or ".join([str(i) for i in data_specs[l_i]])
 
         if not amount_is_correct:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_indices[l_i]}: expected to have",
@@ -308,7 +331,8 @@ def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
         # Check that every number is convertible to a float
         for n_i, number in enumerate(line):
             if not _is_float(number):
-                error_messages.append(
+                errors = True
+                _logger.error(
                     " ".join(
                         [
                             f"Line {line_indices[l_i]}, block {n_i+1}: expected a number,",
@@ -317,12 +341,12 @@ def _verify_numerical_data_block(lines, data_specs, line_indices, keyword=None):
                     )
                 )
 
-    return error_messages
+    return errors
 
 
 def _verify_size_of_section(
     section_name, lines, line_index, expected_lines, exact=True
-):
+) -> bool:
     r"""
     Verify the size of the section.
 
@@ -344,15 +368,14 @@ def _verify_size_of_section(
         * If True, then the section has to have exactly ``expected_lines`` lines.
         * If False, then the section has to have at least ``expected_lines`` lines.
 
-
     Returns
     -------
-    error_messages : list of str
-        List of error messages.
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check that the section has an exact amount of lines
     if exact:
@@ -370,7 +393,8 @@ def _verify_size_of_section(
             possible_amounts = " or ".join([str(i) for i in expected_lines])
         # If the amount is not correct
         if not amount_is_correct:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_index}: expected to have {section_name} section with",
@@ -386,7 +410,8 @@ def _verify_size_of_section(
                 "_verify_size_of_section: If exact is False, then expected_lines has to be an integer"
             )
         if len(lines) < expected_lines:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_index}: expected to have {section_name} section with",
@@ -395,10 +420,10 @@ def _verify_size_of_section(
                 )
             )
 
-    return error_messages
+    return errors
 
 
-def _verify_short_separator(line, line_index, symbol):
+def _verify_short_separator(line, line_index, symbol) -> bool:
     r"""
     Check if the separator is too short.
 
@@ -413,12 +438,14 @@ def _verify_short_separator(line, line_index, symbol):
 
     Returns
     -------
-    error_messages : list of str
-        List of error messages.
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
-    error_messages = []
+    # There are no errors yet
+    errors = False
     if len(line.strip()) < 10 and len(line.strip()) == line.count(symbol):
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_index}: Potential separator is too short",
@@ -427,13 +454,13 @@ def _verify_short_separator(line, line_index, symbol):
                 ]
             )
         )
-    return error_messages
+    return errors
 
 
 ################################################################################
 #                             Cell section checker                             #
 ################################################################################
-def _verify_cell(lines, line_indices):
+def _verify_cell(lines, line_indices) -> bool:
     r"""
     Check that the found "cell" section is following the input file specification.
 
@@ -446,33 +473,35 @@ def _verify_cell(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
     # At the beginning we assume that the first line starts with the
     # case-insensitive word "cell", followed by the next line symbol or a space.
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check size of the cell section it has to have exactly 4 or 5 lines
-    size_error = _verify_size_of_section(
-        "cell", lines, line_indices[0], [4, 5], exact=True
-    )
-    if size_error:
-        error_messages.extend(size_error)
+    if _verify_size_of_section("cell", lines, line_indices[0], [4, 5], exact=True):
         # Do not proceed with the rest of the checks,
         # since the behavior of the rest of the checks is unpredictable
-        return error_messages
+        return True
 
     # Starting from this line it is assumed that the section has exactly 4 or 5 lines
 
     # Check the section header
-    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "b"]))
+    errors = errors or _verify_section_header(lines[0], line_indices[0], ["a", "b"])
 
     # If scale factor is present
     if len(lines) == 5:
-        error_messages.extend(
-            _verify_numerical_data_block([lines[1]], [[1, 3]], [line_indices[1]])
+        errors = errors or _verify_numerical_data_block(
+            [lines[1]], [[1, 3]], [line_indices[1]]
         )
+
         cell_lines = lines[2:]
         cell_lines_indices = line_indices[2:]
     # If no scale factor is present
@@ -481,17 +510,17 @@ def _verify_cell(lines, line_indices):
         cell_lines_indices = line_indices[1:]
 
     # Check that every lattice vector is provided as three numbers separated by spaces.
-    error_messages.extend(
-        _verify_numerical_data_block(cell_lines, [3, 3, 3], cell_lines_indices)
+    errors = errors or _verify_numerical_data_block(
+        cell_lines, [3, 3, 3], cell_lines_indices
     )
 
-    return error_messages
+    return errors
 
 
 ################################################################################
 #                            Atoms section checker                             #
 ################################################################################
-def _check_vector_keywords(keywords, liter, line_index):
+def _verify_vector_keyword(keywords, liter, line_index) -> bool:
     r"""
     Check that one of the three sets is provided:
 
@@ -510,8 +539,8 @@ def _check_vector_keywords(keywords, liter, line_index):
 
     Returns
     -------
-    error_messages : list of str
-        List of error messages.
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
 
     # Sorted keywords
@@ -524,7 +553,6 @@ def _check_vector_keywords(keywords, liter, line_index):
     # or any combination of those variants that keeps unique keywords
     keywords.sort()
 
-    error_messages = []
     if not (
         keywords == [f"{liter}x", f"{liter}y", f"{liter}z"]
         or keywords == [liter, f"{liter}p", f"{liter}t"]
@@ -534,7 +562,7 @@ def _check_vector_keywords(keywords, liter, line_index):
         == [liter, f"{liter}p", f"{liter}t", f"{liter}x", f"{liter}y", f"{liter}z"]
         or not keywords
     ):
-        error_messages.append(
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_index}: expected to have full combination or",
@@ -544,11 +572,12 @@ def _check_vector_keywords(keywords, liter, line_index):
                 ]
             )
         )
+        return True
 
-    return error_messages
+    return False
 
 
-def _check_atoms_data_header(line, line_index):
+def _verify_atoms_data_header(line, line_index):
     r"""
     Check the data header of the "atoms" section.
 
@@ -566,11 +595,12 @@ def _check_atoms_data_header(line, line_index):
     name_index : int or None
         Index of the block with the atom's name.
         If None, then the atom's name is not present.
-    error_messages : list of str
-        List of error messages.
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
 
-    error_messages = []
+    # There are no errors yet
+    errors = False
     name_index = None
     N = len(line.split())
 
@@ -578,7 +608,8 @@ def _check_atoms_data_header(line, line_index):
 
     # Check that every block of the header is unique:
     if not len(keywords) == len(set(keywords)):
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_index}: expected unique blocks in the data header,",
@@ -592,7 +623,8 @@ def _check_atoms_data_header(line, line_index):
         name_index = keywords.index("name")
         keywords.remove("name")
     else:
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_index}: expected to have the atom's name",
@@ -633,7 +665,8 @@ def _check_atoms_data_header(line, line_index):
         or position_keywords == ["x", "y", "z"]
         or position_keywords == ["r1", "r2", "r3", "x", "y", "z"]
     ):
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_index}: expected to have three or six position keywords.",
@@ -646,23 +679,21 @@ def _check_atoms_data_header(line, line_index):
         keywords.remove(keyword)
 
     # Check spin keywords
-    error_messages.extend(_check_vector_keywords(spin_keywords, "s", line_index))
+    errors = errors or _verify_vector_keyword(spin_keywords, "s", line_index)
     # Remove spin keywords from the list
     for keyword in spin_keywords:
         keywords.remove(keyword)
 
     # Check orbital moment keywords
-    error_messages.extend(
-        _check_vector_keywords(orbital_moment_keywords, "l", line_index)
-    )
+    errors = errors or _verify_vector_keyword(orbital_moment_keywords, "l", line_index)
+
     # Remove orbital moment keywords from the list
     for keyword in orbital_moment_keywords:
         keywords.remove(keyword)
 
     # Check total moment keywords
-    error_messages.extend(
-        _check_vector_keywords(total_moment_keywords, "j", line_index)
-    )
+    errors = errors or _verify_vector_keyword(total_moment_keywords, "j", line_index)
+
     # Remove total moment keywords from the list
     for keyword in total_moment_keywords:
         keywords.remove(keyword)
@@ -678,10 +709,10 @@ def _check_atoms_data_header(line, line_index):
             )
         )
 
-    return N, name_index, error_messages
+    return N, name_index, errors
 
 
-def _verify_atoms(lines, line_indices):
+def _verify_atoms(lines, line_indices) -> bool:
     r"""
     Check that the found "atoms" section is following the input file specification.
 
@@ -694,30 +725,35 @@ def _verify_atoms(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
     # At the beginning we assume that the first line starts with the
     # case-insensitive word "atoms", followed by the next line symbol or a space.
 
-    error_messages = []
+    # There are no errors yet
+    errors = False
     # Check size of the atoms section it has to have at least 3 lines: section header,
     # data header and at least one atom
     size_error = _verify_size_of_section(
         "atoms", lines, line_indices[0], 3, exact=False
     )
-    if size_error:
-        error_messages.extend(size_error)
-        # Do not proceed with the rest of the checks,
-        # since the behavior of the rest of the checks is unpredictable
-        return error_messages
+    if _verify_size_of_section("atoms", lines, line_indices[0], 3, exact=False):
+        return True
 
     # Starting from this line it is assumed that the section has at least 3 lines
 
     # Check the section header
-    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "b"]))
+    errors = errors or _verify_section_header(lines[0], line_indices[0], ["a", "b"])
 
     # Check the data header
-    N, name_index, errors = _check_atoms_data_header(lines[1], line_indices[1])
-    error_messages.extend(errors)
+    N, name_index, data_header_errors = _verify_atoms_data_header(
+        lines[1], line_indices[1]
+    )
+    errors = errors or data_header_errors
 
     # Check each atom line
     for i in range(2, len(lines)):
@@ -725,7 +761,8 @@ def _verify_atoms(lines, line_indices):
 
         # Check the amount of blocks
         if len(lines[i].split()) != N:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_indices[i]}: expected to have {N} blocks",
@@ -736,7 +773,7 @@ def _verify_atoms(lines, line_indices):
 
         # Check atom's names if any
         if name_index is not None:
-            error_messages.extend(_is_atom_label(line[name_index], line_indices[i]))
+            errors = errors or _verify_atom_label(line[name_index], line_indices[i])
 
         # Check other data fields
         for b_i, block in enumerate(line):
@@ -746,7 +783,8 @@ def _verify_atoms(lines, line_indices):
 
             # All other blocks have to be numbers or "-" symbols (for missing data)
             if not _is_float(block) and block != "-":
-                error_messages.append(
+                errors = True
+                _logger.error(
                     " ".join(
                         [
                             f"Line {line_indices[i]}, block {b_i+1}: expected a number",
@@ -755,7 +793,7 @@ def _verify_atoms(lines, line_indices):
                     )
                 )
 
-    return error_messages
+    return errors
 
 
 ################################################################################
@@ -768,7 +806,7 @@ def _verify_notation(
     expect_on_site_factor=True,
     expect_double_counting=True,
     expect_spin_normalized=True,
-):
+) -> bool:
     r"""
     Check that the found "notation" section is following the input file specification.
 
@@ -789,33 +827,38 @@ def _verify_notation(
         Whether the double-counting property is expected to be present.
     expect_spin_normalized : bool, default: True
         Whether the spin-normalized property is expected to be present.
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
-    error_messages = []
+    # There are no errors yet
+    errors = False
     # Check condition about the size of the section the minimum amount of lines is
     # defined by expected keys
-    error_messages.extend(
-        _verify_size_of_section(
-            "notation",
-            lines,
-            line_indices[0],
-            int(expect_exchange_factor)
-            + int(expect_on_site_factor)
-            + int(expect_double_counting)
-            + int(expect_spin_normalized)
-            + 1,
-            exact=False,
-        )
+    errors = errors or _verify_size_of_section(
+        "notation",
+        lines,
+        line_indices[0],
+        int(expect_exchange_factor)
+        + int(expect_on_site_factor)
+        + int(expect_double_counting)
+        + int(expect_spin_normalized)
+        + 1,
+        exact=False,
     )
 
     # Check the section header
-    error_messages.extend(_verify_section_header(lines[0], line_indices[0], []))
+    errors = errors or _verify_section_header(lines[0], line_indices[0], [])
 
     # Dictionary of the found properties
     found_properties = {}
     for i in range(1, len(lines)):
         line = lines[i].lower().split()
         if len(line) != 2:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_indices[i]}: expected to have two blocks,",
@@ -826,7 +869,8 @@ def _verify_notation(
         else:
             # Only first letter is checked
             if line[0][0] in found_properties:
-                error_messages.append(
+                errors = True
+                _logger.error(
                     " ".join(
                         [
                             f"Line {line_indices[i]}: found more than one entry of",
@@ -870,7 +914,8 @@ def _verify_notation(
         if prop not in found_properties:
             # But it is expected
             if expected[prop]:
-                error_messages.append(
+                errors = True
+                _logger.error(
                     f"Line {line_indices[0]}: did not "
                     f'find the "{full_names[prop]}" property in the notation section'
                 )
@@ -878,7 +923,8 @@ def _verify_notation(
         else:
             # Verify it
             if not verify_functions[prop](found_properties[prop][0]):
-                error_messages.append(
+                errors = True
+                _logger.error(
                     " ".join(
                         [
                             f"Line {line_indices[found_properties[prop][1]]}:",
@@ -900,13 +946,13 @@ def _verify_notation(
             )
         )
 
-    return error_messages
+    return errors
 
 
 ################################################################################
 #                          Exchange section checker                            #
 ################################################################################
-def _verify_bond(lines, line_indices):
+def _verify_bond(lines, line_indices) -> bool:
     R"""
     Check that the found "bond" section is following the input file specification.
 
@@ -919,12 +965,17 @@ def _verify_bond(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
     # At the beginning we assume that the the bond has at least one line in it
     # with the atom's labels and ijk.
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # We need to make sure that only one entry of the type exists.
     found_data = {"matrix": 0, "symmetric": 0, "dmi": 0, "iso": 0}
@@ -933,7 +984,8 @@ def _verify_bond(lines, line_indices):
     # Check that the header line
     # A1 A2 i j k
     if len(line) != 5:
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_indices[0]}: expected two atom labels",
@@ -943,11 +995,12 @@ def _verify_bond(lines, line_indices):
         )
     else:
         # Check the atom labels
-        error_messages.extend(_is_atom_label(line[0], line_indices[0]))
-        error_messages.extend(_is_atom_label(line[1], line_indices[0]))
+        errors = errors or _verify_atom_label(line[0], line_indices[0])
+        errors = errors or _verify_atom_label(line[1], line_indices[0])
         # Check i j k
         if not (_is_integer(line[2]) and _is_integer(line[3]) and _is_integer(line[4])):
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_indices[0]}: expected to have three integers,",
@@ -965,10 +1018,8 @@ def _verify_bond(lines, line_indices):
         if line[0].startswith("i"):
             found_data["iso"] += 1
             # Isotropic line has to have two blocks: keyword and one number
-            error_messages.extend(
-                _verify_numerical_data_block(
-                    [lines[i]], [[1]], [line_indices[i]], keyword="isotropic"
-                )
+            errors = errors or _verify_numerical_data_block(
+                [lines[i]], [[1]], [line_indices[i]], keyword="isotropic"
             )
 
         # If DMI keyword found - check DMI
@@ -976,10 +1027,8 @@ def _verify_bond(lines, line_indices):
         if line[0].startswith("d"):
             found_data["dmi"] += 1
             # DMI line has to have four blocks: keyword and three numbers
-            error_messages.extend(
-                _verify_numerical_data_block(
-                    [lines[i]], [[3]], [line_indices[i]], keyword="dmi"
-                )
+            errors = errors or _verify_numerical_data_block(
+                [lines[i]], [[3]], [line_indices[i]], keyword="dmi"
             )
 
         # If symmetric-anisotropy keyword found - check it
@@ -987,10 +1036,8 @@ def _verify_bond(lines, line_indices):
         if line[0].startswith("s"):
             found_data["symmetric"] += 1
             # Symmetric-anisotropy line has to have six blocks: keyword and five numbers
-            error_messages.extend(
-                _verify_numerical_data_block(
-                    [lines[i]], [[5]], [line_indices[i]], keyword="symmetric-anisotropy"
-                )
+            errors = errors or _verify_numerical_data_block(
+                [lines[i]], [[5]], [line_indices[i]], keyword="symmetric-anisotropy"
             )
 
         # If Matrix keyword found - check matrix
@@ -1000,13 +1047,11 @@ def _verify_bond(lines, line_indices):
         # Jzx Jzy Jzz
         elif line[0].startswith("m"):
             found_data["matrix"] += 1
-            error_messages.extend(
-                _verify_numerical_data_block(
-                    lines[i : i + 4],
-                    [0, 3, 3, 3],
-                    line_indices[i : i + 4],
-                    keyword="matrix",
-                )
+            errors = errors or _verify_numerical_data_block(
+                lines[i : i + 4],
+                [0, 3, 3, 3],
+                line_indices[i : i + 4],
+                keyword="matrix",
             )
 
         i += 1
@@ -1016,7 +1061,8 @@ def _verify_bond(lines, line_indices):
     for key in found_data:
         total_found_data += found_data[key]
         if found_data[key] > 1:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f'Line {line_indices[0]}: found more than one "{key}" entry.',
@@ -1027,7 +1073,8 @@ def _verify_bond(lines, line_indices):
 
     # Check that at least some values were found
     if total_found_data == 0:
-        error_messages.append(
+        errors = True
+        _logger.error(
             " ".join(
                 [
                     f"Line {line_indices[0]}: did not find any information about the parameter value.",
@@ -1036,10 +1083,10 @@ def _verify_bond(lines, line_indices):
             )
         )
 
-    return error_messages
+    return errors
 
 
-def _verify_exchange(lines, line_indices):
+def _verify_exchange(lines, line_indices) -> bool:
     R"""
     Check that the found "exchange" section is following the input file specification.
 
@@ -1052,16 +1099,21 @@ def _verify_exchange(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
     # At the beginning we assume that the the exchange section has at least one line in it
     # with the section header
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check the section header
-    error_messages.extend(
-        _verify_section_header(lines[0], line_indices[0], ["m", "e", "j", "k", "r"])
+    errors = errors or _verify_section_header(
+        lines[0], line_indices[0], ["m", "e", "j", "k", "r"]
     )
 
     # Find all bonds.
@@ -1074,7 +1126,7 @@ def _verify_exchange(lines, line_indices):
             short_separator_errors = _verify_short_separator(
                 lines[i], line_indices[i], "-"
             )
-            error_messages.extend(short_separator_errors)
+            errors = errors or short_separator_errors
             if not (lines[i].startswith("-" * 10) or short_separator_errors):
                 break
             i += 1
@@ -1086,9 +1138,7 @@ def _verify_exchange(lines, line_indices):
         bond_start = i
         while i < len(lines) and not lines[i].startswith("-" * 10):
             # Check if the separator is present, but too short
-            error_messages.extend(
-                _verify_short_separator(lines[i], line_indices[i], "-")
-            )
+            errors = errors or _verify_short_separator(lines[i], line_indices[i], "-")
 
             i += 1
         bond_end = i
@@ -1097,22 +1147,19 @@ def _verify_exchange(lines, line_indices):
 
     # exchange section has to have at least one bond
     if len(found_bonds) == 0:
-        error_messages.append(
-            'Found 0 bonds in the "exchange" section, expected at least one'
-        )
+        errors = True
+        _logger.error('Found 0 bonds in the "exchange" section, expected at least one')
 
     for bond in found_bonds:
-        error_messages.extend(
-            _verify_bond(lines[slice(*bond)], line_indices[slice(*bond)])
-        )
+        errors = errors or _verify_bond(lines[slice(*bond)], line_indices[slice(*bond)])
 
-    return error_messages
+    return errors
 
 
 ################################################################################
 #                           On-site section checker                            #
 ################################################################################
-def _verify_on_site(lines, line_indices):
+def _verify_on_site(lines, line_indices) -> bool:
     r"""
     Check that the found "on-site" section is following the input file specification.
 
@@ -1125,16 +1172,21 @@ def _verify_on_site(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
     # At the beginning we assume that the the on-site section has at least one line in it
     # with the section header
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check the section header
-    error_messages.extend(
-        _verify_section_header(lines[0], line_indices[0], ["m", "e", "j", "k", "r"])
+    errors = errors or _verify_section_header(
+        lines[0], line_indices[0], ["m", "e", "j", "k", "r"]
     )
 
     # Find all bonds.
@@ -1147,7 +1199,7 @@ def _verify_on_site(lines, line_indices):
             short_separator_errors = _verify_short_separator(
                 lines[i], line_indices[i], "-"
             )
-            error_messages.extend(short_separator_errors)
+            errors = errors or short_separator_errors
             if not (lines[i].startswith("-" * 10) or short_separator_errors):
                 break
             i += 1
@@ -1158,7 +1210,8 @@ def _verify_on_site(lines, line_indices):
 
         # Check that the atom's label is present
         if len(lines[i].split()) != 1:
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_indices[i]}: expected only the atom's label,",
@@ -1167,13 +1220,14 @@ def _verify_on_site(lines, line_indices):
                 )
             )
         # Check the atom's label
-        error_messages.extend(_is_atom_label(lines[i].split()[0], line_indices[i]))
+        errors = errors or _verify_atom_label(lines[i].split()[0], line_indices[i])
 
         # go to the next line
         i += 1
         # Check that the next line is present
         if i >= len(lines):
-            error_messages.append(
+            errors = True
+            _logger.error(
                 " ".join(
                     [
                         f"Line {line_indices[i-1]}: Expected to have six numbers,",
@@ -1184,8 +1238,8 @@ def _verify_on_site(lines, line_indices):
             break
 
         # Check that the next line contain six numbers
-        error_messages.extend(
-            _verify_numerical_data_block([lines[i]], [6], [line_indices[i]])
+        errors = errors or _verify_numerical_data_block(
+            [lines[i]], [6], [line_indices[i]]
         )
 
         # Go to the next line after verifying the matrix elements
@@ -1194,17 +1248,18 @@ def _verify_on_site(lines, line_indices):
 
     # on-site section has to have at least one bond
     if found_parameters == 0:
-        error_messages.append(
+        errors = True
+        _logger.error(
             'Found 0 parameters in the "on-site" section, expected at least one'
         )
 
-    return error_messages
+    return errors
 
 
 ################################################################################
 #                          Cone-axis section checker                           #
 ################################################################################
-def _verify_cone_axis(lines, line_indices):
+def _verify_cone_axis(lines, line_indices) -> bool:
     r"""
     Check that the found "cone-axis" section is following the input file specification.
 
@@ -1217,41 +1272,42 @@ def _verify_cone_axis(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
 
     # At the beginning we assume that the the cone-axis section has at least one line in it
     # with the section header that starts with "cone-axis" keyword.
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check size of the cone-axis section it has to have exactly 2 lines
-    size_error = _verify_size_of_section(
-        "cone-axis", lines, line_indices[0], [2], exact=True
-    )
-    if size_error:
-        error_messages.extend(size_error)
+    if _verify_size_of_section("cone-axis", lines, line_indices[0], [2], exact=True):
         # Do not proceed with the rest of the checks,
         # since the behavior of the rest of the checks is unpredictable
-        return error_messages
+        return True
 
     # Starting from this line it is assumed that the section has exactly 2 lines
 
     # Check the section header
-    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "r"]))
+    errors = errors or _verify_section_header(lines[0], line_indices[0], ["a", "r"])
 
     # Check that next line contain three or two numbers
-    error_messages.extend(
-        _verify_numerical_data_block([lines[1]], [[3, 2]], [line_indices[1]])
+    errors = errors or _verify_numerical_data_block(
+        [lines[1]], [[3, 2]], [line_indices[1]]
     )
 
-    return error_messages
+    return errors
 
 
 ################################################################################
 #                        Spiral-vector section checker                         #
 ################################################################################
-def _verify_spiral_vector(lines, line_indices):
+def _verify_spiral_vector(lines, line_indices) -> bool:
     r"""
     Check that the found "spiral-vector" section is following the input file specification.
 
@@ -1264,35 +1320,36 @@ def _verify_spiral_vector(lines, line_indices):
     line_indices : list of int
         Original line numbers, before filtering.
         ``len(line_indices) == len(lines)``
+
+    Returns
+    -------
+    errors : bool
+        ``True`` if errors are found, ``False`` otherwise.
     """
 
     # At the beginning we assume that the the spiral-vector section has at least one line in it
     # with the section header that starts with "spiral-vector" keyword.
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Check size of the spiral-vector section it has to have exactly 2 lines
-    size_error = _verify_size_of_section(
+    if _verify_size_of_section(
         "spiral-vector", lines, line_indices[0], [2], exact=True
-    )
-    if size_error:
-        error_messages.extend(size_error)
+    ):
         # Do not proceed with the rest of the checks,
         # since the behavior of the rest of the checks is unpredictable
-        return error_messages
+        return True
 
     # Starting from this line it is assumed that the section has exactly 2 lines
 
     # Check the section header
-    error_messages.extend(_verify_section_header(lines[0], line_indices[0], ["a", "r"]))
+    errors = errors or _verify_section_header(lines[0], line_indices[0], ["a", "r"])
 
     # Check that next line contain three numbers
-    error_messages.extend(
-        _verify_numerical_data_block([lines[1]], [3], [line_indices[1]])
-    )
+    errors = errors or _verify_numerical_data_block([lines[1]], [3], [line_indices[1]])
 
-    return error_messages
+    return errors
 
 
 ################################################################################
@@ -1336,8 +1393,8 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
         ``lines[end-1]`` is the last line of the section.
     """
 
-    # Error messages list
-    error_messages = []
+    # There are no errors yet
+    errors = False
 
     # Tracker the found sections
     found_sections = {}
@@ -1350,7 +1407,7 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             short_separator_errors = _verify_short_separator(
                 lines[i], line_indices[i], "="
             )
-            error_messages.extend(short_separator_errors)
+            errors = errors or short_separator_errors
             if not (lines[i].startswith("=" * 10) or short_separator_errors):
                 break
             i += 1
@@ -1365,9 +1422,8 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
         # or the end of the file is reached
         while i < len(lines) and not lines[i].startswith("=" * 10):
             # Check if the separator is present, but too short
-            error_messages.extend(
-                _verify_short_separator(lines[i], line_indices[i], "=")
-            )
+            errors = errors or _verify_short_separator(lines[i], line_indices[i], "=")
+
             i += 1
         section_end = i
 
@@ -1387,27 +1443,24 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             if section in _VERIFY:
                 # Custom call for notation section
                 if section == "notation":
-                    error_messages.extend(
-                        _VERIFY[section](
-                            lines[slice(*found_sections[section])],
-                            line_indices[slice(*found_sections[section])],
-                            expect_exchange_factor="exchange" in found_sections,
-                            expect_on_site_factor="on-site" in found_sections,
-                            expect_double_counting="exchange" in found_sections,
-                            expect_spin_normalized=(
-                                "exchange" in found_sections
-                                or "on-site" in found_sections
-                            ),
-                        )
+                    errors = errors or _VERIFY[section](
+                        lines[slice(*found_sections[section])],
+                        line_indices[slice(*found_sections[section])],
+                        expect_exchange_factor="exchange" in found_sections,
+                        expect_on_site_factor="on-site" in found_sections,
+                        expect_double_counting="exchange" in found_sections,
+                        expect_spin_normalized=(
+                            "exchange" in found_sections or "on-site" in found_sections
+                        ),
                     )
+
                 # Universal call for all other sections
                 else:
-                    error_messages.extend(
-                        _VERIFY[section](
-                            lines[slice(*found_sections[section])],
-                            line_indices[slice(*found_sections[section])],
-                        )
+                    errors = errors or _VERIFY[section](
+                        lines[slice(*found_sections[section])],
+                        line_indices[slice(*found_sections[section])],
                     )
+
             # If verification function is not implemented
             else:
                 _logger.warning(
@@ -1420,12 +1473,11 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
     # Check if all required sections are found
     for r_section in _REQUIRED_SECTIONS:
         if r_section not in found_sections:
-            error_messages.append(
-                f'File: failed to find required section "{r_section}"'
-            )
+            errors = True
+            _logger.error(f'File: failed to find required section "{r_section}"')
 
     # Process all errors if any
-    if len(error_messages) == 0:
+    if not errors:
         _logger.info("Model file verification finished: PASSED")
     else:
         if raise_on_fail:
@@ -1433,11 +1485,8 @@ def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=
             import sys
 
             sys.tracebacklimit = 0
-            raise FailedToVerifyTxtModelFile(
-                "\n  ".join([""] + "\n".join(error_messages).split("\n"))
-            )
+            raise FailedToVerifyTxtModelFile("Check log files for the details")
         else:
-            _logger.error("\n  ".join([""] + error_messages))
             _logger.info("Model file verification finished: FAILED")
 
     if return_sections:

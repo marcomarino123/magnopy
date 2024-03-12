@@ -16,7 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from .internal import *
+from magnopy.spinham import SpinHamiltonian
 
-__all__ = []
-__all__.extend(internal.__all__)
+__all__ = ["load_model", "dump_model"]
+
+
+def load_model(filename) -> SpinHamiltonian:
+    pass
+
+
+def dump_model(spinham: SpinHamiltonian) -> None:
+    pass

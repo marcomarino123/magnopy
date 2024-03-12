@@ -8,7 +8,7 @@ Requirement for Magnopy installation are:
 
 * |Python|_ (>=3.8)
 * |NumPy|_
-* |wulfric|_ (>=0.2.0)
+* |Wulfric|_ (>=0.3)
 
 Most likely you already have Python installed on your machine
 (if not check these links: |Python-installation|_).

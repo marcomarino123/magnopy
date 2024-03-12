@@ -1060,7 +1060,8 @@ def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     _read_atoms(lines[slice(*sections["atoms"])], spinham)
 
     # Read notation
-    _read_notation(lines[slice(*sections["notation"])], spinham)
+    if "exchange" in sections or "on-site" in sections:
+        _read_notation(lines[slice(*sections["notation"])], spinham)
 
     # If present read exchange parameters
     if "exchange" in sections:

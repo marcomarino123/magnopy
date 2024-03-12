@@ -61,8 +61,9 @@ the :math:`(x\,y\,z)` reference frame.
   The rotation matrix is
 
   .. math::
-      \boldsymbol{R_{r}(\alpha,\beta)
-      &=
+    :name: eq:uvn-rf-rot-matrix
+      \boldsymbol{R_r(\beta)}(\alpha)
+      &=\boldsymbol{R_r}(\alpha,\beta)=
       \begin{pmatrix}
         1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\
         -\dfrac{n^xn^y}{1+n^z}   & 1 - \dfrac{(n^y)^2}{1+n^z} & n^y  \\

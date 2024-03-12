@@ -11,7 +11,7 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 21-24
+  :lines: 22-25
   :language: text
 
 .. dropdown:: Description
@@ -122,6 +122,8 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
 .. dropdown:: Description
 
   All names of datasets and groups are lowercase.
+
+  Dataset's name: "cone-axis".
 
   It is a dataset with three numbers.
 

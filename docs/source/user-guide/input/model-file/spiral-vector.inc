@@ -11,7 +11,7 @@ spiral vector, that describe the spiral ground state of the spin Hamiltonian.
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 18-21
+  :lines: 19-22
   :language: text
 
 .. dropdown:: Description
@@ -86,6 +86,8 @@ spiral vector, that describe the spiral ground state of the spin Hamiltonian.
 .. dropdown:: Description
 
   All names of datasets and groups are lowercase.
+
+  Dataset's name: "spiral-vector".
 
   It is a dataset with three numbers.
 

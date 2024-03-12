@@ -15,7 +15,7 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 24-47
+  :lines: 25-48
   :language: text
 
 .. dropdown:: Description
@@ -273,7 +273,9 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
 .. dropdown:: Description
 
-  All names of datasets, groups and attributes are lowercase.
+  All names of datasets and groups are lowercase.
+
+  Group's name: "exchange".
 
   * Attributes
 

@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from os import listdir, remove
+from os import listdir, remove, system
 from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.txt.internal import _filter_model_file, dump_model, load_model
+from magnopy.io.txt.internal import _filter_txt_file, dump_model, load_model
 
 resources_path = join("utests", "test_io", "model-file-examples")
 
@@ -40,4 +40,15 @@ def test_load_model(filename):
 @pytest.mark.parametrize("filename", inputs_to_pass)
 def test_dump_model(filename):
     model = load_model(filename)
-    lines_dumped_loaded = dump_model(model, print_if_none=False)
+    tmp_filename = f"tmp-model-test-{basename(filename)}"
+    dump_model(model, tmp_filename)
+    model = load_model(tmp_filename)
+    system(f"rm {tmp_filename}")
+
+
+def test__filter_txt_file_raises():
+    with pytest.raises(ValueError):
+        _filter_txt_file("file.txt", lines=[])
+
+    with pytest.raises(ValueError):
+        _filter_txt_file()

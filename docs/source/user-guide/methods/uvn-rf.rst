@@ -30,9 +30,9 @@ the rotational symmetry of the system about the :math:`\boldsymbol{\hat{n}}` con
 Let :math:`\boldsymbol{\hat{r}}` be a vector perpendicular to both
 :math:`\boldsymbol{\hat{z}}` and :math:`\boldsymbol{\hat{n}}`. Then
 :math:`\boldsymbol{\hat{z}}` is brought to :math:`\boldsymbol{\hat{n}}` by performing
-a rotation :math:`\boldsymbol{R_r}` of magnitude :math:`\alpha` about
+a rotation :math:`\boldsymbol{R_r}(\alpha)` of angle :math:`\alpha` about
 :math:`\boldsymbol{\hat{r}}`. We choose  the :math:`(u\,v\,n)` reference frame by performing
-this same rotation :math:`\boldsymbol{R_{r}}` over all the three unit vectors of
+this same rotation :math:`\boldsymbol{R_{r}}(\alpha)` over all the three unit vectors of
 the :math:`(x\,y\,z)` reference frame.
 
 .. raw:: html
@@ -44,7 +44,7 @@ the :math:`(x\,y\,z)` reference frame.
 
   .. math::
 
-      \boldsymbol{\hat{r}}(\alpha,\beta)
+      \boldsymbol{\hat{r}}(\beta)
       =
       \dfrac{\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}}{\vert\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}\vert}
       =
@@ -54,7 +54,7 @@ the :math:`(x\,y\,z)` reference frame.
         0
       \end{pmatrix}
 
-  is actually defined by the two angles :math:`\alpha` and :math:`\beta`
+  is defined by the angle :math:`\beta`
   in the figure
 
   .. raw:: html
@@ -64,8 +64,7 @@ the :math:`(x\,y\,z)` reference frame.
 
   .. math::
     :name: eq:uvn-rf-rot-matrix
-
-      \boldsymbol{R_r}
+      \boldsymbol{R_{r}(\alpha,\beta)
       &=
       \begin{pmatrix}
         1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\

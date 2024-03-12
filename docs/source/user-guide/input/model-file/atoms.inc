@@ -39,9 +39,11 @@ Atoms
   3     Data headers. Blocks are separated by spaces. Order is arbitrary.
         Each block defines the data interpretation of the corresponding column.
         If some block has to be skipped for some atoms use ``-`` symbol.
+        Below we list the keywords supported by magnopy, but other keywords are
+        allowed by the format and ignored by magnopy.
 
         * ``name`` keyword
-        
+
           * Required
           * Full word is checked.
           * In the next lines, the atom name has to start with a letter (a-zA-Z)
@@ -52,8 +54,8 @@ Atoms
 
         * ``r1``, ``r2``, ``r3`` keywords
 
-          * Either <r1 r2 r3> or <x y z> have to be present.
-            If both present, then they should be consistent.
+          * Either ``<r1 r2 r3>`` or ``<x y z>`` have to be present.
+            If both present, then relative coordinates are used and absolute are ignored.
           * Full word is checked, case-insensitive.
 
           Relative coordinates of the atom in the unit cell:
@@ -69,9 +71,18 @@ Atoms
 
         * ``x``, ``y``, ``z`` keywords
 
-          * Either <r1 r2 r3> or <x y z> have to be present.
-            If both present, then they should be consistent.
+          * Either ``<r1 r2 r3>`` or ``<x y z>`` have to be present.
+            If both present, then relative coordinates are used and absolute are ignored.
           * Full word is checked, case-insensitive.
+          * If ``<scale>`` is present in the :ref:`user-guide_input_model-file_cell` section:
+
+            * One positive number, then the coordinates are
+              :math:`s\cdot x`, :math:`s\cdot y`, :math:`s\cdot z`
+            * One negative number number, then the coordinates are
+              :math:`s^{\prime}\cdot x`, :math:`s^{\prime}\cdot y`, :math:`s^{\prime}\cdot z`,
+              where  :math:`s^{\prime} = \vert\dfrac{s}{\boldsymbol{a_1}\cdot (\boldsymbol{a_2}\times \boldsymbol{a_3})}\vert`
+            * Three positive numbers, then the coordinates are
+              :math:`s^x\cdot x`, :math:`s^y\cdot y`, :math:`s^z\cdot z`
 
           Absolute coordinates of the atom in the unit cell.
 
@@ -79,10 +90,9 @@ Atoms
 
           * Optional
           * Full word is checked
-          * Recognized combinations (only one combination can be present):
-
-            * ``s`` - spin value. It is oriented along
-              :math:`z` direction, i.e. :math:`\boldsymbol{S} = (0,\,0,\,S)^T`.
+          * Recognized combinations (if more than one is present,
+            then only one is used and the others are ignored).
+            The combinations ordered with the descending priority:
 
             * ``sx``, ``sy``, ``sz`` - spin vector. The order is fixed.
               :math:`\boldsymbol{S} = (S^x,\,S^y,\,S^z)^T`.
@@ -91,6 +101,9 @@ Atoms
               azimuthal (:math:`\theta`) angles and spin value.
               Two angles, that define the direction of the spin as described
               :ref:`here <user-guide_methods_spin-rotations>`.
+
+            * ``s`` - spin value. It is oriented along
+              :math:`z` direction, i.e. :math:`\boldsymbol{S} = (0,\,0,\,S)^T`.
 
               Angles are given in degrees :math:`0^{\circ} \le \phi \le 360^{\circ}`,
               :math:`0^{\circ} \le \theta \le 180^{\circ}`
@@ -105,13 +118,16 @@ Atoms
                   \cos\theta
                 \end{pmatrix}
 
+            For example: if both ``sx sy sz`` and ``sp st s`` are present, then
+            ``sx sy sz`` is used and ``sp st s`` is ignored.
+
           Spin momentum (:math:`\boldsymbol{S}`)
 
         * ``lx``, ``ly``, ``lz``, ``l``, ``lp``, ``lt`` keywords
 
           * Optional.
           * Full word is checked, case-insensitive.
-          * See spin keywords for the allowed combinations.
+          * See spin keywords for the allowed combinations (substitute ``s`` with ``l``).
 
           Orbital momentum (:math:`\boldsymbol{L}`).
 
@@ -119,7 +135,7 @@ Atoms
 
           * Optional.
           * Full word is checked, case-insensitive.
-          * See spin keywords for the allowed combinations.
+          * See spin keywords for the allowed combinations (substitute ``s`` with ``j``).
 
           Total momentum (:math:`\boldsymbol{J}`).
 
@@ -246,9 +262,14 @@ Atoms
 
   All names of datasets and groups are lowercase.
 
+  Group's name: "atoms".
+
   * Groups
 
     At least one group is required. Every group describes an atom.
+    Name of the first group is "1", the second "2", etc. Name of the last
+    group is "n", where "n" is the number of atoms.
+
     Inside each group following datasets are recognized:
 
     * "name" - a string

@@ -46,8 +46,8 @@ SUBSEPARATOR = "-" * 80
 
 
 def _write_exchange(
-    label1: str,
-    label2: str,
+    name1: str,
+    name2: str,
     ijk: tuple,
     parameter: MatrixParameter,
     write_matrix=True,
@@ -61,9 +61,9 @@ def _write_exchange(
 
     Parameters
     ----------
-    label1 : str
+    name1 : str
         Name of the first atom in the bond.
-    label2 : str
+    name2 : str
         Name of the second atom in the bond.
     ijk : (3,) tuple
         Index of the bond.
@@ -84,8 +84,8 @@ def _write_exchange(
     header_line = []
     header_line.extend(
         [
-            f"{label1:<6}",
-            f"{label2:<6}",
+            f"{name1:<6}",
+            f"{name2:<6}",
             f"{ijk[0]:>3}",
             f"{ijk[1]:>3}",
             f"{ijk[2]:>3}",
@@ -158,7 +158,7 @@ def dump_model(
         Whether to print the lines if ``filename`` is ``None`` or return them as a list.
 
     Returns
-    =======
+    -------
     text : list of str
         Model as a text in magnopy format. Only returned if ``filename is None`` and
         ``print_if_none == True``.
@@ -236,65 +236,74 @@ def dump_model(
     text.append(SEPARATOR)
 
     # Write notation
-    text.append("Notation")
-    try:
+    if len(spinham.exchange) > 0 or len(spinham.on_site) > 0:
+        text.append("Notation")
         text.append(f"Spin-normalized {spinham.spin_normalized}")
-    except NotationError:
-        pass
-    try:
-        text.append(f"Double-counting {spinham.double_counting}")
-    except NotationError:
-        pass
-    try:
-        text.append(f"Exchange-factor {spinham.exchange_factor}")
-    except NotationError:
-        pass
-    try:
-        text.append(f"On-site-factor {spinham.on_site_factor}")
-    except NotationError:
-        pass
-    text.append(SEPARATOR)
+        if len(spinham.exchange) > 0:
+            text.append(f"Double-counting {spinham.double_counting}")
+            text.append(f"Exchange-factor {spinham.exchange_factor}")
+        if len(spinham.on_site) > 0:
+            text.append(f"On-site-factor {spinham.on_site_factor}")
+        text.append(SEPARATOR)
 
     # Write exchange parameters
-    text.append(f"Exchange {ENERGY_NAME}")
-    text.append(f"{'# Atom1 Atom2':<13} {'i':>3} {'j':>3} {'k':>3}")
-    if write_distance:
-        text[-1] += f" # {'distance'}"
-    text.append(SUBSEPARATOR)
-    for atom1, atom2, ijk, parameter in spinham.exchange:
-        if atom1 == atom2 and ijk == (0, 0, 0):
-            continue
+    if len(spinham.exchange) > 0:
+        text.append(f"Exchange {ENERGY_NAME}")
+        text.append(f"{'# Atom1 Atom2':<13} {'i':>3} {'j':>3} {'k':>3}")
         if write_distance:
-            distance = spinham.get_distance(atom1, atom2, ijk)
-        else:
-            distance = None
-        text.append(
-            _write_exchange(
-                atom1.name,
-                atom2.name,
-                ijk,
-                parameter,
-                write_matrix=write_matrix,
-                write_iso=write_iso,
-                write_symm=write_symm,
-                write_dmi=write_dmi,
-                distance=distance,
-            )
-        )
+            text[-1] += f" # {'distance'}"
         text.append(SUBSEPARATOR)
-    text.append(SEPARATOR)
+        for atom1, atom2, ijk, parameter in spinham.exchange:
+            if atom1 == atom2 and ijk == (0, 0, 0):
+                continue
+            if write_distance:
+                distance = spinham.get_distance(atom1, atom2, ijk)
+            else:
+                distance = None
+            text.append(
+                _write_exchange(
+                    atom1.name,
+                    atom2.name,
+                    ijk,
+                    parameter,
+                    write_matrix=write_matrix,
+                    write_iso=write_iso,
+                    write_symm=write_symm,
+                    write_dmi=write_dmi,
+                    distance=distance,
+                )
+            )
+            text.append(SUBSEPARATOR)
+        text.append(SEPARATOR)
 
     # Write on-site parameters
-    text.append(f"On-site {ENERGY_NAME}")
-    text.append(SUBSEPARATOR)
-    for atom, parameter in spinham.on_site:
-        text.append(atom.name)
-        text.append(
-            f"{parameter.xx:>8.4f} {parameter.yy:>8.4f} {parameter.zz:>8.4f} "
-            + f"{parameter.xy:>8.4f} {parameter.xz:>8.4f} {parameter.yz:>8.4f}"
-        )
+    if len(spinham.on_site) > 0:
+        text.append(f"On-site {ENERGY_NAME}")
         text.append(SUBSEPARATOR)
-    text.append(SEPARATOR)
+        for atom, parameter in spinham.on_site:
+            text.append(atom.name)
+            text.append(
+                f"{parameter.xx:>8.4f} {parameter.yy:>8.4f} {parameter.zz:>8.4f} "
+                + f"{parameter.xy:>8.4f} {parameter.xz:>8.4f} {parameter.yz:>8.4f}"
+            )
+            text.append(SUBSEPARATOR)
+        text.append(SEPARATOR)
+
+    # Write cone axis
+    if spinham.cone_axis is not None:
+        text.append(f"Cone-axis absolute")
+        text.append(
+            f"{spinham.cone_axis[0]:12.8f} {spinham.cone_axis[1]:12.8f} {spinham.cone_axis[2]:12.8f}"
+        )
+        text.append(SEPARATOR)
+
+    # Write spiral vector
+    if spinham.spiral_vector is not None:
+        text.append(f"Spiral-vector relative")
+        text.append(
+            f"{spinham.spiral_vector[0]:12.8f} {spinham.spiral_vector[1]:12.8f} {spinham.spiral_vector[2]:12.8f}"
+        )
+        text.append(SEPARATOR)
 
     if filename is not None:
         with open(filename, "w", encoding="utf-8") as f:
@@ -730,9 +739,7 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
     # Two labels and a unit cell relative position are always present,
     # since the files are pre-verified.
     line = lines[0].split()
-    label1, label2 = line[:2]
-    atom1 = spinham.get_atom(label1)
-    atom2 = spinham.get_atom(label2)
+    name1, name2 = line[:2]
     R = tuple([int(x) for x in line[2:5]])
 
     iso = None
@@ -755,7 +762,7 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
                 i += 1
                 matrix[j] = [float(x) for x in lines[i].split()]
         spinham.add_exchange(
-            atom1, atom2, R, matrix=matrix, iso=iso, aniso=symm, dmi=dmi
+            name1, name2, R, matrix=matrix, iso=iso, aniso=symm, dmi=dmi
         )
         i += 1
     return spinham
@@ -1012,7 +1019,7 @@ def _read_spiral_vector(lines, spinham: SpinHamiltonian):
     if relative:
         q = q @ spinham.reciprocal_cell
 
-    spinham.spi_vector = q
+    spinham.spiral_vector = q
 
     return spinham
 

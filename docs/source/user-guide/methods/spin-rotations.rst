@@ -38,20 +38,23 @@ so that
   \end{pmatrix}
 
 Then :math:`\boldsymbol{S_i}` can be obtained by rotating :math:`\boldsymbol{S_i^F}`
-about the perpendicular unit vector :math:`\boldsymbol{\hat{r}_i}`
-by the angle :math:`\theta_i`,
+about the perpendicular unit vector
 
 .. math::
-  \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F}
-
-where
-
-.. math::
-  \boldsymbol{\hat{r}_i}
+  \boldsymbol{\hat{r}}(\phi_i)
   =
   \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S_i}}{|\,\boldsymbol{\hat{n}} \times \boldsymbol{S_i}\,|}
   =
   \begin{pmatrix} -\sin\phi_i \\ \cos\phi_i  \\ 0  \\ \end{pmatrix}
+
+by the angle :math:`\theta_i`. In other words,
+
+.. math::
+  \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F} =
+  \boldsymbol{R_{r(\phi_i)}}(\theta_i)\,\boldsymbol{S_i^F} =
+  \boldsymbol{R_r}(\theta_i,\phi_i)\,\boldsymbol{S_i^F}
+
+where the rotation matrix is
 
 .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
@@ -79,7 +82,7 @@ where
   .. math::
     \boldsymbol{S_i}
     =
-    \boldsymbol{R}(\bar{\phi}_i) \,\boldsymbol{R}(\bar{\theta}_i) \,\boldsymbol{S_i^F}
+    \boldsymbol{R}_n(\bar{\phi}_i) \,\boldsymbol{R}_v(\bar{\theta}_i) \,\boldsymbol{S_i^F}
     =
     e^{\bar{\phi}_i\,\boldsymbol{\hat{n}}\,\times}\, e^{\bar{\theta}_i\,\boldsymbol{\hat{v}}\,\times}
     \, \boldsymbol{S_i^F}
@@ -88,7 +91,7 @@ where
 
   .. math::
     \begin{matrix}
-      \boldsymbol{R}(\bar{\theta}_i)
+      \boldsymbol{R}_v(\bar{\theta}_i)
       =
       \begin{pmatrix}
         \cos\bar{\theta}_i  & 0 & \sin\bar{\theta}_i \\
@@ -96,7 +99,7 @@ where
         -\sin\bar{\theta}_i & 0 & \cos\bar{\theta}_i \\
       \end{pmatrix};
       &
-      \boldsymbol{R}(\bar{\phi}_i)
+      \boldsymbol{R}_n(\bar{\phi}_i)
       =
       \begin{pmatrix}
         \cos\bar{\phi}_i & -\sin\bar{\phi}_i & 0 \\

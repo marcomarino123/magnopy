@@ -63,7 +63,6 @@ Spin Hamiltonian
         S_{ij}^{yx} & S_{ij}^{yy} & S_{ij}^{yz} \\
         S_{ij}^{zx} & S_{ij}^{zy} & S_{ij}^{zz} \\
       \end{pmatrix}
->>>>>>> refs/remotes/origin/main
 
     where :math:`S^{xx}_{ij}+S^{yy}_{ij}+S^{zz}_{ij}=0`.
 

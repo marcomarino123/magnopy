@@ -498,9 +498,23 @@ def _verify_cell(lines, line_indices) -> bool:
 
     # If scale factor is present
     if len(lines) == 5:
-        errors = errors or _verify_numerical_data_block(
+        scale_errors = _verify_numerical_data_block(
             [lines[1]], [[1, 3]], [line_indices[1]]
         )
+        errors = errors or scale_errors
+        scale = lines[1].split()
+        if not scale_errors and len(scale) == 1 and float(scale[0]) == 0:
+            errors = True
+            _logger.error("Scale can not be zero")
+        if (
+            not scale_errors
+            and len(scale) == 3
+            and (float(scale[0]) <= 0 or float(scale[1]) <= 0 or float(scale[2]) <= 0)
+        ):
+            errors = True
+            _logger.error(
+                f'Scale as three numbers - all have to be positive, got "{scale}"'
+            )
 
         cell_lines = lines[2:]
         cell_lines_indices = line_indices[2:]

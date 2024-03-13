@@ -782,7 +782,8 @@ class SpinHamiltonian(Crystal):
             ``str`` works only if atom is already in the Hamiltonian.
         parameter : :py:class:`.MatrixParameter`, optional
             An instance of :py:class:`MatrixParameter`.
-        ** kwargs
+        **git status
+        kwargs
             Keyword arguments for the constructor of :py:class:`MatrixParameter`.
             Ignored if ``parameter`` is given.
         """

@@ -16,32 +16,106 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import logging
+
 import h5py
 
 from magnopy.spinham import SpinHamiltonian
 from magnopy.units.inside import ENERGY_NAME, LENGTH_NAME
 
+_logger = logging.getLogger(__name__)
+
 __all__ = ["load_model_hdf5", "dump_model_hdf5"]
 
 
-def load_model_hdf5(filename) -> SpinHamiltonian:
-    pass
+def load_model_hdf5(
+    filename,
+    groupname="spinham",
+) -> SpinHamiltonian:
+    r"""
+    Load a SpinHamiltonian object from a HDF5 file.
+
+    It reads spin Hamiltonian data from a ``groupname`` group
+    of an existing ``filename`` HDF5 file.
+
+    Parameters
+    ----------
+    filename : str
+        The name of the file where the SpinHamiltonian object will be loaded from.
+    groupname : str, default "spinham"
+        The name of the root group for the spin Hamiltonian.
+
+    Returns
+    -------
+    spinham : :py:class:`.SpinHamiltonian`
+        The SpinHamiltonian object loaded from the file.
+    """
+
+    file = h5py.File(filename, "r")
+    try:
+        root_group = file[groupname]
+    except KeyError as e:
+        potential_groupnames = []
+        for group in file:
+            if group.attrs["type"].lower() == "spinhamiltonian":
+                potential_groupnames.append(group.name)
+        if len(potential_groupnames) == 0:
+            _logger.error(
+                f"No group with type 'SpinHamiltonian' found in file {filename}."
+            )
+            raise e
+        elif len(potential_groupnames) == 1:
+            root_group = file[potential_groupnames[0]]
+            _logger.warning(
+                f"Group {groupname} not found in file {filename}. Found group {potential_groupnames[0]} instead."
+            )
+        else:
+            _logger.error(
+                f"Multiple groups with type 'SpinHamiltonian' found in file {filename}: "
+                ", ".join(potential_groupnames)
+            )
+            raise e
 
 
 def dump_model_hdf5(
-    spinham: SpinHamiltonian, filename=None, group=None, groupname="spinham"
+    spinham: SpinHamiltonian,
+    filename="spinham.hdf5",
+    groupname="spinham",
+    overwrite=False,
 ) -> None:
     r"""
     Dump a SpinHamiltonian object to a HDF5 file.
-    """
-    if not (filename is not None) ^ (group is not None):
-        raise ValueError("Either filename or group must be provided.")
 
-    if filename is not None:
-        file = h5py.File(filename, "w")
+    It can write spin Hamiltonian data to a new file or to a group of an existing file.
+
+
+    Parameters
+    ----------
+    spinham : :py:class:`.SpinHamiltonian`
+        The SpinHamiltonian object to be dumped.
+    filename : str, default "spinham.hdf5"
+        The name of the file where the SpinHamiltonian object will be dumped.
+        If filename already exists, then new group with the name ``groupname`` will be created.
+        If filename does not exist, then a new file will be created with the name ``filename``.
+    groupname : str, default "spinham"
+        The name of the root group for the spin Hamiltonian.
+        If writing to an existing file, then there should not be a
+        group with the name ``groupname`` inside it.
+        Note: If you want to save the spin Hamiltonian to the group of second and higher depth use:
+        ``groupname = "group1/group2/group3"``.
+    overwrite : bool, default False
+        Whether to overwrite already existing ``groupname`` in the already existing ``filename``.
+    """
+
+    file = h5py.File(filename, "a")
+    try:
         root_group = file.create_group(groupname)
-    else:
-        root_group = group
+    except ValueError:
+        if overwrite:
+            del file[groupname]
+            root_group = file.create_group(groupname)
+        else:
+            raise ValueError(f"Group {groupname} already exists in file {filename}.")
 
     root_group.attrs["type"] = "SpinHamiltonian"
 
@@ -89,8 +163,8 @@ def dump_model_hdf5(
         exchange.create_dataset("units", data=ENERGY_NAME)
         for e_i, (atom1, atom2, ijk, parameter) in enumerate(spinham.exchange):
             bond = exchange.create_group(str(e_i + 1))
-            bond.create_dataset("atom-1", data=atom1)
-            bond.create_dataset("atom-2", data=atom2)
+            bond.create_dataset("atom-1", data=atom1.name)
+            bond.create_dataset("atom-2", data=atom2.name)
             bond.create_dataset("ijk", data=ijk, dtype=int)
             bond.create_dataset("matrix", data=parameter.matrix, dtype=float)
 
@@ -100,7 +174,7 @@ def dump_model_hdf5(
         on_site.create_dataset("units", data=ENERGY_NAME)
         for o_i, (atom, parameter) in enumerate(spinham.on_site):
             bond = on_site.create_group(str(o_i + 1))
-            bond.create_dataset("atom", data=atom)
+            bond.create_dataset("atom", data=atom.name)
             bond.create_dataset("matrix", data=parameter.matrix, dtype=float)
 
     # Spiral vector

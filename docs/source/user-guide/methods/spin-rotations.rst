@@ -14,22 +14,10 @@ Spin rotations
   * .. include:: page-notations/cross-product.inc
   * .. include:: page-notations/uvn-or-spherical.inc
 
-A key technical tool is the ability to rotate any atomic spin vector
-:math:`\boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}_i}` into
-the direction defined by the unit vector :math:`\hat{\boldsymbol{n}}`,
-that determines the cone axis of the conical state. This rotated
-spin vector will be denoted :math:`\boldsymbol{S_i^F}=S_i\,\boldsymbol{\hat{n}}`
-henceforth.
-
-.. raw:: html
-  :file: ../../../images/spin-rotations-symmetric.html
-
-The figure above  shows that :math:`\boldsymbol{S_i^F}` is determined by the
-angles :math:`\theta_i` and :math:`\phi_i`,
-so that
+A key technical tool in magnopy is the ability to rotate any atomic spin vector
 
 .. math::
-  \boldsymbol{S_i}
+  \boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}_i}
   =\,S_i\,
   \begin{pmatrix}
     \sin\theta_i\cos\phi_i \\
@@ -37,8 +25,13 @@ so that
     \cos\theta_i           \\
   \end{pmatrix}
 
-Then :math:`\boldsymbol{S_i}` can be obtained by rotating :math:`\boldsymbol{S_i^F}`
-about the perpendicular unit vector
+into the direction defined by the unit vector :math:`\hat{\boldsymbol{n}}`,
+thus delivering the rotated spin vector :math:`\boldsymbol{S_i^F}=S_i\,\boldsymbol{\hat{n}}`.
+
+.. raw:: html
+  :file: ../../../images/spin-rotations-symmetric.html
+
+The unit vector that defines the rotation axis is
 
 .. math::
   \boldsymbol{\hat{r}}(\phi_i)
@@ -47,17 +40,16 @@ about the perpendicular unit vector
   =
   \begin{pmatrix} -\sin\phi_i \\ \cos\phi_i  \\ 0  \\ \end{pmatrix}
 
-by the angle :math:`\theta_i`. In other words,
+so that the rotation matrix is
 
-.. math::
-  \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F} =
-  \boldsymbol{R_{r(\phi_i)}}(\theta_i)\,\boldsymbol{S_i^F} =
-  \boldsymbol{R_r}(\theta_i,\phi_i)\,\boldsymbol{S_i^F}
-
-where the rotation matrix is
 
 .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
+where :math:`\boldsymbol{R_i}=\boldsymbol{R_{r(\phi_i)}}(\theta_i)=\boldsymbol{R_r}(\theta_i,\phi_i)`.
+All in all,
+
+.. math::
+  \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F}
 
 .. dropdown:: Bra-ket notation
 

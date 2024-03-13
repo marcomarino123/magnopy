@@ -55,10 +55,11 @@ def load_model_hdf5(
     try:
         root_group = file[groupname]
     except KeyError as e:
+        _logger.warning(f"Group {groupname} not found in file {filename}.")
         potential_groupnames = []
         for group in file:
-            if group.attrs["type"].lower() == "spinhamiltonian":
-                potential_groupnames.append(group.name)
+            if file[group].attrs["type"].lower() == "spinhamiltonian":
+                potential_groupnames.append(group)
         if len(potential_groupnames) == 0:
             _logger.error(
                 f"No group with type 'SpinHamiltonian' found in file {filename}."
@@ -67,12 +68,12 @@ def load_model_hdf5(
         elif len(potential_groupnames) == 1:
             root_group = file[potential_groupnames[0]]
             _logger.warning(
-                f"Group {groupname} not found in file {filename}. Found group {potential_groupnames[0]} instead."
+                f'Found group "{potential_groupnames[0]}", it will be read instead of "{groupname}".'
             )
         else:
             _logger.error(
-                f"Multiple groups with type 'SpinHamiltonian' found in file {filename}: "
-                ", ".join(potential_groupnames)
+                f'Multiple groups with type "SpinHamiltonian" found in file "{filename}": '
+                + ", ".join(potential_groupnames)
             )
             raise e
 

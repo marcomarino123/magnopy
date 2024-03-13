@@ -19,9 +19,18 @@
 import logging
 
 import h5py
+from wulfric.geometry import absolute_to_relative
 
+from magnopy.io.txt.verify import _verify_atom_name
 from magnopy.spinham import SpinHamiltonian
-from magnopy.units.inside import ENERGY_NAME, LENGTH_NAME
+from magnopy.units.inside import ENERGY, ENERGY_NAME, LENGTH, LENGTH_NAME
+from magnopy.units.si import (
+    ANGSTROM,
+    BOHR_RADIUS,
+    ELECTRON_VOLT,
+    K_BOLTZMANN,
+    RYDBERG_ENERGY,
+)
 
 _logger = logging.getLogger(__name__)
 
@@ -51,31 +60,217 @@ def load_spinham_hdf5(
         The SpinHamiltonian object loaded from the file.
     """
 
+    # Open a file and try to detect the desired group
     file = h5py.File(filename, "r")
     try:
         root_group = file[groupname]
     except KeyError as e:
         _logger.warning(f"Group {groupname} not found in file {filename}.")
+        # Find all potential groupnames with type "SpinHamiltonian"
         potential_groupnames = []
         for group in file:
             if file[group].attrs["type"].lower() == "spinhamiltonian":
                 potential_groupnames.append(group)
+        # If there is no group with type "SpinHamiltonian" raise an error
         if len(potential_groupnames) == 0:
             _logger.error(
                 f"No group with type 'SpinHamiltonian' found in file {filename}."
             )
             raise e
+        # If there is only one group with type "SpinHamiltonian" read it
         elif len(potential_groupnames) == 1:
             root_group = file[potential_groupnames[0]]
             _logger.warning(
                 f'Found group "{potential_groupnames[0]}", it will be read instead of "{groupname}".'
             )
+        # If there are multiple groups with type "SpinHamiltonian" raise an error
         else:
             _logger.error(
                 f'Multiple groups with type "SpinHamiltonian" found in file "{filename}": '
                 + ", ".join(potential_groupnames)
             )
             raise e
+    # create a SpinHamiltonian object
+    spinham = SpinHamiltonian()
+
+    # Read the cell
+    cell = root_group["cell"]
+    spinham.cell = [cell["a1"], cell["a2"], cell["a3"]]
+
+    # In the correct hdf5 file only two cases are possible
+    if cell.attrs["units"].lower().startswith("bohr"):
+        units_conversion = BOHR_RADIUS / LENGTH
+    elif cell.attrs["units"].lower().startswith("angstrom"):
+        units_conversion = ANGSTROM / LENGTH
+    else:
+        _logger.error(f"Unknown units '{cell['units']}' for cell in file '{filename}'.")
+
+    spinham.cell *= units_conversion
+
+    # Read the atoms
+    atoms = root_group["atoms"]
+    for index in atoms:
+        atom = atoms[index]
+        name = atom["name"][()].decode("utf-8")
+        if _verify_atom_name(name, line_index="hdf5 file"):
+            _logger.error(f"Forbidden atom name '{name}' in file '{filename}'.")
+        position = atom["position"][:]
+        spin = atom["spin"][:]
+        g_factor = atom["g-factor"][()]
+        try:
+            charge = atom["charge"][()]
+        except KeyError:
+            charge = None
+        spinham.add_atom(
+            name=name,
+            position=position,
+            spin=spin,
+            g_factor=g_factor,
+            charge=charge,
+            relative=True,
+        )
+    # Read notation
+    if "exchange" in root_group or "on-site" in root_group:
+        try:
+            notation = root_group["notation"]
+        except KeyError as e:
+            _logger.error(
+                f"Missing notation group in file '{filename}' for exchange and/or on-site."
+            )
+            raise e
+
+        try:
+            spinham.spin_normalized = notation["spin-normalized"][()]
+        except KeyError as e:
+            _logger.error(
+                f'Missing "spin-normalized" property in notation group in file "{filename}".'
+            )
+            raise e
+
+        if "exchange" in root_group:
+            try:
+                spinham.double_counting = notation["double-counting"][()]
+            except KeyError as e:
+                _logger.error(
+                    f'Missing "double-counting" property in notation group in file "{filename}".'
+                )
+                raise e
+            try:
+                spinham.exchange_factor = notation["exchange-factor"][()]
+            except KeyError as e:
+                _logger.error(
+                    f'Missing "exchange-factor" property in notation group in file "{filename}".'
+                )
+                raise e
+
+        if "on-site" in root_group:
+            try:
+                spinham.on_site_factor = notation["on-site-factor"][()]
+            except KeyError as e:
+                _logger.error(
+                    f'Missing "on-site-factor" property in notation group in file "{filename}".'
+                )
+                raise e
+
+    # Read exchange
+    if "exchange" in root_group:
+        exchange = root_group["exchange"]
+        if exchange.attrs["units"].lower() == "rydberg":
+            units_conversion = RYDBERG_ENERGY / ENERGY
+        elif exchange.attrs["units"].lower() == "joule":
+            units_conversion = 1.0 / ENERGY
+        elif exchange.attrs["units"].lower() == "kelvin":
+            units_conversion = K_BOLTZMANN / ENERGY
+        elif exchange.attrs["units"].lower() == "electron-volt":
+            units_conversion = ELECTRON_VOLT / ENERGY
+        elif exchange.attrs["units"].lower() == "milli-electron-volt":
+            units_conversion = 1e-3 * ELECTRON_VOLT / ENERGY
+        else:
+            _logger.error(
+                f"Unknown units '{exchange.attrs['units']}' for exchange in file '{filename}'."
+            )
+            raise ValueError(f"Unknown units '{exchange.attrs['units']}'.")
+
+        for index in exchange:
+            bond = exchange[index]
+            atom1 = bond["atom-1"][()].decode("utf-8")
+            try:
+                atom1 = spinham.get_atom(atom1)
+            except ValueError as e:
+                _logger.error(
+                    f'Atom "{atom1}" in exchange bond {index+1} not found in the atoms group in file "{filename}".'
+                )
+            atom2 = bond["atom-2"][()].decode("utf-8")
+            try:
+                atom2 = spinham.get_atom(atom2)
+            except ValueError as e:
+                _logger.error(
+                    f'Atom "{atom2}" in exchange bond {index+1} not found in the atoms group in file "{filename}".'
+                )
+            ijk = tuple(bond["ijk"][:])
+            matrix = bond["matrix"][:]
+            spinham.add_exchange(atom1, atom2, ijk, matrix=matrix * units_conversion)
+
+    # Read on-site
+    if "on-site" in root_group:
+        on_site = root_group["on-site"]
+
+        if on_site.attrs["units"].lower() == "rydberg":
+            units_conversion = RYDBERG_ENERGY / ENERGY
+        elif on_site.attrs["units"].lower() == "joule":
+            units_conversion = 1.0 / ENERGY
+        elif on_site.attrs["units"].lower() == "kelvin":
+            units_conversion = K_BOLTZMANN / ENERGY
+        elif on_site.attrs["units"].lower() == "electron-volt":
+            units_conversion = ELECTRON_VOLT / ENERGY
+        elif on_site.attrs["units"].lower() == "milli-electron-volt":
+            units_conversion = 1e-3 * ELECTRON_VOLT / ENERGY
+        else:
+            _logger.error(
+                f"Unknown units '{on_site.attrs['units']}' for on-site in file '{filename}'."
+            )
+            raise ValueError(f"Unknown units '{on_site.attrs['units']}'.")
+
+        for index in on_site:
+            parameters = on_site[index]
+            atom = parameters["atom"][()].decode("utf-8")
+            try:
+                atom = spinham.get_atom(atom)
+            except ValueError as e:
+                _logger.error(
+                    f'Atom "{atom}" in on-site bond {index+1} not found in the atoms group in file "{filename}".'
+                )
+            matrix = parameters["matrix"]
+            spinham.add_on_site(atom, matrix=matrix * units_conversion)
+
+    # Read spiral vector
+    if "spiral-vector" in root_group:
+        spiral_vector = root_group["spiral-vector"][:]
+
+        if spiral_vector.attrs["units"].lower() == "absolute":
+            spiral_vector = absolute_to_relative(spiral_vector, spinham.reciprocal_cell)
+        elif spiral_vector.attrs["units"].lower() != "relative":
+            _logger.error(
+                f"Unknown units '{spiral_vector.attrs['units']}' for spiral vector in file '{filename}'."
+            )
+            raise ValueError(f"Unknown units '{spiral_vector.attrs['units']}'.")
+
+        spinham.spiral_vector = spiral_vector
+
+    # Read cone axis
+    if "cone-axis" in root_group:
+        cone_axis = root_group["cone-axis"][:]
+        if cone_axis.attrs["units"].lower() == "relative":
+            cone_axis = cone_axis @ spinham.cell
+        elif cone_axis.attrs["units"].lower() != "absolute":
+            _logger.error(
+                f"Unknown units '{cone_axis.attrs['units']}' for cone axis in file '{filename}'."
+            )
+            raise ValueError(f"Unknown units '{cone_axis.attrs['units']}'.")
+
+        spinham.cone_axis = cone_axis
+
+    return spinham
 
 
 def dump_spinham_hdf5(
@@ -96,16 +291,19 @@ def dump_spinham_hdf5(
         The SpinHamiltonian object to be dumped.
     filename : str, default "spinham.hdf5"
         The name of the file where the SpinHamiltonian object will be dumped.
-        If filename already exists, then new group with the name ``groupname`` will be created.
-        If filename does not exist, then a new file will be created with the name ``filename``.
+        If ``filename`` already exists, then new group with the name  ``groupname``
+        will be created. If filename does not exist, then a new file will be created
+        with the name ``filename``.
     groupname : str, default "spinham"
         The name of the root group for the spin Hamiltonian.
         If writing to an existing file, then there should not be a
         group with the name ``groupname`` inside it.
-        Note: If you want to save the spin Hamiltonian to the group of second and higher depth use:
-        ``groupname = "group1/group2/group3"``.
+
+        Note: If you want to save the spin Hamiltonian to the group of second and
+        higher depth use: ``groupname = "group/subgroup/subsubgroup"``.
     overwrite : bool, default False
-        Whether to overwrite already existing ``groupname`` in the already existing ``filename``.
+        Whether to overwrite already existing ``groupname`` in the already
+        existing ``filename``.
     """
 
     file = h5py.File(filename, "a")
@@ -125,7 +323,7 @@ def dump_spinham_hdf5(
     cell.create_dataset("a1", data=spinham.a1, dtype="float")
     cell.create_dataset("a2", data=spinham.a2, dtype="float")
     cell.create_dataset("a3", data=spinham.a3, dtype="float")
-    cell.create_dataset("units", data=LENGTH_NAME)
+    cell.attrs["units"] = LENGTH_NAME
 
     # Atoms
     atoms = root_group.create_group("atoms")
@@ -161,7 +359,7 @@ def dump_spinham_hdf5(
     # Exchange
     if len(spinham.exchange) > 0:
         exchange = root_group.create_group("exchange")
-        exchange.create_dataset("units", data=ENERGY_NAME)
+        exchange.attrs["units"] = ENERGY_NAME
         for e_i, (atom1, atom2, ijk, parameter) in enumerate(spinham.exchange):
             bond = exchange.create_group(str(e_i + 1))
             bond.create_dataset("atom-1", data=atom1.name)
@@ -172,7 +370,7 @@ def dump_spinham_hdf5(
     # On-site
     if len(spinham.on_site) > 0:
         on_site = root_group.create_group("on-site")
-        on_site.create_dataset("units", data=ENERGY_NAME)
+        on_site.attrs["units"] = ENERGY_NAME
         for o_i, (atom, parameter) in enumerate(spinham.on_site):
             bond = on_site.create_group(str(o_i + 1))
             bond.create_dataset("atom", data=atom.name)

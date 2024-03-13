@@ -21,16 +21,19 @@ import h5py
 from magnopy.spinham import SpinHamiltonian
 from magnopy.units.inside import ENERGY_NAME, LENGTH_NAME
 
-__all__ = ["load_model", "dump_model"]
+__all__ = ["load_model_hdf5", "dump_model_hdf5"]
 
 
-def load_model(filename) -> SpinHamiltonian:
+def load_model_hdf5(filename) -> SpinHamiltonian:
     pass
 
 
-def dump_model(
+def dump_model_hdf5(
     spinham: SpinHamiltonian, filename=None, group=None, groupname="spinham"
 ) -> None:
+    r"""
+    Dump a SpinHamiltonian object to a HDF5 file.
+    """
     if not (filename is not None) ^ (group is not None):
         raise ValueError("Either filename or group must be provided.")
 

@@ -21,7 +21,7 @@ from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.txt.internal import _filter_txt_file, dump_model, load_model
+from magnopy.io.txt.internal import _filter_txt_file, dump_model_txt, load_model_txt
 
 resources_path = join("utests", "test_io", "model-file-examples")
 
@@ -34,15 +34,15 @@ inputs_to_pass = [
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
 def test_load_model(filename):
-    model = load_model(filename)
+    model = load_model_txt(filename)
 
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
 def test_dump_model(filename):
-    model = load_model(filename)
+    model = load_model_txt(filename)
     tmp_filename = f"tmp-model-test-{basename(filename)}"
-    dump_model(model, tmp_filename)
-    model = load_model(tmp_filename)
+    dump_model_txt(model, tmp_filename)
+    model = load_model_txt(tmp_filename)
     system(f"rm {tmp_filename}")
 
 

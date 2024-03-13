@@ -33,12 +33,12 @@ inputs_to_pass = [
 
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
-def test_load_model(filename):
+def test_load_spinham_txt(filename):
     model = load_spinham_txt(filename)
 
 
 @pytest.mark.parametrize("filename", inputs_to_pass)
-def test_dump_model(filename):
+def test_dump_spinham_txt(filename):
     model = load_spinham_txt(filename)
     tmp_filename = f"tmp-model-test-{basename(filename)}"
     dump_spinham_txt(model, tmp_filename)

@@ -314,7 +314,9 @@ def dump_spinham_hdf5(
             del file[groupname]
             root_group = file.create_group(groupname)
         else:
-            raise ValueError(f"Group {groupname} already exists in file {filename}.")
+            raise FileExistsError(
+                f"Group {groupname} already exists in file {filename}."
+            )
 
     root_group.attrs["type"] = "SpinHamiltonian"
 

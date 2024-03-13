@@ -25,10 +25,10 @@ from magnopy.units.inside import ENERGY_NAME, LENGTH_NAME
 
 _logger = logging.getLogger(__name__)
 
-__all__ = ["load_model_hdf5", "dump_model_hdf5"]
+__all__ = ["load_spinham_hdf5", "dump_spinham_hdf5"]
 
 
-def load_model_hdf5(
+def load_spinham_hdf5(
     filename,
     groupname="spinham",
 ) -> SpinHamiltonian:
@@ -78,7 +78,7 @@ def load_model_hdf5(
             raise e
 
 
-def dump_model_hdf5(
+def dump_spinham_hdf5(
     spinham: SpinHamiltonian,
     filename="spinham.hdf5",
     groupname="spinham",

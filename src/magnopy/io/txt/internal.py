@@ -38,7 +38,7 @@ from magnopy.units.si import (
 
 _logger = logging.getLogger(__name__)
 
-__all__ = ["load_model_txt", "dump_model_txt"]
+__all__ = ["load_spinham_txt", "dump_spinham_txt"]
 
 
 SEPARATOR = "=" * 80
@@ -121,7 +121,7 @@ def _write_exchange(
     return "\n".join(text)
 
 
-def dump_model_txt(
+def dump_spinham_txt(
     spinham: SpinHamiltonian,
     filename=None,
     write_matrix=True,
@@ -1097,7 +1097,7 @@ def _filter_txt_file(filename=None, lines=None, save_filtered=False):
     return filtered_lines, line_indices
 
 
-def load_model_txt(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
+def load_spinham_txt(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     r"""
     Load a SpinHamiltonian object from a .txt file.
 

@@ -265,20 +265,48 @@ can be computed using Dirac's notation as follows
   \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,|\,x\,y\,z\,}\,
   \braket{\,x\,y\,z\, |\,\boldsymbol{\cal R_r}\,|\,x\,y\,z\,}
 
-So those matrix elements are
+Explicitly
 
 .. math::
+  \boldsymbol{\tilde{J}_{ij}}=
   \begin{pmatrix}
     J_{ij}^{uu} & J_{ij}^{uv} & J_{ij}^{un} \\
     J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
     J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
   \end{pmatrix}
+  =\boldsymbol{R_r}^{\dagger}\,\boldsymbol{J_{ij}}\,\boldsymbol{R_r}
   = \boldsymbol{R_r}^{\dagger}\,
   \begin{pmatrix}
     J_{ij}^{xx} & J_{ij}^{xy} & J_{ij}^{xz} \\
     J_{ij}^{yx} & J_{ij}^{yy} & J_{ij}^{yz} \\
     J_{ij}^{zx} & J_{ij}^{zy} & J_{ij}^{zz} \\
   \end{pmatrix} \,\boldsymbol{R_r}
+
+:math:`\boldsymbol{\tilde{J}_{ij}}` can be split into isotropic, symmetric and anti-symmetric (DM) matrices
+in the :math:`(\,u\,v\,n\,)` reference frame also
+
+.. math::
+  \boldsymbol{\tilde{J}_{ij}}=J_{ij}\,\boldsymbol{I}+\boldsymbol{\tilde{J}_{ij}^S}+\boldsymbol{\tilde{J}_{ij}^A}
+
+where :math:`J^{I} = \dfrac{1}{3}(J_{ij}^{uu} + J_{ij}^{vv} + J_{ij}^{nn}) =\dfrac{1}{3}(J_{ij}^{xx} + J_{ij}^{yy} + J_{ij}^{zz})` and
+
+.. math::
+  \boldsymbol{\tilde{J}_{ij}^S}=
+    \begin{pmatrix}
+      S_{ij}^{uu} & S_{ij}^{uv} & S_{ij}^{un} \\
+      S_{ij}^{uv} & S_{ij}^{vv} & S_{ij}^{vn} \\
+      S_{ij}^{un} & S_{ij}^{vn} & S_{ij}^{nn} \\
+    \end{pmatrix}
+
+.. math::
+  \boldsymbol{\tilde{J}_{ij}^A}=
+      \begin{pmatrix}
+      0 & D_{ij}^n & -D_{ij}^v \\
+      -D_{ij}^n & 0 & D_{ij}^u \\
+      D_{ij}^v & -D_{ij}^u & 0 \\
+    \end{pmatrix}
+
+with :math:`S_{ij}^{uu} + S_{ij}^{vv} + S_{ij}^{nn} = 0`.
 
 .. important::
   In the next sections we will not use the :math:`(\,x\,y\,z\,)` reference frame anymore.

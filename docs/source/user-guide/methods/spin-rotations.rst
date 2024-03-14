@@ -42,24 +42,57 @@ The unit vector that defines the rotation axis is
 
 so that the rotation matrix is
 
+.. math::
+  \boldsymbol{R_i}=
+  e^{\boldsymbol{\hat{r}}(\phi_i)\,\theta_i\,\times}
+    =
+  \begin{pmatrix}
+    \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  & -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i) & \cos\phi_i\,\sin\theta_i \\
+    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i) & \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  & \sin\phi_i\,\cos\theta_i \\
+    -\cos\phi_i\,\sin\theta_i                   & \sin\phi_i\,\cos\theta_i                    & \cos\theta_i \\
+  \end{pmatrix}
 
-.. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
-
-where :math:`\boldsymbol{R_i}=\boldsymbol{R_{r(\phi_i)}}(\theta_i)=\boldsymbol{R_r}(\theta_i,\phi_i)`.
 All in all,
 
 .. math::
   \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F}
 
+Furthermore, :math:`\boldsymbol{R_i}` rotates the :math:`(\,u\,v\,n\,)` reference frame
+into a new basis spanned by the unit vectors
+
+.. math::
+  \boldsymbol{\hat{p}_i}=\boldsymbol{R_i}\,\boldsymbol{\hat{u}}=
+  \begin{pmatrix}
+    \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  \\
+    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
+    -\cos\phi_i\,\sin\theta_i
+  \end{pmatrix}
+
+.. math::
+  \boldsymbol{\hat{t}_i}=\boldsymbol{R_i}\,\boldsymbol{\hat{v}}=
+ \begin{pmatrix}
+   -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
+    \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)   \\
+    \sin\phi_i\,\cos\theta_i
+  \end{pmatrix}
+
+.. math::
+  \boldsymbol{\hat{f_i}}=\boldsymbol{R_i}\,\boldsymbol{\hat{n}}=
+    \begin{pmatrix}
+    \cos\phi_i\,\sin\theta_i \\
+    \sin\phi_i\,\cos\theta_i \\
+    \cos\theta_i
+  \end{pmatrix}
+
+The rotation matrix can therefore be written as
+:math:`\boldsymbol{R_i}=(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`.
+
 .. dropdown:: Bra-ket notation
 
   .. math::
-    \braket{\,u\, v\,n\,|\,S_i\,}
+    \braket{\,u\, v\,n\,|\,p_i\,t_i\,f_i}
     =
-    S_i\,\braket{\,u\, v\,n\, |\, \boldsymbol{\cal R}_i\,|\, n }
-    =
-    S_i\,\braket{\,u\, v\,n\, |\, \boldsymbol{\cal R}_i\,|\,u\, v\,n\,} \,
-    \braket{\,u\, v\,n\,|\,  n}
+    \braket{\,u\, v\,n\, |\, \boldsymbol{\cal R}_i\,|\,u\,v\, n }
 
 .. dropdown:: Alternative rotation
 

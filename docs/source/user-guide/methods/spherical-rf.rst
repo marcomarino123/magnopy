@@ -12,20 +12,22 @@ Spherical reference frame
   * .. include:: page-notations/parentheses.inc
   * .. include:: page-notations/uvn-or-spherical.inc
 
-This section discusses basis changes, that are more easily understood and checked
-using Dirac's vector notation.
 The :ref:`previous section <user-guide_methods_single-q>` has shown
-how each lattice spin with components
+how each lattice spin can be generated from a local collinear reference frame
 
-.. include:: repeated-formulas/spin-uvn.inc
+.. math::
+  \boldsymbol{S_{mi}}=
+  \boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{\hat{n}}
+  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}_{i}}=S_i\,\boldsymbol{\hat{f}_{mi}}
+    =S_i\,
+     \begin{pmatrix}
+            \sin\theta_i\,\cos\phi_{mi} \\
+            \sin\theta_i\,\sin\phi_{mi} \\
+            \cos\theta_i
+     \end{pmatrix}
 
-in the :math:`(\,u\,v\,n\,)` reference frame can be obtained
-from a local collinear reference frame by
-
-.. include:: repeated-formulas/spin-from-ferro-any.inc
-
-where all atomic vectors
-are collinear :math:`\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{\hat{n}}`.
+This section is devoted to translate these spin vectors and matrices to spherical reference frames,
+that are more convenient in several instances.
 
 ============================================
 Coordinate system with circular polarization
@@ -97,104 +99,44 @@ is
 Change to the spherical basis
 =============================
 
------------------------------------------------------------------------
-Spin vector :math:`\boldsymbol{S_{mi}}\rightarrow\boldsymbol{S_{mi}^s}`
------------------------------------------------------------------------
-The spin vector :math:`\boldsymbol{S_{mi}}` can be written
-in the spherical reference frame as
-
-.. math::
-  \boldsymbol{S_{mi}^s}
-   =&
-   \, \boldsymbol{T}^\dagger\,\boldsymbol{S_{mi}}
-   =&
-   \begin{pmatrix}
-    \frac{1}{\sqrt{2}}\,S_{mi}^- \\
-    \frac{1}{\sqrt{2}}\,S_{mi}^+ \\
-     S_{mi}^{n} \\
-   \end{pmatrix}
-  =
-  \,S_i
-  \,
-  \begin{pmatrix}
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-     \cos\theta_i                                                                 \\
-  \end{pmatrix}
-
-where
-
-.. math::
-  S_{mi}^{\pm}=S_{mi}^u \pm iS_{mi}^v
-
-.. dropdown:: Details
-
-  .. math::
-    \braket{\,u^+\,u^-\,n \,|\, S_{mi}\,}
-    =
-    \braket{\,u^+\,u^-\, n \,|\, u\, v\, n\,} \,
-    \braket{\,u\, v\, n\,|\, S_{mi}\,}
-    =
-    \braket{\,u\, v\, n\,|\, T^{\dagger} \,|\,u\, v\, n\,} \,
-    \braket{\,u\, v\, n\, | \,S_{mi}\,}
-
-  .. math::
-    = \dfrac{1}{\sqrt{2}}
-    \begin{pmatrix}
-      1 & -i & 0        \\
-      1 &  i & 0        \\
-      0 &  0 & \sqrt{2}
-    \end{pmatrix}
-    \begin{pmatrix}
-      S_{mi}^{u} \\
-      S_{mi}^{v} \\
-      S_{mi}^{n} \\
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-      S_{mi}^{-} \\
-      S_{mi}^{+} \\
-      S_{mi}^{n}
-    \end{pmatrix}
-
-  where
-
-  .. math::
-      S_{mi}^{\pm}
-      =\,
-      S_i\,\dfrac{
-        \sin\theta_i[
-          \cos(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)
-          \pm
-          i\sin(\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)]}{\sqrt{2}}
-      =\,
-      S_i\,\dfrac{\sin\theta_i}{\sqrt{2}}
-      \,e^{\pm i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)}
-
 ----------------------------------------------------------------------------------
-Intra-atomic rotation matrix :math:`\boldsymbol{R_i}\rightarrow\boldsymbol{R^s_i}`
+Intra-cell rotation matrix :math:`\boldsymbol{R_i}\rightarrow\boldsymbol{R^s_i}`
 ----------------------------------------------------------------------------------
-The matrix elements of the rotation matrix :math:`\boldsymbol{R_i}`
+The matrix elements of the rotation matrix
+:math:`\boldsymbol{R_i}=(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`
 in the spherical basis can be obtained from the expression
 
-.. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
+.. math::
+  \boldsymbol{R_i^{s}}=(\boldsymbol{\hat{p}_i^s}\,\boldsymbol{\hat{t}_i^s}\,\boldsymbol{\hat{f}_i^s})
+  =\boldsymbol{T}^\dagger\,\boldsymbol{R_i}\,\boldsymbol{T}
+  =\dfrac{1}{2}
+    \begin{pmatrix}
+      1+\cos\theta_i                     &
+      (\cos\theta_i-1)e^{-2i\phi_i}      &
+      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
+      (\cos\theta_i - 1)e^{2i\phi_i}     &
+      1 + \cos\theta_i                   &
+      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
+      -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
+      -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
+      2\cos\theta_i                      \\
+    \end{pmatrix}
+
+The above expression also defines the spherical reference frame
+:math:`(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`.
 
 .. dropdown:: Details
 
   .. math::
-    \braket{\,u^+\,u^-\,n\,| \, R_i\, |\, u^+\,u^-\,n\,}
+    \braket{\,u^+\,u^-\,n\,| \, p_i^s\,t_i^s\,f_i^s}=
     &=
     \braket{\,u^+\,u^-\,n\,| \, u\,v\,n\,} \,
-    \braket{\, u\,v\,n\,|\, R_i \,|\, u\,v\,n\,} \,
-    \braket{\, u\,v\,n\,|\, u^+\,u^-\,n\,}
+    \braket{\, u\,v\,n\,|\, p_i\,t_i\,f_i\,} \,
+    \braket{\, p_i\,t_i\,f_i\,|\, p_i^s\,t_i^s\,f_i^s\,}
     \\&=
     \braket{\,u\,v\,n\,|\, T^{\dagger} \,|\, u\,v\,n\,} \,
     \braket{\,u\,v\,n\,|\,  R_i \,|\, u\,v\,n\,} \,
-    \braket{\,u\,v\,n \,|\, T\,|\, u\,v\,n\, }
-
-  where the rotation matrix in the :math:`(\,u\,v\,n\,)` reference frame is
-
-  .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
+    \braket{\,p_i\,t_i\,f_i \,|\, T\,|\, p_i\,t_i\,f_i\, }
 
 ----------------------------------------------------------------------------------------------------------------
 Inter-cell rotation matrix :math:`\boldsymbol{R_m}(\boldsymbol{q})\rightarrow\boldsymbol{R_m^s}(\boldsymbol{q})`
@@ -269,36 +211,87 @@ in the spherical basis can be obtained from the expression
 
 .. _user-guide_methods_spherical-rf_exchange-tensor:
 
+-----------------------------------------------------------------------
+Spin vector :math:`\boldsymbol{S_{mi}}\rightarrow\boldsymbol{S_{mi}^s}`
+-----------------------------------------------------------------------
+The spin vector :math:`\boldsymbol{S_{mi}}` can be written
+in the spherical reference frame as
+
+.. math::
+  \boldsymbol{S_{mi}^s}
+   =&
+   \, \boldsymbol{T}^\dagger\,\boldsymbol{S_{mi}}
+   =\boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}
+   =\boldsymbol{R}_m^s\,\boldsymbol{R_i}^s\,\boldsymbol{S^{F,s}_{mi}}\\\\
+   =&
+    \begin{pmatrix}
+      S_{mi}^{-} \\
+      S_{mi}^{+} \\
+      S_{mi}^{n}
+    \end{pmatrix}
+    =
+  \,S_i
+  \,
+  \begin{pmatrix}
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
+     \cos\theta_i                                                                 \\
+  \end{pmatrix}
+
+where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
+
+----------------------------
+Transverse spin fluctuations
+----------------------------
+The local collinear spin vector :math:`\boldsymbol{S_{mi}^F}=S_i\,\boldsymbol{n}` remains
+the same in the spherical reference frame. However we will later analyse spin waves, that
+are small transverse spin fluctuations
+
+.. math::
+  \boldsymbol{S_{mi}^{F}} +
+  \delta S_{mi}^u\,\boldsymbol{u}+\delta S_{mi}^v\,\boldsymbol{v}-\delta S_{mi}^n\,\boldsymbol{n}
+  =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i^n-\delta S_{mi}^n
+    \end{pmatrix}
+
+that are written in the spherical basis as
+
+.. math::
+  \boldsymbol{S_{mi}^{F,s}} +
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{u^+}+\frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{u^-}
+  -\delta S_{mi}^n\,\boldsymbol{n}
+  =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^+\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^-\\S_{i}-\delta S_{mi}^n
+    \end{pmatrix}
+
+where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the proper normalization.
+Intra-cell rotations lead to
+
+.. math::
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{p}_{mi}^s}+\frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{t}_{mi}^s}
+  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}_{mi}^s}
+
 ---------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`
 ---------------------------------------------------------------------------
+The exchange matrix in the spherical reference frame is obtained through
 
-The exchange tensor :math:`\boldsymbol{J_{ij}}`
-in the :math:`(\,u\,v\,n\,)` reference frame, can be split into
-isotropic, symmetric and anti-symmetric (DM) matrices as follows
-
-.. include:: repeated-formulas/exchange-matrix-decomposition-uvn.inc
-
-Little algebra shows that the exchange matrix in the spherical reference frame is
-
-.. math:: \boldsymbol{J^s_{ij}} =&
+.. math:: \boldsymbol{\tilde{J}^s_{ij}} =&
   \begin{pmatrix}
     J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
     J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
     J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}\,=\,
-  \boldsymbol{T}^\dagger\,\boldsymbol{J^s_{ij}}\,\boldsymbol{T}\,=
-  \\=&
+  \boldsymbol{T}^\dagger\,\boldsymbol{\tilde{J}_{ij}}\,\boldsymbol{T}\,
+  \\\\=&
   \begin{pmatrix}
-    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &
+    J^{I} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &
     \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} - iS_{ij}^{uv}                              &
     \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} \\
     \dfrac{S_{ij}^{uu} - S_{ij}^{vv}}{2} + iS_{ij}^{uv}                              &
-    J^{iso} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n                       &
+    J^{I} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} - iD_{ij}^n                       &
     \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} - \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} \\
     \dfrac{S_{ij}^{un} + iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v - iD_{ij}^u}{\sqrt{2}} &
     \dfrac{S_{ij}^{un} - iS_{ij}^{vn}}{\sqrt{2}} + \dfrac{D_{ij}^v + iD_{ij}^u}{\sqrt{2}} &
-    J^{iso} + S_{ij}^{nn}                                                  \\
+    J^{I} + S_{ij}^{nn}                                                  \\
   \end{pmatrix}
 
 

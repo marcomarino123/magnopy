@@ -941,7 +941,7 @@ def _read_cone_axis(lines, spinham: SpinHamiltonian):
     n = [float(x) for x in lines[1].split()]
 
     if len(n) == 2:
-        alpha, beta = n
+        alpha, beta = np.array(n) * TORADIANS
         n = (np.cos(beta) * np.sin(alpha), np.sin(beta) * np.sin(alpha), np.cos(alpha))
         _logger.info(
             "<Units> keyword for cone axis is ignored. Cone axis is provided with alpha and beta angles."

@@ -21,7 +21,7 @@ from os.path import abspath, basename, isfile, join
 
 import pytest
 
-from magnopy.io.hdf5.internal import dump_spinham_hdf5
+from magnopy.io.hdf5.internal import dump_spinham_hdf5, load_spinham_hdf5
 from magnopy.io.txt.internal import load_spinham_txt
 
 resources_path = join("utests", "test_io", "model-file-examples")
@@ -30,6 +30,12 @@ correct_txt_inputs = [
     (abspath(join(resources_path, "correct", "txt", f)))
     for f in listdir(join(resources_path, "correct", "txt"))
     if isfile(join(resources_path, "correct", "txt", f))
+]
+
+correct_hdf5_inputs = [
+    (abspath(join(resources_path, "correct", "hdf5", f)))
+    for f in listdir(join(resources_path, "correct", "hdf5"))
+    if isfile(join(resources_path, "correct", "hdf5", f))
 ]
 
 
@@ -50,3 +56,8 @@ def test_dump_spinham_hdf5(filename):
     dump_spinham_hdf5(model, filename=tmp_filename, overwrite=True)
     # Clean the mess
     remove(tmp_filename)
+
+
+@pytest.mark.parametrize("filename", correct_hdf5_inputs)
+def test_load_spinham_hdf5(filename):
+    model = load_spinham_hdf5(filename)

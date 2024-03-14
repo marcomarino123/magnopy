@@ -39,7 +39,7 @@ __all__ = ["load_spinham_hdf5", "dump_spinham_hdf5"]
 
 def load_spinham_hdf5(
     filename,
-    groupname="spinham",
+    groupname=None,
 ) -> SpinHamiltonian:
     r"""
     Load a SpinHamiltonian object from a HDF5 file.
@@ -51,8 +51,18 @@ def load_spinham_hdf5(
     ----------
     filename : str
         The name of the file where the SpinHamiltonian object will be loaded from.
-    groupname : str, default "spinham"
+    groupname : str, optional
         The name of the root group for the spin Hamiltonian.
+        If ``groupname`` is not provided, we try to detect the group with type "SpinHamiltonian".
+        If several groups with type "SpinHamiltonian" are found, an error is raised.
+
+    Raises
+    ------
+    RuntimeError
+        If several groups with type "SpinHamiltonian" are found in the file and
+        ``groupname`` is not provided.
+    KeyError
+        If ``groupname`` is provided and it is not found in the file.
 
     Returns
     -------
@@ -62,34 +72,44 @@ def load_spinham_hdf5(
 
     # Open a file and try to detect the desired group
     file = h5py.File(filename, "r")
-    try:
-        root_group = file[groupname]
-    except KeyError as e:
-        _logger.warning(f"Group {groupname} not found in file {filename}.")
-        # Find all potential groupnames with type "SpinHamiltonian"
+
+    if groupname is None:
+        _logger.info(f"Groupname not provided, trying to detect it in file {filename}.")
+
         potential_groupnames = []
-        for group in file:
-            if file[group].attrs["type"].lower() == "spinhamiltonian":
-                potential_groupnames.append(group)
+
+        # Parser rule for the groupname
+        def find_spinhams(name):
+            try:
+                if file[name].attrs["type"].lower() == "spinhamiltonian":
+                    potential_groupnames.append(name)
+            except KeyError:
+                pass
+
+        # Visit all groups in the file
+        file.visit(find_spinhams)
         # If there is no group with type "SpinHamiltonian" raise an error
         if len(potential_groupnames) == 0:
-            _logger.error(
-                f"No group with type 'SpinHamiltonian' found in file {filename}."
-            )
-            raise e
+            message = f"No group with type 'SpinHamiltonian' found in file {filename}."
+            _logger.error(message)
+            raise RuntimeError(message)
         # If there is only one group with type "SpinHamiltonian" read it
         elif len(potential_groupnames) == 1:
-            root_group = file[potential_groupnames[0]]
-            _logger.warning(
-                f'Found group "{potential_groupnames[0]}", it will be read instead of "{groupname}".'
+            groupname = potential_groupnames[0]
+            _logger.info(
+                f'Found group "{groupname}" in file "{filename}" with type "SpinHamiltonian".'
             )
         # If there are multiple groups with type "SpinHamiltonian" raise an error
         else:
-            _logger.error(
+            message = (
                 f'Multiple groups with type "SpinHamiltonian" found in file "{filename}": '
                 + ", ".join(potential_groupnames)
             )
-            raise e
+            _logger.error(message)
+            raise RuntimeError(message)
+
+    root_group = file[groupname]
+
     # create a SpinHamiltonian object
     spinham = SpinHamiltonian()
 
@@ -240,33 +260,35 @@ def load_spinham_hdf5(
                 _logger.error(
                     f'Atom "{atom}" in on-site bond {index+1} not found in the atoms group in file "{filename}".'
                 )
-            matrix = parameters["matrix"]
+            matrix = parameters["matrix"][:]
             spinham.add_on_site(atom, matrix=matrix * units_conversion)
 
     # Read spiral vector
     if "spiral-vector" in root_group:
         spiral_vector = root_group["spiral-vector"][:]
+        units = root_group["spiral-vector"].attrs["units"].lower()
 
-        if spiral_vector.attrs["units"].lower() == "absolute":
+        if units == "absolute":
             spiral_vector = absolute_to_relative(spiral_vector, spinham.reciprocal_cell)
-        elif spiral_vector.attrs["units"].lower() != "relative":
+        elif units != "relative":
             _logger.error(
-                f"Unknown units '{spiral_vector.attrs['units']}' for spiral vector in file '{filename}'."
+                f"Unknown units '{units}' for spiral vector in file '{filename}'."
             )
-            raise ValueError(f"Unknown units '{spiral_vector.attrs['units']}'.")
+            raise ValueError(f"Unknown units '{units}'.")
 
         spinham.spiral_vector = spiral_vector
 
     # Read cone axis
     if "cone-axis" in root_group:
         cone_axis = root_group["cone-axis"][:]
-        if cone_axis.attrs["units"].lower() == "relative":
+        units = root_group["cone-axis"].attrs["units"].lower()
+        if units == "relative":
             cone_axis = cone_axis @ spinham.cell
-        elif cone_axis.attrs["units"].lower() != "absolute":
+        elif units != "absolute":
             _logger.error(
-                f"Unknown units '{cone_axis.attrs['units']}' for cone axis in file '{filename}'."
+                f"Unknown units '{units}' for cone axis in file '{filename}'."
             )
-            raise ValueError(f"Unknown units '{cone_axis.attrs['units']}'.")
+            raise ValueError(f"Unknown units '{units}'.")
 
         spinham.cone_axis = cone_axis
 

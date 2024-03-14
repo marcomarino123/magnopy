@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from os import listdir, remove, system
+from os import listdir, remove
 from os.path import abspath, basename, isfile, join
 
 import pytest
@@ -39,7 +39,8 @@ def test_dump_spinham_hdf5(filename):
     tmp_filename = f"tmp-test-{basename(filename).split('.')[0]}.hdf5"
 
     # Ensure that there is no file with the same name and data
-    system(f"rm {tmp_filename}")
+    if isfile(tmp_filename):
+        remove(tmp_filename)
     # Check that it writes with no problem
     dump_spinham_hdf5(model, filename=tmp_filename)
     # Check that it raises an error if the file already exists with the same group in it
@@ -48,4 +49,4 @@ def test_dump_spinham_hdf5(filename):
     # Check that it can overwrite without errors
     dump_spinham_hdf5(model, filename=tmp_filename, overwrite=True)
     # Clean the mess
-    system(f"rm {tmp_filename}")
+    remove(tmp_filename)

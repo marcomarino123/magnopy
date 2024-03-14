@@ -4,6 +4,10 @@
 Specification of the model file
 *******************************
 
+The model file is a file that contains all the information about the spin Hamiltonian
+It is intendant to describe the structure of the crystal (cell and atoms) and the
+parameters (bilinear exchange, on-site anisotropy, etc.) of the spin Hamiltonian.
+
 The model file of magnopy can be a .txt file or an .hdf5 file.
 The .txt file is a plain text file with a specific format. The .hdf5 file is a binary file
 with a specific structure. These two files are designed to be completely interchangeable in

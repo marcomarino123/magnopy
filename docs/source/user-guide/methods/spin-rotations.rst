@@ -17,7 +17,7 @@ Spin rotations
 A key technical tool in magnopy is the ability to rotate any atomic spin vector
 
 .. math::
-  \boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}}_i
+  \boldsymbol{S_i} = S_i\,\boldsymbol{\hat{f}}_i
   =\,S_i\,
   \begin{pmatrix}
     \sin\theta_i\cos\phi_i \\
@@ -36,7 +36,7 @@ The unit vector that defines the rotation axis is
 .. math::
   \boldsymbol{\hat{r}}(\phi_i)
   =
-  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S}_i{|\,\boldsymbol{\hat{n}} \times \boldsymbol{S}_i\,|}
+  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S}_i}{|\,\boldsymbol{\hat{n}} \times \boldsymbol{S}_i\,|}
   =
   \begin{pmatrix} -\sin\phi_i \\ \cos\phi_i  \\ 0  \\ \end{pmatrix}
 

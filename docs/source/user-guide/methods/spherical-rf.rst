@@ -17,9 +17,9 @@ how each lattice spin can be generated from a local collinear reference frame
 
 .. math::
   \boldsymbol{S}_{mi}=
-  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
+  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{i}
   =S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{\hat{n}}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_{i}=S_i\,\boldsymbol{\hat{f}}_{mi}
+  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_{i}
     =S_i\,
      \begin{pmatrix}
             \sin\theta_i\,\cos\phi_{mi} \\
@@ -108,7 +108,7 @@ The matrix elements of the rotation matrix
 in the spherical basis can be obtained from the expression
 
 .. math::
-  \boldsymbol{R}_i^s=(\boldsymbol{\hat{p}}_i^s\,\boldsymbol{\hat{t}}_i^s\,\boldsymbol{\hat{f}}_i^s)
+  \boldsymbol{R}_i^s
   =\boldsymbol{T}^\dagger\,\boldsymbol{R}_i\,\boldsymbol{T}
   =\dfrac{1}{2}
     \begin{pmatrix}
@@ -123,21 +123,32 @@ in the spherical basis can be obtained from the expression
       2\cos\theta_i                      \\
     \end{pmatrix}
 
-The above expression also defines the spherical basis
-:math:`(\boldsymbol{\hat{p}^s_i}\,\boldsymbol{\hat{t}^s_i}\,\boldsymbol{\hat{f}^s_i})`.
+The above expression also defines the spherical vectors
 
-.. dropdown:: Details
-
-  .. math::
-    \braket{\,u^+\,u^-\,n\,| \, p_i^s\,t_i^s\,f_i^s}=
-    &=
-    \braket{\,u^+\,u^-\,n\,| \, u\,v\,n\,} \,
-    \braket{\, u\,v\,n\,|\, p_i\,t_i\,f_i\,} \,
-    \braket{\, p_i\,t_i\,f_i\,|\, p_i^s\,t_i^s\,f_i^s\,}
-    \\&=
-    \braket{\,u\,v\,n\,|\, T^{\dagger} \,|\, u\,v\,n\,} \,
-    \braket{\,u\,v\,n\,|\,  R_i \,|\, u\,v\,n\,} \,
-    \braket{\,p_i\,t_i\,f_i \,|\, T\,|\, p_i\,t_i\,f_i\, }
+.. math::
+  \boldsymbol{\hat{p}^s_i}=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
+   =\dfrac{1}{2}
+    \begin{pmatrix}
+      1+\cos\theta_i                     \\
+      (\cos\theta_i - 1)e^{2i\phi_i}     \\
+      -\sqrt{2}\sin\theta_i e^{i\phi_i}
+    \end{pmatrix}
+    \\\\
+  \boldsymbol{\hat{t}^s_i}=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^-
+   =\dfrac{1}{2}
+    \begin{pmatrix}
+      (\cos\theta_i-1)e^{-2i\phi_i}     \\
+      1 + \cos\theta_i                  \\
+      -\sqrt{2}\sin\theta_i e^{-i\phi_i}
+    \end{pmatrix}
+  \\\\
+  \boldsymbol{\hat{f}^s_i}=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
+   =\dfrac{1}{2}
+    \begin{pmatrix}
+      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
+      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
+      2\cos\theta_i                      \\
+    \end{pmatrix}
 
 ----------------------------------------------------------------------------------------------------------------
 Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s\boldsymbol{q})`
@@ -147,90 +158,21 @@ in the spherical basis can be obtained from the expression
 
 .. include:: repeated-formulas/spiral-rotation-matrix-spherical.inc
 
-.. dropdown:: Details
-
-  First we recall the rotation matrix in the :math:`\vert uvn\rangle` reference frame:
-
-  .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
-
-  Then we compute the transformation:
-
-  .. math::
-    \langle u^+u^-n \vert R(\phi_m) \vert u^+u^-n \rangle
-    &=
-    \langle u^+u^-n \vert uvn \rangle
-    \langle uvn \vert R(\phi_m) \vert uvn \rangle
-    \langle uvn \vert u^+u^-n \rangle
-    =\\&=
-    \langle uvn \vert T^{\dagger} \vert uvn \rangle
-    \langle uvn \vert R(\phi_m) \vert uvn \rangle
-    \langle uvn \vert T \vert uvn \rangle
-
-  The exact form of this matrix will be useful later:
-
-  .. math::
-    &\dfrac{1}{2}
-    \begin{pmatrix}
-      1 & -i & 0        \\
-      1 &  i & 0        \\
-      0 &  0 & \sqrt{2} \\
-    \end{pmatrix}
-    \begin{pmatrix}
-      \cos(\phi_m) & -\sin(\phi_m) & 0 \\
-      \sin(\phi_m) & \cos(\phi_m)  & 0 \\
-      0              & 0               & 1 \\
-    \end{pmatrix}
-    \begin{pmatrix}
-      1 & 1 & 0         \\
-      i & -i & 0        \\
-      0 &  0 & \sqrt{2} \\
-    \end{pmatrix}
-    =\\&=
-    \dfrac{1}{2}
-    \begin{pmatrix}
-      \cos\phi_m - i\sin\phi_m  &
-      -\sin\phi_m - i\cos\phi_m &
-      0                             \\
-      \cos\phi_m + i\sin\phi_m  &
-      -\sin\phi_m + i\cos\phi_m &
-      0                             \\
-      0                             &
-      0                             &
-      \sqrt{2}                      \\
-    \end{pmatrix}
-    \begin{pmatrix}
-      1 & 1 & 0         \\
-      i & -i & 0        \\
-      0 &  0 & \sqrt{2} \\
-    \end{pmatrix}
-    =\\&=
-    \begin{pmatrix}
-      e^{-i\phi_m} & 0              & 0 \\
-      0               & e^{i\phi_m} & 0 \\
-      0               & 0              & 1 \\
-    \end{pmatrix}
-
-.. _user-guide_methods_spherical-rf_exchange-tensor:
-
 -----------------------------------------------------------------------
 Spin vector :math:`\boldsymbol{S}_{mi}\rightarrow\boldsymbol{S}_{mi}^s`
 -----------------------------------------------------------------------
 The spin vector :math:`\boldsymbol{S}_{mi}` can be written
-in the spherical reference frame as
+in the spherical basis as
 
 .. math::
   \boldsymbol{S}_{mi}^s
    =&
    \, \boldsymbol{T}^\dagger\,\boldsymbol{S}_{mi}
    =\boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
-   =\boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{mi}
+   =\boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{i}
    \\\\
-   =&
-    \begin{pmatrix}
-      S_{mi}^{-} \\
-      S_{mi}^{+} \\
-      S_{mi}^{n}
-    \end{pmatrix}
+   =&\,
+     S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s\,
     =
   \,S_i
   \,
@@ -240,37 +182,38 @@ in the spherical reference frame as
      \cos\theta_i                                                                 \\
   \end{pmatrix}
 
-where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
-
 ----------------------------
 Transverse spin fluctuations
 ----------------------------
-The local collinear spin vector :math:`\boldsymbol{S^F}_{mi}=S_i\,\boldsymbol{n}` remains
+The local collinear spin vector :math:`\boldsymbol{S^F}_{i}=S_i\,\boldsymbol{n}` remains
 the same in the spherical reference frame. However we will later analyse spin waves, that
 are small transverse spin fluctuations. The spin vector will become
 
 .. math::
-  \boldsymbol{S_{mi}^{F}} +
-  \delta S_{mi}^u\,\boldsymbol{u}+\delta S_{mi}^v\,\boldsymbol{v}-\delta S_{mi}^n\,\boldsymbol{n}
-  =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i^n-\delta S_{mi}^n
+  \boldsymbol{S_{i}^{F}} +
+  \delta S_{mi}^u\,\boldsymbol{\hat{u}}+\delta S_{mi}^v\,\boldsymbol{\hat{v}}-\delta S_{mi}^n\,\boldsymbol{\hat{n}}
+  =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i-\delta S_{mi}^n
     \end{pmatrix}
 
-that is written in the spherical basis as
+where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the
+proper normalization of the spin vector. The vector components in the spherical basis will be
 
 .. math::
   \boldsymbol{S_{mi}^{F,s}} +
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^\,\boldsymbol{u^+}+\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{u^-}
-  -\delta S_{mi}^n\,\boldsymbol{n}
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^\,\boldsymbol{\hat{u}^+}+
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{u}^-}
+  -\delta S_{mi}^n\,\boldsymbol{\hat{n}}
   =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^-\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\\S_{i}-\delta S_{mi}^n
     \end{pmatrix}
 
-where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the proper normalization.
-Application of the intra-cell rotation :math:`\boldsymbol{R}_i^s leads to
+
+where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
+Application of the intra-cell rotation :math:`\boldsymbol{R}_i^s` then leads to
 
 .. math::
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{p}}_{mi}^s+
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{t}}_{mi}^s
-  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}}_{mi}^s
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{p}}_{i}^s+
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{t}}_{i}^s
+  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}}_{i}^s
 
 ---------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`

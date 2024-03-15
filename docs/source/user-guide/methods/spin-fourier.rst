@@ -12,14 +12,31 @@ Fourier transformation
   * .. include:: page-notations/kronecker-delta.inc
   * .. include:: page-notations/uvn-or-spherical.inc
 
-As it is evident at the end, the reference frame :math:`\vert u^+u^-n \rangle`
-is the most convenient one for the fourier transformation. First, we recall the
-coordinate representation of the spin vector :math:`\vert S_{mi} \rangle`
-from :ref:`previous section <user-guide_methods_spherical-rf>`:
+The spherical reference frame :math:`\vert u^+u^-n \rangle`
+is convenient for analysing the fourier-transformed spin vectors.
+Notice that the spin vector :math:`\boldsymbol{S}_{mi}^s` components
+in the spherical reference frame have the simple expression
 
-.. include:: repeated-formulas/spin-spherical.inc
+.. math::
+  \,S_i
+  \,
+  \begin{pmatrix}
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
+     \cos\theta_i                                                                 \\
+  \end{pmatrix}
 
-We compute the fourier transform of it:
+whose Fourier trnasform is
+
+.. math::
+  \boldsymbol{S_{ki}^s}
+  =
+  S_i\,
+  \begin{pmatrix}
+    \dfrac{\sin\theta_i}{\sqrt{2}} \, e^{-i\phi_i}\,\delta_{\boldsymbol{k}, -\boldsymbol{q}} \\
+    \dfrac{\sin\theta_i}{\sqrt{2}} \, e^{ i\phi_i}\,\delta_{\boldsymbol{k},  \boldsymbol{q}} \\
+    \cos\theta \,\delta_{\boldsymbol{k}, \boldsymbol{0}}                                        \\
+  \end{pmatrix}
 
 .. dropdown:: Details
 
@@ -55,58 +72,26 @@ We compute the fourier transform of it:
 
   where :math:`m = 1, ..., M`
 
-.. math::
-  \boldsymbol{S_{ki}^s}
-  =
-  S_i
-  \cdot
-  \left[
-    \delta_{\boldsymbol{k}, -\boldsymbol{q}}
-    \dfrac{\sin\theta_i\cdot e^{-i\phi_i}}{\sqrt{2}}
-    \boldsymbol{\hat{u}^+}
-    +
-    \delta_{\boldsymbol{k}, \boldsymbol{q}}
-    \dfrac{\sin\theta_i\cdot e^{i\phi_i}}{\sqrt{2}}
-    \boldsymbol{\hat{u}^-}
-    +
-    \delta_{\boldsymbol{k}, \boldsymbol{0}}
-    \cdot
-    \cos\theta
-    \boldsymbol{\hat{v}}
-  \right]
 
-Structural factor in the :math:`(\,u^+\,u^-\,n\,)` reference frame:
-
-.. math::
-  \boldsymbol{S_{ki}^s}
-  =
-  S_i
-  \cdot
-  \begin{pmatrix}
-    \dfrac{\sin\theta_i\cdot e^{-i\phi_i}}{\sqrt{2}} \delta_{\boldsymbol{k}, -\boldsymbol{q}} \\
-    \dfrac{\sin\theta_i\cdot e^{ i\phi_i}}{\sqrt{2}} \delta_{\boldsymbol{k},  \boldsymbol{q}} \\
-    \cos\theta \delta_{\boldsymbol{k}, \boldsymbol{0}}                                        \\
-  \end{pmatrix}
-
-Structural factor in the :math:`(\,u\,v\,n\,)` reference frame:
+This structural factor can be written in the :math:`(\,u\,v\,n\,)` reference frame as follows:
 
 .. math::
   \boldsymbol{S_{ki}}
   =
   S_i
-  \cdot
+  \,
   \begin{pmatrix}
-    \dfrac{\sin\theta_i}{2}
+    \dfrac{\sin\theta_i}{2}\,
     \left(
-      e^{-i\phi_i}\delta_{\boldsymbol{k}, -\boldsymbol{q}}
+      e^{-i\phi_i}\,\delta_{\boldsymbol{k}, -\boldsymbol{q}}
       +
-      e^{i\phi_i}\delta_{\boldsymbol{k}, \boldsymbol{q}}
+      e^{i\phi_i}\,\delta_{\boldsymbol{k}, \boldsymbol{q}}
     \right) \\
-    \dfrac{i\sin\theta_i}{2}
+    \dfrac{i\sin\theta_i}{2}\,
     \left(
-      e^{-i\phi_i}\delta_{\boldsymbol{k}, -\boldsymbol{q}}
+      e^{-i\phi_i}\,\delta_{\boldsymbol{k}, -\boldsymbol{q}}
       -
-      e^{i\phi_i}\delta_{\boldsymbol{k}, \boldsymbol{q}}
+      e^{i\phi_i}\,\delta_{\boldsymbol{k}, \boldsymbol{q}}
     \right) \\
-    \cos\theta \delta_{\boldsymbol{k}, \boldsymbol{0}}
+    \cos\theta \,\delta_{\boldsymbol{k}, \boldsymbol{0}}
   \end{pmatrix}

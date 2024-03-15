@@ -17,7 +17,7 @@ Spin rotations
 A key technical tool in magnopy is the ability to rotate any atomic spin vector
 
 .. math::
-  \boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}_i}
+  \boldsymbol{S_i} = S_i\,\boldsymbol{\hat{S}}_i
   =\,S_i\,
   \begin{pmatrix}
     \sin\theta_i\cos\phi_i \\
@@ -26,7 +26,7 @@ A key technical tool in magnopy is the ability to rotate any atomic spin vector
   \end{pmatrix}
 
 into the direction defined by the unit vector :math:`\hat{\boldsymbol{n}}`,
-thus delivering the rotated spin vector :math:`\boldsymbol{S_i^F}=S_i\,\boldsymbol{\hat{n}}`.
+thus delivering the rotated spin vector :math:`\boldsymbol{S^F}_i=S_i\,\boldsymbol{\hat{n}}`.
 
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html
@@ -36,14 +36,14 @@ The unit vector that defines the rotation axis is
 .. math::
   \boldsymbol{\hat{r}}(\phi_i)
   =
-  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S_i}}{|\,\boldsymbol{\hat{n}} \times \boldsymbol{S_i}\,|}
+  \dfrac{\boldsymbol{\hat{n}} \times \boldsymbol{S}_i{|\,\boldsymbol{\hat{n}} \times \boldsymbol{S}_i\,|}
   =
   \begin{pmatrix} -\sin\phi_i \\ \cos\phi_i  \\ 0  \\ \end{pmatrix}
 
 so that the rotation matrix is
 
 .. math::
-  \boldsymbol{R_i}=
+  \boldsymbol{R}_i=
   e^{\boldsymbol{\hat{r}}(\phi_i)\,\theta_i\,\times}
     =
   \begin{pmatrix}
@@ -55,13 +55,13 @@ so that the rotation matrix is
 All in all,
 
 .. math::
-  \boldsymbol{S_i} = \boldsymbol{R_i}\,\boldsymbol{S_i^F}
+  \boldsymbol{S}_i = \boldsymbol{R}_i\,\boldsymbol{S^F}_i
 
-Furthermore, :math:`\boldsymbol{R_i}` rotates the :math:`(\,u\,v\,n\,)` reference frame
+Furthermore, :math:`\boldsymbol{R}_i` rotates the :math:`(\,u\,v\,n\,)` reference frame
 into a new basis spanned by the unit vectors
 
 .. math::
-  \boldsymbol{\hat{p}_i}=\boldsymbol{R_i}\,\boldsymbol{\hat{u}}=
+  \boldsymbol{\hat{p}}_i=\boldsymbol{R}_i\,\boldsymbol{\hat{u}}=
   \begin{pmatrix}
     \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  \\
     -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
@@ -69,7 +69,7 @@ into a new basis spanned by the unit vectors
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\hat{t}_i}=\boldsymbol{R_i}\,\boldsymbol{\hat{v}}=
+  \boldsymbol{\hat{t}}_i=\boldsymbol{R}_i\,\boldsymbol{\hat{v}}=
  \begin{pmatrix}
    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
     \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)   \\
@@ -77,7 +77,7 @@ into a new basis spanned by the unit vectors
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\hat{f_i}}=\boldsymbol{R_i}\,\boldsymbol{\hat{n}}=
+  \boldsymbol{\hat{f}}_i=\boldsymbol{R}_i\,\boldsymbol{\hat{n}}=
     \begin{pmatrix}
     \cos\phi_i\,\sin\theta_i \\
     \sin\phi_i\,\cos\theta_i \\
@@ -85,7 +85,7 @@ into a new basis spanned by the unit vectors
   \end{pmatrix}
 
 The rotation matrix can therefore be written as
-:math:`\boldsymbol{R_i}=(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`.
+:math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`.
 
 .. dropdown:: Bra-ket notation
 
@@ -97,38 +97,38 @@ The rotation matrix can therefore be written as
 .. dropdown:: Alternative rotation
 
   Alternatively one can rotate :math:`\boldsymbol{\hat{n}}` first about the
-  :math:`\boldsymbol{\hat{v}}` axis by an angle :math:`\bar{\theta}_i`
+  :math:`\boldsymbol{\hat{v}}` axis by an angle :math:`\theta_i`
   and afterwards about :math:`\boldsymbol{\hat{n}}` by an angle
-  :math:`\bar{\phi}_i` as shown in the figure
+  :math:`\phi_i` as shown in the figure
 
   .. raw:: html
     :file: ../../../images/spin-rotations-simple.html
 
   .. math::
-    \boldsymbol{S_i}
+    \boldsymbol{S}_i
     =
-    \boldsymbol{R}_n(\bar{\phi}_i) \,\boldsymbol{R}_v(\bar{\theta}_i) \,\boldsymbol{S_i^F}
+    \boldsymbol{R_n}(\phi_i) \,\boldsymbol{R_v}(\theta_i) \,\boldsymbol{S^F}_i
     =
-    e^{\bar{\phi}_i\,\boldsymbol{\hat{n}}\,\times}\, e^{\bar{\theta}_i\,\boldsymbol{\hat{v}}\,\times}
-    \, \boldsymbol{S_i^F}
+    e^{\phi_i\,\boldsymbol{\hat{n}}\,\times}\, e^{\theta_i\,\boldsymbol{\hat{v}}\,\times}
+    \, \boldsymbol{S^F}_i
 
   where the rotation matrices are
 
   .. math::
     \begin{matrix}
-      \boldsymbol{R}_v(\bar{\theta}_i)
+      \boldsymbol{R_v}(\theta_i)
       =
       \begin{pmatrix}
-        \cos\bar{\theta}_i  & 0 & \sin\bar{\theta}_i \\
+        \cos\theta_i  & 0 & \sin\theta_i \\
         0           & 1 & 0              \\
-        -\sin\bar{\theta}_i & 0 & \cos\bar{\theta}_i \\
+        -\sin\theta_i & 0 & \cos\theta_i \\
       \end{pmatrix};
       &
-      \boldsymbol{R}_n(\bar{\phi}_i)
+      \boldsymbol{R_n}(\phi_i)
       =
       \begin{pmatrix}
-        \cos\bar{\phi}_i & -\sin\bar{\phi}_i & 0 \\
-        \sin\bar{\phi}_i & \cos\bar{\phi}_i  & 0 \\
+        \cos\phi_i & -\sin\phi_i & 0 \\
+        \sin\phi_i & \cos\phi_i  & 0 \\
         0        & 0         & 1     \\
       \end{pmatrix}
     \end{matrix}

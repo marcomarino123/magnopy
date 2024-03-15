@@ -16,9 +16,10 @@ The :ref:`previous section <user-guide_methods_single-q>` has shown
 how each lattice spin can be generated from a local collinear reference frame
 
 .. math::
-  \boldsymbol{S_{mi}}=
-  \boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}=S_i\,\boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{\hat{n}}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}_{i}}=S_i\,\boldsymbol{\hat{f}_{mi}}
+  \boldsymbol{S}_{mi}=
+  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
+  =S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{\hat{n}}
+  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_{i}=S_i\,\boldsymbol{\hat{f}}_{mi}
     =S_i\,
      \begin{pmatrix}
             \sin\theta_i\,\cos\phi_{mi} \\
@@ -26,7 +27,7 @@ how each lattice spin can be generated from a local collinear reference frame
             \cos\theta_i
      \end{pmatrix}
 
-This section is devoted to translate these spin vectors and matrices to spherical reference frames,
+This section is devoted to translate these spin vectors and matrices to spherical bases,
 that are more convenient in several instances.
 
 ============================================
@@ -100,15 +101,15 @@ Change to the spherical basis
 =============================
 
 ----------------------------------------------------------------------------------
-Intra-cell rotation matrix :math:`\boldsymbol{R_i}\rightarrow\boldsymbol{R^s_i}`
+Intra-cell rotation matrix :math:`\boldsymbol{R}_i\rightarrow\boldsymbol{R}^s_i`
 ----------------------------------------------------------------------------------
 The matrix elements of the rotation matrix
-:math:`\boldsymbol{R_i}=(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`
+:math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}}_i\,\boldsymbol{\hat{t}}_i\,\boldsymbol{\hat{f}}_i)`
 in the spherical basis can be obtained from the expression
 
 .. math::
-  \boldsymbol{R_i^{s}}=(\boldsymbol{\hat{p}_i^s}\,\boldsymbol{\hat{t}_i^s}\,\boldsymbol{\hat{f}_i^s})
-  =\boldsymbol{T}^\dagger\,\boldsymbol{R_i}\,\boldsymbol{T}
+  \boldsymbol{R}_i^s=(\boldsymbol{\hat{p}}_i^s\,\boldsymbol{\hat{t}}_i^s\,\boldsymbol{\hat{f}}_i^s)
+  =\boldsymbol{T}^\dagger\,\boldsymbol{R}_i\,\boldsymbol{T}
   =\dfrac{1}{2}
     \begin{pmatrix}
       1+\cos\theta_i                     &
@@ -122,8 +123,8 @@ in the spherical basis can be obtained from the expression
       2\cos\theta_i                      \\
     \end{pmatrix}
 
-The above expression also defines the spherical reference frame
-:math:`(\boldsymbol{\hat{p}_i}\,\boldsymbol{\hat{t}_i}\,\boldsymbol{\hat{f}_i})`.
+The above expression also defines the spherical basis
+:math:`(\boldsymbol{\hat{p}^s_i}\,\boldsymbol{\hat{t}^s_i}\,\boldsymbol{\hat{f}^s_i})`.
 
 .. dropdown:: Details
 
@@ -139,9 +140,9 @@ The above expression also defines the spherical reference frame
     \braket{\,p_i\,t_i\,f_i \,|\, T\,|\, p_i\,t_i\,f_i\, }
 
 ----------------------------------------------------------------------------------------------------------------
-Inter-cell rotation matrix :math:`\boldsymbol{R_m}(\boldsymbol{q})\rightarrow\boldsymbol{R_m^s}(\boldsymbol{q})`
+Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s\boldsymbol{q})`
 ----------------------------------------------------------------------------------------------------------------
-The matrix elements of the rotation matrix :math:`\boldsymbol{R_m}`
+The matrix elements of the rotation matrix :math:`\boldsymbol{R}_m`
 in the spherical basis can be obtained from the expression
 
 .. include:: repeated-formulas/spiral-rotation-matrix-spherical.inc
@@ -212,17 +213,18 @@ in the spherical basis can be obtained from the expression
 .. _user-guide_methods_spherical-rf_exchange-tensor:
 
 -----------------------------------------------------------------------
-Spin vector :math:`\boldsymbol{S_{mi}}\rightarrow\boldsymbol{S_{mi}^s}`
+Spin vector :math:`\boldsymbol{S}_{mi}\rightarrow\boldsymbol{S}_{mi}^s`
 -----------------------------------------------------------------------
-The spin vector :math:`\boldsymbol{S_{mi}}` can be written
+The spin vector :math:`\boldsymbol{S}_{mi}` can be written
 in the spherical reference frame as
 
 .. math::
-  \boldsymbol{S_{mi}^s}
+  \boldsymbol{S}_{mi}^s
    =&
-   \, \boldsymbol{T}^\dagger\,\boldsymbol{S_{mi}}
-   =\boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}
-   =\boldsymbol{R}_m^s\,\boldsymbol{R_i}^s\,\boldsymbol{S^{F,s}_{mi}}\\\\
+   \, \boldsymbol{T}^\dagger\,\boldsymbol{S}_{mi}
+   =\boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
+   =\boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{mi}
+   \\\\
    =&
     \begin{pmatrix}
       S_{mi}^{-} \\
@@ -243,9 +245,9 @@ where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
 ----------------------------
 Transverse spin fluctuations
 ----------------------------
-The local collinear spin vector :math:`\boldsymbol{S_{mi}^F}=S_i\,\boldsymbol{n}` remains
+The local collinear spin vector :math:`\boldsymbol{S^F}_{mi}=S_i\,\boldsymbol{n}` remains
 the same in the spherical reference frame. However we will later analyse spin waves, that
-are small transverse spin fluctuations
+are small transverse spin fluctuations. The spin vector will become
 
 .. math::
   \boldsymbol{S_{mi}^{F}} +
@@ -253,34 +255,35 @@ are small transverse spin fluctuations
   =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i^n-\delta S_{mi}^n
     \end{pmatrix}
 
-that are written in the spherical basis as
+that is written in the spherical basis as
 
 .. math::
   \boldsymbol{S_{mi}^{F,s}} +
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{u^+}+\frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{u^-}
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^\,\boldsymbol{u^+}+\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{u^-}
   -\delta S_{mi}^n\,\boldsymbol{n}
-  =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^+\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^-\\S_{i}-\delta S_{mi}^n
+  =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^-\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\\S_{i}-\delta S_{mi}^n
     \end{pmatrix}
 
 where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the proper normalization.
-Intra-cell rotations lead to
+Application of the intra-cell rotation :math:`\boldsymbol{R}_i^s leads to
 
 .. math::
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{p}_{mi}^s}+\frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{t}_{mi}^s}
-  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}_{mi}^s}
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{p}}_{mi}^s+
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{t}}_{mi}^s
+  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}}_{mi}^s
 
 ---------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`
 ---------------------------------------------------------------------------
 The exchange matrix in the spherical reference frame is obtained through
 
-.. math:: \boldsymbol{\tilde{J}^s_{ij}} =&
+.. math:: \boldsymbol{J_{ij}}^s =&
   \begin{pmatrix}
     J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
     J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
     J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}\,=\,
-  \boldsymbol{T}^\dagger\,\boldsymbol{\tilde{J}_{ij}}\,\boldsymbol{T}\,
+  \boldsymbol{T}^\dagger\,\boldsymbol{J_{ij}}\,\boldsymbol{T}\,
   \\\\=&
   \begin{pmatrix}
     J^{I} + \dfrac{S_{ij}^{uu} + S_{ij}^{vv}}{2} + iD_{ij}^n                       &

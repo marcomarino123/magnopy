@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{R_i} =
+  \boldsymbol{R}_i =
   \begin{pmatrix}
       \cos\theta_i + \sin^2\phi_i\,\,(1-\cos\theta_i) &
       -\sin\phi_i\,\cos\phi_i\,\,(1-\cos\theta_i)       &

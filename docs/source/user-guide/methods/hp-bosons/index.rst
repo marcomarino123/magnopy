@@ -33,7 +33,7 @@ in terms of Holstein-Primakoff (HP) bosons [1]_
 Expansion of the square roots above leads to an infinite series in :math:`1/S`,
 that translates into the Heisenberg Hamiltonian. This :math:`1/S` expansion of the
 Hamiltonian in truncated at :math:`1/S^2` order, where terms up to four-boson
-products are kept. This can be easily shown to be equivalent to
+products are kept. This can be shown to be equivalent to
 truncating the square roots above at :math:`1/S` order
 
 .. include:: ../repeated-formulas/hp-expanded-uvn.inc

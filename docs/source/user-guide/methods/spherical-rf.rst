@@ -17,6 +17,8 @@ how each lattice spin can be generated from a local collinear reference frame
 
 .. math::
   \boldsymbol{S}_{mi}=
+  \boldsymbol{R}_m\,\boldsymbol{S}_{i}
+  =
   \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{i}
   =S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{\hat{n}}
   =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_{i}
@@ -100,9 +102,9 @@ is
 Change to the spherical basis
 =============================
 
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Intra-cell rotation matrix :math:`\boldsymbol{R}_i\rightarrow\boldsymbol{R}^s_i`
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 The matrix elements of the rotation matrix
 :math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}}_i\,\boldsymbol{\hat{t}}_i\,\boldsymbol{\hat{f}}_i)`
 in the spherical basis can be obtained from the expression
@@ -126,7 +128,7 @@ in the spherical basis can be obtained from the expression
 The above expression also defines the spherical vectors
 
 .. math::
-  \boldsymbol{\hat{p}^s_i}=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
+  \boldsymbol{\hat{p}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
    =\dfrac{1}{2}
     \begin{pmatrix}
       1+\cos\theta_i                     \\
@@ -134,7 +136,7 @@ The above expression also defines the spherical vectors
       -\sqrt{2}\sin\theta_i e^{i\phi_i}
     \end{pmatrix}
     \\\\
-  \boldsymbol{\hat{t}^s_i}=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^-
+  \boldsymbol{\hat{t}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^-
    =\dfrac{1}{2}
     \begin{pmatrix}
       (\cos\theta_i-1)e^{-2i\phi_i}     \\
@@ -142,7 +144,7 @@ The above expression also defines the spherical vectors
       -\sqrt{2}\sin\theta_i e^{-i\phi_i}
     \end{pmatrix}
   \\\\
-  \boldsymbol{\hat{f}^s_i}=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
+  \boldsymbol{\hat{f}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
    =\dfrac{1}{2}
     \begin{pmatrix}
       \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
@@ -169,11 +171,12 @@ in the spherical basis as
    =&
    \, \boldsymbol{T}^\dagger\,\boldsymbol{S}_{mi}
    =\boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
-   =\boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{i}
    \\\\
    =&\,
-     S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s\,
-    =
+   \boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{i}=
+     \boldsymbol{R}_m^s\,\boldsymbol{S}_i^s\,=
+     S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s\,\\\\
+    =&
   \,S_i
   \,
   \begin{pmatrix}
@@ -181,39 +184,6 @@ in the spherical basis as
      \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
      \cos\theta_i                                                                 \\
   \end{pmatrix}
-
-----------------------------
-Transverse spin fluctuations
-----------------------------
-The local collinear spin vector :math:`\boldsymbol{S^F}_{i}=S_i\,\boldsymbol{n}` remains
-the same in the spherical reference frame. However we will later analyse spin waves, that
-are small transverse spin fluctuations. The spin vector will become
-
-.. math::
-  \boldsymbol{S_{i}^{F}} +
-  \delta S_{mi}^u\,\boldsymbol{\hat{u}}+\delta S_{mi}^v\,\boldsymbol{\hat{v}}-\delta S_{mi}^n\,\boldsymbol{\hat{n}}
-  =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i-\delta S_{mi}^n
-    \end{pmatrix}
-
-where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the
-proper normalization of the spin vector. The vector components in the spherical basis will be
-
-.. math::
-  \boldsymbol{S_{mi}^{F,s}} +
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^\,\boldsymbol{\hat{u}^+}+
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{u}^-}
-  -\delta S_{mi}^n\,\boldsymbol{\hat{n}}
-  =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^-\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\\S_{i}-\delta S_{mi}^n
-    \end{pmatrix}
-
-
-where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
-Application of the intra-cell rotation :math:`\boldsymbol{R}_i^s` then leads to
-
-.. math::
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{p}}_{i}^s+
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{t}}_{i}^s
-  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}}_{i}^s
 
 ---------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`
@@ -404,3 +374,52 @@ in the spherical reference frame as
       \frac{1}{\sqrt{2}}\,h^{+} \\
       h^n                        \\
     \end{pmatrix}
+
+============================================
+Hamiltonian in the spherical reference frame
+============================================
+The Heisenberg Hamiltonian can be written now in the spherical reference frame as follows
+
+.. math::
+  H
+  =
+  \dfrac{1}{2} \sum_{m, \boldsymbol{d_{ij}}, i, j}\,
+  \boldsymbol{S}^{s,\dagger}_{mi}\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{S}^s_{m+d_{ij},j}
+  +
+  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \sum_{m,i}\,g_i \,\boldsymbol{S}^s_{mi}
+
+============================
+Transverse spin fluctuations
+============================
+The local collinear spin vector :math:`\boldsymbol{S^F}_{i}=S_i\,\boldsymbol{n}` remains
+the same in the spherical reference frame. However we will later analyse spin waves, that
+are small transverse spin fluctuations. The spin vector will become
+
+.. math::
+  \boldsymbol{S^F}_i +
+  \delta S_{mi}^u\,\boldsymbol{\hat{u}}+\delta S_{mi}^v\,\boldsymbol{\hat{v}}-\delta S_{mi}^n\,\boldsymbol{\hat{n}}
+  =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i-\delta S_{mi}^n
+    \end{pmatrix}
+
+where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the
+proper normalization of the spin vector. The vector components in the spherical basis will be
+
+.. math::
+  \boldsymbol{S^{F,s}}_{mi} +
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^\,\boldsymbol{\hat{u}^+}+
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{u}^-}
+  -\delta S_{mi}^n\,\boldsymbol{\hat{n}}
+  =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^-\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\\S_{i}-\delta S_{mi}^n
+    \end{pmatrix}
+
+
+where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
+Application of the intra-cell rotation :math:`\boldsymbol{R}_i^s` then leads to
+
+.. math::
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{p}}_{i}^s+
+  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{t}}_{i}^s
+  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}}_{i}^s

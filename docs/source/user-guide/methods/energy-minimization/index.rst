@@ -1,8 +1,8 @@
 .. _user-guide_methods_energy-minimization:
 
-************************************
-Minimization of the classical energy
-************************************
+*******************
+Energy minimization
+*******************
 
 .. dropdown:: Notation used on this page
 
@@ -15,7 +15,56 @@ Minimization of the classical energy
 
 Let us recall the expression for the classical energy:
 
-.. include:: ../repeated-formulas/classic-total-energy.inc
+.. math::
+  \epsilon_{classical}=&\epsilon_0\,
+  +\mu_B\,
+  \sum_i\,g_i\,  S_i\,\,h^n\,\cos\theta_i\\
+  &+\,
+  \delta_{\boldsymbol{q},\boldsymbol{G}}\,
+  \left(\epsilon_1\,+\mu_B\,\sum_i\,g_i\,S_i\,\sin\theta_i\,
+  (h^u\,\cos\phi_i+h^v\,\sin\phi_i),\right)\\
+  &+\,
+  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,\epsilon_2
+
+where the zeroth-, first- and second-order harmonic exchange contributions are
+
+.. math::
+  \epsilon_0=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+      \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,0}\right)\\\\
+  \epsilon_1=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+      \cos\theta_i\,\cos\theta_j\,J_{ij}^{uvn,1}+
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uvn,2}\right)\\\\
+  \epsilon_2=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,2}
+
+and
+
+.. math::
+  J_{ij}^{uv,0}=&
+       \frac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
+         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\\\\
+  J_{ij}^{uv,2}=&
+       \frac{J_{ij}^{uu}-J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)+
+      S_{ij}^{uv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)\\\\
+  J_{ij}^{uvn,1}=&J_{ij}^{nu}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)+
+                  J_{ij}^{nv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)\\\\
+  J_{ij}^{uvn,2}=&J_{ij}^{un}\,\cos(\phi_i)+J_{ij}^{vn}\,\sin(\phi_i)
+
+The above expression for the exchange energy demonstrate that for ferromagnetic spin alignments
+where :math:`\boldsymbol{q}=0`, all harmonic contribute to it.
+In contrast, for anti-ferromagnetic spin alignments, where
+:math:`\boldsymbol{q}=\boldsymbol{G}/2`, only :math:`\epsilon_0` and
+:math:`\epsilon_2` contribute to the exchange energy. Furthermore, for an
+arbitrary spiral vector :math:`\boldsymbol{q}\=0,\,\boldsymbol{G}/2`,
+:math:`\epsilon_{exchange} =\epsilon_0`.
+
 
 In order to minimize this equation and find ground state we split all possible cases into
 three distinct ones:

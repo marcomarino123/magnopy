@@ -268,13 +268,13 @@ can be computed using Dirac's notation as follows
 Explicitly
 
 .. math::
-  \boldsymbol{J^{u v n}_{ij}}=
+  \boldsymbol{J}^{u v n}_{ij}=
   \begin{pmatrix}
     J_{ij}^{uu} & J_{ij}^{uv} & J_{ij}^{un} \\
     J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
     J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
   \end{pmatrix}
-  =\boldsymbol{R_r}^{\dagger}\,\boldsymbol{J_{ij}}\,\boldsymbol{R_r}
+  =\boldsymbol{R_r}^{\dagger}\,\boldsymbol{J}_{ij}\,\boldsymbol{R_r}
   = \boldsymbol{R_r}^{\dagger}\,
   \begin{pmatrix}
     J_{ij}^{xx} & J_{ij}^{xy} & J_{ij}^{xz} \\
@@ -282,17 +282,17 @@ Explicitly
     J_{ij}^{zx} & J_{ij}^{zy} & J_{ij}^{zz} \\
   \end{pmatrix} \,\boldsymbol{R_r}
 
-:math:`\boldsymbol{J^{u v n}_{ij}}` can be split into isotropic, symmetric and anti-symmetric (DM) matrices
+:math:`\boldsymbol{J}^{u v n}_{ij}` can be split into isotropic, symmetric and anti-symmetric (DM) matrices
 in the :math:`(\,u\,v\,n\,)` reference frame also
 
 .. math::
-  \boldsymbol{J_{ij}^{u v n}}=J_{ij}\,\boldsymbol{I}+
-  \boldsymbol{J^{u v n,S}_{ij}}+\boldsymbol{J^{u v n, A}_{ij}}
+  \boldsymbol{J}_{ij}^{u v n}=J_{ij}\,\boldsymbol{I}+
+  \boldsymbol{J}^{u v n,S}_{ij}+\boldsymbol{J}^{u v n, A}_{ij}
 
 where :math:`J^{I} = \dfrac{1}{3}(J_{ij}^{uu} + J_{ij}^{vv} + J_{ij}^{nn}) =\dfrac{1}{3}(J_{ij}^{xx} + J_{ij}^{yy} + J_{ij}^{zz})` and
 
 .. math::
-  \boldsymbol{J^{u v n, S}_{ij}}=
+  \boldsymbol{J}^{u v n, S}_{ij}=
     \begin{pmatrix}
       S_{ij}^{uu} & S_{ij}^{uv} & S_{ij}^{un} \\
       S_{ij}^{uv} & S_{ij}^{vv} & S_{ij}^{vn} \\
@@ -300,7 +300,7 @@ where :math:`J^{I} = \dfrac{1}{3}(J_{ij}^{uu} + J_{ij}^{vv} + J_{ij}^{nn}) =\dfr
     \end{pmatrix}
 
 .. math::
-  \boldsymbol{J^{u v n, A}_{ij}}=
+  \boldsymbol{J}^{u v n, A}_{ij}=
       \begin{pmatrix}
       0 & D_{ij}^n & -D_{ij}^v \\
       -D_{ij}^n & 0 & D_{ij}^u \\

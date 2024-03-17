@@ -20,13 +20,13 @@ The Bravais lattice is composed of :math:`M=M_1\times M_2\times M_3`
 unit cells whose positions are given by
 
 .. math::
-  \boldsymbol{r_m} = m_1\,\boldsymbol{a_1} + m_2\,\boldsymbol{a_2} + m_3\,\boldsymbol{a_3}
+  \boldsymbol{r}_m = m_1\,\boldsymbol{a_1} + m_2\,\boldsymbol{a_2} + m_3\,\boldsymbol{a_3}
 
 Each cell contains :math:`I` atoms with intra-cell positions
-:math:`\boldsymbol{r_i}` and overall positions
+:math:`\boldsymbol{r}_i` and overall positions
 
 .. math::
-  \boldsymbol{r_{mi}} = \boldsymbol{r_m} + \boldsymbol{r_i}
+  \boldsymbol{r}_{mi} = \boldsymbol{r}_m + \boldsymbol{r}_i
 
 Description of the conical state
 ================================

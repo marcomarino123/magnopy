@@ -29,7 +29,7 @@ in the spherical reference frame have the simple expression
 whose Fourier trnasform is
 
 .. math::
-  \boldsymbol{S_{ki}^s}
+  \boldsymbol{S}_{ki}^s
   =
   S_i\,
   \begin{pmatrix}
@@ -41,7 +41,7 @@ whose Fourier trnasform is
 .. dropdown:: Details
 
   .. math::
-      \boldsymbol{S_{ki}^s}
+      \boldsymbol{S}_{ki}^s
       =
       \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \boldsymbol{S_{mi}^s}
       &=
@@ -76,7 +76,7 @@ whose Fourier trnasform is
 This structural factor can be written in the :math:`(\,u\,v\,n\,)` reference frame as follows:
 
 .. math::
-  \boldsymbol{S_{ki}}
+  \boldsymbol{S}_{ki}
   =
   S_i
   \,

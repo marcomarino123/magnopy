@@ -1,8 +1,8 @@
 .. _user-guide_methods_energy-classic:
 
-****************
-Classical energy
-****************
+*****************************************
+Total energy of the classical Hamiltonian
+*****************************************
 
 .. dropdown:: Notation used on this page
 
@@ -14,193 +14,234 @@ Classical energy
   * .. include:: ../page-notations/kronecker-delta.inc
   * .. include:: ../page-notations/uvn-or-spherical.inc
 
-
-Let us recall the Hamiltonian:
-
-.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any-classic.inc
-
-In the classical picture the Hamiltonian describes the total energy of the system,
-therefore, we write :math:`E` instead of :math:`H`, where appropriate.
-
-
-Let us separate the summation over cites in unit cell and over unit cells:
-
-.. note::
-    Ferromagnetic classical spin vector does not depend on the unit cell index:
-
-    .. math::
-        \boldsymbol{S_{mi}^{F}}
-        =
-        (0, 0, S_i )^T
-        =
-        S_i \boldsymbol{\hat{n}}
-        =
-        \boldsymbol{S_i^{F}}
-
-    We assume that magnetic field is uniform in space:
-
-    .. math::
-        \boldsymbol{h} = (h^u, h^v, h^n)^{\dagger}
-
-
-It os convenient to wcompute the expression for the classical energy in the spherical reference frame:
+=================================
+Re-written Heisenberg Hamiltonian
+=================================
+We have shown in :ref:`the previous section <user-guide_methods_spherical-rf>`
+that the classical Heisenberg Hamiltonian can be written in the spherical
+reference frame :math:`(\,u^+\,u^-\,n\,)` as follows:
 
 .. math::
   H
   =
-  \dfrac{1}{2}
-  \sum_{a, b}
-  (\boldsymbol{S_i^{F,s}})^{\dagger}
-  (\boldsymbol{R_i^s})^{\dagger}
-  \sum_{\boldsymbol{d_{ij}}}
-  \left[
-  \sum_{m}
-  (\boldsymbol{R_m^s})^{\dagger}(\boldsymbol{q})
-  \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})
-  \boldsymbol{R_{m+d_{ij}}^s}(\boldsymbol{q})
-  \right]
-  \boldsymbol{R_j^s}
-  \boldsymbol{S_j^{F, s}}
+  \dfrac{1}{2} \sum_{m, \boldsymbol{d_{ij}}, i, j}\,
+  \boldsymbol{S}^{s,\dagger}_{mi}\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{S}^s_{m+d_{ij},j}
   +
-  \mu_B
-  \sum_i
-  g_i
-  (\boldsymbol{h^s})^{\dagger}
-  \left[
-  \sum_{m}
-  \boldsymbol{R_m^s}(\boldsymbol{q})
-  \right]
-  \boldsymbol{R_i^s}
-  \boldsymbol{S_{i}^{F,s}}
+  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \sum_{m,i}\,g_i \,\boldsymbol{S}^s_{mi}
 
-We focus our attention on the expressions in the square brackets:
+where the spin vectors are
 
-===============
-Exchange energy
-===============
+.. math::
+  \boldsymbol{S}_{mi}^s
+   =\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
+   =S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_i^s
+    =S_i
+  \,\boldsymbol{R}_m^s\,
+  \begin{pmatrix}
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \phi_i} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i \phi_i} \\
+     \cos\theta_i
+  \end{pmatrix}
 
-We recall
-:ref:`exchange matrix in a spherical reference frame <user-guide_methods_spherical-rf_exchange-tensor>`
-and
-:ref:`rotation matrix in a spherical reference frame <user-guide_methods_spherical-rf>`
-from previous sections:
-
-.. include:: ../repeated-formulas/exchange-matrix-spherical.inc
+the cell-rotation matrix is
 
 .. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.inc
 
-Next we write the expression under the sum explicitly:
-
-.. dropdown:: Details
-
-  .. include:: exchange-matrix-spiral-rotated-details.inc
-
-
-.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
-
-.. _user-guide_methods_energy-classic_sum-over-m-condition:
-
-Next we write back the sum over :math:`m`, and using the facts that:
-
-* :math:`\boldsymbol{d_{ij}} = \sum_{i}\boldsymbol{a}_in_i`, where :math:`\boldsymbol{a}_i` are the lattice vectors
-  and :math:`n_i \in \mathbb{Z}`, :math:`i = 1,2,3`.
-* :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})`
-  does not depend on the index :math:`m`
-* :math:`\sum_{r_m}e^{\pm i\boldsymbol{q}\boldsymbol{r_m}} = M\delta_{\boldsymbol{q},\boldsymbol{G}}`
-  and
-  :math:`\sum_{r_m}e^{\pm 2i\boldsymbol{q}\boldsymbol{r_m}} = M\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}}`
-
-  .. dropdown:: Details [1]_
-
-    .. include:: exchange-details-on-fourier-identities.inc
-
-we get an expression for the sum:
-
-.. dropdown:: Details
-
-  .. include:: exchange-matrix-sum-over-m-details.inc
-
-.. include:: ../repeated-formulas/exchange-matrix-rotated-and-summed-over-m.inc
-
-Which leads to the expression for the exchange part of total energy:
-
-.. dropdown:: Details
-
-  First, we recall the rotation matrix in the spherical reference frame:
-
-  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.inc
-
-  Then we compute:
-
-  .. include:: exchange-energy-left-part.inc
-
-  and
-
-  .. include:: exchange-energy-right-part.inc
-
-  Finally, we compute the exchange energy:
-
-  .. include:: exchange-energy-not-simplified.inc
-
-
-  Now we simplify each term of the sum separately:
-
-  .. include:: exchange-energy-simplify-ppmm.inc
-
-  .. include:: exchange-energy-simplify-pmmp.inc
-
-  .. include:: exchange-energy-simplify-pnmn.inc
-
-  .. include:: exchange-energy-simplify-npnm.inc
-
-.. include:: ../repeated-formulas/classic-exchange-energy.inc
-
-=====================
-Magnetic field energy
-=====================
-
-Next we turn our attention to the Zeeman term:
+and the exchange constant matrix is
 
 .. math::
-  \mu_B
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})=
+  \begin{pmatrix}
+    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
+    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
+    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
+  \end{pmatrix}
+
+By inserting the above expression for the atomic spins into de Hamiltonian,
+we find
+
+.. math::
+  H=&
+  \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
+  \boldsymbol{S}^{s,\dagger}_i\,\boldsymbol{R}_m^s\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,\boldsymbol{R}_{m+d_{ij}}^s
+  \boldsymbol{S}^s_j
+  +
+  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \sum_{m,i}\,g_i \,\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
+  \\=&
+  \dfrac{1}{2} \sum_{m,\boldsymbol{d}_{ij}, i, j}\,
+  \boldsymbol{S}^{s,\dagger}_i\,\boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})\,
+  \boldsymbol{S}^s_j
+  +
+  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \sum_{m,i}\,g_i \,\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
+
+where
+
+.. math::
+  \boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})=
+  \boldsymbol{R}_m^s\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,\boldsymbol{R}_{m+d_{ij}}^s\\
+
+The expression above can be further recast as follows
+
+.. math::
+  H=
+  \dfrac{1}{2} \sum_{\boldsymbol{d}_{ij}, i, j}\,
+  \boldsymbol{S}^{s,\dagger}_i\,\boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{S}^s_j
+  +
+  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \sum_{m,i}\,g_i \,\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
+
+where
+
+.. math::
+  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})=
+  \sum_m\,\boldsymbol{R}_m^s\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,\boldsymbol{R}_{m+d_{ij}}^s
+
+
+This form of the Hamiltonian shows that the classical energy corresponding to any
+given spin configuration
+:math:`E(\boldsymbol{\hat{n}},\,\boldsymbol{q},\theta_i,\,\phi_i)`
+is a function of the cone axis :math:`\boldsymbol{\hat{n}}`, the spiral vector
+:math:`\boldsymbol{q}`, and all the angles :math:`\theta_i,\,\phi_i`.
+The minimum-energy configuration is therefore obtained by minimizing :math:`E` with
+respect to all those parameters.
+
+============================================================================
+Exchange constant :math:`\boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})`
+============================================================================
+
+The exchange constant :math:`\boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})`
+can be written in terms of zero-, first- and second-harmonics as follows:
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})
+  =\sum_{l=0,\pm 1,\pm 2}\,\boldsymbol{\tilde{J}}_{ij}^l \,e^{i\,l\,\boldsymbol{q}\cdot\boldsymbol{r}_m}
+
+where we have suppressed the :math:`J`-dependence on :math:`\boldsymbol{d}_{ij}` to simplify the
+notation, and where
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^0=
+  \begin{pmatrix}
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{++}        &  0  &.    0           \\
+    0 & e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{--}           &     0           \\
+    0                                                          &  0  &     J_{ij}^{nn}
+  \end{pmatrix}
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^1=
+  \begin{pmatrix}
+    0    &  0                                                  & J_{ij}^{+n} \\
+    0    &  0                                                  & 0           \\
+    0    & e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{n-}  & 0
+  \end{pmatrix}
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^{-1}=
+  \begin{pmatrix}
+    0                                                         &  0  &  0            \\
+    0                                                         &  0  &  J_{ij}^{-n}  \\
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}}\, J_{ij}^{n+}     &  0  &  0
+  \end{pmatrix}
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^2=
+  \begin{pmatrix}
+    0   &   e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{+-} & 0  \\
+    0   &   0                                                  & 0  \\
+    0   &   0                                                  & 0
+  \end{pmatrix}
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^{-2}=
+  \begin{pmatrix}
+    0                                                   &  0   &   0   \\
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{-+} &  0   &   0   \\
+    0                                                   &  0   &   0
+  \end{pmatrix}
+
+The above expression helps to perform the :math:`m-summation` needed to determine the
+exchange constant
+
+.. math::
+  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})=
+  M\,\left(\boldsymbol{\tilde{J}}_{ij}^0\,+\,
+  \delta_{\boldsymbol{q},\boldsymbol{G}}\,(\boldsymbol{\tilde{J}}_{ij}^1+\boldsymbol{\tilde{J}}_{ij}^{-1})\,+\,
+  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,(\boldsymbol{\tilde{J}}_{ij}^2+\boldsymbol{\tilde{J}}_{ij}^{-2})\right)
+
+========================
+Exchange energy per cell
+========================
+The exchange energy per unit cell can be found by insrting the previous expresion for the
+exchange constant into the Hamiltonian, that leads to:
+
+.. math::
+  \epsilon_{exchange}=\frac{E_{exchange}}{M}=\epsilon_0\,+\,
+  \delta_{\boldsymbol{q},\boldsymbol{G}}\,\epsilon_1\,+\,
+  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,\epsilon_2
+
+where the zeroth-, first- and second-order harmonic exchange contributions are
+
+.. math::
+  \epsilon_0=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+      \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,0}\right)\\\\
+  \epsilon_1=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+      \cos\theta_i\,\cos\theta_j\,J_{ij}^{uvn,1}+
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uvn,2}\right)\\\\
+  \epsilon_2=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,2}
+
+and
+
+.. math::
+  J_{ij}^{uv,0}=&
+       \frac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
+         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\\\\
+  J_{ij}^{uv,2}=&
+       \frac{J_{ij}^{uu}-J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)+
+      S_{ij}^{uv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)\\\\
+  J_{ij}^{uvn,1}=&J_{ij}^{nu}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)+
+                  J_{ij}^{nv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)\\\\
+  J_{ij}^{uvn,2}=&J_{ij}^{un}\,\cos(\phi_i)+J_{ij}^{vn}\,\sin(\phi_i)
+
+==============================
+Magnetic field energy per cell
+==============================
+
+Next we turn our attention to the Zeeman term, where we assume henceforth that the
+magnetic field
+
+.. math::
+  \boldsymbol{h} = (\frac{1}{\sqrt{2}}\,h^+, \frac{1}{\sqrt{2}}\,h^-, h^n)^{\dagger}
+
+is uniform. The Zeeman Hamiltonian can be written as follows:
+
+.. math::
+  H_{Zeeman}=\mu_B
   \sum_i
-  g_i
-  \left[
-  \sum_{m}
-  (\boldsymbol{h^s})^{\dagger}
-  \boldsymbol{R_m^s}
-  \right]
-  \boldsymbol{R_i^s}
-  \boldsymbol{S_{i}^{F,s}}
+  g_i\,
+  \sum_{m}\,(\boldsymbol{h}^s)^{\dagger}\,\boldsymbol{R}_m^s\,\boldsymbol{S}_{i}^s
 
-Let us compute part of the expression:
+The sum over lattice sites is performed by taking into account that only the
+:math:`\boldsymbol{R}_m^s` depend on :math:`m`:
 
 .. math::
-  \boldsymbol{R_i^s}
-  \boldsymbol{S_i^{F,s}}
-  =
-  S_i
-  \begin{pmatrix}
-    \dfrac{\sin\theta_i e^{-i\phi_i}}{\sqrt{2}} \\
-    \dfrac{\sin\theta_i e^{i\phi_i}}{\sqrt{2}}  \\
-    \cos\theta_i                                \\
-  \end{pmatrix}
-
-Magnetic field in the spherical reference frame is written as:
-
-.. include:: ../repeated-formulas/magnetic-field-spherical.inc
-
-Before we compute the expression for energy work with the sum over :math:`m`:
-
-.. math::
-  \sum_{m}
-  \boldsymbol{R_m^s}
-  =
-  \begin{pmatrix}
-    \sum_{m}e^{-i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0                          & 0 \\
-    0                           & \sum_{m}e^{i\boldsymbol{q}\cdot\boldsymbol{r_m}} & 0 \\
-    0                           & 0                          & \sum_{m}1 \\
-  \end{pmatrix}
+  \sum_{m}\,\boldsymbol{R_m^s}
   =
   M
   \begin{pmatrix}
@@ -209,18 +250,100 @@ Before we compute the expression for energy work with the sum over :math:`m`:
     0                           & 0                          & 1             \\
   \end{pmatrix}
 
-Then the energy is:
+Then the Zeeman contribution to the energy per unit cell is:
 
-.. dropdown:: Details
+.. math::
+  \epsilon_{Zeeman} \,=\,\mu_B\,
+  \sum_i\,g_i\,  S_i\,\left(\,h^n\,\cos\theta_i\,+\,
+  \delta_{\boldsymbol{q},\boldsymbol{G}}\,\sin\theta_i\,
+  \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
+  \right)
 
-  .. include:: field-energy-details.inc
+============================================================
+Ferromagnetic, antiferromagnetic and conical states energies
+============================================================
+The above expressions demonstrate that all harmonics contribute to the
+total classical energy for ferromagnetic spin arrangements, where
+:math:`\boldsymbol{q}=0`.
+In contrast, , the zeroth- and second-order terms but not the first
+contribute to the exchange energy for anti-ferromagnetic spin
+configurations where :math:`\boldsymbol{q}=\boldsymbol{G}/2`.
+Finally, only the lowest harmonic contributes to the energy if the
+spiral vector :math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`,
+:math:`\epsilon_{exchange} =\epsilon_0`.
 
-.. include:: ../repeated-formulas/classic-zeeman-energy.inc
+This means that it proves more transparent to write separate expressions
+for the three cases. These are
 
+--------------------
+Ferromagnetic energy
+--------------------
+ .. math::
+   \epsilon_{classical}=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+    \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
+    +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
+    +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,2}
+    +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,3}
+    \right)\\
+    &+\mu_B\,
+  \sum_i\,g_i\,  S_i\,\left(\,\cos\theta_i\,h^n\,+\,
+  \sin\theta_i\,
+  \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
+  \right)
 
-Total energy
-============
+with
 
-Finally, we can write the total classical energy:
+.. math::
+  J_{ij}^{F,1}=&
+   (J_{ij}^{uu}\,\cos\phi_i\,\cos\phi_j+
+  J_{ij}^{vv}\,\sin\phi_i\,\sin\phi_j+
+  J_{ij}^{uv}\,\cos\phi_i\,\sin\phi_j+
+  J_{ij}^{vu}\,\sin\phi_i\,\cos\phi_j)\\
+  J_{ij}^{F,2}=&
+  (J_{ij}^{nu}\,\cos\phi_j+J_{ij}^{nv}\,\sin\phi_j)\\
+  J_{ij}^{F,3}=&(J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
 
-.. include:: ../repeated-formulas/classic-total-energy.inc
+------------------------
+Antiferromagnetic energy
+------------------------
+ .. math::
+   \epsilon_{classical}=&
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+    \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
+    +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
+    \\
+    &+\mu_B\,
+  \sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
+
+with
+
+.. math::
+  J_{ij}^{F,1}=&
+   (J_{ij}^{uu}\,\cos\phi_i\,\cos\phi_j+
+  J_{ij}^{vv}\,\sin\phi_i\,\sin\phi_j+
+  J_{ij}^{uv}\,\cos\phi_i\,\sin\phi_j+
+  J_{ij}^{vu}\,\sin\phi_i\,\cos\phi_j)\\
+  J_{ij}^{F,2}=&
+  (J_{ij}^{nu}\,\cos\phi_j+J_{ij}^{nv}\,\sin\phi_j)\\
+  J_{ij}^{F,3}=&(J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
+
+---------------------------
+Generic spiral state energy
+---------------------------
+.. math::
+   \epsilon_{classical}=
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+    S_i\,S_j\,\left(
+      \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,0}\right)+
+      \mu_B\,\sum_i\,g_i\,  S_i\,\cos\theta_i\,h^n
+
+with
+
+.. math::
+  J_{ij}^{uv,0}=&
+       \frac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
+         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\\\\

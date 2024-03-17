@@ -278,16 +278,16 @@ for the three cases. These are
 --------------------
 Ferromagnetic energy
 --------------------
- .. math::
-   \epsilon_{classical}=&
-   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
-    S_i\,S_j\,\left(
-    \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
-    +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
-    +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,2}
-    +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,3}
-    \right)\\
-    &+\mu_B\,
+.. math::
+  \epsilon_{classical}^{FM}=&
+  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+  S_i\,S_j\,\left(
+  \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
+  +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
+  +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,2}
+  +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,3}
+  \right)\\
+  &+\mu_B\,
   \sum_i\,g_i\,  S_i\,\left(\,\cos\theta_i\,h^n\,+\,
   \sin\theta_i\,
   \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
@@ -308,42 +308,37 @@ with
 ------------------------
 Antiferromagnetic energy
 ------------------------
- .. math::
-   \epsilon_{classical}=&
-   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
-    S_i\,S_j\,\left(
-    \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
-    +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
-    \\
-    &+\mu_B\,
-  \sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
+.. math::
+  \epsilon_{classical}^{AF}=
+  &\frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+  S_i\,S_j\,\left(
+  \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
+  +\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij})\,\sin\theta_i\,\sin\theta_j\,
+  J_{ij}^{AF}\right)\\
+  &+\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
 
 with
 
 .. math::
-  J_{ij}^{F,1}=&
-   (J_{ij}^{uu}\,\cos\phi_i\,\cos\phi_j+
-  J_{ij}^{vv}\,\sin\phi_i\,\sin\phi_j+
-  J_{ij}^{uv}\,\cos\phi_i\,\sin\phi_j+
-  J_{ij}^{vu}\,\sin\phi_i\,\cos\phi_j)\\
-  J_{ij}^{F,2}=&
-  (J_{ij}^{nu}\,\cos\phi_j+J_{ij}^{nv}\,\sin\phi_j)\\
-  J_{ij}^{F,3}=&(J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
+  J_{ij}^{AF}=
+   (J_{ij}^{uu}\,\cos\phi_j+J_{ij}^{uv}\,\sin\phi_j)\,\cos\phi_i
+   +
+   (J_{ij}^{vv}\,\sin\phi_j+J_{ij}^{vu}\,\cos\phi_j)\,\sin\phi_i
 
 ---------------------------
 Generic spiral state energy
 ---------------------------
 .. math::
-   \epsilon_{classical}=
+   \epsilon_{classical}^{SP}=
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
-      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,0}\right)+
+      \sin\theta_i\,\sin\theta_j\,J_{ij}^{SP}\right)+
       \mu_B\,\sum_i\,g_i\,  S_i\,\cos\theta_i\,h^n
 
 with
 
 .. math::
-  J_{ij}^{uv,0}=&
+  J_{ij}^{SP}=
        \frac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
-         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\\\\
+         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)

@@ -210,14 +210,16 @@ and
 
 .. math::
   J_{ij}^{uv,0}=&
-       \frac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
+       J_{ij}^+\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
          D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\\\\
   J_{ij}^{uv,2}=&
-       \frac{J_{ij}^{uu}-J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)+
+       J_{ij}^{-}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)+
       S_{ij}^{uv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)\\\\
   J_{ij}^{uvn,1}=&J_{ij}^{nu}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)+
                   J_{ij}^{nv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)\\\\
   J_{ij}^{uvn,2}=&J_{ij}^{un}\,\cos(\phi_i)+J_{ij}^{vn}\,\sin(\phi_i)
+
+where :math:`J_{ij}^{\pm}=\frac{J_{ij}^{uu}\pm J_{ij}^{vv}}{2}`
 
 ==============================
 Magnetic field energy per cell
@@ -259,9 +261,9 @@ Then the Zeeman contribution to the energy per unit cell is:
   \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
   \right)
 
-============================================================
-Ferromagnetic, antiferromagnetic and conical states energies
-============================================================
+===========================================================================
+Ferromagnetic, antiferromagnetic and conical spin arrangements and energies
+===========================================================================
 The above expressions demonstrate that all harmonics contribute to the
 total classical energy for ferromagnetic spin arrangements, where
 :math:`\boldsymbol{q}=0`.
@@ -273,11 +275,24 @@ spiral vector :math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`,
 :math:`\epsilon_{exchange} =\epsilon_0`.
 
 This means that it proves more transparent to write separate expressions
-for the three cases. These are
+for the spin vectors and energies for the three cases. These are
 
 --------------------
 Ferromagnetic energy
 --------------------
+The spin vectors look like
+
+.. math::
+  \boldsymbol{S}_{mi}^s
+    =S_i\,
+  \begin{pmatrix}
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \phi_i} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{ i \phi_i} \\
+     \cos\theta_i
+  \end{pmatrix}
+
+and the energy
+
 .. math::
   \epsilon_{classical}^{FM}=&
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
@@ -308,6 +323,41 @@ with
 ------------------------
 Antiferromagnetic energy
 ------------------------
+
+If :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1`,
+then :math:`\boldsymbol{q}\,\boldsymbol{r_m} = \pi n` for any :math:`\boldsymbol{r_m}`.
+Thus, the spin vector is simplified to
+
+.. math::
+  \boldsymbol{S}_{mi}
+  = S_i\,
+  \begin{pmatrix}
+    \sin\theta_i\,e^{-i(\pi n_m+\phi_i)} \\
+    \sin\theta_i\,e^{i(\pi n_{m}+\phi_i)} \\
+    \cos\theta_i                    \\
+  \end{pmatrix}
+  =
+  S_i\,
+  \left\{
+  \begin{matrix}
+    \begin{pmatrix}
+      \sin\theta_i\,e^{-i\phi_i} \\
+      \sin\theta_i\,e^{i\phi_i} \\
+      \cos\theta_i             \\
+    \end{pmatrix}
+    &\text{ if }n_{m}=2k
+    \\
+    \begin{pmatrix}
+      -\sin\theta_i\,e^{-i\phi_i} \\
+      -\sin\theta_i\,e^{i\phi_i} \\
+      \cos\theta_i              \\
+    \end{pmatrix}
+    &\text{ if }n_{m}=2k+1
+  \end{matrix}
+  \right.
+
+and the classical energy is
+
 .. math::
   \epsilon_{classical}^{AF}=
   &\frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
@@ -328,6 +378,27 @@ with
 ---------------------------
 Generic spiral state energy
 ---------------------------
+The spin vectors assume the generic form
+
+.. math::
+  \boldsymbol{S}_{mi}^s
+    =S_i\,
+  \begin{pmatrix}
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \phi_{mi}} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{ i \phi_{mi}} \\
+     \cos\theta_i
+  \end{pmatrix}
+
+where
+
+.. math::
+  \phi_{mi}(q) = \phi_m(\boldsymbol{q}) + \phi_i(\boldsymbol{q})
+               = \boldsymbol{q}\cdot\boldsymbol{r_m} +
+                  \boldsymbol{q}\cdot\boldsymbol{r_i}+ \Delta\phi_i
+               = \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
+
+and the classical energy is
+
 .. math::
    \epsilon_{classical}^{SP}=
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
@@ -340,5 +411,5 @@ with
 
 .. math::
   J_{ij}^{SP}=
-       \frac{J_{ij}^{uu}+J_{ij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
+       J_{ij}^+\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
          D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)

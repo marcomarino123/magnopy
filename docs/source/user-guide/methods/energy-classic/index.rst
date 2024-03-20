@@ -298,9 +298,9 @@ and the energy
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
-  +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
-  +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,2}
-  +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,3}
+  +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F-AF}
+  +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
+  +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,2}
   \right)\\
   &+\mu_B\,
   \sum_i\,g_i\,  S_i\,\left(\,\cos\theta_i\,h^n\,+\,
@@ -311,21 +311,20 @@ and the energy
 with
 
 .. math::
-  J_{ij}^{F,1}=&
+  J_{ij}^{F-AF}=&
    (J_{ij}^{uu}\,\cos\phi_i\,\cos\phi_j+
   J_{ij}^{vv}\,\sin\phi_i\,\sin\phi_j+
   J_{ij}^{uv}\,\cos\phi_i\,\sin\phi_j+
   J_{ij}^{vu}\,\sin\phi_i\,\cos\phi_j)\\
-  J_{ij}^{F,2}=&
+  J_{ij}^{F,1}=&
   (J_{ij}^{nu}\,\cos\phi_j+J_{ij}^{nv}\,\sin\phi_j)\\
-  J_{ij}^{F,3}=&(J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
+  J_{ij}^{F,2}=&(J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
 
 ------------------------
 Antiferromagnetic energy
 ------------------------
-
 If :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1`,
-then :math:`\boldsymbol{q}\,\boldsymbol{r_m} = \pi n` for any :math:`\boldsymbol{r_m}`.
+then :math:`\boldsymbol{q}\,\boldsymbol{r_m} = \pi n_m` always.
 Thus, the spin vector is simplified to
 
 .. math::
@@ -356,24 +355,18 @@ Thus, the spin vector is simplified to
   \end{matrix}
   \right.
 
-and the classical energy is
+Similarly, :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi n_{ij}` and
+:math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{n_{ij}}`,
+so the classical energy becomes
 
 .. math::
   \epsilon_{classical}^{AF}=
   &\frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
-  +\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij})\,\sin\theta_i\,\sin\theta_j\,
-  J_{ij}^{AF}\right)\\
+  +(-1)^{n_{ij}}\,\sin\theta_i\,\sin\theta_j\,
+  J_{ij}^{F-AF}\right)\\
   &+\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
-
-with
-
-.. math::
-  J_{ij}^{AF}=
-   (J_{ij}^{uu}\,\cos\phi_j+J_{ij}^{uv}\,\sin\phi_j)\,\cos\phi_i
-   +
-   (J_{ij}^{vv}\,\sin\phi_j+J_{ij}^{vu}\,\cos\phi_j)\,\sin\phi_i
 
 ---------------------------
 Generic spiral state energy

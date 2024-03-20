@@ -17,10 +17,11 @@ Energy minimization
 =====================
 Minimization strategy
 =====================
-We have discussed in the :ref:`previous section <../energy-classic_index>` that
-it is better to discuss separately the ferromagnetic (FM), antiferromagnetic (AF)
-and the spiral states )SP). This is specially clear when it comes to minimizing the energy
-with respect to the different cone-state parameters. These are: the angles
+We have argued in the :ref:`previous section <../energy-classic_index>` that
+it is more efficient to analyze separately the ferromagnetic (FM),
+antiferromagnetic (AF)
+and the spiral states (SP). This is specially clear when it comes to minimizing the energy
+with respect to the different cone-state parameters: the angles
 :math:`\alpha,\,\beta` defining the :math:`(\,u\,v\,n\,)` reference frame, the spiral
 vector :math:`\boldsymbol{q}`, and the intra-cell polar and azimut angles
 :math:`\theta_i,\,\phi_i` of all the atomic spins dwelling the unit cell.
@@ -29,20 +30,21 @@ However, :math:`\boldsymbol{q}` need not be determined for the FM and AF states.
 Furthermore, the intracell angles :math:`\theta_i` and :math:`\phi_i` can be suitably chosen
 for any FM or AF spin arrangement so that :math:`\alpha` and :math:`\beta` can be set to
 zero. Altogether, the number of variational parameters that need to be minimized for those
-to cases is largely reduced to only :math:`\theta_i` and :math:`\phi_i`.
+to cases is reduced to only :math:`\theta_i` and :math:`\phi_i`.
 
 --------
 FM state
 --------
+The energy of the ferromagnetic state is
 
 .. math::
   \epsilon_{cl}^{FM}(\theta_i,\phi_i)=&
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{zz}
-  +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
-  +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,2}
-  +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,3}
+  +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F-AF}
+  +\cos\theta_i\,\sin\theta_j\,J_{ij}^{F,1}
+  +\sin\theta_i\,\cos\theta_j\,J_{ij}^{F,2}
   \right)\\
   &+\mu_B\,
   \sum_i\,g_i\,  S_i\,\left(\,\cos\theta_i\,h^n\,+\,
@@ -53,38 +55,51 @@ FM state
 with
 
 .. math::
-  J_{ij}^{F,1}=&
+  J_{ij}^{F-AF}=&
    (J_{ij}^{xx}\,\cos\phi_i\,\cos\phi_j+
   J_{ij}^{yy}\,\sin\phi_i\,\sin\phi_j+
   J_{ij}^{xy}\,\cos\phi_i\,\sin\phi_j+
   J_{ij}^{yx}\,\sin\phi_i\,\cos\phi_j)\\
-  J_{ij}^{F,2}=&
+  J_{ij}^{F,1}=&
   (J_{ij}^{zx}\,\cos\phi_j+J_{ij}^{zy}\,\sin\phi_j)\\
-  J_{ij}^{F,3}=&(J_{ij}^{xz}\,\cos\phi_i+J_{ij}^{yz}\,\sin\phi_i)
+  J_{ij}^{F,2}=&(J_{ij}^{xz}\,\cos\phi_i+J_{ij}^{yz}\,\sin\phi_i)
+
+The different FM configurations can be obtained as follows:
+- Spins aligned along the :math:`\pm\boldsymbol{\hat{z}}` axis.
+- Spins lying in the XY-plane. Then :math:`\theta_i=\pi/2+\Delta\theta_i` and
+:math:`\phi_i=\phi_0+\Delta\phi_i`.
+- Spins lying along any other plane. Then :math:`\theta_i=\theta_0+\Delta\theta_i`,
+:math:`\phi_i=\phi_0+\Delta\phi_i`.
 
 --------
 AF state
 --------
+The AF state energy is
+
 .. math::
   \epsilon_{cl}^{AF}(\theta_i,\phi_i)=
   &\frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{zz}
-  +\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij})\,\sin\theta_i\,\sin\theta_j\,
-  J_{ij}^{AF}\right)\\
+  +(-1)^{n_{ij}}\,\sin\theta_i\,\sin\theta_j\,
+  J_{ij}^{F-AF}\right)\\
   &+\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
 
-with
+where :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi n_{ij}` and
+:math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{n_{ij}}`.
 
-.. math::
-  J_{ij}^{AF}=
-   (J_{ij}^{xx}\,\cos\phi_j+J_{ij}^{xy}\,\sin\phi_j)\,\cos\phi_i
-   +
-   (J_{ij}^{yy}\,\sin\phi_j+J_{ij}^{yx}\,\cos\phi_j)\,\sin\phi_i
+The different AF configurations can be obtained just as the FM ones:
+- Spins aligned along the :math:`\pm\boldsymbol{\hat{z}}` axis.
+- Spins lying in the XY-plane. Then :math:`\theta_i=\pi/2+\Delta\theta_i` and
+:math:`\phi_i=\phi_0+\Delta\phi_i`.
+- Spins lying along any other plane. Then :math:`\theta_i=\theta_0+\Delta\theta_i`,
+:math:`\phi_i=\phi_0+\Delta\phi_i`.
 
 --------
 SP state
 --------
+The energy for the spiral state is
+
 .. math::
    \epsilon_{classical}^{SP}=
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}

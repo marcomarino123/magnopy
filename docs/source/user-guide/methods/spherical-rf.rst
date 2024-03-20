@@ -390,36 +390,3 @@ The Heisenberg Hamiltonian can be written now in the spherical reference frame a
   +
   \mu_B\,\boldsymbol{h}^{s,\dagger}\,
   \sum_{m,i}\,g_i \,\boldsymbol{S}^s_{mi}
-
-============================
-Transverse spin fluctuations
-============================
-The local collinear spin vector :math:`\boldsymbol{S^F}_{i}=S_i\,\boldsymbol{n}` remains
-the same in the spherical reference frame. However we will later analyse spin waves, that
-are small transverse spin fluctuations. The spin vector will become
-
-.. math::
-  \boldsymbol{S^F}_i +
-  \delta S_{mi}^u\,\boldsymbol{\hat{u}}+\delta S_{mi}^v\,\boldsymbol{\hat{v}}-\delta S_{mi}^n\,\boldsymbol{\hat{n}}
-  =\begin{pmatrix}\delta S_{mi}^u\\\delta S_{mi}^v\\S_i-\delta S_{mi}^n
-    \end{pmatrix}
-
-where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation ensure the
-proper normalization of the spin vector. The vector components in the spherical basis will be
-
-.. math::
-  \boldsymbol{S^{F,s}}_{mi} +
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^\,\boldsymbol{\hat{u}^+}+
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{u}^-}
-  -\delta S_{mi}^n\,\boldsymbol{\hat{n}}
-  =\begin{pmatrix}\frac{1}{\sqrt{2}}\,\delta  S_{mi}^-\\\frac{1}{\sqrt{2}}\,\delta S_{mi}^+\\S_{i}-\delta S_{mi}^n
-    \end{pmatrix}
-
-
-where :math:`S_{mi}^{\pm}=S_{mu}^u\pm S_{mi}^v`.
-Application of the intra-cell rotation :math:`\boldsymbol{R}_i^s` then leads to
-
-.. math::
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^-\,\boldsymbol{\hat{p}}_{i}^s+
-  \frac{1}{\sqrt{2}}\,\delta S_{mi}^+\,\boldsymbol{\hat{t}}_{i}^s
-  +(S_i-\delta S_{mi}^n)\,\boldsymbol{\hat{f}}_{i}^s

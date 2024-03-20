@@ -21,13 +21,14 @@ Methods and algorithms
   spin-fourier
   energy-classic/index
   energy-minimization/index
-  classic-to-quantum
+  classical-spin-fluctuations
 
 .. toctree::
   :maxdepth: 1
   :caption: Spin Wave Theory
 
   hp-bosons/index
+  quantum-hamiltonian
   energy-quantum-correction
   lswt/index
   hp-cubic-terms

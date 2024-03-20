@@ -38,8 +38,8 @@ FM state
 The energy of the ferromagnetic state is
 
 .. math::
-  \epsilon_{cl}^{FM}(\theta_i,\phi_i)=&
-  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+  \epsilon_{C}^{FM}(\theta_i,\phi_i)=&
+  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{zz}
   +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F-AF}
@@ -65,11 +65,13 @@ with
   J_{ij}^{F,2}=&(J_{ij}^{xz}\,\cos\phi_i+J_{ij}^{yz}\,\sin\phi_i)
 
 The different FM configurations can be obtained as follows:
-- Spins aligned along the :math:`\pm\boldsymbol{\hat{z}}` axis.
-- Spins lying in the XY-plane. Then :math:`\theta_i=\pi/2+\Delta\theta_i` and
-:math:`\phi_i=\phi_0+\Delta\phi_i`.
-- Spins lying along any other plane. Then :math:`\theta_i=\theta_0+\Delta\theta_i`,
-:math:`\phi_i=\phi_0+\Delta\phi_i`.
+
+* Spins aligned along the :math:`\pm\boldsymbol{\hat{z}}` axis.
+  Then :math:`\theta_i=\Delta\theta_i` and :math:`\phi_i=\Delta\phi_i`.
+* Spins lying in the XY-plane. Then :math:`\theta_i=\pi/2+\Delta\theta_i` and
+  :math:`\phi_i=\phi_0+\Delta\phi_i`.
+* Spins lying along any other plane. Then :math:`\theta_i=\theta_0+\Delta\theta_i`,
+  :math:`\phi_i=\phi_0+\Delta\phi_i`.
 
 --------
 AF state
@@ -77,23 +79,25 @@ AF state
 The AF state energy is
 
 .. math::
-  \epsilon_{cl}^{AF}(\theta_i,\phi_i)=
-  &\frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+  \epsilon_{C}^{AF}(\theta_i,\phi_i)=
+  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{zz}
-  +(-1)^{n_{ij}}\,\sin\theta_i\,\sin\theta_j\,
-  J_{ij}^{F-AF}\right)\\
-  &+\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
+  +(-1)^{mod(n_{ij},2)}\,\sin\theta_i\,\sin\theta_j\,
+  J_{ij}^{F-AF}\right)
+  +\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
 
-where :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi n_{ij}` and
-:math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{n_{ij}}`.
+where :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi ,n_{ij}` and
+:math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{mod(n_{ij},2)}`.
 
 The different AF configurations can be obtained just as the FM ones:
-- Spins aligned along the :math:`\pm\boldsymbol{\hat{z}}` axis.
-- Spins lying in the XY-plane. Then :math:`\theta_i=\pi/2+\Delta\theta_i` and
-:math:`\phi_i=\phi_0+\Delta\phi_i`.
-- Spins lying along any other plane. Then :math:`\theta_i=\theta_0+\Delta\theta_i`,
-:math:`\phi_i=\phi_0+\Delta\phi_i`.
+
+* Spins aligned along the :math:`\pm\boldsymbol{\hat{z}}` axis.
+  Then :math:`\theta_i=\Delta\theta_i` and :math:`\phi_i=\Delta\phi_i`.
+* Spins lying in the XY-plane. Then :math:`\theta_i=\pi/2+\Delta\theta_i` and
+  :math:`\phi_i=\phi_0+\Delta\phi_i`.
+* Spins lying along any other plane. Then :math:`\theta_i=\theta_0+\Delta\theta_i`,
+  :math:`\phi_i=\phi_0+\Delta\phi_i`.
 
 --------
 SP state
@@ -101,8 +105,8 @@ SP state
 The energy for the spiral state is
 
 .. math::
-   \epsilon_{classical}^{SP}=
-   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+   \epsilon_{C}^{SP}=
+   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
       \sin\theta_i\,\sin\theta_j\,J_{ij}^{SP}\right)+
@@ -115,24 +119,31 @@ with
        J_{ij}^+\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
          D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)
 
+and :math:`J_{ij}^+=\frac{1}{2}\,(J_{ij}^{uu}+J_{ij}^{vv})`.
 The above equation can be rewritten using the original :math:`(\,x\,y\,z\,)` reference frame
 by introducing the isotropic component of the exchange tensor
 
 .. math::
-  J_{ij}^{I}=&\frac{J_{ij}^{uu}+J_{ij}^{vv}+J_{ij}^{nn}}{3}=\frac{2\,J_{ij}^++J_{ij}^{nn}}{3}\\
+  J_{ij}^{I}=&\frac{J_{ij}^{uu}+J_{ij}^{vv}+J_{ij}^{nn}}{3}=
+  \frac{J_{ij}^{xx}+J_{ij}^{yy}+J_{ij}^{zz}}{3}=
+  \frac{2\,J_{ij}^++J_{ij}^{nn}}{3}\\
   J_{ij}^+  =&\frac{3}{2}\,J_{ij}^{I}-\frac{1}{2}\,J_{ij}^{nn}
 
 and recalling that
 
 .. math::
   J_{ij}^{nn}=& \boldsymbol{\hat{n}}^\dagger\,\boldsymbol{J}_{ij}^{xyz}\,\boldsymbol{\hat{n}}\\
-  D_{ij}^n =&(\boldsymbol{D}_{ij}^{xyz})^\dagger\cdot\boldsymbol{\hat{n}}
-  =\boldsymbol{\hat{n}}^\dagger\cdot \boldsymbol{D}_{ij}^{xyz}
-
+             =&\,J_{ij}^{xx}\,\sin^2\alpha\,\cos^2\beta+J_{ij}^{yy}\,\sin^2\alpha\,\sin^2\beta
+             +J_{ij}^{zz}\,\cos^2\alpha\\
+             &+S_{ij}^{xy}\,\sin^2\alpha\,sin(\,\beta)+S_{ij}^{xz}\,\sin(2\,\alpha)\,\cos\beta+
+             +S_{ij}^{yz}\,\sin(2\,\alpha)\,\cos\beta\\\\
+  D_{ij}^n   =&(\boldsymbol{D}_{ij}^{xyz})^\dagger\cdot\boldsymbol{\hat{n}}
+             =\boldsymbol{\hat{n}}^\dagger\cdot \boldsymbol{D}_{ij}^{xyz}
+             = D_{ij}^x\,\sin\alpha\,\cos\beta+D_{ij}^y\,\sin\alpha\,\sin\beta+D_{ij}^z\,\cos\alpha
 as follows
 
 .. math::
-  \epsilon_{classical}^{SP}=\epsilon^{I}+
+  \epsilon_{C}^{SP}=\epsilon^{I}+
   \frac{1}{2}\,\boldsymbol{\hat{n}}^\dagger\,\boldsymbol{E_J}\,\boldsymbol{\hat{n}}
   +\frac{1}{2}\,\boldsymbol{\hat{n}}^\dagger\,\cdot\boldsymbol{E_D}
   +\frac{1}{2}\,\boldsymbol{E_D}^\dagger\cdot\boldsymbol{\hat{n}}
@@ -140,61 +151,45 @@ as follows
 where the matrix
 
 .. math::
-  \boldsymbol{E_J}=\sum_{i, j, \boldsymbol{d_{ij}}}\,
-  \boldsymbol{J}_{ij}^{xyz}\,
+  \boldsymbol{E_J}=\sum_{i, j, \boldsymbol{d}_{ij}}\,
+  \boldsymbol{J}_{ij}^{xyz}(\boldsymbol{d}_{ij})\,
   \left(\cos\theta_i\,\cos\theta_j-\frac{1}{2}\,\sin\theta_i\,\sin\theta_j\,
   \cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\right)
 
 the vector
 
 .. math::
-  \boldsymbol{E_D}=\sum_{i, j, \boldsymbol{d_{ij}}}\,
-  \boldsymbol{D}_{ij}^{xyz}\,\sin\theta_i\,\sin\theta_j\,
+  \boldsymbol{E_D}=\sum_{i, j, \boldsymbol{d}_{ij}}\,
+  \boldsymbol{D}_{ij}^{xyz}(\boldsymbol{d}_{ij})\,\sin\theta_i\,\sin\theta_j\,
   \sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)
 
 and
 
 .. math::
-  \epsilon^{I}=\frac{3}{4}\,\sum_{i, j, \boldsymbol{d_{ij}}}\,J_{ij}^I\,
+  \epsilon^{I}=\frac{3}{4}\,\sum_{i, j, \boldsymbol{d}_{ij}}\,J_{ij}^I(\boldsymbol{d}_{ij})\,
   \sin\theta_i\,\sin\theta_j\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)
 
 
-* For the spiral case the minimization with respect to the angles :math:`\alpha` and :math:`\beta`
-  (for any given set of other parameters) can be formulated as:
+The variational angles :math:`\alpha` and :math:`\beta` can be found be redefining
 
-  .. math::
-    \min_{||\boldsymbol{n}|| = 1}
-    \left(
-      \boldsymbol{n}^T
-      \boldsymbol{C}
-      \boldsymbol{n}
-      +
-      \boldsymbol{b}^T
-      \boldsymbol{n}
-    \right)
+.. math::
+  x=\frac{\epsilon_{C}^{SP}}{\boldsymbol{\hat{n}}^\dagger\cdot \boldsymbol{\hat{n}}}
 
-  Where matrix :math:`\boldsymbol{C}` and vector :math:`\boldsymbol{b}` are defined as
+Minimizing the above expression leads to
 
-  .. math::
-    \boldsymbol{C}
-    =
-    \dfrac{1}{2}
-    \sum_{i, j, \boldsymbol{d_{ij}}}
-    \boldsymbol{J_{ij}^S}(\boldsymbol{d_{ij}})
-    S_iS_j
-    \Biggl[
-      \cos\theta_i\cos\theta_j
-      -
-      \sin\theta_i\sin\theta_j
-      \cos(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
-    \Biggr]
+.. math::
+  \boldsymbol{\hat{n}}=\frac{1}{2}\,(\boldsymbol{E_J}-x)^{-1}\,\boldsymbol{E_D}
 
-  .. math::
-    \boldsymbol{b}
-    =
-    \dfrac{1}{2}
-    \sum_{i, j, \boldsymbol{d_{ij}}}
-    \boldsymbol{D_{ij}}(\boldsymbol{d_{ij}})
-    S_iS_j
-    \sin\theta_i\sin\theta_j
-    \sin(\boldsymbol{q}\boldsymbol{d_{ij}}+\phi_j-\phi_i)
+Requesting now that :math:`\|\boldsymbol{\hat{n}}\|=1` yields a sixth-order polynomial equation for
+:math:`x=\epsilon_{C}^{SP}`,
+
+.. math::
+  f(x)=a_6\,x^6+a_5\,x^5+a_4\,x^4+a_3\,x^3+a_2\,x^2+a_1\,x+a_0=0
+
+whose real roots deliver local-energy minima. The minimum of those roots is just the global energy
+minimum :math:`\epsilon_{C,0}^{SP}` that we are searching for. Cauchy's bound theorem then states
+that those real roots lie in the range :math:`[-(x_c+1),\,x_c+1]`, where
+
+.. math::
+  x_c = \max(\,|\frac{a_0}{a_6}|,\,|\frac{a_1}{a_6}|,\,|\frac{a_2}{a_6}|,\,|\frac{a_3}{a_6}|,\,
+             |\frac{a_4}{a_6}|,\,|\frac{a_5}{a_6}|\,)

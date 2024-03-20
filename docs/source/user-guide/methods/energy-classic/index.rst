@@ -184,7 +184,7 @@ The exchange energy per unit cell can be found by insrting the previous expresio
 exchange constant into the Hamiltonian, that leads to:
 
 .. math::
-  \epsilon_{exchange}=\frac{E_{exchange}}{M}=\epsilon_0\,+\,
+  \epsilon_{X}=\frac{E_{X}}{M}=\epsilon_0\,+\,
   \delta_{\boldsymbol{q},\boldsymbol{G}}\,\epsilon_1\,+\,
   \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,\epsilon_2
 
@@ -234,7 +234,7 @@ magnetic field
 is uniform. The Zeeman Hamiltonian can be written as follows:
 
 .. math::
-  H_{Zeeman}=\mu_B
+  H_{Z}=\mu_B
   \sum_i
   g_i\,
   \sum_{m}\,(\boldsymbol{h}^s)^{\dagger}\,\boldsymbol{R}_m^s\,\boldsymbol{S}_{i}^s
@@ -255,7 +255,7 @@ The sum over lattice sites is performed by taking into account that only the
 Then the Zeeman contribution to the energy per unit cell is:
 
 .. math::
-  \epsilon_{Zeeman} \,=\,\mu_B\,
+  \epsilon_{Z} \,=\,\mu_B\,
   \sum_i\,g_i\,  S_i\,\left(\,h^n\,\cos\theta_i\,+\,
   \delta_{\boldsymbol{q},\boldsymbol{G}}\,\sin\theta_i\,
   \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
@@ -272,7 +272,7 @@ contribute to the exchange energy for anti-ferromagnetic spin
 configurations where :math:`\boldsymbol{q}=\boldsymbol{G}/2`.
 Finally, only the lowest harmonic contributes to the energy if the
 spiral vector :math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`,
-:math:`\epsilon_{exchange} =\epsilon_0`.
+:math:`\epsilon_{X} =\epsilon_0`.
 
 This means that it proves more transparent to write separate expressions
 for the spin vectors and energies for the three cases. These are
@@ -291,11 +291,11 @@ The spin vectors look like
      \cos\theta_i
   \end{pmatrix}
 
-and the energy
+and the total energy is
 
 .. math::
-  \epsilon_{classical}^{FM}=&
-  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+  \epsilon_{C}^{FM}=&
+  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
   +\sin\theta_i\,\sin\theta_j\,J_{ij}^{F-AF}
@@ -324,7 +324,8 @@ with
 Antiferromagnetic energy
 ------------------------
 If :math:`\delta_{\boldsymbol{q},\frac{\boldsymbol{G}}{2}} = 1`,
-then :math:`\boldsymbol{q}\,\boldsymbol{r_m} = \pi n_m` always.
+then :math:`\boldsymbol{q}\,\boldsymbol{r_m} = \pi\, n_m` always.
+Thus :math:`\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)=(-1)^{mod(n_m,2)}`.
 Thus, the spin vector is simplified to
 
 .. math::
@@ -337,36 +338,24 @@ Thus, the spin vector is simplified to
   \end{pmatrix}
   =
   S_i\,
-  \left\{
-  \begin{matrix}
     \begin{pmatrix}
-      \sin\theta_i\,e^{-i\phi_i} \\
-      \sin\theta_i\,e^{i\phi_i} \\
+      (-1)^{mod(n_m,2)}\,\sin\theta_i\,e^{-i\phi_i} \\
+      (-1)^{mod(n_m,2)}\,\sin\theta_i\,e^{i\phi_i} \\
       \cos\theta_i             \\
     \end{pmatrix}
-    &\text{ if }n_{m}=2k
-    \\
-    \begin{pmatrix}
-      -\sin\theta_i\,e^{-i\phi_i} \\
-      -\sin\theta_i\,e^{i\phi_i} \\
-      \cos\theta_i              \\
-    \end{pmatrix}
-    &\text{ if }n_{m}=2k+1
-  \end{matrix}
-  \right.
 
-Similarly, :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi n_{ij}` and
-:math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{n_{ij}}`,
+Similarly, :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi \,n_{ij}`. Then
+:math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{mod(n_{ij},2)}`,
 so the classical energy becomes
 
 .. math::
-  \epsilon_{classical}^{AF}=
-  &\frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
+  \epsilon_{C}^{AF}=
+  \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
-  +(-1)^{n_{ij}}\,\sin\theta_i\,\sin\theta_j\,
-  J_{ij}^{F-AF}\right)\\
-  &+\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
+  +(-1)^{mod(n_{ij},2)}\,\sin\theta_i\,\sin\theta_j\,
+  J_{ij}^{F-AF}\right)
+  +\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
 
 ---------------------------
 Generic spiral state energy
@@ -393,7 +382,7 @@ where
 and the classical energy is
 
 .. math::
-   \epsilon_{classical}^{SP}=
+   \epsilon_{C}^{SP}=
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+

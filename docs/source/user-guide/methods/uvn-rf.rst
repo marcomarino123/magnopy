@@ -255,6 +255,7 @@ Similarly, the exchange tensor matrix elements in the :math:`(\,u\,v\,n\,)` basi
 can be computed using Dirac's notation as follows
 
 .. math::
+  \boldsymbol{J}^{uvn}
   \braket{\,u\,v\,n \,| \,\boldsymbol{J}\,|\,u\,v\,n\,}
   =&
   \braket{\,u\,v\,n \,|\, x\,y\,z\,}\,
@@ -262,7 +263,7 @@ can be computed using Dirac's notation as follows
   \braket{\,x\,y\,z \,|\, u\,v\,n\,} \\
   =&
   \braket{\,x\,y\,z\, |\, \boldsymbol{\cal R_r}^{\dagger}\,|\,x\,y\,z\,}\,
-  \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,|\,x\,y\,z\,}\,
+  \boldsymbol{J}^{xyz}\,
   \braket{\,x\,y\,z\, |\,\boldsymbol{\cal R_r}\,|\,x\,y\,z\,}
 
 Explicitly

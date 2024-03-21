@@ -54,6 +54,7 @@ pictures-for-docs:
 	@python3 docs/images/scripts/spin-rotations.py -rd .
 	@python3 docs/images/scripts/single-q.py -rd .
 	@python3 docs/images/scripts/minimization-exchange.py -rd .
+	@python3 docs/images/scripts/plot-repositories.py -rd .
 
 model-input-examples-run:
 	@python3 utests/test_io/test_txt/test_verify.py

@@ -18,7 +18,7 @@
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
-from magnopy import __version__
+from magnopy import __git_commit__, __version__
 from magnopy._pinfo import conditions, logo, warranty
 
 
@@ -40,6 +40,12 @@ def main():
         action="store_true",
         help="Print version",
     )
+    parser.add_argument(
+        "-gc",
+        "--git-commit",
+        action="store_true",
+        help="Print the git commit hash of the current version",
+    )
     args = parser.parse_args()
     if args.command == "logo":
         print(logo())
@@ -49,6 +55,8 @@ def main():
         print("\n" + conditions() + "\n")
     elif args.command == "version" or args.version:
         print(f"Magnopy v{__version__}")
+    elif args.git_commit:
+        print(f"Git commit hash: {__git_commit__}")
     elif args.command is None:
         parser.print_help()
     else:

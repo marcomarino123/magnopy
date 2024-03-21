@@ -27,7 +27,7 @@ Methods and algorithms
   :maxdepth: 1
   :caption: Spin Wave Theory
 
-  hp-bosons/index
+  quantum-fluctuations
   quantum-hamiltonian
   energy-quantum-correction
   lswt/index

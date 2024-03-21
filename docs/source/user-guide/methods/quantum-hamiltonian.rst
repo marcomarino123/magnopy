@@ -6,57 +6,56 @@ Quantum Hamiltonian
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.inc
-  * .. include:: ../page-notations/matrix.inc
-  * .. include:: ../page-notations/parentheses.inc
-  * .. include:: ../page-notations/operators.inc
-  * .. include:: ../page-notations/bra-ket.inc
-  * .. include:: ../page-notations/uvn-or-spherical.inc
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/parentheses.inc
+  * .. include:: page-notations/operators.inc
+  * .. include:: page-notations/bra-ket.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
 
 The quantum Heisenberg Hamiltonian looks exactly the same as its classical
 counterpart, where all the classical spin vectors are replaced by quantum
-spins
+spins. We therefore repeat the same kind of rotations, hence bringing the
+quantum spin vectors to a local collinear reference frame:
 
 .. include:: repeated-formulas/hamiltonian-main-from-ferro-any-quantum.inc
 
-so we shall repeat the same manipulations (e.g.: rotations) to the quantum
-atomic spins, that we have discussed previously for the classical Heisenberg
-Hamiltonian.
-
-Let us recall the quantum Hamiltonian in the spherical basis:
-
-.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-spherical-quantum.inc
-
-The exchange term in the Hamiltonian is split into three pieces as follows
+The Hamiltonian can be rewritten as follows
 
 .. math::
-  {\cal H}^{exchange}
-  =&
+  {\cal H}
+  =
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  \left[
-    (\boldsymbol{S_{mi}^s})^{\dagger}\,
-    (\boldsymbol{R_i^s})^{\dagger}\,
-  \right]\,
-  \left[
-    (\boldsymbol{R_m^s})^{\dagger}\,
-    \boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})\,
-    \boldsymbol{R_{m+d_{ij}}^s}
-  \right]\,
-  \left[
-    \boldsymbol{R_j^s}\,
-    \boldsymbol{S_{m+d_{ij},j}^s}
-  \right]
-  \\=&
-  \dfrac{1}{2}
-  \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  (\boldsymbol{\tilde{S}_{mi}^s})^{\dagger}\,
-  \boldsymbol{\tilde{J}_{mdij}^s}\,
-  \boldsymbol{\tilde{S}_{m+d_{ij},j}^s}
+  (\boldsymbol{{\cal S}}_{mi}^s)^\dagger\,
+  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})\,
+  \boldsymbol{{\cal S}}_{m+d_{ij},j}^s
+  +
+  \mu_B\,\boldsymbol{h}^{\dagger}\,
+  \sum_{m,i}
+  \,g_i\,
+  \boldsymbol{R_m}\,
+  \boldsymbol{{\cal S}}_{mi}^s
+
+where
+
+.. math::
+    \boldsymbol{{\cal S}}_{mi}^s=
+    \boldsymbol{R}_i^s\,\boldsymbol{{\cal S}}_{mi}^{F,s}
+
+and
+
+.. math::
+  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})=&
+    (\boldsymbol{R}_m^s)^\dagger\,
+    \boldsymbol{J}_{ij}^s(\boldsymbol{d}_{ij})\,
+    \boldsymbol{R}_{m+d_{ij}}^s\\
+
+
 
 where the rotated exchange tensor is
 
-.. include:: ../repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
+.. include:: repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
 
 The expressions in the first and third square brackets are
 

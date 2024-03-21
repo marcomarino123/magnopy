@@ -17,7 +17,7 @@ Quantum spin fluctuations
 Classical to quantum spin fluctuations
 ======================================
 
-We have seen in the :ref:`previous section <../classical-spin-fluctuations>`
+We have seen in the :ref:`previous section <user-guide_methods_classical-spin-fluctuations>`
 that small transverse spin fluctuations modify the spin vector
 from :math:`\boldsymbol{S^{F,s}_i}` to
 
@@ -104,21 +104,65 @@ that :math:`n_{mi}\leq 2\,S_i`.
   departure lies in the connection to the spherical basis,
   where :math:`\hat{S}^\pm/\sqrt{2}` are unit vectors.
 
+================
+Spin wave theory
+================
 Expansion of the square roots above leads to an infinite series in :math:`1/S_i`,
-that translates into the Heisenberg Hamiltonian. This :math:`1/S_i` expansion of the
-Hamiltonian in truncated at :math:`1/S_i^2` order, where terms up to four-boson
-products are kept. This can be shown to be equivalent to
-truncating the square roots above at :math:`1/S_i` order
+whose first orders are as follows:
 
 .. math::
-  \boldsymbol{S^s}_{mi}\approx
+  \boldsymbol{S}^{F,s}_{mi}\approx
+  S_i\,\boldsymbol{S}_{mi}^{s,1}+S_i^{1/2}\,\boldsymbol{S}_{mi}^{s,1/2}
+  +\boldsymbol{S}_{mi}^{s,0}+\frac{1}{S_i^{1/2}}\,\boldsymbol{S}_{mi}^{s,-1/2}
+  +\,O(S_i^{-3/2})
+
+where
+
+.. math::
+  \boldsymbol{S}_{mi}^{s,1}=&
   \begin{pmatrix}
-    S^{1/2}_i\,a^{\dagger}_{mi} - \dfrac{1}{4\,S_i^{1/2}}\,a_{mi}^\dagger\,n_{mi}
-    \\
-    S_i^{1/2}\,a_{mi} - \dfrac{1}{4\,S_i^{1/2}}\,n_{mi}\,a_{mi}
-    \\
-    S_i - n_{mi}
+    0 \\
+    0           \\
+    S_i
   \end{pmatrix}
+  \\
+  \boldsymbol{S}_{mi}^{s,1/2}=&
+  \begin{pmatrix}
+    a^{\dagger}_{mi} \\
+    a_{mi}           \\
+    0
+  \end{pmatrix}
+  \\
+  \boldsymbol{S}_{mi}^{s,0}=&
+  -\,\begin{pmatrix}
+    0 \\
+    0           \\
+    \,n_{mi}
+  \end{pmatrix}
+.. math::
+  \boldsymbol{S}_{mi}^{s,-1/2}=&
+  -\,\frac{1}{4}\,\begin{pmatrix}
+     a_{mi}^\dagger\,n_{mi}
+    \\
+    n_{mi}\,a_{mi}
+    \\
+    0
+  \end{pmatrix}
+
+Interestingly further corrections appear only in the transverse spin components.
+This :math:`1/S_i` expansion, that translates directly into the quantum
+Hamiltonian is called Spin Wave Theory.
+
+Spin wave theory therefore assumes a reference magnetically ordered ground state
+:math:`\boldsymbol{S}_{mi}^{s,0}` upon which bosonic spin excitations are built.
+The theory is therefore supposed to work whenever :math:`n_{mi}\ll S_i` or, in
+physical terms, when the spin fluctuations are sufficiently small.
+In practice however, the :math:`1/S_i` expansion is truncated either at :math:`1/S_i`
+or at :math:`1/S_i^2` orders in the Hamiltonian.
+The :math:`1/S_i` truncation leads to a bilinear bosonic
+Hamiltonian whose handling is termed Linear Spin Wave Theory.
+Trunctation at :math:`1/S_i^2` leads to a biquadratic bosonic Hamiltonian whose handling is
+called Renormalized Spin Wave Theory.
 
 ==========
 References

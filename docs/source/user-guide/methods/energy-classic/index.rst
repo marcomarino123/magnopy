@@ -177,31 +177,31 @@ exchange constant
   \delta_{\boldsymbol{q},\boldsymbol{G}}\,(\boldsymbol{\tilde{J}}_{ij}^1+\boldsymbol{\tilde{J}}_{ij}^{-1})\,+\,
   \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,(\boldsymbol{\tilde{J}}_{ij}^2+\boldsymbol{\tilde{J}}_{ij}^{-2})\right)
 
-========================
-Exchange energy per cell
-========================
-The exchange energy per unit cell can be found by insrting the previous expresion for the
+===============
+Exchange energy
+===============
+The exchange energy per unit cell can be found by inserting the previous expresion for the
 exchange constant into the Hamiltonian, that leads to:
 
 .. math::
-  \epsilon_{X}=\frac{E_{X}}{M}=\epsilon_0\,+\,
-  \delta_{\boldsymbol{q},\boldsymbol{G}}\,\epsilon_1\,+\,
-  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,\epsilon_2
+  E^{X}=E^0\,+\,
+  \delta_{\boldsymbol{q},\boldsymbol{G}}\,E^1\,+\,
+  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,E^22
 
 where the zeroth-, first- and second-order harmonic exchange contributions are
 
 .. math::
-  \epsilon_0=&
+  E^0=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
       \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,0}\right)\\\\
-  \epsilon_1=&
+  E^1=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \cos\theta_i\,\cos\theta_j\,J_{ij}^{uvn,1}+
       \sin\theta_i\,\sin\theta_j\,J_{ij}^{uvn,2}\right)\\\\
-  \epsilon_2=&
+  E^22=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,
       \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,2}
@@ -221,9 +221,9 @@ and
 
 where :math:`J_{ij}^{\pm}=\frac{J_{ij}^{uu}\pm J_{ij}^{vv}}{2}`
 
-==============================
-Magnetic field energy per cell
-==============================
+=====================
+Magnetic field energy
+=====================
 
 Next we turn our attention to the Zeeman term, where we assume henceforth that the
 magnetic field
@@ -255,7 +255,7 @@ The sum over lattice sites is performed by taking into account that only the
 Then the Zeeman contribution to the energy per unit cell is:
 
 .. math::
-  \epsilon_{Z} \,=\,\mu_B\,
+  E^Z \,=\,\mu_B\,
   \sum_i\,g_i\,  S_i\,\left(\,h^n\,\cos\theta_i\,+\,
   \delta_{\boldsymbol{q},\boldsymbol{G}}\,\sin\theta_i\,
   \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
@@ -291,10 +291,10 @@ The spin vectors look like
      \cos\theta_i
   \end{pmatrix}
 
-and the total energy is
+and the total energy per unit cell is
 
 .. math::
-  \epsilon_{C}^{FM}=&
+  E^{C,FM}=&
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
@@ -346,10 +346,10 @@ Thus, the spin vector is simplified to
 
 Similarly, :math:`\boldsymbol{q}\,\boldsymbol{d}_{ij} = \pi \,n_{ij}`. Then
 :math:`\cos(\boldsymbol{q}\,\boldsymbol{d}_{ij})=(-1)^{mod(n_{ij},2)}`,
-so the classical energy becomes
+so the classical energy per unit cell becomes
 
 .. math::
-  \epsilon_{C}^{AF}=
+  E^{C,AF}=
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}
@@ -379,10 +379,10 @@ where
                   \boldsymbol{q}\cdot\boldsymbol{r_i}+ \Delta\phi_i
                = \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
 
-and the classical energy is
+and the classical energy per unit cell is
 
 .. math::
-   \epsilon_{C}^{SP}=
+   E^{C,SP}=
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+

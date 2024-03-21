@@ -29,8 +29,8 @@ Methods and algorithms
 
   quantum-fluctuations
   quantum-hamiltonian
-  energy-quantum-correction
   lswt/index
+  energy-quantum-correction
   hp-cubic-terms
   hp-biquadratic-terms
   diagonalisation

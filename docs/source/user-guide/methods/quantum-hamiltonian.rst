@@ -29,7 +29,7 @@ The Hamiltonian can be rewritten as follows
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
   (\boldsymbol{{\cal S}}_{mi}^s)^\dagger\,
   \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})\,
-  \boldsymbol{{\cal S}}_{m+d_{ij},j}^s
+  \boldsymbol{{\cal S}}_{m+d_{ij} j}^s
   +
   \mu_B\,\boldsymbol{h}^{\dagger}\,
   \sum_{m,i}
@@ -37,57 +37,69 @@ The Hamiltonian can be rewritten as follows
   \boldsymbol{R_m}\,
   \boldsymbol{{\cal S}}_{mi}^s
 
-where
+where (see section
+:ref:`Quantum spin fluctuations <user-guide_methods_quantum-fluctuations>`)
 
 .. math::
-    \boldsymbol{{\cal S}}_{mi}^s=
-    \boldsymbol{R}_i^s\,\boldsymbol{{\cal S}}_{mi}^{F,s}
+  \boldsymbol{{\cal S}}_{m i}^s=
+  \boldsymbol{R}_i^s\,\boldsymbol{{\cal S}}_{mi}^{F,s}\approx&\,
+  S_i\,\boldsymbol{\hat{f}}^s_i+S_i^{1/2}\,
+  (a_{mi}^\dagger\,\boldsymbol{\hat p}^s_i+a_{mi}\,\boldsymbol{\hat t}^s_i)
+  -n_{mi}\,\boldsymbol{\hat{f}}^s_i\\
+  &-\frac{1}{4\,S_i^{1/2}}\,
+  (a_{mi}^\dagger\,n_{mi}\,\boldsymbol{\hat p}^s_i+
+  a_{mi}\,n_{mi}\,\boldsymbol{\hat t}^s_i)\\\\
+  \boldsymbol{{\cal S}}_{m+d_{ij}, j}^s=
+  \boldsymbol{R}_j^s\,\boldsymbol{{\cal S}}_{m+d_{ij}, j}^{F,s}\approx&\,
+  S_j\,\boldsymbol{\hat{f}}^s_{j}+S_j^{1/2}\,
+  (a_{m+d_{ij}, j}^\dagger\,\boldsymbol{\hat p}^s_j+a_{m+d_{ij}, j}\,
+  \boldsymbol{\hat t}^s_j)
+  -n_{m+d_{ij}, j}\,\boldsymbol{\hat{f}}^s_j\\
+  &-\frac{1}{4\,S_j^{1/2}}\,
+  (a_{m+d_{ij}, j}^\dagger\,n_{m+d_{ij}, j}\,\boldsymbol{\hat p}^s_j+
+  a_{m+d_{ij}, j}\,n_{m+d_{ij}, j}\,\boldsymbol{\hat t}^s_j)
 
 and
 
 .. math::
-  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})=&
+  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})=
     (\boldsymbol{R}_m^s)^\dagger\,
     \boldsymbol{J}_{ij}^s(\boldsymbol{d}_{ij})\,
-    \boldsymbol{R}_{m+d_{ij}}^s\\
+    \boldsymbol{R}_{m+d_{ij}}^s
 
-
-
-where the rotated exchange tensor is
-
-.. include:: repeated-formulas/exchange-matrix-spiral-rotated-spherical.inc
-
-The expressions in the first and third square brackets are
-
-.. include:: square-brackets-rewrite-left.inc
-
-.. include:: square-brackets-rewrite-right.inc
-
-The vectors :math:`\boldsymbol{p_i^s},\,\boldsymbol{t_i^s}` and :math:`\boldsymbol{f_i^s}`
-result from splitting the intra-cell rotation matrix as follows
+================
+Exchange kernels
+================
+We define the following nine exchange kernels
 
 .. math::
-    \begin{matrix}
-      \boldsymbol{R_i^s}
-      =\left(\boldsymbol{p_i^s}\,\boldsymbol{t_i^s}\,\boldsymbol{f_i^s}\right);
-      &
-      (\boldsymbol{R_i^s})^\dagger=
-      \begin{pmatrix}
-        (\boldsymbol{p_i^s})^{\dagger} \\
-        (\boldsymbol{t_i^s})^{\dagger} \\
-        (\boldsymbol{f_i^s})^{\dagger} \\
-      \end{pmatrix}
-    \end{matrix}
-
-.. dropdown:: Details
-
-  The rotation matrix in the spherical reference frame is
-
-  .. include:: ../repeated-formulas/spin-rotation-matrix-spherical.inc
-
-  so that the above three vectors are
-
-  .. include:: ../repeated-formulas/ptf-definition.inc
+  \boldsymbol{\tilde{J}}_{mdij}^{ff}=&
+    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{f}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{tt}=&
+    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{t}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{pp}=&
+    (\boldsymbol{\hat{p}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{p}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{tp}=&
+    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{p}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{pt}=&
+    (\boldsymbol{\hat{p}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{t}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{fp}=&
+    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{p}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{pf}=&
+    (\boldsymbol{\hat{p}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{f}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{ft}=&
+    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{t}}_j^s\\
+  \boldsymbol{\tilde{J}}_{mdij}^{tf}=&
+    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{f}}_j^s\\
 
 =====================
 Hamiltonian splitting
@@ -96,33 +108,57 @@ The exchange part of the Hamiltonian can be decomposed into different pieces
 according to their order in a :math:`1/S` expansion by assuming that
 :math:`S_i = S_j = S`. The different pieces also correspond to terms having
 zero, two, three and four bosons fields. Terms containing more than four boson
-terms are cut, that could be justified as dropping terms further than :math:`1/S^2`
-in the conventional :math:`1/S` expansion.
+terms are dropped, that is equivalent to dropping terms beyond :math:`1/S^2`
+in the conventional :math:`1/S` expansion. Then
 
 .. math::
-  {\cal H}^{exchange}=E^{Cl}+{\cal H}^{LSWT}
+  {\cal H}^{exchange}=E^C+{\cal H}^{LSWT}
                       +{\cal H}^{Cubic}+{\cal H}^{Biquadratic}
 
-* The :ref:`classical energy piece is <user-guide_methods_energy-classic>`
+* The classical energy piece
 
-.. math::
-  {\cal H}^{Cl}=\dfrac{1}{2}
-  \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  S_i\,S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,
-  \boldsymbol{f_j^s}
+  .. math::
+    E^{C}=\dfrac{1}{2}
+    \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    S_i\,S_j\,\boldsymbol{\tilde{J}}_{mdij}^{ff}
 
-* The :ref:`Linear Spin Wave Theory (LSWT) piece <user-guide_methods_lswt>` is
+  has been determined in section
+  :ref:`Total energy of the classical Hamiltonian <user-guide_methods_energy-classic_index>`.
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
+* The Linear Spin Wave Theory (LSWT) piece contains bilinear bosonic terms
 
-* The piece containing :ref:`cubic terms <user-guide_methods_hp-cubic-terms>` is
+  .. math::
+    {\cal H}^{LSWT}=
+    \dfrac{1}{2}
+    \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    &\left(
+     - \,\boldsymbol{\tilde{J}}_{mdij}^{ff}\,
+        \left(S_j\,n_{mi}\,+S_i\,n_{m+d_{ij},j}^\dagger\right)
+        \right.
+    \\&+
+        (S_i\,S_j)^{1/2}\left(
+       \boldsymbol{\tilde{J}}_{mdij}^{pp}\,
+       \,a_{mi}\,a_{m+d_{ij},j}^\dagger
+       +
+       \boldsymbol{\tilde{J}}_{mdij}^{tt}\,
+       \,a_{mi}^\dagger\,a_{m+d_{ij},j}\right)
+      \\&+
+      (S_i\,S_j)^{1/2}
+      \left.\left(
+      \boldsymbol{\tilde{J}}_{mdij}^{pt}\,
+      \,a_{mi}\,a_{m+d_{ij},j}
+      +
+      \boldsymbol{\tilde{J}}_{mdij}^{tp}\,
+      \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}
+    \right)\right)
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
+* The cubic piece contains cubic terms contains three-boson terms
 
-* And the piece containing
-  :ref:`biquadratic terms <user-guide_methods_hp-quartic-terms>` is
+  .. include:: repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
 
-.. include:: ../repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
+* And the biquadratic piece contains four-boson terms
+
+  .. include:: repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
 
 
 .. important::

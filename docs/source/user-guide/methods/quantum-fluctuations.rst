@@ -6,12 +6,12 @@ Quantum spin fluctuations
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.inc
-  * .. include:: ../page-notations/matrix.inc
-  * .. include:: ../page-notations/parentheses.inc
-  * .. include:: ../page-notations/operators.inc
-  * .. include:: ../page-notations/bra-ket.inc
-  * .. include:: ../page-notations/uvn-or-spherical.inc
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/parentheses.inc
+  * .. include:: page-notations/operators.inc
+  * .. include:: page-notations/bra-ket.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
 
 ======================================
 Classical to quantum spin fluctuations
@@ -19,10 +19,10 @@ Classical to quantum spin fluctuations
 
 We have seen in the :ref:`previous section <user-guide_methods_classical-spin-fluctuations>`
 that small transverse spin fluctuations modify the spin vector
-from :math:`\boldsymbol{S^{F,s}_i}` to
+from :math:`\boldsymbol{S^{F,s}_i}=S_i\,\boldsymbol{\hat{n}}` to
 
 .. math::
-  \boldsymbol{\tilde{S}^{F,s}}_{mi} =\boldsymbol{S^{F,s}}_i+
+  \boldsymbol{\tilde{S}^{F,s}}_{mi} =S_i\,\boldsymbol{\hat{n}}+
   \frac{\delta S_{mi}^-}{\sqrt{2}}\,\boldsymbol{\hat{u}^+}+
   \frac{\delta S_{mi}^+}{\sqrt{2}}\,\boldsymbol{\hat{u}^-}
   -\delta S_{mi}^n\,\boldsymbol{\hat{n}}
@@ -42,9 +42,9 @@ where
 
 .. math::
   \boldsymbol{\cal{S}^{F,s}}_{mi}
-  =&\boldsymbol{S^{F,s}}_i+
-  \frac{\delta {\cal S}_{mi}^-}{\sqrt{2}}\,\boldsymbol{\hat{u}^+}+
-  \frac{\delta {\cal S}_{mi}^+}{\sqrt{2}}\,\boldsymbol{\hat{u}^-}
+  =&S_i\,\boldsymbol{\hat{n}}+
+  \frac{\delta {\cal S}_{mi}^-}{\sqrt{2}}\,\boldsymbol{\hat{u}}^+ +
+  \frac{\delta {\cal S}_{mi}^+}{\sqrt{2}}\,\boldsymbol{\hat{u}}^-
   -\delta {\cal S}_{mi}^n\,\boldsymbol{\hat{n}}\\\\
   =&
   \begin{pmatrix}\frac{1}{\sqrt{2}}\,{\cal S}_{mi}^-\\
@@ -67,6 +67,14 @@ where the quantization axis is chosen to be :math:`\boldsymbol{\hat{n}}`,
 They are also requested to act on the Hilbert space of a spin with
 total angular momentum :math:`S_i`, meaning  that
 :math:`\delta {\cal S}_{mi}^n\leq 2\,S_i`.
+
+Furthermore, application of intracell rotations leads to
+
+.. math::
+ \boldsymbol{R}^s_i\,\boldsymbol{\cal{S}^{F,s}}_{mi}
+  =(S_i -\delta {\cal S}_{mi}^n)\,\boldsymbol{\hat{f}}^s_i+
+  \frac{\delta {\cal S}_{mi}^-}{\sqrt{2}}\,\boldsymbol{\hat{p}}^s_i+
+  \frac{\delta {\cal S}_{mi}^+}{\sqrt{2}}\,\boldsymbol{\hat{t}}^s_i
 
 ==============================================================
 Decomposition of spin operators into Holstein-Primakoff bosons
@@ -96,7 +104,10 @@ fields is achieved through the Holstein-Primakoff decomposition [1]
 where :math:`a_{mi}^\dagger\,/\,a_{mi}` creates/destroys bosons
 at site :math:`(m,\,i)`, and :math:`n_{mi}=a^\dagger_{mi}\,a_{mi}`
 is the boson number operator. Hilbert space preservation then requires
-that :math:`n_{mi}\leq 2\,S_i`.
+that :math:`n_{mi}\leq 2\,S_i`. Notice how populating
+:math:`\boldsymbol{\cal S}^{F,s}_{mi}` with bosons decreases
+:math:`{\cal S}_z`, by one quantum unit per boson.
+
 
 .. note::
   Note that the definition above departs slightly from convention, because
@@ -108,60 +119,37 @@ that :math:`n_{mi}\leq 2\,S_i`.
 Spin wave theory
 ================
 Expansion of the square roots above leads to an infinite series in :math:`1/S_i`,
-whose first orders are as follows:
+whose first four orders are as follows:
 
 .. math::
-  \boldsymbol{S}^{F,s}_{mi}\approx
-  S_i\,\boldsymbol{S}_{mi}^{s,1}+S_i^{1/2}\,\boldsymbol{S}_{mi}^{s,1/2}
-  +\boldsymbol{S}_{mi}^{s,0}+\frac{1}{S_i^{1/2}}\,\boldsymbol{S}_{mi}^{s,-1/2}
-  +\,O(S_i^{-3/2})
+  \boldsymbol{\cal S}^{F,s}_{mi}\approx
+  S_i\,\boldsymbol{\hat{n}}+S_i^{1/2}\,
+  (a_{mi}^\dagger\,\boldsymbol{\hat u}^++a_{mi}\,\boldsymbol{\hat u}^-)
+  -n_{mi}\,\boldsymbol{\hat{n}}-\frac{1}{4\,S_i^{1/2}}\,
+  (a_{mi}^\dagger\,n_{mi}\,\boldsymbol{\hat u}^++a_{mi}\,n_{mi}\,\boldsymbol{\hat u}^-)
 
-where
+These become upon intracell rotation
 
 .. math::
-  \boldsymbol{S}_{mi}^{s,1}=&
-  \begin{pmatrix}
-    0 \\
-    0           \\
-    S_i
-  \end{pmatrix}
-  \\
-  \boldsymbol{S}_{mi}^{s,1/2}=&
-  \begin{pmatrix}
-    a^{\dagger}_{mi} \\
-    a_{mi}           \\
-    0
-  \end{pmatrix}
-  \\
-  \boldsymbol{S}_{mi}^{s,0}=&
-  -\,\begin{pmatrix}
-    0 \\
-    0           \\
-    \,n_{mi}
-  \end{pmatrix}
-.. math::
-  \boldsymbol{S}_{mi}^{s,-1/2}=&
-  -\,\frac{1}{4}\,\begin{pmatrix}
-     a_{mi}^\dagger\,n_{mi}
-    \\
-    n_{mi}\,a_{mi}
-    \\
-    0
-  \end{pmatrix}
+  \boldsymbol{\cal S}^s_{mi}\approx
+  S_i\,\boldsymbol{\hat{f}}^s_i+S_i^{1/2}\,
+  (a_{mi}^\dagger\,\boldsymbol{\hat p}^s_i+a_{mi}\,\boldsymbol{\hat t}^s_i)
+  -n_{mi}\,\boldsymbol{\hat{f}}^s_i-\frac{1}{4\,S_i^{1/2}}\,
+  (a_{mi}^\dagger\,n_{mi}\,\boldsymbol{\hat p}^s_i+a_{mi}\,n_{mi}\,\boldsymbol{\hat t}^s_i)
 
 Interestingly further corrections appear only in the transverse spin components.
 This :math:`1/S_i` expansion, that translates directly into the quantum
 Hamiltonian is called Spin Wave Theory.
 
-Spin wave theory therefore assumes a reference magnetically ordered ground state
-:math:`\boldsymbol{S}_{mi}^{s,0}` upon which bosonic spin excitations are built.
+Spin Wave Theory therefore assumes a reference magnetically ordered ground state
+:math:`\boldsymbol{S}_{mi}^{F,s}` upon which bosonic spin excitations are built.
 The theory is therefore supposed to work whenever :math:`n_{mi}\ll S_i` or, in
 physical terms, when the spin fluctuations are sufficiently small.
 In practice however, the :math:`1/S_i` expansion is truncated either at :math:`1/S_i`
 or at :math:`1/S_i^2` orders in the Hamiltonian.
 The :math:`1/S_i` truncation leads to a bilinear bosonic
 Hamiltonian whose handling is termed Linear Spin Wave Theory.
-Trunctation at :math:`1/S_i^2` leads to a biquadratic bosonic Hamiltonian whose handling is
+Truncation at :math:`1/S_i^2` leads to a biquadratic bosonic Hamiltonian whose handling is
 called Renormalized Spin Wave Theory.
 
 ==========

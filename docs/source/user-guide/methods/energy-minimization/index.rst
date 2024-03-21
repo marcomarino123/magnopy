@@ -38,7 +38,7 @@ FM state
 The energy of the ferromagnetic state is
 
 .. math::
-  \epsilon_{C}^{FM}(\theta_i,\phi_i)=&
+  E^{C,FM}(\theta_i,\phi_i)=&
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{zz}
@@ -79,7 +79,7 @@ AF state
 The AF state energy is
 
 .. math::
-  \epsilon_{C}^{AF}(\theta_i,\phi_i)=
+  E^{C,AF}(\theta_i,\phi_i)=
   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\,S_j\,\left(
   \cos\theta_i\,\cos\theta_j\,J_{ij}^{zz}
@@ -105,7 +105,7 @@ SP state
 The energy for the spiral state is
 
 .. math::
-   \epsilon_{C}^{SP}=
+   E^{C,SP}=
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d}_{ij}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
@@ -143,7 +143,7 @@ and recalling that
 as follows
 
 .. math::
-  \epsilon_{C}^{SP}=\epsilon^{I}+
+  E^{C,SP}=E^{I}+
   \frac{1}{2}\,\boldsymbol{\hat{n}}^\dagger\,\boldsymbol{E_J}\,\boldsymbol{\hat{n}}
   +\frac{1}{2}\,\boldsymbol{\hat{n}}^\dagger\,\cdot\boldsymbol{E_D}
   +\frac{1}{2}\,\boldsymbol{E_D}^\dagger\cdot\boldsymbol{\hat{n}}
@@ -166,14 +166,14 @@ the vector
 and
 
 .. math::
-  \epsilon^{I}=\frac{3}{4}\,\sum_{i, j, \boldsymbol{d}_{ij}}\,J_{ij}^I(\boldsymbol{d}_{ij})\,
+  E^{I}=\frac{3}{4}\,\sum_{i, j, \boldsymbol{d}_{ij}}\,J_{ij}^I(\boldsymbol{d}_{ij})\,
   \sin\theta_i\,\sin\theta_j\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)
 
 
 The variational angles :math:`\alpha` and :math:`\beta` can be found be redefining
 
 .. math::
-  x=\frac{\epsilon_{C}^{SP}}{\boldsymbol{\hat{n}}^\dagger\cdot \boldsymbol{\hat{n}}}
+  x=\frac{E^{C,SP}}{\boldsymbol{\hat{n}}^\dagger\cdot \boldsymbol{\hat{n}}}
 
 Minimizing the above expression leads to
 
@@ -181,13 +181,13 @@ Minimizing the above expression leads to
   \boldsymbol{\hat{n}}=\frac{1}{2}\,(\boldsymbol{E_J}-x)^{-1}\,\boldsymbol{E_D}
 
 Requesting now that :math:`\|\boldsymbol{\hat{n}}\|=1` yields a sixth-order polynomial equation for
-:math:`x=\epsilon_{C}^{SP}`,
+:math:`x=E^{C,SP}`,
 
 .. math::
   f(x)=a_6\,x^6+a_5\,x^5+a_4\,x^4+a_3\,x^3+a_2\,x^2+a_1\,x+a_0=0
 
 whose real roots deliver local-energy minima. The minimum of those roots is just the global energy
-minimum :math:`\epsilon_{C,0}^{SP}` that we are searching for. Cauchy's bound theorem then states
+minimum :math:`E_0^{C,SP}` that we are searching for. Cauchy's bound theorem then states
 that those real roots lie in the range :math:`[-(x_c+1),\,x_c+1]`, where
 
 .. math::

@@ -67,6 +67,7 @@ body:
     attributes:
       label: Hash of the commit
       description: What commit is the base for the release?
+      placeholder: ex. 060e69cd7e87c299c26f50f0a926667825681759
     validations:
       required: false
   - type: markdown

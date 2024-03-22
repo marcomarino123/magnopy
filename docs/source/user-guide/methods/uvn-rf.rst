@@ -231,7 +231,7 @@ using Dirac's notation
   \braket{\,u\,v\,n\, \,|\, S\,} = \braket{\,u\,v\,n\, \,|\,x\,y\,z\,}\,
   \braket{\,x\,y\,z\,|\, S\,}
   =
-  \braket{\,x\,y\,z \,|\,\boldsymbol{\cal R_r}^\dagger\,| \,x\,y\,z\,}
+  \braket{\,x\,y\,z \,|\,\boldsymbol{\cal R_r}^\dagger(\alpha,\beta)\,| \,x\,y\,z\,}
   \braket{\,x\,y\,z\, | \,S\,}
 
 The spin components in the :math:`(\,u\,v\,n\,)` basis are therefore
@@ -266,19 +266,20 @@ Exchange tensor matrix elements
 ===============================
 
 Similarly, the exchange tensor matrix elements in the :math:`(\,u\,v\,n\,)` basis
-can be computed using Dirac's notation as follows
+are computed using Dirac's notation as follows
 
 .. math::
   \boldsymbol{J}^{uvn}
+  =
   \braket{\,u\,v\,n \,| \,\boldsymbol{J}\,|\,u\,v\,n\,}
   =&
   \braket{\,u\,v\,n \,|\, x\,y\,z\,}\,
   \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,| \,x\,y\,z\,}\,
   \braket{\,x\,y\,z \,|\, u\,v\,n\,} \\
   =&
-  \braket{\,x\,y\,z\, |\, \boldsymbol{\cal R_r}^{\dagger}\,|\,x\,y\,z\,}\,
+  \braket{\,x\,y\,z\, |\, \boldsymbol{\cal R_r}^{\dagger}(\alpha,\beta)\,|\,x\,y\,z\,}\,
   \boldsymbol{J}^{xyz}\,
-  \braket{\,x\,y\,z\, |\,\boldsymbol{\cal R_r}\,|\,x\,y\,z\,}
+  \braket{\,x\,y\,z\, |\,\boldsymbol{\cal R_r}(\alpha,\beta)\,|\,x\,y\,z\,}
 
 Explicitly
 
@@ -289,7 +290,7 @@ Explicitly
     J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
     J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
   \end{pmatrix}
-  =\boldsymbol{R_r}^{\dagger}\,\boldsymbol{J}_{ij}\,\boldsymbol{R_r}
+  =\boldsymbol{R_r}^{\dagger}\,\boldsymbol{J}_{ij}^{x y z}\,\boldsymbol{R_r}
   = \boldsymbol{R_r}^{\dagger}\,
   \begin{pmatrix}
     J_{ij}^{xx} & J_{ij}^{xy} & J_{ij}^{xz} \\

@@ -35,16 +35,17 @@ Spin Hamiltonian
   .. include:: repeated-formulas/hamiltonian-on-site-separate-any-classic.inc
 
   where the first sum runs over all the lattice bonds
-  :math:`(m,i;m+\boldsymbol{d_{i j}},j)` and the vector
-  :math:`\boldsymbol{d_{ij}} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r_m}`
+  :math:`(m,i;m+\boldsymbol{d}_{i j},j)` and the vector
+  :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
-* The exchange tensor :math:`\boldsymbol{J_{ij}}(\boldsymbol{d_{ij}})` is a :math:`3\times3` matrix that
+* The exchange tensor :math:`\boldsymbol{J}_{ij}(\boldsymbol{d}_{ij})` is a :math:`3\times3` matrix that
   is split into isotropic exchange, as well as into traceless symmetric  and anti-symmetric
   anisotropy matrices as follows:
 
   .. math::
-    \boldsymbol{J}_{ij} = J_{ij}^{I}\,\boldsymbol{I}+\boldsymbol{J_{ij}^{S}}+\boldsymbol{J_{ij}^{A}}
+    \boldsymbol{J}_{ij} = J_{ij}^{I}\,\boldsymbol{I}+
+    \boldsymbol{J}_{ij}^{S}+\boldsymbol{J}_{ij}^{A}
 
   where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
@@ -56,7 +57,7 @@ Spin Hamiltonian
   * The symmetric anisotropy is:
 
     .. math::
-      \boldsymbol{J_{ij}^{S}} = \dfrac{\boldsymbol{J_{ij}} + \boldsymbol{J_{ij}}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
+      \boldsymbol{J}_{ij}^{S} = \dfrac{\boldsymbol{J}_{ij} + \boldsymbol{J}_{ij}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
       =
       \begin{pmatrix}
         S_{ij}^{xx} & S_{ij}^{xy} & S_{ij}^{xz} \\
@@ -70,7 +71,7 @@ Spin Hamiltonian
     (DM) Interaction is:
 
     .. math::
-      \boldsymbol{J_{ij}^{A}} = \dfrac{\boldsymbol{J_{ij}} - \boldsymbol{J_{ij}}^T}{2}
+      \boldsymbol{J}_{ij}^{A} = \dfrac{\boldsymbol{J}_{ij} - \boldsymbol{J}_{ij}^T}{2}
       =
       \begin{pmatrix}
         0    & D^z  & -D^y \\
@@ -78,10 +79,10 @@ Spin Hamiltonian
         D^y  & -D^x & 0    \\
       \end{pmatrix}
 
-    :math:`\boldsymbol{J_{ij}^{A}}` is often recast in terms of the DM
+    :math:`\boldsymbol{J}_{ij}^{A}` is often recast in terms of the DM
     vector :math:`\boldsymbol{D} = (D^x,\,D^y,\,D^z)^T`.
 
-* The intra-atomic anisotropy tensor :math:`\boldsymbol{A_i}` is symmetric
+* The intra-atomic anisotropy tensor :math:`\boldsymbol{A}_i` is a symmetric
   :math:`3\times3` matrix.
 
 * The final term describes the Zeeman interaction of an external magnetic field
@@ -93,7 +94,7 @@ Spin Hamiltonian
   .. include:: repeated-formulas/hamiltonian-main-any.inc
 
   by defining
-  :math:`\dfrac{1}{2}\boldsymbol{J_{ii}}(\boldsymbol{d}_{ii}=\boldsymbol{0})=\boldsymbol{A_i}`
+  :math:`\dfrac{1}{2}\boldsymbol{J}_{ii}(\boldsymbol{d}_{ii}=\boldsymbol{0})=\boldsymbol{A}_i`
 
 
 * The Spin Hamiltonian possesses the symmetry property
@@ -109,7 +110,7 @@ Spin Hamiltonian
 .. dropdown:: Bra-ket notation
 
   .. math::
-    H = \dfrac{1}{2} \sum_{m, \boldsymbol{d_{ij}}, i, j}
+    H = \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
     \langle S_{mi}\vert xyz\rangle
     \langle xyz \vert J_{ij}(\boldsymbol{d_{ij}})\vert xyz \rangle
     \langle xyz \vert S_{m+d_{ij},j} \rangle

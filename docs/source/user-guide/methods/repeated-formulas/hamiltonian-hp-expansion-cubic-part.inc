@@ -1,59 +1,31 @@
 .. math::
-  {\cal H}^{Qubic}
-  =
+  {\cal H}^{Cubic}=
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
-  \Biggl\{
-    &-
-    \sqrt{S_i}
-    \Bigl[
-      (\boldsymbol{p_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{f_j^s}
-      \,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
+    &\left(
+    -S_i^{1/2}
+      \left(\boldsymbol{\tilde{J}}_{mdij}^{pf}\,\,a_{mi}\,n_{m+d_{ij},j}
       +
-      (\boldsymbol{t_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{f_j^s}
-      \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
-    \Bigr]
-    -\\&-
-    \sqrt{S_j}
-    \Bigl[
-      (\boldsymbol{f_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{p_j^s}
-      \,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}
+      \boldsymbol{\tilde{J}}_{mdij}^{tf}\,a_{mi}^{\dagger}\,n_{m+d_{ij},j}\right)\right.
+      \\&
+    -S_j^{1/2}
+    \left(
+      \boldsymbol{\tilde{J}_{mdij}^{fp}}\,n_{mi}\,a_{m+d_{ij},j}^{\dagger}
       +
-      (\boldsymbol{f_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{t_j^s}
-      \,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}
-    \Bigr]
-    -\\&-
-    \dfrac{S_j}{4\,S_i^{1/2}}
-    \Bigl[
-      (\boldsymbol{p_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{f_j^s}
-      \,a_{mi}^{\dagger}\,a_{mi}\,a_{mi}
+      \boldsymbol{\tilde{J}_{mdij}^{ft}}\,n_{mi}\,a_{m+d_{ij},j}
+     \right)
+    \\&
+    -\dfrac{S_j}{4\,S_i^{1/2}}
+      \left(
+      \boldsymbol{\tilde{J}}_{mdij}^{pf}\,n_{mi}\,a_{mi}
       +
-      (\boldsymbol{t_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{f_j^s}
-      \,a_{mi}^{\dagger}\,a_{mi}^{\dagger}\,a_{mi}
-    \Bigr]
-    -\\&-
-    \dfrac{S_i}{4\,S_j^{º/2}}
-    \Bigl[
-      (\boldsymbol{f_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{p_j^s}
-      \,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
+      \boldsymbol{\tilde{J}}_{mdij}^{tf}\,a_{mi}^\dagger\,n_{mi}
+      \right)
+      \\&\left.
+     -\dfrac{S_i}{4\,S_j^{1/2}}
+      \left(
+      \boldsymbol{\tilde{J}}_{mdij}^{fp}\,a_{m+d_{ij},j}^\dagger\,n_{m+d_{ij},j}
       +
-      (\boldsymbol{f_i^s})^\dagger\,
-      \boldsymbol{\tilde{J}_{mdij}^s}\,
-      \boldsymbol{t_j^s}
-      \,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}
-    \Bigr]
-  \Biggr\}
+      \boldsymbol{\tilde{J}}_{mdij}^{ft}\,n_{m+d_{ij},j}\,a_{m+d_{ij},j}
+     \right)
+     \right)

@@ -1,3 +1,3 @@
 .. math::
-  \boldsymbol{S_{mi}}=
-  \boldsymbol{R}_m\,\boldsymbol{R_i}\,\boldsymbol{S^F_{mi}}
+  \boldsymbol{S}_{mi}=
+  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}

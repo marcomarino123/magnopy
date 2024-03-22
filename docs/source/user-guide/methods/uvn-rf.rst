@@ -175,9 +175,9 @@ for the parallel or antiparallel cases, respectively, as shown in the figure bel
         \boldsymbol{\hat{n}} &= \pm\boldsymbol{\hat{z}} \\
       \end{aligned}
 
-***********************************************************************
+=======================================================================
 Vector and matrix elements in the :math:`(\,u\,v\,n\,)` reference frame
-***********************************************************************
+=======================================================================
 
 The :math:`(x\,y\,z)` to :math:`(u\,v\,n)` basis change modifies the spin vector components
 and the exchange tensor matrix elements. These changes are governed by the rotation
@@ -188,7 +188,7 @@ the  :ref:`previous section <eq:uvn-rf-rot-matrix>`.
 Basis coordinates
 =================
 
-The  rotation matrix is easily determined:
+The  rotation matrix is
 
 .. math::
   \boldsymbol{R_r}=&
@@ -211,7 +211,7 @@ The  rotation matrix is easily determined:
 ===============
 Spin components
 ===============
-The components of a spin vector :math:`\ket{S}` are also more easily calculated
+The components of a spin vector :math:`\ket{S}` are better calculated
 using Dirac's notation
 
 .. math::
@@ -256,6 +256,7 @@ Similarly, the exchange tensor matrix elements in the :math:`(\,u\,v\,n\,)` basi
 can be computed using Dirac's notation as follows
 
 .. math::
+  \boldsymbol{J}^{uvn}
   \braket{\,u\,v\,n \,| \,\boldsymbol{J}\,|\,u\,v\,n\,}
   =&
   \braket{\,u\,v\,n \,|\, x\,y\,z\,}\,
@@ -263,17 +264,19 @@ can be computed using Dirac's notation as follows
   \braket{\,x\,y\,z \,|\, u\,v\,n\,} \\
   =&
   \braket{\,x\,y\,z\, |\, \boldsymbol{\cal R_r}^{\dagger}\,|\,x\,y\,z\,}\,
-  \braket{\,x\,y\,z\, |\, \boldsymbol{J}\,|\,x\,y\,z\,}\,
+  \boldsymbol{J}^{xyz}\,
   \braket{\,x\,y\,z\, |\,\boldsymbol{\cal R_r}\,|\,x\,y\,z\,}
 
-So those matrix elements are
+Explicitly
 
 .. math::
+  \boldsymbol{J}^{u v n}_{ij}=
   \begin{pmatrix}
     J_{ij}^{uu} & J_{ij}^{uv} & J_{ij}^{un} \\
     J_{ij}^{vu} & J_{ij}^{vv} & J_{ij}^{vn} \\
     J_{ij}^{nu} & J_{ij}^{nv} & J_{ij}^{nn} \\
   \end{pmatrix}
+  =\boldsymbol{R_r}^{\dagger}\,\boldsymbol{J}_{ij}\,\boldsymbol{R_r}
   = \boldsymbol{R_r}^{\dagger}\,
   \begin{pmatrix}
     J_{ij}^{xx} & J_{ij}^{xy} & J_{ij}^{xz} \\
@@ -281,11 +284,35 @@ So those matrix elements are
     J_{ij}^{zx} & J_{ij}^{zy} & J_{ij}^{zz} \\
   \end{pmatrix} \,\boldsymbol{R_r}
 
+:math:`\boldsymbol{J}^{u v n}_{ij}` can be split into isotropic, symmetric and anti-symmetric (DM) matrices
+in the :math:`(\,u\,v\,n\,)` reference frame also
+
+.. math::
+  \boldsymbol{J}_{ij}^{u v n}=J_{ij}\,\boldsymbol{I}+
+  \boldsymbol{J}^{u v n,S}_{ij}+\boldsymbol{J}^{u v n, A}_{ij}
+
+where :math:`J^{I} = \dfrac{1}{3}(J_{ij}^{uu} + J_{ij}^{vv} + J_{ij}^{nn}) =\dfrac{1}{3}(J_{ij}^{xx} + J_{ij}^{yy} + J_{ij}^{zz})` and
+
+.. math::
+  \boldsymbol{J}^{u v n, S}_{ij}=
+    \begin{pmatrix}
+      S_{ij}^{uu} & S_{ij}^{uv} & S_{ij}^{un} \\
+      S_{ij}^{uv} & S_{ij}^{vv} & S_{ij}^{vn} \\
+      S_{ij}^{un} & S_{ij}^{vn} & S_{ij}^{nn} \\
+    \end{pmatrix}
+
+.. math::
+  \boldsymbol{J}^{u v n, A}_{ij}=
+      \begin{pmatrix}
+      0 & D_{ij}^n & -D_{ij}^v \\
+      -D_{ij}^n & 0 & D_{ij}^u \\
+      D_{ij}^v & -D_{ij}^u & 0 \\
+    \end{pmatrix}
+
+with :math:`S_{ij}^{uu} + S_{ij}^{vv} + S_{ij}^{nn} = 0`.
+
 .. important::
-  In the next sections we will not use the :math:`(\,x\,y\,z\,)` reference frame anymore.
+  We will not use the :math:`(\,x\,y\,z\,)` reference frame anymore.
   Every matrix or vector (classical or vector operator) symbol will be written in the
-  :math:`(\,u\,v\,n\,)` reference frame. If the bold superscript appears ":math:`\boldsymbol{^s}`"
-  in the vector character (i.e :math:`\boldsymbol{S_{mi}^s}`) or matrix symbol
-  (i.e. :math:`\boldsymbol{R_m^s}(q)`) it means that corresponding quantity is
-  written in a spherical reference frame. Note, that in the coordinate representation
-  the subscripts of the vector/matrix components indicate the reference frame.
+  :math:`(\,u\,v\,n\,)` reference frame. We will therefore drop the :math:`u v n` super-index
+  to simplify the notation.

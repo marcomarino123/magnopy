@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{h^s}
+  \boldsymbol{h}^s
   =
   \begin{pmatrix}
     \frac{1}{\sqrt{2}}\,(h^u - ih^v) \\

@@ -15,7 +15,7 @@ Linear Spin-Wave Theory
 
 
 This section discusses the LSWT Hamiltonian :math:`{\cal H}^{LSWT}`
-introduced :ref:`here <user-guide_methods_hp-bosons>`
+introduced :ref:`here <user-guide_methods_quantum-hamiltonian>`
 
 .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
 

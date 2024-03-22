@@ -46,7 +46,7 @@ Spin Hamiltonian
 
   .. math::
     \boldsymbol{J}_{ij} = J_{ij}^{I}\,\boldsymbol{I}+
-    \boldsymbol{J}_{ij}^{S}+\boldsymbol{J}_{ij}^{A}
+    \boldsymbol{J^{S}}_{ij}+\boldsymbol{J^{A}}_{ij}
 
   where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
@@ -58,7 +58,7 @@ Spin Hamiltonian
   * The traceless symmetric anisotropy is:
 
     .. math::
-      \boldsymbol{J}_{ij}^{S} = \dfrac{\boldsymbol{J}_{ij} + \boldsymbol{J}_{ij}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
+      \boldsymbol{J^{S}}_{ij} = \dfrac{\boldsymbol{J}_{ij} + \boldsymbol{J}_{ij}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
       =
       \begin{pmatrix}
         S_{ij}^{xx} & S_{ij}^{xy} & S_{ij}^{xz} \\
@@ -72,7 +72,7 @@ Spin Hamiltonian
     (DM) Interaction is:
 
     .. math::
-      \boldsymbol{J}_{ij}^{A} = \dfrac{\boldsymbol{J}_{ij} - \boldsymbol{J}_{ij}^T}{2}
+      \boldsymbol{J^{A}}_{ij} = \dfrac{\boldsymbol{J}_{ij} - \boldsymbol{J}_{ij}^T}{2}
       =
       \begin{pmatrix}
         0    & D^z  & -D^y \\
@@ -80,7 +80,7 @@ Spin Hamiltonian
         D^y  & -D^x & 0    \\
       \end{pmatrix}
 
-    :math:`\boldsymbol{J}_{ij}^{A}` is often recast in terms of the DM
+    :math:`\boldsymbol{J^{A}}_{ij}` is often recast in terms of the DM
     vector :math:`\boldsymbol{D} = (D^x,\,D^y,\,D^z)^T`.
 
 * The intra-atomic anisotropy tensor :math:`\boldsymbol{A}_i` is a symmetric

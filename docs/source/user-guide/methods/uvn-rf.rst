@@ -12,10 +12,10 @@
   * .. include:: page-notations/reference-frame.inc
   * .. include:: page-notations/cross-product.inc
 
-Magnopy assumes that the ground state spin arrangement follows a conical configuration,
-where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`. The program
-rotates every atomic spin to make it collinear to :math:`\boldsymbol{n}`.
-Magnopy subsequently quantizes the spin vectors along :math:`\boldsymbol{n}`.
+Magnopy assumes that the ground state spin arrangement follows a spiral conical
+configuration, where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`.
+Eventually, the program rotates every atomic spin to make it collinear to
+:math:`\boldsymbol{n}` and quantize the spin vectors along :math:`\boldsymbol{n}`.
 
 However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
 :math:`\boldsymbol{A}` tensors are usually

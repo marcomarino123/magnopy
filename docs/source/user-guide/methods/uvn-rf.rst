@@ -92,7 +92,8 @@ the :math:`(x\,y\,z)` reference frame.
       \begin{aligned}
         \boldsymbol{\hat{u}}
         &=
-        \boldsymbol{R_r} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+        \boldsymbol{R_r}(\alpha,\beta)
+        \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
         =
         \begin{pmatrix}
           1 - \dfrac{(n^x)^2}{1+n^z} \\
@@ -108,7 +109,8 @@ the :math:`(x\,y\,z)` reference frame.
         \\
         \boldsymbol{\hat{v}}
         &=
-        \boldsymbol{R_r} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+        \boldsymbol{R_r}(\alpha,\beta)
+        \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
         =
         \begin{pmatrix}
           -\dfrac{n^xn^y}{1+n^z}   \\
@@ -124,7 +126,8 @@ the :math:`(x\,y\,z)` reference frame.
         \\
         \boldsymbol{\hat{n}}
         &=
-        \boldsymbol{R_r} \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+        \boldsymbol{R_r}(\alpha,\beta)
+        \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
         =
         \begin{pmatrix}
           n^x \\
@@ -143,13 +146,21 @@ the :math:`(x\,y\,z)` reference frame.
 
   .. math::
     \begin{aligned}
-        \boldsymbol{\hat{u}} &= \braket{x\,y\,z\,|u}=\braket{x\,y\,z\,|\,R\,|x}\\
-        \boldsymbol{\hat{v}} &= \braket{x\,y\,z\,|v}=\braket{x\,y\,z\,|\,R\,|y}\\
-        \boldsymbol{\hat{n}} &= \braket{x\,y\,z\,|n}=\braket{x\,y\,z\,|\,R\,|z}
+        \boldsymbol{\hat{u}} &= \braket{x\,y\,z\,|u}
+        =
+        \braket{x\,y\,z\,|\,\boldsymbol{R_r}(\alpha,\beta)\,|x}
+        \\
+        \boldsymbol{\hat{v}} &= \braket{x\,y\,z\,|v}
+        =
+        \braket{x\,y\,z\,|\,\boldsymbol{R_r}(\alpha,\beta)\,|y}
+        \\
+        \boldsymbol{\hat{n}} &= \braket{x\,y\,z\,|n}
+        =
+        \braket{x\,y\,z\,|\,\boldsymbol{R_r}(\alpha,\beta)\,|z}
     \end{aligned}
 
 However, the unit vector :math:`\boldsymbol{\hat{r}}` is ill-defined, and so is
-:math:`\boldsymbol{R_r}`, whenever  :math:`\boldsymbol{\hat{n}}` and
+:math:`\boldsymbol{R_r}(\alpha,\beta)`, whenever  :math:`\boldsymbol{\hat{n}}` and
 :math:`\pm\boldsymbol{\hat{z}}` are collinear. We then choose
 :math:`\boldsymbol{\hat{r}}=-\boldsymbol{\hat{x}}` and rotate
 :math:`\boldsymbol{\hat{z}}` by either 0 or :math:`\pi` degrees
@@ -161,7 +172,7 @@ for the parallel or antiparallel cases, respectively, as shown in the figure bel
 .. dropdown:: Explicit formulas
 
   .. math::
-      \boldsymbol{R_r}
+      \boldsymbol{R_r}(\alpha,\beta)
       =
       \begin{pmatrix}
         1 & 0     & 0     \\
@@ -182,17 +193,18 @@ Vector and matrix elements in the :math:`(\,u\,v\,n\,)` reference frame
 
 The :math:`(x\,y\,z)` to :math:`(u\,v\,n)` basis change modifies the spin vector components
 and the exchange tensor matrix elements. These changes are governed by the rotation
-matrix :math:`\boldsymbol{R_r}` that has been introduced and written explicitly in
+matrix :math:`\boldsymbol{R_r}(\alpha,\beta)` that has been introduced and written explicitly in
 the  :ref:`previous section <eq:uvn-rf-rot-matrix>`.
 
 =================
 Basis coordinates
 =================
 
-The  rotation matrix is
+The rotation matrix by itself contains the coordinates of the :math:`(u\,v\,n)` basis
+vectors written in the :math:`(x\,y\,z)` basis.
 
 .. math::
-  \boldsymbol{R_r}=&
+  \boldsymbol{R_r}(\alpha,\beta)=&
   \braket{\,x\,y\,z\,|\,u\,v\,n\,}=
   \left(\,\boldsymbol{u}\, \boldsymbol{v}\, \boldsymbol{n}\,\right)
   \\\\

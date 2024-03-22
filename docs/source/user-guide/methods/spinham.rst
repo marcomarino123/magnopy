@@ -35,8 +35,9 @@ Spin Hamiltonian
   .. include:: repeated-formulas/hamiltonian-on-site-separate-any-classic.inc
 
   where the first sum runs over all the lattice bonds
-  :math:`(m,i;m+\boldsymbol{d}_{i j},j)` and the vector
-  :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
+  :math:`(m,i;m+\boldsymbol{d}_{i j},j)`: index :math:`m` runs over all cells of the
+  lattice, indices :math:`i` and :math:`j` run over the atoms in each cell and the
+  vector :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
 
 * The exchange tensor :math:`\boldsymbol{J}_{ij}(\boldsymbol{d}_{ij})` is a :math:`3\times3` matrix that

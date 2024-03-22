@@ -81,7 +81,7 @@ the :math:`(x\,y\,z)` reference frame.
         -\sin\beta\sin\alpha                   &
         \cos\alpha \\
       \end{pmatrix}&
-    :label: eq:uvn-rf-rot-matrix
+    :name: eq:uvn-rf-rot-matrix
 
   The unit vectors of the rotated reference frame are
 

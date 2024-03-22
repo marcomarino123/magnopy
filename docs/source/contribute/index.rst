@@ -17,8 +17,8 @@ and :ref:`finding bugs <contribute_bug>`.
 
 
 Contribution to the source code is summarized below.
-We assume that you have an account on |GitHub|_
-and familiar with |Git|_.
+We assume that you have an account on `<https://github.com>`_
+and familiar with `Git <https://git-scm.com/>`_.
 
 Development workflow
 ====================
@@ -26,90 +26,127 @@ Development workflow
 For the detailed explanation of the development workflow, please visit
 the corresponding links below.
 
-1. Fork and clone.
+Fork and clone
+--------------
 
-   * Go to the |repository|_ and click on the "Fork" button.
-     Now you have your own copy of the Magnopy repository in your GitHub account.
+* Go to the |repository|_ and click on the "Fork" button.
+  Now you have your own copy of the Wulfric repository in your GitHub account.
+* Clone your copy of the repository to your local machine:
 
-   * Clone your copy of the repository to your local machine:
+  - If you are using ssh-key::
 
-     - If you are using ssh-key::
+      git clone git@github.com:your-username/wulfric.git
 
-         git clone git@github.com:your-username/magnopy.git
+  - If you are not using ssh-key::
 
-     - If you are not using ssh-key::
+      git clone https://github.com/your-username/wulfric.git
 
-         git clone https://github.com/your-username/magnopy.git
+* Change the directory::
 
-   * Change the directory::
+    cd wulfric
 
-      cd magnopy
+* Add the :ref:`upstream <contribute_origin-upstream>` repository::
 
-   * Add the upstream repository::
+    git remote add upstream https://github.com/adrybakov/wulfric.git
 
-      git remote add upstream https://github.com/magnopy/magnopy.git
+* Pull the latest changes from the Wulfric repository in necessary::
 
-   * initialize submodules::
+    git pull upstream main
 
-      git submodule update --init --recursive
+Set up the environment
+----------------------
 
-2. Set up the environment.
+We recommend to use virtual environment. Once the virtual environment is created,
+you can install requirements:
 
-   We recommend to use virtual environment. Once the virtual environment is created,
-   you can install requirements:
+* Package dependencies::
 
-   * Package dependencies::
+    pip install -r requirements.txt
 
-      pip install -r requirements.txt
+* For the package development::
 
-   * For the package development::
+    pip install -r requirements-dev.txt
 
-      pip install -r requirements-dev.txt
+* For the documentation::
 
-   * For the docs::
+    pip install -r docs/requirements.txt
 
-      pip install -r docs/requirements.txt
+* For the tests::
 
-   * For the tests::
+    pip install -r utest/requirements.txt
 
-      pip install -r utest/requirements.txt
+.. note::
+  For the linux and OSX systems there is a scenario defined.
+  It installs all requirements. Note: it does NOT create an environment for you::
 
-3. Develop the contribution.
+    make requirements
 
-   * Create a dedicated branch for your feature, that you are going to develop::
+Enable pre-commit
+-----------------
 
-      git checkout -b feature-name
+We use `pre-commit <https://pre-commit.com/>`_ to enforce some rules on the code style
+before each commit.
+To enable it, run the following command::
 
-   * Develop your contribution. Commit your progress locally
-     (`git-add <https://git-scm.com/docs/git-add>`_
-     and `git-commit <https://git-scm.com/docs/git-commit>`_).
-     Use meaningful commit messages. Write `tests <contribute_tests>`.
-     Write `documentation <contribute_docs>`.
+  pre-commit install
 
-4. Submit your contribution.
+Now, every time you commit the code, pre-commit will check it for you.
 
-   * Push the changes to your forked repository::
+.. hint::
+  If you want to run pre-commit manually, you can use the following command::
 
-      git push origin feature-name
+    pre-commit run --all-files
 
-   * Go to your forked repository on GitHub and click on the
-     green "Compare & pull request" button.
-     Describe your contribution and submit the pull request.
-     Please mention the issue number if it is related to any.
+Develop your contribution
+-------------------------
 
-5. Review and merge.
+* Create a :ref:`dedicated branch <contribute_branches>` for your feature,
+  that you are going to develop::
 
-   * Once the pull request is submitted, the code will be reviewed.
-     If there are any comments, please fix them.
-   * Once the pull request is approved, it will be merged by the maintainers.
+    git checkout -b feature-name
+
+* Develop your contribution. Commit your progress locally
+  (`git-add <https://git-scm.com/docs/git-add>`_
+  and `git-commit <https://git-scm.com/docs/git-commit>`_).
+  Use |good-commit-messages|_. Write :ref:`tests <contribute_tests>`.
+  Write :ref:`documentation <contribute_docs>`.
+
+Submit your contribution
+------------------------
+
+* Push the changes to your forked repository::
+
+    git push origin feature-name
+
+* Go to your forked repository on GitHub and click on the
+  green "Compare & pull request" button.
+  Describe your contribution and submit the pull request.
+  Please mention the issue number if it is related to any.
+
+Review and merge
+----------------
+
+* Once the pull request is submitted, the code will be reviewed.
+  If there are any comments, please fix them. You can push the changes to the
+  same branch and they will be added to the pull request automatically.
+* Once the pull request is approved, it will be merged to the
+  `main <https://github.com/adrybakov/wulfric>`_ branch.
 
 
 Development process in details
 ==============================
 
 .. toctree::
-   :maxdepth: 2
+  :hidden:
 
-   contributors
-   feature-request
-   bug-report
+  contributors
+
+.. toctree::
+  :maxdepth: 2
+
+  features
+  bugs
+  documentation
+  tests
+  origin-upstream
+  branches

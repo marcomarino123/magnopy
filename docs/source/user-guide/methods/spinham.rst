@@ -28,7 +28,7 @@ Spin Hamiltonian
   :math:`\boldsymbol{S_{mi}} = \hbar \,S_i\, \boldsymbol{\hat{S}_{mi}}`,
   where :math:`S_i` is the spin modulus. :math:`\hbar` is henceforth set to 1.
 
-* The bond between atoms (m,i) and (m',j) is denoted by (m,i;m',j).
+* The bond between atoms :math:`(m,i)` and :math:`(m^{\prime},j)` is denoted by :math:`(m,i;m^{\prime},j)`.
 
 * The Hamiltonian governing the interactions among all the lattice atomic spins is
 

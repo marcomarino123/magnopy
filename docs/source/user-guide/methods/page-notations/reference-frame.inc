@@ -6,4 +6,3 @@ that is spanned by the unit vectors
 and a rotated frame denoted by
 ":math:`(u\,v\,n)=\ket{u\,v\,n}`" that is spanned by the unit vectors
 :math:`\{\boldsymbol{\hat{u}}`, :math:`\boldsymbol{\hat{v}}`, :math:`\boldsymbol{\hat{n}}\}`.
-Whithin this frame all unit vectors are collinear to :math:`\boldsymbol{\hat{n}}`.

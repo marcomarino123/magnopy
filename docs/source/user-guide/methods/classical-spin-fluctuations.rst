@@ -1,4 +1,4 @@
-.. _user-guide_methods:
+.. _user-guide_methods_classical-spin-fluctuations:
 
 ***************************
 Classical spin fluctuations

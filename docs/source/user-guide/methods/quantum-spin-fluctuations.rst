@@ -1,4 +1,4 @@
-.. _user-guide_methods_hp-bosons:
+.. _user-guide_methods_quantum-spin-fluctuations:
 
 *************************
 Quantum spin fluctuations
@@ -81,7 +81,7 @@ Decomposition of spin operators into Holstein-Primakoff bosons
 ==============================================================
 Quantum spin waves are bosonic particles carrying spin 1.
 A convenient representation of the quantum spin operators into bosonic
-fields is achieved through the Holstein-Primakoff decomposition [1]
+fields is achieved through the Holstein-Primakoff decomposition [1]_
 
 .. math::
   \boldsymbol{\cal S}^{F,s}_{mi}

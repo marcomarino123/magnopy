@@ -1,4 +1,4 @@
-.. _user-guide_methods:
+.. _user-guide_methods_quantum-hamiltonian:
 
 *******************
 Quantum Hamiltonian
@@ -6,19 +6,19 @@ Quantum Hamiltonian
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: page-notations/vector.inc
-  * .. include:: page-notations/matrix.inc
-  * .. include:: page-notations/parentheses.inc
-  * .. include:: page-notations/operators.inc
-  * .. include:: page-notations/bra-ket.inc
-  * .. include:: page-notations/uvn-or-spherical.inc
+  * .. include:: ../page-notations/vector.inc
+  * .. include:: ../page-notations/matrix.inc
+  * .. include:: ../page-notations/parentheses.inc
+  * .. include:: ../page-notations/operators.inc
+  * .. include:: ../page-notations/bra-ket.inc
+  * .. include:: ../page-notations/uvn-or-spherical.inc
 
 The quantum Heisenberg Hamiltonian looks exactly the same as its classical
 counterpart, where all the classical spin vectors are replaced by quantum
 spins. We therefore repeat the same kind of rotations, hence bringing the
 quantum spin vectors to a local collinear reference frame:
 
-.. include:: repeated-formulas/hamiltonian-main-from-ferro-any-quantum.inc
+.. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any-quantum.inc
 
 The Hamiltonian can be rewritten as follows
 
@@ -38,7 +38,7 @@ The Hamiltonian can be rewritten as follows
   \boldsymbol{{\cal S}}_{mi}^s
 
 where (see section
-:ref:`Quantum spin fluctuations <user-guide_methods_quantum-fluctuations>`)
+:ref:`Quantum spin fluctuations <user-guide_methods_quantum-spin-fluctuations>`)
 
 .. math::
   \boldsymbol{{\cal S}}_{m i}^s=
@@ -123,7 +123,7 @@ in the conventional :math:`1/S` expansion. Then
     S_i\,S_j\,\boldsymbol{\tilde{J}}_{mdij}^{ff}
 
   has been determined in section
-  :ref:`Total energy of the classical Hamiltonian <user-guide_methods_energy-classic_index>`.
+  :ref:`Total energy of the classical Hamiltonian <user-guide_methods_energy-classic>`.
 
 * The Linear Spin Wave Theory (LSWT) piece contains bilinear bosonic terms
 
@@ -154,11 +154,11 @@ in the conventional :math:`1/S` expansion. Then
 
 * The cubic piece contains cubic terms contains three-boson terms
 
-  .. include:: repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
 
 * And the biquadratic piece contains four-boson terms
 
-  .. include:: repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
 
 
 .. important::

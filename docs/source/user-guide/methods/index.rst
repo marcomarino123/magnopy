@@ -27,8 +27,8 @@ Methods and algorithms
   :maxdepth: 1
   :caption: Spin Wave Theory
 
-  quantum-fluctuations
-  quantum-hamiltonian
+  quantum-spin-fluctuations
+  quantum-hamiltonian/index
   lswt/index
   energy-quantum-correction
   hp-cubic-terms

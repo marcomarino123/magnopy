@@ -224,7 +224,7 @@ vectors written in the :math:`(x\,y\,z)` basis.
 ===============
 Spin components
 ===============
-The components of a spin vector :math:`\ket{S}` are better calculated
+The components of a spin vector :math:`\ket{S}` are calculated
 using Dirac's notation
 
 .. math::

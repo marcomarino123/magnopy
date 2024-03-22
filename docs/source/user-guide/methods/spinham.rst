@@ -18,7 +18,7 @@ Spin Hamiltonian
   :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)`.
 
 * Let each unit cell contain a set of :math:`I` atoms, where each atomic position
-  :math:`\boldsymbol{r_i}` is measured  with respecto to the cell origin.
+  :math:`\boldsymbol{r_i}` is measured  with respec to the cell origin.
 
 * Let an atom at site :math:`i` in cell :math:`m` be denoted by :math:`(m,i)`.
   Then its atom position is

@@ -11,6 +11,7 @@
   * .. include:: page-notations/matrix.inc
   * .. include:: page-notations/reference-frame.inc
   * .. include:: page-notations/cross-product.inc
+  * .. include:: page-notations/rotations.inc
 
 Magnopy assumes that the ground state spin arrangement follows a spiral conical
 configuration, where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`.

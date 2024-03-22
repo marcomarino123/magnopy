@@ -13,6 +13,7 @@ Spin rotations
   * .. include:: page-notations/reference-frame.inc
   * .. include:: page-notations/cross-product.inc
   * .. include:: page-notations/uvn-or-spherical.inc
+  * .. include:: page-notations/rotations.inc
 
 A key technical tool in magnopy is the ability to rotate any atomic spin vector
 

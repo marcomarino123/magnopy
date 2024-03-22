@@ -17,7 +17,7 @@ Energy minimization
 =====================
 Minimization strategy
 =====================
-We have argued in the :ref:`previous section <../energy-classic_index>` that
+We have argued in the :ref:`previous section <user-guide_methods_energy-classic>` that
 it is more efficient to analyze separately the ferromagnetic (FM),
 antiferromagnetic (AF)
 and the spiral states (SP). This is specially clear when it comes to minimizing the energy
@@ -140,6 +140,7 @@ and recalling that
   D_{ij}^n   =&(\boldsymbol{D}_{ij}^{xyz})^\dagger\cdot\boldsymbol{\hat{n}}
              =\boldsymbol{\hat{n}}^\dagger\cdot \boldsymbol{D}_{ij}^{xyz}
              = D_{ij}^x\,\sin\alpha\,\cos\beta+D_{ij}^y\,\sin\alpha\,\sin\beta+D_{ij}^z\,\cos\alpha
+             
 as follows
 
 .. math::

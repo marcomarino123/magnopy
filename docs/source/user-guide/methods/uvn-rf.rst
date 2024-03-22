@@ -302,13 +302,13 @@ Explicitly
 in the :math:`(\,u\,v\,n\,)` reference frame also
 
 .. math::
-  \boldsymbol{J}_{ij}^{u v n}=J_{ij}\,\boldsymbol{I}+
-  \boldsymbol{J}^{u v n,S}_{ij}+\boldsymbol{J}^{u v n, A}_{ij}
+  \boldsymbol{J}_{ij}^{u v n}=J_{ij}^{I}\,\boldsymbol{I}+
+  \boldsymbol{J}^{\boldsymbol{S},u v n}_{ij}+\boldsymbol{J}^{\boldsymbol{A},u v n}_{ij}
 
 where :math:`J^{I} = \dfrac{1}{3}(J_{ij}^{uu} + J_{ij}^{vv} + J_{ij}^{nn}) =\dfrac{1}{3}(J_{ij}^{xx} + J_{ij}^{yy} + J_{ij}^{zz})` and
 
 .. math::
-  \boldsymbol{J}^{u v n, S}_{ij}=
+  \boldsymbol{J}^{\boldsymbol{S},u v n}_{ij}=
     \begin{pmatrix}
       S_{ij}^{uu} & S_{ij}^{uv} & S_{ij}^{un} \\
       S_{ij}^{uv} & S_{ij}^{vv} & S_{ij}^{vn} \\
@@ -316,7 +316,7 @@ where :math:`J^{I} = \dfrac{1}{3}(J_{ij}^{uu} + J_{ij}^{vv} + J_{ij}^{nn}) =\dfr
     \end{pmatrix}
 
 .. math::
-  \boldsymbol{J}^{u v n, A}_{ij}=
+  \boldsymbol{J}^{\boldsymbol{A},u v n}_{ij}=
       \begin{pmatrix}
       0 & D_{ij}^n & -D_{ij}^v \\
       -D_{ij}^n & 0 & D_{ij}^u \\

@@ -17,15 +17,14 @@ configuration, where the cone axis is defined by the unit vector :math:`\boldsym
 Eventually, the program rotates every atomic spin to make it collinear to
 :math:`\boldsymbol{n}` and quantize the spin vectors along :math:`\boldsymbol{n}`.
 
-However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
-:math:`\boldsymbol{A}` tensors are usually
-provided in a different global reference frame, say
-:math:`(x\,y\,z)`,
+However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy :math:`\boldsymbol{A}`
+tensors are usually provided in a different global reference frame, say :math:`(x\,y\,z)`,
 where neither of these three unit vectors is collinear to :math:`\boldsymbol{n}`.
-A rotation is therefore performed on :math:`J` and :math:`A` from :math:`(x\,y\,z)` to
-a new reference frame :math:`(u\,v\,n)`, where there is freedom to choose the unit
-vectors :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` due to
-the rotational symmetry of the system about the :math:`\boldsymbol{\hat{n}}` cone axis.
+A rotation is therefore performed on :math:`\boldsymbol{J}` and :math:`\boldsymbol{A}`
+from :math:`(x\,y\,z)` to a new reference frame :math:`(u\,v\,n)`. There is a
+freedom in the choice of the unit vectors :math:`\boldsymbol{\hat{u}}` and
+:math:`\boldsymbol{\hat{v}}` due to the rotational symmetry of the system about
+the :math:`\boldsymbol{\hat{n}}` cone axis.
 
 Let :math:`\boldsymbol{\hat{r}}` be a vector perpendicular to both
 :math:`\boldsymbol{\hat{z}}` and :math:`\boldsymbol{\hat{n}}`. Then

@@ -30,9 +30,9 @@ the :math:`\boldsymbol{\hat{n}}` cone axis.
 Let :math:`\boldsymbol{\hat{r}}` be a vector perpendicular to both
 :math:`\boldsymbol{\hat{z}}` and :math:`\boldsymbol{\hat{n}}`. Then
 :math:`\boldsymbol{\hat{z}}` is brought to :math:`\boldsymbol{\hat{n}}` by performing
-a rotation :math:`\boldsymbol{R_r}(\alpha)` of angle :math:`\alpha` about
+a rotation :math:`\boldsymbol{R}_{\boldsymbol{r}(\beta)}(\alpha)` of angle :math:`\alpha` about
 :math:`\boldsymbol{\hat{r}}`. We choose  the :math:`(u\,v\,n)` reference frame by performing
-this same rotation :math:`\boldsymbol{R_{r}}(\alpha)` over all the three unit vectors of
+this same rotation :math:`\boldsymbol{R}_{\boldsymbol{r}(\beta)}(\alpha)` over all the three unit vectors of
 the :math:`(x\,y\,z)` reference frame.
 
 .. raw:: html
@@ -53,7 +53,7 @@ the :math:`(x\,y\,z)` reference frame.
         0
       \end{pmatrix}
 
-  is defined by the angle :math:`\beta` in the figure
+  is defined by the angle :math:`\beta` in the figure below
 
   .. raw:: html
     :file: ../../../images/uvn-rf-n-angles.html
@@ -63,7 +63,7 @@ the :math:`(x\,y\,z)` reference frame.
   .. math::
     :name: eq:uvn-rf-rot-matrix
 
-    \boldsymbol{R_{r(\beta)}}(\alpha)
+    \boldsymbol{R}_{\boldsymbol{r}(\beta)}(\alpha)
     &=\boldsymbol{R_r}(\alpha,\beta)\\
     =&
     \begin{pmatrix}
@@ -84,7 +84,8 @@ the :math:`(x\,y\,z)` reference frame.
       \cos\alpha \\
     \end{pmatrix}&
 
-  The unit vectors of the rotated reference frame are
+  The unit vectors of the rotated reference frame are written in the :math:`(x\,y\,z)`
+  basis as
 
   .. math::
 

@@ -16,8 +16,10 @@ Magnopy files
 .. autosummary::
     :toctree: generated/
 
-    load_model
-    dump_model
+    load_spinham_txt
+    load_spinham_hdf5
+    dump_spinham_txt
+    dump_spinham_hdf5
 
 Vampire interface
 -----------------

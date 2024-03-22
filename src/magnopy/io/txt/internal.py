@@ -38,7 +38,7 @@ from magnopy.units.si import (
 
 _logger = logging.getLogger(__name__)
 
-__all__ = ["load_model", "dump_model"]
+__all__ = ["load_spinham_txt", "dump_spinham_txt"]
 
 
 SEPARATOR = "=" * 80
@@ -121,7 +121,7 @@ def _write_exchange(
     return "\n".join(text)
 
 
-def dump_model(
+def dump_spinham_txt(
     spinham: SpinHamiltonian,
     filename=None,
     write_matrix=True,
@@ -941,7 +941,7 @@ def _read_cone_axis(lines, spinham: SpinHamiltonian):
     n = [float(x) for x in lines[1].split()]
 
     if len(n) == 2:
-        alpha, beta = n
+        alpha, beta = np.array(n) * TORADIANS
         n = (np.cos(beta) * np.sin(alpha), np.sin(beta) * np.sin(alpha), np.cos(alpha))
         _logger.info(
             "<Units> keyword for cone axis is ignored. Cone axis is provided with alpha and beta angles."
@@ -1097,7 +1097,7 @@ def _filter_txt_file(filename=None, lines=None, save_filtered=False):
     return filtered_lines, line_indices
 
 
-def load_model(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
+def load_spinham_txt(filename, save_filtered=False, verbose=False) -> SpinHamiltonian:
     r"""
     Load a SpinHamiltonian object from a .txt file.
 

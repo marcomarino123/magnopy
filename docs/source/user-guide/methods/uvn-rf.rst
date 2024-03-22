@@ -61,27 +61,28 @@ the :math:`(x\,y\,z)` reference frame.
   The rotation matrix is
 
   .. math::
-      \boldsymbol{R_{r(\beta)}}(\alpha)
-      &=\boldsymbol{R_r}(\alpha,\beta)\\
-      =&
-      \begin{pmatrix}
-        1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\
-        -\dfrac{n^xn^y}{1+n^z}   & 1 - \dfrac{(n^y)^2}{1+n^z} & n^y  \\
-        -n^x                     & -n^y                     & n^z  \\
-      \end{pmatrix} &\\
-      &=
-      \begin{pmatrix}
-        \cos\alpha + \sin^2\beta(1-\cos\alpha) &
-        -\sin\beta\cos\beta(1-\cos\alpha)      &
-        \cos\beta\sin\alpha                    \\
-        -\sin\beta\cos\beta(1-\cos\alpha)      &
-        \cos\alpha + \cos^2\beta(1-\cos\alpha) &
-        \sin\beta\sin\alpha                    \\
-        -\cos\beta\sin\alpha                   &
-        -\sin\beta\sin\alpha                   &
-        \cos\alpha \\
-      \end{pmatrix}&
     :name: eq:uvn-rf-rot-matrix
+
+    \boldsymbol{R_{r(\beta)}}(\alpha)
+    &=\boldsymbol{R_r}(\alpha,\beta)\\
+    =&
+    \begin{pmatrix}
+      1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\
+      -\dfrac{n^xn^y}{1+n^z}   & 1 - \dfrac{(n^y)^2}{1+n^z} & n^y  \\
+      -n^x                     & -n^y                     & n^z  \\
+    \end{pmatrix} &\\
+    &=
+    \begin{pmatrix}
+      \cos\alpha + \sin^2\beta(1-\cos\alpha) &
+      -\sin\beta\cos\beta(1-\cos\alpha)      &
+      \cos\beta\sin\alpha                    \\
+      -\sin\beta\cos\beta(1-\cos\alpha)      &
+      \cos\alpha + \cos^2\beta(1-\cos\alpha) &
+      \sin\beta\sin\alpha                    \\
+      -\cos\beta\sin\alpha                   &
+      -\sin\beta\sin\alpha                   &
+      \cos\alpha \\
+    \end{pmatrix}&
 
   The unit vectors of the rotated reference frame are
 

@@ -195,6 +195,7 @@ custom_links = {
     "Wulfric": ("Wulfric", "https://docs.wulfric.org/en/latest/"),
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
     "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
+    "h5py": ("h5py", "https://www.h5py.org/"),
 }
 rst_epilog += "\n".join(
     map(

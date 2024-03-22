@@ -55,7 +55,7 @@ Spin Hamiltonian
   .. math::
     J_{ij}^{I} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
 
-  * The symmetric anisotropy is:
+  * The traceless symmetric anisotropy is:
 
     .. math::
       \boldsymbol{J}_{ij}^{S} = \dfrac{\boldsymbol{J}_{ij} + \boldsymbol{J}_{ij}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}

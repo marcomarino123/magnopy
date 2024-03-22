@@ -15,7 +15,11 @@ Spin rotations
   * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/rotations.inc
 
-A key technical tool in magnopy is the ability to rotate any atomic spin vector
+At this moment we start to work in the :math:`(\,u\,v\,n\,)` reference frame. We are
+left with the set of spin vectors, that are oriented in a way, that resembles the spiral
+conical state of the Hamiltonian. However, as will be clear from the later derivations,
+it is convenient to work with the ferromagnetic alignment of the spins.Therefore, a key
+technical tool in magnopy is the ability to rotate any atomic spin vector
 
 .. math::
   \boldsymbol{S_i} = S_i\,\boldsymbol{\hat{f}}_i
@@ -27,7 +31,8 @@ A key technical tool in magnopy is the ability to rotate any atomic spin vector
   \end{pmatrix}
 
 into the direction defined by the unit vector :math:`\hat{\boldsymbol{n}}`,
-thus delivering the rotated spin vector :math:`\boldsymbol{S^F}_i=S_i\,\boldsymbol{\hat{n}}`.
+thus delivering the rotated "Ferromagnetic" spin vector
+:math:`\boldsymbol{S^F}_i=S_i\,\boldsymbol{\hat{n}}`.
 
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html

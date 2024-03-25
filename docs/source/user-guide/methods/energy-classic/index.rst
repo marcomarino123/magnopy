@@ -37,7 +37,7 @@ where the spin vectors are
      \cos\theta_i
   \end{pmatrix}
 
-the cell-rotation matrix is
+the inter-cell rotation matrix is
 
 .. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.inc
 

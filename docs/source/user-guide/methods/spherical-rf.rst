@@ -13,12 +13,14 @@ Spherical reference frame
   * .. include:: page-notations/uvn-or-spherical.inc
 
 The :ref:`previous section <user-guide_methods_single-q>` has shown
-how each lattice spin can be generated from a local collinear reference frame
+how each lattice spin of the spiral conical state can be generated from a global
+ferromagnetic state, where all spins are aligned along the direction of
+:math:`\boldsymbol{n}`:
 
 .. include:: repeated-formulas/spin-from-ferro-uvn.inc
 
-This section is devoted to translate these spin vectors and matrices to spherical bases,
-that are more convenient in several instances.
+This section is devoted to translation of these spin vectors and matrices to spherical
+basis, that is more convenient in several instances.
 
 ============================================
 Coordinate system with circular polarization
@@ -86,6 +88,11 @@ is
     \Rightarrow
     \boldsymbol{T}^{\dagger} = \boldsymbol{T}^{-1}
 
+.. hint::
+  Introduction of this spherical reference frame caused the change of the transposition
+  sign ":math:`^T`" to the hermitian conjugate ":math:`^{\dagger}`" in the formulas across
+  the whole documentation.
+
 =============================
 Change to the spherical basis
 =============================
@@ -113,32 +120,60 @@ in the spherical basis can be obtained from the expression
       2\cos\theta_i                      \\
     \end{pmatrix}
 
-The above expression also defines the spherical vectors
+The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
+:math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical basis:
 
 .. math::
-  \boldsymbol{\hat{p}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
-   =\dfrac{1}{2}
-    \begin{pmatrix}
-      1+\cos\theta_i                     \\
-      (\cos\theta_i - 1)e^{2i\phi_i}     \\
-      -\sqrt{2}\sin\theta_i e^{i\phi_i}
-    \end{pmatrix}
-    \\\\
-  \boldsymbol{\hat{t}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^-
-   =\dfrac{1}{2}
-    \begin{pmatrix}
-      (\cos\theta_i-1)e^{-2i\phi_i}     \\
-      1 + \cos\theta_i                  \\
-      -\sqrt{2}\sin\theta_i e^{-i\phi_i}
-    \end{pmatrix}
+  \boldsymbol{\hat{p}}^s_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{\hat{p}}_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\boldsymbol{\hat{u}}
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\,\boldsymbol{T}\boldsymbol{T}^{\dagger}\,\boldsymbol{\hat{u}}
+  =
+  &\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
+  =
+  \dfrac{1}{2}
+  \begin{pmatrix}
+    1+\cos\theta_i                     \\
+    (\cos\theta_i - 1)e^{2i\phi_i}     \\
+    -\sqrt{2}\sin\theta_i e^{i\phi_i}
+  \end{pmatrix}
   \\\\
-  \boldsymbol{\hat{f}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
-   =\dfrac{1}{2}
-    \begin{pmatrix}
-      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
-      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
-      2\cos\theta_i                      \\
-    \end{pmatrix}
+  \boldsymbol{\hat{t}}^s_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{\hat{t}}_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\boldsymbol{\hat{v}}
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\,\boldsymbol{T}\boldsymbol{T}^{\dagger}\,\boldsymbol{\hat{v}}
+  =
+  &\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
+  =
+  \dfrac{1}{2}
+  \begin{pmatrix}
+    (\cos\theta_i-1)e^{-2i\phi_i}     \\
+    1 + \cos\theta_i                  \\
+    -\sqrt{2}\sin\theta_i e^{-i\phi_i}
+  \end{pmatrix}
+  \\\\
+  \boldsymbol{\hat{f}}^s_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{\hat{f}}_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\boldsymbol{\hat{n}}
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\,\boldsymbol{T}\boldsymbol{T}^{\dagger}\,\boldsymbol{\hat{n}}
+  =
+  &\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
+  =
+  \dfrac{1}{2}
+  \begin{pmatrix}
+    \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
+    \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
+    2\cos\theta_i                      \\
+  \end{pmatrix}
 
 ----------------------------------------------------------------------------------------------------------------
 Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s\boldsymbol{q})`

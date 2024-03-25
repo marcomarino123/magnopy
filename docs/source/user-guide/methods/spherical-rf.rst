@@ -100,6 +100,11 @@ Change to the spherical basis
 --------------------------------------------------------------------------------
 Intra-cell rotation matrix :math:`\boldsymbol{R}_i\rightarrow\boldsymbol{R}^s_i`
 --------------------------------------------------------------------------------
+
+.. dropdown:: :math:`\boldsymbol{R}_i\text{ in }(\,u,\,v,\,n)\text{ basis}`
+
+  .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
+
 The matrix elements of the rotation matrix
 :math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}}_i\,\boldsymbol{\hat{t}}_i\,\boldsymbol{\hat{f}}_i)`
 in the spherical basis can be obtained from the expression
@@ -108,17 +113,17 @@ in the spherical basis can be obtained from the expression
   \boldsymbol{R}_i^s
   =\boldsymbol{T}^\dagger\,\boldsymbol{R}_i\,\boldsymbol{T}
   =\dfrac{1}{2}
-    \begin{pmatrix}
-      1+\cos\theta_i                     &
-      (\cos\theta_i-1)e^{-2i\phi_i}      &
-      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
-      (\cos\theta_i - 1)e^{2i\phi_i}     &
-      1 + \cos\theta_i                   &
-      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
-      -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
-      -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
-      2\cos\theta_i                      \\
-    \end{pmatrix}
+  \begin{pmatrix}
+    1+\cos\theta_i                     &
+    (\cos\theta_i-1)e^{-2i\phi_i}      &
+    \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
+    (\cos\theta_i - 1)e^{2i\phi_i}     &
+    1 + \cos\theta_i                   &
+    \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
+    -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
+    -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
+    2\cos\theta_i                      \\
+  \end{pmatrix}
 
 The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
 :math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical basis:

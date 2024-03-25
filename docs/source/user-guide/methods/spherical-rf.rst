@@ -181,8 +181,13 @@ The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
   \end{pmatrix}
 
 ----------------------------------------------------------------------------------------------------------------
-Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s\boldsymbol{q})`
+Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s(\boldsymbol{q})`
 ----------------------------------------------------------------------------------------------------------------
+
+.. dropdown:: :math:`\boldsymbol{R}_m\text{ in }(\,u,\,v,\,n)\text{ basis}`
+
+  .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
+
 The matrix elements of the rotation matrix :math:`\boldsymbol{R}_m`
 in the spherical basis can be obtained from the expression
 

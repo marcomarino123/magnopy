@@ -60,7 +60,7 @@ so that the rotation matrix is
 
 All in all,
 
-.. include:: repeated-formulas/spin-from-ferro-uvn.inc
+.. include:: repeated-formulas/spin-from-ferro-any.inc
 
 Furthermore, :math:`\boldsymbol{R}_i` can be applied to the :math:`(\,u\,v\,n\,)` reference frame
 which result into the new basis defined by the unit vectors

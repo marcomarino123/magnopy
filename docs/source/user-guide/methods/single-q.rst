@@ -44,7 +44,7 @@ vector :math:`\boldsymbol{n}`, and by the spiral vector
     introduced in the :ref:`previous section <user-guide_methods_spin-rotations>`,
     which does not depend on the position of the unit cell in the lattice:
 
-    .. include:: repeated-formulas/spin-from-ferro-uvn.inc
+    .. include:: repeated-formulas/spin-from-ferro-any.inc
 
     The above rotations populate each unit cell by a collection of non-collinear atomic spins
     :math:`\boldsymbol{S}_i`.
@@ -67,19 +67,7 @@ vector :math:`\boldsymbol{n}`, and by the spiral vector
 
 The spin vector coordinates in the :math:`(\,u\,v\,n\,)` reference frame are
 
-.. math::
-  \boldsymbol{S}_{mi}= \boldsymbol{R}_m\,\boldsymbol{S}_{i}
-  =
-  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{i}
-  =
-  S_i\,\boldsymbol{R}_{mi}\,\boldsymbol{\hat{n}}
-  =
-  \,S_i\,
-    \begin{pmatrix}
-      \sin\theta_i\,\cos\phi_{mi} \\
-      \sin\theta_i\,\sin\phi_{mi} \\
-      \cos\theta_i
-    \end{pmatrix}
+.. include:: repeated-formulas/spin-from-ferro-uvn.inc
 
 where the full azimuth angles are
 

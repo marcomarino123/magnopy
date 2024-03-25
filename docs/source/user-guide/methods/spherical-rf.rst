@@ -15,19 +15,7 @@ Spherical reference frame
 The :ref:`previous section <user-guide_methods_single-q>` has shown
 how each lattice spin can be generated from a local collinear reference frame
 
-.. math::
-  \boldsymbol{S}_{mi}=
-  \boldsymbol{R}_m\,\boldsymbol{S}_{i}
-  =
-  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{i}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{\hat{n}}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_{i}
-    =S_i\,
-     \begin{pmatrix}
-            \sin\theta_i\,\cos\phi_{mi} \\
-            \sin\theta_i\,\sin\phi_{mi} \\
-            \cos\theta_i
-     \end{pmatrix}
+.. include:: repeated-formulas/spin-from-ferro-uvn.inc
 
 This section is devoted to translate these spin vectors and matrices to spherical bases,
 that are more convenient in several instances.

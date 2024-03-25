@@ -15,7 +15,8 @@ Spin Hamiltonian
   * .. include:: page-notations/trace.inc
 
 * Let be a Bravais lattice that is described by the Bravais vectors
-  :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)`.
+  :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)` with primitive vectors
+  :math:`\{\boldsymbol{a_1},\boldsymbol{a_2},\boldsymbol{a_3}\}`.
 
 * Let each unit cell contain a set of :math:`I` atoms, where each atomic position
   :math:`\boldsymbol{r_i}` is measured  with respec to the cell origin.

@@ -1,13 +1,9 @@
 .. math::
-  \boldsymbol{R}_i =
+  \boldsymbol{R}_i=
+  e^{\boldsymbol{\hat{r}}(\phi_i)\,\theta_i\,\times}
+    =
   \begin{pmatrix}
-      \cos\theta_i + \sin^2\phi_i\,\,(1-\cos\theta_i) &
-      -\sin\phi_i\,\cos\phi_i\,\,(1-\cos\theta_i)       &
-      \cos\phi_i\,\sin\theta_i                      \\
-      -\sin\phi_i\,\cos\phi_i\,\,(1-\cos\theta_i)       &
-      \cos\theta_i + \cos^2\phi_i\,\,(1-\cos\theta_i) &
-      \sin\phi_i\,\sin\theta_i                      \\
-      -\cos\phi_i\,\sin\theta_i                     &
-      -\sin\phi_i\,\sin\theta_i                     &
-      \cos\theta_i                                \\
+    \cos\theta_i+\sin^2\phi_i\,(1-\cos\theta_i)  & -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i) & \cos\phi_i\,\sin\theta_i \\
+    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i) & \cos\theta_i+\sin^2\phi_i\,(1-\cos\theta_i)  & \sin\phi_i\,\cos\theta_i \\
+    -\cos\phi_i\,\sin\theta_i                   & \sin\phi_i\,\cos\theta_i                    & \cos\theta_i \\
   \end{pmatrix}

@@ -48,15 +48,7 @@ The unit vector that defines the rotation axis is
 
 so that the rotation matrix is
 
-.. math::
-  \boldsymbol{R}_i=
-  e^{\boldsymbol{\hat{r}}(\phi_i)\,\theta_i\,\times}
-    =
-  \begin{pmatrix}
-    \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  & -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i) & \cos\phi_i\,\sin\theta_i \\
-    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i) & \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  & \sin\phi_i\,\cos\theta_i \\
-    -\cos\phi_i\,\sin\theta_i                   & \sin\phi_i\,\cos\theta_i                    & \cos\theta_i \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
 All in all,
 
@@ -73,7 +65,7 @@ which result into the new basis defined by the unit vectors
   \boldsymbol{R}_i\,\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
   =
   \begin{pmatrix}
-    \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)  \\
+    \cos\theta_i+\sin^2\phi_i\,(1-\cos\theta_i)  \\
     -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
     -\cos\phi_i\,\sin\theta_i
   \end{pmatrix}
@@ -87,7 +79,7 @@ which result into the new basis defined by the unit vectors
   =
   \begin{pmatrix}
    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
-    \cos\theta_i+\sin^2\phi_i\,(1-cos\theta_i)   \\
+    \cos\theta_i+\sin^2\phi_i\,(1-\cos\theta_i)   \\
     \sin\phi_i\,\cos\theta_i
   \end{pmatrix}
 

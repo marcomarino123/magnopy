@@ -109,21 +109,7 @@ The matrix elements of the rotation matrix
 :math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}}_i\,\boldsymbol{\hat{t}}_i\,\boldsymbol{\hat{f}}_i)`
 in the spherical basis can be obtained from the expression
 
-.. math::
-  \boldsymbol{R}_i^s
-  =\boldsymbol{T}^\dagger\,\boldsymbol{R}_i\,\boldsymbol{T}
-  =\dfrac{1}{2}
-  \begin{pmatrix}
-    1+\cos\theta_i                     &
-    (\cos\theta_i-1)e^{-2i\phi_i}      &
-    \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
-    (\cos\theta_i - 1)e^{2i\phi_i}     &
-    1 + \cos\theta_i                   &
-    \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
-    -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
-    -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
-    2\cos\theta_i                      \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
 
 The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
 :math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical basis:

@@ -1,4 +1,4 @@
-.. _user-guide_input_model-cone-axis:
+.. _user-guide_input_model-file_cone-axis:
 
 Cone axis
 =========

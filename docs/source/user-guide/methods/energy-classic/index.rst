@@ -21,16 +21,7 @@ We have shown in :ref:`the previous section <user-guide_methods_spherical-rf>`
 that the classical Heisenberg Hamiltonian can be written in the spherical
 reference frame :math:`(\,u^+\,u^-\,n\,)` as follows:
 
-.. math::
-  H
-  =
-  \dfrac{1}{2} \sum_{m, \boldsymbol{d_{ij}}, i, j}\,
-  \boldsymbol{S}^{s,\dagger}_{mi}\,
-  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,
-  \boldsymbol{S}^s_{m+d_{ij},j}
-  +
-  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
-  \sum_{m,i}\,g_i \,\boldsymbol{S}^s_{mi}
+.. include:: ../repeated-formulas/hamiltonian-main-spherical.inc
 
 where the spin vectors are
 
@@ -60,7 +51,7 @@ and the exchange constant matrix is
     J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}
 
-By inserting the above expression for the atomic spins into de Hamiltonian,
+By inserting the above expression for the atomic spins into the Hamiltonian,
 we find
 
 .. math::

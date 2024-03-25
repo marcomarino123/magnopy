@@ -66,7 +66,7 @@ which result into the new basis defined by the unit vectors
   =
   \begin{pmatrix}
     \cos\theta_i+\sin^2\phi_i\,(1-\cos\theta_i)  \\
-    -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
+    -\sin\phi_i\,\cos\phi_i\,(1-\cos\theta_i)  \\
     -\cos\phi_i\,\sin\theta_i
   \end{pmatrix}
 
@@ -78,9 +78,9 @@ which result into the new basis defined by the unit vectors
   \boldsymbol{R}_i\,\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
   =
   \begin{pmatrix}
-   -\sin\phi_i\,\cos\theta_i\,(1-\cos\theta_i)  \\
-    \cos\theta_i+\sin^2\phi_i\,(1-\cos\theta_i)   \\
-    \sin\phi_i\,\cos\theta_i
+   -\sin\phi_i\,\cos\phi_i\,(1-\cos\theta_i)  \\
+    \cos\theta_i+\cos^2\phi_i\,(1-\cos\theta_i)   \\
+    \sin\phi_i\,\sin\theta_i
   \end{pmatrix}
 
 .. math::
@@ -92,7 +92,7 @@ which result into the new basis defined by the unit vectors
   =
   \begin{pmatrix}
     \cos\phi_i\,\sin\theta_i \\
-    \sin\phi_i\,\cos\theta_i \\
+    \sin\phi_i\,\sin\theta_i \\
     \cos\theta_i
   \end{pmatrix}
 

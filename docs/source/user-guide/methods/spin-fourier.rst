@@ -13,20 +13,13 @@ Fourier transformation
   * .. include:: page-notations/uvn-or-spherical.inc
 
 The spherical reference frame :math:`\vert u^+u^-n \rangle`
-is convenient for analysing the fourier-transformed spin vectors.
+is convenient for analyzing the fourier-transformed spin vectors.
 Notice that the spin vector :math:`\boldsymbol{S}_{mi}^s` components
 in the spherical reference frame have the simple expression
 
-.. math::
-  \,S_i
-  \,
-  \begin{pmatrix}
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-     \cos\theta_i                                                                 \\
-  \end{pmatrix}
+.. include:: repeated-formulas/spin-spherical.inc
 
-whose Fourier trnasform is
+whose Fourier transform is
 
 .. math::
   \boldsymbol{S}_{ki}^s

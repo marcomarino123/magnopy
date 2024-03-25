@@ -204,25 +204,20 @@ Spin vector :math:`\boldsymbol{S}_{mi}\rightarrow\boldsymbol{S}_{mi}^s`
 The spin vector :math:`\boldsymbol{S}_{mi}` can be written
 in the spherical basis as
 
+.. include:: repeated-formulas/spin-spherical.inc
+
 .. math::
   \boldsymbol{S}_{mi}^s
-  =&\,
+  =\,
   \boldsymbol{T}^\dagger\,\boldsymbol{S}_{mi}
   =
   \boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
-  \\\\=&\,
+  =\,
   \boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{i}
   =
   \boldsymbol{R}_m^s\,\boldsymbol{S}_i^s\,
   =
-  S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s\,
-  \\\\=&\,
-  S_i\,
-  \begin{pmatrix}
-    \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-    \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-    \cos\theta_i                                                                 \\
-  \end{pmatrix}
+  S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s
 
 ---------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`

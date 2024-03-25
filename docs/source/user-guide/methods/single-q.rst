@@ -61,35 +61,50 @@ vector :math:`\boldsymbol{n}`, and by the spiral vector
     .. math::
       \phi_m = \boldsymbol{q}\cdot\boldsymbol{r_m}
 
-  The explicit expression for the matrix in the :math:`(\,u\,v\,n\,)` reference frame is
+    The explicit expression for the matrix in the :math:`(\,u\,v\,n\,)` reference frame is
 
-  .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
+    .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
 
 The spin vector coordinates in the :math:`(\,u\,v\,n\,)` reference frame are
 
 .. math::
-  \boldsymbol{S}_{mi}= \boldsymbol{R}_m\,\boldsymbol{S}_{i}=
+  \boldsymbol{S}_{mi}= \boldsymbol{R}_m\,\boldsymbol{S}_{i}
+  =
   \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{i}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_i
-  =&\,S_i\,
-     \begin{pmatrix}
-            \sin\theta_i\,\cos\phi_{mi} \\
-            \sin\theta_i\,\sin\phi_{mi} \\
-            \cos\theta_i
-     \end{pmatrix}
+  =
+  S_i\,\boldsymbol{R}_{mi}\,\boldsymbol{\hat{n}}
+  =
+  \,S_i\,
+    \begin{pmatrix}
+      \sin\theta_i\,\cos\phi_{mi} \\
+      \sin\theta_i\,\sin\phi_{mi} \\
+      \cos\theta_i
+    \end{pmatrix}
 
-where the full azimut angles are
+where the full azimuth angles are
 
 .. math::
-  \phi_{mi}(q) = \phi_m(\boldsymbol{q}) + \phi_i(\boldsymbol{q})
-               = \boldsymbol{q}\cdot\boldsymbol{r_m} +
-                  \boldsymbol{q}\cdot\boldsymbol{r_i}+ \Delta\phi_i
-               = \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
+  \phi_{mi}(q)
+  =
+  \phi_m(\boldsymbol{q}) + \phi_i(\boldsymbol{q})
+  =
+  \boldsymbol{q}\cdot\boldsymbol{r_m} + \boldsymbol{q}\cdot\boldsymbol{r_i} + \Delta\phi_i
+  =
+  \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
 
-Note that Magnopy absorves the intra-cell spiral contribution inside the azimut
-angle :math:`\phi_i=\boldsymbol{q}\cdot\boldsymbol{r_i}+\Delta\,\phi_i`.
-The intra-cell spiral angle :math:`\Delta\,\phi_i` must be provided in Magnopy's
-input file, but will no longer be used here.
+.. note::
+  Magnopy absorbs the intra-cell spiral contribution inside the azimuth
+  angle :math:`\phi_i(\boldsymbol{q})=\boldsymbol{q}\cdot\boldsymbol{r_i}+\Delta\,\phi_i`.
+  In the following we might use the notation :math:`\phi_i` for total intra-cell azimuth
+  angle, with the understanding that it includes the spiral-dependent part.
+
+  In the :ref:`Magnopy input file <user-guide_input_model-file>` in the
+  :ref:`"Atoms" section <user-guide_input_model-file_atoms>` the direction of the atom's
+  spin correspond to the :math:`\Delta\,\phi_i` part of the total azimuth angle
+  :math:`\phi_i`. The spiral-dependent part :math:`\boldsymbol{q}\cdot\boldsymbol{r_i}`
+  of the total azimuth angle :math:`\phi_i` is computed by Magnopy based on the provided
+  :ref:`Cone axis <user-guide_input_model-file_cone-axis>` and
+  :ref:`Spiral vector <user-guide_input_model-file_spiral-vector>`.
 
 .. dropdown:: Full expression of the rotation matrix  :math:`\text{ }\boldsymbol{R}_{mi}`
 

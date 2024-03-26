@@ -40,6 +40,8 @@ Spin Hamiltonian
   lattice, indices :math:`i` and :math:`j` run over the atoms in each cell and the
   vector :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
+  Note that the vector :math:`\boldsymbol{d}_{ij}` is defined as a difference of two
+  lattice vectors, and hence it is a lattice vector itself.
 
 * The exchange tensor :math:`\boldsymbol{J}_{ij}(\boldsymbol{d}_{ij})` is a :math:`3\times3` matrix that
   is split into isotropic exchange, as well as into traceless symmetric  and anti-symmetric

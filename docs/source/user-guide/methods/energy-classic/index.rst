@@ -222,36 +222,30 @@ determine the exchange constant
 ===============
 Exchange energy
 ===============
-The exchange energy per unit cell can be found by inserting the previous expresion for the
+The exchange energy **per unit cell** can be found by inserting the previous expresion for the
 exchange constant into the Hamiltonian, that leads to:
 
 .. math::
   E^{X}
   =
-  \dfrac{1}{2}
-  \sum_{\boldsymbol{d}_{ij}, i, j}\,
-  (\boldsymbol{S}^{s})^{\dagger}_i\,
-  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})\,
-  \boldsymbol{S}^s_j
-  =
-  E^0\,+\,
-  \delta_{\boldsymbol{q},\,\boldsymbol{G}}\,E^1\,+\,
-  \delta_{\boldsymbol{2q},\,\boldsymbol{G}}\,E^2
+  E^{\text{zero}}\,+\,
+  \delta_{\boldsymbol{q},\,\boldsymbol{G}}\,E^{\text{first}}\,+\,
+  \delta_{\boldsymbol{2q},\,\boldsymbol{G}}\,E^{\text{second}}
 
 where the zeroth-, first- and second-order harmonic exchange contributions are
 
 .. math::
-  E^0=&
+  E^{\text{zero}}=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \,\cos\theta_i\,\cos\theta_j\,(J_{dij}^I+S_{dij}^{nn})+
       \sin\theta_i\,\sin\theta_j\,J_{dij}^{\text{zero}}\right)\\\\
-  E^1=&
+  E^{\text{first}}=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
       \cos\theta_i\,\cos\theta_j\,J_{dij}^{\text{first},1}+
       \sin\theta_i\,\sin\theta_j\,J_{dij}^{\text{first},2}\right)\\\\
-  E^2=&
+  E^{\text{second}}=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,
       \sin\theta_i\,\sin\theta_j\,J_{dij}^{\text{second}}
@@ -329,7 +323,7 @@ The sum over lattice sites is performed by taking into account that only the
     0                           & 0                          & 1             \\
   \end{pmatrix}
 
-Then the Zeeman contribution to the energy per unit cell is:
+Then the Zeeman contribution to the energy **per unit cell** is:
 
 .. math::
   E^Z \,=\,\mu_B\,
@@ -338,9 +332,9 @@ Then the Zeeman contribution to the energy per unit cell is:
   \left(h^u\,\cos\phi_i+h^v\,\sin\phi_i\,\right)
   \right)
 
-===========================================================================
-Ferromagnetic, antiferromagnetic and conical spin arrangements and energies
-===========================================================================
+=================================================================================
+Ferromagnetic, antiferromagnetic and conical spin arrangements and their energies
+=================================================================================
 The above expressions demonstrate that all harmonics contribute to the
 total classical energy for ferromagnetic spin arrangements, where
 :math:`\boldsymbol{q}=0`.
@@ -348,8 +342,7 @@ In contrast, , the zeroth- and second-order terms but not the first
 contribute to the exchange energy for anti-ferromagnetic spin
 configurations where :math:`\boldsymbol{q}=\boldsymbol{G}/2`.
 Finally, only the lowest harmonic contributes to the energy if the
-spiral vector :math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`,
-:math:`\epsilon_{X} =\epsilon_0`.
+spiral vector :math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`.
 
 This means that it proves more transparent to write separate expressions
 for the spin vectors and energies for the three cases. These are

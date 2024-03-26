@@ -51,50 +51,63 @@ and the exchange constant matrix is
     J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
   \end{pmatrix}
 
-By inserting the above expression for the atomic spins into the Hamiltonian,
-we find
+By inserting the above expressions into the Hamiltonian, we find
 
 .. math::
   H=&
   \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
-  \boldsymbol{S}^{s,\dagger}_i\,\boldsymbol{R}_m^s\,
+  (\boldsymbol{S}^{s})^{\dagger}_i\,(\boldsymbol{R}_m^s)^{\dagger}\,
   \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,\boldsymbol{R}_{m+d_{ij}}^s
   \boldsymbol{S}^s_j
   +
-  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \mu_B\,(\boldsymbol{h}^{s})^{\dagger}\,
   \sum_{m,i}\,g_i \,\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
   \\=&
   \dfrac{1}{2} \sum_{m,\boldsymbol{d}_{ij}, i, j}\,
-  \boldsymbol{S}^{s,\dagger}_i\,\boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})\,
+  (\boldsymbol{S}^{s})^{\dagger}_i\,\boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})\,
   \boldsymbol{S}^s_j
   +
-  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
+  \mu_B\,(\boldsymbol{h}^{s})^{\dagger}\,
   \sum_{m,i}\,g_i \,\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
 
-where
+where we introduce the notation for the "rotated" exchange matrices written in
+:ref:`spherical basis <user-guide_methods_spherical-rf>`
 
 .. math::
-  \boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})=
-  \boldsymbol{R}_m^s\,
-  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,\boldsymbol{R}_{m+d_{ij}}^s\\
+  \boldsymbol{\tilde{J}}^s_{mdij}
+  =
+  \boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})
+  =
+  (\boldsymbol{R}_m^s)^{\dagger}\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{R}_{m+d_{ij}}^s
 
-The expression above can be further recast as follows
+Futhermore, we group the part of the sum that depends on the index :math:`m` as we
+will compute it explicitly below
 
 .. math::
   H=
-  \dfrac{1}{2} \sum_{\boldsymbol{d}_{ij}, i, j}\,
-  \boldsymbol{S}^{s,\dagger}_i\,\boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \dfrac{1}{2}
+  \sum_{\boldsymbol{d}_{ij}, i, j}\,
+  (\boldsymbol{S}^{s})^{\dagger}_i\,
+  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})\,
   \boldsymbol{S}^s_j
   +
-  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
-  \sum_{m,i}\,g_i \,\boldsymbol{R}_m^s\,\boldsymbol{S}^s_i
+  \mu_B\,(\boldsymbol{h}^{s})^{\dagger}\,
+  \sum_{i}\,g_i \,\left(\sum_m\boldsymbol{R}_m^s\right)\,\boldsymbol{S}^s_i
 
 where
 
 .. math::
-  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})=
-  \sum_m\,\boldsymbol{R}_m^s\,
-  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,\boldsymbol{R}_{m+d_{ij}}^s
+  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})
+  =
+  \sum_m\,
+  \boldsymbol{\tilde{J}}^s_{mdij}
+  =
+  \sum_m\,
+  (\boldsymbol{R}_m^s)^{\dagger}\,
+  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{R}_{m+d_{ij}}^s
 
 
 This form of the Hamiltonian shows that the classical energy corresponding to any
@@ -110,25 +123,30 @@ Exchange constant :math:`\boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})`
 ============================================================================
 
 The exchange constant :math:`\boldsymbol{\tilde{J}}^s_{ij}(m,\boldsymbol{d}_{ij})`
-can be written in terms of zero-, first- and second-harmonics as follows:
+can be written as a sum of five matrices in terms of zero-, first- and second-harmonics as follows:
 
 .. math::
   \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})
-  =\sum_{l=0,\pm 1,\pm 2}\,\boldsymbol{\tilde{J}}_{ij}^l \,e^{i\,l\,\boldsymbol{q}\cdot\boldsymbol{r}_m}
+  =
+  \sum_{l=0,\pm 1,\pm 2}\,
+  \boldsymbol{\tilde{J}}_{ij}^l(\boldsymbol{d}_{ij})\,
+  \cdot
+  e^{i\,l\,\boldsymbol{q}\cdot\boldsymbol{r}_m}
 
-where we have suppressed the :math:`J`-dependence on :math:`\boldsymbol{d}_{ij}` to simplify the
-notation, and where
+and where
 
 .. math::
-  \boldsymbol{\tilde{J}}_{ij}^0=
+  \boldsymbol{\tilde{J}}_{ij}^0(\boldsymbol{d}_{ij})
+  =
   \begin{pmatrix}
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{++}        &  0  &.    0           \\
+    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{++}        &  0  &     0           \\
     0 & e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{--}           &     0           \\
     0                                                          &  0  &     J_{ij}^{nn}
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\tilde{J}}_{ij}^1=
+  \boldsymbol{\tilde{J}}_{ij}^1(\boldsymbol{d}_{ij})
+  =
   \begin{pmatrix}
     0    &  0                                                  & J_{ij}^{+n} \\
     0    &  0                                                  & 0           \\
@@ -136,7 +154,8 @@ notation, and where
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\tilde{J}}_{ij}^{-1}=
+  \boldsymbol{\tilde{J}}_{ij}^{-1}(\boldsymbol{d}_{ij})
+  =
   \begin{pmatrix}
     0                                                         &  0  &  0            \\
     0                                                         &  0  &  J_{ij}^{-n}  \\
@@ -144,7 +163,8 @@ notation, and where
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\tilde{J}}_{ij}^2=
+  \boldsymbol{\tilde{J}}_{ij}^2(\boldsymbol{d}_{ij})
+  =
   \begin{pmatrix}
     0   &   e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{+-} & 0  \\
     0   &   0                                                  & 0  \\
@@ -152,21 +172,52 @@ notation, and where
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\tilde{J}}_{ij}^{-2}=
+  \boldsymbol{\tilde{J}}_{ij}^{-2}(\boldsymbol{d}_{ij})
+  =
   \begin{pmatrix}
     0                                                   &  0   &   0   \\
     e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{ij}^{-+} &  0   &   0   \\
     0                                                   &  0   &   0
   \end{pmatrix}
 
-The above expression helps to perform the :math:`m-summation` needed to determine the
-exchange constant
+The above expression helps to perform the summation over index :math:`m` needed to
+determine the exchange constant
 
 .. math::
-  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})=
-  M\,\left(\boldsymbol{\tilde{J}}_{ij}^0\,+\,
-  \delta_{\boldsymbol{q},\boldsymbol{G}}\,(\boldsymbol{\tilde{J}}_{ij}^1+\boldsymbol{\tilde{J}}_{ij}^{-1})\,+\,
-  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,(\boldsymbol{\tilde{J}}_{ij}^2+\boldsymbol{\tilde{J}}_{ij}^{-2})\right)
+  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})
+  =
+  M\,\left(\boldsymbol{\tilde{J}}_{ij}^0(\boldsymbol{d}_{ij})\,+\,
+  \delta_{\boldsymbol{q},\,\boldsymbol{G}}\,\left[
+    \boldsymbol{\tilde{J}}_{ij}^1(\boldsymbol{d}_{ij})
+    +
+    \boldsymbol{\tilde{J}}_{ij}^{-1}(\boldsymbol{d}_{ij})
+  \right]\,
+  +\,
+  \delta_{\boldsymbol{2q},\,\boldsymbol{G}}\,\left[
+    \boldsymbol{\tilde{J}}_{ij}^2(\boldsymbol{d}_{ij})
+    +
+    \boldsymbol{\tilde{J}}_{ij}^{-2}(\boldsymbol{d}_{ij})
+  \right]\right)
+
+.. dropdown:: Details
+
+  .. math::
+    \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})
+    =
+    \sum_{l=0,\pm 1,\pm 2}\,
+    \boldsymbol{\tilde{J}}_{ij}^l(\boldsymbol{d}_{ij})\,
+    \cdot
+    \sum_m
+    e^{i\,l\,\boldsymbol{q}\cdot\boldsymbol{r}_m}
+
+  Therefore, one needs to compute the values of the sums of exponential
+
+  .. math::
+    \sum_m
+    e^{i\,l\,\boldsymbol{q}\cdot\boldsymbol{r}_m}
+
+  .. include:: exchange-details-on-fourier-identities.inc
+
 
 ===============
 Exchange energy
@@ -175,9 +226,17 @@ The exchange energy per unit cell can be found by inserting the previous expresi
 exchange constant into the Hamiltonian, that leads to:
 
 .. math::
-  E^{X}=E^0\,+\,
-  \delta_{\boldsymbol{q},\boldsymbol{G}}\,E^1\,+\,
-  \delta_{\boldsymbol{2\,q},\boldsymbol{G}}\,E^22
+  E^{X}
+  =
+  \dfrac{1}{2}
+  \sum_{\boldsymbol{d}_{ij}, i, j}\,
+  (\boldsymbol{S}^{s})^{\dagger}_i\,
+  \boldsymbol{\tilde{J}}^s_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{S}^s_j
+  =
+  E^0\,+\,
+  \delta_{\boldsymbol{q},\,\boldsymbol{G}}\,E^1\,+\,
+  \delta_{\boldsymbol{2q},\,\boldsymbol{G}}\,E^2
 
 where the zeroth-, first- and second-order harmonic exchange contributions are
 
@@ -185,32 +244,59 @@ where the zeroth-, first- and second-order harmonic exchange contributions are
   E^0=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
-      \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
-      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,0}\right)\\\\
+      \,\cos\theta_i\,\cos\theta_j\,(J_{dij}^I+S_{dij}^{nn})+
+      \sin\theta_i\,\sin\theta_j\,J_{dij}^{\text{zero}}\right)\\\\
   E^1=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,\left(
-      \cos\theta_i\,\cos\theta_j\,J_{ij}^{uvn,1}+
-      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uvn,2}\right)\\\\
-  E^22=&
+      \cos\theta_i\,\cos\theta_j\,J_{dij}^{\text{first},1}+
+      \sin\theta_i\,\sin\theta_j\,J_{dij}^{\text{first},2}\right)\\\\
+  E^2=&
    \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
     S_i\,S_j\,
-      \sin\theta_i\,\sin\theta_j\,J_{ij}^{uv,2}
+      \sin\theta_i\,\sin\theta_j\,J_{dij}^{\text{second}}
 
 and
 
 .. math::
-  J_{ij}^{uv,0}=&
-       J_{ij}^+\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
-         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)\\\\
-  J_{ij}^{uv,2}=&
-       J_{ij}^{-}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)+
-      S_{ij}^{uv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)\\\\
-  J_{ij}^{uvn,1}=&J_{ij}^{nu}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)+
-                  J_{ij}^{nv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)\\\\
-  J_{ij}^{uvn,2}=&J_{ij}^{un}\,\cos(\phi_i)+J_{ij}^{vn}\,\sin(\phi_i)
+  J_{dij}^{\text{zero}}
+  =&
+  (J^I_{dij}-\frac{1}{2}S_{dij}^{nn})\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
+  D_{dij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)
+  \\\\
+  J_{dij}^{\text{first},1}
+  =&
+  (S_{dij}^{un} + D_{dij}^v)\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)+
+  (S_{dij}^{vn} - D_{dij}^u)\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)
+  \\\\
+  J_{dij}^{\text{first},2}
+  =&
+  (S_{dij}^{un} - D_{dij}^v)\,\cos(\phi_i)+(S_{dij}^{vn} + D_{dij}^u)\,\sin(\phi_i)
+  \\\\
+  J_{dij}^{\text{second}}
+  =&
+  \frac{S_{dij}^{uu} - S_{dij}^{vv}}{2}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)+
+  S_{dij}^{uv}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)
 
-where :math:`J_{ij}^{\pm}=\frac{J_{ij}^{uu}\pm J_{ij}^{vv}}{2}`
+where we used the decomposition of exchange matrix into isotropic, symmetric anisotropic
+and asymmetric parts
+
+.. math::
+  \begin{pmatrix}
+      J_{dij}^{uu} & J_{dij}^{uv} & J_{dij}^{un} \\
+      J_{dij}^{vu} & J_{dij}^{vv} & J_{dij}^{vn} \\
+      J_{dij}^{nu} & J_{dij}^{nv} & J_{dij}^{nn} \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    J_{dij}^I + S_{dij}^{uu}             &             S_{dij}^{uv} + D_{dij}^n &             S_{dij}^{un} - D_{dij}^v \\
+                S_{dij}^{uv} - D_{dij}^n & J_{dij}^I + S_{dij}^{vv}             &             S_{dij}^{vn} + D_{dij}^u \\
+                S_{dij}^{un} + D_{dij}^v &             S_{dij}^{vn} - D_{dij}^u & J_{dij}^I + S_{dij}^{nn}             \\
+  \end{pmatrix}
+
+with :math:`J_{dij}^I = \dfrac{1}{3}(J_{dij}^{uu} + J_{dij}^{vv} + J_{dij}^{nn})`
+and :math:`S_{dij}^{uu} + S_{dij}^{vv} + S_{dij}^{nn} = 0`.
+
 
 =====================
 Magnetic field energy

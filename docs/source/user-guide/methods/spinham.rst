@@ -15,10 +15,11 @@ Spin Hamiltonian
   * .. include:: page-notations/trace.inc
 
 * Let be a Bravais lattice that is described by the Bravais vectors
-  :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)`.
+  :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)` with primitive vectors
+  :math:`\{\boldsymbol{a_1},\boldsymbol{a_2},\boldsymbol{a_3}\}`.
 
 * Let each unit cell contain a set of :math:`I` atoms, where each atomic position
-  :math:`\boldsymbol{r_i}` is measured  with respecto to the cell origin.
+  :math:`\boldsymbol{r_i}` is measured  with respec to the cell origin.
 
 * Let an atom at site :math:`i` in cell :math:`m` be denoted by :math:`(m,i)`.
   Then its atom position is
@@ -28,16 +29,19 @@ Spin Hamiltonian
   :math:`\boldsymbol{S_{mi}} = \hbar \,S_i\, \boldsymbol{\hat{S}_{mi}}`,
   where :math:`S_i` is the spin modulus. :math:`\hbar` is henceforth set to 1.
 
-* The bond between atoms (m,i) and (m',j) is denoted by (m,i;m',j).
+* The bond between atoms :math:`(m,i)` and :math:`(m^{\prime},j)` is denoted by :math:`(m,i;m^{\prime},j)`.
 
 * The Hamiltonian governing the interactions among all the lattice atomic spins is
 
   .. include:: repeated-formulas/hamiltonian-on-site-separate-any-classic.inc
 
   where the first sum runs over all the lattice bonds
-  :math:`(m,i;m+\boldsymbol{d}_{i j},j)` and the vector
-  :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
+  :math:`(m,i;m+\boldsymbol{d}_{i j},j)`: index :math:`m` runs over all cells of the
+  lattice, indices :math:`i` and :math:`j` run over the atoms in each cell and the
+  vector :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
   runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
+  Note that the vector :math:`\boldsymbol{d}_{ij}` is defined as a difference of two
+  lattice vectors, and hence it is a lattice vector itself.
 
 * The exchange tensor :math:`\boldsymbol{J}_{ij}(\boldsymbol{d}_{ij})` is a :math:`3\times3` matrix that
   is split into isotropic exchange, as well as into traceless symmetric  and anti-symmetric
@@ -45,7 +49,7 @@ Spin Hamiltonian
 
   .. math::
     \boldsymbol{J}_{ij} = J_{ij}^{I}\,\boldsymbol{I}+
-    \boldsymbol{J}_{ij}^{S}+\boldsymbol{J}_{ij}^{A}
+    \boldsymbol{J^{S}}_{ij}+\boldsymbol{J^{A}}_{ij}
 
   where :math:`\boldsymbol{I}` is a :math:`3\times 3` identity matrix.
 
@@ -54,10 +58,10 @@ Spin Hamiltonian
   .. math::
     J_{ij}^{I} = \dfrac{\mathrm{Tr}(\boldsymbol{J_{ij}})}{3}
 
-  * The symmetric anisotropy is:
+  * The traceless symmetric anisotropy is:
 
     .. math::
-      \boldsymbol{J}_{ij}^{S} = \dfrac{\boldsymbol{J}_{ij} + \boldsymbol{J}_{ij}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
+      \boldsymbol{J^{S}}_{ij} = \dfrac{\boldsymbol{J}_{ij} + \boldsymbol{J}_{ij}^T}{2} - J_{ij}^{I}\, \boldsymbol{I}
       =
       \begin{pmatrix}
         S_{ij}^{xx} & S_{ij}^{xy} & S_{ij}^{xz} \\
@@ -71,7 +75,7 @@ Spin Hamiltonian
     (DM) Interaction is:
 
     .. math::
-      \boldsymbol{J}_{ij}^{A} = \dfrac{\boldsymbol{J}_{ij} - \boldsymbol{J}_{ij}^T}{2}
+      \boldsymbol{J^{A}}_{ij} = \dfrac{\boldsymbol{J}_{ij} - \boldsymbol{J}_{ij}^T}{2}
       =
       \begin{pmatrix}
         0    & D^z  & -D^y \\
@@ -79,7 +83,7 @@ Spin Hamiltonian
         D^y  & -D^x & 0    \\
       \end{pmatrix}
 
-    :math:`\boldsymbol{J}_{ij}^{A}` is often recast in terms of the DM
+    :math:`\boldsymbol{J^{A}}_{ij}` is often recast in terms of the DM
     vector :math:`\boldsymbol{D} = (D^x,\,D^y,\,D^z)^T`.
 
 * The intra-atomic anisotropy tensor :math:`\boldsymbol{A}_i` is a symmetric

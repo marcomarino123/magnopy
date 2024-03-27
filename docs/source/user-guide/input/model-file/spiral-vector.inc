@@ -1,4 +1,4 @@
-.. _user-guide_input_model-spiral-vector:
+.. _user-guide_input_model-file_spiral-vector:
 
 Spiral vector
 =============

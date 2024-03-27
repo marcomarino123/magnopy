@@ -13,24 +13,14 @@ Spherical reference frame
   * .. include:: page-notations/uvn-or-spherical.inc
 
 The :ref:`previous section <user-guide_methods_single-q>` has shown
-how each lattice spin can be generated from a local collinear reference frame
+how each lattice spin of the spiral conical state can be generated from a global
+ferromagnetic state, where all spins are aligned along the direction of
+:math:`\boldsymbol{n}`:
 
-.. math::
-  \boldsymbol{S}_{mi}=
-  \boldsymbol{R}_m\,\boldsymbol{S}_{i}
-  =
-  \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{i}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{\hat{n}}
-  =S_i\,\boldsymbol{R}_m\,\boldsymbol{\hat{f}}_{i}
-    =S_i\,
-     \begin{pmatrix}
-            \sin\theta_i\,\cos\phi_{mi} \\
-            \sin\theta_i\,\sin\phi_{mi} \\
-            \cos\theta_i
-     \end{pmatrix}
+.. include:: repeated-formulas/spin-from-ferro-uvn.inc
 
-This section is devoted to translate these spin vectors and matrices to spherical bases,
-that are more convenient in several instances.
+This section is devoted to translation of these spin vectors and matrices to spherical
+basis, that is more convenient in several instances.
 
 ============================================
 Coordinate system with circular polarization
@@ -98,6 +88,11 @@ is
     \Rightarrow
     \boldsymbol{T}^{\dagger} = \boldsymbol{T}^{-1}
 
+.. hint::
+  Introduction of this spherical reference frame caused the change of the transposition
+  sign ":math:`^T`" to the hermitian conjugate ":math:`^{\dagger}`" in the formulas across
+  the whole documentation.
+
 =============================
 Change to the spherical basis
 =============================
@@ -105,56 +100,80 @@ Change to the spherical basis
 --------------------------------------------------------------------------------
 Intra-cell rotation matrix :math:`\boldsymbol{R}_i\rightarrow\boldsymbol{R}^s_i`
 --------------------------------------------------------------------------------
+
+.. dropdown:: :math:`\boldsymbol{R}_i\text{ in }(\,u,\,v,\,n)\text{ basis}`
+
+  .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
+
 The matrix elements of the rotation matrix
 :math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}}_i\,\boldsymbol{\hat{t}}_i\,\boldsymbol{\hat{f}}_i)`
 in the spherical basis can be obtained from the expression
 
-.. math::
-  \boldsymbol{R}_i^s
-  =\boldsymbol{T}^\dagger\,\boldsymbol{R}_i\,\boldsymbol{T}
-  =\dfrac{1}{2}
-    \begin{pmatrix}
-      1+\cos\theta_i                     &
-      (\cos\theta_i-1)e^{-2i\phi_i}      &
-      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
-      (\cos\theta_i - 1)e^{2i\phi_i}     &
-      1 + \cos\theta_i                   &
-      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
-      -\sqrt{2}\sin\theta_i e^{i\phi_i}  &
-      -\sqrt{2}\sin\theta_i e^{-i\phi_i} &
-      2\cos\theta_i                      \\
-    \end{pmatrix}
+.. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
 
-The above expression also defines the spherical vectors
+The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
+:math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical basis:
 
 .. math::
-  \boldsymbol{\hat{p}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
-   =\dfrac{1}{2}
-    \begin{pmatrix}
-      1+\cos\theta_i                     \\
-      (\cos\theta_i - 1)e^{2i\phi_i}     \\
-      -\sqrt{2}\sin\theta_i e^{i\phi_i}
-    \end{pmatrix}
-    \\\\
-  \boldsymbol{\hat{t}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^-
-   =\dfrac{1}{2}
-    \begin{pmatrix}
-      (\cos\theta_i-1)e^{-2i\phi_i}     \\
-      1 + \cos\theta_i                  \\
-      -\sqrt{2}\sin\theta_i e^{-i\phi_i}
-    \end{pmatrix}
+  \boldsymbol{\hat{p}}^s_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{\hat{p}}_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\boldsymbol{\hat{u}}
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\,\boldsymbol{T}\boldsymbol{T}^{\dagger}\,\boldsymbol{\hat{u}}
+  =
+  &\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
+  =
+  \dfrac{1}{2}
+  \begin{pmatrix}
+    1+\cos\theta_i                     \\
+    (\cos\theta_i - 1)e^{2i\phi_i}     \\
+    -\sqrt{2}\sin\theta_i e^{i\phi_i}
+  \end{pmatrix}
   \\\\
-  \boldsymbol{\hat{f}}^s_i=&\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
-   =\dfrac{1}{2}
-    \begin{pmatrix}
-      \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
-      \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
-      2\cos\theta_i                      \\
-    \end{pmatrix}
+  \boldsymbol{\hat{t}}^s_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{\hat{t}}_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\boldsymbol{\hat{v}}
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\,\boldsymbol{T}\boldsymbol{T}^{\dagger}\,\boldsymbol{\hat{v}}
+  =
+  &\boldsymbol{R}_i^s\,\boldsymbol{\hat{u}}^+
+  =
+  \dfrac{1}{2}
+  \begin{pmatrix}
+    (\cos\theta_i-1)e^{-2i\phi_i}     \\
+    1 + \cos\theta_i                  \\
+    -\sqrt{2}\sin\theta_i e^{-i\phi_i}
+  \end{pmatrix}
+  \\\\
+  \boldsymbol{\hat{f}}^s_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{\hat{f}}_i
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\boldsymbol{\hat{n}}
+  =
+  \boldsymbol{T}^{\dagger}\boldsymbol{R}_i\,\boldsymbol{T}\boldsymbol{T}^{\dagger}\,\boldsymbol{\hat{n}}
+  =
+  &\boldsymbol{R}_i^s\,\boldsymbol{\hat{n}}
+  =
+  \dfrac{1}{2}
+  \begin{pmatrix}
+    \sqrt{2}\sin\theta_i e^{-i\phi_i}  \\
+    \sqrt{2}\sin\theta_i e^{i\phi_i}   \\
+    2\cos\theta_i                      \\
+  \end{pmatrix}
 
 ----------------------------------------------------------------------------------------------------------------
-Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s\boldsymbol{q})`
+Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s(\boldsymbol{q})`
 ----------------------------------------------------------------------------------------------------------------
+
+.. dropdown:: :math:`\boldsymbol{R}_m\text{ in }(\,u,\,v,\,n)\text{ basis}`
+
+  .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
+
 The matrix elements of the rotation matrix :math:`\boldsymbol{R}_m`
 in the spherical basis can be obtained from the expression
 
@@ -163,27 +182,28 @@ in the spherical basis can be obtained from the expression
 -----------------------------------------------------------------------
 Spin vector :math:`\boldsymbol{S}_{mi}\rightarrow\boldsymbol{S}_{mi}^s`
 -----------------------------------------------------------------------
+
+.. dropdown:: :math:`\boldsymbol{S}_{mi}\text{ in }(\,u,\,v,\,n)\text{ basis}`
+
+  .. include:: repeated-formulas/spin-from-ferro-uvn.inc
+
 The spin vector :math:`\boldsymbol{S}_{mi}` can be written
 in the spherical basis as
 
+.. include:: repeated-formulas/spin-spherical.inc
+
 .. math::
   \boldsymbol{S}_{mi}^s
-   =&
-   \, \boldsymbol{T}^\dagger\,\boldsymbol{S}_{mi}
-   =\boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
-   \\\\
-   =&\,
-   \boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{i}=
-     \boldsymbol{R}_m^s\,\boldsymbol{S}_i^s\,=
-     S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s\,\\\\
-    =&
-  \,S_i
-  \,
-  \begin{pmatrix}
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i (\boldsymbol{q}\cdot\boldsymbol{r_m} + \phi_i)} \\
-     \cos\theta_i                                                                 \\
-  \end{pmatrix}
+  =\,
+  \boldsymbol{T}^\dagger\,\boldsymbol{S}_{mi}
+  =
+  \boldsymbol{T}^\dagger\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S^F}_{mi}
+  =\,
+  \boldsymbol{R}_m^s\,\boldsymbol{R}_i^s\,\boldsymbol{S^{F,s}}_{i}
+  =
+  \boldsymbol{R}_m^s\,\boldsymbol{S}_i^s\,
+  =
+  S_i\,\boldsymbol{R}_m^s\,\boldsymbol{\hat{f}}_{i}^s
 
 ---------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{ij}}\rightarrow\boldsymbol{J_{ij}^s}`
@@ -380,13 +400,4 @@ Hamiltonian in the spherical reference frame
 ============================================
 The Heisenberg Hamiltonian can be written now in the spherical reference frame as follows
 
-.. math::
-  H
-  =
-  \dfrac{1}{2} \sum_{m, \boldsymbol{d_{ij}}, i, j}\,
-  \boldsymbol{S}^{s,\dagger}_{mi}\,
-  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})\,
-  \boldsymbol{S}^s_{m+d_{ij},j}
-  +
-  \mu_B\,\boldsymbol{h}^{s,\dagger}\,
-  \sum_{m,i}\,g_i \,\boldsymbol{S}^s_{mi}
+.. include:: repeated-formulas/hamiltonian-main-spherical.inc

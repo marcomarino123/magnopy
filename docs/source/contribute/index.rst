@@ -12,8 +12,8 @@ please visit our :ref:`Contributors page <contribute_contributors>`.
 We appreciate all contributions and look forward to see your name on that list!
 
 It is not necessary to be a programmer to contribute.
-You can help us with the documentation, :ref:`new features <contribute_feature>`
-and :ref:`finding bugs <contribute_bug>`.
+You can help us with the :ref:`documentation <contribute_documentation>`,
+:ref:`new features <contribute_feature>` and :ref:`finding bugs <contribute_bug>`.
 
 
 Contribution to the source code is summarized below.
@@ -109,7 +109,7 @@ Develop your contribution
   (`git-add <https://git-scm.com/docs/git-add>`_
   and `git-commit <https://git-scm.com/docs/git-commit>`_).
   Use |good-commit-messages|_. Write :ref:`tests <contribute_tests>`.
-  Write :ref:`documentation <contribute_docs>`.
+  Write :ref:`documentation <contribute_documentation>`.
 
 Submit your contribution
 ------------------------

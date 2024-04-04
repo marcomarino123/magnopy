@@ -1,4 +1,4 @@
-.. _contribute_docs:
+.. _contribute_documentation:
 
 *************
 Documentation

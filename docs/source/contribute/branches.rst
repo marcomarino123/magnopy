@@ -8,7 +8,7 @@ Branches of the upstream repository
 ===================================
 
 In the upstream repository the releases are made from the ``main`` branch. The
-``main`` branch is the default branch in the upstream repository.
+``main`` branch is the default branch of the upstream repository.
 
 For each release we create a tag named ``vMajor.Minor.Rest`` in the upstream repository.
 

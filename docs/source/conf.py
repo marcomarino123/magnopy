@@ -217,6 +217,7 @@ custom_links = {
         "reStructuredText",
         "https://docutils.sourceforge.io/rst.html",
     ),
+    "GNU-make": ("GNU make", "https://www.gnu.org/software/make/manual/make.html"),
 }
 rst_epilog += "\n".join(
     map(

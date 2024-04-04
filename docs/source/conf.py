@@ -213,6 +213,10 @@ custom_links = {
         "https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html",
     ),
     "good-commit-messages": ("good commit messages", "https://cbea.ms/git-commit/"),
+    "reStructuredText": (
+        "reStructuredText",
+        "https://docutils.sourceforge.io/rst.html",
+    ),
 }
 rst_epilog += "\n".join(
     map(

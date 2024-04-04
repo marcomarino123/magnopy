@@ -4,10 +4,11 @@
 Origin and Upstream
 *******************
 
-We use the terminology **Upstream** and **Origin** to refer to the two remote repositories
-that are used in the development process. The picture below summaries the relationship
-between the two repositories and the local repository with the most common communications
-between them:
+The collaboration model used in the development of magnopy is based on the
+|Fork-and-pull|_ model. We use the standard terminology **Upstream** and **Origin** to
+refer to the two |Git-remote|_ repositories that are used in the development process.
+The picture below summaries the relationship between the two repositories and the local
+repository with the most common communications between them:
 
 .. figure:: ../../images/origin-upstream-local.png
     :target: ../_images/origin-upstream-local.png
@@ -21,9 +22,9 @@ Origin repository
 We refer to the magnopy repository under **your** personal account as the **Origin**
 repository.
 
-During the development it is the repository that you will be pushing your changes to.
-Once the feature you're working on is ready, you will create a pull request from the
-**Origin** repository to the **Upstream** repository.
+During the development process it is the repository that you will be pushing your
+changes to. Once the feature you're working on is ready, you will create a pull request
+from the **Origin** repository to the **Upstream** repository.
 
 .. _contribute_origin-upstream_upstream:
 
@@ -32,10 +33,6 @@ Upstream repository
 
 We refer to the main |repository|_, from which the release is made, as the **Upstream**
 repository.
-
-At the moment it is a repository under the account of the main developer of magnopy,
-but in principle it may be moved to a different personal or organization's account
-in the future.
 
 You can pull changes from the **Upstream** repository to your local repository to keep
 it up to date with the latest changes in the **Upstream** repository. Alternatively,

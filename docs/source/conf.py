@@ -183,6 +183,14 @@ custom_links = {
     "NO_COLOR": ("NO_COLOR", "https://no-color.org/"),
     "GitHub": ("GitHub", "https://github.com"),
     "Git": ("Git", "https://git-scm.com/"),
+    "Git-remote": (
+        "remote",
+        "https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes",
+    ),
+    "Git-repository": (
+        "repository",
+        "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+    ),
     "repository": ("Magnopy repository", "https://github.com/magnopy/magnopy"),
     "HP-ref": (
         "DOI: 10.1103/PhysRev.58.1098",
@@ -218,6 +226,10 @@ custom_links = {
         "https://docutils.sourceforge.io/rst.html",
     ),
     "GNU-make": ("GNU make", "https://www.gnu.org/software/make/manual/make.html"),
+    "Fork-and-pull": (
+        "Fork and pull",
+        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model",
+    ),
 }
 rst_epilog += "\n".join(
     map(

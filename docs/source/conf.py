@@ -196,6 +196,23 @@ custom_links = {
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
     "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
     "h5py": ("h5py", "https://www.h5py.org/"),
+    "sphinx": ("Sphinx", "https://www.sphinx-doc.org/en/master/"),
+    "sphinx-autodoc": (
+        "sphinx.ext.autodoc",
+        "https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html",
+    ),
+    "sphinx-autosummary": (
+        "sphinx.ext.autosummary",
+        "https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html",
+    ),
+    "numpydoc": ("numpydoc", "https://numpydoc.readthedocs.io/en/latest/format.html"),
+    "pytest": ("pytest", "https://docs.pytest.org/en/7.3.x/"),
+    "hypothesis": ("hypothesis", "https://hypothesis.readthedocs.io/en/latest/"),
+    "doctest": (
+        "sphinx.ext.doctest",
+        "https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html",
+    ),
+    "good-commit-messages": ("good commit messages", "https://cbea.ms/git-commit/"),
 }
 rst_epilog += "\n".join(
     map(

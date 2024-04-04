@@ -12,104 +12,154 @@ please visit our :ref:`Contributors page <contribute_contributors>`.
 We appreciate all contributions and look forward to see your name on that list!
 
 It is not necessary to be a programmer to contribute.
-You can help us with the documentation, :ref:`new features <contribute_feature>`
-and :ref:`finding bugs <contribute_bug>`.
+You can help us with the :ref:`documentation <contribute_documentation>`,
+:ref:`new features <contribute_feature>` and :ref:`finding bugs <contribute_bug>`.
 
 
 Contribution to the source code is summarized below.
-We assume that you have an account on |GitHub|_
-and familiar with |Git|_.
+We assume that you have an account on `<https://github.com>`_
+and familiar with `Git <https://git-scm.com/>`_.
 
 Development workflow
 ====================
 
-For the detailed explanation of the development workflow, please visit
-the corresponding links below.
+For the detailed explanation of the development workflow see the table of content at the end of
+the page or click on the links in the short summary below.
 
-1. Fork and clone.
+Fork and clone
+--------------
 
-   * Go to the |repository|_ and click on the "Fork" button.
-     Now you have your own copy of the Magnopy repository in your GitHub account.
+* Go to the |repository|_ (:ref:`upstream <contribute_origin-upstream_upstream>`) and
+  click on the "Fork" button. Now you have your own copy of the magnopy repository
+  under your GitHub account (:ref:`origin <contribute_origin-upstream_origin>`).
+* Clone your fork to your local machine:
 
-   * Clone your copy of the repository to your local machine:
+  - If you are using ssh-key::
 
-     - If you are using ssh-key::
+      git clone git@github.com:your-username/magnopy.git
 
-         git clone git@github.com:your-username/magnopy.git
+  - If you are not using ssh-key::
 
-     - If you are not using ssh-key::
+      git clone https://github.com/your-username/magnopy.git
 
-         git clone https://github.com/your-username/magnopy.git
+* Change the directory::
 
-   * Change the directory::
+    cd magnopy
 
-      cd magnopy
+  Now you are in the root folder of you local repository
+  (:ref:`local <contribute_origin-upstream_local>`)
 
-   * Add the upstream repository::
+* Add the :ref:`upstream <contribute_origin-upstream>` repository to your
+  :ref:`local <contribute_origin-upstream_local>` repository::
 
-      git remote add upstream https://github.com/magnopy/magnopy.git
+    git remote add upstream https://github.com/magnopy/magnopy.git
 
-   * initialize submodules::
+* Pull the latest changes from the magnopy repository if necessary::
 
-      git submodule update --init --recursive
+    git pull upstream main
 
-2. Set up the environment.
+  or::
 
-   We recommend to use virtual environment. Once the virtual environment is created,
-   you can install requirements:
+    git fetch upstream
+    git merge upstream/main
 
-   * Package dependencies::
+Set up the environment
+----------------------
 
-      pip install -r requirements.txt
+We recommend to use virtual environment. Once the virtual environment is created,
+you can install requirements:
 
-   * For the package development::
+* Package dependencies::
 
-      pip install -r requirements-dev.txt
+    pip install -r requirements.txt
 
-   * For the docs::
+* For the package development::
 
-      pip install -r docs/requirements.txt
+    pip install -r requirements-dev.txt
 
-   * For the tests::
+* For the documentation::
 
-      pip install -r utest/requirements.txt
+    pip install -r docs/requirements.txt
 
-3. Develop the contribution.
+* For the tests::
 
-   * Create a dedicated branch for your feature, that you are going to develop::
+    pip install -r utest/requirements.txt
 
-      git checkout -b feature-name
+.. note::
+  For the linux and OSX systems there is a scenario defined.
+  It installs all requirements. Note: it does NOT create a virtual environment::
 
-   * Develop your contribution. Commit your progress locally
-     (`git-add <https://git-scm.com/docs/git-add>`_
-     and `git-commit <https://git-scm.com/docs/git-commit>`_).
-     Use meaningful commit messages. Write `tests <contribute_tests>`.
-     Write `documentation <contribute_docs>`.
+    make requirements
 
-4. Submit your contribution.
+Enable pre-commit
+-----------------
 
-   * Push the changes to your forked repository::
+We use `pre-commit <https://pre-commit.com/>`_ to enforce some rules on the code style
+before each commit.
+To enable it, run the following command::
 
-      git push origin feature-name
+  pre-commit install
 
-   * Go to your forked repository on GitHub and click on the
-     green "Compare & pull request" button.
-     Describe your contribution and submit the pull request.
-     Please mention the issue number if it is related to any.
+Now, every time you commit the code, pre-commit will check it for you. If some checks fail,
+pre-commit will automatically fix them and abort the commit. You need to add the fixed files
+to the staging area and commit again.
 
-5. Review and merge.
+.. hint::
+  If you want to run pre-commit manually, you can use the following command::
 
-   * Once the pull request is submitted, the code will be reviewed.
-     If there are any comments, please fix them.
-   * Once the pull request is approved, it will be merged by the maintainers.
+    pre-commit run --all-files
+
+Develop your contribution
+-------------------------
+
+* Create a :ref:`dedicated branch <contribute_branches>` for your feature,
+  that you are going to develop::
+
+    git checkout -b feature-name
+
+* Develop your contribution. Commit your progress locally
+  (`git-add <https://git-scm.com/docs/git-add>`_
+  and `git-commit <https://git-scm.com/docs/git-commit>`_).
+  Use |good-commit-messages|_. Write :ref:`tests <contribute_tests>`.
+  Write :ref:`documentation <contribute_documentation>`.
+
+Submit your contribution
+------------------------
+
+* Push the changes to your forked repository::
+
+    git push origin feature-name
+
+* Go to your forked repository on GitHub and click on the
+  green "Compare & pull request" button.
+  Describe your contribution and submit the pull request.
+  Please mention the issue number if it is related to any.
+
+Review and merge
+----------------
+
+* Once the pull request is submitted, the code will be reviewed.
+  If there are any comments, please fix them. You can make the changes locally, commit
+  them and push to the same branch of :ref:`origin <contribute_origin-upstream_origin>`
+  repository and they will be added to the pull request automatically.
+* Once the pull request is approved, it will be merged to the
+  `main <https://github.com/magnopy/magnopy>`_ branch.
 
 
 Development process in details
 ==============================
 
 .. toctree::
-   :maxdepth: 2
+  :hidden:
 
-   contributors
-   feature-request
-   bug-report
+  contributors
+
+.. toctree::
+  :maxdepth: 2
+
+  features
+  bugs
+  documentation
+  tests
+  origin-upstream
+  branches

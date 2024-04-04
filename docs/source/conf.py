@@ -183,6 +183,14 @@ custom_links = {
     "NO_COLOR": ("NO_COLOR", "https://no-color.org/"),
     "GitHub": ("GitHub", "https://github.com"),
     "Git": ("Git", "https://git-scm.com/"),
+    "Git-remote": (
+        "remote",
+        "https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes",
+    ),
+    "Git-repository": (
+        "repository",
+        "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+    ),
     "repository": ("Magnopy repository", "https://github.com/magnopy/magnopy"),
     "HP-ref": (
         "DOI: 10.1103/PhysRev.58.1098",
@@ -196,6 +204,32 @@ custom_links = {
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
     "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
     "h5py": ("h5py", "https://www.h5py.org/"),
+    "sphinx": ("Sphinx", "https://www.sphinx-doc.org/en/master/"),
+    "sphinx-autodoc": (
+        "sphinx.ext.autodoc",
+        "https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html",
+    ),
+    "sphinx-autosummary": (
+        "sphinx.ext.autosummary",
+        "https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html",
+    ),
+    "numpydoc": ("numpydoc", "https://numpydoc.readthedocs.io/en/latest/format.html"),
+    "pytest": ("pytest", "https://docs.pytest.org/en/7.3.x/"),
+    "hypothesis": ("hypothesis", "https://hypothesis.readthedocs.io/en/latest/"),
+    "doctest": (
+        "sphinx.ext.doctest",
+        "https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html",
+    ),
+    "good-commit-messages": ("good commit messages", "https://cbea.ms/git-commit/"),
+    "reStructuredText": (
+        "reStructuredText",
+        "https://docutils.sourceforge.io/rst.html",
+    ),
+    "GNU-make": ("GNU make", "https://www.gnu.org/software/make/manual/make.html"),
+    "Fork-and-pull": (
+        "Fork and pull",
+        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model",
+    ),
 }
 rst_epilog += "\n".join(
     map(

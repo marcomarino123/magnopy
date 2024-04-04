@@ -3,13 +3,13 @@
 Contributors
 ============
 
-This package was initiated by `Andrey Rybakov <https://adrybakov.com/>`_ as a part of
-another package, which was a simple sandbox for the condense matter calculations.
-With time and the help of many contributors, it may evolved into a powerful tool
-for the analysis of the condensed matter systems.
+The creation of this package was initiated by `Andrey Rybakov <https://adrybakov.com/>`_
+and `Jaime Ferrer <https://github.com/JaimeVFerrer>`_.
 
-Here's a list of all the contributors who shape its evolution:
 
+Here's a list of the contributors who shape its evolution:
+
+* `Gabriel Martinez <https://github.com/gabrielmart9>`_
 * You can be the next one!
 
 Any contribution is welcomed!

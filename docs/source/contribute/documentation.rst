@@ -13,6 +13,17 @@ The documentation of magnopy is build with |sphinx|_.
   structure with this webpage. If you have any doubts we encourage you to
   :ref:`contact us <support>`.
 
+Building the documentation
+==========================
+
+To build documentation simply run (provided that |GNU-make|_ command is available)::
+
+  make html
+
+Alternatively, you can run the following command::
+
+  sphinx-build -M html "docs/source" "docs/build"
+
 Documentation structure
 =======================
 

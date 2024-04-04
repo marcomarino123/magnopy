@@ -13,6 +13,8 @@ between them:
     :target: ../_images/origin-upstream-local.png
     :align: center
 
+.. _contribute_origin-upstream_origin:
+
 Origin repository
 =================
 
@@ -22,6 +24,8 @@ repository.
 During the development it is the repository that you will be pushing your changes to.
 Once the feature you're working on is ready, you will create a pull request from the
 **Origin** repository to the **Upstream** repository.
+
+.. _contribute_origin-upstream_upstream:
 
 Upstream repository
 ===================
@@ -37,6 +41,9 @@ You can pull changes from the **Upstream** repository to your local repository t
 it up to date with the latest changes in the **Upstream** repository. Alternatively,
 you can  *sync fork* from the github interface to keep your **Origin** repository up to
 date with the **Upstream** repository.
+
+
+.. _contribute_origin-upstream_local:
 
 Local repository
 ================

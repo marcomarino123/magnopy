@@ -23,15 +23,16 @@ and familiar with `Git <https://git-scm.com/>`_.
 Development workflow
 ====================
 
-For the detailed explanation of the development workflow, please visit
-the corresponding links below.
+For the detailed explanation of the development workflow see the table of content at the end of
+the page or click on the links in the short summary below.
 
 Fork and clone
 --------------
 
-* Go to the |repository|_ and click on the "Fork" button.
-  Now you have your own copy of the magnopy repository in your GitHub account.
-* Clone your copy of the repository to your local machine:
+* Go to the |repository|_ (:ref:`upstream <contribute_origin-upstream_upstream>`) and
+  click on the "Fork" button. Now you have your own copy of the magnopy repository
+  under your GitHub account (:ref:`origin <contribute_origin-upstream_origin>`).
+* Clone your fork to your local machine:
 
   - If you are using ssh-key::
 
@@ -45,13 +46,22 @@ Fork and clone
 
     cd magnopy
 
-* Add the :ref:`upstream <contribute_origin-upstream>` repository::
+  Now you are in the root folder of you local repository
+  (:ref:`local <contribute_origin-upstream_local>`)
+
+* Add the :ref:`upstream <contribute_origin-upstream>` repository to your
+  :ref:`local <contribute_origin-upstream_local>` repository::
 
     git remote add upstream https://github.com/magnopy/magnopy.git
 
-* Pull the latest changes from the magnopy repository in necessary::
+* Pull the latest changes from the magnopy repository if necessary::
 
     git pull upstream main
+
+  or::
+
+    git fetch upstream
+    git merge upstream/main
 
 Set up the environment
 ----------------------
@@ -77,7 +87,7 @@ you can install requirements:
 
 .. note::
   For the linux and OSX systems there is a scenario defined.
-  It installs all requirements. Note: it does NOT create an environment for you::
+  It installs all requirements. Note: it does NOT create a virtual environment::
 
     make requirements
 
@@ -90,7 +100,9 @@ To enable it, run the following command::
 
   pre-commit install
 
-Now, every time you commit the code, pre-commit will check it for you.
+Now, every time you commit the code, pre-commit will check it for you. If some checks fail,
+pre-commit will automatically fix them and abort the commit. You need to add the fixed files
+to the staging area and commit again.
 
 .. hint::
   If you want to run pre-commit manually, you can use the following command::
@@ -127,8 +139,9 @@ Review and merge
 ----------------
 
 * Once the pull request is submitted, the code will be reviewed.
-  If there are any comments, please fix them. You can push the changes to the
-  same branch and they will be added to the pull request automatically.
+  If there are any comments, please fix them. You can make the changes locally, commit
+  them and push to the same branch of :ref:`origin <contribute_origin-upstream_origin>`
+  repository and they will be added to the pull request automatically.
 * Once the pull request is approved, it will be merged to the
   `main <https://github.com/magnopy/magnopy>`_ branch.
 

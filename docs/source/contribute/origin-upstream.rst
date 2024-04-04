@@ -16,7 +16,7 @@ between them:
 Origin repository
 =================
 
-We refer to the Wulfric repository under **your** personal account as the **Origin**
+We refer to the magnopy repository under **your** personal account as the **Origin**
 repository.
 
 During the development it is the repository that you will be pushing your changes to.
@@ -26,9 +26,10 @@ Once the feature you're working on is ready, you will create a pull request from
 Upstream repository
 ===================
 
-We refer to the main |repository|_, from which the release is made, as the **Upstream** repository.
+We refer to the main |repository|_, from which the release is made, as the **Upstream**
+repository.
 
-At the moment it is a repository under the account of the main developer of Wulfric,
+At the moment it is a repository under the account of the main developer of magnopy,
 but in principle it may be moved to a different personal or organization's account
 in the future.
 
@@ -41,5 +42,6 @@ Local repository
 ================
 
 The local repository is the repository on your computer where you will be making
-changes to the code and committing them. Typically, you will be pushing your changes to the
-**Origin** repository and pulling changes of other people from the **Upstream** repository.
+changes to the code and committing them. Typically, you will be pushing your changes to
+the **Origin** repository and pulling changes of other people from the **Upstream**
+repository.

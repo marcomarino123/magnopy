@@ -30,26 +30,26 @@ Fork and clone
 --------------
 
 * Go to the |repository|_ and click on the "Fork" button.
-  Now you have your own copy of the Wulfric repository in your GitHub account.
+  Now you have your own copy of the magnopy repository in your GitHub account.
 * Clone your copy of the repository to your local machine:
 
   - If you are using ssh-key::
 
-      git clone git@github.com:your-username/wulfric.git
+      git clone git@github.com:your-username/magnopy.git
 
   - If you are not using ssh-key::
 
-      git clone https://github.com/your-username/wulfric.git
+      git clone https://github.com/your-username/magnopy.git
 
 * Change the directory::
 
-    cd wulfric
+    cd magnopy
 
 * Add the :ref:`upstream <contribute_origin-upstream>` repository::
 
-    git remote add upstream https://github.com/adrybakov/wulfric.git
+    git remote add upstream https://github.com/magnopy/magnopy.git
 
-* Pull the latest changes from the Wulfric repository in necessary::
+* Pull the latest changes from the magnopy repository in necessary::
 
     git pull upstream main
 
@@ -130,7 +130,7 @@ Review and merge
   If there are any comments, please fix them. You can push the changes to the
   same branch and they will be added to the pull request automatically.
 * Once the pull request is approved, it will be merged to the
-  `main <https://github.com/adrybakov/wulfric>`_ branch.
+  `main <https://github.com/magnopy/magnopy>`_ branch.
 
 
 Development process in details

@@ -1,25 +1,25 @@
 .. math::
   \begin{pmatrix}
-    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
-    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
-    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
+    J_{\boldsymbol{d}ij}^{++} & J_{\boldsymbol{d}ij}^{+-} & J_{\boldsymbol{d}ij}^{+n} \\
+    J_{\boldsymbol{d}ij}^{-+} & J_{\boldsymbol{d}ij}^{--} & J_{\boldsymbol{d}ij}^{-n} \\
+    J_{\boldsymbol{d}ij}^{n+} & J_{\boldsymbol{d}ij}^{n-} & J_{\boldsymbol{d}ij}^{nn} \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    J_{ij}^{++}     & J_{ij}^{+-}     & J_{ij}^{+n}     \\
-    (J_{ij}^{+-})^* & J_{ij}^{--}     & (J_{ij}^{+n})^* \\
-    J_{ij}^{n+}     & (J_{ij}^{n+})^* & J_{ij}^{nn}     \\
+    J_{\boldsymbol{d}ij}^{++}     & J_{\boldsymbol{d}ij}^{+-}     & J_{\boldsymbol{d}ij}^{+n}     \\
+    (J_{\boldsymbol{d}ij}^{+-})^* & J_{\boldsymbol{d}ij}^{--}     & (J_{\boldsymbol{d}ij}^{+n})^* \\
+    J_{\boldsymbol{d}ij}^{n+}     & (J_{\boldsymbol{d}ij}^{n+})^* & J_{\boldsymbol{d}ij}^{nn}     \\
   \end{pmatrix}
 
 .. math::
   \begin{pmatrix}
-    J_{ij}^{++} & J_{ij}^{+-} & J_{ij}^{+n} \\
-    J_{ij}^{-+} & J_{ij}^{--} & J_{ij}^{-n} \\
-    J_{ij}^{n+} & J_{ij}^{n-} & J_{ij}^{nn} \\
+    J_{\boldsymbol{d}ij}^{++} & J_{\boldsymbol{d}ij}^{+-} & J_{\boldsymbol{d}ij}^{+n} \\
+    J_{\boldsymbol{d}ij}^{-+} & J_{\boldsymbol{d}ij}^{--} & J_{\boldsymbol{d}ij}^{-n} \\
+    J_{\boldsymbol{d}ij}^{n+} & J_{\boldsymbol{d}ij}^{n-} & J_{\boldsymbol{d}ij}^{nn} \\
   \end{pmatrix}
   =
   \begin{pmatrix}
-    (J_{ji}^{++})^* & (J_{ji}^{-+})^* & (J_{ji}^{n+})^* \\
-    (J_{ji}^{+-})^* & (J_{ji}^{--})^* & (J_{ji}^{n-})^* \\
-    (J_{ji}^{+n})^* & (J_{ji}^{-n})^* & (J_{ji}^{nn})^* \\
+    (J_{\boldsymbol{d}ji}^{++})^* & (J_{\boldsymbol{d}ji}^{-+})^* & (J_{\boldsymbol{d}ji}^{n+})^* \\
+    (J_{\boldsymbol{d}ji}^{+-})^* & (J_{\boldsymbol{d}ji}^{--})^* & (J_{\boldsymbol{d}ji}^{n-})^* \\
+    (J_{\boldsymbol{d}ji}^{+n})^* & (J_{\boldsymbol{d}ji}^{-n})^* & (J_{\boldsymbol{d}ji}^{nn})^* \\
   \end{pmatrix}

@@ -17,3 +17,4 @@ Notation used in this documentation
 * .. include:: page-notations/parentheses.inc
 * .. include:: page-notations/transpose-complex-conjugate.inc
 * .. include:: page-notations/kronecker-delta.inc
+* .. include:: page-notations/exchange-tensor.inc

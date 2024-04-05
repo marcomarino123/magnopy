@@ -1,8 +1,9 @@
 The comment below is based on the book [1]_.
 
 Due to the periodicity of the crystal lattice, the sum over all lattice vectors
-:math:`\boldsymbol{r}_m` will not change if we shift all the vectors :math:`\boldsymbol{r}_m`
-by any lattice vector :math:`\boldsymbol{r}_0 = \sum_{i}\boldsymbol{a}_in_i`
+:math:`\boldsymbol{r}_m` will not change if we shift all the vectors
+:math:`\boldsymbol{r}_m` by any lattice vector
+:math:`\boldsymbol{r}_0 = \sum_{i}\boldsymbol{a}_in_i`
 
 .. math::
   \sum_m e^{\pm i\boldsymbol{q}\boldsymbol{r}_m}
@@ -13,8 +14,9 @@ by any lattice vector :math:`\boldsymbol{r}_0 = \sum_{i}\boldsymbol{a}_in_i`
 
 This equation leads to the conclusions that either the sum is zero, or
 :math:`\pm\boldsymbol{q}\,\boldsymbol{r}_0 = 2\pi n` for any :math:`\boldsymbol{r}_0`.
-Since the sum should not be zero and :math:`\boldsymbol{r_0}` is an arbitrary lattice vector, then
-:math:`\pm\boldsymbol{q}\,\boldsymbol{r}_m = 2\pi n` for any :math:`r_m` and the value of the sum is
+Since the sum should not be zero and :math:`\boldsymbol{r_0}` is an arbitrary lattice
+vector, then :math:`\pm\boldsymbol{q}\,\boldsymbol{r}_m = 2\pi n` for any :math:`r_m`
+and the value of the sum is
 
 .. math::
   \sum_me^{\pm i\boldsymbol{q}\boldsymbol{r}_m} = M
@@ -28,8 +30,8 @@ Since :math:`\pm\boldsymbol{q}\,\boldsymbol{r}_m = 2\pi n` for **any**
   \sum_{i=1}^{3}q_{a_i}a_in_i = 2\pi n,  \forall n_1, n_2, n_3 \in \mathbb{Z}
 
 where we projected the :math:`\boldsymbol{q}` vector on the three lattice vectors
-:math:`\boldsymbol{a_1}`, :math:`\boldsymbol{a_2}`, :math:`\boldsymbol{a_3}`; :math:`n \in \mathbb{Z}`
-One can rewrite the condition above in a form:
+:math:`\boldsymbol{a_1}`, :math:`\boldsymbol{a_2}`, :math:`\boldsymbol{a_3}`;
+:math:`n \in \mathbb{Z}`. One can rewrite the condition above in a form:
 
 .. math::
   q_{a_i} = \dfrac{2\pi}{a_i}n_i,  i = 1, 2, 3

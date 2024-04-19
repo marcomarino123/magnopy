@@ -249,6 +249,10 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-1.html
 
+.. rst-class:: plotly-figure-caption
+
+  **Figure 1** (interactive)
+
 * One spin in the unit cell, :math:`\boldsymbol{q} = (0,0,1)^T`:
 
   - :math:`\boldsymbol{r}_1 = (0,0,0)`,
@@ -259,6 +263,10 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-2.html
 
+.. rst-class:: plotly-figure-caption
+
+  **Figure 2** (interactive)
+
 * One spin in the unit cell, :math:`\boldsymbol{q} = (0,0,1)^T`:
 
   - :math:`\boldsymbol{r}_1 = (0,0,0)`,
@@ -268,6 +276,10 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-3.html
 
+.. rst-class:: plotly-figure-caption
+
+  **Figure 3** (interactive)
+
 * One spin in the unit cell, :math:`\boldsymbol{q} = (0,1,0)^T`:
 
   - :math:`\boldsymbol{r}_1 = (0,0,0)`,
@@ -276,6 +288,10 @@ Examples
 
 .. raw:: html
   :file: ../../../images/single-q-4.html
+
+.. rst-class:: plotly-figure-caption
+
+  **Figure 4** (interactive)
 
 * Two spins in the unit cell, :math:`\boldsymbol{q} = (0,1,0)^T`:
 
@@ -290,6 +306,10 @@ Examples
 .. raw:: html
   :file: ../../../images/single-q-5.html
 
+.. rst-class:: plotly-figure-caption
+
+  **Figure 5** (interactive)
+
 * Two spins in the unit cell, :math:`\boldsymbol{q} = (1,0,0)^T`:
 
   - :math:`\boldsymbol{r}_1 = (0,0,0)`,
@@ -301,3 +321,7 @@ Examples
 
 .. raw:: html
   :file: ../../../images/single-q-6.html
+
+.. rst-class:: plotly-figure-caption
+
+  **Figure 6** (interactive)

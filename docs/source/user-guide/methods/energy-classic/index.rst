@@ -234,8 +234,9 @@ determine the exchange constant
 ===============
 Exchange energy
 ===============
-The exchange energy **per unit cell** can be found by inserting the previous expression for the
-exchange constant into the Hamiltonian, that leads to:
+The exchange energy **per unit cell** (i.e. divided by :math:`M`) can be found by
+inserting the previous expression for the exchange constant into the Hamiltonian,
+that leads to:
 
 .. math::
   E^{X}

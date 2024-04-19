@@ -42,6 +42,10 @@ of the :math:`(x\, y\, z)` reference frame.
 .. raw:: html
   :file: ../../../images/uvn-rf-main-case.html
 
+.. rst-class:: plotly-figure-caption
+
+  **Figure 1** (interactive): Construction of the :math:`(u\, v\, n)` reference frame.
+
 .. dropdown:: Explicit formulas
 
   The unit vector
@@ -177,6 +181,10 @@ antiparallel cases, respectively, as shown in the figure below.
 
 .. raw:: html
   :file: ../../../images/uvn-rf-special-cases.html
+
+.. rst-class:: plotly-figure-caption
+
+  **Figure 2** (interactive): Two special cases.
 
 .. dropdown:: Explicit formulas
 

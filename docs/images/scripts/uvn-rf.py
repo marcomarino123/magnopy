@@ -29,7 +29,7 @@ def get_figure():
     fig = go.Figure()
     plot_vector(fig, (1, 0, 0), label="x")
     plot_vector(fig, (0, 1, 0), label="y")
-    plot_vector(fig, (0, 0, 1), label="z", label_shift=(0.2, 0, 0))
+    plot_vector(fig, (0, 0, 1), label="z", label_shift=(0.2, 0, 0.05))
     return fig
 
 
@@ -74,7 +74,13 @@ def main(root_directory):
     fig = make_subplots(rows=1, cols=2, specs=[[{"type": "scene"}, {"type": "scene"}]])
     plot_vector(fig, (1, 0, 0), label="x, u", kwargs=dict(row=1, col=1))
     plot_vector(fig, (0, 1, 0), label="y, v", kwargs=dict(row=1, col=1))
-    plot_vector(fig, (0, 0, 1), label="z, n", kwargs=dict(row=1, col=1))
+    plot_vector(
+        fig,
+        (0, 0, 1),
+        label="z, n",
+        kwargs=dict(row=1, col=1),
+        label_shift=(0, 0, 0.1),
+    )
     plot_vector(
         fig,
         (-np.sin(np.pi / 2), np.cos(np.pi / 2), 0),
@@ -83,9 +89,25 @@ def main(root_directory):
         kwargs=dict(row=1, col=1),
     )
 
+    fig.add_trace(
+        {
+            "x": [-1.5, 1.5, 0, 0, 0, 0],
+            "y": [0, 0, -1.5, 1.5, 0, 0],
+            "z": [0, 0, 0, 0, -1.5, 1.5],
+            "mode": "markers",
+            "type": "scatter3d",
+            "hoverinfo": "none",
+            "marker": {"color": "#000000", "size": 0},
+            "opacity": 0,
+            "showlegend": False,
+        },
+    )
+
     plot_vector(fig, (1, 0, 0), label="x", kwargs=dict(row=1, col=2))
     plot_vector(fig, (0, 1, 0), label="y", kwargs=dict(row=1, col=2))
-    plot_vector(fig, (0, 0, 1), label="z", kwargs=dict(row=1, col=2))
+    plot_vector(
+        fig, (0, 0, 1), label="z", kwargs=dict(row=1, col=2), label_shift=(0, 0, 0.1)
+    )
     plot_vector(
         fig,
         (1, 0, 0),
@@ -130,14 +152,13 @@ def main(root_directory):
     # Update right plot
     fig.layout.scene2.camera.eye = dict(x=zoom * 1.25, y=zoom * 0.7, z=zoom * 1)
     fig.layout.scene2.camera.center = dict(x=0, y=0.1, z=0)
-    zoom = 1
+    zoom = 0.5
     save_figure(
         fig,
         os.path.join(images_dir, "uvn-rf-special-cases.html"),
         # Update left plot
         camera_keywords=dict(
-            eye=dict(x=zoom * 1.25, y=zoom * 0.7, z=zoom * 0.9),
-            center=dict(x=0.1, y=-0.2, z=-0.1),
+            eye=dict(x=zoom * 1.25, y=zoom * 1.25, z=zoom * 1.25),
         ),
     )
 

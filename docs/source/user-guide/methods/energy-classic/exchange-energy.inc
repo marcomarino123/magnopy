@@ -15,69 +15,163 @@ where the zeroth-, first- and second-order harmonic exchange contributions are
 
 .. math::
   E^{\text{zero}}
-  =&
+  =\, &
   \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\, S_j\,
-  \left(
-    \cos\theta_i\, \cos\theta_j\, (J_{dij}^I+S_{dij}^{nn})
+  \left[
+    \cos\theta_i\, \cos\theta_j\,
+    (J_{\boldsymbol{d}ij}^I+S_{\boldsymbol{d}ij}^{nn})
     +
-    \sin\theta_i\, \sin\theta_j\, J_{dij}^{\text{zero}}
-  \right)
+    \sin\theta_i\, \sin\theta_j\,
+    J_{\boldsymbol{d}ij}^{\text{zero}}(\boldsymbol{q}, \phi_i, \phi_j)
+  \right]
   \\\\
   E^{\text{first}}
-  =&
+  =\, &
   \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\, S_j\,
-  \left(
-    \cos\theta_i\, \cos\theta_j\, J_{dij}^{\text{first},1}+
-    \sin\theta_i\, \sin\theta_j\, J_{dij}^{\text{first},2}
-  \right)
+  \left[
+    \cos\theta_i\, \sin\theta_j\,
+    J_{\boldsymbol{d}ij}^{\text{first},1}(\boldsymbol{q}, \phi_j)
+    +
+    \sin\theta_i\, \cos\theta_j\,
+    J_{\boldsymbol{d}ij}^{\text{first},2}(\phi_i)
+  \right]
   \\\\
   E^{\text{second}}
-  =&
+  =\, &
   \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}
-  S_i\, S_j\, \sin\theta_i\, \sin\theta_j\, J_{dij}^{\text{second}}
+  S_i\, S_j\, \sin\theta_i\, \sin\theta_j\,
+  J_{\boldsymbol{d}ij}^{\text{second}}(\boldsymbol{q}, \phi_i, \phi_j)
 
 and
 
 .. math::
-  J_{dij}^{\text{zero}}
-  =&
-  (J^I_{dij} - \frac{1}{2}S_{dij}^{nn})\, \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)
+  J_{\boldsymbol{d}ij}^{\text{zero}}(\boldsymbol{q}, \phi_i, \phi_j)
+  =\, &
+  (J^I_{\boldsymbol{d}ij} - \frac{1}{2}S_{\boldsymbol{d}ij}^{nn})\,
+  \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)
   +
-  D_{dij}^{n}\, \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)
+  D_{\boldsymbol{d}ij}^{n}\,
+  \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)
   \\\\
-  J_{dij}^{\text{first},1}
-  =&
-  (S_{dij}^{un} + D_{dij}^v)\, \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)
+  J_{\boldsymbol{d}ij}^{\text{first},1}(\boldsymbol{q}, \phi_j)
+  =\, &
+  (S_{\boldsymbol{d}ij}^{un} + D_{\boldsymbol{d}ij}^v)\,
+  \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)
   +
-  (S_{dij}^{vn} - D_{dij}^u)\, \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)
+  (S_{\boldsymbol{d}ij}^{vn} - D_{\boldsymbol{d}ij}^u)\,
+  \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)
   \\\\
-  J_{dij}^{\text{first}, 2}
-  =&
-  (S_{dij}^{un} - D_{dij}^v)\, \cos(\phi_i) + (S_{dij}^{vn} + D_{dij}^u)\, \sin(\phi_i)
+  J_{\boldsymbol{d}ij}^{\text{first}, 2}(\phi_i)
+  =\, &
+  (S_{\boldsymbol{d}ij}^{un} - D_{\boldsymbol{d}ij}^v)\,
+  \cos(\phi_i) + (S_{\boldsymbol{d}ij}^{vn} + D_{\boldsymbol{d}ij}^u)\, \sin(\phi_i)
   \\\\
-  J_{dij}^{\text{second}}
-  =&
-  \frac{S_{dij}^{uu} - S_{dij}^{vv}}{2}\, \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)
+  J_{\boldsymbol{d}ij}^{\text{second}}(\boldsymbol{q}, \phi_i, \phi_j)
+  =\, &
+  \frac{S_{\boldsymbol{d}ij}^{uu} - S_{\boldsymbol{d}ij}^{vv}}{2}\,
+  \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)
   +
-  S_{dij}^{uv}\, \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)
+  S_{\boldsymbol{d}ij}^{uv}\,
+  \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)
 
 where we used the decomposition of exchange matrix into isotropic, symmetric anisotropic
 and asymmetric parts
 
-.. math::
-  \begin{pmatrix}
-      J_{dij}^{uu} & J_{dij}^{uv} & J_{dij}^{un} \\
-      J_{dij}^{vu} & J_{dij}^{vv} & J_{dij}^{vn} \\
-      J_{dij}^{nu} & J_{dij}^{nv} & J_{dij}^{nn} \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    J_{dij}^I + S_{dij}^{uu}             &             S_{dij}^{uv} + D_{dij}^n &             S_{dij}^{un} - D_{dij}^v \\
-                S_{dij}^{uv} - D_{dij}^n & J_{dij}^I + S_{dij}^{vv}             &             S_{dij}^{vn} + D_{dij}^u \\
-                S_{dij}^{un} + D_{dij}^v &             S_{dij}^{vn} - D_{dij}^u & J_{dij}^I + S_{dij}^{nn}             \\
-  \end{pmatrix}
+.. dropdown:: Details
 
-with :math:`J_{dij}^I = \dfrac{1}{3}(J_{dij}^{uu} + J_{dij}^{vv} + J_{dij}^{nn})`
-and :math:`S_{dij}^{uu} + S_{dij}^{vv} + S_{dij}^{nn} = 0`.
+  The exchange matrix in a spherical reference frame written with the component of the
+  exchange matrix in a :math:`(u, v, n)` reference frame and further decomposed into
+  isotropic, symmetric anisotropic and asymmetric parts reads as
+
+  .. include:: ../repeated-formulas/exchange-matrix-decomposed-spherical.inc
+
+  with :math:`J_{\boldsymbol{d}ij}^I = \dfrac{1}{3}(J_{\boldsymbol{d}ij}^{uu} + J_{\boldsymbol{d}ij}^{vv} + J_{\boldsymbol{d}ij}^{nn})`
+  and :math:`S_{\boldsymbol{d}ij}^{uu} + S_{\boldsymbol{d}ij}^{vv} + S_{\boldsymbol{d}ij}^{nn} = 0`.
+
+  Before we proceed to the derivation let us recall a few useful symmetries of the exchange
+  matrix in a spherical reference frame:
+
+  .. math::
+    J_{\boldsymbol{d}ij}^{++} = (J_{\boldsymbol{d}ij}^{--})^*
+    \quad\quad
+    J_{\boldsymbol{d}ij}^{+-} = (J_{\boldsymbol{d}ij}^{-+})^*
+    \quad\quad
+    J_{\boldsymbol{d}ij}^{n-} = (J_{\boldsymbol{d}ij}^{n+})^*
+    \quad\quad
+    J_{\boldsymbol{d}ij}^{-n} = (J_{\boldsymbol{d}ij}^{+n})^*
+
+  .. note::
+    In the following :math:`\operatorname{Re}(\cdot)` denotes the real part of a complex
+    number and :math:`\operatorname{Im}(\cdot)` the imaginary part.
+
+
+  .. math::
+    E^{\text{zero}}
+    &=\,
+    \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
+    \biggl[
+      \cos\theta_i\, \cos\theta_j\, J_{\boldsymbol{d}ij}^{nn}
+      +
+      \sin\theta_i\, \sin\theta_j\, \dfrac{1}{2}
+      (J_{\boldsymbol{d}ij}^{++}
+      e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)}
+      +
+      J_{\boldsymbol{d}ij}^{--}
+      e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)})
+    \Biggr]
+    =\\&=\,
+    \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
+    \biggl[
+      \cos\theta_i\, \cos\theta_j\, J_{\boldsymbol{d}ij}^{nn}
+      +
+      \sin\theta_i\, \sin\theta_j\,
+      \operatorname{Re}(J_{\boldsymbol{d}ij}^{++}
+      e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)})
+    \Biggr]
+
+
+  .. math::
+    E^{\text{first}}
+    &=\,
+    \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
+    \biggl[
+      \dfrac{\cos\theta_i\, \sin\theta_j}{\sqrt{2}}
+      (J_{\boldsymbol{d}ij}^{n+} e^{-i(\boldsymbol{q}\boldsymbol{d}_{ij} + \phi_j)}
+      +
+      J_{\boldsymbol{d}ij}^{n-} e^{i(\boldsymbol{q}\boldsymbol{d}_{ij} + \phi_j)})
+      +\\&+
+      \dfrac{\sin\theta_i\, \cos\theta_j}{\sqrt{2}}
+      (J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}
+      +
+      J_{\boldsymbol{d}ij}^{-n} e^{-i\phi_i})
+    \Biggr]
+    =\\&=\,
+    \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
+    \biggl[
+      \cos\theta_i\, \sin\theta_j \sqrt{2}
+      \operatorname{Re}(J_{\boldsymbol{d}ij}^{n+}
+      e^{-i(\boldsymbol{q}\boldsymbol{d}_{ij} + \phi_j)})
+      +\\&+
+      \sin\theta_i\, \cos\theta_j \sqrt{2}
+      \operatorname{Re}(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i})
+    \Biggr]
+
+  .. math::
+    E^{\text{second}}
+    &=\,
+    \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
+    \sin\theta_i\, \sin\theta_j
+    \Bigl[
+      J_{\boldsymbol{d}ij}^{+-}
+      e^{i(\boldsymbol{q}\boldsymbol{d}_{ij} + \phi_j + \phi_i)}
+      +
+      J_{\boldsymbol{d}ij}^{-+}
+      e^{-i(\boldsymbol{q}\boldsymbol{d}_{ij} + \phi_j + \phi_i)}
+    \Bigr]
+    =\\&=\,
+    \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
+    \sin\theta_i\, \sin\theta_j
+    \operatorname{Re}(J_{\boldsymbol{d}ij}^{+-}
+    e^{i(\boldsymbol{q}\boldsymbol{d}_{ij} + \phi_j + \phi_i)})

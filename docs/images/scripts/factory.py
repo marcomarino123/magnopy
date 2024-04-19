@@ -292,7 +292,7 @@ def plot_example(spins, Q, N):
     ----------
     spins : (M, 5) array-like
         M spins in the unit cell. Each spin is a list of
-        five floats: (Sx, Sy, Sz, theta, phi).
+        five floats: (r_i^x, r_i^y, r_i^z, theta, phi).
     Q : (3,) array-like
         Spin spiral vector.
     N : (3,) array-like
@@ -306,9 +306,9 @@ def plot_example(spins, Q, N):
         Figure with the plotted spiral.
     """
     fig = go.Figure()
-    plot_vector(fig, (N[0], 0, 0), label="u", cone_scale=0.3 / max(N[0], 1))
-    plot_vector(fig, (0, N[1], 0), label="v", cone_scale=0.3 / max(N[1], 1))
-    plot_vector(fig, (0, 0, N[2]), label="n", cone_scale=0.3 / max(N[2], 1))
+    plot_vector(fig, (1, 0, 0), label="u")
+    plot_vector(fig, (0, 1, 0), label="v")
+    plot_vector(fig, (0, 0, 1), label="n")
 
     for i in range(N[0]):
         for j in range(N[1]):
@@ -321,8 +321,8 @@ def plot_example(spins, Q, N):
                     theta = spins[a][3]
                     phi = spins[a][4]
                     vector = [
-                        np.sin(theta) * np.cos(phi + Q @ Rm),
-                        np.sin(theta) * np.sin(phi + Q @ Rm),
+                        np.sin(theta) * np.cos(phi + Q @ R),
+                        np.sin(theta) * np.sin(phi + Q @ R),
                         np.cos(theta),
                     ]
                     plot_vector(
@@ -340,6 +340,21 @@ def plot_example(spins, Q, N):
                         R[1] + np.sin(theta) * np.sin(arc),
                         R[2] + np.cos(theta) * np.ones_like(arc),
                     ]
+
                     plot_arc(fig, arc, color="#5670EF")
+
+    fig.add_trace(
+        {
+            "x": [N[0] + 1, -1],
+            "y": [N[1] + 1, -1],
+            "z": [N[2] + 1, -1],
+            "mode": "markers",
+            "type": "scatter3d",
+            "hoverinfo": "none",
+            "marker": {"color": "#000000", "size": 0},
+            "opacity": 0,
+            "showlegend": False,
+        },
+    )
 
     return fig

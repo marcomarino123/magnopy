@@ -27,7 +27,8 @@ from factory import plot_arc, plot_example, plot_line, plot_vector, save_figure
 def main(root_directory):
     images_dir = os.path.join(root_directory, "docs", "images")
     fig = plot_example(spins=[(0, 0, 0, np.pi / 2, 0)], Q=(0, 0, 1), N=(1, 1, 5))
-    zoom = 1.5
+    global_zoom = 0.6
+    zoom = 1.5 * global_zoom
     save_figure(
         fig,
         os.path.join(images_dir, "single-q-1.html"),
@@ -35,7 +36,7 @@ def main(root_directory):
     )
 
     fig = plot_example(spins=[(0, 0, 0, np.pi / 3, 0)], Q=(0, 0, 1), N=(1, 1, 5))
-    zoom = 1.5
+    zoom = 1.5 * global_zoom
     save_figure(
         fig,
         os.path.join(images_dir, "single-q-2.html"),
@@ -45,7 +46,7 @@ def main(root_directory):
     fig = plot_example(
         spins=[(0, 0, 0, np.pi / 3, np.pi / 4)], Q=(0, 0, 1), N=(1, 1, 5)
     )
-    zoom = 1.5
+    zoom = 1.5 * global_zoom
     save_figure(
         fig,
         os.path.join(images_dir, "single-q-3.html"),
@@ -53,7 +54,7 @@ def main(root_directory):
     )
 
     fig = plot_example(spins=[(0, 0, 0, np.pi / 6, 0)], Q=(0, 1, 0), N=(1, 5, 1))
-    zoom = 1.2
+    zoom = 1.2 * global_zoom
     save_figure(
         fig,
         os.path.join(images_dir, "single-q-4.html"),
@@ -65,7 +66,7 @@ def main(root_directory):
         Q=(0, 1, 0),
         N=(1, 5, 1),
     )
-    zoom = 1.4
+    zoom = 1.4 * global_zoom
     save_figure(
         fig,
         os.path.join(images_dir, "single-q-5.html"),
@@ -76,7 +77,7 @@ def main(root_directory):
         Q=(1, 0, 0),
         N=(5, 1, 1),
     )
-    zoom = 1.5
+    zoom = 1.5 * global_zoom
     save_figure(
         fig,
         os.path.join(images_dir, "single-q-6.html"),

@@ -7,7 +7,7 @@
   =
   \begin{pmatrix}
     J_{\boldsymbol{d}ij}^{++}     & J_{\boldsymbol{d}ij}^{+-}     & J_{\boldsymbol{d}ij}^{+n}     \\
-    (J_{\boldsymbol{d}ij}^{+-})^* & J_{\boldsymbol{d}ij}^{--}     & (J_{\boldsymbol{d}ij}^{+n})^* \\
+    (J_{\boldsymbol{d}ij}^{+-})^* & (J_{\boldsymbol{d}ij}^{++})^* & (J_{\boldsymbol{d}ij}^{+n})^* \\
     J_{\boldsymbol{d}ij}^{n+}     & (J_{\boldsymbol{d}ij}^{n+})^* & J_{\boldsymbol{d}ij}^{nn}     \\
   \end{pmatrix}
 

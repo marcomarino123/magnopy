@@ -42,6 +42,10 @@ delivering the rotated "Ferromagnetic" spin vector
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html
 
+.. rst-class:: plotly-figure-caption
+
+  **Figure 1** (interactive): Vectors and angles used in the spin rotations.
+
 The unit vector that defines the rotation axis is
 
 .. math::

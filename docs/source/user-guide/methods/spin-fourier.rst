@@ -15,9 +15,8 @@ Fourier transformation
   * .. include:: page-notations/uvn-or-spherical.inc
 
 The spherical reference frame :math:`(u^+\, u^-\, n)` is convenient for analyzing the
-fourier-transformed spin vectors. Notice that the spin vector
-:math:`\boldsymbol{S}_{mi}^s` components in the spherical reference frame have the
-simple expression
+fourier-transformed spin vectors. Notice that the components of the spin vector
+:math:`\boldsymbol{S}_{mi}^s` in the spherical reference frame are
 
 .. include:: repeated-formulas/spin-spherical.inc
 

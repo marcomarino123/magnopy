@@ -34,11 +34,16 @@ def prepare_figure(fig, theta, phi, S):
     )
     plot_vector(fig, (1, 0, 0), label=R"u")
     plot_vector(fig, (0, 1, 0), label=R"v")
-    plot_vector(fig, (0, 0, 1), label=R"n", label_shift=(0, 0, 0.2))
+    plot_vector(fig, (0, 0, 1), label=R"n", label_shift=(0.1, -0.1, 0))
     plot_vector(fig, Svec, label=R"S", color="#9E77F0", label_shift=(-0.05, 0.1, 0))
     plot_vector(
-        fig, (0, 0, S), label="Sferro", color="#4EB436", label_shift=(0.1, -0.1, 0)
+        fig,
+        Svec / np.linalg.norm(Svec),
+        label="f",
+        color="#9E77F0",
+        label_shift=(-0.05, 0.1, 0),
     )
+    plot_vector(fig, (0, 0, S), label="Sᶠ", color="#4EB436", label_shift=(0.1, -0.1, 0))
     traces = [
         ([Svec[0], Svec[0]], [Svec[1], Svec[1]], [0, Svec[2]]),
         ([0, Svec[0]], [0, Svec[1]], [0, 0]),
@@ -55,13 +60,14 @@ def prepare_figure(fig, theta, phi, S):
         S * np.cos(theta_arc) / 2,
     ]
     plot_arc(fig, arc=theta_arc, color="#FF8800", label="θ")
+
     phi_arc = np.linspace(0, phi, 50)
     phi_arc = [
         S * np.sin(theta) * np.cos(phi_arc) / 2,
         S * np.sin(theta) * np.sin(phi_arc) / 2,
         np.zeros_like(phi_arc),
     ]
-    plot_arc(fig, arc=phi_arc, color="#FF8800", label="φ", label_shift=(0.2, 0, -0.1))
+    plot_arc(fig, arc=phi_arc, color="#FF8800", label="φ", label_shift=(0.1, 0.2, 0))
 
     return Svec
 
@@ -123,15 +129,19 @@ def main(root_directory, theta, phi, S):
         S * np.sin(phi) * np.sin(arc),
         S * np.cos(arc),
     ]
-    plot_arc(fig, arc=arc, color="#9E77F0", label="R(θ, φ)", arrow=True)
+    plot_arc(fig, arc=arc, color="#9E77F0", label="Rᵢ", arrow=True)
     r = np.cross((0, 0, 1), Svec)
     r /= np.linalg.norm(r)
     plot_vector(fig, vector=r, color="#9E77F0", label="r")
 
+    zoom = 1.1
     save_figure(
         fig,
         os.path.join(images_dir, "spin-rotations-symmetric.html"),
-        camera_keywords=dict(eye=dict(x=1.25, y=0.2, z=0.1)),
+        camera_keywords=dict(
+            eye=dict(x=zoom * 1.1, y=zoom * 0.7, z=zoom * 0.15),
+            center=dict(x=0, y=0, z=-0.1),
+        ),
     )
 
 
@@ -160,7 +170,7 @@ if __name__ == "__main__":
         "--S",
         type=float,
         help="Modulus of the spin vector.",
-        default=0.7,
+        default=1.5,
     )
 
     main(**vars(parser.parse_args()))

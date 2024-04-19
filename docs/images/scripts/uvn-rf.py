@@ -29,7 +29,7 @@ def get_figure():
     fig = go.Figure()
     plot_vector(fig, (1, 0, 0), label="x")
     plot_vector(fig, (0, 1, 0), label="y")
-    plot_vector(fig, (0, 0, 1), label="z", label_shift=(0, 0, 0.2))
+    plot_vector(fig, (0, 0, 1), label="z", label_shift=(0.2, 0, 0))
     return fig
 
 
@@ -126,10 +126,19 @@ def main(root_directory):
         label_shift=(0.2, 0.2, 0),
         kwargs=dict(row=1, col=2),
     )
+    zoom = 0.9
+    # Update right plot
+    fig.layout.scene2.camera.eye = dict(x=zoom * 1.25, y=zoom * 0.7, z=zoom * 1)
+    fig.layout.scene2.camera.center = dict(x=0, y=0.1, z=0)
+    zoom = 1
     save_figure(
         fig,
         os.path.join(images_dir, "uvn-rf-special-cases.html"),
-        camera_keywords=dict(eye=dict(x=1.25, y=0.7, z=1.25)),
+        # Update left plot
+        camera_keywords=dict(
+            eye=dict(x=zoom * 1.25, y=zoom * 0.7, z=zoom * 0.9),
+            center=dict(x=0.1, y=-0.2, z=-0.1),
+        ),
     )
 
     fig = get_figure()
@@ -152,10 +161,11 @@ def main(root_directory):
         np.cos(alpha_arc) / 2,
     ]
     plot_arc(fig, arc=alpha_arc, label="α", color="#FF8800", arrow=True)
+    zoom = 0.8
     save_figure(
         fig,
         os.path.join(images_dir, "uvn-rf-main-case.html"),
-        camera_keywords=dict(eye=dict(x=1.25, y=1, z=0.2)),
+        camera_keywords=dict(eye=dict(x=zoom * 1.25, y=zoom * 0.95, z=zoom * 0.35)),
     )
 
 

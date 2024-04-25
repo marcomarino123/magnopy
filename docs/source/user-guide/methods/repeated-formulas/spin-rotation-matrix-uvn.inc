@@ -1,8 +1,6 @@
 .. math::
   \boldsymbol{R}_i
   =
-  e^{\boldsymbol{\hat{r}}(\phi_i)\, \theta_i\, \times}
-  =
   \begin{pmatrix}
     \cos\theta_i + \sin^2\phi_i\, \, (1 - \cos\theta_i) &
     -\sin\phi_i\, \cos\phi_i\, \, (1 - \cos\theta_i)    &

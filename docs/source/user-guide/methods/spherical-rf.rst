@@ -339,6 +339,8 @@ Let us note a few symmetries of the exchange matrix in a spherical reference fra
       J_{\boldsymbol{d}ij}^I + S_{\boldsymbol{d}ij}^{nn}                            \\
     \end{pmatrix}
 
+.. _user-guide_methods_spherical-rf_change_magnetic-field:
+
 ----------------------------------------------------------------
 Magnetic field :math:`\boldsymbol{h}\rightarrow\boldsymbol{h}^s`
 ----------------------------------------------------------------

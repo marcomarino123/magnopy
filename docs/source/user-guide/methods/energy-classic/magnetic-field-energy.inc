@@ -1,18 +1,18 @@
 
 Next we turn our attention to the Zeeman term, where we assume henceforth that the
-magnetic field
+:ref:`magnetic field <user-guide_methods_spherical-rf_change_magnetic-field>`
 
 .. math::
-  \boldsymbol{h}
+  \boldsymbol{h}^s
   =
   (\frac{1}{\sqrt{2}}\, h^+, \frac{1}{\sqrt{2}}\, h^-, h^n)^{\dagger}
 
 is uniform. The Zeeman Hamiltonian can be written as follows:
 
 .. math::
-  H_{Z}=\mu_B
-  \sum_i
-  g_i\, \sum_{m}\,
+  H_{Z}
+  =
+  \mu_B\sum_ig_i\, \sum_{m}\,
   (\boldsymbol{h}^s)^{\dagger}\, \boldsymbol{R}_m^s\, \boldsymbol{S}_{i}^s
 
 The sum over lattice sites is performed by taking into account that only the
@@ -31,8 +31,9 @@ The sum over lattice sites is performed by taking into account that only the
 Then the Zeeman contribution to the energy **per unit cell** is:
 
 .. math::
-  E^Z =\mu_B\,
-  \sum_i\, g_i\, S_i\,
+  E^Z
+  =
+  \mu_B\, \sum_i\, g_i\, S_i\,
   \left[
     h^n\, \cos\theta_i
     +

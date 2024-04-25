@@ -19,13 +19,13 @@
 Magnopy assumes that the ground state spin arrangement follows a spiral conical
 configuration, where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`.
 Eventually, the program rotates every atomic spin to make it collinear to
-:math:`\boldsymbol{n}` and quantize the spin vectors along :math:`\boldsymbol{n}`.
+:math:`\boldsymbol{n}` and quantizes the spin vectors along :math:`\boldsymbol{n}`.
 
 However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
 :math:`\boldsymbol{A}` tensors are usually provided in a different global reference
-frame, say :math:`(x\, y\, z)`, where neither of these three unit vectors is collinear to
-:math:`\boldsymbol{n}`. A rotation is therefore performed on :math:`\boldsymbol{J}` and
-:math:`\boldsymbol{A}` from :math:`(x\, y\, z)` to a new reference frame
+frame, say :math:`(x\, y\, z)`, where neither of these three unit vectors is collinear
+to :math:`\boldsymbol{n}`. A rotation is therefore performed on :math:`\boldsymbol{J}`
+and :math:`\boldsymbol{A}` from :math:`(x\, y\, z)` to a new reference frame
 :math:`(u\, v\, n)`. There is a freedom in the choice of the unit vectors
 :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` due to the rotational
 symmetry of the system about the :math:`\boldsymbol{\hat{n}}` cone axis.

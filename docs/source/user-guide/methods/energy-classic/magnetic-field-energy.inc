@@ -2,10 +2,7 @@
 Next we turn our attention to the Zeeman term, where we assume henceforth that the
 :ref:`magnetic field <user-guide_methods_spherical-rf_change_magnetic-field>`
 
-.. math::
-  \boldsymbol{h}^s
-  =
-  (\frac{1}{\sqrt{2}}\, h^+, \frac{1}{\sqrt{2}}\, h^-, h^n)^{\dagger}
+.. include:: ../repeated-formulas/magnetic-field-spherical.inc
 
 is uniform. The Zeeman Hamiltonian can be written as follows:
 

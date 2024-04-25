@@ -5,6 +5,17 @@ We use two interchageable and fully equivalent notations for the exchange tensor
   =
   \boldsymbol{J}_{\boldsymbol{d}ij}
 
+If we need to specify different order of indices for the exchange tensor and for the
+distance vector, we use the following notation:
+
+.. math::
+  \boldsymbol{J}_{ij}(\boldsymbol{d}_{ji})
+  =
+  \boldsymbol{J}_{\boldsymbol{d}_{ji}ij}
+
+We will try our best to never use the second variant as the order of indices is always
+same for the exchange tensor and the distance vector.
+
 Note, that the explicit dependency on :math:`\boldsymbol{d}_{ij}` can not be just
 dropped, because for each pair :math:`ij` there is not one, but rather a set of several
 distance vectors :math:`\boldsymbol{d}_{ij}`, therefore, the exchange tensor is a

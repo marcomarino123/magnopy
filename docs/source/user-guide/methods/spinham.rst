@@ -50,9 +50,9 @@ Spin Hamiltonian
   Note that the vector :math:`\boldsymbol{d}_{ij}` is defined as a difference of two
   lattice vectors, and hence it is a lattice vector itself.
 
-* The exchange tensor :math:`\boldsymbol{J}_{ij}(\boldsymbol{d}_{ij})` is a
-  :math:`3\times3` matrix that is split into isotropic exchange, as well as into
-  traceless symmetric  and anti-symmetric anisotropy matrices as follows:
+* The exchange tensor :math:`\boldsymbol{J}_{\boldsymbol{d}ij}` is a :math:`3\times3`
+  matrix that is split into isotropic exchange, as well as into traceless symmetric
+  and anti-symmetric anisotropy matrices as follows:
 
   .. math::
     \boldsymbol{J}_{\boldsymbol{d}ij}
@@ -122,8 +122,7 @@ Spin Hamiltonian
 
   .. include:: repeated-formulas/hamiltonian-main-any.inc
 
-  by defining
-  :math:`\dfrac{1}{2}\boldsymbol{J}_{ii}(\boldsymbol{d}_{ii}=\boldsymbol{0})=\boldsymbol{A}_i`
+  by defining :math:`\dfrac{1}{2}\boldsymbol{J}_{\boldsymbol{0}ii}=\boldsymbol{A}_i`
 
 
 * The exchange tensors possess the symmetry property, that ensures that the spin
@@ -134,15 +133,15 @@ Spin Hamiltonian
 .. note::
 
   The summation in the exchange piece of the Hamiltonian double-counts each bond,
-  because both :math:`(m,i; m+d_{ij},j)` and
-  :math:`(m+d_{ij},j; m,i)` are included in it.
+  because both :math:`(m,i; m+d_{ij},j)` and :math:`(m+d_{ij},j; m,i)` are included in
+  the sum.
 
 .. dropdown:: Bra-ket notation
 
   .. math::
     H = \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
     \langle S_{mi}\vert xyz\rangle
-    \langle xyz \vert J_{ij}(\boldsymbol{d_{ij}})\vert xyz \rangle
+    \langle xyz \vert J_{\boldsymbol{d}ij}\vert xyz \rangle
     \langle xyz \vert S_{m+d_{ij},j} \rangle
     + \mu_B \langle H \vert xyz\rangle\sum_{m,i} g_i
     \langle xyz\vert S_{mi} \rangle

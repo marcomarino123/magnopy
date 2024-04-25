@@ -20,6 +20,9 @@ Spin Hamiltonian
 * Let be a Bravais lattice that is described by the Bravais vectors
   :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)` with primitive vectors
   :math:`\{\boldsymbol{a_1},\boldsymbol{a_2},\boldsymbol{a_3}\}`.
+  The Bravais lattice is composed of :math:`M=M_1 \times M_2 \times M_3`
+  unit cells, where :math:`M_i` is the number of unit cells along :math:`i`-th
+  primitive vector :math:`\boldsymbol{a_i}`.
 
 * Let each unit cell contain a set of :math:`I` atoms, where each atomic position
   :math:`\boldsymbol{r_i}` is measured  with respec to the cell origin.

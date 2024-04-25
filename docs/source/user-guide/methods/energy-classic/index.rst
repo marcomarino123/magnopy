@@ -244,18 +244,29 @@ Magnetic field energy
 .. include:: magnetic-field-energy.inc
 
 
-=================================================================================
-Ferromagnetic, antiferromagnetic and conical spin arrangements and their energies
-=================================================================================
-The above expressions demonstrate that all harmonics contribute to the total classical
-energy for ferromagnetic spin arrangements, where :math:`\boldsymbol{q}=0`. In contrast,
-the zeroth- and second-order terms but not the first contribute to the exchange energy
-for anti-ferromagnetic spin configurations where :math:`\boldsymbol{q}=\boldsymbol{G}/2`.
-Finally, only the lowest harmonic contributes to the energy if the spiral vector
-:math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`.
+================
+Three main cases
+================
+
+Base on the equation for the total energy we can classify all possible states into three
+big groups based on the harmonics that contribute to the energy in each of them.
+
+1.  All harmonics contribute to the total energy if the spiral vector
+    :math:`\boldsymbol{q}=0`. This is **ferromagnetic** case where no spiral is formed.
+    Note, that the each spin in the unit cell can be oriented in any direction, but all
+    cells are replicas of each other.
+
+2.  Only the zeroth- and second-order terms contribute to the energy if the spiral vector
+    :math:`\boldsymbol{q}=\boldsymbol{G}/2`. This is the **anti-ferromagnetic** case where
+    the spins can rotate between two different cells, but the angle of rotation is
+    :math:`n_m \pi/2`.
+
+3. Only the zero harmonic contributes to the energy if the spiral vector
+   :math:`\boldsymbol{q}\neq 0,\,\boldsymbol{G}/2`. This is the **spiral** case where the
+   spins rotate between the cells.
 
 This means that it proves more transparent to write separate expressions for the spin
-vectors and energies for the three cases. These are
+vectors and energies for the three cases.
 
 --------------------
 Ferromagnetic energy
@@ -309,7 +320,7 @@ Thus :math:`\cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)=(-1)^{mod(n_m,2)}`.
 Thus, the spin vector is simplified to
 
 .. math::
-  \boldsymbol{S}_{mi}
+  \boldsymbol{S}_{mi}^s
   = S_i\,
   \begin{pmatrix}
     \sin\theta_i\,e^{-i(\pi n_m+\phi_i)} \\

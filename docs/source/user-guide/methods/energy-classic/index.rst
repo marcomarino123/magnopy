@@ -32,32 +32,6 @@ where the spin vectors are
   \boldsymbol{S}_{mi}^s
   =
   \boldsymbol{R}_m^s\, \boldsymbol{S}^s_i
-  =
-  S_i\, \boldsymbol{R}_m^s\, \boldsymbol{\hat{f}}_i^s
-  =
-  S_i\,\boldsymbol{R}_m^s
-  \begin{pmatrix}
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \phi_i} \\
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{+ i \phi_i} \\
-     \cos\theta_i
-  \end{pmatrix}
-
-the inter-cell rotation matrix is
-
-.. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.inc
-
-and the exchange constant matrix is
-
-.. math::
-  \boldsymbol{J}^s_{ij}(\boldsymbol{d}_{ij})
-  =
-  \boldsymbol{J}^s_{\boldsymbol{d}ij}
-  =
-  \begin{pmatrix}
-    J_{\boldsymbol{d}ij}^{++} & J_{\boldsymbol{d}ij}^{+-} & J_{\boldsymbol{d}ij}^{+n} \\
-    J_{\boldsymbol{d}ij}^{-+} & J_{\boldsymbol{d}ij}^{--} & J_{\boldsymbol{d}ij}^{-n} \\
-    J_{\boldsymbol{d}ij}^{n+} & J_{\boldsymbol{d}ij}^{n-} & J_{\boldsymbol{d}ij}^{nn} \\
-  \end{pmatrix}
 
 By inserting the above expressions into the Hamiltonian, we find
 
@@ -277,8 +251,8 @@ The spin vectors look like
   \boldsymbol{S}_{mi}^s
     =S_i\,
   \begin{pmatrix}
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \phi_i} \\
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{ i \phi_i} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \Delta\phi_i} \\
+     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{ i \Delta\phi_i} \\
      \cos\theta_i
   \end{pmatrix}
 

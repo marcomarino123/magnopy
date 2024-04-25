@@ -1,8 +1,6 @@
 .. math::
   \boldsymbol{R}_i^s
   =
-  \boldsymbol{T}^\dagger\, \boldsymbol{R}_i\, \boldsymbol{T}
-  =
   \dfrac{1}{2}
   \begin{pmatrix}
     1 + \cos\theta_i                        &

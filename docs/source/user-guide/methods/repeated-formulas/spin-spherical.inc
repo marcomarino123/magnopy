@@ -2,8 +2,8 @@
   \boldsymbol{S_{mi}^s}
   =
   \begin{pmatrix}
-    S_{mi}^{-} \\
-    S_{mi}^{+} \\
+    \dfrac{S_{mi}^{-}}{\sqrt{2}} \\
+    \dfrac{S_{mi}^{+}}{\sqrt{2}} \\
     S_{mi}^{n} \\
   \end{pmatrix}
   =

@@ -22,7 +22,7 @@ where all spins are aligned along the direction of :math:`\boldsymbol{n}`:
 .. include:: repeated-formulas/spin-from-ferro-uvn.inc
 
 This section is devoted to translation of these spin vectors and matrices to spherical
-basis, that is more convenient in several instances.
+basis, that is a natural one for the description of spin waves.
 
 ============================================
 Coordinate system with circular polarization
@@ -121,57 +121,58 @@ The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
 :math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical
 basis:
 
-.. math::
-  \boldsymbol{\hat{p}}^s_i
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{p}}_i
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{u}}
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{u}}
-  =&
-  \boldsymbol{R}_i^s\, \boldsymbol{\hat{u}}^+
-  =
-  \dfrac{1}{2}
-  \begin{pmatrix}
-    1 + \cos\theta_i                  \\
-    (\cos\theta_i - 1)\, e^{2i\phi_i} \\
-    -\sqrt{2}\, \sin\theta_i\, e^{i\phi_i}
-  \end{pmatrix}
-  \\\\
-  \boldsymbol{\hat{t}}^s_i
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{t}}_i
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{v}}
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{v}}
-  =&
-  \boldsymbol{R}_i^s\, \boldsymbol{\hat{u}}^+
-  =
-  \dfrac{1}{2}
-  \begin{pmatrix}
-    (\cos\theta_i-1)\, e^{-2i\phi_i} \\
-    1 + \cos\theta_i                 \\
-    -\sqrt{2}\, \sin\theta_i\, e^{-i\phi_i}
-  \end{pmatrix}
-  \\\\
-  \boldsymbol{\hat{f}}^s_i
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{f}}_i
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{n}}
-  =
-  \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{n}}
-  =&
-  \boldsymbol{R}_i^s\, \boldsymbol{\hat{n}}
-  =
-  \dfrac{1}{2}
-  \begin{pmatrix}
-    \sqrt{2}\, \sin\theta_i\, e^{-i\phi_i}  \\
-    \sqrt{2}\, \sin\theta_i\, e^{i\phi_i}   \\
-    2\cos\theta_i
-  \end{pmatrix}
+.. include:: repeated-formulas/ptf-spherical.inc
+
+.. dropdown:: Details
+
+  .. math::
+    \boldsymbol{R}_i^s
+    =
+    \braket{\, u^+\, u^-\, n\, |\, \boldsymbol{R}_i\, |\, u^+\, u^-\, n\, }
+    =
+    \braket{\, u^+\, u^-\, n\, |\, u\, v\, n\, }
+    \braket{\, u\, v\, n\, |\, \boldsymbol{R}_i\, |\, \, u\, v\, n\, }
+    \braket{\, u\, v\, n\, |\, u^+\, u^-\, n\, }
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}
+
+
+  .. math::
+    \boldsymbol{\hat{p}}^s_i
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{p}}_i
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{u}}
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{u}}
+    =&\,
+    \boldsymbol{R}_i^s\, \boldsymbol{\hat{u}}^+
+    =\,
+    \boldsymbol{R}_i^s\, \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+    \\\\
+    \boldsymbol{\hat{t}}^s_i
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{t}}_i
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{v}}
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{v}}
+    =&\,
+    \boldsymbol{R}_i^s\, \boldsymbol{\hat{u}}^-
+    =\,
+    \boldsymbol{R}_i^s\, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+    \\\\
+    \boldsymbol{\hat{f}}^s_i
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{f}}_i
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{n}}
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{n}}
+    =&\,
+    \boldsymbol{R}_i^s\, \boldsymbol{\hat{n}}
+    =\,
+    \boldsymbol{R}_i^s\, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
 
 ----------------------------------------------------------------------------------------------------------------
 Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s(\boldsymbol{q})`
@@ -186,6 +187,19 @@ basis can be obtained from the expression
 
 .. include:: repeated-formulas/spiral-rotation-matrix-spherical.inc
 
+.. dropdown:: Details
+
+  .. math::
+    \boldsymbol{R}_m^s
+    =
+    \braket{\, u^+\, u^-\, n\, |\, \boldsymbol{R}_m\, |\, u^+\, u^-\, n\, }
+    =
+    \braket{\, u^+\, u^-\, n\, |\, u\, v\, n\, }
+    \braket{\, u\, v\, n\, |\, \boldsymbol{R}_m\, |\, \, u\, v\, n\, }
+    \braket{\, u\, v\, n\, |\, u^+\, u^-\, n\, }
+    =
+    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_m\, \boldsymbol{T}
+
 -----------------------------------------------------------------------
 Spin vector :math:`\boldsymbol{S}_{mi}\rightarrow\boldsymbol{S}_{mi}^s`
 -----------------------------------------------------------------------
@@ -198,22 +212,27 @@ The spin vector :math:`\boldsymbol{S}_{mi}` can be written in the spherical basi
 
 .. include:: repeated-formulas/spin-spherical.inc
 
-.. math::
-  \boldsymbol{S}_{mi}^s
-  &=
-  \boldsymbol{T}^\dagger\, \boldsymbol{S}_{mi}
-  =
-  \boldsymbol{T}^\dagger\, \boldsymbol{R}_m\, \boldsymbol{R}_i\, \boldsymbol{S^F}_{mi}
-  =
-  \boldsymbol{T}^\dagger\boldsymbol{R}_m\boldsymbol{T}\, \,
-  \boldsymbol{T}^\dagger\boldsymbol{R}_i\boldsymbol{T}\, \,
-  \boldsymbol{T}^\dagger\boldsymbol{S^F}_{mi}
-  \\&=
-  \boldsymbol{R}_m^s\, \boldsymbol{R}_i^s\, \boldsymbol{S^{F,s}}_{i}
-  =
-  \boldsymbol{R}_m^s\, \boldsymbol{S}_i^s
-  =
-  S_i\, \boldsymbol{R}_m^s\, \boldsymbol{\hat{f}}_{i}^s
+.. dropdown:: Details
+
+  .. math::
+    S_{mi}^{\pm} = S_{mi}^u \pm iS_{mi}^v
+
+  .. math::
+    \boldsymbol{S}_{mi}^s
+    &=
+    \boldsymbol{T}^\dagger\, \boldsymbol{S}_{mi}
+    =
+    \boldsymbol{T}^\dagger\, \boldsymbol{R}_m\, \boldsymbol{R}_i\, \boldsymbol{S^F}_{mi}
+    =
+    \boldsymbol{T}^\dagger\boldsymbol{R}_m\boldsymbol{T}\, \,
+    \boldsymbol{T}^\dagger\boldsymbol{R}_i\boldsymbol{T}\, \,
+    \boldsymbol{T}^\dagger\boldsymbol{S^F}_{mi}
+    \\&=
+    \boldsymbol{R}_m^s\, \boldsymbol{R}_i^s\, \boldsymbol{S^{F,s}}_{i}
+    =
+    \boldsymbol{R}_m^s\, \boldsymbol{S}_i^s
+    =
+    S_i\, \boldsymbol{R}_m^s\, \boldsymbol{\hat{f}}_{i}^s
 
 -------------------------------------------------------------------------------------------------------
 Exchange tensor :math:`\boldsymbol{J_{\boldsymbol{d}ij}}\rightarrow\boldsymbol{J_{\boldsymbol{d}ij}^s}`

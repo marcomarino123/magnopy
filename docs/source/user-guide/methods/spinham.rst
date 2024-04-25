@@ -46,7 +46,7 @@ Spin Hamiltonian
   :math:`(m,i;m+\boldsymbol{d}_{ij},j)`: index :math:`m` runs over all cells of the
   lattice, indices :math:`i` and :math:`j` run over the atoms in each cell and the
   vector :math:`\boldsymbol{d}_{ij} = \boldsymbol{r}_{m+d_{ij}} - \boldsymbol{r}_m`
-  runs over all the neighbors of atom :math:`(m,i)` up to a given cutoff distance.
+  runs over all the neighbors of atom :math:`(m,i)` up to a certain cutoff distance.
   Note that the vector :math:`\boldsymbol{d}_{ij}` is defined as a difference of two
   lattice vectors, and hence it is a lattice vector itself.
 

@@ -4,7 +4,7 @@
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d}_{ij}, i\ne j\vert_{\boldsymbol{d}_{ij}} = \boldsymbol{0}}
   \boldsymbol{S}_{mi}^{\dagger}\,
-  \boldsymbol{J}_{ij}(\boldsymbol{d}_{ij})\,
+  \boldsymbol{J}_{\boldsymbol{d}ij}\,
   \boldsymbol{S}_{m+d_{ij},j}\,
   + \,\sum_{m,i}\,
   \boldsymbol{S}_{mi}^\dagger\,

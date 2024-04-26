@@ -38,11 +38,11 @@ whose Fourier transform is
       \boldsymbol{S}_{ki}^s
       =
       \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \boldsymbol{S_{mi}^s}
-      &=
+      =
       S_i
       \cdot
       \Biggl[
-        \dfrac{\sin\theta_i \cdot e^{-i\phi_i}}{\sqrt{2}}
+        &\dfrac{\sin\theta_i \cdot e^{-i\phi_i}}{\sqrt{2}}
         \boldsymbol{\hat{u}^+}
         \left(
           \dfrac{1}{M}

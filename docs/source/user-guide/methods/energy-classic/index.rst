@@ -272,19 +272,20 @@ and :math:`n_{ij}` are integers. Thus, the spin vectors do not depend on the ind
 and the total energy per unit cell is
 
 .. math::
-  E^{FM}&=
+  E^{FM}
+  &=
   \frac{1}{2}\, \sum_{i, j, \boldsymbol{d}_{ij}}
   S_i\, S_j\,
   \Biggl[
     \cos\theta_i\, \cos\theta_j\, (J_{\boldsymbol{d}ij}^I + S^{nn}_{\boldsymbol{d}ij})
-    +
+    +\\&\phantom{=\frac{1}{2}\,\sum_{i,j,\boldsymbol{d}_{ij}}S_i\, S_j\,\Biggl[}+
     \sin\theta_i\, \sin\theta_j\,
     \operatorname{Re}\left(
       J_{\boldsymbol{d}ij}^{++} e^{-i(\phi_j - \phi_i)}
       +
       J_{\boldsymbol{d}ij}^{+-} e^{i(\phi_j + \phi_i)}
     \right)
-    +\\&+
+    +\\&\phantom{=\frac{1}{2}\,\sum_{i,j,\boldsymbol{d}_{ij}}S_i\, S_j\,\Biggl[}+
     \cos\theta_i\, \sin\theta_j\,
     \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+} e^{-i\phi_j}\right)
     +
@@ -303,19 +304,19 @@ and the total energy per unit cell is
 with
 
 .. math::
-  \operatorname{Re}&\left(
+  \operatorname{Re}\left(
       J_{\boldsymbol{d}ij}^{++} e^{-i(\phi_j - \phi_i)}
       +
       J_{\boldsymbol{d}ij}^{+-} e^{i(\phi_j + \phi_i)}
   \right)
-  =\\&=
+  &=
   J^{uu}_{\boldsymbol{d}ij}\, \cos\phi_i\, \cos\phi_j
   +
-  J^{vv}_{\boldsymbol{d}ij}\, \sin\phi_i\, \sin\phi_j
-  +
   J^{uv}_{\boldsymbol{d}ij}\, \cos\phi_i\, \sin\phi_j
-  +
+  +\\&+
   J^{vu}_{\boldsymbol{d}ij}\, \sin\phi_i\, \cos\phi_j
+  +
+  J^{vv}_{\boldsymbol{d}ij}\, \sin\phi_i\, \sin\phi_j
 
 .. math::
   \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+} e^{-i\phi_j}\right)

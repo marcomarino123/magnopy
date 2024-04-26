@@ -23,8 +23,8 @@ where the zeroth-, first- and second-order harmonic exchange contributions are
     (J_{\boldsymbol{d}ij}^I+S_{\boldsymbol{d}ij}^{nn})
     +
     \sin\theta_i\, \sin\theta_j\,
-    \operatorname{Re}(J_{\boldsymbol{d}ij}^{++}
-    e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)})
+    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{++}
+    e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)}\right)
   \right]
   \\\\
   E^{(1)}
@@ -33,25 +33,25 @@ where the zeroth-, first- and second-order harmonic exchange contributions are
   S_i\, S_j\,
   \left[
     \cos\theta_i\, \sin\theta_j\,
-    \operatorname{Re}(J_{\boldsymbol{d}ij}^{n+}
-    e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)})
+    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+}
+    e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}\right)
     +
     \sin\theta_i\, \cos\theta_j\,
-    \operatorname{Re}(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i})
+    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
   \right]
   \\\\
   E^{(2)}
   =\, &
   \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}
   S_i\, S_j\, \sin\theta_i\, \sin\theta_j\,
-  \operatorname{Re}(J_{\boldsymbol{d}ij}^{+-}
-  e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)})
+  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+-}
+  e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)}\right)
 
 and
 
 .. math::
-  \operatorname{Re}(J_{\boldsymbol{d}ij}^{++}
-  e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)})
+  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{++}
+  e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)}\right)
   =\, &
   (J^I_{\boldsymbol{d}ij} - \frac{1}{2}S_{\boldsymbol{d}ij}^{nn})\,
   \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)
@@ -59,8 +59,8 @@ and
   D_{\boldsymbol{d}ij}^{n}\,
   \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)
   \\\\
-  \operatorname{Re}(J_{\boldsymbol{d}ij}^{n+}
-  e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)})
+  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+}
+  e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}\right)
   =\, &
   (S_{\boldsymbol{d}ij}^{un} + D_{\boldsymbol{d}ij}^v)\,
   \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)
@@ -68,13 +68,13 @@ and
   (S_{\boldsymbol{d}ij}^{vn} - D_{\boldsymbol{d}ij}^u)\,
   \sin(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)
   \\\\
-  \operatorname{Re}(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i})
+  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
   =\, &
   (S_{\boldsymbol{d}ij}^{un} - D_{\boldsymbol{d}ij}^v)\,
   \cos(\phi_i) + (S_{\boldsymbol{d}ij}^{vn} + D_{\boldsymbol{d}ij}^u)\, \sin(\phi_i)
   \\\\
-  \operatorname{Re}(J_{\boldsymbol{d}ij}^{+-}
-  e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)})
+  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+-}
+  e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)}\right)
   =\, &
   \frac{S_{\boldsymbol{d}ij}^{uu} - S_{\boldsymbol{d}ij}^{vv}}{2}\,
   \cos(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)
@@ -117,64 +117,64 @@ and asymmetric parts
     E^{(0)}
     &=\,
     \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
-    \biggl[
+    \Biggl[
       \cos\theta_i\, \cos\theta_j\, J_{\boldsymbol{d}ij}^{nn}
       +
       \sin\theta_i\, \sin\theta_j\, \dfrac{1}{2}
-      (J_{\boldsymbol{d}ij}^{++}
+      \Bigl(J_{\boldsymbol{d}ij}^{++}
       e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)}
-      +
+      +\\&\phantom{=\,\frac{1}{2}\,\sum_{i,j,\boldsymbol{d_{ij}}}S_iS_j\Biggl[\cos\theta_i\,\cos\theta_j\,J_{\boldsymbol{d}ij}^{nn}+\sin\theta_i\,\sin\theta_j\,\dfrac{1}{2}\Bigl(}+
       J_{\boldsymbol{d}ij}^{--}
-      e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)})
+      e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)}\Bigr)
     \Biggr]
     =\\&=\,
     \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
-    \biggl[
+    \Biggl[
       \cos\theta_i\, \cos\theta_j\, J_{\boldsymbol{d}ij}^{nn}
       +
       \sin\theta_i\, \sin\theta_j\,
-      \operatorname{Re}(J_{\boldsymbol{d}ij}^{++}
-      e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)})
+      \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{++}
+      e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j - \phi_i)}\right)
     \Biggr]
     \\\\
     E^{(1)}
     &=\,
     \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
-    \biggl[
+    \Biggl[
       \dfrac{\cos\theta_i\, \sin\theta_j}{\sqrt{2}}
-      (J_{\boldsymbol{d}ij}^{n+} e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}
+      \left(J_{\boldsymbol{d}ij}^{n+} e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}
       +
-      J_{\boldsymbol{d}ij}^{n-} e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)})
-      +\\&+
+      J_{\boldsymbol{d}ij}^{n-} e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}\right)
+      +\\&\phantom{=\,\frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j\Biggl[}+
       \dfrac{\sin\theta_i\, \cos\theta_j}{\sqrt{2}}
-      (J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}
+      \Bigl(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}
       +
-      J_{\boldsymbol{d}ij}^{-n} e^{-i\phi_i})
+      J_{\boldsymbol{d}ij}^{-n} e^{-i\phi_i}\Bigr)
     \Biggr]
     =\\&=\,
     \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
-    \biggl[
+    \Biggl[
       \cos\theta_i\, \sin\theta_j \sqrt{2}
-      \operatorname{Re}(J_{\boldsymbol{d}ij}^{n+}
-      e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)})
-      +\\&+
+      \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+}
+      e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}\right)
+      +\\&\phantom{=\,\frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j\Biggl[}+
       \sin\theta_i\, \cos\theta_j \sqrt{2}
-      \operatorname{Re}(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i})
+      \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
     \Biggr]
     \\\\
     E^{(2)}
     &=\,
     \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
     \sin\theta_i\, \sin\theta_j
-    \Bigl[
+    \Bigl(
       J_{\boldsymbol{d}ij}^{+-}
       e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)}
       +
       J_{\boldsymbol{d}ij}^{-+}
       e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)}
-    \Bigr]
+    \Bigr)
     =\\&=\,
     \frac{1}{2}\, \sum_{i, j, \boldsymbol{d_{ij}}}S_iS_j
     \sin\theta_i\, \sin\theta_j
-    \operatorname{Re}(J_{\boldsymbol{d}ij}^{+-}
-    e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)})
+    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+-}
+    e^{i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j + \phi_i)}\right)

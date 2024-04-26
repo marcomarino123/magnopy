@@ -292,13 +292,13 @@ are computed using Dirac's notation as follows
 
 .. math::
   \boldsymbol{J}^{uvn}_{\boldsymbol{d}ij}
-  =
+  &=
   \braket{\, u\, v\, n\, |\, \boldsymbol{J}_{\boldsymbol{d}ij}\, |\, u\, v\, n\, }
-  =&
+  =
   \braket{\, u\, v\, n\, |\, x\, y\, z\, }\,
   \braket{\, x\, y\, z\, \vert\, \boldsymbol{J}_{\boldsymbol{d}ij}\, \vert\, x\, y\, z\, }\,
   \braket{\, x\, y\, z\, |\, u\, v\, n\, } \\
-  =&
+  &=
   \braket{
     \, x\, y\, z\, |\, \boldsymbol{\cal R_r}^{\dagger}(\alpha,\beta)\, |\, x\, y\, z\,
   }\,

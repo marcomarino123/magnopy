@@ -94,8 +94,8 @@ a spin vector that looks as follows
 .. math::
   \boldsymbol{R}_i^s\, \boldsymbol{\tilde{S}^{F,s}}_{mi}
   =
-  \frac{1}{\sqrt{2}}\, \delta S_{mi}^-\, \boldsymbol{\hat{p}}_{i}^s
+  \frac{\delta S_{mi}^-}{\sqrt{2}}\, \boldsymbol{\hat{p}}_{i}^s
   +
-  \frac{1}{\sqrt{2}}\, \delta S_{mi}^+\, \boldsymbol{\hat{t}}_{i}^s
+  \frac{\delta S_{mi}^+}{\sqrt{2}}\, \boldsymbol{\hat{t}}_{i}^s
   +
   (S_i - \delta S_{mi}^n)\, \boldsymbol{\hat{f}}_{i}^s

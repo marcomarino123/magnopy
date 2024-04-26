@@ -117,6 +117,8 @@ in the spherical basis can be obtained from the expression
 
 .. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
 
+.. _user-guide_methods_spherical-rf_ptf-definition:
+
 The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
 :math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical
 basis:

@@ -15,12 +15,12 @@ Quantum Hamiltonian
 
 The quantum Heisenberg Hamiltonian looks exactly the same as its classical
 counterpart, where all the classical spin vectors are replaced by quantum
-spins. We therefore repeat the same kind of rotations, hence bringing the
-quantum spin vectors to a local collinear reference frame:
+spins.
 
 .. include:: ../repeated-formulas/hamiltonian-main-from-ferro-any-quantum.inc
 
-The Hamiltonian can be rewritten as follows
+The Hamiltonian can be rewritten as follows (as it was done
+:ref:`here <user-guide_methods_energy-classic>` for the classical Hamiltonian)
 
 .. math::
   {\cal H}
@@ -31,24 +31,20 @@ The Hamiltonian can be rewritten as follows
   \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})\,
   \boldsymbol{{\cal S}}_{m+d_{ij} j}^s
   +
-  \mu_B\,\boldsymbol{h}^{\dagger}\,
-  \sum_{m,i}
-  \,g_i\,
+  \mu_B\, \boldsymbol{h}^{\dagger}\,
+  \sum_{m,i}\, g_i\,
   \boldsymbol{R_m}\,
   \boldsymbol{{\cal S}}_{mi}^s
 
 where (see section
 :ref:`Quantum spin fluctuations <user-guide_methods_quantum-spin-fluctuations>`)
 
+.. include:: ../repeated-formulas/spin-expansion-rotated-spherical-quantum.inc
+
+and
+
 .. math::
-  \boldsymbol{{\cal S}}_{m i}^s=
-  \boldsymbol{R}_i^s\,\boldsymbol{{\cal S}}_{mi}^{F,s}\approx&\,
-  S_i\,\boldsymbol{\hat{f}}^s_i+S_i^{1/2}\,
-  (a_{mi}^\dagger\,\boldsymbol{\hat p}^s_i+a_{mi}\,\boldsymbol{\hat t}^s_i)
-  -n_{mi}\,\boldsymbol{\hat{f}}^s_i\\
-  &-\frac{1}{4\,S_i^{1/2}}\,
-  (a_{mi}^\dagger\,n_{mi}\,\boldsymbol{\hat p}^s_i+
-  a_{mi}\,n_{mi}\,\boldsymbol{\hat t}^s_i)\\\\
+
   \boldsymbol{{\cal S}}_{m+d_{ij}, j}^s=
   \boldsymbol{R}_j^s\,\boldsymbol{{\cal S}}_{m+d_{ij}, j}^{F,s}\approx&\,
   S_j\,\boldsymbol{\hat{f}}^s_{j}+S_j^{1/2}\,
@@ -61,11 +57,7 @@ where (see section
 
 and
 
-.. math::
-  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})=
-    (\boldsymbol{R}_m^s)^\dagger\,
-    \boldsymbol{J}_{ij}^s(\boldsymbol{d}_{ij})\,
-    \boldsymbol{R}_{m+d_{ij}}^s
+.. include:: ../repeated-formulas/exchange-matrix-rotated-definition-spherical.inc
 
 ================
 Exchange kernels

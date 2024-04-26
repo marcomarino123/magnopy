@@ -55,12 +55,7 @@ By inserting the above expressions into the Hamiltonian, we find
 where we introduce the notation for the "rotated" exchange matrices written in
 :ref:`spherical basis <user-guide_methods_spherical-rf>`
 
-.. math::
-  \boldsymbol{\tilde{J}}^s_{mdij}
-  =
-  (\boldsymbol{R}_m^s)^{\dagger}\,
-  \boldsymbol{J}^s_{\boldsymbol{d}ij}\,
-  \boldsymbol{R}_{m+d_{ij}}^s
+.. include:: ../repeated-formulas/exchange-matrix-rotated-definition-spherical.inc
 
 Futhermore, we group the part of the sum that depends on the index :math:`m` as we
 will compute it explicitly below
@@ -106,13 +101,7 @@ The exchange constant :math:`\boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}` can b
 written as a sum of five matrices in terms of zero-, first- and second-harmonics as
 follows:
 
-.. math::
-  \boldsymbol{\tilde{J}}_{m\boldsymbol{d}ij}^s
-  =
-  \sum_{l=0,\pm 1,\pm 2}\,
-  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
-  \cdot
-  e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
+.. include:: ../repeated-formulas/exchange-matrix-rotated-split-spherical.inc
 
 and where
 

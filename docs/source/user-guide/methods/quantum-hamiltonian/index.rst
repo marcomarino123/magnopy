@@ -138,9 +138,17 @@ in the Hamiltonian. Then
   .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
 
 
-* The cubic piece contains cubic terms contains three-boson terms
+* The cubic piece contains three-boson terms
 
   .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
+
+  .. hint::
+
+    .. math::
+
+      {\cal n}_{mi}^{\dagger} = {\cal n}_{mi}
+      \quad\quad\text{and}\quad\quad
+      {\cal n}_{m+d_{ij},j}^{\dagger} = {\cal n}_{m+d_{ij},j}
 
 * And the biquadratic piece contains four-boson terms
 

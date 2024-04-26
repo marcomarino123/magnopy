@@ -28,7 +28,7 @@ The Hamiltonian can be rewritten as follows (as it was done
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d_{ij}}, i, j}
   (\boldsymbol{{\cal S}}_{mi}^s)^\dagger\,
-  \boldsymbol{\tilde{J}}_{ij}^s(m,\boldsymbol{d}_{ij})\,
+  \boldsymbol{\tilde{J}}_{m\boldsymbol{d}ij}^s\,
   \boldsymbol{{\cal S}}_{m+d_{ij} j}^s
   +
   \mu_B\, \boldsymbol{h}^{\dagger}\,
@@ -44,53 +44,62 @@ where (see section
 and
 
 .. math::
+  \boldsymbol{\cal S}^s_{m+d_{ij},j}
+  &\approx
+  S_j\, \boldsymbol{\hat{f}}^s_j
+  +
+  S_j^{1/2}\, (
+    a_{m+d_{ij},j}^\dagger\, \boldsymbol{\hat p}^s_j
+    +
+    a_{m+d_{ij},j}\, \boldsymbol{\hat t}^s_j
+  )
+  -
+  n_{m+d_{ij},j}\, \boldsymbol{\hat{f}}^s_j
+  -\\&-
+  \frac{1}{4\, S_j^{1/2}}\, (
+    a_{m+d_{ij},j}^\dagger\, n_{m+d_{ij},j}\, \boldsymbol{\hat p}^s_j
+    +
+    a_{m+d_{ij},j}\,n_{m+d_{ij},j}\, \boldsymbol{\hat t}^s_j
+  )
 
-  \boldsymbol{{\cal S}}_{m+d_{ij}, j}^s=
-  \boldsymbol{R}_j^s\,\boldsymbol{{\cal S}}_{m+d_{ij}, j}^{F,s}\approx&\,
-  S_j\,\boldsymbol{\hat{f}}^s_{j}+S_j^{1/2}\,
-  (a_{m+d_{ij}, j}^\dagger\,\boldsymbol{\hat p}^s_j+a_{m+d_{ij}, j}\,
-  \boldsymbol{\hat t}^s_j)
-  -n_{m+d_{ij}, j}\,\boldsymbol{\hat{f}}^s_j\\
-  &-\frac{1}{4\,S_j^{1/2}}\,
-  (a_{m+d_{ij}, j}^\dagger\,n_{m+d_{ij}, j}\,\boldsymbol{\hat p}^s_j+
-  a_{m+d_{ij}, j}\,n_{m+d_{ij}, j}\,\boldsymbol{\hat t}^s_j)
 
 and
 
 .. include:: ../repeated-formulas/exchange-matrix-rotated-definition-spherical.inc
 
-================
-Exchange kernels
-================
-We define the following nine exchange kernels
+====================
+Exchange ??kernels??
+====================
+For further convenience we define a shorten notation for the products of two vectors
+and exchange matrix as follows:
 
 .. math::
-  \boldsymbol{\tilde{J}}_{mdij}^{ff}=&
-    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{f}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{tt}=&
-    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{t}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{pp}=&
+  &\boldsymbol{\tilde{J}}_{mdij}^{pp}&=
     (\boldsymbol{\hat{p}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{p}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{tp}=&
-    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{p}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{pt}=&
+    \boldsymbol{\hat{p}}_j^s \quad\quad\quad
+  &\boldsymbol{\tilde{J}}_{mdij}^{pt}&=
     (\boldsymbol{\hat{p}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{t}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{fp}=&
-    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{p}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{pf}=&
+    \boldsymbol{\hat{t}}_j^s \quad\quad\quad
+  &\boldsymbol{\tilde{J}}_{mdij}^{pf}&=
     (\boldsymbol{\hat{p}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
     \boldsymbol{\hat{f}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{ft}=&
-    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
-    \boldsymbol{\hat{t}}_j^s\\
-  \boldsymbol{\tilde{J}}_{mdij}^{tf}=&
+  &\boldsymbol{\tilde{J}}_{mdij}^{tp}&=
     (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{p}}_j^s \quad\quad\quad
+  &\boldsymbol{\tilde{J}}_{mdij}^{tt}&=
+    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{t}}_j^s \quad\quad\quad
+  &\boldsymbol{\tilde{J}}_{mdij}^{tf}&=
+    (\boldsymbol{\hat{t}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{f}}_j^s\\
+  &\boldsymbol{\tilde{J}}_{mdij}^{fp}&=
+    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{p}}_j^s \quad\quad\quad
+  &\boldsymbol{\tilde{J}}_{mdij}^{ft}&=
+    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
+    \boldsymbol{\hat{t}}_j^s \quad\quad\quad
+  &\boldsymbol{\tilde{J}}_{mdij}^{ff}&=
+    (\boldsymbol{\hat{f}}_i^s)^\dagger\,\boldsymbol{\tilde{J}}_{mdij}^s\,
     \boldsymbol{\hat{f}}_j^s\\
 
 =====================
@@ -101,48 +110,33 @@ according to their order in a :math:`1/S` expansion by assuming that
 :math:`S_i = S_j = S`. The different pieces also correspond to terms having
 zero, two, three and four bosons fields. Terms containing more than four boson
 terms are dropped, that is equivalent to dropping terms beyond :math:`1/S^2`
-in the conventional :math:`1/S` expansion. Then
+in the Hamiltonian. Then
 
 .. math::
-  {\cal H}^{exchange}=E^C+{\cal H}^{LSWT}
-                      +{\cal H}^{Cubic}+{\cal H}^{Biquadratic}
+  {\cal H}^{exchange}
+  =
+  E^{Classic} + {\cal H}^{LSWT} + {\cal H}^{Cubic} + {\cal H}^{Biquadratic}
 
-* The classical energy piece
-
-  .. math::
-    E^{C}=\dfrac{1}{2}
-    \sum_{m, \boldsymbol{d}_{ij}, i, j}
-    S_i\,S_j\,\boldsymbol{\tilde{J}}_{mdij}^{ff}
-
-  has been determined in section
-  :ref:`Total energy of the classical Hamiltonian <user-guide_methods_energy-classic>`.
-
-* The Linear Spin Wave Theory (LSWT) piece contains bilinear bosonic terms
+* :ref:`The classical energy piece <user-guide_methods_energy-classic>`
 
   .. math::
-    {\cal H}^{LSWT}=
+    E^{Classic}
+    =
     \dfrac{1}{2}
     \sum_{m, \boldsymbol{d}_{ij}, i, j}
-    &\left(
-     - \,\boldsymbol{\tilde{J}}_{mdij}^{ff}\,
-        \left(S_j\,n_{mi}\,+S_i\,n_{m+d_{ij},j}^\dagger\right)
-        \right.
-    \\&+
-        (S_i\,S_j)^{1/2}\left(
-       \boldsymbol{\tilde{J}}_{mdij}^{pp}\,
-       \,a_{mi}\,a_{m+d_{ij},j}^\dagger
-       +
-       \boldsymbol{\tilde{J}}_{mdij}^{tt}\,
-       \,a_{mi}^\dagger\,a_{m+d_{ij},j}\right)
-      \\&+
-      (S_i\,S_j)^{1/2}
-      \left.\left(
-      \boldsymbol{\tilde{J}}_{mdij}^{pt}\,
-      \,a_{mi}\,a_{m+d_{ij},j}
-      +
-      \boldsymbol{\tilde{J}}_{mdij}^{tp}\,
-      \,a_{mi}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}
-    \right)\right)
+    S_i\, S_j\, \boldsymbol{\tilde{J}}_{mdij}^{ff}
+    +
+    \mu_B \boldsymbol{h}^{\dagger}\,
+    \sum_{m,i}\, g_i\, S_i\,
+    \boldsymbol{R_m}\,
+    \boldsymbol{\hat{f}}_i^s
+
+
+* :ref:`The Linear Spin Wave Theory (LSWT) piece <user-guide_methods_lswt>` contains
+  bilinear bosonic terms
+
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
+
 
 * The cubic piece contains cubic terms contains three-boson terms
 

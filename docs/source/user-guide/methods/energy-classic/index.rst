@@ -331,11 +331,11 @@ with
 .. math::
   \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+} e^{-i\phi_j}\right)
   &=
-  (J_{ij}^{un}\,\cos\phi_j+J_{ij}^{vn}\,\sin\phi_j)
+  (J_{ij}^{nu}\,\cos\phi_j+J_{ij}^{nv}\,\sin\phi_j)
   \\
   \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
   &=
-  (J_{ij}^{nu}\,\cos\phi_i+J_{ij}^{nv}\,\sin\phi_i)
+  (J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
 
 ------------------------
 Antiferromagnetic energy

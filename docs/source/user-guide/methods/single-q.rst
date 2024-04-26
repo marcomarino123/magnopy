@@ -77,14 +77,7 @@ The coordinates of the spin vector in the :math:`(u\, v\, n)` reference frame ar
 
 where the full azimuth angles are
 
-.. math::
-  \phi_{mi}(\boldsymbol{q})
-  =
-  \phi_m(\boldsymbol{q}) + \phi_i(\boldsymbol{q})
-  =
-  \boldsymbol{q}\cdot\boldsymbol{r_m} + \boldsymbol{q}\cdot\boldsymbol{r_i} + \Delta\phi_i
-  =
-  \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
+.. include:: repeated-formulas/full-azimuth-angle.inc
 
 .. note::
   Magnopy absorbs the intra-cell spiral contribution inside the azimuth angle

@@ -39,8 +39,36 @@ rotations). We denote by tilde the perturbed spin vector.
   \end{pmatrix}
 
 where the minus sign in front of the :math:`\boldsymbol{\hat{n}}`-axis fluctuation
-ensure the proper normalization of the spin vector. The vector components in the
-spherical basis are then
+is written to illustrate the proper normalization of the spin vector. Since we consider
+fluctuations that rotate the spin vector, but conserve its length, the
+:math:`\delta S_{mi}^n` component depends on the :math:`\delta S_{mi}^u` and
+:math:`\delta S_{mi}^v` components as
+
+.. math::
+  \delta S_{mi}^n
+  =
+  S_i - \sqrt{S_i^2 - (\delta S_{mi}^u)^2 - (\delta S_{mi}^v)^2}
+
+.. dropdown:: Details
+
+  The condition on the conservation of the spin length is
+
+  .. math::
+    |\boldsymbol{\tilde{S}^F}_{mi}| = S_i
+
+  which leads to the quadratic equation on :math:`\delta S_{mi}^n`:
+
+  .. math::
+    (\delta S_{mi}^n)^2
+    -
+    2S_i\, \delta S_{mi}^n
+    +
+    (\delta S_{mi}^u)^2 + (\delta S_{mi}^v)^2
+    =
+    0
+
+
+The vector components in the spherical basis are then
 
 .. math::
   \boldsymbol{\tilde{S}^{F,s}}_{mi}

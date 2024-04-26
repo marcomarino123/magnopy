@@ -61,24 +61,16 @@ The last omitted terms are one-operator terms:
   \biggl[
     S_iS_j^{1/2}
     \Bigl(
-      \boldsymbol{\tilde{J}}_{mdij}^{fp}\,
-      \,
-      \,a_{m+d_{ij},j}^{\dagger}
+      \boldsymbol{\tilde{J}}_{mdij}^{fp}\, a_{m+d_{ij},j}^{\dagger}
       +
-      \boldsymbol{\tilde{J}}_{mdij}^{ft}\,
-      \,
-      \,a_{m+d_{ij},j}
+      \boldsymbol{\tilde{J}}_{mdij}^{ft}\, a_{m+d_{ij},j}
     \Bigr)
     +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[}+
     S_i^{1/2}S_j
     \Bigl(
-      \boldsymbol{\tilde{J}}_{mdij}^{pf}\,
-      \,
-      \,a_{mi}
+      \boldsymbol{\tilde{J}}_{mdij}^{pf}\, a_{mi}
       +
-      \boldsymbol{\tilde{J}}_{mdij}^{tf}\,
-      \,
-      \,a_{mi}^{\dagger}
+      \boldsymbol{\tilde{J}}_{mdij}^{tf}\, a_{mi}^{\dagger}
     \Bigr)
   \Biggr]
   +\\&+

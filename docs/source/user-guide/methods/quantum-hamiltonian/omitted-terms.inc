@@ -7,22 +7,22 @@ four bosonic operators. In particular
     &\dfrac{1}{2}
     \sum_{m, \boldsymbol{d}_{ij}, i, j}
     \biggl[
-      \dfrac{1}{4S_i^{1/2}}
+      \dfrac{1}{4}S_i^{-1/2}
       \Bigl(
         \boldsymbol{\tilde{J}}_{mdij}^{pf}\,
-        {\cal n}_{mi}\, a_{mi}\, {\cal n}_{m + d_{ij},j}
+        n_{mi}\, a_{mi}\, n_{m + d_{ij},j}
         +
         \boldsymbol{\tilde{J}}_{mdij}^{tf}\,
-        {\cal n}_{mi}\, a_{mi}^{\dagger}\, {\cal n}_{m + d_{ij},j}
+        a_{mi}^{\dagger}\, n_{mi}\, n_{m + d_{ij},j}
       \Bigr)
       +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[}+
       \dfrac{1}{4S_j^{1/2}}
       \Bigl(
         \boldsymbol{\tilde{J}}_{mdij}^{fp}\,
-        {\cal n}_{mi}\, a_{m + d_{ij},j}^{\dagger}\, {\cal n}_{m + d_{ij},j}
+        n_{mi}\, a_{m + d_{ij},j}^{\dagger}\, n_{m + d_{ij},j}
         +
         \boldsymbol{\tilde{J}}_{mdij}^{ft}\,
-        {\cal n}_{mi}\, a_{m + d_{ij},j}\, {\cal n}_{m + d_{ij},j}
+        n_{mi}\, n_{m + d_{ij},j}\, a_{m + d_{ij},j}
       \Bigr)
     \Biggr]
 
@@ -31,80 +31,28 @@ four bosonic operators. In particular
   .. math::
     &\dfrac{1}{2}
     \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    \dfrac{(S_iS_j)^{-1/2}}{16}
     \biggl[
-      \dfrac{1}{4S_i^{1/2}}
-      \Bigl(
-        \boldsymbol{\tilde{J}}_{mdij}^{pf}\,
-        {\cal n}_{mi}\, a_{mi}\, {\cal n}_{m + d_{ij},j}
-        +
-        \boldsymbol{\tilde{J}}_{mdij}^{tf}\,
-        {\cal n}_{mi}\, a_{mi}^{\dagger}\, {\cal n}_{m + d_{ij},j}
-      \Bigr)
-      +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[}+
-      \dfrac{1}{4S_j^{1/2}}
-      \Bigl(
-        \boldsymbol{\tilde{J}}_{mdij}^{fp}\,
-        {\cal n}_{mi}\, a_{m + d_{ij},j}^{\dagger}\, {\cal n}_{m + d_{ij},j}
-        +
-        \boldsymbol{\tilde{J}}_{mdij}^{ft}\,
-        {\cal n}_{mi}\, a_{m + d_{ij},j}\, {\cal n}_{m + d_{ij},j}
-      \Bigr)
+      \boldsymbol{\tilde{J}}_{mdij}^{pp}\,
+      n_{mi}\, a_{mi}\, a_{m + d_{ij},j}^{\dagger}\, n_{m + d_{ij},j}
+      +
+      \boldsymbol{\tilde{J}}_{mdij}^{pt}\,
+      n_{mi}\, a_{mi}\, n_{m + d_{ij},j}\, a_{m + d_{ij},j}
+      +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[\dfrac{(S_iS_j)^{-1/2}}{16}}+
+      \boldsymbol{\tilde{J}}_{mdij}^{tp}\,
+      a_{mi}^{\dagger}\, n_{mi}\, a_{m + d_{ij},j}^{\dagger}\, n_{m + d_{ij},j}
+      +
+      \boldsymbol{\tilde{J}}_{mdij}^{tt}\,
+      a_{mi}^{\dagger}\, n_{mi}\, n_{m + d_{ij},j}\, a_{m + d_{ij},j}^{\dagger}
     \Biggr]
 
 
-This corresponed to terms of order smaller than
-:math:`1/S^2` (if one assumes :math:`S_i = S_j = S`). Examples are:
-
-.. math::
-  \dfrac{1}{4S_iS_j^{3/2}}
-  \Bigl[
-    &(\boldsymbol{f_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{p_j^s}
-    \,a_{mi}^{\dagger}\,\,a_{mi}\,\,a_{m+d_{ij},j}^{\dagger}\,\,a_{m+d_{ij},j}^{\dagger}\,\,a_{m+d_{ij},j}
-    +
-    (\boldsymbol{f_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{t_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}
-    +\\&+
-    (\boldsymbol{p_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{f_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
-    +
-    (\boldsymbol{t_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{f_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
-  \Bigr]
-  +\\+
-  \dfrac{1}{16S_i^{3/2}S_j^{3/2}}
-  \Bigl[
-    &(\boldsymbol{p_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{p_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
-    +
-    (\boldsymbol{p_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{t_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}
-    +\\&+
-    (\boldsymbol{t_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{p_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}
-    +
-    (\boldsymbol{t_i^s})^\dagger\,
-    \boldsymbol{\tilde{J}_{mdij}^s}\,
-    \boldsymbol{t_j^s}
-    \,a_{mi}^{\dagger}\,a_{mi}^{\dagger}\,a_{mi}\,a_{m+d_{ij},j}^{\dagger}\,a_{m+d_{ij},j}\,a_{m+d_{ij},j}
-  \Bigr]
+that correspond to terms of order smaller than :math:`1/S^2`
+(if one assumes :math:`S_i = S_j = S`).
 
 .. note::
-  In order to fully account for more than 4 operator terms one need to expand the square root
-  in the HP transformation up to higher degrees in :math:`1/S`.
+  In order to fully account for more than 4 operator terms one need to expand the square
+  root in the HP transformation up to higher degrees in :math:`1/S`.
 
 The last omitted terms are one-operator terms:
 
@@ -118,7 +66,7 @@ The last omitted terms are one-operator terms:
       +
       \boldsymbol{\tilde{J}}_{mdij}^{ft}\, a_{m+d_{ij},j}
     \Bigr)
-    +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[}+
+    +
     S_i^{1/2}S_j
     \Bigl(
       \boldsymbol{\tilde{J}}_{mdij}^{pf}\, a_{mi}

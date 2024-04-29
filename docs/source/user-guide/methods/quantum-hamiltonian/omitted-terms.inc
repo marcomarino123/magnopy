@@ -1,5 +1,58 @@
 This expression of the exchange Hamiltonian cuts all terms having more than
-four bosonic operators. This corresponed to terms of order smaller than
+four bosonic operators. In particular
+
+* Five-operator terms:
+
+  .. math::
+    &\dfrac{1}{2}
+    \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    \biggl[
+      \dfrac{1}{4S_i^{1/2}}
+      \Bigl(
+        \boldsymbol{\tilde{J}}_{mdij}^{pf}\,
+        {\cal n}_{mi}\, a_{mi}\, {\cal n}_{m + d_{ij},j}
+        +
+        \boldsymbol{\tilde{J}}_{mdij}^{tf}\,
+        {\cal n}_{mi}\, a_{mi}^{\dagger}\, {\cal n}_{m + d_{ij},j}
+      \Bigr)
+      +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[}+
+      \dfrac{1}{4S_j^{1/2}}
+      \Bigl(
+        \boldsymbol{\tilde{J}}_{mdij}^{fp}\,
+        {\cal n}_{mi}\, a_{m + d_{ij},j}^{\dagger}\, {\cal n}_{m + d_{ij},j}
+        +
+        \boldsymbol{\tilde{J}}_{mdij}^{ft}\,
+        {\cal n}_{mi}\, a_{m + d_{ij},j}\, {\cal n}_{m + d_{ij},j}
+      \Bigr)
+    \Biggr]
+
+* Six operator terms
+
+  .. math::
+    &\dfrac{1}{2}
+    \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    \biggl[
+      \dfrac{1}{4S_i^{1/2}}
+      \Bigl(
+        \boldsymbol{\tilde{J}}_{mdij}^{pf}\,
+        {\cal n}_{mi}\, a_{mi}\, {\cal n}_{m + d_{ij},j}
+        +
+        \boldsymbol{\tilde{J}}_{mdij}^{tf}\,
+        {\cal n}_{mi}\, a_{mi}^{\dagger}\, {\cal n}_{m + d_{ij},j}
+      \Bigr)
+      +\\&\phantom{\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}\biggl[}+
+      \dfrac{1}{4S_j^{1/2}}
+      \Bigl(
+        \boldsymbol{\tilde{J}}_{mdij}^{fp}\,
+        {\cal n}_{mi}\, a_{m + d_{ij},j}^{\dagger}\, {\cal n}_{m + d_{ij},j}
+        +
+        \boldsymbol{\tilde{J}}_{mdij}^{ft}\,
+        {\cal n}_{mi}\, a_{m + d_{ij},j}\, {\cal n}_{m + d_{ij},j}
+      \Bigr)
+    \Biggr]
+
+
+This corresponed to terms of order smaller than
 :math:`1/S^2` (if one assumes :math:`S_i = S_j = S`). Examples are:
 
 .. math::

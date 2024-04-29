@@ -13,9 +13,9 @@
     -\\&\phantom{=\dfrac{1}{2}\sum_{m, \boldsymbol{d_{ij}}, i, j}\Biggl[}-
     S_j^{1/2}
     \left(
-      \boldsymbol{\tilde{J}_{mdij}^{fp}}\, n_{mi}\,a_{m+d_{ij},j}^{\dagger}
+      \boldsymbol{\tilde{J}}_{mdij}^{fp}\, n_{mi}\,a_{m+d_{ij},j}^{\dagger}
       +
-      \boldsymbol{\tilde{J}_{mdij}^{ft}}\, n_{mi}\,a_{m+d_{ij},j}
+      \boldsymbol{\tilde{J}}_{mdij}^{ft}\, n_{mi}\,a_{m+d_{ij},j}
     \right)
     -\\&\phantom{=\dfrac{1}{2}\sum_{m, \boldsymbol{d_{ij}}, i, j}\Biggl[}-
     \dfrac{1}{4}\, S_i\, S_j^{-1/2}

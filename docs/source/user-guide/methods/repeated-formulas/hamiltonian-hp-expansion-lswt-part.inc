@@ -5,7 +5,7 @@
   \sum_{m, \boldsymbol{d}_{ij}, i, j}
   \Biggl[
     -\, \boldsymbol{\tilde{J}}_{mdij}^{ff}\,
-      \left(S_j\, n_{mi}\, + S_i\, n_{m+d_{ij},j}^\dagger\right)
+      \left(S_j\, n_{mi}\, + S_i\, n_{m+d_{ij},j}\right)
     \\&\phantom{=\dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\Biggl[}+
     (S_i\,S_j)^{1/2}
     \left(

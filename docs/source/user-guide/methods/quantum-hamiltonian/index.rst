@@ -41,6 +41,25 @@ where (see section
 
 .. include:: ../repeated-formulas/spin-expansion-rotated-spherical-quantum.inc
 
+.. math::
+  (\boldsymbol{\cal S}^s_{mi})^{\dagger}
+  &\approx
+  S_i\, (\boldsymbol{\hat{f}}^s_i)^{\dagger}
+  +
+  S_i^{1/2}\, (
+    a_{mi}\, (\boldsymbol{\hat p}^s_i)^{\dagger}
+    +
+    a_{mi}^\dagger\, (\boldsymbol{\hat t}^s_i)^{\dagger}
+  )
+  -
+  n_{mi}\, (\boldsymbol{\hat{f}}^s_i)^{\dagger}
+  -\\&-
+  \frac{1}{4}\, S_i^{-1/2}(
+    n_{mi}\, a_{mi}\, (\boldsymbol{\hat p}^s_i)^{\dagger}
+    +
+    a_{mi}^{\dagger}\, n_{mi}\, (\boldsymbol{\hat t}^s_i)^{\dagger}
+  )
+
 and
 
 .. math::
@@ -59,7 +78,7 @@ and
   \frac{1}{4\, S_j^{1/2}}\, (
     a_{m+d_{ij},j}^\dagger\, n_{m+d_{ij},j}\, \boldsymbol{\hat p}^s_j
     +
-    a_{m+d_{ij},j}\,n_{m+d_{ij},j}\, \boldsymbol{\hat t}^s_j
+    n_{m+d_{ij},j}\, a_{m+d_{ij},j}\, \boldsymbol{\hat t}^s_j
   )
 
 
@@ -131,16 +150,10 @@ in the Hamiltonian. Then
     \boldsymbol{R_m}\,
     \boldsymbol{\hat{f}}_i^s
 
-
 * :ref:`The Linear Spin Wave Theory (LSWT) piece <user-guide_methods_lswt>` contains
   bilinear bosonic terms
 
   .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
-
-
-* The cubic piece contains three-boson terms
-
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
 
   .. hint::
 
@@ -149,6 +162,11 @@ in the Hamiltonian. Then
       {\cal n}_{mi}^{\dagger} = {\cal n}_{mi}
       \quad\quad\text{and}\quad\quad
       {\cal n}_{m+d_{ij},j}^{\dagger} = {\cal n}_{m+d_{ij},j}
+
+* The cubic piece contains three-boson terms
+
+  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
+
 
 * And the biquadratic piece contains four-boson terms
 

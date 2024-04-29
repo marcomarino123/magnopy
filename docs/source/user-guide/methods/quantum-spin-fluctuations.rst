@@ -145,7 +145,7 @@ Spin wave theory
 ================
 Expansion of the square roots above leads to an infinite series in :math:`1/S_i`.
 If one expand the square root up to the first order in :math:`1/S_i`, one obtains the
-first four orders as follows:
+first four orders as follows (in the descending order of the powers of :math:`1/S_i`):
 
 .. math::
   \boldsymbol{\cal S}^{F,s}_{mi}
@@ -158,12 +158,12 @@ first four orders as follows:
     a_{mi}\, \boldsymbol{\hat u}^-
   )
   -
-  n_{mi}\, \boldsymbol{\hat{n}}
+  S_i^0\, n_{mi}\, \boldsymbol{\hat{n}}
   -
-  \frac{1}{4\, S_i^{1/2}}\, (
+  \frac{1}{4}\, S_i^{-1/2}(
     a_{mi}^\dagger\, n_{mi}\, \boldsymbol{\hat u}^+
     +
-    a_{mi}\, n_{mi}\, \boldsymbol{\hat u}^-
+    n_{mi}\, a_{mi}\, \boldsymbol{\hat u}^-
   )
 
 These become upon intracell rotation (for definition of vectors
@@ -221,24 +221,7 @@ Wave Theory.
 
   which leads to the expression of the spin operators
 
-  .. math::
-    \boldsymbol{\cal S}^s_{mi}
-    \approx
-    S_i\, \boldsymbol{\hat{f}}^s_i
-    +
-    S_i^{1/2}\, (
-      a_{mi}^\dagger\, \boldsymbol{\hat p}^s_i
-      +
-      a_{mi}\, \boldsymbol{\hat t}^s_i
-    )
-    -
-    n_{mi}\, \boldsymbol{\hat{f}}^s_i
-    -
-    \frac{1}{4\, S_i^{1/2}}\, (
-      a_{mi}^\dagger\, n_{mi}\, \boldsymbol{\hat p}^s_i
-      +
-      a_{mi}\,n_{mi}\, \boldsymbol{\hat t}^s_i
-    )
+  .. include:: repeated-formulas/spin-expansion-rotated-spherical-quantum.inc
 
   when inserted in the spin Hamiltonian, this truncation leads to the Renormalized
   Spin Wave Theory.

@@ -18,18 +18,18 @@
       \boldsymbol{\tilde{J}_{mdij}^{ft}}\, n_{mi}\,a_{m+d_{ij},j}
     \right)
     -\\&\phantom{=\dfrac{1}{2}\sum_{m, \boldsymbol{d_{ij}}, i, j}\Biggl[}-
-    \dfrac{S_j}{4\,S_i^{1/2}}
+    \dfrac{1}{4}\, S_i\, S_j^{-1/2}
     \left(
-      \boldsymbol{\tilde{J}}_{mdij}^{pf}\,n_{mi}\,a_{mi}
+      \boldsymbol{\tilde{J}}_{mdij}^{fp}\, a_{m+d_{ij},j}^{\dagger}\, n_{m+d_{ij},j}
       +
-      \boldsymbol{\tilde{J}}_{mdij}^{tf}\,n_{mi}\,a_{mi}^\dagger
+      \boldsymbol{\tilde{J}}_{mdij}^{ft}\, n_{m+d_{ij},j}\, a_{m+d_{ij},j}
     \right)
     -\\&\phantom{=\dfrac{1}{2}\sum_{m, \boldsymbol{d_{ij}}, i, j}\Biggl[}-
-    \dfrac{S_i}{4\,S_j^{1/2}}
+    \dfrac{1}{4}S_i^{-1/2}\, S_j
     \left(
-      \boldsymbol{\tilde{J}}_{mdij}^{fp}\,a_{m+d_{ij},j}^\dagger\,n_{m+d_{ij},j}
+      \boldsymbol{\tilde{J}}_{mdij}^{pf}\, n_{mi}\, a_{mi}
       +
-      \boldsymbol{\tilde{J}}_{mdij}^{ft}\,a_{m+d_{ij},j}\,n_{m+d_{ij},j}
+      \boldsymbol{\tilde{J}}_{mdij}^{tf}\, a_{mi}^{\dagger}\, n_{mi}
     \right)
   \Biggr]
   -\\&-
@@ -38,8 +38,8 @@
   \boldsymbol{R_m}\,
   \left(
     \boldsymbol{\hat{p}}_i^s
-    {\cal a}_{mi}^{\dagger}\, {\cal n}_{mi}
+    a_{mi}^{\dagger}\, n_{mi}
     +
     \boldsymbol{\hat{t}}_i^s
-    {\cal a}_{mi}\, {\cal n}_{mi}
+    n_{mi}\, a_{mi}
   \right)

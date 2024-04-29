@@ -33,10 +33,6 @@ can be split into the following five pieces
 
   .. include:: ../repeated-formulas/exchange-matrix-spherical.inc
 
-.. dropdown:: Hermiticity properties of the rotated exchange matrix
-
-  .. include:: ../repeated-formulas/spinham-parameter-symmetries.inc
-
 .. dropdown:: Proof of Hermiticities in the LSWT Hamiltonian
 
   .. include:: ../repeated-formulas/hermiticity.inc

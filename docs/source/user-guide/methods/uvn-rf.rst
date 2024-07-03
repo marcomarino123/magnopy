@@ -213,9 +213,9 @@ components and the exchange tensor matrix elements. These changes are governed b
 rotation matrix :math:`\boldsymbol{R_r}(\alpha,\beta)` that has been introduced and
 written explicitly in the :ref:`previous section <eq:uvn-rf-rot-matrix>`.
 
-=================
+-----------------
 Basis coordinates
-=================
+-----------------
 
 The rotation matrix by itself contains the coordinates of the :math:`(u\, v\, n)` basis
 vectors written in the :math:`(x\, y\, z)` basis.
@@ -239,9 +239,9 @@ vectors written in the :math:`(x\, y\, z)` basis.
     \cos\alpha              \\
   \end{pmatrix}
 
-===============
+---------------
 Spin components
-===============
+---------------
 The components of a spin vector :math:`\ket{S}` are calculated
 using Dirac's notation
 
@@ -283,9 +283,9 @@ The spin components in the :math:`(u\, v\, n)` basis are therefore
     S^z \\
   \end{pmatrix}
 
-===============================
+-------------------------------
 Exchange tensor matrix elements
-===============================
+-------------------------------
 
 Similarly, the exchange tensor matrix elements in the :math:`(u\, v\, n)` basis
 are computed using Dirac's notation as follows

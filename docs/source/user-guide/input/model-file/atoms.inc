@@ -8,7 +8,7 @@ Atoms
 
 .. literalinclude:: full-txt.inc
   :linenos:
-  :lines: 6-12
+  :lines: 7-13
   :language: text
 
 .. dropdown:: Description

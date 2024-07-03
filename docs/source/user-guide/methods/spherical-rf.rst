@@ -111,17 +111,17 @@ Intra-cell rotation matrix :math:`\boldsymbol{R}_i\rightarrow\boldsymbol{R}^s_i`
 
   .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
-The matrix elements of the rotation matrix
-:math:`\boldsymbol{R}_i = (\boldsymbol{\hat{p}}_i\, \boldsymbol{\hat{t}}_i\, \boldsymbol{\hat{f}}_i)`
-in the spherical basis can be obtained from the expression
+The matrix elements of the rotation matrix in the spherical basis are
 
 .. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
 
 .. _user-guide_methods_spherical-rf_ptf-definition:
 
-The above expression also defines the vectors :math:`\boldsymbol{\hat{p}}_i`,
+
+FIXME: these three vectors are not transforming like that, need to be fixed, before we go to the spin-wave theory.
+The vectors :math:`\boldsymbol{\hat{p}}_i`,
 :math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical
-basis:
+basis are
 
 .. include:: repeated-formulas/ptf-spherical.inc
 

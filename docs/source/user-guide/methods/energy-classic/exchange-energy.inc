@@ -33,11 +33,11 @@ where the zeroth-, first- and second-order harmonic exchange contributions are
   S_i\, S_j\,
   \left[
     \cos\theta_i\, \sin\theta_j\,
-    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+}
+    \sqrt{2}\operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+}
     e^{-i(\boldsymbol{q} \cdot \boldsymbol{d}_{ij} + \phi_j)}\right)
     +
     \sin\theta_i\, \cos\theta_j\,
-    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
+    \sqrt{2}\operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
   \right]
   \\\\
   E^{(2)}

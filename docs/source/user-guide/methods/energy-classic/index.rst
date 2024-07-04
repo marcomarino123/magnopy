@@ -220,112 +220,25 @@ big groups based on the harmonics that contribute to the energy in each of them.
     direction, but all cells are replicas of each other.
 
 2.  Only the zeroth- and second-order terms contribute to the energy if the spiral
-    vector :math:`\boldsymbol{q}=\boldsymbol{G}/2`. This is the **anti-ferromagnetic**
-    case where the spins can rotate between two different cells, but the angle of
-    rotation is :math:`n_m \pi/2`.
+    vector :math:`\boldsymbol{q}=\boldsymbol{G}/2` and
+    :math:`\boldsymbol{q}\ne\boldsymbol{G}`. This is the **anti-ferromagnetic** case
+    where the spins can rotate between two different cells, but the angle of rotation
+    is :math:`n_m \pi/2`.
 
 3. Only the zero harmonic contributes to the energy if the spiral vector
-   :math:`\boldsymbol{q}\neq \boldsymbol{G},\,\boldsymbol{G}/2`. This is the **spiral**
-   case where the spins rotate between the cells.
+   :math:`\boldsymbol{q}\neq \boldsymbol{G},\,\boldsymbol{G}/2`. This is the true
+   **spiral** case where the spins rotate between the cells.
 
-This means that it proves more transparent to write separate expressions for the spin
-vectors and energies for the three cases. First we recall the most general form of the
-spin vectors in :math:`(u\, v\, n)` basis:
 
-.. include:: ../repeated-formulas/spin-from-ferro-uvn.inc
+In the three following pages we consider minimization for each case separately:
 
-where
+.. toctree::
+  :maxdepth: 1
+  :caption: Minimization strategy
 
-.. include:: ../repeated-formulas/full-azimuth-angle.inc
-
-Now we turn to each individual case and provide explicit expressions for the spin
-vectors in the :math:`(u\, v\, n)` basis and for total energy per unit cell.
-
------------------------
-Ferromagnetic case (FM)
------------------------
-Since :math:`\boldsymbol{q} = \boldsymbol{G}`, then
-:math:`\boldsymbol{q} \cdot \boldsymbol{r}_m = 2\pi n_m` and
-:math:`\boldsymbol{q} \cdot \boldsymbol{d}_{ij} = 2\pi n_{ij}` always, where :math:`n_m`
-and :math:`n_{ij}` are integers. Thus, the spin vectors do not depend on the index
-:math:`m` and are given by
-
-.. math::
-  \boldsymbol{S}_{mi}
-  =
-  S_i
-  \begin{pmatrix}
-    \sin\theta_i\, \cos(\Delta\phi_{i}) \\
-    \sin\theta_i\, \sin(\Delta\phi_{i}) \\
-    \cos\theta_i
-  \end{pmatrix}
-
-.. note::
-  Formally total azimuthal angle is given by
-  :math:`\phi_i = \Delta\phi_i + \boldsymbol{G} \cdot \boldsymbol{r}_i`.
-  Since :math:`\boldsymbol{r}_i` is not a lattice vector we can not just drop the term
-  :math:`\boldsymbol{G} \cdot \boldsymbol{r}_i`. However, we can absorb it in the
-  :math:`\Delta\phi_i` term if :math:`\boldsymbol{G} \ne \boldsymbol{0}` and consider
-  :math:`\boldsymbol{G} = \boldsymbol{0}` (i.e. :math:`\boldsymbol{q} = \boldsymbol{0}`)
-  in general.
-
-and the total energy per unit cell is
-
-.. math::
-  E^{FM}
-  &=
-  \frac{1}{2}\, \sum_{i, j, \boldsymbol{d}_{ij}}
-  S_i\, S_j\,
-  \Biggl[
-    \cos\theta_i\, \cos\theta_j\, (J_{\boldsymbol{d}ij}^I + S^{nn}_{\boldsymbol{d}ij})
-    +\\&\phantom{=\frac{1}{2}\,\sum_{i,j,\boldsymbol{d}_{ij}}S_i\, S_j\,\Biggl[}+
-    \sin\theta_i\, \sin\theta_j\,
-    \operatorname{Re}\left(
-      J_{\boldsymbol{d}ij}^{++} e^{-i(\phi_j - \phi_i)}
-      +
-      J_{\boldsymbol{d}ij}^{+-} e^{i(\phi_j + \phi_i)}
-    \right)
-    +\\&\phantom{=\frac{1}{2}\,\sum_{i,j,\boldsymbol{d}_{ij}}S_i\, S_j\,\Biggl[}+
-    \cos\theta_i\, \sin\theta_j\,
-    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+} e^{-i\phi_j}\right)
-    +
-    \sin\theta_i\, \cos\theta_j\,
-    \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
-  \Biggr]
-  \\&+
-  \mu_B\,
-  \sum_i\, g_i\, S_i\,
-  \Bigl[\,
-    \cos\theta_i\, h^n\,+\,
-    \sin\theta_i\,
-    \left(h^u\, \cos\phi_i+h^v\, \sin\phi_i\, \right)
-  \Bigr]
-
-with
-
-.. math::
-  \operatorname{Re}\left(
-      J_{\boldsymbol{d}ij}^{++} e^{-i(\phi_j - \phi_i)}
-      +
-      J_{\boldsymbol{d}ij}^{+-} e^{i(\phi_j + \phi_i)}
-  \right)
-  &=
-  J^{uu}_{\boldsymbol{d}ij}\, \cos\phi_i\, \cos\phi_j
-  +
-  J^{uv}_{\boldsymbol{d}ij}\, \cos\phi_i\, \sin\phi_j
-  +\\&+
-  J^{vu}_{\boldsymbol{d}ij}\, \sin\phi_i\, \cos\phi_j
-  +
-  J^{vv}_{\boldsymbol{d}ij}\, \sin\phi_i\, \sin\phi_j
-
-.. math::
-  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{n+} e^{-i\phi_j}\right)
-  &=
-  (J_{ij}^{nu}\,\cos\phi_j+J_{ij}^{nv}\,\sin\phi_j)
-  \\
-  \operatorname{Re}\left(J_{\boldsymbol{d}ij}^{+n} e^{i\phi_i}\right)
-  &=
-  (J_{ij}^{un}\,\cos\phi_i+J_{ij}^{vn}\,\sin\phi_i)
+  ferromagnetic
+  antiferromagnetic
+  spiral
 
 ------------------------
 Antiferromagnetic energy
@@ -363,42 +276,3 @@ so the classical energy per unit cell becomes
   +(-1)^{mod(n_{ij},2)}\,\sin\theta_i\,\sin\theta_j\,
   J_{ij}^{F-AF}\right)
   +\mu_B\,\sum_i\,g_i\, S_i\,\cos\theta_i\,h^n
-
----------------------------
-Generic spiral state energy
----------------------------
-The spin vectors assume the generic form
-
-.. math::
-  \boldsymbol{S}_{mi}^s
-    =S_i\,
-  \begin{pmatrix}
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{- i \phi_{mi}} \\
-     \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{ i \phi_{mi}} \\
-     \cos\theta_i
-  \end{pmatrix}
-
-where
-
-.. math::
-  \phi_{mi}(q) = \phi_m(\boldsymbol{q}) + \phi_i(\boldsymbol{q})
-               = \boldsymbol{q}\cdot\boldsymbol{r_m} +
-                  \boldsymbol{q}\cdot\boldsymbol{r_i}+ \Delta\phi_i
-               = \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
-
-and the classical energy per unit cell is
-
-.. math::
-   E^{C,SP}=
-   \frac{1}{2}\,\sum_{i, j, \boldsymbol{d_{ij}}}
-    S_i\,S_j\,\left(
-      \,\cos\theta_i\,\cos\theta_j\,J_{ij}^{nn}+
-      \sin\theta_i\,\sin\theta_j\,J_{ij}^{SP}\right)+
-      \mu_B\,\sum_i\,g_i\,  S_i\,\cos\theta_i\,h^n
-
-with
-
-.. math::
-  J_{ij}^{SP}=
-       J_{ij}^+\,\cos(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)+
-         D_{ij}^{n}\,\sin(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)

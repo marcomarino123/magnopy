@@ -20,7 +20,6 @@ Methods and algorithms
   spherical-rf
   spin-fourier
   energy-classic/index
-  energy-minimization/index
   classical-spin-fluctuations
 
 .. toctree::

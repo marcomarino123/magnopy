@@ -1,11 +1,13 @@
 Rotation matrices are denoted by a bold capital :math:`\boldsymbol{R}` letter, whose subindex identifies
-the  unit vector defining the rotation axis and whose argument indicates the rotation angle. As an example
+the  unit vector defining the rotation axis and whose argument indicates the rotation angle, and whose
+super-index indicates the reference frame. As an example
 
 .. math::
-  \boldsymbol{R_n}(\theta)= e^{\theta\,\boldsymbol{n} \,\times}
+  \boldsymbol{R_n}^z(\theta)= e^{\theta\,\boldsymbol{n}^z \,\times}
 
 corresponds to a rotation by an angle :math:`\theta` about an axis defined by the unit
-vector :math:`\boldsymbol{\hat{n}}`
+vector :math:`\boldsymbol{\hat{n}}`, where the rotation matrix elements are given in
+the :math:`(x,\,y,\,z)` reference frame.
 
 Exceptions to the above rule are as follows. A rotation matrix
 :math:`\boldsymbol{R}_{\boldsymbol{r}(\phi)}(\theta)`

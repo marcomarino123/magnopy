@@ -16,37 +16,120 @@ Spherical reference frame
   * .. include:: page-notations/rotations.inc
 
 The :ref:`previous section <user-guide_methods_single-q>` has shown how each lattice
-spin of the spiral conical state can be generated from a global ferromagnetic state,
-where all spins are aligned along the direction of :math:`\boldsymbol{n}`:
+spin :math:`\ket{S_{mi}}` of the spiral conical state can be generated from a
+global ferromagnetic state, where all spins are aligned along the direction defined by
+:math:`\boldsymbol{n}` by the application of suitable rotations
 
-.. include:: repeated-formulas/spin-from-ferro-uvn.inc
+.. math::
+  \ket{S_{mi}} = S_i\,\ket{f_{mi}} = S_i \,\boldsymbol{R}_m\,\boldsymbol{R}_i\, \ket{n}
 
-This section is devoted to translation of these spin vectors and matrices to spherical
-basis, that is a natural one for the description of spin waves.
+The spin vector components in the :math:`(\,u\,v\,n\,)` reference system are
 
-============================================
-Coordinate system with circular polarization
-============================================
-The spin algebra indicates that spin waves are often circularly polarized,
-so this section discusses its proper reference frame that is termed
-the spherical reference frame :math:`(\,u^+\,u^-\,n\,)` where the basis
-vectors are
+.. math::
+  ^n\boldsymbol{S}_{i}
+  =
+  S_i
+  \begin{pmatrix}
+    \sin\theta_i\, \cos\phi_{mi} \\
+    \sin\theta_i\, \sin\phi_{mi} \\
+    \cos\theta_i
+  \end{pmatrix}
+
+The vector components in the local reference frame :math:`(\,p_{mi}\,t_{mi}\,f_{mi}\,)` are
+
+.. math::
+  ^f\boldsymbol{S}_{i}
+  =
+  S_i
+  \begin{pmatrix}
+    0 \\
+    0 \\
+    1
+  \end{pmatrix}
+
+-----------------
+Spin fluctuations
+-----------------
+If fluctuations appear, then the spin vector changes to :math:`\ket{S_{mi}´}=\ket{S_{mi}}+\ket{\delta S_{mi}}`.
+The vector components in the local reference frame are
+
+.. math::
+  ^fS_{mi}´=
+  \begin{pmatrix}
+    \delta S^p _{mi}\\
+    \delta S^t_{mi} \\
+    S_i-\delta S^f_{mi}
+  \end{pmatrix}
+
+where the minus sign appears because :math:`\ket{S_{mi}´}` is normalized to :math:`S_i`.
+
+This section is devoted to translating spin vector components and matrix elements
+to spherical bases. These bases are best suited for the description of spin waves and for
+angular momentum quantization.
+
+=============================================
+Coordinate systems with circular polarization
+=============================================
+
+------------------------------
+Global spherical basis vectors
+------------------------------
+
+Let be the :math:`(\,u\,v\,n\,)` reference frame, and let us introduce
+the spherical orthogonal basis :math:`(n^+\,n^-\,n\,)` that is
+defined as follows:
 
 .. math::
   \begin{matrix}
-    \ket{\, u^{\pm}\, } = \dfrac{\ket{\, u\, } \pm i \ket{\, v\, }}{\sqrt{2}}
+    \ket{\, n^{\pm}\, } = \dfrac{\ket{\, u\, } \pm i\, \ket{\, v\, }}{\sqrt{2}}
     & \text{and} &
     \ket{\, n\, } = \ket{\, n\, }
   \end{matrix}
 
-The basis transformation matrix
-
-.. math::
-  \ket{\, u^+\, u^-\, n\, } = \boldsymbol{T}\, \ket{\, u\, v\, n\, }
-
-is
+The basis transformation
+:math:`\ket{\, u^+\, u^-\, n\, } = \boldsymbol{T}\, \ket{\, u\, v\, n\, }`
+is achieved via the transformation matrix
 
 .. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.inc
+
+Vector components are written in these global spherical basis as
+
+.. math::
+  ^{n,s}\boldsymbol{A}=\braket{\,n^+\,n^-\,n\,|\,A\,}=
+  \begin{pmatrix}A^-\\A^+\\A^n\end{pmatrix}
+
+where :math:`A^{\pm}=\frac{A^u\pm A^v}{\sqrt{2}}`
+
+-----------------------------
+Local spherical basis vectors
+-----------------------------
+
+Similarly, the local spherical basis :math:`(\,f_{mi}^+\,f_{mi}^-\,f_{mi}\,)`  is defined by
+
+.. math::
+  \ket{\,f^+_{mi}\,f^-_{mi}\,f_{mi}\,}=\boldsymbol{T}\, \ket{\, p_{mi}\, t_{mi}\, f_{mi}\, }
+
+where the same transpormation matrix is used,
+
+.. math::
+  ^f\boldsymbol{T}\,=\,\braket{\, p_{mi}\, t_{mi}\, f_{mi}\, |\, \boldsymbol{T}\, |\, p_{mi}\, t_{mi}\, f_{mi}\, }
+  =
+  \dfrac{1}{\sqrt{2}}\,
+  \begin{pmatrix}
+    1 &  1 & 0        \\
+    i & -i & 0        \\
+    0 &  0 & \sqrt{2} \\
+  \end{pmatrix}
+
+Hence
+
+.. math::
+  \begin{matrix}
+    \ket{\, f_{mi}^{\pm}\, } = \dfrac{\ket{\, p_{mi}\, } \pm i\,
+    \ket{\, t_{mi}\, }}{\sqrt{2}}
+    & \text{and} &
+    \ket{\, f_{mi}\, } = \ket{\, f_{mi}\, }
+  \end{matrix}
 
 .. dropdown:: Unitary check
 
@@ -99,36 +182,69 @@ is
   sign ":math:`^T`" to the hermitian conjugate ":math:`^{\dagger}`" in the formulas
   across the whole documentation.
 
-=============================
-Change to the spherical basis
-=============================
+=========================
+Change to spherical bases
+=========================
 
---------------------------------------------------------------------------------
-Intra-cell rotation matrix :math:`\boldsymbol{R}_i\rightarrow\boldsymbol{R}^s_i`
---------------------------------------------------------------------------------
+-------------------------------------------
+Spin vector :math:`\ket{S_{mi}}` components
+-------------------------------------------
 
-.. dropdown:: :math:`\boldsymbol{R}_i\text{ in }(u\, v\, n)\text{ basis}`
+The spin vector components in the local spherical basis :math:`(\,f_{mi}^+\,f_{mi}^-\,f_{mi}\,)` are
+
+.. math::
+  ^{f,s}S_{mi}=\braket{f_{mi}^+\,f_{mi}^-\,f_{mi}\,|\,S_{mi}}
+  =S_i\,\boldsymbol{T}^\dagger\,\begin{pmatrix}0\\0\\1\end{pmatrix}=S_i\,\begin{pmatrix}0\\0\\1\end{pmatrix}
+
+However, if fluctuations exist then the vector components become
+
+.. math::
+  ^{f,s}S_{mi}´
+  =\boldsymbol{T}^\dagger\,
+  \begin{pmatrix}\delta S_{mi}^p\\\delta S_{mi}^t\\S_i-\delta S_{mi}^f\end{pmatrix}
+  = \begin{pmatrix}\delta S_{mi}^+\\\delta S_{mi}^-\\S_i-\delta S_{mi}^f\end{pmatrix}
+
+The spin vector components in the global spherical basis :math:`(\,n^+\,n-\,n\,)` are
+
+.. math::
+  ^{n,s}S_{mi}= S_i\,=\braket{\,n^+\,n^-\,n\,|\,S_{mi}}=
+  \begin{pmatrix}\frac{1}{\sqrt{2}}\,\sin \theta_i\,e^{-i\,\phi_{mi}}\\
+  \frac{1}{\sqrt{2}}\,\sin \theta_i\,e^{i\,\phi_{mi}}\\
+  \cos \theta_i \end{pmatrix}
+
+------------------------------------------------------------------------------------
+Intra-cell rotation matrix :math:`\boldsymbol{R}_i\,\rightarrow\,^s\boldsymbol{R_i}`
+------------------------------------------------------------------------------------
+
+.. dropdown:: Reminder on the :math:`\,^n\boldsymbol{R}_i` matrix
 
   .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
-The matrix elements of the rotation matrix in the spherical basis are
+The :math:`\boldsymbol{R}_i` matrix elements in the spherical :math:`(\,n^+\,n^-\,n\,)` basis are
 
-.. include:: repeated-formulas/spin-rotation-matrix-spherical.inc
-
-.. _user-guide_methods_spherical-rf_ptf-definition:
-
-
-FIXME: these three vectors are not transforming like that, need to be fixed, before we go to the spin-wave theory.
-The vectors :math:`\boldsymbol{\hat{p}}_i`,
-:math:`\boldsymbol{\hat{t}}_i`, and :math:`\boldsymbol{\hat{f}}_i` in the spherical
-basis are
-
-.. include:: repeated-formulas/ptf-spherical.inc
+.. math::
+    ^{n,s}\boldsymbol{R_i}
+       &=
+       \bra{\,n^+\,n^-\,n\,}\,\boldsymbol{R_i}\,\ket{\,n^+\,n^-\,n\,}
+         \,=\,\boldsymbol{T}^\dagger\,^n\boldsymbol{R_i}\,\boldsymbol{T}\\
+       &=
+      \dfrac{1}{2}
+      \begin{pmatrix}
+          1 + \cos\theta_i                        &
+          (\cos\theta_i - 1)\, e^{-2i\phi_i}      &
+          \sqrt{2}\, \sin\theta_i\, e^{-i\phi_i}  \\
+          (\cos\theta_i - 1)\, e^{2i\phi_i}       &
+          1 + \cos\theta_i                        &
+          \sqrt{2}\, \sin\theta_i\, e^{i\phi_i}   \\
+          -\sqrt{2}\, \sin\theta_i\, e^{i\phi_i}  &
+          -\sqrt{2}\, \sin\theta_i\, e^{-i\phi_i} &
+          2\cos\theta_i
+      \end{pmatrix}
 
 .. dropdown:: Details
 
   .. math::
-    \boldsymbol{R}_i^s
+    ^{n,s}\boldsymbol{R}_i
     =
     \braket{\, u^+\, u^-\, n\, |\, \boldsymbol{R}_i\, |\, u^+\, u^-\, n\, }
     =
@@ -138,61 +254,30 @@ basis are
     =
     \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}
 
+------------------------------------------------------------------------------------------------------------------
+Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\,^s\boldsymbol{R}_m(\boldsymbol{q})`
+------------------------------------------------------------------------------------------------------------------
 
-  .. math::
-    \boldsymbol{\hat{p}}^s_i
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{p}}_i
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{u}}
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{u}}
-    =&\,
-    \boldsymbol{R}_i^s\, \boldsymbol{\hat{u}}^+
-    =\,
-    \boldsymbol{R}_i^s\, \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
-    \\\\
-    \boldsymbol{\hat{t}}^s_i
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{t}}_i
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{v}}
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{v}}
-    =&\,
-    \boldsymbol{R}_i^s\, \boldsymbol{\hat{u}}^-
-    =\,
-    \boldsymbol{R}_i^s\, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
-    \\\\
-    \boldsymbol{\hat{f}}^s_i
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{f}}_i
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{\hat{n}}
-    =
-    \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_i\, \boldsymbol{T}\boldsymbol{T}^{\dagger}\, \boldsymbol{\hat{n}}
-    =&\,
-    \boldsymbol{R}_i^s\, \boldsymbol{\hat{n}}
-    =\,
-    \boldsymbol{R}_i^s\, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
-
-----------------------------------------------------------------------------------------------------------------
-Inter-cell rotation matrix :math:`\boldsymbol{R}_m(\boldsymbol{q})\rightarrow\boldsymbol{R}_m^s(\boldsymbol{q})`
-----------------------------------------------------------------------------------------------------------------
-
-.. dropdown:: :math:`\boldsymbol{R}_m\text{ in }(u\, v\, n)\text{ basis}`
+.. dropdown:: Reminder on the :math:`\,^n\boldsymbol{R}_m` matrix
 
   .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
 
-The matrix elements of the rotation matrix :math:`\boldsymbol{R}_m` in the spherical
-basis can be obtained from the expression
+The inter-cell rotation :math:`\boldsymbol{R}_m` matrix elements in the spherical :math:`(\,n^+\,n^-\,n\,)`
+basis are
 
-.. include:: repeated-formulas/spiral-rotation-matrix-spherical.inc
+.. math::
+  ^{n,s}\boldsymbol{R}_m
+  =
+  \begin{pmatrix}
+    e^{-i\boldsymbol{q} \cdot \boldsymbol{r_m}} & 0                  & 0 \\
+    0                   & e^{i\boldsymbol{q} \cdot \boldsymbol{r_m}} & 0 \\
+    0                   & 0                                          & 1 \\
+  \end{pmatrix}
 
 .. dropdown:: Details
 
   .. math::
-    \boldsymbol{R}_m^s
+    ^{n,s}\boldsymbol{R}_m
     =
     \braket{\, u^+\, u^-\, n\, |\, \boldsymbol{R}_m\, |\, u^+\, u^-\, n\, }
     =
@@ -202,44 +287,11 @@ basis can be obtained from the expression
     =
     \boldsymbol{T}^{\dagger}\, \boldsymbol{R}_m\, \boldsymbol{T}
 
------------------------------------------------------------------------
-Spin vector :math:`\boldsymbol{S}_{mi}\rightarrow\boldsymbol{S}_{mi}^s`
------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+Exchange tensor :math:`\boldsymbol{J_{\boldsymbol{d}ij}}\,\rightarrow\,^s\boldsymbol{J_{\boldsymbol{d}ij}}`
+-----------------------------------------------------------------------------------------------------------
+The exchange matrix elements in the :math:`(\,n^+\,n^-\,n\,)` reference frame are
 
-.. dropdown:: :math:`\boldsymbol{S}_{mi}\text{ in }(u\, v\, n)\text{ basis}`
-
-  .. include:: repeated-formulas/spin-from-ferro-uvn.inc
-
-The spin vector :math:`\boldsymbol{S}_{mi}` can be written in the spherical basis as
-
-.. include:: repeated-formulas/spin-spherical.inc
-
-.. dropdown:: Details
-
-  .. math::
-    S_{mi}^{\pm} = S_{mi}^u \pm iS_{mi}^v
-
-  .. math::
-    \boldsymbol{S}_{mi}^s
-    &=
-    \boldsymbol{T}^\dagger\, \boldsymbol{S}_{mi}
-    =
-    \boldsymbol{T}^\dagger\, \boldsymbol{R}_m\, \boldsymbol{R}_i\, \boldsymbol{S^F}_{mi}
-    =
-    \boldsymbol{T}^\dagger\boldsymbol{R}_m\boldsymbol{T}\, \,
-    \boldsymbol{T}^\dagger\boldsymbol{R}_i\boldsymbol{T}\, \,
-    \boldsymbol{T}^\dagger\boldsymbol{S^F}_{mi}
-    \\&=
-    \boldsymbol{R}_m^s\, \boldsymbol{R}_i^s\, \boldsymbol{S^{F,s}}_{i}
-    =
-    \boldsymbol{R}_m^s\, \boldsymbol{S}_i^s
-    =
-    S_i\, \boldsymbol{R}_m^s\, \boldsymbol{\hat{f}}_{i}^s
-
--------------------------------------------------------------------------------------------------------
-Exchange tensor :math:`\boldsymbol{J_{\boldsymbol{d}ij}}\rightarrow\boldsymbol{J_{\boldsymbol{d}ij}^s}`
--------------------------------------------------------------------------------------------------------
-The exchange matrix in the spherical reference frame is obtained through
 
 .. include:: repeated-formulas/exchange-matrix-decomposed-spherical.inc
 
@@ -362,68 +414,38 @@ Let us note a few symmetries of the exchange matrix in a spherical reference fra
 
 .. _user-guide_methods_spherical-rf_change_magnetic-field:
 
-----------------------------------------------------------------
-Magnetic field :math:`\boldsymbol{h}\rightarrow\boldsymbol{h}^s`
-----------------------------------------------------------------
+------------------------------------------------------------------
+Magnetic field :math:`\,^s\boldsymbol{h}\rightarrow\boldsymbol{h}`
+------------------------------------------------------------------
 The magnetic field vector :math:`\boldsymbol{h}` can be written
-in the spherical reference frame as
+in the global spherical basis :math:`(\,n^+\,n^-\,n\,)` as
 
-.. include:: repeated-formulas/magnetic-field-spherical.inc
+.. math::
+  ^{n,s}\boldsymbol{h}=\braket{\,n^+\,n^-\,n\,|\,h\,}
+  =
+  \begin{pmatrix}
+     h^{-} \\
+     h^{+} \\
+     h^n
+  \end{pmatrix}
 
 .. dropdown:: Details
 
-  Magnetic field in the :math:`(u\, v\, n)` reference frame is written as
+  The magnetic field vector in the :math:`(u\, v\, n)` reference frame is written as
 
   .. math::
-    \boldsymbol{h_{mi}}
+    ^n\boldsymbol{h_{mi}}
     =
     \begin{pmatrix}
       h^u \\
       h^v \\
       h^n \\
-    \end{pmatrix}
-
-  Let us compute the magnetic field in the spherical reference frame:
-
-  .. math::
-    \braket{\, u^+\, u^-\, n\, |\,  h\, }
-    =
-    \braket{\, u^+\, u^-\, n\, |\,  u\, v\, n\, }
-    \braket{\, u\, v\, n\, |\, h\, }
-    =
-    \braket{\, u\, v\, n\, |\, T^{\dagger}\, |\, u\, v\, n\, }
-    \braket{\, u\, v\, n\, |\, h\, }
-
-  Which leads to the expression:
-
-  .. math::
-    \dfrac{1}{\sqrt{2}}
-    \begin{pmatrix}
-      1 & -i & 0        \\
-      1 &  i & 0        \\
-      0 &  0 & \sqrt{2} \\
-    \end{pmatrix}
-    \begin{pmatrix}
-      h^u \\
-      h^v \\
-      h^n \\
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-      \frac{1}{\sqrt{2}}\, (h^u - ih^v) \\
-      \frac{1}{\sqrt{2}}\, (h^u + ih^v) \\
-      h^n     \\
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-      \frac{1}{\sqrt{2}}\, h^{-} \\
-      \frac{1}{\sqrt{2}}\, h^{+} \\
-      h^n                        \\
     \end{pmatrix}
 
 ============================================
 Hamiltonian in the spherical reference frame
 ============================================
-The Heisenberg Hamiltonian can be written now in the spherical reference frame as follows
+The Heisenberg Hamiltonian can be written now in the global spherical basis :math:`(\,n^+\,n^-\,n\,)`
+as follows
 
 .. include:: repeated-formulas/hamiltonian-main-spherical.inc

@@ -14,16 +14,16 @@ Fourier transformation
   * .. include:: page-notations/kronecker-delta.inc
   * .. include:: page-notations/uvn-or-spherical.inc
 
-The spherical reference frame :math:`(u^+\, u^-\, n)` is convenient for analyzing the
+The spherical reference frame :math:`(n^+\, n^-\, n)` is convenient for analyzing the
 fourier-transformed spin vectors. Notice that the components of the spin vector
-:math:`\boldsymbol{S}_{mi}^s` in the spherical reference frame are
+:math:`\ket{S_{mi}}` in the spherical reference frame are
 
 .. include:: repeated-formulas/spin-spherical.inc
 
 whose Fourier transform is
 
 .. math::
-  \boldsymbol{S}_{ki}^s
+  ^{n,s}\boldsymbol{S}_{ki}
   =
   S_i
   \begin{pmatrix}
@@ -35,7 +35,7 @@ whose Fourier transform is
 .. dropdown:: Details
 
   .. math::
-      \boldsymbol{S}_{ki}^s
+      ^{n,s}\boldsymbol{S}_{ki}
       =
       \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \boldsymbol{S_{mi}^s}
       =
@@ -67,10 +67,10 @@ whose Fourier transform is
   where :math:`m = 1, ..., M`
 
 
-This structural factor can be written in the :math:`(u\, v\, n)` reference frame as follows:
+This structure factor can be written in the :math:`(u\, v\, n)` reference frame as follows:
 
 .. math::
-  \boldsymbol{S}_{ki}
+  ^n\boldsymbol{S}_{ki}
   =
   S_i
   \begin{pmatrix}

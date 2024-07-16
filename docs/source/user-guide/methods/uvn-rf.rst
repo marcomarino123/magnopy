@@ -17,15 +17,15 @@
   * .. include:: page-notations/exchange-tensor.inc
 
 Magnopy assumes that the ground state spin arrangement follows a spiral conical
-configuration, where the cone axis is defined by the unit vector :math:`\boldsymbol{n}`.
+configuration, where the cone axis is defined by the unit vector :math:`\boldsymbol{\hat{n}}`.
 Eventually, the program rotates every atomic spin to make it collinear to
-:math:`\boldsymbol{n}` and quantizes the spin vectors along :math:`\boldsymbol{n}`.
+:math:`\boldsymbol{\hat{n}}` and quantizes the spin vectors along :math:`\boldsymbol{\hat{n}}`.
 
 However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
 :math:`\boldsymbol{A}` tensors are usually provided in a different global reference
 frame, say :math:`(x\, y\, z)`, where neither of these three unit vectors is collinear
-to :math:`\boldsymbol{n}`. A rotation is therefore performed on :math:`\boldsymbol{J}`
-and :math:`\boldsymbol{A}` from :math:`(x\, y\, z)` to a new reference frame
+to :math:`\boldsymbol{n}`. A rotation is therefore performed on :math:`^z\boldsymbol{J}`
+and :math:`^z\boldsymbol{A}` from :math:`(x\, y\, z)` to a new reference frame
 :math:`(u\, v\, n)`. There is a freedom in the choice of the unit vectors
 :math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` due to the rotational
 symmetry of the system about the :math:`\boldsymbol{\hat{n}}` cone axis.
@@ -221,11 +221,11 @@ The rotation matrix by itself contains the coordinates of the :math:`(u\, v\, n)
 vectors written in the :math:`(x\, y\, z)` basis.
 
 .. math::
-  \boldsymbol{R_r}(\alpha,\beta)
+  ^z\boldsymbol{R_r}(\alpha,\beta)
   =&
   \braket{\, x\, y\, z\, |\, u\, v\, n\, }
   =
-  \left(\, \boldsymbol{u}\, \boldsymbol{v}\, \boldsymbol{n}\, \right)
+  \bra{\,x\,y\,z\,}\,\boldsymbol{R_r}\,\ket{\,x\,y\,z\,}
   \\=&
   \begin{pmatrix}
     \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) &
@@ -246,7 +246,7 @@ The components of a spin vector :math:`\ket{S}` are calculated
 using Dirac's notation
 
 .. math::
-  \braket{\, u\, v\, n\, |\, S\, }
+  ^n\boldsymbol{S}=\braket{\, u\, v\, n\, |\, S\, }
   =
   \braket{\, u\, v\, n\, |\, x\, y\, z\, }
   \braket{\, x\, y\, z\, |\, S\, }
@@ -291,7 +291,7 @@ Similarly, the exchange tensor matrix elements in the :math:`(u\, v\, n)` basis
 are computed using Dirac's notation as follows
 
 .. math::
-  \boldsymbol{J}^{uvn}_{\boldsymbol{d}ij}
+  ^n\boldsymbol{J}_{\boldsymbol{d}ij}
   &=
   \braket{\, u\, v\, n\, |\, \boldsymbol{J}_{\boldsymbol{d}ij}\, |\, u\, v\, n\, }
   =
@@ -299,50 +299,46 @@ are computed using Dirac's notation as follows
   \braket{\, x\, y\, z\, \vert\, \boldsymbol{J}_{\boldsymbol{d}ij}\, \vert\, x\, y\, z\, }\,
   \braket{\, x\, y\, z\, |\, u\, v\, n\, } \\
   &=
-  \braket{
-    \, x\, y\, z\, |\, \boldsymbol{\cal R_r}^{\dagger}(\alpha,\beta)\, |\, x\, y\, z\,
-  }\,
-  \boldsymbol{J}^{xyz}_{\boldsymbol{d}ij}
-  \braket{\, x\, y\, z\, |\, \boldsymbol{\cal R_r}(\alpha,\beta)\, |\, x\, y\, z\, }
+  \, ^z\boldsymbol{\cal R_r}^{\dagger}(\alpha,\beta)\, \,
+  ^z\boldsymbol{J}_{\boldsymbol{d}ij}
+ \, ^z\boldsymbol{\cal R_r}(\alpha,\beta)
 
 Explicitly
 
 .. math::
-  \boldsymbol{J}^{u v n}_{\boldsymbol{d}ij}=
+  ^n\boldsymbol{J}_{\boldsymbol{d}ij}=
   \begin{pmatrix}
     J_{\boldsymbol{d}ij}^{uu} & J_{\boldsymbol{d}ij}^{uv} & J_{\boldsymbol{d}ij}^{un} \\
     J_{\boldsymbol{d}ij}^{vu} & J_{\boldsymbol{d}ij}^{vv} & J_{\boldsymbol{d}ij}^{vn} \\
     J_{\boldsymbol{d}ij}^{nu} & J_{\boldsymbol{d}ij}^{nv} & J_{\boldsymbol{d}ij}^{nn} \\
   \end{pmatrix}
-  =
-  \boldsymbol{R_r}^{\dagger}\, \boldsymbol{J}_{\boldsymbol{d}ij}^{x y z}\, \boldsymbol{R_r}
-  =
-  \boldsymbol{R_r}^{\dagger}\,
+  \,=\,
+  ^z\boldsymbol{R_r}^{\dagger}\,
   \begin{pmatrix}
     J_{\boldsymbol{d}ij}^{xx} & J_{\boldsymbol{d}ij}^{xy} & J_{\boldsymbol{d}ij}^{xz} \\
     J_{\boldsymbol{d}ij}^{yx} & J_{\boldsymbol{d}ij}^{yy} & J_{\boldsymbol{d}ij}^{yz} \\
     J_{\boldsymbol{d}ij}^{zx} & J_{\boldsymbol{d}ij}^{zy} & J_{\boldsymbol{d}ij}^{zz} \\
   \end{pmatrix}\,
-  \boldsymbol{R_r}
+  ^z\boldsymbol{R_r}
 
-:math:`\boldsymbol{J}^{uvn}_{\boldsymbol{d}ij}` can be split into isotropic, symmetric
-and anti-symmetric (DM) matrices in the :math:`(u\, v\, n)` reference frame also
+:math:`^n\boldsymbol{J}_{\boldsymbol{d}ij}` can be split into isotropic, symmetric
+and anti-symmetric (DM) matrices in the :math:`(u\, v\, n)` reference frame
 
 .. math::
-  \boldsymbol{J}_{\boldsymbol{d}ij}^{uvn}
+  ^n\boldsymbol{J}_{\boldsymbol{d}ij}
   =
   J_{\boldsymbol{d}ij}^{I}\, \boldsymbol{I}
-  +
-  \boldsymbol{J}^{\boldsymbol{S},u v n}_{\boldsymbol{d}ij}
-  +
-  \boldsymbol{J}^{\boldsymbol{A},u v n}_{\boldsymbol{d}ij}
+  \,+\,
+  ^n\boldsymbol{J}^\boldsymbol{S}_{\boldsymbol{d}ij}
+  \,+\,
+  ^n\boldsymbol{J}^\boldsymbol{A}_{\boldsymbol{d}ij}
 
 where
 :math:`J^{I}_{\boldsymbol{d}ij} = \dfrac{1}{3}(J_{\boldsymbol{d}ij}^{uu} + J_{\boldsymbol{d}ij}^{vv} + J_{\boldsymbol{d}ij}^{nn}) =\dfrac{1}{3}(J_{\boldsymbol{d}ij}^{xx} + J_{\boldsymbol{d}ij}^{yy} + J_{\boldsymbol{d}ij}^{zz})`
 and
 
 .. math::
-  \boldsymbol{J}^{\boldsymbol{S},u v n}_{\boldsymbol{d}ij}
+  ^n\boldsymbol{J}^\boldsymbol{S}_{\boldsymbol{d}ij}
   =
   \begin{pmatrix}
     S_{\boldsymbol{d}ij}^{uu} & S_{\boldsymbol{d}ij}^{uv} & S_{\boldsymbol{d}ij}^{un} \\
@@ -351,7 +347,7 @@ and
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{J}^{\boldsymbol{A},u v n}_{\boldsymbol{d}ij}
+  ^n\boldsymbol{J}^\boldsymbol{A}_{\boldsymbol{d}ij}
   =
   \begin{pmatrix}
     0                       & D_{\boldsymbol{d}ij}^n  & -D_{\boldsymbol{d}ij}^v \\

@@ -17,27 +17,30 @@ Spin rotations
   * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/rotations.inc
 
-At this moment we start to work in the :math:`(u\, v\, n)` reference frame. We are
-left with the set of spin vectors, that are oriented in a way, that resembles the spiral
-conical state of the Hamiltonian. However, as will be clear from the later derivations,
-it is convenient to work with the ferromagnetic alignment of the spins. Therefore, a key
+We assume that the ground state of the spin system follows an spiral conical
+spin arrangement, where the cone axis lies along the direction defined by
+the unit vector :math:`\boldsymbol{\hat{n}}`. We define the :math:`(u\, v\, n)`
+reference frame as discussed in the previous section.
+
+Convenience dictates that spins should be quantized along a global quantization
+axis, that we choose here to be :math:`\boldsymbol{\hat{n}}`. Therefore, a key
 technical tool in magnopy is the ability to rotate any atomic spin vector
+:math:`\boldsymbol{S_{i}}=S_i\, \boldsymbol{\hat{f}_{i}}` into the direction
+defined by :math:`\hat{\boldsymbol{n}}`, thus delivering the rotated "Ferromagnetic"
+spin vector :math:`\boldsymbol{S^F_{i}}=S_i\, \boldsymbol{\hat{n}}`. We assume
+henceforth that the spin vector coordinates in the :math:`(u\, v\, n)`
+reference frame are
 
 .. math::
-  \boldsymbol{S_i}
+  ^n\boldsymbol{\hat{f}_{i}}
   =
-  S_i\, \boldsymbol{\hat{f}}_i
-  =
-  S_i
   \begin{pmatrix}
-    \sin\theta_i\, \cos\phi_i \\
-    \sin\theta_i\, \sin\phi_i \\
-    \cos\theta_i              \\
+    \sin\theta_{i}\, \cos\phi_{i} \\
+    \sin\theta_{i}\, \sin\phi_{i} \\
+    \cos\theta_{i}              \\
   \end{pmatrix}
 
-into the direction defined by the unit vector :math:`\hat{\boldsymbol{n}}`, thus
-delivering the rotated "Ferromagnetic" spin vector
-:math:`\boldsymbol{S^F}_i=S_i\, \boldsymbol{\hat{n}}`.
+
 
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html
@@ -46,40 +49,42 @@ delivering the rotated "Ferromagnetic" spin vector
 
   **Figure 1** (interactive): Vectors and angles used in the spin rotations.
 
-The unit vector that defines the rotation axis is
+The unit vector that defines the rotation axis is defined by
+:math:`\boldsymbol{\hat{r}}(\phi_i)=\dfrac{\boldsymbol{\hat{n}}
+\times \boldsymbol{S}_i}{|\, \boldsymbol{\hat{n}} \times \boldsymbol{S}_i\, |}`.
+
+so that the rotation matrix is
+:math:`\boldsymbol{R_i}=e^, {-i\,\theta_i\,\boldsymbol{\hat{r}_i}\,\times}`
+with matrix elements in the :math:`(u\, v\, n)` reference frame
 
 .. math::
-  \boldsymbol{\hat{r}}(\phi_i)
-  =
-  \dfrac{
-    \boldsymbol{\hat{n}} \times \boldsymbol{S}_i
-  }{
-    |\, \boldsymbol{\hat{n}} \times \boldsymbol{S}_i\, |
-  }
-  =
+  ^n\boldsymbol{\hat{r}_i}=\braket{\,u\,v\,n\,|\,r_i}=
   \begin{pmatrix}
     -\sin\phi_i \\
     \cos\phi_i  \\
     0           \\
   \end{pmatrix}
 
-so that the rotation matrix is
+and
 
 .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
 
-All in all,
+All in all, we arrive at
 
 .. include:: repeated-formulas/spin-from-ferro-any.inc
 
-Furthermore, :math:`\boldsymbol{R}_i` can be applied to the :math:`(u\, v\, n)`
-reference frame which result into the new basis defined by the unit vectors
+Furthermore, a new "local" or "rotated "reference frame
+:math:`(p_i\, t_i\, f_i)` can
+be obtained by applying the rotation :math:`\boldsymbol{R}_i` to the
+:math:`(u\, v\, n)` reference frame. The coordinates of the new basis vectors
+are
 
 .. math::
-  \boldsymbol{\hat{p}}_i
-  =
-  \boldsymbol{R}_i\,\boldsymbol{\hat{u}}
-  =
-  \boldsymbol{R}_i\, \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+  ^n\boldsymbol{\hat{p}}_i
+  \,=\,
+  ^n\boldsymbol{R}_i\,^n\boldsymbol{\hat{u}}
+  \,=\,
+  ^n\boldsymbol{R}_i\, \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
   =
   \begin{pmatrix}
     \cos\theta_i + \sin^2\phi_i\, \, (1-\cos\theta_i) \\
@@ -88,11 +93,11 @@ reference frame which result into the new basis defined by the unit vectors
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\hat{t}}_i
-  =
-  \boldsymbol{R}_i\, \boldsymbol{\hat{v}}
-  =
-  \boldsymbol{R}_i\, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+  ^n\boldsymbol{\hat{t}}_i
+  \,=\,
+  ^n\boldsymbol{R}_i\, ^n\boldsymbol{\hat{v}}
+  \,=\,
+  ^n\boldsymbol{R}_i\, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
   =
   \begin{pmatrix}
     -\sin\phi_i\, \cos\phi_i\,(1-\cos\theta_i)      \\
@@ -101,11 +106,11 @@ reference frame which result into the new basis defined by the unit vectors
   \end{pmatrix}
 
 .. math::
-  \boldsymbol{\hat{f}}_i
-  =
-  \boldsymbol{R}_i\, \boldsymbol{\hat{n}}
-  =
-  \boldsymbol{R}_i\, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+  ^n\boldsymbol{\hat{f}}_i
+  \,=\,
+  ^n\boldsymbol{R}_i\, ^n\boldsymbol{\hat{n}}
+  \,=\,
+  ^n\boldsymbol{R}_i\, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
   =
   \begin{pmatrix}
     \cos\phi_i\, \sin\theta_i \\
@@ -113,19 +118,11 @@ reference frame which result into the new basis defined by the unit vectors
     \cos\theta_i
   \end{pmatrix}
 
-One could call this :math:`(p_i\, t_i\, f_i)` reference frame the "local reference
-frame" or "rotated reference frame". We use the vectors :math:`\boldsymbol{\hat{p}_i}`,
+We use the basis vectors :math:`\boldsymbol{\hat{p}_i}`,
 :math:`\boldsymbol{\hat{t}_i}` and :math:`\boldsymbol{\hat{f}_i}` to describe the
-direction of each individual spin in the unit cell, however, we will not refer to the
-concept of the "local" reference frame in the following. In magnopy we define one global
-reference frame :math:`(u\, v\, n)` that corresponds to the global spiral conical state
-of the Hamiltonian. The introduction of the :math:`(p_i\, t_i\, f_i)` reference frame is
-only a technical tool and we avoid it in order to reduce the amount of the reference
-frames that are used in the formalism.
-
-
-The rotation matrix can therefore be written as
-:math:`\boldsymbol{R}_i=(\boldsymbol{\hat{p}_i}\, \boldsymbol{\hat{t}_i}\, \boldsymbol{\hat{f}_i})`.
+direction of each individual spin in the unit cell. All in all, magnopy defines
+a single global reference frame :math:`(u\, v\, n)`. Local reference frames
+:math:`(p_i\, t_i\, f_i)` are rotated towards :math:`(u\, v\, n)`.
 
 .. dropdown:: Bra-ket notation
 

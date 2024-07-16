@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{R}_m^s
+  ^s\boldsymbol{R}_m
   =
   \begin{pmatrix}
     e^{-i\boldsymbol{q} \cdot \boldsymbol{r_m}} & 0                  & 0 \\

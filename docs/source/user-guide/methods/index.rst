@@ -7,8 +7,8 @@ Methods and algorithms
 .. toctree::
   :maxdepth: 1
 
-  notation
   bra-ket
+  notation
 
 .. toctree::
   :maxdepth: 1
@@ -19,6 +19,7 @@ Methods and algorithms
   single-q
   spherical-rf
   spin-fourier
+  rewritten-spinham
   energy-classic/index
   classical-spin-fluctuations
 

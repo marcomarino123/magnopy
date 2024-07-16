@@ -1,11 +1,7 @@
 .. math::
-  \boldsymbol{S}_{mi}
-  =
-  \boldsymbol{R}_m\, \boldsymbol{S}_{i}
-  =
-  \boldsymbol{R}_m\, \boldsymbol{R}_i\, \boldsymbol{S^F}_{i}
-  =
-  S_i\, \boldsymbol{R}_{mi}\, \boldsymbol{\hat{n}}
+  ^n\boldsymbol{S}_{mi}
+  \,=\,
+  ^n\boldsymbol{R}_m\, ^n\boldsymbol{S}_{i}
   =
   S_i
   \begin{pmatrix}

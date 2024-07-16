@@ -3,9 +3,9 @@
   =
   \dfrac{1}{2}
   \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
-  \boldsymbol{S}_{mi}^{\dagger}\,
-  \boldsymbol{J}_{\boldsymbol{d}ij}\,
-  \boldsymbol{S}_{m+d_{ij},j}
+  ^z\boldsymbol{S}_{mi}^\dagger\,
+  ^z\boldsymbol{J}_{\boldsymbol{d}ij}\,
+  ^z\boldsymbol{S}_{m+d_{ij},j}
   +
-  \mu_B\,\boldsymbol{h}^{\dagger}\,
-  \sum_{m,i}\,g_i \,\boldsymbol{S}_{mi}
+  \mu_B\,^z\boldsymbol{h}^\dagger\,
+  \sum_{m,i}\,g_i \,^z\boldsymbol{S}_{mi}

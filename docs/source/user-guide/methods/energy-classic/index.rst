@@ -17,73 +17,6 @@ Total energy of the classical Hamiltonian
   * .. include:: ../page-notations/uvn-or-spherical.inc
   * .. include:: ../page-notations/exchange-tensor.inc
 
-=================================
-Re-written Heisenberg Hamiltonian
-=================================
-We have shown in :ref:`the previous section <user-guide_methods_spherical-rf>` that the
-classical Heisenberg Hamiltonian can be written in the spherical reference frame
-:math:`(u^+\, u^-\, n)` as follows:
-
-.. include:: ../repeated-formulas/hamiltonian-main-spherical.inc
-
-where the spin vectors are
-
-.. math::
-  \boldsymbol{S}_{mi}^s
-  =
-  \boldsymbol{R}_m^s\, \boldsymbol{S}^s_i
-
-By inserting the above expressions into the Hamiltonian, we find
-
-.. math::
-  H=&
-  \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
-  (\boldsymbol{S}^{s})^{\dagger}_i\, (\boldsymbol{R}_m^s)^{\dagger}\,
-  \boldsymbol{J}^s_{\boldsymbol{d}ij}\, \boldsymbol{R}_{m+d_{ij}}^s
-  \boldsymbol{S}^s_j
-  +
-  \mu_B\,(\boldsymbol{h}^{s})^{\dagger}\,
-  \sum_{m,i}\, g_i\, \boldsymbol{R}_m^s\, \boldsymbol{S}^s_i
-  \\=&
-  \dfrac{1}{2} \sum_{m,\boldsymbol{d}_{ij}, i, j}\,
-  (\boldsymbol{S}^{s})^{\dagger}_i\, \boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}\,
-  \boldsymbol{S}^s_j
-  +
-  \mu_B\, (\boldsymbol{h}^{s})^{\dagger}\,
-  \sum_{m,i}\, g_i\, \boldsymbol{R}_m^s\, \boldsymbol{S}^s_i
-
-where we introduce the notation for the "rotated" exchange matrices written in
-:ref:`spherical basis <user-guide_methods_spherical-rf>`
-
-.. include:: ../repeated-formulas/exchange-matrix-rotated-definition-spherical.inc
-
-Futhermore, we group the part of the sum that depends on the index :math:`m` as we
-will compute it explicitly below
-
-.. math::
-  H=
-  \dfrac{1}{2}
-  \sum_{\boldsymbol{d}_{ij}, i, j}\,
-  (\boldsymbol{S}^{s})^{\dagger}_i\,
-  \boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}\,
-  \boldsymbol{S}^s_j
-  +
-  \mu_B\, (\boldsymbol{h}^{s})^{\dagger}\,
-  \sum_{i}\, g_i\, \left(\sum_m\boldsymbol{R}_m^s\right)\, \boldsymbol{S}^s_i
-
-where
-
-.. math::
-  \boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}
-  =
-  \sum_m\,
-  \boldsymbol{\tilde{J}}^s_{mdij}
-  =
-  \sum_m\,
-  (\boldsymbol{R}_m^s)^{\dagger}\,
-  \boldsymbol{J}^s_{\boldsymbol{d}ij}\,
-  \boldsymbol{R}_{m+d_{ij}}^s
-
 
 This form of the Hamiltonian shows that the classical energy corresponding to any
 given spin configuration
@@ -93,68 +26,11 @@ is a function of the cone axis :math:`\boldsymbol{\hat{n}}`, the spiral vector
 The minimum-energy configuration is therefore obtained by minimizing :math:`E` with
 respect to all those parameters.
 
-=====================================================================
-Exchange constant :math:`\boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}`
-=====================================================================
-
-The exchange constant :math:`\boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}` can be
-written as a sum of five matrices in terms of zero-, first- and second-harmonics as
-follows:
-
-.. include:: ../repeated-formulas/exchange-matrix-rotated-split-spherical.inc
-
-and where
-
-.. math::
-  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^0
-  =
-  \begin{pmatrix}
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{\boldsymbol{d}ij}^{++} & 0 & 0 \\
-    0 & e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{\boldsymbol{d}ij}^{--}  & 0 \\
-    0 & 0 & J_{\boldsymbol{d}ij}^{nn}
-  \end{pmatrix}
-
-.. math::
-  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^1
-  =
-  \begin{pmatrix}
-    0 & 0 & J_{\boldsymbol{d}ij}^{+n} \\
-    0 & 0 & 0 \\
-    0 & e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{\boldsymbol{d}ij}^{n-} & 0
-  \end{pmatrix}
-
-.. math::
-  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{-1}
-  =
-  \begin{pmatrix}
-    0 & 0 & 0 \\
-    0 & 0 & J_{\boldsymbol{d}ij}^{-n} \\
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}ij}^{n+} & 0 & 0
-  \end{pmatrix}
-
-.. math::
-  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^2
-  =
-  \begin{pmatrix}
-    0  &  e^{i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{\boldsymbol{d}ij}^{+-} & 0  \\
-    0  &  0                                                                & 0  \\
-    0  &  0                                                                & 0
-  \end{pmatrix}
-
-.. math::
-  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{-2}
-  =
-  \begin{pmatrix}
-    0                                                                 &  0  &  0  \\
-    e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{\boldsymbol{d}ij}^{-+} &  0  &  0  \\
-    0                                                                 &  0  &  0
-  \end{pmatrix}
-
 The above expression helps to perform the summation over index :math:`m` needed to
 determine the exchange constant
 
 .. math::
-  \boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}
+  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}
   =
   M\,
   \left(

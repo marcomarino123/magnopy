@@ -1,9 +1,9 @@
 Rotation matrices are denoted by a bold capital :math:`\boldsymbol{R}` letter, whose subindex identifies
-the  unit vector defining the rotation axis and whose argument indicates the rotation angle, and whose
-super-index indicates the reference frame. As an example
+the  unit vector defining the rotation axis, whose argument indicates the rotation angle, and whose
+left super-index indicates the reference frame. As an example
 
 .. math::
-  \boldsymbol{R_n}^z(\theta)= e^{\theta\,\boldsymbol{n}^z \,\times}
+  ^z\boldsymbol{R_n}(\theta)= e^{\theta\,^z\boldsymbol{n} \,\times}
 
 corresponds to a rotation by an angle :math:`\theta` about an axis defined by the unit
 vector :math:`\boldsymbol{\hat{n}}`, where the rotation matrix elements are given in

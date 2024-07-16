@@ -1,5 +1,6 @@
 .. math::
-  \boldsymbol{J_{\boldsymbol{d}ij}}^s
+  ^{n,s}\boldsymbol{J}_{\boldsymbol{d}ij}=\braket{\,n^+\,n^-\,n\,|\,\boldsymbol{J}_{\boldsymbol{d}ij}\,|
+  \,n^+\,n^-\,n\,}
   &=
   \begin{pmatrix}
     J_{\boldsymbol{d}ij}^{++} & J_{\boldsymbol{d}ij}^{+-} & J_{\boldsymbol{d}ij}^{+n} \\

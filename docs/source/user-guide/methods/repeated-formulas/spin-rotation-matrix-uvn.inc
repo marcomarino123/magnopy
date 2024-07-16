@@ -1,5 +1,6 @@
 .. math::
-  \boldsymbol{R}_i
+  ^n\boldsymbol{R}_i
+  =\bra{\,u\,v\,n\,}\,\boldsymbol{R_i}\,\ket{\,u\,v\,n\,}
   =
   \begin{pmatrix}
     \cos\theta_i + \sin^2\phi_i\, \, (1 - \cos\theta_i) &

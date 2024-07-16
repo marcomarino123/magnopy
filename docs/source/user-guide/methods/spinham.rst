@@ -28,11 +28,13 @@ Spin Hamiltonian
   :math:`\boldsymbol{r_i}` is measured  with respec to the cell origin.
 
 * Let an atom at site :math:`i` in cell :math:`m` be denoted by :math:`(m,i)`.
-  Then its atom position is
+  Then the atom's position is
   :math:`\boldsymbol{r_{mi}} = \boldsymbol{r_m} + \boldsymbol{r_i}`.
 
 * Each atomic site in the lattice is populated with its own spin vector
-  :math:`\boldsymbol{S_{mi}} = \hbar \,S_i\, \boldsymbol{\hat{S}_{mi}}`,
+  :math:`\ket{S_{mi}}`. Spin vector components are given initially in the
+  pristine cartesian reference frame :math:`\ket{\,x\, y z}`:
+  :math:`^z\boldsymbol{S_{mi}} = \hbar \,S_i\, ^z\boldsymbol{\hat{S}_{mi}}`,
   where :math:`S_i` is the spin modulus. :math:`\hbar` is henceforth set to 1.
 
 * The bond between atoms :math:`(m,i)` and :math:`(m^{\prime},j)` is denoted by
@@ -50,12 +52,13 @@ Spin Hamiltonian
   Note that the vector :math:`\boldsymbol{d}_{ij}` is defined as a difference of two
   lattice vectors, and hence it is a lattice vector itself.
 
-* The exchange tensor :math:`\boldsymbol{J}_{\boldsymbol{d}ij}` is a :math:`3\times3`
-  matrix that is split into isotropic exchange, as well as into traceless symmetric
+* The exchange tensor :math:`^z\boldsymbol{J}_{\boldsymbol{d}ij}` is a :math:`3\times3`
+  matrix written in the :math:`\ket{xyz}` reference frame.  The exchange tensor
+  is split into isotropic exchange, as well as into traceless symmetric
   and anti-symmetric anisotropy matrices as follows:
 
   .. math::
-    \boldsymbol{J}_{\boldsymbol{d}ij}
+    ^z\boldsymbol{J}_{\boldsymbol{d}ij}
     =
     J_{ij}^{I}\,\boldsymbol{I}
     +
@@ -70,16 +73,16 @@ Spin Hamiltonian
   .. math::
     J_{\boldsymbol{d}ij}^{I}
     =
-    \dfrac{\mathrm{Tr}(\boldsymbol{J}_{\boldsymbol{d}ij})}{3}
+    \dfrac{\mathrm{Tr}(\boldsymbol{^zJ}_{\boldsymbol{d}ij})}{3}
 
   * The traceless symmetric anisotropy is:
 
     .. math::
       \boldsymbol{J^{S}}_{\boldsymbol{d}ij}
       =
-      \dfrac{\boldsymbol{J}_{\boldsymbol{d}ij}
+      \dfrac{^z\boldsymbol{J}_{\boldsymbol{d}ij}
       +
-      \boldsymbol{J}_{\boldsymbol{d}ij}^T}{2}
+      ^z\boldsymbol{J}_{\boldsymbol{d}ij}^T}{2}
       -
       J_{\boldsymbol{d}ij}^{I}\,\boldsymbol{I}
       =
@@ -98,9 +101,9 @@ Spin Hamiltonian
     .. math::
       \boldsymbol{J^{A}}_{\boldsymbol{d}ij}
       =
-      \dfrac{\boldsymbol{J}_{\boldsymbol{d}ij}
+      \dfrac{^z\boldsymbol{J}_{\boldsymbol{d}ij}
       -
-      \boldsymbol{J}_{\boldsymbol{d}ij}^T}{2}
+      \,^z\boldsymbol{J}_{\boldsymbol{d}ij}^T}{2}
       =
       \begin{pmatrix}
         0                       & D^z_{\boldsymbol{d}ij}  & -D^y_{\boldsymbol{d}ij} \\
@@ -122,10 +125,10 @@ Spin Hamiltonian
 
   .. include:: repeated-formulas/hamiltonian-main-any.inc
 
-  by defining :math:`\dfrac{1}{2}\boldsymbol{J}_{\boldsymbol{0}ii}=\boldsymbol{A}_i`
+  by defining :math:`\dfrac{1}{2}\,^z\boldsymbol{J}_{\boldsymbol{0},ii}\,=\,^z\boldsymbol{A}_i`
 
 
-* The exchange tensors possess the symmetry property, that ensures that the spin
+* The exchange tensors obey the following symmetry property, that ensures that the spin
   Hamiltonian is hermitian:
 
   .. include:: repeated-formulas/spinham-parameter-symmetries.inc

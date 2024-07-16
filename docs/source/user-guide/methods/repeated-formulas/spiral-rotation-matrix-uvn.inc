@@ -1,5 +1,5 @@
 .. math::
-  \boldsymbol{R}_m
+  ^n\boldsymbol{R}_m
   =
   \begin{pmatrix}
     \cos\phi_m  & -\sin\phi_m & 0 \\

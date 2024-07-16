@@ -1,9 +1,9 @@
 .. math::
-  \boldsymbol{S_{mi}^s}
+  ^{n,s}\boldsymbol{S_{mi}}
   =
   \begin{pmatrix}
-    \dfrac{S_{mi}^{-}}{\sqrt{2}} \\
-    \dfrac{S_{mi}^{+}}{\sqrt{2}} \\
+    S_{mi}^{-} \\
+    S_{mi}^{+} \\
     S_{mi}^{n} \\
   \end{pmatrix}
   =

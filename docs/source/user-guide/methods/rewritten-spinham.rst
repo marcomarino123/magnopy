@@ -8,21 +8,21 @@ Re-written Heisenberg Hamiltonian
 
   For the full set of notation rules, see :ref:`user-guide_methods_notation`.
 
-  * .. include:: ../page-notations/vector.inc
-  * .. include:: ../page-notations/matrix.inc
-  * .. include:: ../page-notations/reference-frame.inc
-  * .. include:: ../page-notations/transpose-complex-conjugate.inc
-  * .. include:: ../page-notations/parentheses.inc
-  * .. include:: ../page-notations/kronecker-delta.inc
-  * .. include:: ../page-notations/uvn-or-spherical.inc
-  * .. include:: ../page-notations/exchange-tensor.inc
+  * .. include:: page-notations/vector.inc
+  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/reference-frame.inc
+  * .. include:: page-notations/transpose-complex-conjugate.inc
+  * .. include:: page-notations/parentheses.inc
+  * .. include:: page-notations/kronecker-delta.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
+  * .. include:: page-notations/exchange-tensor.inc
 
 
 We have shown in :ref:`section <user-guide_methods_spherical-rf>` that the
 classical Heisenberg Hamiltonian can be written in the spherical reference frame
 :math:`(u^+\, u^-\, n)` as follows:
 
-.. include:: ../repeated-formulas/hamiltonian-main-spherical.inc
+.. include:: ./repeated-formulas/hamiltonian-main-spherical.inc
 
 where the spin vectors are
 

@@ -1,4 +1,4 @@
-.. _user-guide_methods_energy-classic:
+.. _user-guide_methods_rewritten-spinham:
 
 *********************************
 Re-written Heisenberg Hamiltonian

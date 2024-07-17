@@ -1,8 +1,8 @@
 .. _user-guide_methods_rewritten-spinham:
 
-*********************************
-Re-written Heisenberg Hamiltonian
-*********************************
+**************************
+Higher-harmonic generation
+**************************
 
 .. dropdown:: Notation used on this page
 
@@ -17,6 +17,9 @@ Re-written Heisenberg Hamiltonian
   * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/exchange-tensor.inc
 
+=================================
+Re-written Heisenberg Hamiltonian
+=================================
 
 We have shown in :ref:`section <user-guide_methods_spherical-rf>` that the
 classical Heisenberg Hamiltonian can be written in the spherical reference frame
@@ -31,31 +34,20 @@ where the spin vectors are
   \,=\,
   ^{n,s}\boldsymbol{R}_m\, ^{n,s}\boldsymbol{S}_i
 
-By inserting the above expressions into the Hamiltonian, we find
+The above expressions are inserted and the Hamiltonian regrouped as follows
 
 .. math::
-  H=&
-  \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
-  ^{n,s}\boldsymbol{S}^{\dagger}_i\, ^{n,s}\boldsymbol{R}_m^{\dagger}\,
-  ^{n,s}\boldsymbol{J}_{\boldsymbol{d}ij}\, ^{n,s}\boldsymbol{R}_{m+d_{ij}}
+  H=
+  \dfrac{1}{2}
+  \sum_{\boldsymbol{d}_{ij}, i, j}\,
+  ^{n,s}\boldsymbol{S}^\dagger_i\,
+  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
   ^{n,s}\boldsymbol{S}_j
   +
-  \mu_B\,^{n,s}\boldsymbol{h}^{\dagger}\,
-  \sum_{m,i}\, g_i\, ^{n,s}\boldsymbol{R}_m\, ^{n,s}\boldsymbol{S}_i
-  \\=&
-  \dfrac{1}{2} \sum_{m,\boldsymbol{d}_{ij}, i, j}\,
-  ^{n,s}\boldsymbol{S}^{\dagger}_i\, ^{n,s}\boldsymbol{\tilde{J}}_{m\boldsymbol{d}ij}\,
-  ^{n,s}\boldsymbol{S}_j
-  +
-  \mu_B\, ^{n,s}\boldsymbol{h}^{\dagger}\,
-  \sum_{m,i}\, g_i\, ^{n,s}\boldsymbol{R}_m\, ^{n,s}\boldsymbol{S}_i
+  \mu_B\, ^{n,s}\boldsymbol{h}^\dagger\,^{n,s}\boldsymbol{R}_0\,
+  \sum_{i}\, g_i\, ^{n,s}\boldsymbol{S}_i
 
-where we introduce the notation for the "rotated" exchange matrices written in
-:ref:`spherical basis <user-guide_methods_spherical-rf>`
-
-.. include:: ../repeated-formulas/exchange-matrix-rotated-definition-spherical.inc
-
-Futhermore, we factor the :math:`m`-summation as follows
+where
 
 .. math::
   ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}
@@ -69,19 +61,6 @@ Futhermore, we factor the :math:`m`-summation as follows
   ^{n,s}\boldsymbol{R}_{m+d_{ij}}\\
   ^{n,s}\boldsymbol{R}_0&=\sum_m\,^{n,s}\boldsymbol{R}_m
 
-As a consequence, the Hamiltonian looks as follows:
-
-.. math::
-  H=
-  \dfrac{1}{2}
-  \sum_{\boldsymbol{d}_{ij}, i, j}\,
-  ^{n,s}\boldsymbol{S}^\dagger_i\,
-  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
-  ^{n,s}\boldsymbol{S}_j
-  +
-  \mu_B\, ^{n,s}\boldsymbol{h}^\dagger\,^{n,s}\boldsymbol{R}_0\,
-  \sum_{i}\, g_i\, ^{n,s}\boldsymbol{S}_i
-
 =====================================================================
 Exchange constant :math:`\boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}`
 =====================================================================
@@ -90,7 +69,7 @@ The exchange constant :math:`\boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}` can b
 written as a sum of five matrices in terms of zero-, first- and second-harmonics as
 follows:
 
-.. include:: ../repeated-formulas/exchange-matrix-rotated-split-spherical.inc
+.. include:: repeated-formulas/exchange-matrix-rotated-split-spherical.inc
 
 and where
 
@@ -138,47 +117,3 @@ and where
     e^{-i\boldsymbol{q}\boldsymbol{d}_{ij}} J_{\boldsymbol{d}ij}^{-+} &  0  &  0  \\
     0                                                                 &  0  &  0
   \end{pmatrix}
-
-The above expression helps to perform the summation over index :math:`m` needed to
-determine the exchange constant
-
-.. math::
-  \boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}
-  =
-  M\,
-  \left(
-    \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^0
-    +
-    \delta_{\boldsymbol{q}, \, \boldsymbol{G}}\,
-    \left[
-      \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^1
-      +
-      \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{-1}
-    \right]
-    +
-    \delta_{\boldsymbol{2q}, \, \boldsymbol{G}}\,
-    \left[
-      \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^2
-      +
-      \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{-2}
-    \right]
-  \right)
-
-.. dropdown:: Details
-
-  .. math::
-    \boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}
-    =
-    \sum_{l=0,\pm 1,\pm 2}\,
-    \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
-    \cdot
-    \sum_m
-    e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
-
-  Therefore, one needs to compute the values of the sums of exponential
-
-  .. math::
-    \sum_m
-    e^{i\, l\, \boldsymbol{q} \cdot \boldsymbol{r}_m}
-
-  .. include:: details-on-fourier-identities.inc

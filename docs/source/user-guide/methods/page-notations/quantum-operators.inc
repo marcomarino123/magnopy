@@ -1,10 +1,10 @@
-The notation for the different operators appearing in this documentation is
+Quantum operators are written using a caligraphic capital letter. These are
 
-* The Hamiltonian operator is denoted by :math:`{\cal H}`
+* The Hamiltonian operator, denoted by :math:`{\cal H}`
 
-* Spin operator vector components are written as :math:`{\cal S}^\alpha`
+* Spin operator vector components, that are written as :math:`{\cal S}^\alpha`
 
-* Vectors spin operators are denoted by
+* Vectors spin operators, that are denoted by
 
   .. math::
     \boldsymbol{\cal S}

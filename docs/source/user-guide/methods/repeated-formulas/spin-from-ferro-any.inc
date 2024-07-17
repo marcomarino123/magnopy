@@ -5,4 +5,4 @@
   =
   S_i\, \boldsymbol{R}_i\, \boldsymbol{\hat{n}}
   =
-  S_i\, \boldsymbol{\hat{f}}_i
+  S_i\, \boldsymbol{\hat{f}}_{i}

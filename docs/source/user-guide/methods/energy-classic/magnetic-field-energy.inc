@@ -9,14 +9,13 @@ is uniform. The Zeeman Hamiltonian can be written as follows:
 .. math::
   H_{Z}
   =
-  \mu_B\sum_ig_i\, \sum_{m}\,
-  (\boldsymbol{h}^s)^{\dagger}\, \boldsymbol{R}_m^s\, \boldsymbol{S}_{i}^s
+  \mu_B\sum_i g_i\,
+  ^{n,s}\boldsymbol{h}^{\dagger}\, ^{n,s}\boldsymbol{R}_0\, ^{ns}\boldsymbol{S}_{i}
 
-The sum over lattice sites is performed by taking into account that only the
-:math:`\boldsymbol{R}_m^s` depend on :math:`m`:
+Here the rotation matrix
 
 .. math::
-  \sum_{m}\, \boldsymbol{R_m^s}
+  ^{n,s}\boldsymbol{R}_0=\sum_{m}\, ^{n,s}\boldsymbol{R_m}
   =
   M
   \begin{pmatrix}

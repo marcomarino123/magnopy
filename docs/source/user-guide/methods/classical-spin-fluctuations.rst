@@ -5,26 +5,17 @@ Classical spin fluctuations
 ***************************
 
 The previous pages have been devoted to the introduction of the formalism and
-determination of the classical ground state of the Hamiltonian. Now we will turn our
-attention to the small collective transverse spin fluctuations. This section introduce
-classical spin fluctuations. These will be quantized later on, using the
+to the determination of the classical ground state of the Hamiltonian. Now we turn our
+attention to small classical spin fluctuations. These will be quantized later on, using the
 Holstein-Primakoff decomposition of spins into bosonic fields.
 
-We write fluctuations for the collinear arrangement of spins in the
-:math:`(\, u\, v\, n\,)` basis :math:`\boldsymbol{S^F}_i=S_i\,\boldsymbol{\hat{n}}`.
-Later perturbed spin vectors will be rotated to the actual spiral state
-by two consecutive rotations as we discussed
-:ref:`earlier <user-guide_methods_single-q>`.
-
-If small fluctuations at each site arise over the ground state, the spin vector
-becomes :math:`m`-dependent again
-:math:`\boldsymbol{S^F}_i\longrightarrow \boldsymbol{\tilde{S}^F}_{mi}` (even before the
-rotations). We denote by tilde the perturbed spin vector.
+We assume that fluctuations arise that perturb the ferromagnetic spin vectors
+from :math:`^n\boldsymbol{S^F}_i` to
 
 .. math::
-  \boldsymbol{\tilde{S}^F}_{mi}
-  =
-  \boldsymbol{S^F}_i
+  ^n\boldsymbol{\tilde{S}^F}_{mi}
+  \,=\,
+  ^n\boldsymbol{S^F}_i
   +
   \delta S_{mi}^u\, \boldsymbol{\hat{u}}
   +
@@ -59,25 +50,20 @@ fluctuations that rotate the spin vector, but conserve its length, the
   which leads to the quadratic equation on :math:`\delta S_{mi}^n`:
 
   .. math::
-    (\delta S_{mi}^n)^2
-    -
-    2S_i\, \delta S_{mi}^n
-    +
-    (\delta S_{mi}^u)^2 + (\delta S_{mi}^v)^2
-    =
-    0
+    (\delta S_{mi}^n)^2-2S_i\, \delta S_{mi}^n
+    +(\delta S_{mi}^u)^2 + (\delta S_{mi}^v)^2
+    =0
 
-
-The vector components in the spherical basis are then
+The above vector components in the spherical basis are
 
 .. math::
-  \boldsymbol{\tilde{S}^{F,s}}_{mi}
-  =
-  \boldsymbol{S^{F,s}}_i
+  ^{n,s}\boldsymbol{\tilde{S}^F}_{mi}
+  \,=\,
+  ^{n,s}\boldsymbol{S^F}_i
   +
-  \frac{\delta S_{mi}^-}{\sqrt{2}}\, \boldsymbol{\hat{u}^+}
+  \frac{\delta S_{mi}^-}{\sqrt{2}}\, \boldsymbol{\hat{n}^+}
   +
-  \frac{\delta S_{mi}^+}{\sqrt{2}}\, \boldsymbol{\hat{u}^-}
+  \frac{\delta S_{mi}^+}{\sqrt{2}}\, \boldsymbol{\hat{n}^-}
   -
   \delta S_{mi}^n\,\boldsymbol{\hat{n}}
   =

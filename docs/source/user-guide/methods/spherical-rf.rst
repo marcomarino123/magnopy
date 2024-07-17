@@ -47,22 +47,6 @@ The vector components in the local reference frame :math:`(\,p_{mi}\,t_{mi}\,f_{
     1
   \end{pmatrix}
 
------------------
-Spin fluctuations
------------------
-If fluctuations appear, then the spin vector changes to :math:`\ket{S_{mi}´}=\ket{S_{mi}}+\ket{\delta S_{mi}}`.
-The vector components in the local reference frame are
-
-.. math::
-  ^fS_{mi}´=
-  \begin{pmatrix}
-    \delta S^p _{mi}\\
-    \delta S^t_{mi} \\
-    S_i-\delta S^f_{mi}
-  \end{pmatrix}
-
-where the minus sign appears because :math:`\ket{S_{mi}´}` is normalized to :math:`S_i`.
-
 This section is devoted to translating spin vector components and matrix elements
 to spherical bases. These bases are best suited for the description of spin waves and for
 angular momentum quantization.
@@ -96,9 +80,9 @@ Vector components are written in these global spherical basis as
 
 .. math::
   ^{n,s}\boldsymbol{A}=\braket{\,n^+\,n^-\,n\,|\,A\,}=
-  \begin{pmatrix}A^-\\A^+\\A^n\end{pmatrix}
+  \begin{pmatrix}\frac{1}{\sqrt{2}}\,A^-\\\frac{1}{\sqrt{2}}\,A^+\\A^n\end{pmatrix}
 
-where :math:`A^{\pm}=\frac{A^u\pm A^v}{\sqrt{2}}`
+where :math:`A^{\pm}=A^u\pm A^v`
 
 -----------------------------
 Local spherical basis vectors
@@ -195,14 +179,6 @@ The spin vector components in the local spherical basis :math:`(\,f_{mi}^+\,f_{m
 .. math::
   ^{f,s}S_{mi}=\braket{f_{mi}^+\,f_{mi}^-\,f_{mi}\,|\,S_{mi}}
   =S_i\,\boldsymbol{T}^\dagger\,\begin{pmatrix}0\\0\\1\end{pmatrix}=S_i\,\begin{pmatrix}0\\0\\1\end{pmatrix}
-
-However, if fluctuations exist then the vector components become
-
-.. math::
-  ^{f,s}S_{mi}´
-  =\boldsymbol{T}^\dagger\,
-  \begin{pmatrix}\delta S_{mi}^p\\\delta S_{mi}^t\\S_i-\delta S_{mi}^f\end{pmatrix}
-  = \begin{pmatrix}\delta S_{mi}^+\\\delta S_{mi}^-\\S_i-\delta S_{mi}^f\end{pmatrix}
 
 The spin vector components in the global spherical basis :math:`(\,n^+\,n-\,n\,)` are
 

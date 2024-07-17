@@ -18,21 +18,31 @@ Total energy of the classical Hamiltonian
   * .. include:: ../page-notations/exchange-tensor.inc
 
 
-This form of the Hamiltonian shows that the classical energy corresponding to any
-given spin configuration
-:math:`E(\boldsymbol{\hat{n}},\,\boldsymbol{q},\theta_i,\,\phi_i)`
-is a function of the cone axis :math:`\boldsymbol{\hat{n}}`, the spiral vector
-:math:`\boldsymbol{q}`, and all the angles :math:`\theta_i,\,\phi_i`.
-The minimum-energy configuration is therefore obtained by minimizing :math:`E` with
-respect to all those parameters.
-
-The above expression helps to perform the summation over index :math:`m` needed to
-determine the exchange constant
+We have shown in the previous :ref:`section <user-guide_methods_spinham>` that the Hamiltonian
+can be written as follows
 
 .. math::
-  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}
+  H=
+  \dfrac{1}{2}
+  \sum_{\boldsymbol{d}_{ij}, i, j}\,
+  ^{n,s}\boldsymbol{S}^\dagger_i\,
+  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
+  ^{n,s}\boldsymbol{S}_j
+  +
+  \mu_B\, ^{n,s}\boldsymbol{h}^\dagger\,^{n,s}\boldsymbol{R}_0\,
+  \sum_{i}\, g_i\, ^{n,s}\boldsymbol{S}_i
+
+where
+
+.. math::
+  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}&=\sum_m\,
+  ^{n,s}\boldsymbol{\tilde{J}}_{m\boldsymbol{d}ij}
   =
-  M\,
+  \sum_{l=0,\pm 1,\pm 2}\,
+  \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
+  \cdot
+  \sum_m\,e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}\\
+   &= M\,
   \left(
     \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^0
     +
@@ -50,6 +60,15 @@ determine the exchange constant
       \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{-2}
     \right]
   \right)
+
+
+This form of the Hamiltonian shows that the classical energy corresponding to any
+given spin configuration
+:math:`E(\boldsymbol{\hat{n}},\,\boldsymbol{q},\theta_i,\,\phi_i)`
+is a function of the cone axis :math:`\boldsymbol{\hat{n}}`, the spiral vector
+:math:`\boldsymbol{q}`, and all the angles :math:`\theta_i,\,\phi_i`.
+The minimum-energy configuration is therefore obtained by minimizing :math:`E` with
+respect to all those parameters.
 
 .. dropdown:: Details
 

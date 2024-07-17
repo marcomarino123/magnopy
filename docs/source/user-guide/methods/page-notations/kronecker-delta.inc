@@ -1,5 +1,0 @@
-The Kronecker delta symbol :math:`\delta_{\boldsymbol{v}_1, \boldsymbol{v}_2}` is understood as
-
-* 0 if :math:`\boldsymbol{v}_1 \ne \boldsymbol{v}_2`
-
-* 1 if :math:`\boldsymbol{v}_1 = \boldsymbol{v}_2`

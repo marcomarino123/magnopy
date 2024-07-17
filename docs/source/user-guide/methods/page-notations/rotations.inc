@@ -4,7 +4,7 @@ and an argument that indicates the rotation angle.
 For example
 
 .. math::
-  \boldsymbol{R_n}(\theta)= e^{\theta\,\ket{n} \,\times}
+  \boldsymbol{R_\ket{n}}(\theta)= e^{\theta\,\ket{n} \,\times}
 
 performs a rotation of angle :math:`\theta` about the vector
 :math:`\ket{n}`.

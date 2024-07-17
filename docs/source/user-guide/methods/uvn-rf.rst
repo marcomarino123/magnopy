@@ -8,36 +8,30 @@
 
   For the full set of notation rules, see :ref:`user-guide_methods_notation`.
 
-  * .. include:: page-notations/vector.inc
-  * .. include:: page-notations/unit-vector.inc
-  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/matrices.inc
   * .. include:: page-notations/reference-frame.inc
-  * .. include:: page-notations/cross-product.inc
   * .. include:: page-notations/rotations.inc
   * .. include:: page-notations/exchange-tensor.inc
 
 Magnopy assumes that the ground state spin arrangement follows a spiral conical
-configuration, where the cone axis is defined by the unit vector :math:`\boldsymbol{\hat{n}}`.
+configuration, where the cone axis is defined by the unit vector :math:`\ket{n}`.
 Eventually, the program rotates every atomic spin to make it collinear to
-:math:`\boldsymbol{\hat{n}}` and quantizes the spin vectors along :math:`\boldsymbol{\hat{n}}`.
+:math:`\ket{n}` and quantizes the spin vectors along :math:`\ket{n}`.
 
 However, the exchange :math:`\boldsymbol{J}` and on-site anisotropy
-:math:`\boldsymbol{A}` tensors are usually provided in a different global reference
-frame, say :math:`(x\, y\, z)`, where neither of these three unit vectors is collinear
-to :math:`\boldsymbol{n}`. A rotation is therefore performed on :math:`^z\boldsymbol{J}`
-and :math:`^z\boldsymbol{A}` from :math:`(x\, y\, z)` to a new reference frame
-:math:`(u\, v\, n)`. There is a freedom in the choice of the unit vectors
-:math:`\boldsymbol{\hat{u}}` and :math:`\boldsymbol{\hat{v}}` due to the rotational
-symmetry of the system about the :math:`\boldsymbol{\hat{n}}` cone axis.
+:math:`\boldsymbol{A}` tensor operators are initially provided in the
+cartesian reference :math:`(x\, y\, z)`, where none of the unit vectors may be
+collinear to :math:`\ket{n}`.
+A basis change that corresponds to a rotation from :math:`(x\, y\, z)` to a new
+reference frame :math:`(u\, v\, n)` is therefore performed on :math:`\boldsymbol{J}`
+and :math:`\boldsymbol{A}`.
 
-Let :math:`\boldsymbol{\hat{r}}` be a vector perpendicular to both
-:math:`\boldsymbol{\hat{z}}` and :math:`\boldsymbol{\hat{n}}`. Then
-:math:`\boldsymbol{\hat{z}}` is brought to :math:`\boldsymbol{\hat{n}}` by performing
-a rotation :math:`\boldsymbol{R}_{\boldsymbol{r}(\beta)}(\alpha)` of angle
-:math:`\alpha` about :math:`\boldsymbol{\hat{r}}`. We choose  the :math:`(u\, v\, n)`
-reference frame by performing this same rotation
-:math:`\boldsymbol{R}_{\boldsymbol{r}(\beta)}(\alpha)` over all the three unit vectors
-of the :math:`(x\, y\, z)` reference frame.
+This is done as follows. Let :math:`\ket{r}` be a vector perpendicular to both
+:math:`\ket{z}` and :math:`\ket{n}`. Then :math:`\ket{z}` is brought to
+:math:`\ket{n}` by performing a rotation of angle :math:`\alpha` about :math:`\ket{r}`,
+that is denoted by :math:`\boldsymbol{R}_{\ket{r}}(\alpha)`. The :math:`(u\, v\, n)`
+reference frame is defined by performing the same rotation over all the three unit vectors
+:math:`(x\, y\, z)`.
 
 .. raw:: html
   :file: ../../../images/uvn-rf-main-case.html
@@ -46,131 +40,96 @@ of the :math:`(x\, y\, z)` reference frame.
 
   **Figure 1** (interactive): Construction of the :math:`(u\, v\, n)` reference frame.
 
-.. dropdown:: Explicit formulas
+-----------------
+Basis coordinates
+-----------------
 
-  The unit vector
+The unit vector
 
-  .. math::
-      \boldsymbol{\hat{r}}(\beta)
-      =
-      \dfrac{
-        \boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}
+.. math::
+    ^z\boldsymbol{\hat{r}}(\beta)
+    =
+    \dfrac{\boldsymbol{\hat{z}}\,\times\,^z\boldsymbol{\hat{n}}
       }{
-        \vert\boldsymbol{\hat{z}}\times\boldsymbol{\hat{n}}\vert
+      \vert\boldsymbol{\hat{z}}\,\times\,^z\boldsymbol{\hat{n}}\vert
       }
-      =
-      \begin{pmatrix}
-        -\sin\beta \\
-        \cos\beta  \\
-        0
-      \end{pmatrix}
+    =
+    \begin{pmatrix}-\sin\beta \\\cos\beta  \\0\end{pmatrix}
 
-  is defined by the angle :math:`\beta` in the figure below
+is defined by the angle :math:`\beta` in the figure below
 
-  .. raw:: html
-    :file: ../../../images/uvn-rf-n-angles.html
+.. raw:: html
+  :file: ../../../images/uvn-rf-n-angles.html
 
-  The rotation matrix is
+The rotation operator is
 
-  .. math::
-    :name: eq:uvn-rf-rot-matrix
+.. math::
+  \boldsymbol{R_\ket{r}}(\alpha,\beta)=e^{-i\,\alpha\,\ket{r(\beta)}\,\times}
 
-    \boldsymbol{R}_{\boldsymbol{r}(\beta)}(\alpha)
-    &=
-    \boldsymbol{R_r}(\alpha,\beta)
-    \\&=
-    \begin{pmatrix}
-      1 - \dfrac{(n^x)^2}{1+n^z} & -\dfrac{n^xn^y}{1+n^z}   & n^x  \\
-      -\dfrac{n^xn^y}{1+n^z}   & 1 - \dfrac{(n^y)^2}{1+n^z} & n^y  \\
-      -n^x                     & -n^y                       & n^z  \\
-    \end{pmatrix}
-    \\&=
-    \begin{pmatrix}
-      \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) &
-      -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
-      \cos\beta\, \sin\alpha                       \\
-      -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
-      \cos\alpha + \cos^2\beta\, \, (1-\cos\alpha) &
-      \sin\beta\, \sin\alpha                       \\
-      -\cos\beta\, \sin\alpha &
-      -\sin\beta\, \sin\alpha &
-      \cos\alpha              \\
-    \end{pmatrix}
+The basis :math:`(\,u\,v\,n\,)` is defined by
 
-  The unit vectors of the rotated reference frame are written in the :math:`(x\, y\, z)`
-  basis as
+.. math::
+  \ket{u}&=\boldsymbol{R_\ket{r}}\,\ket{x}\\
+  \ket{v}&=\boldsymbol{R_\ket{r}}\,\ket{y}\\
+  \ket{n}&=\boldsymbol{R_\ket{r}}\,\ket{z}
 
-  .. math::
+The matrix elements in the :math:`(xyz)` basis are therefore
 
-    \begin{aligned}
-      \boldsymbol{\hat{u}}
-      &=
-      \boldsymbol{R_r}(\alpha,\beta)
-      \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
-      =
-      \begin{pmatrix}
-        1 - \dfrac{(n^x)^2}{1+n^z} \\
-        -\dfrac{n^xn^y}{1+n^z}     \\
-        -n^x                       \\
-      \end{pmatrix}
-      =
-      \begin{pmatrix}
-        \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) \\
-        -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)      \\
-        -\cos\beta\sin\alpha                   \\
-      \end{pmatrix}
-      \\
-      \boldsymbol{\hat{v}}
-      &=
-      \boldsymbol{R_r}(\alpha,\beta)
-      \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
-      =
-      \begin{pmatrix}
-        -\dfrac{n^xn^y}{1+n^z}     \\
-        1 - \dfrac{(n^y)^2}{1+n^z} \\
-        -n^y                       \\
-      \end{pmatrix}
-      =
-      \begin{pmatrix}
-        -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)      \\
-        \cos\alpha + \cos^2\beta\, \, (1-\cos\alpha) \\
-        -\sin\beta\, \sin\alpha                   \\
-      \end{pmatrix}
-      \\
-      \boldsymbol{\hat{n}}
-      &=
-      \boldsymbol{R_r}(\alpha,\beta)
-      \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
-      =
-      \begin{pmatrix}
-        n^x \\
-        n^y \\
-        n^z \\
-      \end{pmatrix}
-      =
-      \begin{pmatrix}
-        \cos\beta\, \sin\alpha \\
-        \sin\beta\, \sin\alpha \\
-        \cos\alpha          \\
-      \end{pmatrix}
-    \end{aligned}
+.. math::
+  :name: eq:uvn-rf-rot-matrix
 
-  Notice also that these vectors can be written in Dirac's notation as
+  ^z\boldsymbol{R_r}(\alpha,\beta)&=
+  \braket{\,x\,y\,z\,|\,u\,v\,n\,}=
+  \braket{\,x\,y\,z\,|\,\boldsymbol{R_\ket{r}}(\alpha,\beta)\,|\,x\,y\,z\,}
+  \\&=
+  \begin{pmatrix}
+    \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) &
+    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
+    \cos\beta\, \sin\alpha                       \\
+    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
+    \cos\alpha + \cos^2\beta\, \, (1-\cos\alpha) &
+    \sin\beta\, \sin\alpha                       \\
+    -\cos\beta\, \sin\alpha &
+    -\sin\beta\, \sin\alpha &
+    \cos\alpha              \\
+  \end{pmatrix}
 
-  .. math::
-    \begin{aligned}
-      \boldsymbol{\hat{u}} &= \braket{\, x\, y\, z\, |\, u\, }
-      =
-      \braket{\, x\, y\, z\, |\, \boldsymbol{R_r}(\alpha,\beta)\, |\, x\, }
-      \\
-      \boldsymbol{\hat{v}} &= \braket{\, x\, y\, z\, |\, v\, }
-      =
-      \braket{\, x\, y\, z\, |\, \boldsymbol{R_r}(\alpha,\beta)\, |\, y\, }
-      \\
-      \boldsymbol{\hat{n}} &= \braket{\, x\, y\, z\, |\, n\, }
-      =
-      \braket{\, x\, y\, z\, |\, \boldsymbol{R_r}(\alpha,\beta)\, |\, z\, }
-    \end{aligned}
+The vector components in the :math:`(x\, y\, z)` basis are
+
+.. math::
+  ^z\boldsymbol{\hat{u}}
+  &=\braket{\,x\,y\,z\,|\,u\,}=
+  \boldsymbol{R_r}\,
+  \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) \\
+    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)      \\
+    -\cos\beta\sin\alpha                   \\
+  \end{pmatrix}
+  \\
+  ^z\boldsymbol{\hat{v}}
+  &=\braket{\,x\,y\,z\,|\,v\,}
+  =
+  \boldsymbol{R_r}\,
+  \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+  =
+  \begin{pmatrix}
+    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)      \\
+    \cos\alpha + \cos^2\beta\, \, (1-\cos\alpha) \\
+    -\sin\beta\, \sin\alpha                   \\
+  \end{pmatrix}
+  \\
+  ^z\boldsymbol{\hat{n}}
+  &=\braket{\,x\,y\,z\,|\,v\,}=
+  \boldsymbol{R_r}\,
+  \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos\beta\, \sin\alpha \\
+    \sin\beta\, \sin\alpha \\
+    \cos\alpha          \\
+  \end{pmatrix}
 
 However, the unit vector :math:`\boldsymbol{\hat{r}}` is ill-defined, and so is
 :math:`\boldsymbol{R_r}(\alpha,\beta)`, whenever  :math:`\boldsymbol{\hat{n}}` and
@@ -211,52 +170,24 @@ Vector and matrix elements in the :math:`(u\, v\, n)` reference frame
 The :math:`(x\, y\, z)` to :math:`(u\, v\, n)` basis change modifies the spin vector
 components and the exchange tensor matrix elements. These changes are governed by the
 rotation matrix :math:`\boldsymbol{R_r}(\alpha,\beta)` that has been introduced and
-written explicitly in the :ref:`previous section <eq:uvn-rf-rot-matrix>`.
-
------------------
-Basis coordinates
------------------
-
-The rotation matrix by itself contains the coordinates of the :math:`(u\, v\, n)` basis
-vectors written in the :math:`(x\, y\, z)` basis.
-
-.. math::
-  ^z\boldsymbol{R_r}(\alpha,\beta)
-  =&
-  \braket{\, x\, y\, z\, |\, u\, v\, n\, }
-  =
-  \bra{\,x\,y\,z\,}\,\boldsymbol{R_r}\,\ket{\,x\,y\,z\,}
-  \\=&
-  \begin{pmatrix}
-    \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) &
-    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
-    \cos\beta\, \sin\alpha                       \\
-    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
-    \cos\alpha + \cos^2\beta\, \, (1-\cos\alpha) &
-    \sin\beta\, \sin\alpha                       \\
-    -\cos\beta\, \sin\alpha &
-    -\sin\beta\, \sin\alpha &
-    \cos\alpha              \\
-  \end{pmatrix}
+written explicitly above.
 
 ---------------
 Spin components
 ---------------
-The components of a spin vector :math:`\ket{S}` are calculated
-using Dirac's notation
+
+The components of the spin vector :math:`\ket{S}` in the :math:`(u\, v\, n)`
+basis are
 
 .. math::
-  ^n\boldsymbol{S}=\braket{\, u\, v\, n\, |\, S\, }
+  ^n\boldsymbol{S}&=\braket{\, u\, v\, n\, |\, S\, }
   =
   \braket{\, u\, v\, n\, |\, x\, y\, z\, }
   \braket{\, x\, y\, z\, |\, S\, }
-  =
-  \braket{
-    \, x\, y\, z\, |\, \boldsymbol{\cal R_r}^\dagger(\alpha,\beta)\, |\, x\, y\, z\,
-  }
-  \braket{\, x\, y\, z\, |\, S\, }
+  \,=\,
+  ^z\boldsymbol{\cal R_r}^\dagger\, ^z\boldsymbol{S}\\
 
-The spin components in the :math:`(u\, v\, n)` basis are therefore
+Explicitly
 
 .. math::
   \begin{pmatrix}
@@ -306,7 +237,6 @@ are computed using Dirac's notation as follows
 Explicitly
 
 .. math::
-  ^n\boldsymbol{J}_{\boldsymbol{d}ij}=
   \begin{pmatrix}
     J_{\boldsymbol{d}ij}^{uu} & J_{\boldsymbol{d}ij}^{uv} & J_{\boldsymbol{d}ij}^{un} \\
     J_{\boldsymbol{d}ij}^{vu} & J_{\boldsymbol{d}ij}^{vv} & J_{\boldsymbol{d}ij}^{vn} \\
@@ -334,8 +264,9 @@ and anti-symmetric (DM) matrices in the :math:`(u\, v\, n)` reference frame
   ^n\boldsymbol{J}^\boldsymbol{A}_{\boldsymbol{d}ij}
 
 where
-:math:`J^{I}_{\boldsymbol{d}ij} = \dfrac{1}{3}(J_{\boldsymbol{d}ij}^{uu} + J_{\boldsymbol{d}ij}^{vv} + J_{\boldsymbol{d}ij}^{nn}) =\dfrac{1}{3}(J_{\boldsymbol{d}ij}^{xx} + J_{\boldsymbol{d}ij}^{yy} + J_{\boldsymbol{d}ij}^{zz})`
-and
+
+.. math::
+  J^{I}_{\boldsymbol{d}ij} = \dfrac{1}{3}(J_{\boldsymbol{d}ij}^{uu} + J_{\boldsymbol{d}ij}^{vv} + J_{\boldsymbol{d}ij}^{nn}) =\dfrac{1}{3}(J_{\boldsymbol{d}ij}^{xx} + J_{\boldsymbol{d}ij}^{yy} + J_{\boldsymbol{d}ij}^{zz})
 
 .. math::
   ^n\boldsymbol{J}^\boldsymbol{S}_{\boldsymbol{d}ij}
@@ -357,9 +288,3 @@ and
 
 with
 :math:`S_{\boldsymbol{d}ij}^{uu} + S_{\boldsymbol{d}ij}^{vv} + S_{\boldsymbol{d}ij}^{nn} = 0`.
-
-.. important::
-  We will not use the :math:`(x\, y\, z)` reference frame anymore.
-  Every matrix or vector (classical or vector operator) symbol will be written in the
-  :math:`(u\, v\, n)` reference frame. We will therefore drop the :math:`uvn`
-  super-index to simplify the notation.

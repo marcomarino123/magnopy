@@ -15,7 +15,7 @@ Methods and algorithms
 
   spinham
   uvn-rf
-  spin-rotations
+  ptf-rf
   single-q
   spherical-rf
   spin-fourier

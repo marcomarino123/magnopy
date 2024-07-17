@@ -8,13 +8,10 @@ Spin Hamiltonian
 
   For the full set of notation rules, see :ref:`user-guide_methods_notation`.
 
-  * .. include:: page-notations/vector.inc
-  * .. include:: page-notations/unit-vector.inc
-  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/matrices.inc
   * .. include:: page-notations/bra-ket.inc
   * .. include:: page-notations/reference-frame.inc
   * .. include:: page-notations/transpose-complex-conjugate.inc
-  * .. include:: page-notations/trace.inc
   * .. include:: page-notations/exchange-tensor.inc
 
 * Let be a Bravais lattice that is described by the Bravais vectors
@@ -32,17 +29,43 @@ Spin Hamiltonian
   :math:`\boldsymbol{r_{mi}} = \boldsymbol{r_m} + \boldsymbol{r_i}`.
 
 * Each atomic site in the lattice is populated with its own spin vector
-  :math:`\ket{S_{mi}}`. Spin vector components are given initially in the
-  pristine cartesian reference frame :math:`\ket{\,x\, y z}`:
-  :math:`^z\boldsymbol{S_{mi}} = \hbar \,S_i\, ^z\boldsymbol{\hat{S}_{mi}}`,
-  where :math:`S_i` is the spin modulus. :math:`\hbar` is henceforth set to 1.
+
+  .. math::
+    \ket{S_{mi}}=\hbar\,S_i \,\ket{f_{mi}}
+
+  where :math:`S_i` is the spin modulus, and :math:`\ket{f_{mi}}` is a unit
+  vector collinear to :math:`\ket{S_{mi}}`. :math:`\hbar` is henceforth set to 1.
+  Spin vector components are given initially in the cartesian basis,
+  :math:`^z\boldsymbol{S_{mi}}=\braket{\,x\,y\,z\,|S_{mi}}`.
 
 * The bond between atoms :math:`(m,i)` and :math:`(m^{\prime},j)` is denoted by
   :math:`(m,i;m^{\prime},j)`.
 
 * The Hamiltonian governing the interactions among all the lattice atomic spins is
 
-  .. include:: repeated-formulas/hamiltonian-on-site-separate-any-classic.inc
+  .. math::
+    H &=
+    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    \braket{\,S_{mi}\,|\, x\,y\,z\,}
+    \braket{\,x\,y\,z\,|\, \boldsymbol{J}_{\boldsymbol{d}ij}\,|\, x\,y\,z\,}
+    \braket{\,x\,y\,z\,|\, S_{m+d_{ij},j}\, }
+    + \,\sum_{m,i}\,\braket{\,S_{mi}\,|\,x\,y\,z\,}\,\braket{\,x\,y\,z\,|\,
+    \boldsymbol{A}_i\,|\,x\,y\,z\,}\braket{\,x\,y\,z\,|\,S_{mi}}
+    + \mu_B \braket{\,H\,|\, x\,y\,z\,}\,\sum_{m,i}\, g_i
+    \braket{\, x\,y\,z\,|\, S_{mi}\,}
+    \\ &=
+    \dfrac{1}{2}
+    \sum_{m, \boldsymbol{d}_{ij}, i\ne j\vert_{\boldsymbol{d}_{ij}} = \boldsymbol{0}}
+    \,^z\boldsymbol{S}_{mi}^\dagger\,
+    ^z\boldsymbol{J}_{\boldsymbol{d}ij}\,
+    ^z\boldsymbol{S}_{m+d_{ij},j}\,
+    + \,\sum_{m,i}\,
+    ^z\boldsymbol{S}_{mi}^\dagger\,
+    ^z\boldsymbol{A}_i\,
+    ^z\boldsymbol{S}_{mi}\,
+    +\,
+    \mu_B\,^z\boldsymbol{h}^\dagger\,
+    \sum_{m,i}\, g_i\, ^z\boldsymbol{S}_{mi}
 
   where the first sum runs over all the lattice bonds
   :math:`(m,i;m+\boldsymbol{d}_{ij},j)`: index :math:`m` runs over all cells of the
@@ -138,13 +161,3 @@ Spin Hamiltonian
   The summation in the exchange piece of the Hamiltonian double-counts each bond,
   because both :math:`(m,i; m+d_{ij},j)` and :math:`(m+d_{ij},j; m,i)` are included in
   the sum.
-
-.. dropdown:: Bra-ket notation
-
-  .. math::
-    H = \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
-    \langle S_{mi}\vert xyz\rangle
-    \langle xyz \vert J_{\boldsymbol{d}ij}\vert xyz \rangle
-    \langle xyz \vert S_{m+d_{ij},j} \rangle
-    + \mu_B \langle H \vert xyz\rangle\sum_{m,i} g_i
-    \langle xyz\vert S_{mi} \rangle

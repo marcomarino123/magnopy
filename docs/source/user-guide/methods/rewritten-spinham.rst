@@ -39,15 +39,17 @@ ground-state. We rewrite this Hamiltonian in the spherical basis
     \mu_B\, \sum_{m,i}\, g_i \,^{sn}\boldsymbol{h}^\dagger\,
     ^{sn}\boldsymbol{R}_m\, ^{sn}\boldsymbol{R_i}\, ^{sf}\boldsymbol{\tilde{S}_{mi}}
 
-where the exchange tensor
-
-.. math::
-  ^{sf}\boldsymbol{\tilde{J}_{\boldsymbol{d}ij}}=
-    \braket{\,f_i^+\,f_i^-\,f_i\,|\,\tilde{J}_{\boldsymbol{d}ij}\,|\,f_i^+\,f_i^-\,f_i\,}
-
 ======================================================================
 Exchange tensor :math:`^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}`
 ======================================================================
+
+The exchange tensor is
+
+.. math::
+  ^{sf}\boldsymbol{\tilde{J}_{\boldsymbol{d}ij}}=&
+    \braket{\,f_i^+\,f_i^-\,f_i\,|\,\tilde{J}_{\boldsymbol{d}ij}\,|\,f_i^+\,f_i^-\,f_i\,}\\
+     =&
+
 
 The exchange  :math:`\boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}` can be
 written as a sum of five matrices in terms of zero-, first- and second-harmonics as

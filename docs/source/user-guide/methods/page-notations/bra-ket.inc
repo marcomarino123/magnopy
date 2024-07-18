@@ -17,7 +17,4 @@ Unit vectors are denoted by a hat. An example is
 .. math::
   ^z\boldsymbol{\hat{r}} = \dfrac{^z\boldsymbol{r}}{r},
 
-An exception to the small-lettering rule concerns classical spin vectors. These are denoted
-by capital bold letters :math:`\boldsymbol{S}` to conform with the usual notation.
-
 See :ref:`user-guide_methods_bra-ket` for the introduction remarks.

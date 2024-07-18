@@ -67,13 +67,13 @@ vector :math:`\ket{n}`, and by the spiral wave-vector
 Spin vectors
 ============
 
-All in all, the spin vectors become
+All in all, the minimum-energy spin vectors become
 
 .. math::
   \ket{S_{mi}} =\boldsymbol{R}_m\, \ket{S_i}
        = S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\ket{n}
 
-The spin vector coordinates in the :math:`(u\, v\, n)` reference frame are
+with coordinates in the :math:`(u\, v\, n)` reference frame
 
 .. math::
   ^n\boldsymbol{S}_{mi}
@@ -96,7 +96,10 @@ where the full azimuth angles are
   =
   \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
 
+Similarly, if fluctuations arise, then
+
 .. note::
+
   Magnopy absorbs the intra-cell spiral contribution inside the azimuth angle
   :math:`\phi_i(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_i} + \Delta\, \phi_i`.
 

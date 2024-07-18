@@ -50,7 +50,7 @@ Spin vectors
 Ground-state spin vectors in the :math:`(\,n^+\,n^-\,n\,)` basis look like
 
 .. math::
-  \ket{S_i}=&  \ket{\,n^+\,n^-\,n\,}\,\braket{\,n^+\,n^-\,n\,|\,u\,v\,n\,}\,
+  \ket{S_i^0}=&  \ket{\,n^+\,n^-\,n\,}\,\braket{\,n^+\,n^-\,n\,|\,u\,v\,n\,}\,
              \braket{\,u\,v\,n\,|\,S_i\,}\\
            =& \ket{\,n^+\,n^-\,n\,}\,T^\dagger\,\, ^n\boldsymbol{S_i}=
            \ket{\,n^+\,n^-\,n\,}\,\,^{sn}\boldsymbol{S_i}

@@ -143,19 +143,30 @@ The vector components in the :math:`(\,u\,v\,n\,)` reference frame are
     \cos\theta_i
   \end{pmatrix}
 
------------------------------------------
-Ground-state spin and fluctuation over it
------------------------------------------
+-----------------------------------------------
+Ground-state spin and and fluctuations about it
+-----------------------------------------------
 
-The minimum-energy spin vectors :math:`\ket{S_i}` have coordinates
+The minimum-energy spin vectors are
 
 .. math::
-  ^f\boldsymbol{S_i}=\begin{pmatrix}0\\0\\S_i\end{pmatrix}
+  \ket{S_i^0} = S_i\,\ket{f_i}
 
-Spin fluctuations are described by replacing :math:`\ket{S_i}` with :math:`\ket{\tilde{S}_i}`
+with coordinates
+
+.. math::
+  ^f\boldsymbol{S_i^0}=\begin{pmatrix}0\\0\\S_i\end{pmatrix}
+
+Spin fluctuations are described by replacing :math:`\ket{S_i^0}` with
+
+.. math::
+  \ket{S_i}=\ket{S_i^0}+\ket{\delta S_i}
+
 whose components are
 
 .. math::
-  ^f\boldsymbol{\tilde{S}_i}=\begin{pmatrix}\delta S_i^p\\ \delta S_i^t\\S_i-\delta S_i^n\end{pmatrix}
+  ^f\boldsymbol{S_i}=
+  \begin{pmatrix}0\\0\\S_i\end{pmatrix}+
+  \begin{pmatrix}\delta S_i^p\\ \delta S_i^t\\-\delta S_i^n\end{pmatrix}
 
 where the minus sign in the last row accounts for the fact the spin vectors do not change their norm.

@@ -115,6 +115,87 @@ where the full azimuth angles are
   :ref:`Cone axis <user-guide_input_model-file_cone-axis>` and
   :ref:`Spiral vector <user-guide_input_model-file_spiral-vector>`.
 
+================================
+Fourier-transformed spin vectors
+================================
+
+The spherical reference frame :math:`(n^+\, n^-\, n)` is convenient for analyzing the
+fourier-transformed spin vectors. Notice that the components of the spin vector
+:math:`\ket{S_{mi}}` in the spherical reference frame are
+
+.. include:: repeated-formulas/spin-spherical.inc
+
+whose Fourier transform is
+
+.. math::
+  ^{n,s}\boldsymbol{S}_{ki}
+  =
+  S_i
+  \begin{pmatrix}
+    \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{-i\phi_i}\, \delta_{\boldsymbol{k}, -\boldsymbol{q}} \\
+    \dfrac{\sin\theta_i}{\sqrt{2}}\, e^{ i\phi_i}\, \delta_{\boldsymbol{k},  \boldsymbol{q}} \\
+    \cos\theta\, \delta_{\boldsymbol{k}, \boldsymbol{0}}                                     \\
+  \end{pmatrix}
+
+.. dropdown:: Details
+
+  .. math::
+      ^{n,s}\boldsymbol{S}_{ki}
+      =
+      \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \boldsymbol{S_{mi}^s}
+      =
+      S_i
+      \cdot
+      \Biggl[
+        &\dfrac{\sin\theta_i \cdot e^{-i\phi_i}}{\sqrt{2}}
+        \boldsymbol{\hat{u}^+}
+        \left(
+          \dfrac{1}{M}
+          \sum_{m}e^{-i\boldsymbol{r_m}(\boldsymbol{k} + \boldsymbol{q})}
+        \right)
+        +\\&+
+        \dfrac{\sin\theta_i \cdot e^{i\phi_i}}{\sqrt{2}}
+        \boldsymbol{\hat{u}^-}
+        \left(
+          \dfrac{1}{M}
+          \sum_{m}e^{-i\boldsymbol{r_m}(\boldsymbol{k} - \boldsymbol{q})}
+        \right)
+        +\\&+
+        \cos\theta
+        \left(
+          \dfrac{1}{M}
+          \sum_{m}e^{-i\boldsymbol{k}\boldsymbol{r_m}}
+        \right)
+        \boldsymbol{\hat{v}}
+      \Biggr]
+
+  where :math:`m = 1, ..., M`
+
+
+This structure factor can be written in the :math:`(u\, v\, n)` reference frame as follows:
+
+.. math::
+  ^n\boldsymbol{S}_{ki}
+  =
+  S_i
+  \begin{pmatrix}
+      \dfrac{\sin\theta_i}{2}\,
+      \left(
+        e^{-i\phi_i}\, \delta_{\boldsymbol{k}, -\boldsymbol{q}}
+        +
+        e^{i\phi_i}\, \delta_{\boldsymbol{k}, \boldsymbol{q}}
+      \right)
+    \\
+      \dfrac{i\sin\theta_i}{2}\,
+      \left(
+        e^{-i\phi_i}\, \delta_{\boldsymbol{k}, -\boldsymbol{q}}
+        -
+        e^{i\phi_i}\, \delta_{\boldsymbol{k}, \boldsymbol{q}}
+      \right)
+    \\
+      \cos\theta \, \delta_{\boldsymbol{k}, \boldsymbol{0}}
+  \end{pmatrix}
+
 Examples
 ========
 

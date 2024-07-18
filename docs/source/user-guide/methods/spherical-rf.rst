@@ -59,6 +59,12 @@ where the vector components are
 
 .. math::
   ^{sn}\boldsymbol{S_i}=
+  \begin{pmatrix}
+    \frac{1}{\sqrt{2}}\,S_{mi}^{-} \\
+    \frac{1}{\sqrt{2}}\,S_{mi}^{+} \\
+    S_{mi}^{n} \\
+  \end{pmatrix}
+  =
   \begin{pmatrix}\frac{1}{\sqrt{2}}\,(S^u_i-i \,S^v_i)\\
                  \frac{1}{\sqrt{2}}\,(S^u_i-i \,S^v_i)\\
                  S_i^n

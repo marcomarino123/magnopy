@@ -18,7 +18,6 @@ Methods and algorithms
   ptf-rf
   spherical-rf
   single-q
-  spin-fourier
   rewritten-spinham
   energy-classic/index
   classical-spin-fluctuations

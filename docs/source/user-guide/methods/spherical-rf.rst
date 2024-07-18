@@ -76,7 +76,7 @@ where :math:`S_i^{uv,\pm}=S^u_i\pm \,i \,S^v_i`.
 
 Spin fluctuations are described by replacing the spin vectors
 :math:`\ket{S_i}` with :math:`\ket{\tilde{S}_i}` as described at the
-end of the previous :ref:`user-guide_methods_ptf-rf`.
+end of the previous :ref:`section <user-guide_methods_ptf-rf>`.
 Fluctuating spin vectors in the :math:`(\,f_i^+\,f_i^-\,f_i\,)` basis look like
 
 .. math::

@@ -137,41 +137,6 @@ whose Fourier transform is
     \cos\theta\, \delta_{\boldsymbol{k}, \boldsymbol{0}}                                     \\
   \end{pmatrix}
 
-.. dropdown:: Details
-
-  .. math::
-      ^{n,s}\boldsymbol{S}_{ki}
-      =
-      \dfrac{1}{M}\sum_{m} e^{-i\boldsymbol{k}\boldsymbol{r_m}} \boldsymbol{S_{mi}^s}
-      =
-      S_i
-      \cdot
-      \Biggl[
-        &\dfrac{\sin\theta_i \cdot e^{-i\phi_i}}{\sqrt{2}}
-        \boldsymbol{\hat{u}^+}
-        \left(
-          \dfrac{1}{M}
-          \sum_{m}e^{-i\boldsymbol{r_m}(\boldsymbol{k} + \boldsymbol{q})}
-        \right)
-        +\\&+
-        \dfrac{\sin\theta_i \cdot e^{i\phi_i}}{\sqrt{2}}
-        \boldsymbol{\hat{u}^-}
-        \left(
-          \dfrac{1}{M}
-          \sum_{m}e^{-i\boldsymbol{r_m}(\boldsymbol{k} - \boldsymbol{q})}
-        \right)
-        +\\&+
-        \cos\theta
-        \left(
-          \dfrac{1}{M}
-          \sum_{m}e^{-i\boldsymbol{k}\boldsymbol{r_m}}
-        \right)
-        \boldsymbol{\hat{v}}
-      \Biggr]
-
-  where :math:`m = 1, ..., M`
-
-
 This structure factor can be written in the :math:`(u\, v\, n)` reference frame as follows:
 
 .. math::

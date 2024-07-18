@@ -152,8 +152,8 @@ The minimum-energy spin vectors :math:`\ket{S_i}` have coordinates
 .. math::
   ^f\boldsymbol{S_i}=\begin{pmatrix}0\\0\\S_i\end{pmatrix}
 
-Spin fluctuations are described by the spin vectors :math:`\boldsymbol{\tilde{S}_i}`
-with components
+Spin fluctuations are described by replacing :math:`\ket{S_i}` with :math:`\ket{\tilde{S}_i}`
+whose components are
 
 .. math::
   ^f\boldsymbol{\tilde{S}_i}=\begin{pmatrix}\delta S_i^p\\ \delta S_i^t\\S_i-\delta S_i^n\end{pmatrix}

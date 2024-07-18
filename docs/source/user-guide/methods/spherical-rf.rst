@@ -47,42 +47,43 @@ so that
 Spin vectors
 ============
 
-Minimum-energy spin vectors in the :math:`(\,n^+\,n^-\,n\,)` basis look like
+Ground-state spin vectors in the :math:`(\,n^+\,n^-\,n\,)` basis look like
 
 .. math::
-  \ket{S_i}=  \ket{\,n^+\,n^-\,n\,}\,\braket{\,n^+\,n^-\,n\,|\,u\,v\,n\,}\,
-             \braket{\,u\,v\,n\,|\,S_i\,}
-           = \ket{\,n^+\,n^-\,n\,}\,T^\dagger\,\, ^n\boldsymbol{S_i}=
+  \ket{S_i}=&  \ket{\,n^+\,n^-\,n\,}\,\braket{\,n^+\,n^-\,n\,|\,u\,v\,n\,}\,
+             \braket{\,u\,v\,n\,|\,S_i\,}\\
+           =& \ket{\,n^+\,n^-\,n\,}\,T^\dagger\,\, ^n\boldsymbol{S_i}=
            \ket{\,n^+\,n^-\,n\,}\,\,^{sn}\boldsymbol{S_i}
 
 where the vector components are
 
 .. math::
-  ^{sn}\boldsymbol{S_i}=
+  ^{sn}\boldsymbol{S_i}
     =
   \begin{pmatrix}
-    \frac{1}{\sqrt{2}}\,S_{mi}^{-} \\
-    \frac{1}{\sqrt{2}}\,S_{mi}^{+} \\
+    \frac{1}{\sqrt{2}}\,S_{mi}^{uv,-} \\
+    \frac{1}{\sqrt{2}}\,S_{mi}^{uv,+} \\
     S_{mi}^{n} \\
   \end{pmatrix}
   =
-  \begin{pmatrix}\frac{1}{\sqrt{2}}\,(S^u_i-i \,S^v_i)\\
-                 \frac{1}{\sqrt{2}}\,(S^u_i-i \,S^v_i)\\
-                 S_i^n
-  \end{pmatrix}=
   S_i\,\begin{pmatrix}
            \frac{1}{\sqrt{2}}\,\sin \theta_i\, e^{-i \,\phi_i}\\
            \frac{1}{\sqrt{2}}\,\sin \theta_i\, e^{i \,\phi_i}\\
            \cos \theta_i
            \end{pmatrix}
 
-Spin vectors in the :math:`(\,f_i^+\,f_i^-\,f_i\,)` basis look like
+where :math:`S_i^{uv,\pm}=S^u_i\pm \,i \,S^v_i`.
+
+Spin fluctuations are described by replacing the spin vectors
+:math:`\ket{S_i}` with :math:`\ket{\tilde{S}_i}` as described at the
+end of the previous :ref:`user-guide_methods_ptf-rf`.
+Fluctuating spin vectors in the :math:`(\,f_i^+\,f_i^-\,f_i\,)` basis look like
 
 .. math::
-  \ket{\tilde{S}_i}=  \ket{\,f_i^+\,f_i^-\,f_i\,}\,
+  \ket{\tilde{S}_i}=&  \ket{\,f_i^+\,f_i^-\,f_i\,}\,
               \braket{\,f_i^+\,f_i^-\,f_i\,|\,p_i\,t_i\,f_i\,}\,
-             \braket{\,p_i\,t_i\,f_i\,|\,\tilde{S}_i\,}
-           = \ket{\,f_i^+\,f_i^-\,f_i\,}\,T^\dagger\,\, ^f\boldsymbol{\tilde{S}_i}=
+             \braket{\,p_i\,t_i\,f_i\,|\,\tilde{S}_i\,}\\
+           =& \ket{\,f_i^+\,f_i^-\,f_i\,}\,T^\dagger\,\, ^f\boldsymbol{\tilde{S}_i}=
            \ket{\,f_i^+\,f_i^-\,f_i\,}\,\,^{sf}\boldsymbol{\tilde{S}_i}
 
 where the vector components are
@@ -90,13 +91,12 @@ where the vector components are
 .. math::
   ^{sf}\boldsymbol{\tilde{S}_i}=
   S_i\,\begin{pmatrix}
-           \frac{1}{\sqrt{2}}\,\delta S^-_i\\
-           \frac{1}{\sqrt{2}}\,\delta S^+_i\\
+           \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_i\\
+           \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_i\\
            S_i^n-\delta S_i^n
            \end{pmatrix}
 
-with :math:`\delta{S}_i^\pm=\frac{1}{\sqrt{2}}\,(\delta S^p_i\pm i \,\delta S^t_i)`.
-Here, fluctuation over the minimum-energy configuration have been included.
+with :math:`\delta{S}_i^{pt,\pm}=\frac{1}{\sqrt{2}}\,(\delta S^p_i\pm i \,\delta S^t_i)`.
 
 ---------------------------------------------
 Rotation matrix :math:`^{ns}\boldsymbol{R_i}`

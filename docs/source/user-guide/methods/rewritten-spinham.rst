@@ -1,71 +1,55 @@
 .. _user-guide_methods_rewritten-spinham:
 
 **************************
-Higher-harmonic generation
+Rewritten Spin Hamiltonian
 **************************
 
 .. dropdown:: Notation used on this page
 
   For the full set of notation rules, see :ref:`user-guide_methods_notation`.
 
-  * .. include:: page-notations/vector.inc
-  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/matrices.inc
   * .. include:: page-notations/reference-frame.inc
-  * .. include:: page-notations/transpose-complex-conjugate.inc
-  * .. include:: page-notations/parentheses.inc
-  * .. include:: page-notations/kronecker-delta.inc
   * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/exchange-tensor.inc
 
-=================================
-Re-written Heisenberg Hamiltonian
-=================================
+===========
+Hamiltonian
+===========
 
-We have shown in :ref:`section <user-guide_methods_spherical-rf>` that the
-classical Heisenberg Hamiltonian can be written in the spherical reference frame
-:math:`(u^+\, u^-\, n)` as follows:
-
-.. include:: ./repeated-formulas/hamiltonian-main-spherical.inc
-
-where the spin vectors are
+The Spin Hamiltonian is
 
 .. math::
-  ^{n,s}\boldsymbol{S}_{mi}
-  \,=\,
-  ^{n,s}\boldsymbol{R}_m\, ^{n,s}\boldsymbol{S}_i
+  H =
+   \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
+   \braket{\,\tilde{S}_{mi}\,|\, \boldsymbol{J}_{\boldsymbol{d}ij}\,|\, \tilde{S}_{m+d_{ij},j}\, }
+   + \mu_B \sum_{m,i}\, g_i\,\braket{\,h\,|\, \tilde{S}_{mi}\,}
 
-The above expressions are inserted and the Hamiltonian regrouped as follows
-
-.. math::
-  H=
-  \dfrac{1}{2}
-  \sum_{\boldsymbol{d}_{ij}, i, j}\,
-  ^{n,s}\boldsymbol{S}^\dagger_i\,
-  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
-  ^{n,s}\boldsymbol{S}_j
-  +
-  \mu_B\, ^{n,s}\boldsymbol{h}^\dagger\,^{n,s}\boldsymbol{R}_0\,
-  \sum_{i}\, g_i\, ^{n,s}\boldsymbol{S}_i
-
-where
+where the tilde indicates that the spin vectors include also fluctuations about the
+ground-state. We rewrite this Hamiltonian in the spherical basis
 
 .. math::
-  ^{n,s}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}
-  &=
-  \sum_m\,
-  ^{n,s}\boldsymbol{\tilde{J}}^s_{mdij}
-  =
-  \sum_m\,
-  ^{n,s}\boldsymbol{R}_m^\dagger\,
-  ^{n,s}\boldsymbol{J}_{\boldsymbol{d}ij}\,
-  ^{n,s}\boldsymbol{R}_{m+d_{ij}}\\
-  ^{n,s}\boldsymbol{R}_0&=\sum_m\,^{n,s}\boldsymbol{R}_m
+  H =
+     \dfrac{1}{2}
+    \sum_{\boldsymbol{d}_{ij}, i, j}\,
+    ^{sf}\boldsymbol{\tilde{S}_{mi}}^\dagger\,
+    ^{sf}\boldsymbol{\tilde{J}_{\boldsymbol{d}ij}}\,
+    ^{sf}\boldsymbol{\tilde{S}_{d_{ij},j}}
+    +
+    \mu_B\, \sum_{m,i}\, g_i \,^{sn}\boldsymbol{h}^\dagger\,
+    ^{sn}\boldsymbol{R}_m\, ^{sn}\boldsymbol{R_i}\, ^{sf}\boldsymbol{\tilde{S}_{mi}}
 
-=====================================================================
-Exchange constant :math:`\boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}`
-=====================================================================
+where the exchange tensor
 
-The exchange constant :math:`\boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}` can be
+.. math::
+  ^{sf}\boldsymbol{\tilde{J}_{\boldsymbol{d}ij}}=
+    \braket{\,f_i^+\,f_i^-\,f_i\,|\,\tilde{J}_{\boldsymbol{d}ij}\,|\,f_i^+\,f_i^-\,f_i\,}
+
+======================================================================
+Exchange tensor :math:`^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}`
+======================================================================
+
+The exchange  :math:`\boldsymbol{\tilde{J}}^s_{m\boldsymbol{d}ij}` can be
 written as a sum of five matrices in terms of zero-, first- and second-harmonics as
 follows:
 

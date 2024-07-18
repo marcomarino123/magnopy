@@ -59,6 +59,7 @@ where the vector components are
 
 .. math::
   ^{sn}\boldsymbol{S_i}=
+    =
   \begin{pmatrix}
     \frac{1}{\sqrt{2}}\,S_{mi}^{-} \\
     \frac{1}{\sqrt{2}}\,S_{mi}^{+} \\

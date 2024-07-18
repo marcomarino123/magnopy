@@ -24,9 +24,9 @@ Spin Hamiltonian
     =
     m_1\, \boldsymbol{a_1} + m_2\, \boldsymbol{a_2} + m_3\, \boldsymbol{a_3}
 
-Each cell :math:`m` contains :math:`I` atoms, and ach atom in the cell
-is denoted by :math:`(m,\,i)`. The atom has intra-cell positions
-:math:`\boldsymbol{r}_i` and overall positions
+  Each cell :math:`m` contains :math:`I` atoms, and ach atom in the cell
+  is denoted by :math:`(m,\,i)`. The atom has intra-cell positions
+  :math:`\boldsymbol{r}_i` and overall positions
 
   .. math::
     \boldsymbol{r}_{mi} = \boldsymbol{r}_m + \boldsymbol{r}_i

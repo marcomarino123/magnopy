@@ -5,10 +5,17 @@ Notes on Dirac's bra-ket notation for vectors
 **********************************************
 
 Let :math:`\cal{E}` be a three-dimensional vector space, whose vectors are denoted
-by :math:`\ket{\,a\,}`. Let  :math:`\ket{\,u\,v\,n\,}=\{\ket{u},\,\ket{v},\,\ket{n}\}`
+by :math:`\ket{\,a\,}`. Let  :math:`(\,u\,v\,n\,)=\{\ket{u},\,\ket{v},\,\ket{n}\}`
 be a basis spanning the vector space.
 Let :math:`\cal{E}^*` be the dual space. Dual vectors are denoted by
-:math:`\bra{a}`, and the dual basis by :math:`\bra{\,u\,v\,n\,}=\{\bra{u},\,\bra{v},\,\bra{n}\}`.
+:math:`\bra{a}`, and the dual basis by :math:`(\,u\,v\,n\,)=\{\bra{u},\,\bra{v},\,\bra{n}\}`.
+
+We define the row and column vectors
+
+.. math::
+  \ket{\,u\,v\,n\,}&=\begin{pmatrix} \ket{u} & \ket{v} &\ket{n}\end{pmatrix}\\
+  \bra{\,u\,v\,n\,}&=\begin{pmatrix} \bra{u}\\ \bra{v}\\ \bra{n} \end{pmatrix}
+
 The basis completeness relationship is
 
 .. math::
@@ -22,17 +29,17 @@ Then a vector  :math:`\ket{a}` can be expressed in the above basis as
   \ket{a}
   =&
   \ket{\,u\,v\,n\,}\,\braket{\,u\,v\,n\,|\,a}=
-  \braket{u|a}\,\ket{u}+\braket{v|a}\,\ket{v}+\braket{n|a}\,\ket{n}
+  \ket{u}\,\braket{u|a}+\ket{v}\,\braket{v|a}+\ket{n}\,\braket{n|a}
   \\&
-  =a^u\,\ket{u}+a^v\,\ket{v}+a^n\,\ket{n}
+  =\ket{u}\,a^u+\ket{v}\,a^v+\ket{n}\,a^n\,=\, ^n\boldsymbol{a}\,\ket{\,u\,v\,n\,}
 
-The vector components can be arranged as the column vector
+where the vector components have been arranged as the column vector
 
 .. math::
   ^n\boldsymbol{a}=\begin{pmatrix}a^u\\a^v\\a^n\end{pmatrix}
 
-where :math:`^n\boldsymbol{a}` is nothing but a placeholder for the above
-vector components, and the left :math:`^n` super-script indicates that
+This way, :math:`^n\boldsymbol{a}` is nothing but a placeholder for the above
+vector components, and the left :math:`^n` super-script indicates unequivocally that
 the vector components are referred to the :math:`\ket{\,u\,v\,n\,}` basis.
 
 Similarly, a linear operator :math:`\boldsymbol{O}` is expressed in the :math:`\ket{\,u\,v\,n\,}` basis

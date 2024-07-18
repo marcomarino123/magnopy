@@ -1,8 +1,8 @@
 .. _user-guide_methods_uvn:
 
-*********************
-(uvn) reference frame
-*********************
+*************************
+( u v n ) reference frame
+*************************
 
 .. dropdown:: Notation used on this page
 
@@ -40,9 +40,9 @@ reference frame is defined by performing the same rotation over all the three un
 
   **Figure 1** (interactive): Construction of the :math:`(u\, v\, n)` reference frame.
 
------------------
-Basis coordinates
------------------
+--------------------------------------------------------
+Rotation operator, rotation matrix and basis coordinates
+--------------------------------------------------------
 
 The unit vector
 
@@ -73,7 +73,7 @@ The basis :math:`(\,u\,v\,n\,)` is defined by
   \ket{v}&=\boldsymbol{R_\ket{r}}\,\ket{y}\\
   \ket{n}&=\boldsymbol{R_\ket{r}}\,\ket{z}
 
-The matrix elements in the :math:`(xyz)` basis are therefore
+The rotation operator matrix elements in the :math:`(xyz)` basis are therefore
 
 .. math::
   :name: eq:uvn-rf-rot-matrix
@@ -98,8 +98,8 @@ The vector components in the :math:`(x\, y\, z)` basis are
 
 .. math::
   ^z\boldsymbol{\hat{u}}
-  &=\braket{\,x\,y\,z\,|\,u\,}=
-  \boldsymbol{R_r}\,
+  &=\braket{\,x\,y\,z\,|\,u\,}\,=\,
+  ^z\boldsymbol{R_r}\,
   \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
   =
   \begin{pmatrix}
@@ -110,8 +110,8 @@ The vector components in the :math:`(x\, y\, z)` basis are
   \\
   ^z\boldsymbol{\hat{v}}
   &=\braket{\,x\,y\,z\,|\,v\,}
-  =
-  \boldsymbol{R_r}\,
+  \,=\,
+  ^z\boldsymbol{R_r}\,
   \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
   =
   \begin{pmatrix}
@@ -121,8 +121,8 @@ The vector components in the :math:`(x\, y\, z)` basis are
   \end{pmatrix}
   \\
   ^z\boldsymbol{\hat{n}}
-  &=\braket{\,x\,y\,z\,|\,v\,}=
-  \boldsymbol{R_r}\,
+  &=\braket{\,x\,y\,z\,|\,v\,}\,=\,
+  ^z\boldsymbol{R_r}\,
   \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
   =
   \begin{pmatrix}
@@ -176,11 +176,11 @@ written explicitly above.
 Spin components
 ---------------
 
-The components of the spin vector :math:`\ket{S}` in the :math:`(u\, v\, n)`
+The components of the spin vector :math:`\ket{S}_i` in the :math:`(u\, v\, n)`
 basis are
 
 .. math::
-  ^n\boldsymbol{S}&=\braket{\, u\, v\, n\, |\, S\, }
+  ^n\boldsymbol{S_i}&=\braket{\, u\, v\, n\, |\, S_i\, }
   =
   \braket{\, u\, v\, n\, |\, x\, y\, z\, }
   \braket{\, x\, y\, z\, |\, S\, }
@@ -191,22 +191,11 @@ Explicitly
 
 .. math::
   \begin{pmatrix}
-    S^u \\
-    S^v \\
-    S^n \\
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) &
-    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
-    -\cos\beta\, \sin\alpha                      \\
-    -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
-    \cos\alpha + \cos^2\beta\, \, (1-\cos\alpha) &
-    -\sin\beta\, \sin\alpha                      \\
-    \cos\beta\, \sin\alpha &
-    \sin\beta\, \sin\alpha &
-    \cos\alpha             \\
-  \end{pmatrix}
+    S_i^u \\
+    S_i^v \\
+    S_i^n \\
+  \end{pmatrix}\,=\,
+  ^z\boldsymbol{\cal R_r}^\dagger
   \,
   \begin{pmatrix}
     S^x \\

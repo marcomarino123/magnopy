@@ -14,19 +14,22 @@ Spin Hamiltonian
   * .. include:: page-notations/transpose-complex-conjugate.inc
   * .. include:: page-notations/exchange-tensor.inc
 
-* Let be a Bravais lattice that is described by the Bravais vectors
-  :math:`\boldsymbol{r_m}` :math:`(m = 1, ..., M)` with primitive vectors
-  :math:`\{\boldsymbol{a_1},\boldsymbol{a_2},\boldsymbol{a_3}\}`.
+* We define a Bravais lattice with primitve vectors
+  :math:`\{\boldsymbol{a_1}, \boldsymbol{a_2}, \boldsymbol{a_3}\}`.
   The Bravais lattice is composed of :math:`M=M_1 \times M_2 \times M_3`
-  unit cells, where :math:`M_i` is the number of unit cells along :math:`i`-th
-  primitive vector :math:`\boldsymbol{a_i}`.
+  unit cells whose positions are given by
 
-* Let each unit cell contain a set of :math:`I` atoms, where each atomic position
-  :math:`\boldsymbol{r_i}` is measured  with respec to the cell origin.
+  .. math::
+    \boldsymbol{r}_m
+    =
+    m_1\, \boldsymbol{a_1} + m_2\, \boldsymbol{a_2} + m_3\, \boldsymbol{a_3}
 
-* Let an atom at site :math:`i` in cell :math:`m` be denoted by :math:`(m,i)`.
-  Then the atom's position is
-  :math:`\boldsymbol{r_{mi}} = \boldsymbol{r_m} + \boldsymbol{r_i}`.
+Each cell :math:`m` contains :math:`I` atoms, and ach atom in the cell
+is denoted by :math:`(m,\,i)`. The atom has intra-cell positions
+:math:`\boldsymbol{r}_i` and overall positions
+
+  .. math::
+    \boldsymbol{r}_{mi} = \boldsymbol{r}_m + \boldsymbol{r}_i
 
 * Each atomic site in the lattice is populated with its own spin vector
 
@@ -45,13 +48,18 @@ Spin Hamiltonian
 
   .. math::
     H &=
+     \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
+    \braket{\,S_{mi}\,|\, \boldsymbol{J}_{\boldsymbol{d}ij}\,|\, S_{m+d_{ij},j}\, }
+    + \,\sum_{m,i}\,\braket{\,S_{mi}\,|\,\boldsymbol{A}_i\,|\,S_{mi}}
+    + \mu_B \sum_{m,i}\, g_i\,\braket{\,h\,|\, S_{mi}\,}\\
+    &=
     \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
     \braket{\,S_{mi}\,|\, x\,y\,z\,}
     \braket{\,x\,y\,z\,|\, \boldsymbol{J}_{\boldsymbol{d}ij}\,|\, x\,y\,z\,}
     \braket{\,x\,y\,z\,|\, S_{m+d_{ij},j}\, }
     + \,\sum_{m,i}\,\braket{\,S_{mi}\,|\,x\,y\,z\,}\,\braket{\,x\,y\,z\,|\,
     \boldsymbol{A}_i\,|\,x\,y\,z\,}\braket{\,x\,y\,z\,|\,S_{mi}}
-    + \mu_B \braket{\,H\,|\, x\,y\,z\,}\,\sum_{m,i}\, g_i
+    + \mu_B \braket{\,h\,|\, x\,y\,z\,}\,\sum_{m,i}\, g_i
     \braket{\, x\,y\,z\,|\, S_{mi}\,}
     \\ &=
     \dfrac{1}{2}

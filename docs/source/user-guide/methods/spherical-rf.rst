@@ -8,81 +8,52 @@ Spherical reference frame
 
   For the full set of notation rules, see :ref:`user-guide_methods_notation`.
 
-  * .. include:: page-notations/vector.inc
-  * .. include:: page-notations/matrix.inc
+  * .. include:: page-notations/matrices.inc
   * .. include:: page-notations/bra-ket.inc
-  * .. include:: page-notations/parentheses.inc
-  * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/rotations.inc
 
-The :ref:`previous section <user-guide_methods_single-q>` has shown how each lattice
-spin :math:`\ket{S_{mi}}` of the spiral conical state can be generated from a
-global ferromagnetic state, where all spins are aligned along the direction defined by
-:math:`\boldsymbol{n}` by the application of suitable rotations
-
-.. math::
-  \ket{S_{mi}} = S_i\,\ket{f_{mi}} = S_i \,\boldsymbol{R}_m\,\boldsymbol{R}_i\, \ket{n}
-
-The spin vector components in the :math:`(\,u\,v\,n\,)` reference system are
-
-.. math::
-  ^n\boldsymbol{S}_{i}
-  =
-  S_i
-  \begin{pmatrix}
-    \sin\theta_i\, \cos\phi_{mi} \\
-    \sin\theta_i\, \sin\phi_{mi} \\
-    \cos\theta_i
-  \end{pmatrix}
-
-The vector components in the local reference frame :math:`(\,p_{mi}\,t_{mi}\,f_{mi}\,)` are
-
-.. math::
-  ^f\boldsymbol{S}_{i}
-  =
-  S_i
-  \begin{pmatrix}
-    0 \\
-    0 \\
-    1
-  \end{pmatrix}
-
+Much of quantum spin algebra is written in a spherical basis. Furthermore, spin-waves
+are frequently circularly polarized.
 This section is devoted to translating spin vector components and matrix elements
-to spherical bases. These bases are best suited for the description of spin waves and for
-angular momentum quantization.
+to spherical bases.
 
 =============================================
 Coordinate systems with circular polarization
 =============================================
 
-------------------------------
-Global spherical basis vectors
-------------------------------
+-----------------------
+Spherical basis vectors
+-----------------------
+We perform the transformations
 
-Let be the :math:`(\,u\,v\,n\,)` reference frame, and let us introduce
-the spherical orthogonal basis :math:`(n^+\,n^-\,n\,)` that is
-defined as follows:
+.. math::
+  \ket{\,n^+\,n^-\,n\,}&=\boldsymbol{T}\,\ket{\,u\,v\,n\,}\\
+  \ket{\,f^+_i\,f^-_i\,f_i\,}&=\boldsymbol{T}\,\ket{\,p_i\,t_i\,n_i\,}
+
+where the transformation matrix is basis-independent and given by
+
+.. math::
+  \bold{T}=\braket{\,u\,v\,n\,|\,n^+\,n^-\,n\,}=\braket{\,p_i\,t_i\,f_i\,|\,f_i^+\,f_i^-\,f_i}
+          =\frac{1}{\sqrt{2}}\,\begin{pmatrix} 1 & 1 & 0\\ i & -i & 0\\ 0& 0 & \sqrt{2}\end{pmatrix}
+
+so that
 
 .. math::
   \begin{matrix}
-    \ket{\, n^{\pm}\, } = \dfrac{\ket{\, u\, } \pm i\, \ket{\, v\, }}{\sqrt{2}}
-    & \text{and} &
-    \ket{\, n\, } = \ket{\, n\, }
+    \ket{\, n^{\pm}\, } &= \dfrac{\ket{\, u\, } \pm i\, \ket{\, v\, }}{\sqrt{2}}\\
+    \ket{\, n\, } &= \ket{\, n\, }\\
+    \ket{\, f_i^{\pm}\, } &= \dfrac{\ket{\, p_i\, } \pm i\, \ket{\, t_i\, }}{\sqrt{2}}\\
+    \ket{\, f_i\, } &= \ket{\, f_i\, }
   \end{matrix}
-
-The basis transformation
-:math:`\ket{\, u^+\, u^-\, n\, } = \boldsymbol{T}\, \ket{\, u\, v\, n\, }`
-is achieved via the transformation matrix
-
-.. include:: repeated-formulas/transformation-matrix-uvn-to-spherical-uvn.inc
+  \end{matrix}
 
 Vector components are written in these global spherical basis as
 
 .. math::
-  ^{n,s}\boldsymbol{A}=\braket{\,n^+\,n^-\,n\,|\,A\,}=
-  \begin{pmatrix}\frac{1}{\sqrt{2}}\,A^-\\\frac{1}{\sqrt{2}}\,A^+\\A^n\end{pmatrix}
+  ^{sn}\boldsymbol{a}=\braket{\,n^+\,n^-\,n\,|\,a\,}=
+  \begin{pmatrix}\frac{1}{\sqrt{2}}\,a^-\\\frac{1}{\sqrt{2}}\,a^+\\A^n\end{pmatrix}
 
-where :math:`A^{\pm}=A^u\pm A^v`
+where :math:`a^{\pm}=a^u\pm a^v`
 
 -----------------------------
 Local spherical basis vectors

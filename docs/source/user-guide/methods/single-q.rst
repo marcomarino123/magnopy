@@ -15,6 +15,7 @@ Single-q conical state
   * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/rotations.inc
 
+=================================
 Description of the atomic lattice
 =================================
 We define a Bravais lattice with primitve vectors
@@ -27,34 +28,38 @@ unit cells whose positions are given by
   =
   m_1\, \boldsymbol{a_1} + m_2\, \boldsymbol{a_2} + m_3\, \boldsymbol{a_3}
 
-Each cell contains :math:`I` atoms with intra-cell positions
+Each cell :math:`m` contains :math:`I` atoms, and ach atom in the cell
+is denoted by :math:`(m,\,i)`. The atom has intra-cell positions
 :math:`\boldsymbol{r}_i` and overall positions
 
 .. math::
   \boldsymbol{r}_{mi} = \boldsymbol{r}_m + \boldsymbol{r}_i
 
+================================
 Description of the conical state
 ================================
-The conical state is defined by the cone axis, that is directed along the unit
-vector :math:`\boldsymbol{n}`, and by the spiral wave-vector
+The conical state is defined by the cone axis, that is collinear to the unit
+vector :math:`\ket{n}`, and by the spiral wave-vector
 :math:`\boldsymbol{q}`. Magnopy constructs the single-q conical state in three stages.
 
 1.  It starts by populating all the atomic sites with spin vectors collinear to
-    :math:`\boldsymbol{\hat{n}}`
+    :math:`\ket{n}`,
 
     .. math::
-      \boldsymbol{S^F}_{i} = S_i\, \boldsymbol{\hat{n}}
+      S_i\, \ket{n}
 
 2.  These vectors are subsequently rotated by the rotation matrices
     :math:`\boldsymbol{R}_i = \boldsymbol{R}(\theta_i, \phi_i(\boldsymbol{q}))`,
-    that were introduced :ref:`previously <user-guide_methods_spin-rotations>`,
+    that have been introduced in the previous
+    :ref:`section <user-guide_methods_spin-rotations>`,
     The rotation azimuth angles are
     :math:`\phi_i(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_i} + \Delta\phi_i`:
 
-    .. include:: repeated-formulas/spin-from-ferro-any.inc
+    .. math::
+      \ket{S_i}=S_i\, \boldsymbol{R}_i\, \ket{n}=S_i\, \ket{f_i}
 
     The above rotations populate each unit cell in the lattice by a collection of
-    non-collinear atomic spins :math:`\boldsymbol{S}_i`. Since these rotations do not
+    non-collinear atomic spins :math:`\ket{S_i}`. Since these rotations do not
     depend on the cell index :math:`m`, all unit cells spin arrangements are replica
     of each other at this stage.
 
@@ -63,26 +68,41 @@ vector :math:`\boldsymbol{n}`, and by the spiral wave-vector
     azimuth angle is :math:`\phi_m(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_m}`:
 
     .. math::
-      \boldsymbol{\hat{f}_{mi}}= \boldsymbol{R}_m\,\boldsymbol{\hat{f}_i}
+      \ket{S_{mi}} =\boldsymbol{R}_m\, \ket{S_i}
+      = S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\ket{n}
 
-    so that
-
-    .. math::
-      \boldsymbol{S}_{mi} =\boldsymbol{R}_m\, \boldsymbol{S}_i
-      = \boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{S_i^F}
-      = S_i\,\boldsymbol{R}_m\,\boldsymbol{R}_i\,\boldsymbol{\hat{n}}
-
-    The explicit expression for the matrix in the :math:`(u\, v\, n)` reference frame is
+    The explicit expression for the rotation matrix in the :math:`(u\, v\, n)` reference frame is
 
     .. include:: repeated-formulas/spiral-rotation-matrix-uvn.inc
 
-The coordinates of the spin vector in the :math:`(u\, v\, n)` reference frame are
+=========================
+Spin vectors' coordinates
+=========================
 
-.. include:: repeated-formulas/spin-from-ferro-uvn.inc
+The coordinates of the spin vectors in the :math:`(u\, v\, n)` reference frame are
+
+.. math::
+  ^n\boldsymbol{S}_{mi}
+  \,=\,
+  ^n\boldsymbol{R}_m\, ^n\boldsymbol{S}_{i}
+  =
+  S_i
+  \begin{pmatrix}
+    \sin\theta_i\, \cos\phi_{mi} \\
+    \sin\theta_i\, \sin\phi_{mi} \\
+    \cos\theta_i
+  \end{pmatrix}
 
 where the full azimuth angles are
 
-.. include:: repeated-formulas/full-azimuth-angle.inc
+.. math::
+  \phi_{mi}(\boldsymbol{q})
+  =
+  \phi_m(\boldsymbol{q}) + \phi_i(\boldsymbol{q})
+  =
+  \boldsymbol{q}\cdot\boldsymbol{r_m} + \boldsymbol{q}\cdot\boldsymbol{r_i} + \Delta\phi_i
+  =
+  \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
 
 .. note::
   Magnopy absorbs the intra-cell spiral contribution inside the azimuth angle

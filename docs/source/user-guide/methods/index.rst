@@ -16,8 +16,8 @@ Methods and algorithms
   spinham
   uvn-rf
   ptf-rf
-  single-q
   spherical-rf
+  single-q
   spin-fourier
   rewritten-spinham
   energy-classic/index

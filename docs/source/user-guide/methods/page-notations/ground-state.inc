@@ -1,2 +1,1 @@
-The clasical term "minimum energy configuration" and quantum
-term "ground-state" will be assumed to be equivalent.
+The clasical and quantum terms "minimum energy configuration" and "ground-state" will be assumed to be equivalent.

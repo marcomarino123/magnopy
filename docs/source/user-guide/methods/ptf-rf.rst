@@ -21,9 +21,11 @@ reference frame as discussed in the previous section.
 Convenience dictates that spins be quantized along a global quantization
 axis, that Magnopy chooses to be precisely :math:`\ket{n}`. Therefore, a key
 technical tool in magnopy is the ability to rotate any atomic spin vector
-:math:`\ket{S_i}=S_i\, \ket{f_i}` into the direction
-defined by :math:`\ket{n}`, where :math:`\ket{f_i}` is a unit vector collinear
-to :math:`\ket{S_i}`. This rotation thus delivers a rotated "Ferromagnetic"
+:math:`\ket{S_i}`. This is done by defining singling out the ground-state
+spin direction :math:\ket{S_i^0}=S_i\, \ket{f_i}`, where :math:`\ket{f_i}`
+is a unit vector collinear to :math:`\ket{S_i^0}`. The vector
+:math:`\ket{f_i}` is rotated into the direction defined by :math:`\ket{n}`
+This rotation thus delivers a rotated "Ferromagnetic"
 spin vector :math:`\ket{S^F_i}=S_i\, \ket{n}`. We assume
 henceforth that the spin vector coordinates in the :math:`(u\, v\, n)`
 reference frame are
@@ -38,14 +40,6 @@ reference frame are
   \end{pmatrix}
 
 as indicated in the figure below.
-The rotation operator is defined as follows. Let :math:`\ket{r_i}` be a vector perpendicular to both
-:math:`\ket{n}` and :math:`\ket{f_i}`. Then :math:`\ket{n}` is brought to
-:math:`\ket{f_i}` by performing a rotation of angle :math:`\theta_i` about :math:`\ket{r_i}`,
-that is denoted by :math:`\boldsymbol{R}_i`.
-A local reference frame :math:`(p_i\, t_i\, f_i)` is defined by performing the same
-rotation :math:`\boldsymbol{R}_{\ket{r_i}}(\theta_i)` over all the three unit vectors
-:math:`(u\, v\, n)`.
-
 
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html
@@ -54,11 +48,18 @@ rotation :math:`\boldsymbol{R}_{\ket{r_i}}(\theta_i)` over all the three unit ve
 
   **Figure 1** (interactive): Vectors and angles used in the spin rotations.
 
---------------------------------------------------------
-Rotation operator, rotation matrix and basis coordinates
---------------------------------------------------------
+--------------------------------------
+Rotation operator and basis definition
+--------------------------------------
 
-The unit vector
+The rotation operator carrying the above transformation is defined as follows.
+Let :math:`\ket{r_i}` be a vector perpendicular to both
+:math:`\ket{n}` and :math:`\ket{f_i}`. Then :math:`\ket{n}` is brought to
+:math:`\ket{f_i}` by performing a rotation of angle :math:`\theta_i` about :math:`\ket{r_i}`,
+that is denoted by :math:`\boldsymbol{R}_i`.
+A local reference frame :math:`(p_i\, t_i\, f_i)` is defined by performing the same
+rotation :math:`\boldsymbol{R}_{\ket{r_i}}(\theta_i)` over all the three unit vectors
+:math:`(u\, v\, n)`. The unit vector
 
 .. math::
     ^n\boldsymbol{\hat{r_i}}
@@ -83,6 +84,15 @@ The basis :math:`(\,p_i\,t_i\,f_i\,)` is defined by
   \ket{t_i}&=\boldsymbol{R_i}\,\ket{v}\\
   \ket{f_i}&=\boldsymbol{R_i}\,\ket{n}
 
+Therefore the rotation operator can also be expressed as
+
+.. math::
+  \boldsymbol{R}_i=\ket{\,p_i\,t_i\,f_i\,}\,\bra{\,u\,v\,n\,}
+
+-------------------------------------
+Rotation matrix and basis coordinates
+-------------------------------------
+
 The rotation operator matrix elements in the :math:`(\,u\,v\,n\,)` basis are therefore
 
 .. math::
@@ -102,7 +112,8 @@ The rotation operator matrix elements in the :math:`(\,u\,v\,n\,)` basis are the
     \cos\theta_i               \\
   \end{pmatrix}
 
-The vector components in the :math:`(\,u\,v\,n\,)` reference frame are
+The vector components in the :math:`(\,u\,v\,n\,)` reference frame are nothing
+but the columns of the above matrix
 
 .. math::
   ^n\boldsymbol{\hat{p}}_i
@@ -142,31 +153,3 @@ The vector components in the :math:`(\,u\,v\,n\,)` reference frame are
     \sin\phi_i\, \sin\theta_i \\
     \cos\theta_i
   \end{pmatrix}
-
------------------------------------------------
-Ground-state spin and and fluctuations about it
------------------------------------------------
-
-The minimum-energy spin vectors are
-
-.. math::
-  \ket{S_i^0} = S_i\,\ket{f_i}
-
-with coordinates
-
-.. math::
-  ^f\boldsymbol{S_i^0}=\begin{pmatrix}0\\0\\S_i\end{pmatrix}
-
-Spin fluctuations are described by replacing :math:`\ket{S_i^0}` with
-
-.. math::
-  \ket{S_i}=\ket{S_i^0}+\ket{\delta S_i}
-
-whose components are
-
-.. math::
-  ^f\boldsymbol{S_i}=
-  \begin{pmatrix}0\\0\\S_i\end{pmatrix}+
-  \begin{pmatrix}\delta S_i^p\\ \delta S_i^t\\-\delta S_i^n\end{pmatrix}
-
-where the minus sign in the last row accounts for the fact the spin vectors do not change their norm.

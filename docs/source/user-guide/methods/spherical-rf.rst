@@ -24,8 +24,8 @@ Spherical bases
 We perform the transformations
 
 .. math::
-  \ket{\,n^+\,n^-\,n\,}&=\boldsymbol{T}\,\ket{\,u\,v\,n\,}\\
-  \ket{\,f^+_i\,f^-_i\,f_i\,}&=\boldsymbol{T}\,\ket{\,p_i\,t_i\,n_i\,}
+  \ket{\,n^+\,n^-\,n\,}&=\ket{\,u\,v\,n\,}\,\boldsymbol{T}\\
+  \ket{\,f^+_i\,f^-_i\,f_i\,}&=\ket{\,p_i\,t_i\,n_i\,}\,\boldsymbol{T}
 
 where the transformation matrix is basis-independent and given by
 
@@ -74,45 +74,48 @@ where the vector components are
 
 where :math:`S_i^{uv,\pm}=S^u_i\pm \,i \,S^v_i`.
 
-Spin fluctuations are described by replacing the spin vectors
-:math:`\ket{S_i}` with :math:`\ket{\tilde{S}_i}` as described at the
-end of the previous :ref:`section <user-guide_methods_ptf-rf>`.
-Fluctuating spin vectors in the :math:`(\,f_i^+\,f_i^-\,f_i\,)` basis look like
+Full spin vectors in the :math:`(\,f_i^+\,f_i^-\,f_i\,)` basis look like
 
 .. math::
-  \ket{\tilde{S}_i}=&  \ket{\,f_i^+\,f_i^-\,f_i\,}\,
+  \ket{S_i}=&  \ket{\,f_i^+\,f_i^-\,f_i\,}\,
               \braket{\,f_i^+\,f_i^-\,f_i\,|\,p_i\,t_i\,f_i\,}\,
-             \braket{\,p_i\,t_i\,f_i\,|\,\tilde{S}_i\,}\\
-           =& \ket{\,f_i^+\,f_i^-\,f_i\,}\,T^\dagger\,\, ^f\boldsymbol{\tilde{S}_i}=
-           \ket{\,f_i^+\,f_i^-\,f_i\,}\,\,^{sf}\boldsymbol{\tilde{S}_i}
+             \braket{\,p_i\,t_i\,f_i\,|\,S_i\,}\\
+           =& \ket{\,f_i^+\,f_i^-\,f_i\,}\,T^\dagger\,\, ^f\boldsymbol{S_i}=
+           \ket{\,f_i^+\,f_i^-\,f_i\,}\,\,^{sf}\boldsymbol{S_i}
 
 where the vector components are
 
 .. math::
-  ^{sf}\boldsymbol{\tilde{S}_i}=
+  ^{sf}\boldsymbol{S_i}=
   S_i\,\begin{pmatrix}
            \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_i\\
            \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_i\\
-           S_i^n-\delta S_i^n
+           S_i-\delta S_i^n
            \end{pmatrix}
 
 with :math:`\delta{S}_i^{pt,\pm}=\frac{1}{\sqrt{2}}\,(\delta S^p_i\pm i \,\delta S^t_i)`.
 
 ---------------------------------------------
-Rotation matrix :math:`^{ns}\boldsymbol{R_i}`
+Operator :math:`\boldsymbol{R_i^s}`
 ---------------------------------------------
 
-.. dropdown:: Reminder on the :math:`\,^n\boldsymbol{R}_i` matrix
-
-  .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc
-
-The :math:`\boldsymbol{R}_i` matrix elements in the spherical :math:`(\,n^+\,n^-\,n\,)` basis are
+The basis change :math:`(\,n^+\,n^-\,n\,)` to :math:`(\,f_i^+\,f_i^-\,f_i\,)`
+is achieved by the rotation operator
 
 .. math::
-    ^{n,s}\boldsymbol{R_i}
+  \boldsymbol{R_i^s}=
+  \ket{\,f_i^+\,f_i^-\,f_i\,}\,\bra{\,n^+\,n^-\,n\,}=
+    \boldsymbol{T}^\dagger\,\ket{\,p_i\,t_i\,f_i\,}\,\bra{\,u\,v\,n\,}\,\boldsymbol{T}=
+  \boldsymbol{T}^\dagger\,\boldsymbol{R_i}\,\boldsymbol{T}
+
+with matrix elements
+
+.. math::
+    ^{sn}\boldsymbol{R_i}
        &=
-       \bra{\,n^+\,n^-\,n\,}\,\boldsymbol{R_i}\,\ket{\,n^+\,n^-\,n\,}
-         \,=\,\boldsymbol{T}^\dagger\,^n\boldsymbol{R_i}\,\boldsymbol{T}\\
+       \bra{\,n^+\,n^-\,n\,}\,\boldsymbol{R_i^s}\,\ket{\,n^+\,n^-\,n\,}
+         \,=
+         \,\boldsymbol{T}^\dagger\,^n\boldsymbol{R_i}\,\boldsymbol{T}\\
        &=
       \dfrac{1}{2}
       \begin{pmatrix}
@@ -126,3 +129,8 @@ The :math:`\boldsymbol{R}_i` matrix elements in the spherical :math:`(\,n^+\,n^-
           -\sqrt{2}\, \sin\theta_i\, e^{-i\phi_i} &
           2\cos\theta_i
       \end{pmatrix}
+
+
+.. dropdown:: Reminder on the :math:`\,^n\boldsymbol{R}_i` matrix
+
+  .. include:: repeated-formulas/spin-rotation-matrix-uvn.inc

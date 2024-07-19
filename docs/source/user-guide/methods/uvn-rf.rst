@@ -13,7 +13,7 @@
   * .. include:: page-notations/rotations.inc
   * .. include:: page-notations/exchange-tensor.inc
 
-Magnopy assumes that the ground state spin arrangement follows a spiral conical
+Magnopy assumes that the ground-state spin arrangement follows a spiral conical
 configuration, where the cone axis is defined by the unit vector :math:`\ket{n}`.
 Eventually, the program rotates every atomic spin to make it collinear to
 :math:`\ket{n}` and quantizes the spin vectors along :math:`\ket{n}`.
@@ -40,9 +40,9 @@ reference frame is defined by performing the same rotation over all the three un
 
   **Figure 1** (interactive): Construction of the :math:`(u\, v\, n)` reference frame.
 
---------------------------------------------------------
-Rotation operator, rotation matrix and basis coordinates
---------------------------------------------------------
+--------------------------------------
+Rotation operator and basis definition
+--------------------------------------
 
 The unit vector
 
@@ -73,15 +73,22 @@ The basis :math:`(\,u\,v\,n\,)` is defined by
   \ket{v}&=\boldsymbol{R_\ket{r}}\,\ket{y}\\
   \ket{n}&=\boldsymbol{R_\ket{r}}\,\ket{z}
 
+Therefore the rotation operator can also be expressed as
+
+.. math::
+  \boldsymbol{R_\ket{r}}(\alpha,\beta)=\ket{\,u\,v\,n}\,\bra{\,x\,y\,z\,}
+
+-------------------------------------
+Rotation matrix and basis coordinates
+-------------------------------------
+
 The rotation operator matrix elements in the :math:`(xyz)` basis are therefore
 
 .. math::
-  :name: eq:uvn-rf-rot-matrix
-
   ^z\boldsymbol{R_r}(\alpha,\beta)&=
   \braket{\,x\,y\,z\,|\,u\,v\,n\,}=
   \braket{\,x\,y\,z\,|\,\boldsymbol{R_\ket{r}}(\alpha,\beta)\,|\,x\,y\,z\,}
-  \\&=
+  \\\\&=
   \begin{pmatrix}
     \cos\alpha + \sin^2\beta\, \, (1-\cos\alpha) &
     -\sin\beta\, \cos\beta\, \, (1-\cos\alpha)   &
@@ -95,6 +102,7 @@ The rotation operator matrix elements in the :math:`(xyz)` basis are therefore
   \end{pmatrix}
 
 The vector components in the :math:`(x\, y\, z)` basis are
+nothing but the columns of the above matrix
 
 .. math::
   ^z\boldsymbol{\hat{u}}
@@ -163,9 +171,9 @@ antiparallel cases, respectively, as shown in the figure below.
       \boldsymbol{\hat{n}} &= \pm\boldsymbol{\hat{z}} \\
     \end{aligned}
 
-=======================================================================
+=====================================================================
 Vector and matrix elements in the :math:`(u\, v\, n)` reference frame
-=======================================================================
+=====================================================================
 
 The :math:`(x\, y\, z)` to :math:`(u\, v\, n)` basis change modifies the spin vector
 components and the exchange tensor matrix elements. These changes are governed by the
@@ -176,7 +184,7 @@ written explicitly above.
 Spin components
 ---------------
 
-The components of the spin vector :math:`\ket{S}_i` in the :math:`(u\, v\, n)`
+The components of the spin vector :math:`\ket{S_i}` in the :math:`(u\, v\, n)`
 basis are
 
 .. math::

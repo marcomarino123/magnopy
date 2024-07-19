@@ -74,27 +74,6 @@ where the vector components are
 
 where :math:`S_i^{uv,\pm}=S^u_i\pm \,i \,S^v_i`.
 
-Full spin vectors in the :math:`(\,f_i^+\,f_i^-\,f_i\,)` basis look like
-
-.. math::
-  \ket{S_i}=&  \ket{\,f_i^+\,f_i^-\,f_i\,}\,
-              \braket{\,f_i^+\,f_i^-\,f_i\,|\,p_i\,t_i\,f_i\,}\,
-             \braket{\,p_i\,t_i\,f_i\,|\,S_i\,}\\
-           =& \ket{\,f_i^+\,f_i^-\,f_i\,}\,T^\dagger\,\, ^f\boldsymbol{S_i}=
-           \ket{\,f_i^+\,f_i^-\,f_i\,}\,\,^{sf}\boldsymbol{S_i}
-
-where the vector components are
-
-.. math::
-  ^{sf}\boldsymbol{S_i}=
-  S_i\,\begin{pmatrix}
-           \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_i\\
-           \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_i\\
-           S_i-\delta S_i^n
-           \end{pmatrix}
-
-with :math:`\delta{S}_i^{pt,\pm}=\frac{1}{\sqrt{2}}\,(\delta S^p_i\pm i \,\delta S^t_i)`.
-
 ---------------------------------------------
 Operator :math:`\boldsymbol{R_i^s}`
 ---------------------------------------------
@@ -129,7 +108,6 @@ with matrix elements
           -\sqrt{2}\, \sin\theta_i\, e^{-i\phi_i} &
           2\cos\theta_i
       \end{pmatrix}
-
 
 .. dropdown:: Reminder on the :math:`\,^n\boldsymbol{R}_i` matrix
 

@@ -20,6 +20,7 @@ Methods and algorithms
   single-q
   spin-fluctuations
   rewritten-spinham
+  exchange-tensor
   energy-classic/index
   classical-spin-fluctuations
 

@@ -30,8 +30,8 @@ vector :math:`\ket{n}`, and by the spiral wave-vector
     .. math::
       \boldsymbol{R}_i = e^{i\,\theta_i\,\ket{r(\phi_i)}\,\times}
 
-    that have been introduced in the previous
-    :ref:`section <user-guide_methods_spin-rotations>`, where the rotation
+    that have been introduced
+    :ref:`previously <user-guide_methods_spin-rotations>`, where the rotation
     azimuth angles are
     :math:`\phi_i(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_i} + \Delta\phi_i`.
     These rotations populate each unit cell in the lattice by a collection of
@@ -49,8 +49,7 @@ vector :math:`\ket{n}`, and by the spiral wave-vector
       \boldsymbol{R}_m = e^{i \,\phi_m\,\ket{n}\,\times}
 
     where the azimuth angle is :math:`\phi_m(\boldsymbol{q}) = \boldsymbol{q}\cdot\boldsymbol{r_m}`
-    now. The explicit expression for the rotation matrix in the :math:`(u\, v\, n)` and
-    :math:`(\,n^+\,n^-\,n\,)` reference frames is
+    now. The explicit expression for the rotation matrix in the :math:`(u\, v\, n)` reference frame is
 
     .. math::
       ^n\boldsymbol{R}_m&=
@@ -58,12 +57,6 @@ vector :math:`\ket{n}`, and by the spiral wave-vector
                   \cos\phi_m  & -\sin\phi_m & 0 \\
                   \sin\phi_m  & \cos\phi_m  & 0 \\
                   0           & 0           & 1 \\
-            \end{pmatrix}\\
-      ^{sn}\boldsymbol{R}_m&=
-            \begin{pmatrix}
-                  e^{-i\,\phi_m}  & 0              & 0 \\
-                  0               & e^{i\,\phi_m}  & 0 \\
-                  0               & 0.             & 1 \\
             \end{pmatrix}
 
     The lattice is populated now by the ground-state spin vectors
@@ -95,33 +88,6 @@ vector :math:`\ket{n}`, and by the spiral wave-vector
       =
       \boldsymbol{q}\cdot\boldsymbol{r_{mi}} + \Delta\phi_i
 
-=================
-Spin fluctuations
-=================
-
-Spin fluctuations are fully inhomogeneous. This implies that the ground-state spin
-vectors :math:`\ket{\tilde{S}_i^0}` must be replaced by the cell- and site-dependent
-spin vectors
-
-.. math::
-  \ket{\tilde{S}_{mi}} = \ket{\,f_i^+\,f_i^-\,f_i\,}\braket{\,f_i^+\,f_i^-\,f_i\,|\,\tilde{S}_{mi}}
-                       = \ket{\,f_i^+\,f_i^-\,f_i\,}\,^{sf}\boldsymbol{\tilde{S}_{mi}}
-
-with coordinates
-
-.. math::
-  \boldsymbol{\tilde{S}_{mi}}=
-    S_i\,\begin{pmatrix}
-           \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_i\\
-           \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_i\\
-           S_i-\delta S_i^n
-           \end{pmatrix}
-
-Then the full spin vectors are
-
-.. math::
-     \ket{S_{mi}} =\boldsymbol{R}_m\, \ket{\tilde{S}_i}
-
 .. note::
 
   Magnopy absorbs the intra-cell spiral contribution inside the azimuth angle
@@ -142,15 +108,18 @@ Then the full spin vectors are
   :ref:`Cone axis <user-guide_input_model-file_cone-axis>` and
   :ref:`Spiral vector <user-guide_input_model-file_spiral-vector>`.
 
-================================
-Fourier-transformed spin vectors
-================================
+=======================================================
+Spin coordinates in the :math:`(\,n^+\,n^-\,n\,)` basis
+=======================================================
 
-The spherical reference frame :math:`(n^+\, n^-\, n)` is convenient for analyzing the
-fourier-transformed spin vectors. Notice that the components of the spin vector
-:math:`\ket{S_{mi}}` in the spherical reference frame are
-
-.. include:: repeated-formulas/spin-spherical.inc
+.. math::
+  ^{sn}\boldsymbol{S_{mi}}=\braket{\,n^+\,n^-\,n\,|\,S_{mi}\,}=
+  \boldsymbol{T}^\dagger\,^{n}\boldsymbol{S_{mi}}
+  =S_i\,\begin{pmatrix}
+    \frac{1}{\sqrt{2}}\,\sin \theta_i\,e^{- i (\boldsymbol{q} \cdot \boldsymbol{r_m} + \phi_i)}\\
+    \frac{1}{\sqrt{2}}\,\sin \theta_i\,e^{ i (\boldsymbol{q} \cdot \boldsymbol{r_m} + \phi_i)}\\
+    \cos \theta_i
+  \end{pmatrix}
 
 whose Fourier transform is
 
@@ -187,6 +156,36 @@ This structure factor can be written in the :math:`(u\, v\, n)` reference frame 
     \\
       \cos\theta \, \delta_{\boldsymbol{k}, \boldsymbol{0}}
   \end{pmatrix}
+
+===============================================================
+Rotation matrix elements in the :math:`(\,n^+\,n^-\,n\,)` basis
+===============================================================
+
+.. math::
+  ^{sn}\boldsymbol{R_i}
+    &=
+       \,\boldsymbol{T}^\dagger\,^n\boldsymbol{R_i}\,\boldsymbol{T}\\
+    &=
+      \dfrac{1}{2}
+      \begin{pmatrix}
+          1 + \cos\theta_i                        &
+          (\cos\theta_i - 1)\, e^{-2i\phi_i}      &
+          \sqrt{2}\, \sin\theta_i\, e^{-i\phi_i}  \\
+          (\cos\theta_i - 1)\, e^{2i\phi_i}       &
+          1 + \cos\theta_i                        &
+          \sqrt{2}\, \sin\theta_i\, e^{i\phi_i}   \\
+          -\sqrt{2}\, \sin\theta_i\, e^{i\phi_i}  &
+          -\sqrt{2}\, \sin\theta_i\, e^{-i\phi_i} &
+          2\cos\theta_i
+      \end{pmatrix}
+
+.. math::
+  ^{sn}\boldsymbol{R_m}=\,\boldsymbol{T}^\dagger\,^n\boldsymbol{R_m}\,\boldsymbol{T}=
+            \begin{pmatrix}
+                  e^{-i\,\phi_m}  & 0              & 0 \\
+                  0               & e^{i\,\phi_m}  & 0 \\
+                  0               & 0.             & 1 \\
+            \end{pmatrix}
 
 Examples
 ========

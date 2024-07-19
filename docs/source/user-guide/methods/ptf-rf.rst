@@ -15,20 +15,19 @@
 
 Magnopy assumes that the ground state of the spin system follows an spiral conical
 arrangement, where the cone axis lies along the direction defined by
-the unit vector :math:`\ket{n}`. We have accordingly defined the :math:`(u\, v\, n)`
+a unit vector :math:`\ket{n}`. We have accordingly defined the :math:`(u\, v\, n)`
 reference frame as discussed in the previous section.
 
 Convenience dictates that spins be quantized along a global quantization
-axis, that Magnopy chooses to be precisely :math:`\ket{n}`. Therefore, a key
-technical tool in magnopy is the ability to rotate any atomic spin vector
-:math:`\ket{S_i}`. This is done by defining singling out the ground-state
-spin direction :math:\ket{S_i^0}=S_i\, \ket{f_i}`, where :math:`\ket{f_i}`
-is a unit vector collinear to :math:`\ket{S_i^0}`. The vector
-:math:`\ket{f_i}` is rotated into the direction defined by :math:`\ket{n}`
-This rotation thus delivers a rotated "Ferromagnetic"
-spin vector :math:`\ket{S^F_i}=S_i\, \ket{n}`. We assume
-henceforth that the spin vector coordinates in the :math:`(u\, v\, n)`
-reference frame are
+axis, that Magnopy chooses to be precisely :math:`\ket{n}`.
+This is done by singling out each ground-state spin vector
+:math:`\ket{S_i^0}` and rotating it into the direction provided
+by :math:`\ket{n}`, by means of local rotation operators
+:math:`\boldsymbol{R}_i`.
+
+We define a unit vector :math:`\ket{f_i}` collinear to
+:math:`\ket{S_i^0}=S_i\, \ket{f_i}`. Then the figure below shows
+that the unit vector coordinates in the :math:`(\,u\,v\,n\,)` basis are
 
 .. math::
   ^n\boldsymbol{\hat{f}_{i}}=\braket{\,u\,v\,n\,|\,f_i}
@@ -39,7 +38,8 @@ reference frame are
     \cos\theta_{i}              \\
   \end{pmatrix}
 
-as indicated in the figure below.
+and how the vector :math:`\ket{f_i}` is rotated into :math:`\ket{n}`
+
 
 .. raw:: html
   :file: ../../../images/spin-rotations-symmetric.html
@@ -52,14 +52,11 @@ as indicated in the figure below.
 Rotation operator and basis definition
 --------------------------------------
 
-The rotation operator carrying the above transformation is defined as follows.
-Let :math:`\ket{r_i}` be a vector perpendicular to both
+The rotation operator :math:`\boldsymbol{R}_i` carrying out the above transformation
+is defined as follows. Let :math:`\ket{r_i}` be a vector perpendicular to both
 :math:`\ket{n}` and :math:`\ket{f_i}`. Then :math:`\ket{n}` is brought to
-:math:`\ket{f_i}` by performing a rotation of angle :math:`\theta_i` about :math:`\ket{r_i}`,
-that is denoted by :math:`\boldsymbol{R}_i`.
-A local reference frame :math:`(p_i\, t_i\, f_i)` is defined by performing the same
-rotation :math:`\boldsymbol{R}_{\ket{r_i}}(\theta_i)` over all the three unit vectors
-:math:`(u\, v\, n)`. The unit vector
+:math:`\ket{f_i}` by performing a rotation of angle :math:`\theta_i` about
+:math:`\ket{r_i}`. The unit vector
 
 .. math::
     ^n\boldsymbol{\hat{r_i}}
@@ -77,7 +74,10 @@ The rotation operator is
 .. math::
   \boldsymbol{R}_i=\boldsymbol{R_\ket{r_i}}(\theta_i)=e^{-i\,\theta_i\,\ket{r_i}\,\times}
 
-The basis :math:`(\,p_i\,t_i\,f_i\,)` is defined by
+
+A local reference frame :math:`(p_i\, t_i\, f_i)` is defined by
+performing the same rotation :math:`\boldsymbol{R}_{\ket{r_i}}(\theta_i)` over all
+the three unit vectors :math:`(u\, v\, n)`
 
 .. math::
   \ket{p_i}&=\boldsymbol{R_i}\,\ket{u}\\

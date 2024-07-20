@@ -33,7 +33,7 @@ whose components in the local :math:`(\,p_i\,t_i\,f_i\,)` basis are
 
 .. math::
   ^f\boldsymbol{S_{mi}}=
-  \begin{pmatrix}\delta S_{mi}^p\\ \delta S_{mi}^t\\S_i-\delta S_{mi}^n\end{pmatrix}
+  \begin{pmatrix}\delta S_{mi}^p\\ \delta S_{mi}^t\\S_i-\delta S_{mi}^f\end{pmatrix}
 
 where the minus sign in the last row accounts for the fact the spin vectors do
 not change their norm.
@@ -44,7 +44,7 @@ The vector coordinates in the spherical basis :math:`(\,f_i^+\,f_i^-\,f_i\,)`
     \begin{pmatrix}
         \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_{mi}\\
         \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_{mi}\\
-        S_i-\delta S_{mi}^n
+        S_i-\delta S_{mi}^f
     \end{pmatrix}
 
 are convenient to describe circularly polarized spin waves and to quantize the

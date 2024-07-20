@@ -28,7 +28,7 @@ Methods and algorithms
   :caption: Spin Wave Theory
 
   quantization
-  quantum-hamiltonian/index
+  quantum-hamiltonian
   lswt/index
   energy-quantum-correction
   hp-cubic-terms

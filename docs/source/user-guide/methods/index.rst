@@ -22,13 +22,12 @@ Methods and algorithms
   rewritten-spinham
   exchange-tensor
   energy-classic/index
-  classical-spin-fluctuations
 
 .. toctree::
   :maxdepth: 1
   :caption: Spin Wave Theory
 
-  quantum-spin-fluctuations
+  quantization
   quantum-hamiltonian/index
   lswt/index
   energy-quantum-correction

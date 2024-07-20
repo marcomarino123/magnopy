@@ -40,12 +40,12 @@ not change their norm.
 The vector coordinates in the spherical basis :math:`(\,f_i^+\,f_i^-\,f_i\,)`
 
 .. math::
-  \boldsymbol{S_{mi}}=
-    ^{sf}S_i\,\begin{pmatrix}
-           \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_{mi}\\
-           \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_{mi}\\
-           S_i-\delta S_{mi}^n
-           \end{pmatrix}
+  ^{sf}\boldsymbol{S_{mi}}=
+    \begin{pmatrix}
+        \frac{1}{\sqrt{2}}\,\delta S^{pt,-}_{mi}\\
+        \frac{1}{\sqrt{2}}\,\delta S^{pt,+}_{mi}\\
+        S_i-\delta S_{mi}^n
+    \end{pmatrix}
 
 are convenient to describe circularly polarized spin waves and to quantize the
 Hamiltonian.

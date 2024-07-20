@@ -1,17 +1,14 @@
-.. _user-guide_methods_quantum-spin-fluctuations:
+.. _user-guide_methods_quantization:
 
-*************************
-Quantum spin fluctuations
-*************************
+************
+Quantization
+************
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: page-notations/vector.inc
-  * .. include:: page-notations/matrix.inc
-  * .. include:: page-notations/parentheses.inc
-  * .. include:: page-notations/operators.inc
   * .. include:: page-notations/bra-ket.inc
   * .. include:: page-notations/uvn-or-spherical.inc
+  * .. include:: page-notations/quantum-operators.inc
 
 ======================================
 Classical to quantum spin fluctuations

@@ -1,9 +1,61 @@
-The exchange energy **per unit cell** (i.e. divided by :math:`M`) can be found by
-inserting the previous expression for the exchange constant into the Hamiltonian,
-that leads to:
+We have shown in the previous :ref:`section <user-guide_methods_spinham>` that the
+exchange part of the Hamiltonian can be written as follows
 
 .. math::
-  E^{X}
+    H_{x}\, =\,
+   \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
+   ^{sf}\boldsymbol{\tilde{S}_{mi}}\,^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
+   ^{sf}\boldsymbol{\tilde{S}_{m+d_{ij},j}}
+   =\dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,S_i\,S_j\,\tilde{J}_{d_{ij}}^{f,00}
+
+where
+
+.. math::
+  \tilde{J}_{d_{ij}}^{f,00}
+          =\sum_{l=0,\pm 1,\pm 2}\,^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,l}\,\,\,
+              e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
+
+Here, the m-summation affects only the phases
+:math:`e^{i\,l\,\boldsymbol{q}\cdot\boldsymbol{r_m}}` yielding Kronecker deltas, so that the exchange
+contribution to the energy becomes
+
+.. math::
+  E^0_x=
+  \dfrac{M}{2}
+  \sum_{\boldsymbol{d}_{ij}, i, j}\,S_i\,S_j\,
+    \left(^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,0}
+    +
+    \delta_{\boldsymbol{q}, \, \boldsymbol{G}}\,
+    \left[^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,1}+^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,-1}\right]
+    +
+    \delta_{\boldsymbol{2q}, \, \boldsymbol{G}}\,
+    \left[^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,2}+^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,-2}\right]
+  \right)
+
+
+.. dropdown:: Details
+
+  .. math::
+    \boldsymbol{\tilde{J}}^s_{\boldsymbol{d}ij}
+    =
+    \sum_{l=0,\pm 1,\pm 2}\,
+    \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
+    \cdot
+    \sum_m
+    e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
+
+  Therefore, one needs to compute the values of the sums of exponential
+
+  .. math::
+    \sum_m
+    e^{i\, l\, \boldsymbol{q} \cdot \boldsymbol{r}_m}
+
+  .. include:: details-on-fourier-identities.inc
+
+The exchange energy per unit cell can therefore be split as follows
+
+.. math::
+  \frac{E_x^0}{M}
   =
   E^{(0)}
   +

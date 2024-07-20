@@ -158,24 +158,31 @@ The exchange tensor matrix elements are defined as follows
 .. math::
   ^{sf}\boldsymbol{\tilde{J}}^s_{\boldsymbol{d}_{ij}}=
      \begin{pmatrix}
-     J_{d_{ij}}^{f,++} & J_{d_{ij}}^{f,+-} & J_{d_{ij}}^{f,+0} \\
-     J_{d_{ij}}^{f,-+} & J_{d_{ij}}^{f,--} & J_{d_{ij}}^{f,-0} \\
-     J_{d_{ij}}^{f,0+} & J_{d_{ij}}^{f,0-} & J_{d_{ij}}^{f,00}
+     \tilde{J}_{d_{ij}}^{f,++} & \tilde{J}_{d_{ij}}^{f,+-} & \tilde{J}_{d_{ij}}^{f,+0} \\
+     \tilde{J}_{d_{ij}}^{f,-+} & \tilde{J}_{d_{ij}}^{f,--} & \tilde{J}_{d_{ij}}^{f,-0} \\
+     \tilde{J}_{d_{ij}}^{f,0+} & \tilde{J}_{d_{ij}}^{f,0-} & \tilde{J}_{d_{ij}}^{f,00}
      \end{pmatrix}
      =
      \begin{pmatrix}
-     J_{d_{ij}}^{f,++}     & J_{d_{ij}}^{f,+-}     & J_{d_{ij}}^{f,+0}.    \\
-     (J_{d_{ij}}^{f,+-})^* & (J_{d_{ij}}^{f,++})^* & (J_{d_{ij}}^{f,+0})^* \\
-     J_{d_{ij}}^{f,0+}     & (J_{d_{ij}}^{f,0+})^* & J_{d_{ij}}^{f,00}
+     \tilde{J}_{d_{ij}}^{f,++}     & \tilde{J}_{d_{ij}}^{f,+-}     & \tilde{J}_{d_{ij}}^{f,+0}.    \\
+     (\tilde{J}_{d_{ij}}^{f,+-})^* & (\tilde{J}_{d_{ij}}^{f,++})^* & (\tilde{J}_{d_{ij}}^{f,+0})^* \\
+     \tilde{J}_{d_{ij}}^{f,0+}     & (\tilde{J}_{d_{ij}}^{f,0+})^* & \tilde{J}_{d_{ij}}^{f,00}
      \end{pmatrix}
 
 Here, the different matrix elements are
 
 .. math::
-  J_{d_{ij}}^{f,\alpha\,\beta}=\braket{\,f^\alpha\,|\,\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\,f^\beta\,}
+  \tilde{J}_{d_{ij}}^{f,\alpha\,\beta}=\braket{\,f^\alpha\,|\,\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\,f^\beta\,}
           =(^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,
           ^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,^{sn}\boldsymbol{\hat{f}_i^\beta}
-          =\sum_{l=0,\pm 1,\pm 2}\,
+          =\sum_{l=0,\pm 1,\pm 2}\,^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,\,\,
+              e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
+
+where
+
+.. math::
+  ^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,=\,
             (^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
-              \cdot
-              e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}\,^{sn}\boldsymbol{\hat{f}_i^\beta}
+            \,^{sn}\boldsymbol{\hat{f}_i^\beta}
+
+and the sub-indices :math:`\alpha,\,\beta` run over :math:`+,\,-,\,0`.

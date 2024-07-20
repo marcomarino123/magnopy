@@ -74,9 +74,9 @@ where the vector components are
 
 where :math:`S_i^{uv,\pm}=S^u_i\pm \,i \,S^v_i`.
 
----------------------------------------------
+-----------------------------------
 Operator :math:`\boldsymbol{R_i^s}`
----------------------------------------------
+-----------------------------------
 
 The basis change :math:`(\,n^+\,n^-\,n\,)` to :math:`(\,f_i^+\,f_i^-\,f_i\,)`
 is achieved by the rotation operator

@@ -186,3 +186,6 @@ where
             \,^{sn}\boldsymbol{\hat{f}_i^\beta}
 
 and the sub-indices :math:`\alpha,\,\beta` run over :math:`+,\,-,\,0`.
+
+The explicit expressions for these matrix elements are provided in the
+following :ref:`section <user-guide_methods_matrix-elements>`.

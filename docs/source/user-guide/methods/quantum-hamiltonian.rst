@@ -6,9 +6,9 @@ Quantum Hamiltonian
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/quantum-operators.inc
-  * .. include:: ../page-notations/bra-ket.inc
-  * .. include:: ../page-notations/uvn-or-spherical.inc
+  * .. include:: page-notations/quantum-operators.inc
+  * .. include:: page-notations/bra-ket.inc
+  * .. include:: page-notations/uvn-or-spherical.inc
 
 The quantum Heisenberg Hamiltonian looks exactly the same as its classical
 counterpart, where all the classical spin vectors are replaced by quantum
@@ -112,16 +112,16 @@ in the Hamiltonian. Then
 * The Linear Spin Wave Theory (LSWT) piece contains
   bilinear bosonic terms and will be discussed in the next :ref:`section <user-guide_methods_lswt>`
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
+  .. include:: repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
 
 * The cubic piece contains three-boson terms
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
+  .. include:: repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
 
 
 * And the biquadratic piece contains four-boson terms
 
-  .. include:: ../repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
+  .. include:: repeated-formulas/hamiltonian-hp-expansion-biquadratic-part.inc
 
 
 .. important::

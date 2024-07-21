@@ -21,6 +21,7 @@ Methods and algorithms
   spin-fluctuations
   rewritten-spinham
   exchange-tensor
+  matrix-elements
   energy-classic/index
 
 .. toctree::

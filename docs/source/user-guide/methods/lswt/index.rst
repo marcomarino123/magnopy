@@ -6,66 +6,66 @@ Linear Spin-Wave Theory
 
 .. dropdown:: Notation used on this page
 
-  * .. include:: ../page-notations/vector.inc
-  * .. include:: ../page-notations/matrix.inc
-  * .. include:: ../page-notations/parentheses.inc
-  * .. include:: ../page-notations/operators.inc
+  * .. include:: ../page-notations/matrices.inc
+  * .. include:: ../page-notations/quantum-operators.inc
   * .. include:: ../page-notations/bra-ket.inc
-  * .. include:: ../page-notations/kronecker-delta.inc
 
 
-This section discusses the LSWT Hamiltonian :math:`{\cal H}^{LSWT}`
+================
+LSWT Hamiltonian
+================
+
+The LSWT Hamiltonian :math:`{\cal H}^{LSWT}`
 introduced :ref:`here <user-guide_methods_quantum-hamiltonian>`
+can be rearranged into a bosonic tight-binding Hamiltonian containing
+on-site, hopping and pairing terms
 
-.. include:: ../repeated-formulas/hamiltonian-hp-expansion-lswt-part.inc
+.. math::
+  {\cal H^{LSWT}} = {\cal H^{LSWT}}
 
-Rotated exchange matrix
-=======================
-The rotated exchange matrix :math:`\boldsymbol{J_{ij}^s}(\boldsymbol{d_{ij}})`
-that was introduced :ref:`here <user-guide_methods_spherical-rf>`
-can be split into the following five pieces
 
-.. include:: J-abmd-separation.txt
+where the exchange matrix elements can be split into contributions
+coming from five harmonics:
 
-.. dropdown:: Matrix elements in the spherical reference frame
+.. math::
+  \tilde{J}_{d_{ij}}^{f,\alpha\beta}=
+  \sum_{l=0,\pm 1,\pm 2}\,
+   (^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
+            \,^{sn}\boldsymbol{\hat{f}_i^\beta}
+  \,\,\,e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
 
-  .. include:: ../repeated-formulas/spiral-rotation-matrix-spherical.inc
+where the following hermiticy relations for the exchange matrix elements
+were described in the
+:ref:`section on the exchange tensor <user-guide_methods_quantum-hamiltonian>`,
 
-  .. include:: ../repeated-formulas/exchange-matrix-spherical.inc
+.. math::
+  \tilde{J}_{d_{ij}}^{f,--}=&(\tilde{J}_{d_{ij}}^{f,++})^*\\
+  \tilde{J}_{d_{ij}}^{f,-+}=&(\tilde{J}_{d_{ij}}^{f,+-})^*\\
+  \tilde{J}_{d_{ij}}^{f,-0}=&(\tilde{J}_{d_{ij}}^{f,+0})^*\\
+  \tilde{J}_{d_{ij}}^{f,0-}=&(\tilde{J}_{d_{ij}}^{f,0+})^*\\
 
-.. dropdown:: Proof of Hermiticities in the LSWT Hamiltonian
+=================================
+Bosonic tight-binding Hamiltonian
+=================================
 
-  .. include:: ../repeated-formulas/hermiticity.inc
-
-Hamiltonian reordering
-======================
-The LSWT Hamiltonian can be rearranged into a more convenient form
-by noting that each bond is counted twice, and taking advantage of the
-hermiticy relations for the exchange matrix :math:`\boldsymbol{\tilde{J}_{mdij}^s}`
+The LSWT Hamiltonian can be rearranged into a tight-binding-like form
+by noting that each bond is counted twice
 
 .. math::
   {\cal H}^{LSWT}
   =
-  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
-   \Big(&
-  \,(E_{mdij}+E_{mdij}^*)\,\,a_{mi}^\dagger\,a_{mi}
+  E^{QC-LSWT}+
+  \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}} i, j} \,
+  \Big(&
+  \,E_{mdij}\,a_{mi}^\dagger\,a_{mi}+E_{mdij}^*\,a_{mi}\,a_{mi}^\dagger
   \\&+
+  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
   T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
   T_{mdij}^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
   \\&+
   \Delta_{mdij}\,b_{m+d_{ij}\,j}\,b_{mi} +
   \Delta_{mdij}^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
   \Big)
-
-The first term in the sum is better rearranged to make it explicitly hermitian
-
-.. math::
-  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
-  \,(E_{mdij}+E_{mdij}^*)\,\,a_{mi}^\dagger\,a_{mi}
-    =
-  E^{QC-LSWT}+
-  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
-  \,(E_{mdij}\,a_{mi}^\dagger\,a_{mi}+E_{mdij}^*\,a_{mi}\,a_{mi}^\dagger)
 
 where
 
@@ -75,13 +75,14 @@ where
 is a quantum correction to the classical ground state
 energy. Higher-order quantum corrections shall also appear from the bi-quadratic
 piece of the Hamiltonian.
-The on-site, hopping and off-diagonal energy terms can be expanded in higher
-harmonics as follows
+
+The on-site, hopping and off-diagonal parameters can be expanded in
+terms of higher harmonics as follows
 
 .. math::
   E_{mdij} =&\,
              S_j\,(\boldsymbol{f_i^s})^\dagger\,
-             \boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{f_j^s} =
+             \boldsymbol{\tilde{J}_{dij}^s}\,\boldsymbol{f_j^s} =
               \sum_{\nu=0,\pm 1,\pm 2}
               E_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
              \\\\

@@ -1,8 +1,8 @@
 .. _user-guide_methods_matrix-elements:
 
-******************************
-xchange tensor matrix elements
-******************************
+*******************************
+Exchange tensor matrix elements
+*******************************
 
 .. dropdown:: Notation used on this page
 
@@ -11,3 +11,9 @@ xchange tensor matrix elements
   * .. include:: page-notations/matrices.inc
   * .. include:: page-notations/reference-frame.inc
   * .. include:: page-notations/exchange-tensor.inc
+
+.. math::
+  \tilde{J}_{d_{ij}}^{f,--}=&(\tilde{J}_{d_{ij}}^{f,++})^*\\
+  \tilde{J}_{d_{ij}}^{f,-+}=&(\tilde{J}_{d_{ij}}^{f,+-})^*\\
+  \tilde{J}_{d_{ij}}^{f,-0}=&(\tilde{J}_{d_{ij}}^{f,+0})^*\\
+  \tilde{J}_{d_{ij}}^{f,0-}=&(\tilde{J}_{d_{ij}}^{f,0+})^*

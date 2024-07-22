@@ -18,11 +18,45 @@ LSWT Hamiltonian
 The LSWT Hamiltonian :math:`{\cal H}^{LSWT}`
 introduced :ref:`here <user-guide_methods_quantum-hamiltonian>`
 can be rearranged into a bosonic tight-binding Hamiltonian containing
-on-site, hopping and pairing terms
+on-site, hopping and pairing terms plus a quantum correction to
+the classical energy
 
 .. math::
-  {\cal H^{LSWT}} = {\cal H^{LSWT}}
+  {\cal H^{LSWT}} = E^{QC}+{\cal H^{onsite}}+{\cal H^{hopping}}+{\cal H^{pairing}}
 
+where the three Hamiltonian pieces
+
+.. math::
+  {\cal H^{onsite}}&=
+    -\dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}
+      \boldsymbol{\tilde{J}}_{dij}^{f,00}\,
+      \left(\,a_{mi}^\dagger\,a_{mi}+a_{mi}\,a_{mi}^\dagger\,-\frac{1}{2}\,\right)
+      \\
+  {\cal H^{hopping}}&=
+      \dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}
+      \,( S_i\,S_j)^{1/2}\,
+        \left(\,\boldsymbol{\tilde{J}}_{dij}^{f,--}\,a_{mi}^\dagger\, a_{m+d_{ij},j}
+        + (\boldsymbol{\tilde{J}}_{dij}^{f,--})^*\,a_{m+d_{ij},j}^\dagger\,a_{mi}\,
+        \right)
+      \\
+  {\cal H^{pairing}}&=
+      \dfrac{1}{2}\sum_{m, \boldsymbol{d}_{ij}, i, j}
+      \,( S_i\,S_j)^{1/2}\,
+        \boldsymbol{\tilde{J}}_{dij}^{f,+-}\,a_{mi}\, a_{m+d_{ij},j}
+        +(\boldsymbol{\tilde{J}}_{dij}^{f,+-})^*\,a_{mi}^{\dagger}\,
+        a_{m+d_{ij},j}^{\dagger}\,)
+
+are transformed to the reciprocal space by Fourier-transforming the
+boson operators
+
+.. math::
+  a_{mi} = \frac{1}{\sqrt{M}}\,\sum_k\,a_{ki}\,
+  e^{i\,\boldsymbol{k}\cdot\boldsymbol{r_m}}
+
+.. math::
+  E*{QC}=
+    \dfrac{1}{4}\sum_{m, \boldsymbol{d}_{ij}, i, j}
+      \boldsymbol{\tilde{J}}_{dij}^{f,00}
 
 where the exchange matrix elements can be split into contributions
 coming from five harmonics:

@@ -175,13 +175,13 @@ Here, the different matrix elements are
   \tilde{J}_{d_{ij}}^{f,\alpha\,\beta}=\braket{\,f^\alpha\,|\,\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\,f^\beta\,}
           =(^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,
           ^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,^{sn}\boldsymbol{\hat{f}_i^\beta}
-          =\sum_{l=0,\pm 1,\pm 2}\,^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,\,\,
+          =\sum_{l=0,\pm 1,\pm 2}\,^{sf}\tilde{J}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,\,\,
               e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
 
 where
 
 .. math::
-  ^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,=\,
+  ^{sf}\tilde{J}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,=\,
             (^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
             \,^{sn}\boldsymbol{\hat{f}_i^\beta}
 

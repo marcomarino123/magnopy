@@ -10,57 +10,22 @@ Linear Spin-Wave Theory
   * .. include:: ../page-notations/quantum-operators.inc
   * .. include:: ../page-notations/bra-ket.inc
 
-
-================
-LSWT Hamiltonian
-================
-
-The LSWT Hamiltonian :math:`{\cal H}^{LSWT}`
-introduced :ref:`here <user-guide_methods_quantum-hamiltonian>`
-can be rearranged into a bosonic tight-binding Hamiltonian containing
-on-site, hopping and pairing terms
-
-.. math::
-  {\cal H^{LSWT}} = {\cal H^{LSWT}}
-
-
-where the exchange matrix elements can be split into contributions
-coming from five harmonics:
-
-.. math::
-  \tilde{J}_{d_{ij}}^{f,\alpha\beta}=
-  \sum_{l=0,\pm 1,\pm 2}\,
-   (^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
-            \,^{sn}\boldsymbol{\hat{f}_i^\beta}
-  \,\,\,e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
-
-where the following hermiticy relations for the exchange matrix elements
-were described in the
-:ref:`section on the exchange tensor <user-guide_methods_quantum-hamiltonian>`,
-
-.. math::
-  \tilde{J}_{d_{ij}}^{f,--}=&(\tilde{J}_{d_{ij}}^{f,++})^*\\
-  \tilde{J}_{d_{ij}}^{f,-+}=&(\tilde{J}_{d_{ij}}^{f,+-})^*\\
-  \tilde{J}_{d_{ij}}^{f,-0}=&(\tilde{J}_{d_{ij}}^{f,+0})^*\\
-  \tilde{J}_{d_{ij}}^{f,0-}=&(\tilde{J}_{d_{ij}}^{f,0+})^*\\
-
 =================================
 Bosonic tight-binding Hamiltonian
 =================================
 
-The LSWT Hamiltonian can be rearranged into a tight-binding-like form
-by noting that each bond is counted twice
+The LSWT Hamiltonian introduced :ref:`here <user-guide_methods_quantum-hamiltonian>`
+can be rearranged into a tight-binding-like form
 
 .. math::
   {\cal H}^{LSWT}
   =
   E^{QC-LSWT}+
-  \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}} i, j} \,
+  \frac{1}{2}\,\sum_{\boldsymbol{m,d_{ij}} i, j} \,
   \Big(&
   \,E_{mdij}\,a_{mi}^\dagger\,a_{mi}+E_{mdij}^*\,a_{mi}\,a_{mi}^\dagger
-  \\&+
-  \frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij}} i, j} \,
-  T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
+  \\
+  &+T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
   T_{mdij}^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
   \\&+
   \Delta_{mdij}\,b_{m+d_{ij}\,j}\,b_{mi} +
@@ -75,42 +40,37 @@ where
 is a quantum correction to the classical ground state
 energy. Higher-order quantum corrections shall also appear from the bi-quadratic
 piece of the Hamiltonian.
-
-The on-site, hopping and off-diagonal parameters can be expanded in
-terms of higher harmonics as follows
+The on-site, hopping and off-diagonal parameters are expanded in
+terms of higher harmonics as described :ref:`here <user-guide_methods_exchange-tensor>`
 
 .. math::
   E_{mdij} =&\,
-             S_j\,(\boldsymbol{f_i^s})^\dagger\,
-             \boldsymbol{\tilde{J}_{dij}^s}\,\boldsymbol{f_j^s} =
+             -S_j\,\boldsymbol{\tilde{J}}_{dij}^{f,00} =
+             \sum_{\nu=0,\pm 1,\pm 2}\,(-S_j)\,^{sf}\tilde{J}_{dij}^{00,\nu}\,
+              e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
               \sum_{\nu=0,\pm 1,\pm 2}
               E_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
              \\\\
   T_{mdij} =&\,
-             S_i^{1/2}\,S_j^{1/2}\,
-            (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,\boldsymbol{p_j^s}=
+             (S_i\,S_j)^{1/2}\,
+            \boldsymbol{\tilde{J}}_{dij}^{f,--}=
+            \sum_{\nu=0,\pm 1,\pm 2}(S_i\,S_j)^{1/2}\,
+            ^{sf}\tilde{J}_{dij}^{--,\nu}
+            e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}=
             \sum_{\nu=0,\pm 1,\pm 2}
               T_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
               \\\\
   \Delta_{mdij} =&\,
-               S_i^{1/2}\,S_j^{1/2}\,
-                  (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{mdij}^s}\,
-                  \boldsymbol{t_j^s}\,=
+               (S_i\,S_j)^{1/2}\,
+                  \boldsymbol{\tilde{J}}_{dij}^{f,+-}\,=
+                  \sum_{\nu=0,\pm 1,\pm 2}\,
+                  ^{sf}\tilde{J}_{dij}^{+-,\nu}
+                  \,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}  =
                   \sum_{\nu=0,\pm 1,\pm 2}
                   \Delta_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
 
-where the matrix elements are independent of the site :math:`m` now,
-
-.. math::
-  E_{dij}^\nu =&\,
-        S_j\,(\boldsymbol{f_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^\nu}\,\boldsymbol{f_j^s}\\
-  T_{dij}^\nu =&\,
-        S_i^{1/2}\,S_j^{1/2}\,
-            (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^\nu}\,\boldsymbol{p_j^s}\\
-  \Delta_{dij}^\nu=&\,
-        S_i^{1/2}\,S_j^{1/2}\,
-                  (\boldsymbol{p_i^s})^\dagger\,\boldsymbol{\tilde{J}_{dij}^\nu}\,\boldsymbol{t_j^s}
-
+where the cell-independent matrix elements :math:`^{sf}\tilde{J}_{dij}^{\alpha\beta,\nu}` and have been
+written out explicitly in this :ref:`section <user-guide_methods_matrix-elements>`.
 Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a conventional
 LSWT term and higher harmonics as follows
 
@@ -123,7 +83,7 @@ with
   {\cal H^\nu}=
     \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}, i, j} \,
    \Big(&
-  \,E_{dij}^\nu\,{\cal E^{\nu 1}_{i}}+(E_{dij}^\nu)^*\,({\cal {E^{\nu 2}_{i}}})^\dagger
+  \,E_{dij}^\nu\,{\cal E^{\nu}_{i}}+(E_{dij}^\nu\,{\cal {E^{\nu}_{i}}})^\dagger
   +T_{dij}^\nu\,{\cal T_{dij}^\nu} + (T_{dij}^\nu\,{\cal T_{dij}^\nu})^\dagger
   \\&+
   \Delta_{dij}^\nu\,{\cal D_{dij}^\nu}+(\Delta_{dij}^\nu\,{\cal D_{dij}^\nu})^\dagger
@@ -140,6 +100,7 @@ where
   \,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}} \\
   {\cal D_{dij}^\nu}=&\sum_m  a_{m+d_{ij}\,j}\,a_{mi} \,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
 
+===============================
 Fourier-transformed Hamiltonian
 ===============================
 
@@ -163,12 +124,8 @@ where :math:`\boldsymbol{G}` is a reciprocal lattice vector.
 Then the operators become
 
 .. math::
-  {\cal E_i^{\nu 1}}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
+  {\cal E_i^{\nu}}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
   a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}\,
-  \\
-    {\cal E_i^{\nu 2}}=&\sum_k\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}\,
-  \,a_{\boldsymbol{k} i}^\dagger
   \\
   {\cal T_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
   a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}\,
@@ -190,7 +147,7 @@ the Brillouin zone. Inserting the operators back into the Hamiltonian harmonic p
   a_{\boldsymbol{k} i}^\dagger\,
   a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}
    +(\,E_{ij}^\nu)^*\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i})^\dagger
+  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}
   \,a_{\boldsymbol{k} i}^\dagger
   \\&+
   T_{ij}^\nu\,a_{\boldsymbol{k} i}^\dagger\,
@@ -231,11 +188,11 @@ and arranging all Hamiltonian matrix elements as
   \,a_{\boldsymbol{k} i}\dagger
   \Big)
 
-
+==========================
 Harmonic block Hamiltonian
 ==========================
 Block bosonic operators can be defined by grouping together all bosonic operators referring to
-the :math:`i` atoms in a unit cell
+the :math:`I` atoms in a unit cell
 
 .. math::
   B_\boldsymbol{k} =\begin{pmatrix} a_{\boldsymbol{k},1}\\a_{\boldsymbol{k},2}

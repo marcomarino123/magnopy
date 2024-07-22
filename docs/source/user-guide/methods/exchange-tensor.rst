@@ -175,14 +175,14 @@ Here, the different matrix elements are
   \tilde{J}_{d_{ij}}^{f,\alpha\,\beta}=\braket{\,f^\alpha\,|\,\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\,f^\beta\,}
           =(^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,
           ^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,^{sn}\boldsymbol{\hat{f}_i^\beta}
-          =\sum_{l=0,\pm 1,\pm 2}\,^{sf}\tilde{J}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,\,\,
-              e^{i\,l\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
+          =\sum_{\nu=0,\pm 1,\pm 2}\,\tilde{J}_{\boldsymbol{d}ij}^{f\nu,\alpha\beta}\,\,\,
+              e^{i\,\nu\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
 
 where
 
 .. math::
-  ^{sf}\tilde{J}_{\boldsymbol{d}ij}^{\alpha\beta,l}\,=\,
-            (^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^l\,
+  \tilde{J}_{\boldsymbol{d}ij}^{f\nu,\alpha\beta}\,=\,
+            (^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^\nu\,
             \,^{sn}\boldsymbol{\hat{f}_i^\beta}
 
 and the sub-indices :math:`\alpha,\,\beta` run over :math:`+,\,-,\,0`.

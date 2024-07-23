@@ -31,10 +31,10 @@ Methods and algorithms
   quantization
   quantum-hamiltonian
   lswt/index
-  energy-quantum-correction
+  magnetic-BZ
+  diagonalisation
   hp-cubic-terms
   hp-biquadratic-terms
-  diagonalisation
 
 .. toctree::
   :maxdepth: 1

@@ -8,7 +8,6 @@ Quantum Hamiltonian
 
   * .. include:: page-notations/quantum-operators.inc
   * .. include:: page-notations/bra-ket.inc
-  * .. include:: page-notations/uvn-or-spherical.inc
 
 The quantum Heisenberg Hamiltonian looks exactly the same as its classical
 counterpart, where all the classical spin vectors are replaced by quantum

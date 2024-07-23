@@ -8,13 +8,8 @@ Antiferromagnetic case
 
   For the full set of notation rules, see :ref:`user-guide_methods_notation`.
 
-  * .. include:: ../page-notations/vector.inc
-  * .. include:: ../page-notations/matrix.inc
   * .. include:: ../page-notations/reference-frame.inc
   * .. include:: ../page-notations/transpose-complex-conjugate.inc
-  * .. include:: ../page-notations/parentheses.inc
-  * .. include:: ../page-notations/kronecker-delta.inc
-  * .. include:: ../page-notations/uvn-or-spherical.inc
   * .. include:: ../page-notations/exchange-tensor.inc
 
 

@@ -7,7 +7,6 @@ Quantization
 .. dropdown:: Notation used on this page
 
   * .. include:: page-notations/bra-ket.inc
-  * .. include:: page-notations/uvn-or-spherical.inc
   * .. include:: page-notations/quantum-operators.inc
 
 ======================================

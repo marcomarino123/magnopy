@@ -125,19 +125,18 @@ Then the operators become
 
 .. math::
   {\cal E_i^{\nu}}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}\,
+  a_{\boldsymbol{k}-\nu\,\boldsymbol{q}, i}\,
   \\
   {\cal T_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}\,
-  e^{i\,(\boldsymbol{k}+\boldsymbol{G}-\nu \boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  a_{\boldsymbol{k}-\nu\,\boldsymbol{q}, j}\,
+  e^{i\,(\boldsymbol{k}-\nu \boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
   \\
-  {\cal D_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}\,a_{\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q}, j}\,
-  e^{-i\,(\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  {\cal D_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, j}\,
+  e^{-i\,(\boldsymbol{k}+\nu\,\boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
 
-where :math:`\boldsymbol{G}` is chosen to bring sums bak to the First Brillouin zone.
-:math:`\boldsymbol{G}` will be dropped henceforth, with the implicit understanding
-that :math:`\boldsymbol{k}+\nu\,\boldsymbol{q}` summations must stay always inside
-the Brillouin zone. Inserting the operators back into the Hamiltonian harmonic pieces
+where we have assumed that two operators :math:`a_{\boldsymbol{k}i}` and
+:math:`a_{\boldsymbol{k+G},i}` destroy the same excitation.
+Inserting the operators back into the Hamiltonian harmonic pieces
 
 .. math::
   {\cal H}^\nu =
@@ -188,6 +187,14 @@ and arranging all Hamiltonian matrix elements as
   \,a_{\boldsymbol{k} i}\dagger
   \Big)
 
+.. dropdown:: Hopping mattrix elements
+
+  .. include:: hopping.txt
+
+.. dropdown:: Off-diagonal matrix elements
+
+  .. include:: off-diagonal.txt
+
 ==========================
 Harmonic block Hamiltonian
 ==========================
@@ -233,11 +240,3 @@ where
           &&\cdots& \\
            \Delta^\nu_{I1}(\boldsymbol{k}) &\Delta^\nu_{I2}(\boldsymbol{k})&\cdots&\Delta^\nu_{II}(\boldsymbol{k})
            \end{pmatrix}
-
-.. dropdown:: Hopping mattrix elements
-
-  .. include:: hopping.txt
-
-.. dropdown:: Off-diagonal matrix elements
-
-  .. include:: off-diagonal.txt

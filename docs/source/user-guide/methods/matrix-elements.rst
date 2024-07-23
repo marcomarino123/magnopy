@@ -12,7 +12,7 @@ Exchange tensor matrix elements
   * .. include:: page-notations/reference-frame.inc
   * .. include:: page-notations/exchange-tensor.inc
 
-This section is devoted to display all the matrix elements of the exchange tensor
+This section is devoted to displaying all the matrix elements of the exchange tensor
 in the spherical local basis, that was introduced at the end of the previous
 :ref:`section <user-guide_methods_exchange-tensor>` . The matrix is
 
@@ -49,14 +49,13 @@ where
 
 The hermiticity relations listed in the previous expression can be proven in different ways.
 For example, if tedious, related matrix elements can be computed explicitly and compared.
-
 We compute explicitly the matrix element :math:`\tilde{J}_{dij}^{f0,++}`:
 
 .. math::
   \tilde{J}_{\boldsymbol{d}ij}^{f0,++}\,
       =&\,
       (^{sn}\boldsymbol{\hat{f}_i^+})^\dagger\,^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}^0\,
-      \,^{sn}\boldsymbol{\hat{f}_i^+}\\=&
+      \,^{sn}\boldsymbol{\hat{f}_i^+}\\\,=&\,
       \begin{pmatrix}
       \frac{1}{2}\,(\cos \theta_i + 1)&
       \frac{1}{2}\,(\cos \theta_i - 1) \,e^{-2\,i\,\phi_i}&
@@ -72,7 +71,7 @@ We compute explicitly the matrix element :math:`\tilde{J}_{dij}^{f0,++}`:
       \frac{1}{2}\,(\cos \theta_j - 1) \,e^{2\,i\,\phi_j}\\
       -\frac{1}{\sqrt{2}} \sin\theta_j\,e^{i\,\phi_j}
       \end{pmatrix}\\
-      =&\frac{1}{2}\,\sin\theta_i\sin\theta_j\,e^{i\,(\phi_i-\phi_j)}
+      \,=&\,\frac{1}{2}\,\sin\theta_i\sin\theta_j\,e^{i\,(\phi_j-\phi_i)}
       \,J_{dij}^{n,00}+
       \frac{1}{4}\,(\cos\theta_i +1)\,(\cos\theta_j +1)\,
       e^{-i\,\boldsymbol{q}\cdot\boldsymbol{d}_{ij}}\,J_{dij}^{n,++}+
@@ -123,7 +122,7 @@ The matrix elements related to :math:`\tilde{J}_{d_{ij}}^{f,+-}` are
       e^{i\,\boldsymbol{q}\cdot\boldsymbol{d}_{ij}}\,J_{dij}^{n,+-}\\\\
   \tilde{J}_{\boldsymbol{d}ij}^{f-2,+-}\, =& \,
       \frac{1}{4}\,(\cos\theta_i -1)\,(\cos\theta_j -1)\,
-      e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+2\,\phi_i+2\,\phi_j)}\,(J_{dij}^{n,+-})^*
+      e^{-i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+2\,\phi_i+2\,\phi_j)}\,(J_{dij}^{n,+-})^*
 
 Those related to :math:`\tilde{J}_{d_{ij}}^{f,00}` are
 
@@ -151,25 +150,57 @@ Those related to :math:`\tilde{J}_{d_{ij}}^{f,00}` are
 Those related to :math:`\tilde{J}_{d_{ij}}^{f,+0}` are
 
 .. math::
-    \tilde{J}_{\boldsymbol{d}ij}^{f0,+0}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f0,+0}\,=&\,
+    -\frac{1}{\sqrt{2}}\,\sin\theta_i\,\cos\theta_j\,e^{-i\,\phi_i}\,J_{dij}^{n,00}
+    +\frac{1}{2\,\sqrt{2}}\,(\cos\theta_i-1)\,\sin\theta_j\,
+    e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-2\,\phi_i)}\,(J_{dij}^{n,++})^*
+    +\frac{1}{2\,\sqrt{2}}\,(\cos\theta_i+1)\,\sin\theta_j\,
+    e^{-i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)}\,J_{dij}^{n,++}
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f1,+0}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f1,+0}\,=&\,
+    \frac{1}{2}\,(\cos\theta_i-1)\,\cos\theta_j\,e^{-2\,i\,\phi_i}\,(J_{dij}^{n,+0})^*
+    -\frac{1}{2}\,\sin\theta_i\,\sin\theta_j\,
+    e^{-i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+\phi_i)}\,J_{dij}^{n,0+}
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f-1,+0}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f-1,+0}\,=&\,
+    \frac{1}{2}\,(\cos\theta_i+1)\,\cos\theta_j\,J_{dij}^{n,+0}
+    -\frac{1}{2}\,\sin\theta_i\,\sin\theta_j\,
+    e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j-\phi_i)}\,(J_{dij}^{n,0+})^*
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f2,+0}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f2,+0}\,=&\,
+    \frac{1}{2\,\sqrt{2}}\,(\cos\theta_i-1)\,\sin\theta_j\,
+    e^{-i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j+2\,\phi_i)}\,(J_{dij}^{n,+-})^*
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f-2,+0}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f-2,+0}\,=&\,
+    \frac{1}{2\,\sqrt{2}}\,(\cos\theta_i+1)\,\sin\theta_j\,
+    e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)}\,J_{dij}^{n,+-}
 
 Finally, those related to :math:`\tilde{J}_{d_{ij}}^{f,0+}` are
 
 .. math::
-    \tilde{J}_{\boldsymbol{d}ij}^{f0,0+}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f0,0+}\,=&\,
+    -\frac{1}{\sqrt{2}}\,\cos\theta_i\,\sin\theta_j\,e^{i\,\phi_j}\,J_{dij}^{n,00}
+    +\frac{1}{2\,\sqrt{2}}\,\sin\theta_i\,(\cos\theta_j-1)\,
+    e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+2\,\phi_j-\phi_i)}\,(J_{dij}^{n,++})^*
+    +\frac{1}{2\,\sqrt{2}}\,\sin\theta_i\,(\cos\theta_j+1)\,
+    e^{-i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}-\phi_i)}\,J_{dij}^{n,++}
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f1,0+}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f1,0+}\,=&\,
+    \frac{1}{2}\,\cos\theta_i\,(\cos\theta_j+1)\,
+    e^{-i\,\boldsymbol{q}\cdot\boldsymbol{d}_{ij}}\,J_{dij}^{n,0+}
+    -\frac{1}{2}\,\sin\theta_i\,\sin\theta_j\,
+    e^{i\,(\phi_j-\phi_i)}\,(J_{dij}^{n,+0})^*
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f-1,0+}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f-1,0+}\,=&\,
+   \frac{1}{2}\,\cos\theta_i\,(\cos\theta_j-1)\,
+   e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_j)}\,(J_{dij}^{n,0+})^*
+    -\frac{1}{2}\,\sin\theta_i\,\sin\theta_j\,
+    e^{i\,(\phi_j+\phi_i)}\,J_{dij}^{n,+0}
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f2,0+}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f2,0+}\,=&\,
+    \frac{1}{2\,\sqrt{2}}\,\sin\theta_i\,(\cos\theta_j+1)\,
+    e^{-i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+\phi_i)}\,(J_{dij}^{n,+-})^*
     \\
-    \tilde{J}_{\boldsymbol{d}ij}^{f-2,0+}\,=&
+    \tilde{J}_{\boldsymbol{d}ij}^{f-2,0+}\,=&\,
+    \frac{1}{2\,\sqrt{2}}\,\sin\theta_i\,(\cos\theta_j+1)\,
+    e^{i\,(\boldsymbol{q}\cdot\boldsymbol{d}_{ij}+2\,\phi_j+\phi_i)}\,J_{dij}^{n,+-}

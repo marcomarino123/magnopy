@@ -32,6 +32,7 @@ Methods and algorithms
   quantum-hamiltonian
   lswt/index
   magnetic-BZ
+  bogoliubov
   diagonalisation
   hp-cubic-terms
   hp-biquadratic-terms

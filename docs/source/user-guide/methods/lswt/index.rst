@@ -20,34 +20,24 @@ can be rearranged into a tight-binding-like form
 .. math::
   {\cal H}^{LSWT}
   =
-  E^{QC-LSWT}+
   \frac{1}{2}\,\sum_{\boldsymbol{m,d_{ij}} i, j} \,
   \Big(&
-  \,E_{mdij}\,a_{mi}^\dagger\,a_{mi}+E_{mdij}^*\,a_{mi}\,a_{mi}^\dagger
-  \\
-  &+T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
+  \,(E_{mdij}+E_{mdij}^*)\,a_{mi}^\dagger\,a_{mi}
+  +T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
   T_{mdij}^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
   \\&+
   \Delta_{mdij}\,b_{m+d_{ij}\,j}\,b_{mi} +
   \Delta_{mdij}^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
   \Big)
 
-where
-
-.. math::
-  E^{QC-LSWT}=-\frac{1}{2}\,\sum_{m, \boldsymbol{d_{ij} i, j}} \,E_{mdij}^*
-
-is a quantum correction to the classical ground state
-energy. Higher-order quantum corrections shall also appear from the bi-quadratic
-piece of the Hamiltonian.
 The on-site, hopping and off-diagonal parameters are expanded in
 terms of higher harmonics as described :ref:`here <user-guide_methods_exchange-tensor>`
 
 .. math::
   E_{mdij} =&\,
              -S_j\,\boldsymbol{\tilde{J}}_{dij}^{f,00} =
-             \sum_{\nu=0,\pm 1,\pm 2}\,(-S_j)\,^{sf}\tilde{J}_{dij}^{00,\nu}\,
-              e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
+             \sum_{\nu=0,\pm 1,\pm 2}\,(-S_j)\,^{sf}\tilde{J}_{dij}^{f\nu,00}\,
+              e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}=
               \sum_{\nu=0,\pm 1,\pm 2}
               E_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
              \\\\
@@ -55,7 +45,7 @@ terms of higher harmonics as described :ref:`here <user-guide_methods_exchange-t
              (S_i\,S_j)^{1/2}\,
             \boldsymbol{\tilde{J}}_{dij}^{f,--}=
             \sum_{\nu=0,\pm 1,\pm 2}(S_i\,S_j)^{1/2}\,
-            ^{sf}\tilde{J}_{dij}^{--,\nu}
+            ^{sf}\tilde{J}_{dij}^{f\nu,--}
             e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}=
             \sum_{\nu=0,\pm 1,\pm 2}
               T_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
@@ -64,7 +54,7 @@ terms of higher harmonics as described :ref:`here <user-guide_methods_exchange-t
                (S_i\,S_j)^{1/2}\,
                   \boldsymbol{\tilde{J}}_{dij}^{f,+-}\,=
                   \sum_{\nu=0,\pm 1,\pm 2}\,
-                  ^{sf}\tilde{J}_{dij}^{+-,\nu}
+                  ^{sf}\tilde{J}_{dij}^{f\nu,+-}
                   \,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}  =
                   \sum_{\nu=0,\pm 1,\pm 2}
                   \Delta_{dij}^\nu\,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
@@ -75,26 +65,20 @@ Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a con
 LSWT term and higher harmonics as follows
 
 .. math::
-  {\cal H}^{LSWT}=E^{QC-LSWT}+\sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}
-
-with
-
-.. math::
-  {\cal H^\nu}=
+  {\cal H}^{LSWT}=&\sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}\\
+  {\cal H^\nu}=&
     \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}, i, j} \,
-   \Big(&
-  \,E_{dij}^\nu\,{\cal E^{\nu}_{i}}+(E_{dij}^\nu\,{\cal {E^{\nu}_{i}}})^\dagger
+   \Big(
+  \,\left(E_{dij}^\nu+(E_{dij}^\nu)^*\right)\,{\cal E^{\nu}_{i}}
   +T_{dij}^\nu\,{\cal T_{dij}^\nu} + (T_{dij}^\nu\,{\cal T_{dij}^\nu})^\dagger
-  \\&+
+  +
   \Delta_{dij}^\nu\,{\cal D_{dij}^\nu}+(\Delta_{dij}^\nu\,{\cal D_{dij}^\nu})^\dagger
   \Big)
 
 where
 
 .. math::
-  {\cal E_i^{\nu 1}}=& \sum_m a_{mi}^\dagger\,a_{mi}\,
-     e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}\\
-  {\cal E_i^{\nu 2}}=& \sum_m \,a_{mi}\,a_{mi}^\dagger\,
+  {\cal E_i^\nu}=& \sum_m a_{mi}^\dagger\,a_{mi}\,
      e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}\\
   {\cal T_{dij}^\nu}=& \sum_m a_{mi}^\dagger\,a_{m+d_{ij}\,j}
   \,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}} \\
@@ -111,7 +95,10 @@ bosonic operators
   a_{mi}=\dfrac{1}{\sqrt{M}}\,\sum_{k}\,a_{\boldsymbol{k} i}
   \,e^{i\,\boldsymbol{\boldsymbol{k}}\cdot\boldsymbol{r_m}}
 
-and using the identity
+where the wave-vectors belong to the reciprocal lattice, e.g.:
+:math:`\boldsymbol{k}=\frac{k_1}{M_1}\,\boldsymbol{b}_1+\frac{k_2}{M_2}\,\boldsymbol{b}_2+\frac{k_3}{M_3}\,\boldsymbol{b}_3`, with :math:`k_i\,\in {\cal Z}`.
+We assume now that the spiral wave-vector :math:`\boldsymbol{q}` also belongs also the
+reciprocal lattice. Then, using the identity
 
 .. math::
   \dfrac{1}{M}\sum_m e^{i\,(\pm(\boldsymbol{k'}\pm \boldsymbol{k})+
@@ -120,71 +107,76 @@ and using the identity
   \delta_{\pm(\boldsymbol{k'}\pm \boldsymbol{k})+
   \nu\,\boldsymbol{q},\, \boldsymbol{G}}
 
-where :math:`\boldsymbol{G}` is a reciprocal lattice vector.
-Then the operators become
+where
+:math:`\boldsymbol{G}=n_1\,\boldsymbol{b}_1+n_2\,\boldsymbol{b}_2+n_3\,\boldsymbol{b}_3`,
+are wave vectors belonging to the Bravais reciprocal lattice, e. g.: :math:`k_i,\,\in {\cal Z}`.
+Then the operators above become
 
 .. math::
-  {\cal E_i^{\nu}}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}-\nu\,\boldsymbol{q}, i}\,
+  {\cal E_i^{\nu}}=&\sum_k\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}^\dagger\,
+  a_{\boldsymbol{k} i}\,
   \\
-  {\cal T_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}-\nu\,\boldsymbol{q}, j}\,
-  e^{i\,(\boldsymbol{k}-\nu \boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  {\cal T_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}^\dagger\,
+  a_{\boldsymbol{k} j}\,
+  e^{i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}
   \\
-  {\cal D_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k} i}\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, j}\,
-  e^{-i\,(\boldsymbol{k}+\nu\,\boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  {\cal D_{dij}^\nu}=&\sum_k\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}\,a_{\boldsymbol{k} j}\,
+  e^{i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}
 
 where we have assumed that two operators :math:`a_{\boldsymbol{k}i}` and
-:math:`a_{\boldsymbol{k+G},i}` destroy the same excitation.
-Inserting the operators back into the Hamiltonian harmonic pieces
+:math:`a_{\boldsymbol{k+G},i}` destroy the same particle (or rather quasi-particle).
+Inserting the operators back into the Hamiltonian harmonic pieces, we find
 
 .. math::
   {\cal H}^\nu =
     \frac{1}{2}\,\sum_{\boldsymbol{k}, i, j} \,
    \Big(&
-  \,E_{ij}^\nu\,
-  a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}
-   +(\,E_{ij}^\nu)^*\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, i}
-  \,a_{\boldsymbol{k} i}^\dagger
+  \,\left(E_{ij}^\nu\,+(E_{ij}^\nu)^*\right)
+  a_{\boldsymbol{k}+\nu\,\boldsymbol{q},, i}^\dagger\,
+  a_{\boldsymbol{k} i}
+  +
+  T_{ij}^\nu\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}^\dagger\,
+  a_{\boldsymbol{k} j}\,+
+   (T_{ij}^\nu)^*\,  a_{\boldsymbol{k} j}^\dagger\,
+   a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}
   \\&+
-  T_{ij}^\nu\,a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}\,+
-   (T_{ij}^\nu)^*\,  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}^\dagger\,
-   a_{\boldsymbol{k} i}
-  \\&+
-  \Delta_{dij}^\nu\,a_{\boldsymbol{k} i}\,a_{\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q}, j}
-  +(\Delta_{dij}^\nu)^*\,a_{\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q}, j}^\dagger
-  \,a_{\boldsymbol{k} i}\dagger
+  \Delta_{dij}^\nu\,a_{-(\boldsymbol{k}+\nu\,\boldsymbol{q}), i}\,a_{\boldsymbol{k} j}
+  +(\Delta_{dij}^\nu)^*\,a_{\boldsymbol{k} j}^\dagger
+  \,a_{-(\boldsymbol{k}+\nu\,\boldsymbol{q}), i}^\dagger
   \Big)
 
 with
 
 .. math::
-  E_{ij}^\nu =& \sum_{\boldsymbol{d_{ij}}} \,E_{dij}^\nu
+  E_{ij}^\nu =& \sum_{\boldsymbol{d_{ij}}} \,E_{dij}^\nu=(-S_j)\,\sum_{\boldsymbol{d_{ij}}}\,
+  \tilde{J}_{dij}^{f\nu,00}
   \\
   T_{ij}^\nu(\boldsymbol{k}) =& \sum_{\boldsymbol{d_{ij}}} \,T_{dij}^\nu\,
-  e^{i\,(\boldsymbol{k}+\boldsymbol{G}-\nu \boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+  e^{i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}
+  =(S_i\,S_j)^{1/2}\,\sum_{\boldsymbol{d_{ij}}}\,\tilde{J}_{dij}^{f\nu,--}\,
+  e^{i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}
   \\
   \Delta_{ij}^\nu(\boldsymbol{k}) =&\sum_{\boldsymbol{d_{ij}}} \,\Delta_{dij}^\nu\,
-     e^{-i\,(\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q})\cdot \boldsymbol{d_{ij}}}
+     e^{-i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}=
+     (S_i\,S_j)^{1/2}\,\sum_{\boldsymbol{d_{ij}}}\,\tilde{J}_{dij}^{f\nu,+-}\,
+     e^{i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}
 
-By defining :math:`T_{ii}^\nu=\sum_j E_{ij}^\nu` the above Hamiltonian is finally rewritten as
+By defining :math:`T_{ii}^\nu=\sum_j E_{ij}^\nu` and extending the sum to include the
+elements Math:`i=j`, the above Hamiltonian is finally rewritten as
 and arranging all Hamiltonian matrix elements as
 
 .. math::
   {\cal H}^\nu =
     \frac{1}{2}\,\sum_{\boldsymbol{k}, i, j} \,
    \Big(&
-  T_{ij}^\nu\,a_{\boldsymbol{k} i}^\dagger\,
-  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}\,+
-   (T_{ij}^\nu)^*\,  a_{\boldsymbol{k}+\boldsymbol{G}-\nu\,\boldsymbol{q}, j}^\dagger\,
-   a_{\boldsymbol{k} i}
+  T_{ij}^\nu(\boldsymbol{k})\,a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}^\dagger\,
+  a_{\boldsymbol{k} j}\,+
+   (T_{ij}^\nu(\boldsymbol{k}))^*\,  a_{\boldsymbol{k} j}^\dagger\,
+   a_{\boldsymbol{k}+\nu\,\boldsymbol{q}, i}
   \\&+
-  \Delta_{dij}^\nu\,a_{\boldsymbol{k} i}\,a_{\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q}, j}
-  +(\Delta_{dij}^\nu)^*\,a_{\boldsymbol{k}+\boldsymbol{G}+\nu\,\boldsymbol{q}, j}^\dagger
-  \,a_{\boldsymbol{k} i}\dagger
+  \Delta_{dij}^\nu(\boldsymbol{k})\,a_{-(\boldsymbol{k}+\nu\,\boldsymbol{q}), i}\,a_{\boldsymbol{k} j}
+  +(\Delta_{dij}^\nu(\boldsymbol{k}))^*\,a_{\boldsymbol{k} j}^\dagger
+  \,a_{-(\boldsymbol{k}+\nu\,\boldsymbol{q}), i}^\dagger
   \Big)
 
 .. dropdown:: Hopping mattrix elements
@@ -203,40 +195,31 @@ the :math:`I` atoms in a unit cell
 
 .. math::
   B_\boldsymbol{k} =\begin{pmatrix} a_{\boldsymbol{k},1}\\a_{\boldsymbol{k},2}
-         \\\vdots\\a_{\boldsymbol{k},I}\end{pmatrix}
+         \\\vdots\\a_{\boldsymbol{k},I}\end{pmatrix},\,\,\,\tilde{B}_\boldsymbol{k}=B_\boldsymbol{k}^t
 
-and then arranging together particle and hole block boson operators
-
-.. math::
-  {\cal B}_\boldsymbol{k} =\begin{pmatrix} B_\boldsymbol{k}\\B_{-\boldsymbol{k}}^\dagger\end{pmatrix}
-
-The final expression for the LSWT hamiltonian is
+where :math:`t` indicates transpose. The Hamiltonian can be written in compact form as follows
 
 .. math::
-  {\cal H}^{LSWT} =
+  {\cal H}^{LSWT} &=
     \frac{1}{2}\,\sum_{\nu, \boldsymbol{k}}\,
-    {\cal B}_\boldsymbol{k}^\dagger\,
-    \begin{pmatrix} T^\nu(\boldsymbol{k}) & \Delta^\nu(\boldsymbol{k})\\
-                   (\Delta^\nu(\boldsymbol{k}))^\dagger & (T^\nu(-\boldsymbol{k}))^\dagger
-    \end{pmatrix}\,
-    {\cal B}_{\boldsymbol{k}+\nu \boldsymbol{q}+\boldsymbol{G} }
+    \left(B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}^\dagger\,T^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
+    +B_\boldsymbol{k}^\dagger\,(T^\nu(\boldsymbol{k}))^\dagger\,B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}
+    +\tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}\,\Delta^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
+    +B_\boldsymbol{k}^\dagger\,(\Delta^\nu(\boldsymbol{k})^\dagger\,
+    \tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}^\dagger\right)\\
+    &=E^{QC,LSWT}+
+    \frac{1}{2}\,\sum_{\nu, \boldsymbol{k}}\,
+    \left(B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}^\dagger\,T^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
+    +B_{-\boldsymbol{k}}^\dagger\,(T^{-\nu}(-\boldsymbol{k}))^\dagger\,B_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}
+    +\tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}\,\Delta^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
+    +B_\boldsymbol{k}^\dagger\,(\Delta^\nu(\boldsymbol{k})^\dagger\,
+    \tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}^\dagger\right)
 
-where
+where :math:`T^\nu` and :math:`\Delta^\nu` are matrices comprising all the hopping and pairing matrix elements.
+The LSWT energy term
 
 .. math::
-  T^\nu(\boldsymbol{k})
-         =&
-          \begin{pmatrix}
-          T^\nu_{11}(\boldsymbol{k}) &T^\nu_{12}(\boldsymbol{k})&\cdots&T^\nu_{1I}(\boldsymbol{k})\\
-          T^\nu_{21}(\boldsymbol{k}) &T^\nu_{22}(\boldsymbol{k})&\cdots&T^\nu_{2I}(\boldsymbol{k})\\
-          &&\cdots& \\
-           T^\nu_{I1}(\boldsymbol{k}) &T^\nu_{I2}(\boldsymbol{k})&\cdots&T^\nu_{II}(\boldsymbol{k})
-           \end{pmatrix}
-        \\\\
-  \Delta^\nu(\boldsymbol{k})=&
-          \begin{pmatrix}
-          \Delta^\nu_{11}(\boldsymbol{k}) &\Delta^\nu_{12}(\boldsymbol{k})&\cdots&\Delta^\nu_{1I}(\boldsymbol{k})\\
-          \Delta^\nu_{21}(\boldsymbol{k}) &\Delta^\nu_{22}(\boldsymbol{k})&\cdots&\Delta^\nu_{2I}(\boldsymbol{k})\\
-          &&\cdots& \\
-           \Delta^\nu_{I1}(\boldsymbol{k}) &\Delta^\nu_{I2}(\boldsymbol{k})&\cdots&\Delta^\nu_{II}(\boldsymbol{k})
-           \end{pmatrix}
+  E^{QC-LSWT}= -\frac{1}{2}\,\sum_{\boldsymbol{k}}\,T^0(\boldsymbol{k})
+
+is a quantum correction that must be added to the classical energy. Further corrections arise from
+higher-order pieces of the Hamiltonian.

@@ -95,10 +95,8 @@ This requirement implies for fermions that the :math:`P_\boldsymbol{k}` be unita
 
 The requirement for bosons is that :math:`\tau_3\,P_\boldsymbol{k}` be unitary, that is spelled as
 
-.. math::
 
-
- and leads to the Bogoluibov analysis and transformation [3]_
+and leads to the Bogoluibov analysis and transformation [3]_.
 
 
 

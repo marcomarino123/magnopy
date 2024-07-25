@@ -34,8 +34,7 @@ Methods and algorithms
   magnetic-BZ
   bogoliubov
   diagonalisation
-  hp-cubic-terms
-  hp-biquadratic-terms
+  hp-higher-order
 
 .. toctree::
   :maxdepth: 1

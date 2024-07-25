@@ -108,11 +108,11 @@ Let be the following bilinear Hamiltonian
 
 .. math::
   \boldsymbol{H}_\boldsymbol{k}^{BL}&\,=\,
-  -\frac{\eta}{2}\,Tr(T)+\frac{1}{2}\,\boldsymbol{\cal{C}}_\boldsymbol{k}^+\,
+  \frac{\eta}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})+\frac{1}{2}\,\boldsymbol{\cal{C}}_\boldsymbol{k}^+\,
   \cal{\boldsymbol{H}}_\boldsymbol{k}\,\boldsymbol{\cal{C}}_\boldsymbol{k}\\
   \cal{\boldsymbol{H}}_\boldsymbol{k}&\,=\,
   \begin{pmatrix}\boldsymbol{T}_\boldsymbol{k}&\boldsymbol{\Delta}_\boldsymbol{k}\\
-                  \boldsymbol{\Delta}_\boldsymbol{k}^\dagger&\eta\,\boldsymbol{T}_{\boldsymbol{-k}}^*
+                  \boldsymbol{\Delta}_\boldsymbol{k}^\dagger&-\eta\,\boldsymbol{T}_{\boldsymbol{-k}}^*
   \end{pmatrix}
 
 We perform a basis transformation oriented to diagonalize the Hamiltonian. Then
@@ -129,11 +129,13 @@ We perform a basis transformation oriented to diagonalize the Hamiltonian. Then
   \boldsymbol{\Gamma}_\boldsymbol{k}^\dagger\,
   \boldsymbol{\cal E}_\boldsymbol{k}\,\boldsymbol{\Gamma}_\boldsymbol{k}
 
-meaning that we require the matrix :math:`\boldsymbol{\cal E}_\boldsymbol{k}` to be diagonal. Here
+meaning that we require the matrix :math:`\boldsymbol{\cal E}_\boldsymbol{k}` to be diagonal, and
+:math:`\boldsymbol{\Gamma}_\boldsymbol{k}` is destroys eigenstates of the Hamiltomian, that we call
+quasi-particles. Here
 
 .. math::
   \boldsymbol{\cal M}_\boldsymbol{k}&\,=\,\tau_\eta\,\cal{\boldsymbol{H}}_\boldsymbol{k}\\
-  \boldsymbol{\cal D}_\boldsymbol{k}&\,=\,P_\boldsymbol{k}^{-1}\,\cal{\boldsymbol{M}}_\boldsymbol{k}\\
+  \boldsymbol{\cal D}_\boldsymbol{k}&\,=\,P_\boldsymbol{k}^{-1}\,\cal{\boldsymbol{M}}_\boldsymbol{k}\,P_\boldsymbol{k}\\
   \boldsymbol{\cal E}_\boldsymbol{k}&\,=\,\tau_\eta\,\boldsymbol{\cal D}_\boldsymbol{k}
 
 The dynamic matrix
@@ -141,7 +143,7 @@ The dynamic matrix
 .. math::
   \boldsymbol{\cal M}_\boldsymbol{k}\,=\,
   \begin{pmatrix}\boldsymbol{T}_\boldsymbol{k}&\boldsymbol{\Delta}_\boldsymbol{k}\\
-                  \eta\,\boldsymbol{\Delta}_\boldsymbol{k}^\dagger&\boldsymbol{T}_{\boldsymbol{-k}}^*
+                  \eta\,\boldsymbol{\Delta}_\boldsymbol{k}^\dagger&-\boldsymbol{T}_{\boldsymbol{-k}}^*
   \end{pmatrix}
 
 is hermitian for fermions but not for bosons. If
@@ -153,21 +155,24 @@ then
       \begin{pmatrix}
         \boldsymbol{\omega}_\boldsymbol{k}&0\\0&-\boldsymbol{\omega}_{-\boldsymbol{k}}
       \end{pmatrix}\\\\
+  \boldsymbol{\cal E}_\boldsymbol{k}&\,=\,
+      \begin{pmatrix}
+        \boldsymbol{\omega}_\boldsymbol{k}&0\\0&-\eta\,\boldsymbol{\omega}_{-\boldsymbol{k}}
+      \end{pmatrix}\\\\
    \boldsymbol{\omega}_\boldsymbol{k}&\,=\,
    diag(\omega_{\boldsymbol{k},1},\,\omega_{\boldsymbol{k},2},\,\cdots,\,\omega_{\boldsymbol{k},m})
 
-and the dynamic matrix is made of the eigenvectors of :math:`\boldsymbol{\cal D}_\boldsymbol{k}`:
+and the dynamic matrix is made of the eigenvectors of :math:`\boldsymbol{\cal M}_\boldsymbol{k}`:
 
 .. math::
-  \boldsymbol{\cal D}_\boldsymbol{k}=
+  P_\boldsymbol{k}=
     (\boldsymbol{v}(\omega_{\boldsymbol{k},1}),\,\,\cdots,\,\boldsymbol{v}(\omega_{\boldsymbol{k},m}),\,
     \boldsymbol{v}(-\omega_{-\boldsymbol{k},1}),\,\cdots,\,\boldsymbol{v}(-\omega_{-\boldsymbol{k},m}))
 
-with normalization condition
+whose normalization condition
 
 .. math::
-  \boldsymbol{\cal D}_\boldsymbol{k}^\dagger\,\tau_\eta\,\boldsymbol{\cal D}_\boldsymbol{k}\,=\,
-    \begin{pmatrix}1&0\\0&-\eta\end{pmatrix}
+  P_\boldsymbol{k}^\dagger\,\tau_\eta\,P_\boldsymbol{k}\,=\,\tau_\eta
 
 ========================
 Diagonalized Hamiltonian
@@ -175,14 +180,20 @@ Diagonalized Hamiltonian
 The Hamiltonian can be manipulated to look as
 
 .. math::
-  \boldsymbol{H}_\boldsymbol{k}^{BL}\,=\,
-  -\frac{\eta}{2}\,Tr(T)+\frac{1}{2}\,\boldsymbol{\Gamma}_\boldsymbol{k}^\dagger\,
-  \boldsymbol{\cal E}_\boldsymbol{k}\,\boldsymbol{\Gamma}_\boldsymbol{k}\,=\,
-  -\frac{\eta}{2}\,Tr(T)
+  \boldsymbol{H}_\boldsymbol{k}^{BL}&\,=\,
+  \frac{\eta}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})
+  +\frac{1}{2}\,\boldsymbol{\Gamma}_\boldsymbol{k}^\dagger\,
+  \boldsymbol{\cal E}_\boldsymbol{k}\,\boldsymbol{\Gamma}_\boldsymbol{k}\\
+  &\,=\,
+  \frac{\eta}{2}\,Tr(T-\boldsymbol{\omega}_{\boldsymbol{-k}})
   +\frac{1}{2}\,\Gamma_\boldsymbol{k}^\dagger\,\boldsymbol{\omega}_\boldsymbol{k}\,\Gamma_\boldsymbol{k}
   +\frac{1}{2}\,\Gamma_{\boldsymbol{-k}}^\dagger\,\boldsymbol{\omega}_{\boldsymbol{-k}}\,\Gamma_{\boldsymbol{-k}}
 
-==========
+Notice that the above expression yields an additional quantum renormalization of the classical energy beyond the term
+:math:`E^{QC-LSWT}=\frac{\tau}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})` given by the new term
+:math:`\frac{-\eta}{2}\,Tr(\boldsymbol{\omega}_{\boldsymbol{-k}})` that is called "condensation energy" within the
+BCS community.
+
 References
 ==========
 
@@ -191,9 +202,9 @@ References
        arXiv:0908.0787v1.
 
 .. [2] Terumichi Ohashi, Shingo Kobayashi, and Yuki Kawaguchi.
-	     Generalized Berry phase for a bosonic Bogoliubov system with
-	     exceptional points.
+	     Generalized Berry phase for a bosonic Bogoliubov system with exceptional points.
 	     Phys. Rev. A 101, 013625 (2020).
 
-.. [3] Bogoliubov
-       Bla bla
+.. [3] N. N. Bogoliubov
+       On the theory of superfluidity.
+       J. Phys. (USSR) 11, 23 (1947).

@@ -162,7 +162,7 @@ with
      e^{i\,\boldsymbol{k}\cdot \boldsymbol{d_{ij}}}
 
 By defining :math:`T_{ii}^\nu=\sum_j E_{ij}^\nu` and extending the sum to include the
-elements Math:`i=j`, the above Hamiltonian is finally rewritten as
+elements :math:`i=j`, the above Hamiltonian is finally rewritten as
 and arranging all Hamiltonian matrix elements as
 
 .. math::
@@ -179,7 +179,9 @@ and arranging all Hamiltonian matrix elements as
   \,a_{-(\boldsymbol{k}+\nu\,\boldsymbol{q}), i}^\dagger
   \Big)
 
-.. dropdown:: Hopping mattrix elements
+WARNING: I CANNOT FIND MY NOTES FOR THE EQUATIONS BELOW, CANNOT CHECK THEM NOW!!!
+
+.. dropdown:: Hopping matrix elements
 
   .. include:: hopping.txt
 

@@ -193,4 +193,4 @@ The LSWT Hamiltonian reduces in this way to a conventional BCS-like form
 
 The above Hamiltonian may not always be diagonzalized as will discussed in the next
 :ref:`section <user-guide_methods_bogoliubov>`. Whenever the diagonalization is possible the resulting spin-wave
-dispersion relation corresponds to a single band in the MBZ, that is folded to :math:´M_q` bands in the PBZ.
+dispersion relation corresponds to a single band in the MBZ, that is folded to :math:`M_q` bands in the PBZ.

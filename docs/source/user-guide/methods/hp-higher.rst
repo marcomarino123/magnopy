@@ -1,4 +1,4 @@
-.. _user-guide_methods_hp-higher-order:
+.. _user-guide_methods_hp-higher:
 
 *******************========******************************
 Higher-order pieces of the Holstein-Primakoff Hamiltonian

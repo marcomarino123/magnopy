@@ -33,7 +33,7 @@ Methods and algorithms
   lswt/index
   magnetic-BZ
   bogoliubov
-  hp-higher-order
+  hp-higher
 
 .. toctree::
   :maxdepth: 1

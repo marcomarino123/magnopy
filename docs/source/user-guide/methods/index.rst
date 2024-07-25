@@ -33,7 +33,6 @@ Methods and algorithms
   lswt/index
   magnetic-BZ
   bogoliubov
-  diagonalisation
   hp-higher-order
 
 .. toctree::

@@ -37,6 +37,14 @@ Methods and algorithms
 
 .. toctree::
   :maxdepth: 1
+  :caption: Examples
+
+  gamma-point
+  staggered
+  spiral
+
+.. toctree::
+  :maxdepth: 1
   :caption: Schwinger bosons
 
   schwinger-bosons

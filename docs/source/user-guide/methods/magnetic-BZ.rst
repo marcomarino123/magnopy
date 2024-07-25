@@ -183,8 +183,8 @@ The LSWT Hamiltonian reduces in this way to a conventional BCS-like form
 .. math::
   {\cal H}^{LSWT}=&E^{QC-LSWT}+\frac{1}{2\,M_q}\,\sum_{\boldsymbol{k}}\,
   \begin{pmatrix}{\boldsymbol B}(\boldsymbol{k})^\dagger &\boldsymbol{\tilde{\cal B}}(\boldsymbol{-k})\end{pmatrix}\,
-  \begin{pmatrix}   \boldsymbol{T}(\boldsymbol{k})   &  (\boldsymbol{\Delta}(\boldsymbol{k}))^\dagger  \\
-                    \boldsymbol{\Delta}(\boldsymbol{k})  &  (\boldsymbol{T}(\boldsymbol{-k}))^*
+  \begin{pmatrix}   \boldsymbol{T}(\boldsymbol{k})   &  \boldsymbol{\Delta}(\boldsymbol{k})^\dagger  \\
+                    \boldsymbol{\Delta}(\boldsymbol{k})  &  \boldsymbol{T}(\boldsymbol{-k})^*
   \end{pmatrix}\,
   \begin{pmatrix} {\boldsymbol B}(\boldsymbol{k})  \\  \boldsymbol{\tilde{\cal B}}(\boldsymbol{-k})^\dagger \end{pmatrix}
   \\=&

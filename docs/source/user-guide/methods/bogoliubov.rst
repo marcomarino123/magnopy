@@ -144,7 +144,7 @@ The dynamic matrix
                   \eta\,\boldsymbol{\Delta}_\boldsymbol{k}^\dagger&\boldsymbol{T}_{\boldsymbol{-k}}^*
   \end{pmatrix}
 
-is not hermitian if :math:`\eta=-1`, e.g.: for bosons. If
+is hermitian for fermions but not for bosons. If
 :math:`\boldsymbol{\cal M}_\boldsymbol{k}` is diagonalizable by :math:`P_\boldsymbol{k}`
 then
 

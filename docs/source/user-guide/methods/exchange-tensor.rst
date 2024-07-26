@@ -20,7 +20,7 @@ The exchange tensor introduced in the previous section can be decomposed as foll
 
 .. math::
   ^{sf}\boldsymbol{\tilde{J}_{\boldsymbol{d}ij}}=&
-    \braket{\,f_i^+\,f_i^-\,f_i\,|\,\tilde{J}_{\boldsymbol{d}ij}\,|\,f_i^+\,f_i^-\,f_i\,}
+    \braket{\,f_i^+\,f_i^-\,f_i\,|\,\tilde{J}_{\boldsymbol{d}ij}\,|\,f_j^+\,f_j^-\,f_j\,}
     \\\\
      =&\braket{\,f_i^+\,f_i^-\,f_i\,|\,n^+\,n^-\,n\,}\,
        \braket{\,n^+\,n^-\,n\,|\boldsymbol{R_m}^\dagger\,|\,n^+\,n^-\,n\,}\,

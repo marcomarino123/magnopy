@@ -185,7 +185,7 @@ The Hamiltonian can be manipulated to look as
   +\frac{1}{2}\,\boldsymbol{\Gamma}_\boldsymbol{k}^\dagger\,
   \boldsymbol{\cal E}_\boldsymbol{k}\,\boldsymbol{\Gamma}_\boldsymbol{k}\\
   &\,=\,
-  \frac{\eta}{2}\,Tr(T-\boldsymbol{\omega}_{\boldsymbol{-k}})
+  \frac{\eta}{2}\,Tr(T_{\boldsymbol{k}}-\boldsymbol{\omega}_{\boldsymbol{-k}})
   +\frac{1}{2}\,\Gamma_\boldsymbol{k}^\dagger\,\boldsymbol{\omega}_\boldsymbol{k}\,\Gamma_\boldsymbol{k}
   +\frac{1}{2}\,\Gamma_{\boldsymbol{-k}}^\dagger\,\boldsymbol{\omega}_{\boldsymbol{-k}}\,\Gamma_{\boldsymbol{-k}}
 

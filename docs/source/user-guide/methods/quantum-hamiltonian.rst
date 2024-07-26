@@ -90,7 +90,7 @@ terms are dropped, that is equivalent to dropping terms beyond :math:`1/S^2`
 in the Hamiltonian. Then
 
 .. math::
-  {\cal H}^{exchange}
+  {\cal H}_{exc}
   =
   E^0 + {\cal H}^{LSWT} + {\cal H}^{Cubic} + {\cal H}^{Biquadratic}
 

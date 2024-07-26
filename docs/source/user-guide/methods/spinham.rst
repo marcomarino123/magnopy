@@ -158,6 +158,19 @@ Spin Hamiltonian
 
   by defining :math:`\dfrac{1}{2}\,^z\boldsymbol{J}_{\boldsymbol{0},ii}\,=\,^z\boldsymbol{A}_i`
 
+* The exchange part of the above Hamiltonian is
+
+  .. math::
+    H_{exc}\,=\,\dfrac{1}{2}
+    \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
+    ^z\boldsymbol{S}_{mi}^\dagger\,
+    ^z\boldsymbol{J}_{\boldsymbol{d}ij}\,
+    ^z\boldsymbol{S}_{m+d_{ij},j}
+
+* The Zeeman part of the Hamiltonian is
+
+  .. math::
+    H_{Z}\,=\,\mu_B\,^z\boldsymbol{h}^\dagger\,\sum_{m,i}\,g_i \,^z\boldsymbol{S}_{mi}
 
 * The exchange tensors obey the following symmetry property, that ensures that the spin
   Hamiltonian is hermitian:

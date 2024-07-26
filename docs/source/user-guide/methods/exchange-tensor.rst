@@ -47,7 +47,7 @@ in small steps, starting from the pristine exchange matrix
         J_{\boldsymbol{d}ij}^{nu} & J_{\boldsymbol{d}ij}^{nv} & J_{\boldsymbol{d}ij}^{nn} \\
       \end{pmatrix}
 
-that was introduced, calculated and discussed :ref:´here <user-guide_methods_uvn-rf>`.
+that was introduced, calculated and discussed :ref:`here <user-guide_methods_uvn-rf>`.
 These small steps consist of determining the intermediate exchange tensors
 
 .. math::
@@ -172,13 +172,14 @@ The exchange tensor matrix elements are defined as follows
 Here, the different matrix elements are
 
 .. math::
-  \tilde{J}_{d_{ij}}^{f,\alpha\,\beta}=\braket{\,f^\alpha\,|\,\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\,f^\beta\,}
+  \tilde{J}_{d_{ij}}^{f,\alpha\,\beta}=\braket{\,f_i^\alpha\,|\,\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\,f_j^\beta\,}
           =(^{sn}\boldsymbol{\hat{f}_i^\alpha})^\dagger\,
           ^{sn}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,^{sn}\boldsymbol{\hat{f}_i^\beta}
           =\sum_{\nu=0,\pm 1,\pm 2}\,\tilde{J}_{\boldsymbol{d}ij}^{f\nu,\alpha\beta}\,\,\,
               e^{i\,\nu\,\boldsymbol{q} \cdot \boldsymbol{r}_m}
 
-where
+where the spherical local vector coordinates :math:`^{sn}\boldsymbol{\hat{f}_i^\alpha}` have been written
+down explicitly in the :ref:`spherical reference frames section <user-guide_methods_spherical-rf>`.
 
 .. math::
   \tilde{J}_{\boldsymbol{d}ij}^{f\nu,\alpha\beta}\,=\,
@@ -189,3 +190,14 @@ and the sub-indices :math:`\alpha,\,\beta` run over :math:`+,\,-,\,0`.
 
 The explicit expressions for these matrix elements are provided in the
 following :ref:`section <user-guide_methods_matrix-elements>`.
+
+.. important::
+  Notice that the first superindex :math:`\alpha` in the matrix elements
+  :math:`\tilde{J}_{d_{ij}}^{f,\alpha\,\beta}` and
+  :math:`\tilde{J}_{\boldsymbol{d}ij}^{f\nu,\alpha\beta}` comes from the dual vector
+  :math:`\bra{\,f_i^\alpha\,}` and hence refers to the local basis at site :math:`i`,
+  while the second superindex :math:`\beta` comes from the vector
+  :math:`\ket{\,f_j^\beta\,}` and therefore refers to the local basis at site :math:`j`.
+
+
+  .. math::

@@ -57,3 +57,13 @@ Similarly, the bi-quadratic piece of the Spin-Wave Hamiltonian can be rewritten 
   \,a_{-\boldsymbol{k_2}+\boldsymbol{p},j}\,
   a_{\boldsymbol{k_2},j}\,a_{\boldsymbol{k_1},i}
   \right)\,+\,h.c.\right)
+
+Here, the coupling constants are
+
+.. math::
+  D_{ij}^{1,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,00}
+                                  e^{i\,(\boldsymbol{k_1}-\boldsymbol{k_3})}\\
+  D_{ij}^{2,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,++}\,
+                                  e^{-i\,(\boldsymbol{k_1}+\nu\,\boldsymbol{q})}\\
+  D_{ij}^{3,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,+-}\,
+                                  e^{-i\,(\boldsymbol{k_1}+\nu\,\boldsymbol{q})}

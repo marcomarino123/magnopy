@@ -19,7 +19,7 @@ Hamiltonian
 The Spin Hamiltonian is
 
 .. math::
-  H =
+  H \,=\,H_{exc}+H_Z\,=\,
    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
    \braket{\,S_{mi}\,|\, \boldsymbol{J}_{\boldsymbol{d}ij}\,|\, S_{m+d_{ij},j}\, }
    + \mu_B \sum_{m,i}\, g_i\,\braket{\,h\,|\, S_{mi}\,}
@@ -36,15 +36,15 @@ tensor
 Then,
 
 .. math::
-  H =&
+  H_{exc} \,=\,&
    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}
-   \braket{\,\tilde{S}_{mi}\,|\, \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\, \tilde{S}_{m+d_{ij},j}\, }
-   + \mu_B \sum_{m,i}\, g_i\,\braket{\,h\,|\, \boldsymbol{R_m}\,|\,\tilde{S}_{mi}\,}\\
-    =&
-   \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
+   \braket{\,\tilde{S}_{mi}\,|\, \boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,|\, \tilde{S}_{m+d_{ij},j}\, }\,=\,
+    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
    ^{sf}\boldsymbol{\tilde{S}_{mi}}\,^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
-   ^{sf}\boldsymbol{\tilde{S}_{m+d_{ij},j}}
-   + \mu_B \sum_{m,i}\, g_i\,^{sf}\boldsymbol{h}\, ^{sf}\boldsymbol{R_m}\,^{sf}\boldsymbol{\tilde{S}_{mi}}
+   ^{sf}\boldsymbol{\tilde{S}_{m+d_{ij},j}}\\
+  H_Z  \,=\,&
+     \mu_B \sum_{m,i}\, g_i\,\braket{\,h\,|\, \boldsymbol{R_m}\,|\,\tilde{S}_{mi}\,}
+   \,=\, \mu_B \sum_{m,i}\, g_i\,^{sf}\boldsymbol{h}\, ^{sf}\boldsymbol{R_m}\,^{sf}\boldsymbol{\tilde{S}_{mi}}
 
 
 The exchange tensor :math:`^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}` is described in the next section.

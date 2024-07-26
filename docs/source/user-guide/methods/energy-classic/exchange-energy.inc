@@ -2,7 +2,7 @@ We have shown in the previous :ref:`section <user-guide_methods_spinham>` that t
 exchange part of the Hamiltonian can be written as follows
 
 .. math::
-    H_{x}\, =\,
+    H_{exc}\, =\,
    \dfrac{1}{2} \sum_{m, \boldsymbol{d}_{ij}, i, j}\,
    ^{sf}\boldsymbol{\tilde{S}_{mi}}\,^{sf}\boldsymbol{\tilde{J}}_{\boldsymbol{d}ij}\,
    ^{sf}\boldsymbol{\tilde{S}_{m+d_{ij},j}}
@@ -20,7 +20,7 @@ Here, the m-summation affects only the phases
 contribution to the energy becomes
 
 .. math::
-  E^0_x=
+  E^0_{exc}=
   \dfrac{M}{2}
   \sum_{\boldsymbol{d}_{ij}, i, j}\,S_i\,S_j\,
     \left(^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,0}
@@ -55,7 +55,7 @@ contribution to the energy becomes
 The exchange energy per unit cell can therefore be split as follows
 
 .. math::
-  \frac{E_x^0}{M}
+  \frac{E_{exc}^0}{M}
   =
   E^{(0)}
   +

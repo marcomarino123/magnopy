@@ -35,7 +35,7 @@ Inserting the spin vector
 The Zeeman contribution to the energy per unit cell is found to be
 
 .. math::
-  \frac{E_z^0}{M}
+  \frac{E_Z^0}{M}
   =
   \mu_B\, \sum_i\, g_i\, S_i\,
   \left[

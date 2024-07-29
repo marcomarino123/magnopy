@@ -107,22 +107,43 @@ whereby the LSWT magnon dispersion relationship is
 .. math::
   \omega(\boldsymbol{k})=S\,\left(\,2\,A+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
 
-======================================
-Higher-order pieces of the Hamiltonian
-======================================
+===============================================================
+Higher-order pieces of the Hamiltonian for the single-atom case
+===============================================================
 
-The bosonic cubic term in the SWT Hamiltonian is
-
-.. include:: repeated-formulas/hamiltonian-hp-expansion-cubic-part.inc
-
-where
+The bosonic cubic term in the SWT Hamiltonian has been written explicitly :ref:`here <user-guide_methods_hp-higher>`,
+where the coupling constants for the single-atom case are
 
 .. math::
-  C_{ij}^{1,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,+0}\\
-  C_{ij}^{2,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,+0}\,
-                                  e^{-i\,(\boldsymbol{k_1}+\nu\,\boldsymbol{q})}
+  C^{1,\nu}(\boldsymbol{q})&=J_{\boldsymbol{d}_{ij}}^{f\nu,+0}(\boldsymbol{q=0})
+            =\sqrt{2}\,(A^{xz} - i\, A^{yz})+\frac{1}{\sqrt{2}}\,\left(J^{xz}(\boldsymbol{q}=0)-i \,J^{yz}(\boldsymbol{q}=0)\right) \\
+  C^{2,\nu}(\boldsymbol{q})&= J_{\boldsymbol{d}_{ij}}^{f\nu,+0}(\boldsymbol{q})=
+            \sqrt{2}\,(A^{xz}+i\, A^{yz})+\frac{1}{\sqrt{2}}\,\left(J^{xz}(\boldsymbol{q})-i \,J^{yz}(\boldsymbol{q})\right)
 
 These two coupling constants are zero if there exists a single atom per unit cell, and
 :math:`J^{xz}=J^{yz}=A^{xz}=A^{yz}=0`, so that :math:`H^{Cubic}=0`.
 
-The bosonic biquadratic piece of the SWT Hamiltonian is
+The bosonic biquadratic has also been written :ref:`here <user-guide_methods_hp-higher>`, where the three coupling constants for
+a single atom per unit cell are
+
+.. math::
+  D^{1,\nu}(\boldsymbol{q})&= J^{f\nu,00}(\boldsymbol{q})=J^{zz}(\boldsymbol{q})\\
+  D^{2,\nu}(\boldsymbol{q})&= J^{f\nu,++}(\boldsymbol{q})=A^{xx}+A^{yy}+
+                                    \frac{J^{xx}(\boldsymbol{q})+J^{yy}(\boldsymbol{q})}{2}+i\,D^z(\boldsymbol{q})\\
+  D^{3,\nu}(\boldsymbol{q})&= J^{f\nu,+-}(\boldsymbol{q})=A^{xx}-A^{yy}-2\,i\,A^{xy}+
+                                    \frac{J^{xx}(\boldsymbol{q})-J^{yy}(\boldsymbol{q})-
+                                    i\,\left(J^{xy}(\boldsymbol{q})+J^{yx}(\boldsymbol{q})\right)}{2}
+
+We assume now that :math:`J^{xx}=J^{yy}` and :math:`J^{xy}=A^{xy}=D^z=0`. Then
+
+.. math::
+  D^{1,\nu}(\boldsymbol{q})&=J^{zz}(\boldsymbol{q})\\
+  D^{2,\nu}(\boldsymbol{q})&=2\,A^{xx}+J^{xx}(\boldsymbol{q})\\
+  D^{3,\nu}(\boldsymbol{q})&=0
+
+As a consequence, the interacting biquadratic Hamiltonian becomes
+
+.. math::
+  H^{Biquadratic}=\frac{1}{2\,M}\,\sum_{\boldsymbol{k1},\boldsymbol{k2},\boldsymbol{p}}\,\left(J^{zz}(\boldsymbol{p})-2\,A^{xx}-
+                      \frac{J^{xx}(\boldsymbol{k1})+J^{xx}(\boldsymbol{k1+p})}{2}\right)\,
+                      a_{\boldsymbol{k1+p}}^\dagger\,a_{\boldsymbol{k2-p}}^\dagger\,a_{\boldsymbol{k2}}\,a_{\boldsymbol{k1}}

@@ -27,7 +27,7 @@ and the Hamiltonian rewritten as
   a_{\boldsymbol{k_1}+\boldsymbol{k_2}+\nu\,\boldsymbol{q},j}^\dagger
   \,a_{\boldsymbol{k_2},j}\,a_{\boldsymbol{k_1},i}\right) + h.c.
 
-where :math:`h.c.` mean hermitian conjugate, and the coupling constants are
+where :math:`h.c.` means hermitian conjugate, and the coupling constants are
 
 .. math::
   C_{ij}^{1,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,+0}\\

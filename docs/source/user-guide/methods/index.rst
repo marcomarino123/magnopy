@@ -39,6 +39,7 @@ Methods and algorithms
   :maxdepth: 1
   :caption: Examples
 
+  examples/explanation
   examples/gamma-point
   examples/staggered
   examples/spiral

@@ -237,3 +237,11 @@ rst_epilog += "\n".join(
         [i for i in custom_links],
     )
 )
+
+###########
+## Jaime ##
+###########
+mathjax3_config = {
+    "loader": {"load": ["[tex]/physics"]},
+    "tex": {"packages": {"[+]": ["physics"]}},
+}

@@ -73,7 +73,7 @@ cone axis, that describe the spiral ground state of the spin Hamiltonian.
           * ``alpha beta`` - polar (:math:`\alpha`) and
             azimuthal (:math:`\beta`) angles of the cone axis. Two angles, that
             define the direction of the global rotation axis as described
-            :ref:`here <user-guide_methods_uvn>`. The order is fixed.
+            :ref:`here <user-guide_methods_uvn-rf>`. The order is fixed.
 
             .. math::
               \boldsymbol{\hat{n}}

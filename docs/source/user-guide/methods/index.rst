@@ -39,9 +39,9 @@ Methods and algorithms
   :maxdepth: 1
   :caption: Examples
 
-  gamma-point
-  staggered
-  spiral
+  examples/gamma-point
+  examples/staggered
+  examples/spiral
 
 .. toctree::
   :maxdepth: 1

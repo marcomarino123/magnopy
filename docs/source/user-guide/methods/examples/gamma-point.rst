@@ -48,8 +48,7 @@ with
 The classical energy is in this case
 
 .. math::
-  E_{Cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,
-  	\left(J_{\boldsymbol{d}ij}^{zz} + 2 \,\delta_{i,j}\,\delta_{\boldsymbol{d}_{ij},0}\,A_i^{zz}\right)
+  E_{Cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,J_{\boldsymbol{d}ij}^{zz} + \sum_i\,A_i^{zz}\,S_i^2
 
 We introduce the notation
 
@@ -60,7 +59,7 @@ We introduce the notation
 Then, the kinetic and pairing terms of the Hamiltonian are
 
 .. math::
-  T_{ij}(\boldsymbol{k})&\,=\,\delta_{ij}\,\left(\left(A_i^{xx}+A_i^{yy}+2\,A_i^{zz}\right)\,S_i-
+  T_{ij}(\boldsymbol{k})&\,=\,\delta_{ij}\,\left(\left(A_i^{xx}+A_i^{yy}-2\,A_i^{zz}\right)\,S_i-
   				 \sum_{\boldsymbol{d}_{ij'}, j'} S_{j'}\,J_{\boldsymbol{d}ij'}^{zz}\right)+
   				 \left(S_i\,S_j\right)^{1/2}\,
   				 \left(\frac{J^{xx}_{\boldsymbol{d}ij}(\boldsymbol{k})+
@@ -86,26 +85,31 @@ and the Hamiltonian is
 =============================================================
 Simplification: single atom per unit cell with spin :math:`S`
 =============================================================
-A notation simplification happens because the :math:`i\, j` sub-indices dissapear.
+A notation simplification happens because the :math:`i` and :math:`j` sub-indices dissapear.
+The classical energy is
+
+.. math::
+   E_{Cl} = M\,S^2\,\left(\frac{1}{2}\,\sum_{\boldsymbol{d}} \,J_{\boldsymbol{d}}^{zz} + A^{zz}\right)
+
 The kinetic and pairing terms simplify to
 
 .. math::
-  \frac{T(\boldsymbol{k})}{S}&\,=\,A^{xx}+A^{yy}+
+  \frac{T(\boldsymbol{k})}{S}&\,=\,A^{xx}+A^{yy}-2\,A^{zz}+
   \frac{J^{xx}(\boldsymbol{k})+J^{yy}(\boldsymbol{k})}{2}-J^{zz}(\boldsymbol{k=0})-i D^z(\boldsymbol{k})\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=\,A^{xx}-A^{yy}-2 i A^{xy}+
   \frac{J^{xx}(\boldsymbol{k})-J^{yy}(\boldsymbol{k})}{2}-i J^{xy}(\boldsymbol{k})
 
-A last simpification comes about if :math:`J^{xx}=J^{yy}`, :math:`A^{xx}=A^{yy}=A`, and
+A last simpification comes about if :math:`J^{xx}=J^{yy}`, :math:`A^{xx}=A^{yy}`, and
 :math:`J^{xy}=D^z=A^{xy}=0`. Then
 
 .. math::
-  \frac{T(\boldsymbol{k})}{S}&\,=\,2\,A+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\\
+  \frac{T(\boldsymbol{k})}{S}&\,=\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=0
 
 whereby the LSWT magnon dispersion relationship is
 
 .. math::
-  \omega(\boldsymbol{k})=S\,\left(\,2\,A+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+  \omega(\boldsymbol{k})=S\,\left(\,2\,(A^{xx}+A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
 
 ===============================================================
 Higher-order pieces of the Hamiltonian for the single-atom case
@@ -123,8 +127,8 @@ where the coupling constants for the single-atom case are
 These two coupling constants are zero if there exists a single atom per unit cell, and
 :math:`J^{xz}=J^{yz}=A^{xz}=A^{yz}=0`, so that :math:`H^{Cubic}=0`.
 
-The bosonic biquadratic has also been written :ref:`here <user-guide_methods_hp-higher>`, where the three coupling constants for
-a single atom per unit cell are
+The bosonic biquadratic has also been written :ref:`here <user-guide_methods_hp-higher>`, where the
+three coupling constants and on-site exchange tensors for a single atom per unit cell are
 
 .. math::
   D^{1,\nu}(\boldsymbol{q})&= J^{f\nu,00}(\boldsymbol{q})=J^{zz}(\boldsymbol{q})\\
@@ -132,18 +136,34 @@ a single atom per unit cell are
                                     \frac{J^{xx}(\boldsymbol{q})+J^{yy}(\boldsymbol{q})}{2}+i\,D^z(\boldsymbol{q})\\
   D^{3,\nu}(\boldsymbol{q})&= J^{f\nu,+-}(\boldsymbol{q})=A^{xx}-A^{yy}-2\,i\,A^{xy}+
                                     \frac{J^{xx}(\boldsymbol{q})-J^{yy}(\boldsymbol{q})-
-                                    i\,\left(J^{xy}(\boldsymbol{q})+J^{yx}(\boldsymbol{q})\right)}{2}
+                                    i\,\left(J^{xy}(\boldsymbol{q})+J^{yx}(\boldsymbol{q})\right)}{2}\\
+  J^{f\nu,00}_{\boldsymbol{d}_{ii}=0}&=2 \,A^{zz}\\
+  J^{f\nu,00}_{\boldsymbol{d}_{ii}=0}&=A^{xx}-A^{yy}-2\,i\,A^{xy}
 
 We assume now that :math:`J^{xx}=J^{yy}` and :math:`J^{xy}=A^{xy}=D^z=0`. Then
 
 .. math::
   D^{1,\nu}(\boldsymbol{q})&=J^{zz}(\boldsymbol{q})\\
   D^{2,\nu}(\boldsymbol{q})&=2\,A^{xx}+J^{xx}(\boldsymbol{q})\\
-  D^{3,\nu}(\boldsymbol{q})&=0
+  D^{3,\nu}(\boldsymbol{q})&=0\\
+  J^{f\nu,00}_{\boldsymbol{d}_{ii}=0}&=2 \,A^{zz}\\
+  J^{f\nu,++}_{\boldsymbol{d}_{ii}=0}&=2 \,A^{xx}\\
+  J^{f\nu,+-}_{\boldsymbol{d}_{ii}=0}&=0
 
 As a consequence, the interacting biquadratic Hamiltonian becomes
 
 .. math::
-  H^{Biquadratic}=\frac{1}{2\,M}\,\sum_{\boldsymbol{k1},\boldsymbol{k2},\boldsymbol{p}}\,\left(J^{zz}(\boldsymbol{p})-2\,A^{xx}-
-                      \frac{J^{xx}(\boldsymbol{k1})+J^{xx}(\boldsymbol{k1+p})}{2}\right)\,
-                      a_{\boldsymbol{k1+p}}^\dagger\,a_{\boldsymbol{k2-p}}^\dagger\,a_{\boldsymbol{k2}}\,a_{\boldsymbol{k1}}
+  H^{Biquadratic}=
+       & (A^{zz}-A^{xx})\,\sum_{\boldsymbol{k}}\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\\
+       &+ \frac{1}{2\,M}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,\left(J^{zz}(\boldsymbol{p})-2\,A^{xx}-
+                      \frac{J^{xx}(\boldsymbol{k_1})+J^{xx}(\boldsymbol{k_1+p})}{2}\right)\,
+                      a_{\boldsymbol{k_1+p}}^\dagger\,a_{\boldsymbol{k_2-p}}^\dagger\,a_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}
+
+=============================
+Renormalized Spin Wave Theory
+=============================
+
+The full interacting Hamiltonian becomes
+
+.. math::
+  H=S\,\sum_{\boldsymbol{k}}\,\left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)

@@ -14,7 +14,7 @@ Cubic Spin-Wave Hamiltonian
 ===========================
 The cubic piece of the Spin-Wave Hamiltonian introduced
 :ref:`previously <user-guide_methods_quantum-hamiltonian>` can be Fourier-transformed
-and the Hamiltonian rewritten as
+and the normal-ordered Hamiltonian is
 
 .. math::
   {\cal H}^{Cubic}=-\frac{1}{M^{1/2}}\, \sum_{i, j,\nu}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2}}\,
@@ -40,8 +40,13 @@ Biquadratic Spin-Wave Hamiltonian
 Similarly, the bi-quadratic piece of the Spin-Wave Hamiltonian can be rewritten as follows:
 
 .. math::
-  {\cal H}^{Biquadratic}\,=\,
-  &\frac{1}{2\,M}\, \sum_{i, j,\nu}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,
+  {\cal H}^{Biquadratic}\,=\,&
+  \frac{1}{2}\, \sum_{i,\nu,\boldsymbol{k}} \left(
+  \left(J_{\boldsymbol{d}_{ii}=0}^{f\nu,00}\,-\,J_{\boldsymbol{d}_{ii}=0}^{f\nu,++}\right)\,
+  a_{\boldsymbol{k}+\nu\,\boldsymbol{q},i}^\dagger\,a_{\boldsymbol{k},i}-
+  \frac{1}{2}\,\left(J_{\boldsymbol{d}_{ii}=0}^{f\nu,+-}\,
+  a_{-(\boldsymbol{k}+\nu\,\boldsymbol{q}),i}\,a_{\boldsymbol{k},i}+h.c.\right)\right)\\
+  &+\frac{1}{2\,M}\, \sum_{i, j,\nu}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,
   \Big( D_{ij}^{1,\nu}(\boldsymbol{p},\boldsymbol{q})\,
   a_{\boldsymbol{k_2}+\boldsymbol{p}+\nu\,\boldsymbol{q},i}^\dagger\,
   a_{\boldsymbol{k_1}-\boldsymbol{p},j}^\dagger\,
@@ -58,7 +63,7 @@ Similarly, the bi-quadratic piece of the Spin-Wave Hamiltonian can be rewritten 
   a_{\boldsymbol{k_2},j}\,a_{\boldsymbol{k_1},i}
   \right)\,+\,h.c.\right)
 
-Here, the coupling constants are
+where normal ordering results in five additional bilinear pieces. Here, the coupling constants are
 
 .. math::
   D_{ij}^{1,\nu}(\boldsymbol{q})&=\sum_{\boldsymbol{d}_{ij}}\, J_{\boldsymbol{d}_{ij}}^{f\nu,00}

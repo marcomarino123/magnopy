@@ -24,7 +24,7 @@ can be rearranged into a tight-binding-like form
   \Big(&
   \,(E_{mdij}+E_{mdij}^*)\,a_{mi}^\dagger\,a_{mi}
   +T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
-  T_{mdij}^*\,a_{m+d_{ij}\,j}^\dagger\,a_{mi}
+  T_{mdij}^*\,a_{mi}\,a_{m+d_{ij}\,j}^\dagger
   \\&+
   \Delta_{mdij}\,b_{m+d_{ij}\,j}\,b_{mi} +
   \Delta_{mdij}^*\,b_{mi}^\dagger\,b_{m+d_{ij}\,j}^\dagger
@@ -65,7 +65,8 @@ Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a con
 LSWT term and higher harmonics as follows
 
 .. math::
-  {\cal H}^{LSWT}=&\sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}\\
+  {\cal H}^{LSWT}=&\frac{M}{2}\,\sum_i \,(T_{\boldsymbol{d}_{ij}=0,ii}^0)^*+
+  \sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}\\
   {\cal H^\nu}=&
     \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}, i, j} \,
    \Big(
@@ -202,7 +203,7 @@ the :math:`I` atoms in a unit cell
 where :math:`t` indicates transpose. The Hamiltonian can be written in compact form as follows
 
 .. math::
-  {\cal H}^{LSWT} &=
+  {\cal H}^{LSWT} &=\frac{M}{2}\,\sum_i \,T_{\boldsymbol{d}_{ij}=0}^0+
     \frac{1}{2}\,\sum_{\nu, \boldsymbol{k}}\,
     \left(B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}^\dagger\,T^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
     +B_\boldsymbol{k}^\dagger\,(T^\nu(\boldsymbol{k}))^\dagger\,B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}

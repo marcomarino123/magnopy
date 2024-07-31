@@ -53,7 +53,7 @@ Let the system size be :math:`M_1\times M_2=M_q M_\parallel \times M_\perp` . Th
     &+
     \frac{1}{2\,M_q}\,\sum_{\nu, n,\boldsymbol{k}}\,
     \Big(&B_{n+\nu}(\boldsymbol{k})^\dagger\,T^\nu_n(\boldsymbol{k})\,B_{n}(\boldsymbol{k})
-    +B_{-(n+\nu)}(-\boldsymbol{k})^\dagger\,T^{-\nu}_{-n}(-\boldsymbol{k})^\dagger\,B_{-n}(-\boldsymbol{k})\\
+    +\tilde{B}_{-(n+\nu)}(-\boldsymbol{k})\,T^{-\nu}_{-n}(-\boldsymbol{k})^\dagger\,\tilde{B}_{-n}(-\boldsymbol{k})^\dagger\\
     &&+
     \tilde{B}_{-(n+\nu)}(-\boldsymbol{k})\,\Delta_n^\nu(\boldsymbol{k})\,B_n(\boldsymbol{k})
     +B_n(\boldsymbol{k})^\dagger\,\Delta_n^\nu(\boldsymbol{k})^\dagger\,

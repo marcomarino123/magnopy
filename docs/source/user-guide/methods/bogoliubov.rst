@@ -181,16 +181,16 @@ The Hamiltonian can be manipulated to look as
 
 .. math::
   \boldsymbol{H}_\boldsymbol{k}^{BL}&\,=\,
-  \frac{\eta}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})
+  E^{QC-LSWT}
   +\frac{1}{2}\,\boldsymbol{\Gamma}_\boldsymbol{k}^\dagger\,
   \boldsymbol{\cal E}_\boldsymbol{k}\,\boldsymbol{\Gamma}_\boldsymbol{k}\\
   &\,=\,
-  \frac{\eta}{2}\,Tr(T_{\boldsymbol{k}}-\boldsymbol{\omega}_{\boldsymbol{-k}})
+  E^{QC-LSWT}-\frac{\eta}{2}\,Tr(T\boldsymbol{\omega}_{\boldsymbol{-k}})
   +\frac{1}{2}\,\Gamma_\boldsymbol{k}^\dagger\,\boldsymbol{\omega}_\boldsymbol{k}\,\Gamma_\boldsymbol{k}
   +\frac{1}{2}\,\Gamma_{\boldsymbol{-k}}^\dagger\,\boldsymbol{\omega}_{\boldsymbol{-k}}\,\Gamma_{\boldsymbol{-k}}
 
 Notice that the above expression yields an additional quantum renormalization of the classical energy beyond the term
-:math:`E^{QC-LSWT}=\frac{\tau}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})` given by the new term
+:math:`E^{QC-LSWT}` given by the new term
 :math:`\frac{-\eta}{2}\,Tr(\boldsymbol{\omega}_{\boldsymbol{-k}})` that is called "condensation energy" within the
 BCS community.
 

@@ -4,6 +4,9 @@
 Gamma-point solution solution with spins lying along the Z-axis
 ***************************************************************
 
+==============================================================
+Exchange tensor :math:`^{sn}\boldsymbol{J}_{\boldsymbol{d}ij}`
+==============================================================
 This kind of solutions narrow the parameter space, since the cone angles
 :math:`\alpha=\beta=0` so that the bases :math:`(\,u\,v\,n\,)\,=\,(\,x\,y\,z\,=`).
 Furthermore, the spiral vector :math:`\boldsymbol{q}=0` and the intracell
@@ -45,20 +48,22 @@ with
   D^z_{\boldsymbol{d}ij}&=\frac{1}{2}\,\left(J^{xy}_{\boldsymbol{d}ij}- J^{yx}_{\boldsymbol{d}ij}\right)\\
   A^{xy,\pm}_i&=\frac{1}{2}\,\left(A^{xx}_i\pm A^{yy}_i\right)
 
+================
+Classical energy
+================
 The classical energy is in this case
 
 .. math::
   E_{Cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,J_{\boldsymbol{d}ij}^{zz} + \sum_i\,A_i^{zz}\,S_i^2
 
-We introduce the notation
+==========
+LSW theory
+==========
+The quantum correction, kinetic and pairing terms of the Hamiltonian are
 
 .. math::
-  J_{ij}^{\alpha\beta}(\boldsymbol{k})= \sum_{\boldsymbol{d}_{ij}}\,
-  		J^{\alpha\beta}_{\boldsymbol{d}ij}\, e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}_{ij}}
-
-Then, the kinetic and pairing terms of the Hamiltonian are
-
-.. math::
+  E^{QC-LSWT} &\,=\,M\,\sum_i\,S_i\,A_i^{zz}+\frac{M}{2}\,
+              \sum_{\boldsymbol{d}_{ij},i, j} S_{j}\,J_{\boldsymbol{d}ij}^{zz}\\\\
   T_{ij}(\boldsymbol{k})&\,=\,\delta_{ij}\,\left(\left(A_i^{xx}+A_i^{yy}-2\,A_i^{zz}\right)\,S_i-
   				 \sum_{\boldsymbol{d}_{ij'}, j'} S_{j'}\,J_{\boldsymbol{d}ij'}^{zz}\right)+
   				 \left(S_i\,S_j\right)^{1/2}\,
@@ -71,10 +76,16 @@ Then, the kinetic and pairing terms of the Hamiltonian are
   				 \left(\frac{J^{xx}_{\boldsymbol{d}ij}(\boldsymbol{k})- J^{yy}_{\boldsymbol{d}ij}(\boldsymbol{k})}{2}
 					-i J^{xy}_{\boldsymbol{d}ij}(\boldsymbol{k})\right)
 
-and the Hamiltonian is
+where we have introduced the notation
 
 .. math::
-  H^{LSWT} = -\frac{1}{2}\,\sum_\boldsymbol{k} \, \boldsymbol{T}(\boldsymbol{k})+
+  J_{ij}^{\alpha\beta}(\boldsymbol{k})= \sum_{\boldsymbol{d}_{ij}}\,
+      J^{\alpha\beta}_{\boldsymbol{d}ij}\, e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}_{ij}}
+
+The LSWT Hamiltonian is
+
+.. math::
+  H^{LSWT} = E^{QC-LSWT}+
   			 \frac{1}{2}\,\sum_\boldsymbol{k}\,\cal{\boldsymbol{B}}(\boldsymbol{k})^\dagger\,
   			 \begin{pmatrix}
   			 \boldsymbol{T}(\boldsymbol{k})&\boldsymbol{\Delta}(\boldsymbol{k})\\
@@ -85,15 +96,16 @@ and the Hamiltonian is
 =============================================================
 Simplification: single atom per unit cell with spin :math:`S`
 =============================================================
-A notation simplification happens because the :math:`i` and :math:`j` sub-indices dissapear.
+A notable simplification happens here because the :math:`i` and :math:`j` sub-indices dissapear.
 The classical energy is
 
 .. math::
-   E_{Cl} = M\,S^2\,\left(\frac{1}{2}\,\sum_{\boldsymbol{d}} \,J_{\boldsymbol{d}}^{zz} + A^{zz}\right)
+   E_{Cl} = M\,S^2\,\left(A^{zz}+\frac{1}{2}\,\sum_{\boldsymbol{d}} \,J_{\boldsymbol{d}}^{zz} \right)
 
-The kinetic and pairing terms simplify to
+The quantum correction, kinetic and pairing terms simplify to
 
 .. math::
+  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(A^{zz}+\frac{1}{2}\,\sum_\boldsymbol{d}\,J_\boldsymbol{d}^{zz}\right)\\
   \frac{T(\boldsymbol{k})}{S}&\,=\,A^{xx}+A^{yy}-2\,A^{zz}+
   \frac{J^{xx}(\boldsymbol{k})+J^{yy}(\boldsymbol{k})}{2}-J^{zz}(\boldsymbol{k=0})-i D^z(\boldsymbol{k})\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=\,A^{xx}-A^{yy}-2 i A^{xy}+

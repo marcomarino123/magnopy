@@ -4,7 +4,7 @@
 Overview
 ********
 
-This section is devoted to describe in some details several examples that can be
+This section is devoted to describe in some detail several examples that can be
 calculated analytically. These are
 
 * Gamma-point solutions :math:`\boldsymbol{q}=0` solution with spins lying along the :math:`Z`-axis.
@@ -20,3 +20,8 @@ calculated analytically. These are
 
 * Conical :math:`\boldsymbol{q}\ne 0` solutions with a single atom whose spin spirals within the
   :math:`XY` plane.
+
+The results that will be shown can be obtained more easily starting from the vanilla Heisenberg Hamiltonian.
+The examples are just intended to show that the formalism recovers known results; however some established
+expressions are generalized to the case of simple anisotropies, and possibly some of those have not been
+published in  the past.

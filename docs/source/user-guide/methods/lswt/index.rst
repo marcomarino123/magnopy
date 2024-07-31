@@ -20,7 +20,7 @@ can be rearranged into a tight-binding-like form
 .. math::
   {\cal H}^{LSWT}
   =
-  \frac{1}{2}\,\sum_{\boldsymbol{m,d_{ij}} i, j} \,
+  \frac{1}{2}\,\sum_{\boldsymbol{m,d_{ij}}, i, j} \,
   \Big(&
   \,(E_{mdij}+E_{mdij}^*)\,a_{mi}^\dagger\,a_{mi}
   +T_{mdij}\, a_{mi}^\dagger\,a_{m+d_{ij}\,j} +
@@ -65,7 +65,7 @@ Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a con
 LSWT term and higher harmonics as follows
 
 .. math::
-  {\cal H}^{LSWT}=&-\frac{M}{2}\,\sum_{\boldsymbol{d}_ij,i,j} \,(E_{\boldsymbol{d}ij}^0)^*+
+  {\cal H}^{LSWT}=&-\frac{M}{2}\,\sum_{\boldsymbol{d}_{ij},i,j} \,(E_{\boldsymbol{d}ij}^0)^*+
   \sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}\\
   {\cal H^\nu}=&
     \frac{1}{2}\,\sum_{\boldsymbol{d_{ij}}, i, j} \,

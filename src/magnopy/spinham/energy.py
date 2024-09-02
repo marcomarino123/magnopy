@@ -27,3 +27,57 @@ __all__ = ["Energy"]
 
 # Convert to the internal units of energy
 BOHR_MAGNETON /= ENERGY
+
+
+def get_spinham_as_list(spinham: SpinHamiltonian):
+    spinham_list = []
+    for a1, a2, R, J in spinham.exchange_like:
+        d = spinham.get_distance(a1, a2, R)
+        spinham_list.append(a1.index, a2.index, d, J)
+
+    spins = [atom.spin for atom in spinham.magnetic_atoms]
+
+    return spinham_list, spins, spinham.exchange_factor
+
+
+def ferro_energy(A, spinham_list, spins, exchange_factor):
+    A = np.array(A)
+    a = A[::3]
+    b = A[1::3]
+    c = A[2::3]
+
+    theta = np.sqrt(a**2 + b**2 + c**2)
+    l_1 = np.zeros_like(a)
+    l_2 = -1j * theta
+    l_3 = 1j * theta
+
+    L = np.array(
+        [
+            [l_1, np.zeros_like(l_1), np.zeros_like(l_1)],
+            [np.zeros_like(l_1), l_2, np.zeros_like(l_1)],
+            [l_3, np.zeros_like(l_1), np.zeros_like(l_1)],
+        ]
+    )
+
+    v_1 = np.array([c, -b, a])
+    v_2 = (
+        np.array([b * c + 1j * a * theta, a**2 + c**2, a * b - 1j**theta])
+        / theta
+        / np.sqrt(2 * (a**2 + c**2))
+    )
+    v_3 = np.conjugate(v_2)
+    V = np.array([v_1, v_2, v_3])
+
+    R = np.einsum("njk,jik,imk->nmk", V, L, np.conjugate(V))
+
+    energy = 0
+
+    for i, j, d, J in spinham_list:
+        energy += (
+            exchange_factor
+            * spins[i]
+            * spins[j]
+            * (np.conjugate(R[i]) @ J @ R[j])[2, 2]
+        )
+
+    return energy

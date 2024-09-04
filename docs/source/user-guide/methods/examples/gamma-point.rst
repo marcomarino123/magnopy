@@ -124,7 +124,7 @@ whereby the LSWT spin wave dispersion relation becomes
 .. math::
   \omega(\boldsymbol{k})\,=\,S\,\left(\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
 
-and the LSWT Hamiltonian
+and the LSWT Hamiltonian becomes
 
 .. math::
   H^{LSWT} &\,=\, E^{QC-LSWT}+\frac{1}{2}\,\sum_{\boldsymbol{k}}\,\omega(-\boldsymbol{k})
@@ -132,11 +132,13 @@ and the LSWT Hamiltonian
   &\,=\,M\,S\,A^{xx}
   +\sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,\gamma_\boldsymbol{k}^\dagger\,\gamma(\boldsymbol{k})
 
-The constant piece is finally added to the expression for the classical energy and the LSWT Hamiltonian
-becomes finally
+This Hamiltonian is diagonal so there is no need for diagonalization meaning that
+:math:`\gamma_\boldsymbol{k}=a_\boldsymbol{k}`. The full Hamiltonian to LSWT order is
 
 .. math::
-  H^{LSWT}=\sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,a_\boldsymbol{k}^\dagger\,a(\boldsymbol{k})
+  H \,&=\, E^0 + H^{LSWT}\\
+  E^0\,&=\,\\
+  H^{LSWT}\,&=\,\sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,a_\boldsymbol{k}^\dagger\,a(\boldsymbol{k})
 
 ===============================================================
 Higher-order pieces of the Hamiltonian for the single-atom case
@@ -165,7 +167,8 @@ three coupling constants and on-site exchange tensors for a single atom per unit
                                     \frac{J^{xx}(\boldsymbol{q})-J^{yy}(\boldsymbol{q})-
                                     i\,\left(J^{xy}(\boldsymbol{q})+J^{yx}(\boldsymbol{q})\right)}{2}\\
   J^{f\nu,00}_{\boldsymbol{d}_{ii}=0}&=2 \,A^{zz}\\
-  J^{f\nu,00}_{\boldsymbol{d}_{ii}=0}&=A^{xx}-A^{yy}-2\,i\,A^{xy}
+  J^{f\nu,++}_{\boldsymbol{d}_{ii}=0}&=A^{xx}+A^{yy}\\
+  J^{f\nu,+-}_{\boldsymbol{d}_{ii}=0}&=A^{xx}-A^{yy}-2\,i\,A^{xy}
 
 We assume now that :math:`J^{xx}=J^{yy}` and :math:`J^{xy}=A^{xy}=D^z=0`. Then
 
@@ -193,7 +196,9 @@ Renormalized Spin Wave Theory
 The full interacting Hamiltonian becomes
 
 .. math::
-  H=S\,\sum_{\boldsymbol{k}}\,\left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)+
+  H\,=\,&S\,\sum_{\boldsymbol{k}}\,\left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+          \,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\\
+          &+
           \frac{1}{2\,M}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,\left(J^{zz}(\boldsymbol{p})-2\,A^{xx}-
           \frac{J^{xx}(\boldsymbol{k_1})+J^{xx}(\boldsymbol{k_1+p})}{2}\right)\,
           a_{\boldsymbol{k_1+p}}^\dagger\,a_{\boldsymbol{k_2-p}}^\dagger\,a_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}

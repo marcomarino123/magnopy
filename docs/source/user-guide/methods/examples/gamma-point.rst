@@ -54,7 +54,7 @@ Classical energy
 The classical energy is in this case
 
 .. math::
-  E_{Cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,J_{\boldsymbol{d}ij}^{zz} + \sum_i\,A_i^{zz}\,S_i^2
+  E{Cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,J_{\boldsymbol{d}ij}^{zz} + \sum_i\,A_i^{zz}\,S_i^2
 
 ==========
 LSW theory
@@ -62,8 +62,10 @@ LSW theory
 The quantum correction, kinetic and pairing terms of the Hamiltonian are
 
 .. math::
-  E^{QC-LSWT} &\,=\,M\,\sum_i\,S_i\,A_i^{zz}+\frac{M}{2}\,
-              \sum_{\boldsymbol{d}_{ij},i, j} S_{j}\,J_{\boldsymbol{d}ij}^{zz}\\\\
+  E^{QC-LSWT} &\,=
+            M\,\left(\frac{1}{2}\,\sum_{\boldsymbol{d}_{ij},i, j} S_{j}\,J_{\boldsymbol{d}ij}^{zz}+
+            \,\sum_i\,S_i\,A_i^{zz}\right)
+           \\\\
   T_{ij}(\boldsymbol{k})&\,=\,\delta_{ij}\,\left(\left(A_i^{xx}+A_i^{yy}-2\,A_i^{zz}\right)\,S_i-
   				 \sum_{\boldsymbol{d}_{ij'}, j'} S_{j'}\,J_{\boldsymbol{d}ij'}^{zz}\right)+
   				 \left(S_i\,S_j\right)^{1/2}\,
@@ -100,12 +102,12 @@ A notable simplification happens here because the :math:`i` and :math:`j` sub-in
 The classical energy is
 
 .. math::
-   E_{Cl} = M\,S^2\,\left(A^{zz}+\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0) \right)
+   E^{Cl} = M\,S^2\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz} \right)
 
 The quantum correction, kinetic and pairing terms simplify to
 
 .. math::
-  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(A^{zz}+\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)\right)\\
+  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)\\
   \frac{T(\boldsymbol{k})}{S}&\,=\,A^{xx}+A^{yy}-2\,A^{zz}+
   \frac{J^{xx}(\boldsymbol{k})+J^{yy}(\boldsymbol{k})}{2}-J^{zz}(\boldsymbol{k=0})-i D^z(\boldsymbol{k})\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=\,A^{xx}-A^{yy}-2 i A^{xy}+
@@ -115,30 +117,22 @@ A last simpification comes about if :math:`J^{xx}=J^{yy}`, :math:`A^{xx}=A^{yy}`
 :math:`J^{xy}=D^z=A^{xy}=0`. Then
 
 .. math::
-  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(A^{zz}+\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)\right)\\
+  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)\\
   \frac{T(\boldsymbol{k})}{S}&\,=\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=0
 
-whereby the LSWT spin wave dispersion relation becomes
+whereby the LSWT spin wave frequency becomes
 
 .. math::
-  \omega(\boldsymbol{k})\,=\,S\,\left(\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+  \omega^{LSWT}(\boldsymbol{k})\,=\,S\,\left(\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
 
-and the LSWT Hamiltonian becomes
-
-.. math::
-  H^{LSWT} &\,=\, E^{QC-LSWT}+\frac{1}{2}\,\sum_{\boldsymbol{k}}\,\omega(-\boldsymbol{k})
-  +\sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,\gamma_\boldsymbol{k}^\dagger\,\gamma(\boldsymbol{k})\\
-  &\,=\,M\,S\,A^{xx}
-  +\sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,\gamma_\boldsymbol{k}^\dagger\,\gamma(\boldsymbol{k})
-
-This Hamiltonian is diagonal so there is no need for diagonalization meaning that
+The LSWT Hamiltonian is diagonal so there is no need for diagonalization meaning that
 :math:`\gamma_\boldsymbol{k}=a_\boldsymbol{k}`. The full Hamiltonian to LSWT order is
 
 .. math::
-  H \,&=\, E^0 + H^{LSWT}\\
-  E^0\,&=\,\\
-  H^{LSWT}\,&=\,\sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,a_\boldsymbol{k}^\dagger\,a(\boldsymbol{k})
+  H \,&=\, E^0+
+   \sum_{\boldsymbol{k}}\,\omega^{LSWT}(\boldsymbol{k})\,a_\boldsymbol{k}^\dagger\,a(\boldsymbol{k})\\\\
+   E^0\,&=\,\frac{M\,S^2}{2}\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)+M\,S\,A^{xx}
 
 ===============================================================
 Higher-order pieces of the Hamiltonian for the single-atom case
@@ -189,19 +183,26 @@ As a consequence, the interacting biquadratic Hamiltonian becomes
                       \frac{J^{xx}(\boldsymbol{k_1})+J^{xx}(\boldsymbol{k_1+p})}{2}\right)\,
                       a_{\boldsymbol{k_1+p}}^\dagger\,a_{\boldsymbol{k_2-p}}^\dagger\,a_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}
 
-=============================
-Renormalized Spin Wave Theory
-=============================
-
-The full interacting Hamiltonian becomes
+And the full interacting Hamiltonian is
 
 .. math::
-  H\,=\,&S\,\sum_{\boldsymbol{k}}\,\left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
-          \,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\\
+  H\,=\,&\,E^0+
+  \sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\\
           &+
           \frac{1}{2\,M}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,\left(J^{zz}(\boldsymbol{p})-2\,A^{xx}-
           \frac{J^{xx}(\boldsymbol{k_1})+J^{xx}(\boldsymbol{k_1+p})}{2}\right)\,
           a_{\boldsymbol{k_1+p}}^\dagger\,a_{\boldsymbol{k_2-p}}^\dagger\,a_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}
+
+with the spin-wave frequency shifted to
+
+.. math::
+  \omega(\boldsymbol{k})=
+  \left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+
+=============================
+Renormalized Spin Wave Theory
+=============================
+
 
 The four-boson interaction is decoupled in the Mean-Field approximation as follows
 

@@ -232,8 +232,15 @@ The four-boson interaction is decoupled in the Mean-Field approximation as follo
   \delta_{\boldsymbol{p},\boldsymbol{k_2-k_1}}\,(n_{\boldsymbol{k_1}}\,a_{\boldsymbol{k_2}}^\dagger\,a_{\boldsymbol{k_2}}+
   n_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}^\dagger\,a_{\boldsymbol{k_1}})
 
-where :math:`=\langle\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\,\rangle`,
-resulting in the following renormalized Hamiltonian
+where the boson ocupation factor
+
+.. math::
+  n_\boldsymbol{k}=\langle\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\,\rangle=
+  \frac{1}{e^{\beta\,\Omega(\boldsymbol{k})}-1}
+
+depends on the renormalized spin wave frequency :math:`\Omega(\boldsymbol{k})` and must be
+calculated self-consistently. The
+resulting renormalized Hamiltonian is
 
 .. math::
   H^{RSWT}&\,=\,\,E^0\,+\,
@@ -248,4 +255,27 @@ resulting in the following renormalized Hamiltonian
   \left(J^{zz}(\boldsymbol{0})-4\,A^{xx}-J^{xx}(\boldsymbol{k})\right)\,n_0+\frac{1}{M}\,
   \sum_{\boldsymbol{k'}}\,\left(J^{zz}(\boldsymbol{k-k'})-J^{xx}(\boldsymbol{k'})\right)\,n_{\boldsymbol{k'}}
 
-with the average boson occupation being defined by :math:`n_0=\frac{1}{M}\,\sum_\boldsymbol{k}\,n_{\boldsymbol{k}}`.
+with the average boson occupation being defined by
+:math:`n_0=\frac{1}{M}\,\sum_\boldsymbol{k}\,n_{\boldsymbol{k}}`. Further progress can be made for an
+hyper-cubic lattice if the exchange constants are isotropic, and reach only nearest neighbors
+sites at lattice vectors :math:`\boldsymbol{\delta}`. Then
+:math:`J^{xx,zz}(\boldsymbol{k})=J^{xx,zz}\,\gamma(\boldsymbol{k})` with
+
+.. math::
+  \gamma(\boldsymbol{k})\,=\,\sum_{\boldsymbol{\delta}}\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{\delta}}
+                      \,=\,\sum_{\boldsymbol{\delta}}\,\cos(\boldsymbol{k}\cdot\boldsymbol{\delta})
+
+and the renormalized frequency simplifies to
+
+.. math::
+  \Omega(\boldsymbol{k})\,=\,
+  2\,S\,(A^{xx}-A^{zz})\,-\,4\,A^{xx}\,+\,(S-n_0)\,
+   (J^{zz}\,\gamma(\boldsymbol{0})-J^{xx}\,\gamma(\boldsymbol{k}))+
+  n_1\,\left(J^{zz}\,\gamma(\boldsymbol{k})-J^{xx}\,\gamma(\boldsymbol{0})\right)
+
+with :math:`n_1=\frac{1}{M}\,\sum_\boldsymbol{k}\,\cos(k_x)\,n_{\boldsymbol{k}}`. If there
+is no magnetic anisotropy, :math:`A^{xx}=A^{zz}=0` and :math:`J=J^{xx}=J^{zz}` so that
+the renormalized frequency becomes
+
+.. math::
+  \Omega(\boldsymbol{k})\,=\,J\,(\,\gamma(\boldsymbol{k})-\gamma(\boldsymbol{0})\,)\,(S-(n_0-n_1))

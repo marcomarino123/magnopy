@@ -54,15 +54,29 @@ Classical energy
 The classical energy is in this case
 
 .. math::
-  E{Cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,J_{\boldsymbol{d}ij}^{zz} + \sum_i\,A_i^{zz}\,S_i^2
+  E^{0,cl} = \frac{1}{2}\,\sum_{\boldsymbol{d}_{ij}, i, j} S_i\,S_j\,J_{\boldsymbol{d}ij}^{zz} + \sum_i\,A_i^{zz}\,S_i^2
 
 ==========
 LSW theory
 ==========
-The quantum correction, kinetic and pairing terms of the Hamiltonian are
+The LSWT Hamiltonian is
 
 .. math::
-  E^{QC-LSWT} &\,=
+  \boldsymbol{H}^{LSWT}&\,=\,
+  E^{LSWT,1}\,+\,\frac{1}{2}\,\sum_\boldsymbol{k}\,\begin{pmatrix}\boldsymbol{B}_\boldsymbol{k}^\dagger&
+  \boldsymbol{\tilde{B}}_{-\boldsymbol{k}}\end{pmatrix}\,
+  \begin{pmatrix}\boldsymbol{T}(\boldsymbol{k})&\boldsymbol{\Delta}(\boldsymbol{k})\\
+                  \boldsymbol{\Delta}^\dagger(\boldsymbol{k})&\boldsymbol{T}^*(\boldsymbol{k})
+  \end{pmatrix}
+  \begin{pmatrix}\boldsymbol{B}_\boldsymbol{k}\\
+  \boldsymbol{\tilde{B}}_{-\boldsymbol{k}}^\dagger\end{pmatrix}
+
+where the super-vectors :math:`\boldsymbol{B}_\boldsymbol{k}` and :math:`\boldsymbol{\tilde{B}}_{-\boldsymbol{k}}`
+collect all the bosonic spin-wave fields :math:`a_{\boldsymbol{k},i}`.
+The different pieces of the Hamiltonian are
+
+.. math::
+  E^{LSWT,1} &\,=
             M\,\left(\frac{1}{2}\,\sum_{\boldsymbol{d}_{ij},i, j} S_{j}\,J_{\boldsymbol{d}ij}^{zz}+
             \,\sum_i\,S_i\,A_i^{zz}\right)
            \\\\
@@ -78,36 +92,28 @@ The quantum correction, kinetic and pairing terms of the Hamiltonian are
   				 \left(\frac{J^{xx}_{\boldsymbol{d}ij}(\boldsymbol{k})- J^{yy}_{\boldsymbol{d}ij}(\boldsymbol{k})}{2}
 					-i J^{xy}_{\boldsymbol{d}ij}(\boldsymbol{k})\right)
 
-where we have introduced the notation
+Here, we have introduced the notation
 
 .. math::
   J_{ij}^{\alpha\beta}(\boldsymbol{k})= \sum_{\boldsymbol{d}_{ij}}\,
       J^{\alpha\beta}_{\boldsymbol{d}ij}\, e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}_{ij}}
 
-The LSWT Hamiltonian is
-
-.. math::
-  H^{LSWT} = E^{QC-LSWT}+
-  			 \frac{1}{2}\,\sum_\boldsymbol{k}\,\cal{\boldsymbol{B}}(\boldsymbol{k})^\dagger\,
-  			 \begin{pmatrix}
-  			 \boldsymbol{T}(\boldsymbol{k})&\boldsymbol{\Delta}(\boldsymbol{k})\\
-  			 \boldsymbol{\Delta}(\boldsymbol{k})^\dagger&\boldsymbol{T}(-\boldsymbol{k})^*
-  			 \end{pmatrix}
-  			 \cal{\boldsymbol{B}}(\boldsymbol{k})
 
 =============================================================
 Simplification: single atom per unit cell with spin :math:`S`
 =============================================================
 A notable simplification happens here because the :math:`i` and :math:`j` sub-indices dissapear.
+Furhtermore, there is a single bosonic field per unit cell, so that
+:math:`\boldsymbol{B}_\boldsymbol{k}=a_\boldsymbol{k}`
 The classical energy is
 
 .. math::
-   E^{Cl} = M\,S^2\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz} \right)
+   E^{0,cl} = M\,S^2\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz} \right)
 
-The quantum correction, kinetic and pairing terms simplify to
+The LSWT first correction, kinetic and pairing terms simplify to
 
 .. math::
-  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)\\
+  \frac{E^{LSWT,1}}{S}&\,=\,M\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)\\
   \frac{T(\boldsymbol{k})}{S}&\,=\,A^{xx}+A^{yy}-2\,A^{zz}+
   \frac{J^{xx}(\boldsymbol{k})+J^{yy}(\boldsymbol{k})}{2}-J^{zz}(\boldsymbol{k=0})-i D^z(\boldsymbol{k})\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=\,A^{xx}-A^{yy}-2 i A^{xy}+
@@ -117,22 +123,35 @@ A last simpification comes about if :math:`J^{xx}=J^{yy}`, :math:`A^{xx}=A^{yy}`
 :math:`J^{xy}=D^z=A^{xy}=0`. Then
 
 .. math::
-  \frac{E^{QC-LSWT}}{S}&\,=\,M\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)\\
+  \frac{E^{LSWT,1}}{S}&\,=\,M\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)\\
   \frac{T(\boldsymbol{k})}{S}&\,=\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\\
   \frac{\Delta(\boldsymbol{k})}{S}&\,=0
 
-whereby the LSWT spin wave frequency becomes
+Then the LSWT Hamiltonian becomes
 
 .. math::
-  \omega^{LSWT}(\boldsymbol{k})\,=\,S\,\left(\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+  \boldsymbol{H}_\boldsymbol{k}^{LSWT}&\,=\,
+  E^{LSWT,1}\,+\,\frac{1}{2}\,\sum_\boldsymbol{k}\,
+  \begin{pmatrix}a_\boldsymbol{k}^\dagger&a_{-\boldsymbol{k}}\end{pmatrix}\,
+  \begin{pmatrix}T(\boldsymbol{k})&0\\&T(\boldsymbol{-k})
+  \end{pmatrix}
+  \begin{pmatrix}a_\boldsymbol{k}\\a_{-\boldsymbol{k}}^\dagger\end{pmatrix}\\\\
+  &\,=\,E^{LSWT,1}\,+\,\sum_\boldsymbol{k}\,\omega^{LSWT}(-\boldsymbol{k}) +
+ \sum_\boldsymbol{k}  \omega^{LSWT}(\boldsymbol{k}) \, a_\boldsymbol{k}^\dagger\,a_\boldsymbol{k}
 
-The LSWT Hamiltonian is diagonal so there is no need for diagonalization meaning that
-:math:`\gamma_\boldsymbol{k}=a_\boldsymbol{k}`. The full Hamiltonian to LSWT order is
+with
+
+.. math::
+  \omega^{LSWT}(\boldsymbol{k})\,=\,T(\boldsymbol{k})\,=
+  \,S\,\left(\,2\,(A^{xx}-A^{zz})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+
+The full Hamiltonian to LSWT order is
 
 .. math::
   H \,&=\, E^0+
    \sum_{\boldsymbol{k}}\,\omega^{LSWT}(\boldsymbol{k})\,a_\boldsymbol{k}^\dagger\,a(\boldsymbol{k})\\\\
-   E^0\,&=\,\frac{M\,S^2}{2}\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)+M\,S\,A^{xx}
+   E^0\,&=E^{0,cl}+E^{LSWT,1}+\sum_\boldsymbol{k}\,\omega^{LSWT}(-\boldsymbol{k})\,=
+   \,M\,S^2\,\left(\frac{1}{2}\,J^{zz}(\boldsymbol{k}=0)+A^{zz}\right)+M\,S\,A^{xx}
 
 ===============================================================
 Higher-order pieces of the Hamiltonian for the single-atom case
@@ -186,23 +205,23 @@ As a consequence, the interacting biquadratic Hamiltonian becomes
 And the full interacting Hamiltonian is
 
 .. math::
-  H\,=\,&\,E^0+
-  \sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\\
-          &+
-          \frac{1}{2\,M}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,\left(J^{zz}(\boldsymbol{p})-2\,A^{xx}-
-          \frac{J^{xx}(\boldsymbol{k_1})+J^{xx}(\boldsymbol{k_1+p})}{2}\right)\,
+  H\,=\,\,E^0+
+  \sum_{\boldsymbol{k}}\,\omega(\boldsymbol{k})\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}
+          +\frac{1}{2\,M}\,\sum_{\boldsymbol{k_1},\boldsymbol{k_2},\boldsymbol{p}}\,
+          \,\lambda(\boldsymbol{k_1},\boldsymbol{p})\,
           a_{\boldsymbol{k_1+p}}^\dagger\,a_{\boldsymbol{k_2-p}}^\dagger\,a_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}
 
-with the spin-wave frequency shifted to
+with the following shifted spin-wave frequency and coupling contant
 
 .. math::
-  \omega(\boldsymbol{k})=
-  \left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)
+  \omega(\boldsymbol{k})&\,=\,\omega^{LSWT}(\boldsymbol{k})-(A^{xx}-A^{zz})=
+  S\,\left(\,2\,(A^{xx}-A^{zz})\,(1-\frac{1}{2\,S})+J^{xx}(\boldsymbol{k})-J^{zz}(\boldsymbol{k}=0)\,\right)\\\\
+  \lambda(\boldsymbol{k_1},\boldsymbol{p})&\,=\,
+          J^{zz}(\boldsymbol{p})-2\,A^{xx}-\frac{J^{xx}(\boldsymbol{k_1})+J^{xx}(\boldsymbol{k_1+p})}{2}
 
 =============================
 Renormalized Spin Wave Theory
 =============================
-
 
 The four-boson interaction is decoupled in the Mean-Field approximation as follows
 
@@ -212,3 +231,21 @@ The four-boson interaction is decoupled in the Mean-Field approximation as follo
   n_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}^\dagger\,a_{\boldsymbol{k_1}})+
   \delta_{\boldsymbol{p},\boldsymbol{k_2-k_1}}\,(n_{\boldsymbol{k_1}}\,a_{\boldsymbol{k_2}}^\dagger\,a_{\boldsymbol{k_2}}+
   n_{\boldsymbol{k_2}}\,a_{\boldsymbol{k_1}}^\dagger\,a_{\boldsymbol{k_1}})
+
+where :math:`=\langle\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\,\rangle`,
+resulting in the following renormalized Hamiltonian
+
+.. math::
+  H^{RSWT}&\,=\,\,E^0\,+\,
+  \sum_{\boldsymbol{k}}\,\Omega(\boldsymbol{k})\,a_{\boldsymbol{k}}^\dagger\,a_{\boldsymbol{k}}\\\\
+  \Omega(\boldsymbol{k})&\,=\,\omega(\boldsymbol{k})+\frac{1}{2\,M}\,\sum_{\boldsymbol{k'}}\,
+  \left(\lambda(\boldsymbol{k},0)+\lambda(\boldsymbol{k'},0)+
+  \lambda(\boldsymbol{k},\boldsymbol{k-k'})+\lambda(\boldsymbol{k'},\boldsymbol{k-k'})\right)\\
+  &\,=\,\omega(\boldsymbol{k})-
+  \frac{1}{M}\,\sum_{\boldsymbol{k'}}\,\left(4\,A^{xx}+J^{xx}(\boldsymbol{k})+J^{xx}(\boldsymbol{k'})
+  -J^{zz}(\boldsymbol{0})-J^{zz}(\boldsymbol{k-k'}\right)\,n_{\boldsymbol{k'}}\\
+  &\,=\,\,\omega(\boldsymbol{k})+
+  \left(J^{zz}(\boldsymbol{0})-4\,A^{xx}-J^{xx}(\boldsymbol{k})\right)\,n_0+\frac{1}{M}\,
+  \sum_{\boldsymbol{k'}}\,\left(J^{zz}(\boldsymbol{k-k'})-J^{xx}(\boldsymbol{k'})\right)\,n_{\boldsymbol{k'}}
+
+with the average boson occupation being defined by :math:`n_0=\frac{1}{M}\,\sum_\boldsymbol{k}\,n_{\boldsymbol{k}}`.

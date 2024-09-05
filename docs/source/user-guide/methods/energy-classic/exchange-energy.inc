@@ -20,7 +20,7 @@ Here, the m-summation affects only the phases
 contribution to the energy becomes
 
 .. math::
-  E^0_{exc}=
+  E^{0,cl}_{exc}=
   \dfrac{M}{2}
   \sum_{\boldsymbol{d}_{ij}, i, j}\,S_i\,S_j\,
     \left(^{sf}\tilde{J}_{\boldsymbol{d}ij}^{00,0}
@@ -55,7 +55,7 @@ contribution to the energy becomes
 The exchange energy per unit cell can therefore be split as follows
 
 .. math::
-  \frac{E_{exc}^0}{M}
+  \frac{E_{exc}^{0,cl}}{M}
   =
   E^{(0)}
   +

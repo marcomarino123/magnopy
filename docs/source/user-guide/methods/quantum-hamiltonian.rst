@@ -92,14 +92,14 @@ in the Hamiltonian. Then
 .. math::
   {\cal H}_{exc}
   =
-  E^0 + {\cal H}^{LSWT} + {\cal H}^{Cubic} + {\cal H}^{Biquadratic}
+  E^{0,cl} + {\cal H}^{LSWT} + {\cal H}^{Cubic} + {\cal H}^{Biquadratic}
 
 * The classical energy piece corresponds to
   one of the energy minima of the classical Hamiltonian as discussed in this
   :ref:`section <user-guide_methods_energy-classic>`
 
   .. math::
-    E^0
+    E^{0,cl}
     =
     \dfrac{1}{2}
     \sum_{m, \boldsymbol{d}_{ij}, i, j}

@@ -65,8 +65,8 @@ Altogether, the LSWT Hamiltonian can be rewritten as a series summation of a con
 LSWT term and higher harmonics as follows
 
 .. math::
-  {\cal H}^{LSWT}=&E^{QC-LSWT}+\sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}\\
-  E^{QC-LSWT}=&-\frac{M}{2}\,\sum_{\boldsymbol{d}_{ij},i,j} \,
+  {\cal H}^{LSWT}=&E^{LSWT,1}+\sum_{\nu=0,\pm 1,\pm 2}\, {\cal H^\nu}\\
+  E^{LSWT,1}=&-\frac{M}{2}\,\sum_{\boldsymbol{d}_{ij},i,j} \,
   \left(E_{\boldsymbol{d}ij}^0+\delta_{\boldsymbol{q},0}\,
   (E_{\boldsymbol{d}ij}^1+E_{\boldsymbol{d}ij}^{-1}+E_{\boldsymbol{d}ij}^2+E_{\boldsymbol{d}ij}^{-2})\right)^*\\
   {\cal H^\nu}=&
@@ -88,8 +88,8 @@ where
   {\cal D}_{dij}^{\nu,1}&=&\sum_m  a_{mi}\,a_{m+d_{ij}\,j} \,e^{i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}\quad\quad
   {\cal D}_{dij}^{\nu,2}&=&\sum_m  a_{mi}^\dagger \,a_{m+d_{ij}\,j}^\dagger\,e^{-i\,\nu\,\boldsymbol{q}\cdot\boldsymbol{r_m}}
 
-The LSWT energy term :math:`E^{QC-LSWT}` is a quantum correction that must be added to the classical energy.
-Further corrections arise from higher-order pieces of the Hamiltonian.
+The LSWT energy term :math:`E^{LSWT,1}` is a quantum correction that must be added to the classical energy.
+Further corrections arise from diagonalizing the LSWT Hamiltonian and from higher-order pieces of the Hamiltonian.
 
 ===============================
 Fourier-transformed Hamiltonian
@@ -189,14 +189,14 @@ the :math:`I` atoms in a unit cell
 where :math:`t` indicates transpose. The LSWT Hamiltonian can be written in compact form as follows
 
 .. math::
-  {\cal H}^{LSWT} &=E^{QC-LSWT}+
+  {\cal H}^{LSWT} &=E^{LSWT,1}+
     \frac{1}{2}\,\sum_{\nu, \boldsymbol{k}}\,
     \left(B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}^\dagger\,T^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
     +\tilde{B}_{\boldsymbol{k}+\nu\,\boldsymbol{q}}\,(T^\nu(\boldsymbol{k}))^*\,\tilde{B}_\boldsymbol{k}^\dagger
     +\tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}\,\Delta^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
     +B_\boldsymbol{k}^\dagger\,(\Delta^\nu(\boldsymbol{k})^\dagger\,
     \tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}^\dagger\right)\\
-    &=E^{QC-LSWT}+
+    &=E^{LSWT,1}+
     \frac{1}{2}\,\sum_{\nu, \boldsymbol{k}}\,
     \left(B_{\boldsymbol{k}+\nu\,\boldsymbol{q}}^\dagger\,T^\nu(\boldsymbol{k})\,B_\boldsymbol{k}
     +\tilde{B}_{-(\boldsymbol{k}+\nu\,\boldsymbol{q})}\,(T^{-\nu}(-\boldsymbol{k}))^*\,\tilde{B}_{-\boldsymbol{k}}^\dagger

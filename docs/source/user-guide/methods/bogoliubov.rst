@@ -43,7 +43,8 @@ Arrange these operators as the block vectors
 Arrange those block vectors into the super-vector
 
 .. math::
-  \boldsymbol{\cal{C}}_\boldsymbol{k}=\begin{pmatrix}\boldsymbol{C}_\boldsymbol{k}\\\boldsymbol{\tilde{C}}_{-\boldsymbol{k}}\end{pmatrix}
+  \boldsymbol{\cal{C}}_\boldsymbol{k}=\begin{pmatrix}\boldsymbol{C}_\boldsymbol{k}\\
+  \boldsymbol{\tilde{C}}_{-\boldsymbol{k}}^\dagger\end{pmatrix}
 
 Then, the bosonic and fermionic commutation relations are, respectively
 
@@ -181,18 +182,24 @@ The Hamiltonian can be manipulated to look as
 
 .. math::
   \boldsymbol{H}_\boldsymbol{k}^{BL}&\,=\,
-  E^{QC-LSWT}
+  \frac{\eta}{2}\,Tr\,(\,\boldsymbol{T}_\boldsymbol{k}\,)
   +\frac{1}{2}\,\boldsymbol{\Gamma}_\boldsymbol{k}^\dagger\,
   \boldsymbol{\cal E}_\boldsymbol{k}\,\boldsymbol{\Gamma}_\boldsymbol{k}\\
   &\,=\,
-  E^{QC-LSWT}-\frac{\eta}{2}\,Tr(\boldsymbol{\omega}_{\boldsymbol{-k}})
+  \frac{\eta}{2}\,Tr\,(\,\boldsymbol{T}_\boldsymbol{k}-\boldsymbol{\omega}_{\boldsymbol{-k}}\,)
   +\frac{1}{2}\,\Gamma_\boldsymbol{k}^\dagger\,\boldsymbol{\omega}_\boldsymbol{k}\,\Gamma_\boldsymbol{k}
   +\frac{1}{2}\,\Gamma_{\boldsymbol{-k}}^\dagger\,\boldsymbol{\omega}_{\boldsymbol{-k}}\,\Gamma_{\boldsymbol{-k}}
 
 Notice that the above expression yields an additional quantum renormalization of the classical energy beyond the term
-:math:`E^{QC-LSWT}` given by the new term
-:math:`\frac{-\eta}{2}\,Tr(\boldsymbol{\omega}_{\boldsymbol{-k}})` that is called "condensation energy" within the
-BCS community.
+:math:`\frac{\eta}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})`, that is given by
+:math:`\frac{-\eta}{2}\,Tr(\boldsymbol{\omega}_{\boldsymbol{-k}})`. This extra piece
+is called "condensation energy" within the BCS community. Within the present Spin Wave Theory approach,
+:math:`\frac{\eta}{2}\,Tr(\boldsymbol{T}_\boldsymbol{k})` is explicitly given by
+
+.. math::
+  E^{LSWT,1}=-\frac{M}{2}\,\sum_{\boldsymbol{d}_{ij},i,j} \,
+  \left(E_{\boldsymbol{d}ij}^0+\delta_{\boldsymbol{q},0}\,
+  (E_{\boldsymbol{d}ij}^1+E_{\boldsymbol{d}ij}^{-1}+E_{\boldsymbol{d}ij}^2+E_{\boldsymbol{d}ij}^{-2})\right)^*
 
 References
 ==========

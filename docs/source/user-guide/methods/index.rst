@@ -41,6 +41,7 @@ Methods and algorithms
 
   examples/explanation
   examples/gamma-point
+  examples/gamma-point-two-atoms
   examples/staggered
   examples/spiral
 

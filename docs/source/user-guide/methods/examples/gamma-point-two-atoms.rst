@@ -1,14 +1,91 @@
-.. _user-guide_methods_examples_gamma-point:
+.. _user-guide_methods_examples_gamma-point-two-atoms:
 
-**************************************************
-Gamma-point solution Z-axis Ferromagnetic solution
-**************************************************
+*************************************************************
+Gamma-point solution Z-axis solution, two atoms per unit cell
+*************************************************************
+
+This section discusses the Spin Wave Theory of two magnetic atoms A and B
+in the unit cell whose spins are oriented along the Z-axis in either
+a parallel (ferromagnetic, FM) or anti-parallel (antiferromagnetic, AFM)
+fashion. These two configurations can be described by choosing
+:math:\boldsymbol{q}=0`, and performing a rotation of :math:`\pm \pi` degrees
+of the z-axis about a unit vector :math:`\boldsymbol{\hat{r}}` lying in the XY-plane.
+
+===================================
+:math:`(u\, v\, n)` reference frame
+===================================
+
+We choose here :math:`\boldsymbol{\hat{r}}` to be oriented along the positive
+y-axis as is illustrated in the left panel of the figure shown below.
+
+.. raw:: html
+  :file: ../../../images/two-atoms.jpg
+
+.. rst-class:: plotly-figure-caption
+
+  **Figure 1** : Left, generation of the :math:`(u\, v\, n)` reference frame. Right, generation of the :math:`(p\, t\, f)` reference frame.
+
+This is accomplished mathematically by selecting :math:`\beta=0`, and :math:`\alpha=\pi/2`
+so that :math:`\boldsymbol{\hat{r}}=\boldsymbol{\hat{z}}\times \boldsymbol{\hat{n}}`.
+The rotation matrix is then
+
+.. math::
+  ^z\boldsymbol{R_r}(\pi/2,0)=e^{-i\,\pi/2\,\boldsymbol{\hat{r}}\,\times}=
+  \begin{pmatrix}0 & 0 & 1 \\ 0 & 1 & 0 \\ -1 & 0 & 0 \end{pmatrix}
+
+Accordingly, the rotated exchange tensor becomes in the cartesian and the spherical bases
+
+.. math::
+  ^n\boldsymbol{J}_{\boldsymbol{d}_{ij}}&\,=\,
+  \begin{pmatrix}
+  J^{zz} & - J^{zy} & - J^{zx} \\ - J^{yz} & J^{yy} & J^{yx} \\ -J^{xz} & J^{xy} & J^{xx}
+  \end{pmatrix}
+  \\\\
+  ^{sn}\boldsymbol{J}_{\boldsymbol{d}ij}&\,=\,
+    \begin{pmatrix}
+    J^{n,++}_{\boldsymbol{d}ij} & J^{n,+-}_{\boldsymbol{d}ij} & J^{n,+0}_{\boldsymbol{d}ij} \\
+    J^{n,-+}_{\boldsymbol{d}ij} & J^{n,--}_{\boldsymbol{d}ij} & J^{n,-0}_{\boldsymbol{d}ij} \\
+    J^{n,0+}_{\boldsymbol{d}ij} & J^{n,0-}_{\boldsymbol{d}ij} & J^{n,00}_{\boldsymbol{d}ij} \\
+    \end{pmatrix}\\
+    &\,=\,
+    \begin{pmatrix}
+      J^{zy,+}_{\boldsymbol{d}ij} + i D^x_{\boldsymbol{d}ij} &
+      J^{zy,-}_{\boldsymbol{d}ij} + i S^x_{\boldsymbol{d}ij} &
+      -\frac{1}{\sqrt{2}}\,\left(J^{zx}_{\boldsymbol{d}ij} + i J^{yx}_{\boldsymbol{d}ij}\right)
+      \\
+      J^{zy,-}_{\boldsymbol{d}ij} - i S^x_{\boldsymbol{d}ij} &
+      J^{zy,+}_{\boldsymbol{d}ij} - i D^x_{\boldsymbol{d}ij} &
+      \frac{1}{\sqrt{2}}\,\left(-J^{zx}_{\boldsymbol{d}ij} + i J^{yx}_{\boldsymbol{d}ij}\right)
+      \\
+      \frac{1}{\sqrt{2}}\,\left(-J^{xz}_{\boldsymbol{d}ij} + i J^{xy}_{\boldsymbol{d}ij}\right) &
+      \frac{1}{\sqrt{2}}\,\left(J^{xz}_{\boldsymbol{d}ij} + i J^{xy}_{\boldsymbol{d}ij}\right) &
+      J^{xx}_{\boldsymbol{d}ij}
+    \end{pmatrix}
+  \,+\,2\,\delta_{i,j}\,\delta_{\boldsymbol{d}_{ij},0}\,
+    \begin{pmatrix}
+      A^{zy,+}_i & A^{zy,-}_i + i A^{xy}_i & -\frac{1}{\sqrt{2}}\,\left(A^{zx}_i + i A^{xy}_i\right)
+      \\
+      A^{zy,-}_i - i A^{x}_i & A^{xy,+}_i &
+      \frac{1}{\sqrt{2}}\,\left(A^{zy}_i - i A^{x}_i\right)
+      \\
+      \frac{1}{\sqrt{2}}\,\left(A^{xz}_i + i A^{yz}_i\right) &
+      \frac{1}{\sqrt{2}}\,\left(A^{xz}_i - i A^{yz}_i\right) &
+      0
+    \end{pmatrix}
+
+with
+
+.. math::
+  J^{zy,\pm}_{\boldsymbol{d}ij}&=\frac{1}{2}\,\left(J^{zz}_{\boldsymbol{d}ij}\pm J^{yy}_{\boldsymbol{d}ij}\right)\\
+  S^z_{\boldsymbol{d}ij}&=\frac{1}{2}\,\left(J^{xy}_{\boldsymbol{d}ij}+ J^{yx}_{\boldsymbol{d}ij}\right)\\
+  D^z_{\boldsymbol{d}ij}&=\frac{1}{2}\,\left(J^{xy}_{\boldsymbol{d}ij}- J^{yx}_{\boldsymbol{d}ij}\right)\\
+  A^{xy,\pm}_i&=\frac{1}{2}\,\left(A^{xx}_i\pm A^{yy}_i\right)
 
 ==============================================================
 Exchange tensor :math:`^{sn}\boldsymbol{J}_{\boldsymbol{d}ij}`
 ==============================================================
 This kind of solutions narrow the parameter space, since the cone angles
-:math:`\alpha=\beta=0` so that the bases :math:`(\,u\,v\,n\,)\,=\,(\,x\,y\,z\,)`.
+:math:`\alpha=\beta=0` so that the bases :math:`(\,u\,v\,n\,)\,=\,(\,x\,y\,z\,=`).
 Furthermore, the spiral vector :math:`\boldsymbol{q}=0` and the intracell
 angles are all set to zero also, :math:`\theta_i=\phi_i=0`.
 Therefore that exchange tensor simplifies to

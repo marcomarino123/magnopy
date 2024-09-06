@@ -44,9 +44,3 @@ Methods and algorithms
   examples/gamma-point-two-atoms
   examples/staggered
   examples/spiral
-
-.. toctree::
-  :maxdepth: 1
-  :caption: Schwinger bosons
-
-  schwinger-bosons

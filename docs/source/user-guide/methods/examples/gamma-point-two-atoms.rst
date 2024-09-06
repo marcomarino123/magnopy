@@ -8,7 +8,7 @@ This section discusses the Spin Wave Theory of two magnetic atoms A and B
 in the unit cell whose spins are oriented along the Z-axis in either
 a parallel (ferromagnetic, FM) or anti-parallel (antiferromagnetic, AFM)
 fashion. These two configurations can be described by choosing
-:math:\boldsymbol{q}=0`, and performing a rotation of :math:`\pm \pi` degrees
+:math:`  b \boldsymbol{q}=0`, and performing a rotation of :math:`\pm \pi` degrees
 of the z-axis about a unit vector :math:`\boldsymbol{\hat{r}}` lying in the XY-plane.
 
 ===================================
@@ -51,26 +51,26 @@ Accordingly, the rotated exchange tensor becomes in the cartesian and the spheri
     \begin{pmatrix}
       J^{zy,+}_{\boldsymbol{d}ij} + i D^x_{\boldsymbol{d}ij} &
       J^{zy,-}_{\boldsymbol{d}ij} + i S^x_{\boldsymbol{d}ij} &
-      -\frac{1}{\sqrt{2}}\,\left(J^{zx}_{\boldsymbol{d}ij} + i J^{yx}_{\boldsymbol{d}ij}\right)
+      \frac{1}{\sqrt{2}}\,\left(-J^{zx}_{\boldsymbol{d}ij} - i J^{yx}_{\boldsymbol{d}ij}\right)
       \\
       J^{zy,-}_{\boldsymbol{d}ij} - i S^x_{\boldsymbol{d}ij} &
       J^{zy,+}_{\boldsymbol{d}ij} - i D^x_{\boldsymbol{d}ij} &
       \frac{1}{\sqrt{2}}\,\left(-J^{zx}_{\boldsymbol{d}ij} + i J^{yx}_{\boldsymbol{d}ij}\right)
       \\
       \frac{1}{\sqrt{2}}\,\left(-J^{xz}_{\boldsymbol{d}ij} + i J^{xy}_{\boldsymbol{d}ij}\right) &
-      \frac{1}{\sqrt{2}}\,\left(J^{xz}_{\boldsymbol{d}ij} + i J^{xy}_{\boldsymbol{d}ij}\right) &
+      \frac{1}{\sqrt{2}}\,\left(-J^{xz}_{\boldsymbol{d}ij} - i J^{xy}_{\boldsymbol{d}ij}\right) &
       J^{xx}_{\boldsymbol{d}ij}
     \end{pmatrix}
   \,+\,2\,\delta_{i,j}\,\delta_{\boldsymbol{d}_{ij},0}\,
     \begin{pmatrix}
-      A^{zy,+}_i & A^{zy,-}_i + i A^{xy}_i & -\frac{1}{\sqrt{2}}\,\left(A^{zx}_i + i A^{xy}_i\right)
+      A^{zy,+}_i & A^{zy,-}_i + i A^{yz}_i & -\frac{1}{\sqrt{2}}\,\left(A^{zx}_i + i A^{yx}_i\right)
       \\
-      A^{zy,-}_i - i A^{x}_i & A^{xy,+}_i &
-      \frac{1}{\sqrt{2}}\,\left(A^{zy}_i - i A^{x}_i\right)
+      A^{zy,-}_i - i A^{yz}_i & A^{yz,+}_i - i A^{yz}_i &
+      \frac{1}{\sqrt{2}}\,\left(-A^{zx}_i - i A^{yx}_i\right)
       \\
-      \frac{1}{\sqrt{2}}\,\left(A^{xz}_i + i A^{yz}_i\right) &
-      \frac{1}{\sqrt{2}}\,\left(A^{xz}_i - i A^{yz}_i\right) &
-      0
+      \frac{1}{\sqrt{2}}\,\left(-A^{xz}_i + i A^{xy}_i\right) &
+      \frac{1}{\sqrt{2}}\,\left(-A^{xz}_i + i A^{xy}_i\right) &
+      A^{xx}_i
     \end{pmatrix}
 
 with

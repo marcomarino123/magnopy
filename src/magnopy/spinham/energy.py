@@ -19,8 +19,6 @@
 from typing import Iterable, Tuple
 
 import numpy as np
-from scipy.linalg import expm
-from scipy.optimize import minimize, shgo
 from wulfric import TORADIANS, absolute_to_relative
 
 from magnopy.spinham.hamiltonian import SpinHamiltonian

@@ -33,7 +33,116 @@ __all__ = ["Energy"]
 # Convert to the internal units of energy
 BOHR_MAGNETON /= ENERGY
 
+################################################################################
+#                  Functions that check or make initial guess                  #
+#                                                                              #
+# The idea is to call it in the generalized way and obtain a vector for the    #
+# minimization                                                                 #
+#                                                                              #
+#                   _starting(n_spins, initial_guess) -> x                     #
+#                                                                              #
+# Nature of the returned x depends on the type of the ground state (as well    #
+# as nature of initial_guess), but nature of x has to match the one of the     #
+# corresponding _update function                                               #
+################################################################################
 
+
+def _starting_ferro(n_spins, initial_guess=None):
+    # Construct or check initial guess
+    if initial_guess is None:
+        spin_orientation = np.random.random((n_spins, 3))
+    else:
+        # Check that the input is correct
+        try:
+            spin_orientation = np.array(initial_guess, dtype=float)
+        except:
+            raise ValueError(f"spin_orientation is not array-like: {spin_orientation}")
+
+        if spin_orientation.shape[-1] != 3:
+            raise ValueError(
+                f"spin_orientation has to have the last dimension of "
+                f"size 3, got {spin_orientation.shape[-1]}"
+            )
+
+        # Make the input array have (I,3) shape for I = 1
+        if n_spins == 1 and spin_orientation.shape == (3,):
+            spin_orientation = np.array([spin_orientation])
+
+        if n_spins != spin_orientation.shape[0]:
+            raise ValueError(
+                f"Expected {n_spins} spins in initial guess, "
+                f"got {spin_orientation.shape[0]}"
+            )
+
+    for i in range(n_spins):
+        spin_orientation[i] /= np.linalg.norm(spin_orientation[i])
+
+    return spin_orientation
+
+
+def _starting_antiferro(n_sping, initial_guess=None):
+    raise NotImplementedError
+
+
+def _starting_spiral(n_spins, initial_guess=None):
+    if initial_guess is not None and len(initial_guess) != 3:
+        raise ValueError(
+            "If initial guess is not None, then tuple with three elements "
+            "is expected: (spin_orientation, cone_axis, spiral_vector), "
+            f"got {len(initial_guess)} elements."
+        )
+
+    # Get spin_orientation
+    if initial_guess is None or initial_guess[0] is None:
+        spin_orientation = _starting_ferro(n_spins)
+    else:
+        spin_orientation = _starting_ferro(n_spins, initial_guess[0])
+
+    # Get cone_axis
+    if initial_guess is None or initial_guess[1] is None:
+        cone_axis = np.random.random(3)
+    else:
+        # Check that the input is correct
+        try:
+            cone_axis = np.array(initial_guess[1], dtype=float)
+        except:
+            raise ValueError(
+                f"Initial guess for cone_axis is not array-like: " f"{initial_guess[1]}"
+            )
+        if cone_axis.shape != (3,):
+            raise ValueError(
+                f"Initial guess for cone_axis should have shape "
+                f"of (3,), got: {cone_axis.shape}"
+            )
+
+    # Normalize cone axis:
+    cone_axis /= np.linalg.norm(cone_axis)
+
+    if initial_guess is None or initial_guess[2] is None:
+        spiral_vector = np.random.random(3)
+    else:
+        # Check that the input is correct
+        try:
+            spiral_vector = np.array(initial_guess[2], dtype=float)
+        except:
+            raise ValueError(
+                f"Initial guess for spiral_vector is not array-like: "
+                f"{initial_guess[2]}"
+            )
+        if spiral_vector.shape != (3,):
+            raise ValueError(
+                f"Initial guess for spiral_vector should have shape "
+                f"of (3,), got: {spiral_vector.shape}"
+            )
+
+    return [np.concatenate((spin_orientation, [cone_axis]), axis=0), spiral_vector]
+
+
+################################################################################
+#                      Functions that update the argument                      #
+#                                                                              #
+#   The idea is to call it in the generalized way: x_new = _update(x)          #
+################################################################################
 def _update_x_ferro(x, search_direction, step=1):
     r"""
     Update the variables for the next step in the ferro case.
@@ -70,6 +179,10 @@ def _update_x_ferro(x, search_direction, step=1):
         )
 
     return x
+
+
+def _update_antiferro(x, search_direction, step=1):
+    raise NotImplementedError
 
 
 def _update_x_spiral(x, search_direction, step=1):
@@ -116,6 +229,17 @@ def _update_x_spiral(x, search_direction, step=1):
     return [x_0, x_1]
 
 
+################################################################################
+#                      Functions that unpack the argument                      #
+#                                                                              #
+# The idea is to call it in the generalized way as                             #
+#                                                                              #
+#                                  _unpack(x)                                  #
+#                                                                              #
+# and pass the result to the energy or gradient functions:                     #
+#                                                                              #
+#                  energy(*_unpack(x)) and _grad(*_unpack(x))                  #
+################################################################################
 def _unpack_ferro(x):
     r"""
     Unpack the coordinate for the feromagnetic case
@@ -131,6 +255,10 @@ def _unpack_ferro(x):
         Orientation of the spin vectors.
     """
     return (x,)
+
+
+def _unpack_antiferro(x):
+    raise NotImplementedError
 
 
 def _unpack_spiral(x):
@@ -154,9 +282,79 @@ def _unpack_spiral(x):
     spiral_vector : (3,)
         Spiral vector.
     """
-    return (x[0][:-1], x[0][-1], x[1])
+    return x[0][:-1], x[0][-1], x[1]
 
 
+################################################################################
+#                    Functions that compute torque targets                     #
+#                                                                              #
+# The idea is to call it in the generalized way as                             #
+#                                                                              #
+#               torque_targets = _compute_torque_targets(torques)              #
+################################################################################
+
+
+def _compute_torque_target_ferro(torques):
+    return (np.linalg.norm(torques, axis=1).max(),)
+
+
+def _compute_torque_target_antiferro(torques):
+    raise NotImplementedError
+
+
+def _compute_torque_target_spiral(torques):
+    return np.linalg.norm(torques[:-1], axis=1).max(), np.linalg.norm(torques[-1])
+
+
+################################################################################
+#                         Functions that output history                        #
+#                                                                              #
+# The idea is to call it in the generalized way as                             #
+#                                                                              #
+#                          history_processor(history)                          #
+################################################################################
+
+
+def _default_history_processor_ferro(history):
+    for i in range(len(history)):
+        history[i] = (
+            f"{history[i][0]:.8e} "
+            + " ".join([f"{a:.8f}" for a in history[i][1]])
+            + " "
+            + " ".join([f"{a:.8f}" for a in history[i][2].flatten()])
+        )
+    print("\n".join(history), flush=True)
+
+
+def _default_history_processor_antiferro(history):
+    raise NotImplementedError
+
+
+def _default_history_processor_spiral(history):
+    for i in range(len(history)):
+        history[i] = (
+            f"{history[i][0]:.8e} "
+            + " ".join([f"{a:.8f}" for a in history[i][1]])
+            + " "
+            + " ".join([f"{a:.8f}" for a in history[i][2][0].flatten()])
+            + " "
+            + " ".join([f"{a:.8f}" for a in history[i][2][1]])
+        )
+    print("\n".join(history), flush=True)
+
+
+################################################################################
+#                                 Energy class                                 #
+#                                                                              #
+# The idea is to create it from SpinHamiltonian as                             #
+#                                                                              #
+#                           energy = Energy(spinham)                           #
+#                                                                              #
+# and then have the routines for the energy optimization with the call         #
+# signatures                                                                   #
+#                                                                              #
+#                energy.optimize(initial_guess, *args, **kwargs)               #
+################################################################################
 class Energy:
     r"""
     Energy of the :py:class:`.SpinHamiltonian`.
@@ -203,16 +401,17 @@ class Energy:
         self._wolfe_c1 = 1e-4
         self._wolfe_c2 = 0.9
 
-        # Minimisation settings, private
-        # Gradient size depends on the expected ground state: 3*I for Ferromagnetic, FIXME
+        # Minimization settings, private
+        # Gradient size depends on the expected ground state.
         self._gradient_size = None  # Have to be initialized at the beginning of every optimization function
+        self._torques_size = None  # Have to be initialized at the beginning of every optimization function
 
         # External physical conditions
         self._magnetic_field = None
 
         # To be sorted
-        self._d_vec = None  # Have to be initialised at the begining of every optimization function
-        self._y_vec = None  # Have to be initialised at the begining of every optimization function
+        self._d_vec = None  # Have to be initialized at the beginning of every optimization function
+        self._y_vec = None  # Have to be initialized at the beginning of every optimization function
         self._rho = np.zeros((self._m), dtype=float)
         self._gamma = np.zeros((self._m), dtype=float)
 
@@ -409,13 +608,37 @@ class Energy:
 
     ################################################################################
     #                              Gradients of energy                             #
+    # The idea is to have functions that have a call signatures the same as        #
+    # corresponding energy functions with two additional keyword arguments:        #
+    # "gradient_vector" and "torques". If both gradient_vector and torques are     #
+    # given, then the update is done in place and the function return nothing.     #
+    # Otherwise it returns gradient_vector and torques, leaving the given part     #
+    # intact.                                                                      #
     ################################################################################
 
     def _ferro_grad(self, spin_orientation, gradient_vector=None, torques=None):
-        if gradient_vector is None:
+        r"""
+        Gradient of the ferro case looks like:
+
+        [ t_0z, -t_0y, t_0x, ..., t_(I-1)z, -t_(I-1)y ]
+
+        where t_ix, t_iy, t_iz - are components of torque for ith spin in the
+        unit cell (i = 0, I-1).
+
+        torques have the form:
+
+        [
+            [t_0x, t_0y, t_0z],
+            ...,
+            [t_(I-1)x, t_(I-1)y, t_(I-1)z]
+        ]
+        """
+        if gradient_vector is None or torques is None:
             gradient_vector = np.zeros((self._gradient_size), dtype=float)
-        if torques is None:
             torques = np.zeros((len(self._spins), 3), dtype=float)
+            return_results = True
+        else:
+            return_results = False
 
         for i in range(len(spin_orientation)):
             h = 1e-4
@@ -435,48 +658,87 @@ class Energy:
             gradient_vector[3 * i + 1] = -t[1]
             gradient_vector[3 * i + 2] = t[0]
 
-        return gradient_vector, torques
+        if return_results:
+            return gradient_vector, torques
 
     def _antiferro_grad(self):
         raise NotImplementedError
 
     def _spiral_grad(
         self,
-        x,
+        spin_orientation,
+        cone_axis,
         spiral_vector,
         gradient_vector=None,
         torques=None,
     ):
-        if gradient_vector is None:
-            gradient_vector = np.zeros((self._gradient_size), dtype=float)
-        if torques is None:
-            torques = np.zeros((len(self._spins) + 1, 3), dtype=float)
+        r"""
+        Gradient of the spiral case looks like:
 
-        # Compute torques for spin_orientations and cone_axis
-        for i in range(len(x)):
+        [ t_0z, -t_0y, t_0x, ..., t_(I-1)z, -t_(I-1)y,
+          t_(I-1)x, t_nz, -t_ny, t_nx,
+          dE/dq_x, dE/dq_y, dE/dq_z ]
+
+        where t_ix, t_iy, t_iz - are components of torque for ith spin in the
+        unit cell (i = 0, I-1); t_nx, t_ny, t_nz 0 - are the components of the "torque"
+        on the cone axis and last three elements are just partial derivatives
+        with respect to the components of the spiral vector (computed analytically).
+
+        torques have the form:
+
+        [
+            [t_0x, t_0y, t_0z],
+            ...,
+            [t_(I-1)x, t_(I-1)y, t_(I-1)z],
+            [t_nx, t_ny, t_nz]
+        ]
+        """
+
+        if gradient_vector is None or torques is None:
+            gradient_vector = np.zeros((self._gradient_size), dtype=float)
+            torques = np.zeros((len(self._spins) + 1, 3), dtype=float)
+            return_results = True
+        else:
+            return_results = False
+
+        # Compute gradient for spin_orientation
+        for i in range(len(spin_orientation)):
             h = 1e-4
             gradient = []
             for j in range(3):
-                x[i][j] -= h
-                f_minus_h = self.spiral(
-                    x[:-1], cone_axis=x[-1], spiral_vector=spiral_vector
-                )
-                x[i][j] += 2 * h
-                f_plus_h = self.spiral(
-                    x[:-1], cone_axis=x[-1], spiral_vector=spiral_vector
-                )
+                spin_orientation[i][j] -= h
+                f_minus_h = self.spiral(spin_orientation, cone_axis, spiral_vector)
+                spin_orientation[i][j] += 2 * h
+                f_plus_h = self.spiral(spin_orientation, cone_axis, spiral_vector)
                 gradient.append((f_plus_h - f_minus_h) / 2 / h)
-                x[i][j] -= h
+                spin_orientation[i][j] -= h
 
-            t = np.cross(x[i], gradient)
+            t = np.cross(spin_orientation[i], gradient)
             for j in range(0, 3):
                 torques[i][j] = t[j]
             gradient_vector[3 * i] = t[2]
             gradient_vector[3 * i + 1] = -t[1]
             gradient_vector[3 * i + 2] = t[0]
 
+        # Compute gradient for cone_axis
+        h = 1e-4
+        gradient = []
+        for j in range(3):
+            cone_axis[j] -= h
+            f_minus_h = self.spiral(spin_orientation, cone_axis, spiral_vector)
+            cone_axis[j] += 2 * h
+            f_plus_h = self.spiral(spin_orientation, cone_axis, spiral_vector)
+            gradient.append((f_plus_h - f_minus_h) / 2 / h)
+            cone_axis[j] -= h
+
+        t = np.cross(cone_axis, gradient)
+        for j in range(0, 3):
+            torques[-1][j] = t[j]
+        gradient_vector[-6] = t[2]
+        gradient_vector[-5] = -t[1]
+        gradient_vector[-4] = t[0]
+
         # Compute gradient for spiral_vector
-        cone_axis = x[-1]
         K = np.array(
             [
                 [0, -cone_axis[2], cone_axis[1]],
@@ -488,7 +750,6 @@ class Energy:
 
         gradient = np.zeros(3, dtype=float)
 
-        # Compute gradient ove spiral vector
         for i, j, d, J in self._bonds:
             C = np.cos(spiral_vector @ d) / 2 * (
                 K @ J.matrix @ K_sq - K_sq @ J.matrix @ K
@@ -499,12 +760,13 @@ class Energy:
                 self._factor
                 * self._spins[i]
                 * self._spins[j]
-                * np.einsum("i,ij,j", x[:-1][i], C, x[:-1][j])
+                * np.einsum("i,ij,j", spin_orientation[i], C, spin_orientation[j])
             )
 
         gradient_vector[-3:] = gradient
 
-        return gradient_vector, torques
+        if return_results:
+            return gradient_vector, torques
 
     ################################################################################
     #                                    Energy                                    #
@@ -699,33 +961,84 @@ class Energy:
     #                             Optimization routines                            #
     ################################################################################
 
-    def optimize_ferro(
+    def optimize(
         self,
+        case,
         initial_guess=None,
-        tol_torque=1e-5,
-        tol_energy=1e-5,
+        tolerance=None,
         max_iterations=None,
         save_history=False,
         history_processor=None,
         history_step=1000,
     ):
         r"""
-        Find minima of the energy assuming generalized ferromagnetic alignment.
+        Find the minima of the energy assuming the type of the ground state based on
+        ``case`` argument.
 
         Parameters
         ----------
-        initial_guess : (I, 3) or (3,) |array-like|_, optional
-            Initial guess for the orientation of spin vectors.
-            If none provided, then random initial guess is chosen.
-            The vectors are normalized to one, i.e. only direction of the vectors
-            is important.
-            If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are accepted.
-        tol_torque : float, default 1e-5
-            Tolerance for the root mean square value of torques of each spin.
-            Given in the units of energy.
-        tol_energy : float, default 1e-5
-            Tolerance for the energy difference between the two consecutive minimization
-            steps.
+        case : str or int {"ferro", 0, "antiferro", 1, "spiral", 2}
+            Three cases are supported:
+
+            * Generalized ferromagnetic: ``"ferro"`` or ``0``
+            * Generalized antiferromagnetic: ``"antiferro"`` or ``1``
+            * Spiral cone: ``"spiral"`` or ``2``
+        initial_guess : optional
+            Initial guess for the relevant variables. Expected format depends on the
+            ``case``:
+
+            * ``case="ferro"`` spin_orientation
+
+              spin_orientation : (I, 3) or (3,) |array-like|_ or None
+                  Initial guess for the orientation of spin vectors.
+                  If none provided, then random orientation is chosen.
+                  The vectors are normalized to one, i.e. only direction of the vectors
+                  is important.
+                  If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are
+                  accepted.
+
+            * ``case ="antiferro"``
+              FIXME
+
+            * ``case ="spiral"`` tuple of (spin_orientation, cone_axis, spiral_vector)
+
+              spin_orientation : (I, 3) or (3,) |array-like|_ or None
+                  Initial guess for the orientation of spin vectors.
+                  If none provided, then random orientation is chosen.
+                  The vectors are normalized to one, i.e. only direction of the vectors
+                  is important.
+                  If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are
+                  accepted.
+              cone_axis : (3,) |array-like|_
+                  Cone axis. Only direction is important.
+              spiral_vector : (3,) |array-like|_
+                  Spiral vector :math:`\boldsymbol{q}`. Both orientation and length are
+                  important.
+
+        tolerance : tuple of floats
+            Tolerance parameters.
+
+            * ``case="ferro"`` tuple of (tol_energy_diff, tol_torque_max)
+
+              tol_energy_diff : float, default 1e-5
+                  tolerance for the difference between the
+                  energies of two consecutive minimization steps
+              tol_torque_max : float, default 1e-5
+                  Tolerance for the maximum torque among the spins of the unit cell.
+
+            * ``case="antiferro"``
+              FIXME
+
+            * ``case="ferro"`` tuple of (tol_energy_diff, tol_torque_max, tol_torque_cone)
+
+              tol_energy_diff : float, default 1e-5
+                  tolerance for the difference between the
+                  energies of two consecutive minimization steps
+              tol_torque_max : float, default 1e-5
+                  Tolerance for the maximum torque among the spins of the unit cell.
+              tol_torque_cone : float, default 1e-5
+                  Tolerance for the torque on the cone axis.
+
         max_iterations : int, optional
             Maximum amount of iterations for the minimization algorithm.
             By default the algorithm will run until the convergence is reached.
@@ -733,460 +1046,219 @@ class Energy:
             Whether to output the steps of the minimization algorithm.
         history_processor : function, optional
             Function for the history processing. If none provided, then history
-            is directed to ``sys.stdout`` via ``print()`` with one line per iteration
-            with each line in the following format:
-
-            .. code-block:: text
-
-                Energy torque_rms spin_1_x spin_1_y spin_2_z spin_2_x ...
+            is directed to ``sys.stdout`` via ``print()`` function.
 
             The call signature for ``history_processor`` is:
 
             .. code-block:: python
 
                 history_processor(history)
-
-            where ``history`` is a list with each element being a list:
-
-            .. code-block:: python
-
-                [energy, torque_rms, spin_orientation]
-
-            where ``energy`` and ``torque_rms`` are ``float`` and
-            ``spin_orientation.shape = (I,3)``.
-
         history_step : int, default 100
-            amount of step to be outputted at once.
+            The history is printed or passed to the ``history_processor`` every
+            ``history_step`` steps.
+
 
         Returns
         -------
         spin_orientation : (I, 3) :numpy:`ndarray`
             Spin orientation that corresponds to the found local minima of energy
-            assuming generalized ferromagnetic state.
+            assuming generalized ferromagnetic state. Returned in every case.
+        cone_axis : (3,) :numpy:`ndarray`
+            Cone axis that correspond to the local minima of energy. Returned if
+            ``case = "antiferro"`` or ``case = "spiral"``
+        spiral_vector : (3,)  :numpy:`ndarray`
+            Spiral vector that correspond to the local minima of energy. Returned if
+            ``case = "spiral"``
         """
 
-        # Construct or check initial guess
-        if initial_guess is None:
-            spin_orientation = np.random.random((len(self._spins), 3))
+        # Check the correctness of the initial guess if any.
+        # Make a random one otherwise.
+
+        if case in [0, "ferro"]:
+            x = _starting_ferro(len(self._spins), initial_guess)
+
+            self._gradient_size = 3 * len(self._spins)
+            self._torque_size = len(self._spins)
+
+            energy = self.ferro
+            _unpack = _unpack_ferro
+            _grad = self._ferro_grad
+            _unpack = _unpack_ferro
+            _update = _update_x_ferro
+            _compute_torque_target = _compute_torque_target_ferro
+
+            # Switch to the default history processor if necessary
+            if save_history and history_processor is None:
+                history_processor = _default_history_processor_ferro
+
+            if tolerance is None:
+                tolerance = (1e-5, 1e-5)
+            elif len(tolerance) != 2:
+                raise ValueError(
+                    f"Expected tuple of two floats for tolerance, got {tolerance}"
+                )
+        elif case in [1, "antiferro"]:
+            # FIXME
+            raise NotImplementedError
+            x = _starting_antiferro(len(self._spins), initial_guess)
+
+            self._gradient_size = 3 * len(self._spins) + 3
+            self._torque_size = len(self._spins) + 1
+
+            energy = self.antiferro
+            _unpack = _unpack_antiferro
+            _grad = self._antiferro_grad
+            _unpack = _unpack_antiferro
+            _update = _update_x_antiferro
+            _compute_torque_target = _compute_torque_target_antiferro
+
+            # Switch to the default history processor if necessary
+            if save_history and history_processor is None:
+                history_processor = _default_history_processor_antiferro
+            if tolerance is None:
+                tolerance = (1e-5, 1e-5, 1e-5)
+            elif len(tolerance) != 3:
+                raise ValueError(
+                    f"Expected tuple of three floats for tolerance, got {tolerance}"
+                )
+        elif case in [2, "spiral"]:
+            x = _starting_spiral(len(self._spins), initial_guess)
+
+            self._gradient_size = 3 * len(self._spins) + 6
+            self._torque_size = len(self._spins) + 1
+
+            energy = self.spiral
+            _unpack = _unpack_spiral
+            _grad = self._spiral_grad
+            _unpack = _unpack_spiral
+            _update = _update_x_spiral
+            _compute_torque_target = _compute_torque_target_spiral
+
+            # Switch to the default history processor if necessary
+            if save_history and history_processor is None:
+                history_processor = _default_history_processor_spiral
+            if tolerance is None:
+                tolerance = (1e-5, 1e-5, 1e-5)
+            elif len(tolerance) != 3:
+                raise ValueError(
+                    f"Expected tuple of three floats for tolerance, got {tolerance}"
+                )
         else:
-            # Check that the input is correct
-            try:
-                spin_orientation = np.array(initial_guess, dtype=float)
-            except:
-                raise ValueError(f"initial guess is not array-like: {spin_orientation}")
+            raise ValueError(
+                'case must be either "ferro" or "antiferro" or "spiral" or '
+                f"0 or 1 or 2. Got {case}"
+            )
 
-            if spin_orientation.shape[-1] != 3:
-                raise ValueError(
-                    f"initial guess has to have the last dimension of "
-                    f"size 3, got {spin_orientation.shape[-1]}"
-                )
+        # Switch to the default history processor if necessary
+        if save_history and history_processor is None:
+            history_processor = _default_history_processor
 
-            # Make the input array have (I,3) shape for I = 1
-            if len(self._spins) == 1 and spin_orientation.shape == (3,):
-                spin_orientation = np.array([spin_orientation])
-
-            if len(self._spins) != spin_orientation.shape[0]:
-                raise ValueError(
-                    f"Expected {len(self._spins)} spins in initial guess, "
-                    f"got {spin_orientation.shape[0]}"
-                )
-
-        for i in range(len(spin_orientation)):
-            spin_orientation[i] /= np.linalg.norm(spin_orientation[i])
-
-        torque_max = 2 * tol_torque
-        energy_diff = 2 * tol_energy
+        # Set the iterators
         # Note: iteration counter and k are distinct: k might be set to zero during
         # the algorithm's run.
         k = 0
         iteration_counter = 0
 
-        #
-        step_lambda = None
+        # Set initial tracking variables
+        step = None
         previous_gradient_vector = None
         previous_search_direction = None
-        energy_prev = self.ferro(spin_orientation)
-
-        #
-        self._gradient_size = 3 * len(self._spins)
+        energy_prev = energy(*_unpack(x))
         self._d_vec = np.zeros((self._m, self._gradient_size), dtype=float)
         self._y_vec = np.zeros((self._m, self._gradient_size), dtype=float)
-
-        torques = np.zeros((len(self._spins), 3), dtype=float)
+        torques = np.zeros((self._torque_size, 3), dtype=float)
         gradient_vector = np.zeros((self._gradient_size), dtype=float)
         search_direction = np.zeros((self._gradient_size), dtype=float)
 
-        if save_history:
-            history = [[energy_prev, torque_max, spin_orientation]]
+        # Set initial convergence targets for torques so the loop will be started.
+        # For the energy the track is done separately
+        torque_targets = [2 * a for a in tolerance[1:]]
+        energy_diff = tolerance[0] * 2
 
-        while torque_max > tol_torque or abs(energy_diff) > tol_energy:
+        # Compute condition for the loop
+        condition = energy_diff > tolerance[0]
+        for i in range(len(torque_targets)):
+            condition = condition or torque_targets[i] > tolerance[i + 1]
+
+        # Save initial guess and its energy, conv_targets are meaningless
+        # but saved so the history will have the same format for each step
+        if save_history:
+            history = [[energy_prev, torque_targets, x]]
+
+        while condition:
+            # Check whether number of iterations is exceeded
             if max_iterations is not None and iteration_counter >= max_iterations:
                 _logger.warning(
                     f"Maximum iteration is reached. "
-                    f"Torque: {torque_max:.5e}, Energy difference: {energy_diff:.5e}."
+                    f"Torques: {torque_targets}, "
+                    f"Energy difference: {energy_diff:.5e}."
                 )
-                return spin_orientation
+                return _unpack(x)
 
-            self._ferro_grad(
-                spin_orientation=spin_orientation,
-                gradient_vector=gradient_vector,
-                torques=torques,
-            )
+            # Compute gradient and torques
+            _grad(*_unpack(x), gradient_vector=gradient_vector, torques=torques)
 
-            torque_max = np.linalg.norm(torques, axis=1).max()
-            if torque_max < tol_torque:
-                break
-
+            # Compute search direction
             k, search_direction = self._compute_search_direction(
                 k,
                 gradient_vector=gradient_vector,
-                previous_lambda=step_lambda,
+                previous_lambda=step,
                 previous_gradient_vector=previous_gradient_vector,
                 previous_search_direction=previous_search_direction,
             )
 
-            step_lambda = self._lambda(
-                spin_orientation,
+            # Compute size of the step along the search direction
+            step = self._lambda(
+                x,
                 search_direction,
-                self.ferro,
-                _unpack_ferro,
-                _update_x_ferro,
-                self._ferro_grad,
+                energy=energy,
+                _unpack=_unpack,
+                _update=_update,
+                _grad=_grad,
             )
 
-            spin_orientation = _update_x_ferro(
-                spin_orientation, search_direction, step_lambda
-            )
-            energy_current = self.ferro(spin_orientation)
+            # Update the generalized coordinate
+            x = _update(x, search_direction, step)
+
+            # Compute convergence targets
+            energy_current = energy(*_unpack(x))
             energy_diff = abs(energy_prev - energy_current)
+            torque_targets = _compute_torque_target(torques)
 
-            if save_history:
-                if iteration_counter % history_step == 0 and iteration_counter > 0:
-                    if history_processor is not None:
-                        history_processor(history)
-                    else:
-                        for i in range(len(history)):
-                            history[
-                                i
-                            ] = f"{history[0]:.8e} {history[1]:.8e} " + " ".join(
-                                [f"{a:.8f}" for a in spin_orientation.flatten()]
-                            )
-                        print("\n".join(history))
+            # Compute condition for the loop
+            condition = energy_diff > tolerance[0]
+            for i in range(len(torque_targets)):
+                condition = condition or torque_targets[i] > tolerance[i + 1]
 
-                    history = []
-
-                history.append([energy_current, torque_max, spin_orientation])
-
+            # Keep values for the next loop
             previous_gradient_vector = gradient_vector.copy()
             previous_search_direction = search_direction.copy()
             energy_prev = energy_current
+
+            # Update iterators
             k += 1
             iteration_counter += 1
 
-        # Output the remaining tail of history
-        if save_history:
-            if history_processor is not None:
-                history_processor(history)
-            else:
-                for i in range(len(history)):
-                    history[i] = f"{history[0]:.8e} {history[1]:.8e} " + " ".join(
-                        [f"{a:.8f}" for a in spin_orientation.flatten()]
-                    )
-                print("\n".join(history))
-
-        return spin_orientation
-
-    def optimize_antiferro(self):
-        raise NotImplementedError
-
-    def optimize_spiral(
-        self,
-        initial_guess_spins=None,
-        initial_guess_spiral_vector=None,
-        initial_guess_cone_axis=None,
-        tol_torque_spins=1e-5,
-        tol_torque_cone_axis=1e-5,
-        tol_energy=1e-5,
-        max_iterations=None,
-        save_history=False,
-        history_processor=None,
-        history_step=1000,
-    ):
-        r"""
-        Find minima of the energy assuming generalized spiral cone alignment.
-
-        Parameters
-        ----------
-        initial_guess_spins : (I, 3) or (3,) |array-like|_, optional
-            Initial guess for the orientation of spin vectors.
-            If none provided, then random initial guess is chosen.
-            The vectors are normalized to one, i.e. only direction of the vectors
-            is important.
-            If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are accepted.
-        initial_guess_spiral_vector : (3,) |array-like|_, optional
-            Initial guess for the spiral vector. If none provided then random value is
-            chosen.
-        initial_guess_cone_axis : (3,) |array-like|_, optional
-            Initial guess for the cone axis. If none provided, then the random value is
-            chosen. Normalised to the unit length, i.e. only the orientation of the
-            vector is important.
-        tol_torque_spins : float, default 1e-5
-            Tolerance for the root mean square value of torques of each spin.
-            Given in the units of energy.
-        tol_torque_cone_axis : float, default 1e-5
-            Tolerance for the artificial torque on the cone axis.
-            Given in the units of energy.
-        tol_energy : float, default 1e-5
-            Tolerance for the energy difference between the two consecutive minimization
-            steps.
-        max_iterations : int, optional
-            Maximum amount of iterations for the minimization algorithm.
-            By default the algorithm will run until the convergence is reached.
-        save_history : bool, default False
-            Whether to output the steps of the minimization algorithm.
-        history_processor : function, optional
-            Function for the history processing. If none provided, then history
-            is directed to ``sys.stdout`` via ``print()`` with one line per iteration
-            with each line in the following format:
-
-            .. code-block:: text
-
-                Energy torque_rms torque_cone_axis n_x n_y n_z q_x q_y q_z spin_1_x spin_1_y spin_2_z spin_2_x ...
-
-            The call signature for ``history_processor`` is:
-
-            .. code-block:: python
-
-                history_processor(history)
-
-            where ``history`` is a list with each element being a list:
-
-            .. code-block:: python
-
-                [energy, torque_rms, torque_cone_axis, cone_axis, spiral_vector, spin_orientation]
-
-            where ``energy``, ``torque_rms`` and ``torque_cone_axis`` are ``float`` and
-            ``spin_orientation.shape = (I,3)``.
-
-        history_step : int, default 100
-            amount of step to be outputted at once.
-
-        Returns
-        -------
-        spin_orientation : (I, 3) :numpy:`ndarray`
-            Spin orientation that corresponds to the found local minima of energy
-            assuming generalized ferromagnetic state.
-        cone_axis : (3,) :numpy:`ndarray`
-            Cone axis that corresponds to the found local minima of energy, assuming
-            spiral cone state.
-        spiral_vector : (3,) :numpy:`ndarray`
-            Spiral vector that corresponds to the found local minima of energy, assuming
-            spiral cone state.
-        """
-        # Construct or check initial guess for spins
-        if initial_guess_spins is None:
-            spin_orientation = np.random.random((len(self._spins), 3))
-        else:
-            # Check that the input is correct
-            try:
-                spin_orientation = np.array(initial_guess_spins, dtype=float)
-            except:
-                raise ValueError(f"initial guess is not array-like: {spin_orientation}")
-
-            if spin_orientation.shape[-1] != 3:
-                raise ValueError(
-                    f"initial guess has to have the last dimension of "
-                    f"size 3, got {spin_orientation.shape[-1]}"
-                )
-
-            # Make the input array have (I,3) shape for I = 1
-            if len(self._spins) == 1 and spin_orientation.shape == (3,):
-                spin_orientation = np.array([spin_orientation])
-
-            if len(self._spins) != spin_orientation.shape[0]:
-                raise ValueError(
-                    f"Expected {len(self._spins)} spins in initial guess, "
-                    f"got {spin_orientation.shape[0]}"
-                )
-
-        # Construct or check initial guess for spiral vector
-        if initial_guess_spiral_vector is None:
-            spiral_vector = np.random.random(3)
-        else:
-            # Check that the input is correct
-            try:
-                spiral_vector = np.array(initial_guess_spiral_vector, dtype=float)
-            except:
-                raise ValueError(
-                    f"Initial guess for spiral vector is not array-like: "
-                    f"{initial_guess_spiral_vector}"
-                )
-            if spiral_vector.shape != (3,):
-                raise ValueError(
-                    f"Initial guess for spiral vector should have shape "
-                    f"of (3,), got: {spiral_vector.shape}"
-                )
-
-        # Construct or check initial guess for cone axis
-        if initial_guess_cone_axis is None:
-            cone_axis = np.random.random(3)
-        else:
-            # Check that the input is correct
-            try:
-                cone_axis = np.array(initial_guess_cone_axis, dtype=float)
-            except:
-                raise ValueError(
-                    f"Initial guess for cone_axis is not array-like: "
-                    f"{initial_guess_cone_axis}"
-                )
-            if cone_axis.shape != (3,):
-                raise ValueError(
-                    f"Initial guess for cone_axis should have shape "
-                    f"of (3,), got: {cone_axis.shape}"
-                )
-
-        # Normalize spin orientations
-        for i in range(len(spin_orientation)):
-            spin_orientation[i] /= np.linalg.norm(spin_orientation[i])
-
-        # Normalize cone axis:
-        cone_axis /= np.linalg.norm(cone_axis)
-
-        # Merge spin orientation and cone axis into one variable
-        x = np.concatenate((spin_orientation, [cone_axis]), axis=0)
-
-        # Set initial maximum torque and energy difference
-        torque_spins_max = 2 * tol_torque_spins
-        torque_cone_axis_max = 2 * tol_torque_cone_axis
-        energy_diff = 2 * tol_energy
-
-        # Note: iteration counter and k are distinct: k might be set to zero during
-        # the algorithm's run.
-        k = 0
-        iteration_counter = 0
-
-        #
-        step_lambda = None
-        previous_gradient_vector = None
-        previous_search_direction = None
-        energy_prev = self.spiral(x[:-1], x[-1], spiral_vector)
-
-        #
-        self._gradient_size = 3 * len(self._spins) + 6
-        self._d_vec = np.zeros((self._m, self._gradient_size), dtype=float)
-        self._y_vec = np.zeros((self._m, self._gradient_size), dtype=float)
-
-        torques = np.zeros((len(self._spins) + 1, 3), dtype=float)
-        gradient_vector = np.zeros((self._gradient_size), dtype=float)
-        search_direction = np.zeros((self._gradient_size), dtype=float)
-
-        if save_history:
-            history = [
-                [
-                    energy_prev,
-                    torque_spins_max,
-                    torque_cone_axis_max,
-                    x[-1],
-                    spiral_vector,
-                    x[:-1],
-                ]
-            ]
-
-        while (
-            torque_spins_max > tol_torque_spins
-            or torque_cone_axis_max > tol_torque_cone_axis
-            or abs(energy_diff) > tol_energy
-        ):
-            if max_iterations is not None and iteration_counter >= max_iterations:
-                _logger.warning(
-                    f"Maximum iteration is reached. "
-                    f"Torque: {torque_spins_max:.5e}, "
-                    f"Cone torque: {torque_cone_axis_max}, "
-                    f"Energy difference: {energy_diff:.5e}."
-                )
-                return x[:-1], x[-1], spiral_vector
-
-            self._spiral_grad(
-                x=x,
-                spiral_vector=spiral_vector,
-                gradient_vector=gradient_vector,
-                torques=torques,
-            )
-
-            torque_spins_max = np.linalg.norm(torques[:-1], axis=1).max()
-            torque_cone_axis_max = np.linalg.norm(torques[-1])
-
-            k, search_direction = self._compute_search_direction(
-                k,
-                gradient_vector=gradient_vector,
-                previous_lambda=step_lambda,
-                previous_gradient_vector=previous_gradient_vector,
-                previous_search_direction=previous_search_direction,
-            )
-
-            step_lambda = self._lambda(
-                [x, spiral_vector],
-                search_direction,
-                self.spiral,
-                _unpack_spiral,
-                _update_x_spiral,
-                self._spiral_grad,
-            )
-
-            x, spiral_vector = _update_x_spiral(
-                [x, spiral_vector], search_direction, step_lambda
-            )
-            energy_current = self.spiral(x[:-1], x[-1], spiral_vector)
-            energy_diff = abs(energy_prev - energy_current)
-
             if save_history:
-                if iteration_counter % history_step == 0 and iteration_counter > 0:
-                    if history_processor is not None:
-                        history_processor(history)
-                    else:
-                        for i in range(len(history)):
-                            history[i] = (
-                                f"{history[0]:.8e} {history[1]:.8e} "
-                                + " ".join([f"{a:.8f}" for a in x[-1]])
-                                + " ".join([f"{a:.8f}" for a in spiral_vector])
-                                + " ".join([f"{a:.8f}" for a in x[:-1].flatten()])
-                            )
-                        print("\n".join(history))
-
-                    history = []
-
+                # Update history
                 history.append(
                     [
                         energy_current,
-                        torque_spins_max,
-                        torque_cone_axis_max,
-                        x[-1],
-                        spiral_vector,
-                        x[:-1],
+                        torque_targets,
+                        x,
                     ]
                 )
+                # Output history is required
+                if iteration_counter % history_step == 0 and iteration_counter > 0:
+                    history_processor(history)
+                    history = []
 
-            previous_gradient_vector = gradient_vector.copy()
-            previous_search_direction = search_direction.copy()
-            energy_prev = energy_current
-            k += 1
-            iteration_counter += 1
-
-        # Output the remaining tail of history
+        # Output remaining part of history
         if save_history:
-            if history_processor is not None:
-                history_processor(history)
-            else:
-                for i in range(len(history)):
-                    history[i] = (
-                        f"{history[0]:.8e} {history[1]:.8e} "
-                        + " ".join([f"{a:.8f}" for a in x[-1]])
-                        + " ".join([f"{a:.8f}" for a in spiral_vector])
-                        + " ".join([f"{a:.8f}" for a in x[:-1].flatten()])
-                    )
-                print("\n".join(history))
+            history_processor(history)
 
-        return x[:-1], x[-1], spiral_vector
+        # Return minimized configuration
+        return _unpack(x)
 
     ################################################################################
     #                                 L-BFGS update                                #
@@ -1200,7 +1272,8 @@ class Energy:
         previous_search_direction=None,
     ):
         r"""
-        Compute search direction with L-BFGS algorithm.
+        Compute search direction with L-BFGS algorithm. The details of the
+        implementation are taken from [1]_.
         Universal and does not depend on the choice of the ground state type.
 
         Parameters
@@ -1220,6 +1293,14 @@ class Energy:
             Index of the minimization cycle (can be set to 0 at some of the steps).
         search_direction : (M,)
             Search direction computed for the step k.
+
+        References
+        ----------
+        .. [1] Ivanov, A.V., Uzdin, V.M. and Jónsson, H., 2021.
+            Fast and robust algorithm for energy minimization of spin systems applied
+            in an analysis of high temperature spin configurations in terms of skyrmion
+            density.
+            Computer Physics Communications, 260, p.107749.
         """
 
         if k != 0 and (
@@ -1272,34 +1353,47 @@ class Energy:
     #                   Inexact line search with Wolfe conditions                  #
     ################################################################################
     def _lambda(self, x, search_direction, energy, _unpack, _update, _grad):
-        a = 1
+        r"""
+        Compute the step length across given search direction. Universal and does not
+        depend on the choice of the ground state type.
+        """
+        step = 1
         fx = energy(*_unpack(x))
-        x_new = _update(x, search_direction, a)
+        x_new = _update(x, search_direction, step)
         nabla_new = _grad(*_unpack(x_new))[0]
         nabla = _grad(*_unpack(x))[0]
         i = 0
-        while (
-            energy(*_unpack(x_new))
-            >= fx + (self._wolfe_c1 * a * nabla.T @ search_direction)
-            or nabla_new.T @ search_direction
-            <= self._wolfe_c2 * nabla.T @ search_direction
+        while energy(*_unpack(x_new)) > fx + (
+            self._wolfe_c1 * step * nabla.T @ search_direction
+        ) or abs(nabla_new.T @ search_direction) > abs(
+            self._wolfe_c2 * nabla.T @ search_direction
         ):
-            a *= 0.5
-            x_new = x_new = _update(x, search_direction, a)
+            step *= 0.999
+            x_new = _update(x, search_direction, step)
             nabla_new = _grad(*_unpack(x_new))[0]
+            # print(
+            #     energy(*_unpack(x_new)),
+            #     fx,
+            #     fx + self._wolfe_c1 * step * nabla.T @ search_direction,
+            #     abs(nabla_new.T @ search_direction),
+            #     abs(self._wolfe_c2 * nabla.T @ search_direction),
+            # )
             if i > self._wolfe_iter_max:
+                print("\n\n")
+                # TODO go into the details and deal with the failing cases
                 return 1
                 raise ValueError("Wolfe failed")
             i += 1
-        return a
+        return step
 
 
 if __name__ == "__main__":
     from magnopy.io import load_spinham_txt
 
-    spinham = load_spinham_txt(
-        "/Users/rybakov.ad/Codes/magnopy/tmp/test/NiI2_varcell.txt"
-    )
+    spinham = load_spinham_txt("/Users/rybakov.ad/Codes/magnopy/tmp/easy-along-y.txt")
+    # spinham = load_spinham_txt(
+    #     "/Users/rybakov.ad/Codes/magnopy/tmp/test/NiI2_varcell.txt"
+    # )
     nspins = 1
     # spinham = load_spinham_txt(
     #     "/Users/rybakov.ad/Codes/magnopy/tmp/crsbr-mono-grogu.txt"
@@ -1322,23 +1416,25 @@ if __name__ == "__main__":
     #   [ 2.93834271e-03  7.23901523e-07  9.99995683e-01]
     #   [ 4.43961966e-06  7.59410312e-07  1.00000000e+00]]
 
-    def hprint(history):
-        for line in history:
-            print(f"{line[0]:.8f}", f"{line[1]:.8f}", end=" ")
+    def hproc(history):
+        for i in range(len(history)):
+            so_history.append(history[i][2])
+            targets[0].append(history[i][0])
+            targets[1].append(history[i][1][0])
+            history[i] = (
+                f"{history[i][0]:.8e} "
+                + " ".join([f"{a:.8f}" for a in history[i][1]])
+                + " "
+                + " ".join([f"{a:.8f}" for a in history[i][2].flatten()])
+            )
+        print("\n".join(history))
 
-            for so in line[2]:
-                print(" ".join([f"{a:.5f}" for a in so]), end=" ")
-
-            so_history.append(line[2])
-            targets[0].append(line[0])
-            targets[1].append(line[1])
-            print()
-        print("", end="", flush=True)
-
-    result = energy.optimize_spiral(
+    energy._wolfe_iter_max = 1000
+    result = energy.optimize(
+        # history_processor=hproc,
+        case="ferro",
         save_history=True,
-        history_step=10,
-        history_processor=hprint,
+        history_step=1,
         max_iterations=10000,
     )
     print("\n\n", result, "\n")
@@ -1404,7 +1500,7 @@ if __name__ == "__main__":
             xy = np.sqrt(so[0] ** 2 + so[1] ** 2)
             if xy == 0:
                 phi = 0
-                if so[z] > 0:
+                if so[2] > 0:
                     theta = 0
                 else:
                     theta = np.pi

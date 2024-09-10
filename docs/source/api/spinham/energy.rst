@@ -38,6 +38,8 @@ Minimization parameters
     :toctree: generated/
 
     Energy.m
+    Energy.wolfe_c1
+    Energy.wolfe_c2
 
 Ground state energies
 =====================

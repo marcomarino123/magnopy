@@ -932,10 +932,10 @@ class Energy:
         for i, j, d, J in self._bonds:
             C_dij = (
                 IK_sq @ J.matrix @ IK_sq
-                + (K @ J.matrix @ K + K_sq @ J.matrix @ K_sq)
+                - (K @ J.matrix @ K - K_sq @ J.matrix @ K_sq)
                 / 2
                 * np.cos(spiral_vector @ d)
-                + (K @ J.matrix @ K_sq - K_sq @ J.matrix @ K)
+                - (K @ J.matrix @ K_sq + K_sq @ J.matrix @ K)
                 / 2
                 * np.sin(spiral_vector @ d)
             )

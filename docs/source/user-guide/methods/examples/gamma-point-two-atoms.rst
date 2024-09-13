@@ -7,7 +7,7 @@ Gamma-point solution Z-axis solution, two atoms per unit cell
 This section discusses the Spin Wave Theory of two magnetic atoms A and B
 in the unit cell whose spins are oriented along the Z-axis in either
 a parallel (ferromagnetic, FM) or anti-parallel (antiferromagnetic, AFM)
-fashion. We also assume that the two spin have the smae length, :math:`S_A=S_B=S`.
+fashion. We also assume that the two spin have the same length, :math:`S_A=S_B=S`.
 These two configurations can be described by choosing the helical wave-vector
 :math:`\boldsymbol{q}=0`. We organize the boson fields of the A and B atoms and
 the Hamiltonian matrix elements into the super-vector and supermatrices
@@ -116,7 +116,7 @@ with
 ===================================
 The left panel in the figure above shows the the rotation from the :math:`(u \,v \,n)`
 to the :math:`(p \,t \,f)` reference frame is accomplished by choosing
-:math:`\phi_{A}=\phi_{B}=\pi` for both FM and AFM cases. Then the unit vector
+:math:`\phi_{A}=\phi_{B}=\pi/2` for both FM and AFM cases. Then the unit vector
 defining the rotation axis
 :math:`\boldsymbol{\hat{r}_A}=\boldsymbol{\hat{r}_B}=\boldsymbol{\hat{n}}\,\times\,\boldsymbol{\hat{f}_+}`
 lies along the negative :math:`v`-axis. However, the azimut rotation angles :math:`\theta_{A},\,\theta_B`
@@ -129,9 +129,10 @@ The azimut angles for the FM arrangements are :math:`\theta_A=\theta_B=\pi`. Thi
 following expressions for the different pieces of the LSWT Hamiltonian
 
 .. math::
-  T_{ij} &\,=\, S \,\left(\,J^+_{ij}(\boldsymbol{k})-\sum_{j'}\,J^{z}_{ij'}(\boldsymbol{k=0})\,\delta_{ij}-
+  T_{ij}(\boldsymbol{k}) &\,=\,
+          S \,\left(\,J^+_{ij}(\boldsymbol{k})-\sum_{j'}\,J^{z}_{ij'}(\boldsymbol{k=0})\,\delta_{ij}-
           i\,\,D_{ij}^z(\boldsymbol{k})+2\,(A^+_i-A^{zz}_i)\,\delta_{ij}\right)\\
-  \Delta_{ij} &\,=\, S \,\left(\,J^-_{ij}(\boldsymbol{k})-
+  \Delta_{ij}(\boldsymbol{k}) &\,=\, S \,\left(\,J^-_{ij}(\boldsymbol{k})-
           i\,\,S_{ij}^z(\boldsymbol{k})+2\,(A^-_i-A^{xy}_i)\,\delta_{ij}\right)
 
 with
@@ -156,6 +157,133 @@ If we assume inversion symmetry and symmetry under A, B exchange, then
   D_{AB}^z(\boldsymbol{k})=-D_{BA}^z(\boldsymbol{k})&\,=\,
   i\,\sum_\boldsymbol{d}\,D^z_{AB}(\boldsymbol{d})\,\sin(\boldsymbol{k}\cdot \boldsymbol{d})
 
+If there exist only nearest-neighbor interactions then
+:math:`J_{AA}=J_{BB}=S_{AA}=S_{BB}=D_{AA}=D_{BB}=0`, and then we denote
+:math:`J=J_{AB},\,S=S_{AB}, \,D=D_{AB}` and the above matrices simnplify to
+
+.. math::
+  \boldsymbol{T(k)}&\,=\,
+  S\,\begin{pmatrix}
+  2\,(A^+-A^{zz})-J^{zz}(\boldsymbol{k}=0)&
+  J^+(\boldsymbol{k})-i\,D^z(\boldsymbol{k})\\
+  J^+(\boldsymbol{k})-i\,D^z(\boldsymbol{k})&
+  2\,(A^+-A^{zz})-J^{zz}(\boldsymbol{k}=0)
+  \end{pmatrix}
+  \\\\
+  \boldsymbol{\Delta(k)}&\,=\,
+  S\,\begin{pmatrix}
+  2\,A^-&
+  J^-(\boldsymbol{k})-i\,S^z(\boldsymbol{k})\\
+  J^-(\boldsymbol{k})-i\,S^z(\boldsymbol{k})&
+  2\,A^-
+  \end{pmatrix}
+
+If the material is isotropic, then :math:`J^-=A^-=0`, :math:`A^+=A^{xx}=A^{yy}` and
+:math:`J^+=J^{xx}=J^{yy}`. If furthermore
+:math:`D^z(\boldsymbol{k})=S^z(\boldsymbol{k})=0`, then
+
+.. math::
+  \boldsymbol{T(k)}&\,=\,
+  S\,\begin{pmatrix}
+  2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)&
+  J^{xx}(\boldsymbol{k})\\
+  J^{xx}(\boldsymbol{k})&
+  2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)
+  \end{pmatrix}
+  \\\\
+  \boldsymbol{\Delta(k)}&\,=\, 0
+
+The magnon dispersion relation is
+
+.. math::
+  \Omega_\boldsymbol{k}^\pm\,=\,
+  S\,\left(2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)\pm J^{xx}(\boldsymbol{k})\right)
+
+which agrees with that derived in the
+:ref:`previous section <user-guide_methods_examples_gamma-point>`
+upon band unfolding to match the two Brillouin zones.
+
 ========
 AFM case
 ========
+The azimut angles for the FM arrangements are :math:`\theta_A=\pi/2` and :math:`\theta_B=-\pi/2`.
+This leads to the following expressions for the different pieces of the LSWT Hamiltonian
+
+.. math::
+  T_{ij}(\boldsymbol{k}) &\,=\,
+          S \,\left(\,\frac{\varkappa_i\,\varkappa_j+1}{2}\,J^+_{ij}(\boldsymbol{k})
+          +\frac{\varkappa_i\,\varkappa_j-1}{2}\,J^-_{ij}(\boldsymbol{k})
+          -\varkappa_i\,\sum_{j'}\,\varkappa_{j'}\,J^{zz}_{ij'}(\boldsymbol{k=0})\,\delta_{ij}
+          -i\,\frac{\varkappa_i-\varkappa_j}{2}\,S_{ij}^z(\boldsymbol{k})
+          -i\,\frac{\varkappa_i+\varkappa_j}{2}\,D_{ij}^z(\boldsymbol{k})
+          +2\,(A^+_i-A^{zz}_i)\,\delta_{ij}\right)\\
+  \Delta_{ij}(\boldsymbol{k}) &\,=\, S \,\left(\,
+          \frac{\varkappa_i\,\varkappa_j-1}{2}\,J^+_{ij}(\boldsymbol{k})+
+          \frac{\varkappa_i\,\varkappa_j+1}{2}\,J^-_{ij}(\boldsymbol{k})-
+          i\,\frac{\varkappa_i+\varkappa_j}{2}\,S_{ij}^z(\boldsymbol{k})-
+          i\,\frac{\varkappa_i-\varkappa_j}{2}\,D_{ij}^z(\boldsymbol{k})+
+          2\,(A^-_i-A^{xy}_i)\,\delta_{ij}\right)
+
+where we denote :math:`\varkappa_A=1` and :math:`\varkappa_B=-1` with
+
+.. math::
+  J^\pm_{ij} &\,=\, \frac{J^{xx}_{ij}\pm J^{yy}_{ij}}{2}\\
+  A^\pm_{i}  &\,=\, \frac{A^{xx}_{ij}\pm J^{yy}_{ij}}{2}
+
+If we assume inversion symmetry and symmetry under A, B exchange, then
+
+.. math::
+  J_{AA}^\pm(\boldsymbol{k})=J_{BB}^\pm(\boldsymbol{k})&\,=\,
+  \sum_\boldsymbol{d}\,J_{AA}^\pm(\boldsymbol{d})\,\cos(\boldsymbol{k}\cdot \boldsymbol{d})\\
+  J_{AB}^\pm(\boldsymbol{k})=J_{BA}^\pm(\boldsymbol{k})&\,=\,
+  \sum_\boldsymbol{d}\,J_{AB}^\pm(\boldsymbol{d})\,\cos(\boldsymbol{k}\cdot \boldsymbol{d})\\
+  S_{AA}^z(\boldsymbol{k})=S_{BB}^z(\boldsymbol{k})&\,=\,
+  \sum_\boldsymbol{d}\,J^z_{AA}(\boldsymbol{d})\,\cos(\boldsymbol{k}\cdot \boldsymbol{d})\\
+  S_{AB}^z(\boldsymbol{k})=S_{BA}^z(\boldsymbol{k})&\,=\,
+  \sum_\boldsymbol{d}\,J^z_{AB}(\boldsymbol{d})\,\cos(\boldsymbol{k}\cdot \boldsymbol{d})\\
+  D_{AA}^z(\boldsymbol{k})=D_{BB}^z(\boldsymbol{k})&\,=\,
+  i\,\sum_\boldsymbol{d}\,D^z_{AA}(\boldsymbol{d})\,\sin(\boldsymbol{k}\cdot \boldsymbol{d})\\
+  D_{AB}^z(\boldsymbol{k})=-D_{BA}^z(\boldsymbol{k})&\,=\,
+  i\,\sum_\boldsymbol{d}\,D^z_{AB}(\boldsymbol{d})\,\sin(\boldsymbol{k}\cdot \boldsymbol{d})
+
+If there exist only nearest-neighbor interactions then
+:math:`J_{AA}=J_{BB}=S_{AA}=S_{BB}=D_{AA}=D_{BB}=0`, and then we denote
+:math:`J=J_{AB},\,S=S_{AB}, \,D=D_{AB}` and the above matrices simnplify to
+
+.. math::
+  \boldsymbol{T(k)}&\,=\,
+  S\,\begin{pmatrix}
+  2\,(A^+-A^{zz})-J^{zz}(\boldsymbol{k}=0)&
+  J^+(\boldsymbol{k})-i\,D^z(\boldsymbol{k})\\
+  J^+(\boldsymbol{k})-i\,D^z(\boldsymbol{k})&
+  2\,(A^+-A^{zz})-J^{zz}(\boldsymbol{k}=0)
+  \end{pmatrix}
+  \\\\
+  \boldsymbol{\Delta(k)}&\,=\,
+  S\,\begin{pmatrix}
+  2\,A^-&
+  J^-(\boldsymbol{k})-i\,S^z(\boldsymbol{k})\\
+  J^-(\boldsymbol{k})-i\,S^z(\boldsymbol{k})&
+  2\,A^-
+  \end{pmatrix}
+
+If the material is isotropic, then :math:`J^-=A^-=0`, :math:`A^+=A^{xx}=A^{yy}` and
+:math:`J^+=J^{xx}=J^{yy}`. If furthermore
+:math:`D^z(\boldsymbol{k})=S^z(\boldsymbol{k})=0`, then
+
+.. math::
+  \boldsymbol{T(k)}&\,=\,
+  S\,\begin{pmatrix}
+  2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)&
+  J^{xx}(\boldsymbol{k})\\
+  J^{xx}(\boldsymbol{k})&
+  2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)
+  \end{pmatrix}
+  \\\\
+  \boldsymbol{\Delta(k)}&\,=\, 0
+
+The magnon dispersion relation is
+
+.. math::
+  \Omega_\boldsymbol{k}^\pm\,=\,
+  S\,\left(2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)\pm J^{xx}(\boldsymbol{k})\right)

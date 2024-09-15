@@ -1,14 +1,14 @@
 .. _user-guide_methods_examples_gamma-point:
 
-***************************************************************
-Gamma-point solution solution with spins lying along the Z-axis
-***************************************************************
+**************************************************
+Gamma-point solution Z-axis Ferromagnetic solution
+**************************************************
 
 ==============================================================
 Exchange tensor :math:`^{sn}\boldsymbol{J}_{\boldsymbol{d}ij}`
 ==============================================================
 This kind of solutions narrow the parameter space, since the cone angles
-:math:`\alpha=\beta=0` so that the bases :math:`(\,u\,v\,n\,)\,=\,(\,x\,y\,z\,=`).
+:math:`\alpha=\beta=0` so that the bases :math:`(\,u\,v\,n\,)\,=\,(\,x\,y\,z\,)`.
 Furthermore, the spiral vector :math:`\boldsymbol{q}=0` and the intracell
 angles are all set to zero also, :math:`\theta_i=\phi_i=0`.
 Therefore that exchange tensor simplifies to

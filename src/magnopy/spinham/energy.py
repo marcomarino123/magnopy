@@ -308,14 +308,25 @@ def _compute_torque_target_spiral(torques):
 
 ################################################################################
 #                         Functions that output history                        #
-#                                                                              #
-# The idea is to call it in the generalized way as                             #
-#                                                                              #
-#                          history_processor(history)                          #
 ################################################################################
 
 
-def _default_history_processor_ferro(history):
+def _default_history_processor_ferro(history, filename=None, nspins=None):
+    # Output header
+    if history is None:
+        if nspins is None:
+            _logger.error("If history is None, then nspins is required.")
+            raise RunTimeError("If history is None, then nspins is required.")
+        header = f"{'Energy':8} {'Delta_E':8} {'Torque':8}"
+
+        for i in range(nspins):
+            header += f" S{i+1:5}_x S{i+1:5}_y S{i+1:5}_z"
+        if filename is None:
+            print(header, flush=True)
+        else:
+            with open(filename, "a") as file:
+                file.write(header + "\n")
+
     for i in range(len(history)):
         history[i] = (
             f"{history[i][0]:.8e} "
@@ -323,14 +334,42 @@ def _default_history_processor_ferro(history):
             + " "
             + " ".join([f"{a:.8f}" for a in history[i][2].flatten()])
         )
-    print("\n".join(history), flush=True)
+    if filename is None:
+        print("\n".join(history), flush=True)
+    else:
+        with open(filename, "a") as file:
+            file.write("\n" + "\n".join(history))
 
 
-def _default_history_processor_antiferro(history):
+def _default_history_processor_antiferro(history, filename=None):
     raise NotImplementedError
+    if filename is None:
+        print("\n".join(history), flush=True)
+    else:
+        with open(filename, "a") as file:
+            file.write("\n" + "\n".join(history))
 
 
-def _default_history_processor_spiral(history):
+def _default_history_processor_spiral(history, filename=None, nspins=None):
+    # Output header
+    if history is None:
+        if nspins is None:
+            _logger.error("If history is None, then nspins is required.")
+            raise RunTimeError("If history is None, then nspins is required.")
+        header = f"{'Energy':8} {'Delta_E':8} {'Torque':8} {'Torque_n':8}"
+
+        for i in range(nspins):
+            header += f" S{i+1:5}_x S{i+1:5}_y S{i+1:5}_z"
+
+        header += f" {'n_x':8} {'n_y':8} {'n_z':8}"
+        header += f" {'q_x':8} {'q_y':8} {'q_z':8}"
+
+        if filename is None:
+            print(header, flush=True)
+        else:
+            with open(filename, "a") as file:
+                file.write(header + "\n")
+
     for i in range(len(history)):
         history[i] = (
             # energy
@@ -344,7 +383,11 @@ def _default_history_processor_spiral(history):
             # spiral vector
             + " ".join([f"{a:.8f}" for a in history[i][2][1]])
         )
-    print("\n".join(history), flush=True)
+    if filename is None:
+        print("\n".join(history), flush=True)
+    else:
+        with open(filename, "a") as file:
+            file.write("\n" + "\n".join(history))
 
 
 ################################################################################
@@ -977,7 +1020,7 @@ class Energy:
         tolerance=None,
         max_iterations=None,
         save_history=False,
-        history_processor=None,
+        history_filename=None,
         history_step=1000,
     ):
         r"""
@@ -1053,18 +1096,11 @@ class Energy:
             By default the algorithm will run until the convergence is reached.
         save_history : bool, default False
             Whether to output the steps of the minimization algorithm.
-        history_processor : function, optional
-            Function for the history processing. If none provided, then history
-            is directed to ``sys.stdout`` via ``print()`` function.
-
-            The call signature for ``history_processor`` is:
-
-            .. code-block:: python
-
-                history_processor(history)
+        history_filename : str, optional
+            Filename for saving history of the minimization. By default history is
+            directed to ``sys.stdout`` via ``print()`` function.
         history_step : int, default 100
-            The history is printed or passed to the ``history_processor`` every
-            ``history_step`` steps.
+            The history is printed every ``history_step`` steps.
 
 
         Returns
@@ -1096,7 +1132,7 @@ class Energy:
             _compute_torque_target = _compute_torque_target_ferro
 
             # Switch to the default history processor if necessary
-            if save_history and history_processor is None:
+            if save_history is None:
                 history_processor = _default_history_processor_ferro
 
             if tolerance is None:
@@ -1120,7 +1156,7 @@ class Energy:
             _compute_torque_target = _compute_torque_target_antiferro
 
             # Switch to the default history processor if necessary
-            if save_history and history_processor is None:
+            if save_history is None:
                 history_processor = _default_history_processor_antiferro
             if tolerance is None:
                 tolerance = (1e-5, 1e-5, 1e-5)
@@ -1141,7 +1177,7 @@ class Energy:
             _compute_torque_target = _compute_torque_target_spiral
 
             # Switch to the default history processor if necessary
-            if save_history and history_processor is None:
+            if save_history is None:
                 history_processor = _default_history_processor_spiral
             if tolerance is None:
                 tolerance = (1e-5, 1e-5, 1e-5)
@@ -1156,8 +1192,12 @@ class Energy:
             )
 
         # Switch to the default history processor if necessary
-        if save_history and history_processor is None:
+        if save_history is None:
             history_processor = _default_history_processor
+
+        # Print header for the history
+        if save_history is None:
+            history_processor(None, nspins=len(self._spins))
 
         # Set the iterators
         # Note: iteration counter and k are distinct: k might be set to zero during

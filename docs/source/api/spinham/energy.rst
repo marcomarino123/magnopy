@@ -58,6 +58,3 @@ Optimization routines
     :toctree: generated/
 
     Energy.optimize
-    Energy.optimize_ferro
-    Energy.optimize_antiferro
-    Energy.optimize_spiral

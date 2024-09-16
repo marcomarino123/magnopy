@@ -1112,8 +1112,8 @@ class Energy:
             Energy of the Hamiltonian for the given ``spin_orientation``, ``cone_axis``
             and ``spiral_vector``.
 
-        Note
-        ----
+        Notes
+        -----
         Spiral vector is restricted to :math:`2\boldsymbol{q}=\boldsymbol{G}`.
         """
 

@@ -34,15 +34,15 @@ Relative or absolute path to the output file.
     default : "spinham.txt"
 
 
-.. _magnopy-convert-tb2j_output-filename:
+.. _magnopy-convert-tb2j_format:
 
 -f, --format
 ------------
 Whether to save Hamiltonian in a binary or human-readable (txt) format.
 If ``format == "hdf5"`` then ".hdf5" is added to the
-:ref:`_magnopy-convert-tb2j_output-filename` (and ".txt" is removed if present).
+:ref:`magnopy-convert-tb2j_output-filename` (and ".txt" is removed if present).
 Overwrites the behavior based on the extension of the
-:ref:`_magnopy-convert-tb2j_output-filename`
+:ref:`magnopy-convert-tb2j_output-filename`
 
 .. code-block:: text
 
@@ -50,7 +50,7 @@ Overwrites the behavior based on the extension of the
     choices: "txt" or "hdf5"
 
 
-.. _magnopy-convert-tb2j_output-filename:
+.. _magnopy-convert-tb2j_verbose:
 
 -v, --verbose
 -------------

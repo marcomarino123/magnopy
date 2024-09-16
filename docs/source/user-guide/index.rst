@@ -22,11 +22,13 @@ Prepared scripts
     :maxdepth: 1
 
     scripts/convert-tb2j
+    scripts/minimize-energy
 
 Theory behind
 =============
 
+.. toctree::
+    :maxdepth: 1
+
     methods/index
-
-
     hamiltonian-notation

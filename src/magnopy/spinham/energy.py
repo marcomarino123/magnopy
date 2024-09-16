@@ -80,8 +80,51 @@ def _starting_ferro(n_spins, initial_guess=None):
     return spin_orientation
 
 
-def _starting_antiferro(n_sping, initial_guess=None):
-    raise NotImplementedError
+def _starting_antiferro(n_spins, antiferro_q, initial_guess=None):
+    if initial_guess is not None and len(initial_guess) != 2:
+        raise ValueError(
+            "If initial guess is not None, then tuple with two elements "
+            "is expected: (spin_orientation, cone_axis), "
+            f"got {len(initial_guess)} elements."
+        )
+
+    # Get spin_orientation
+    if initial_guess is None or initial_guess[0] is None:
+        spin_orientation = _starting_ferro(n_spins)
+    else:
+        spin_orientation = _starting_ferro(n_spins, initial_guess[0])
+
+    # Get cone_axis
+    if initial_guess is None or initial_guess[1] is None:
+        cone_axis = np.random.random(3)
+    else:
+        # Check that the input is correct
+        try:
+            cone_axis = np.array(initial_guess[1], dtype=float)
+        except:
+            raise ValueError(
+                f"Initial guess for cone_axis is not array-like: " f"{initial_guess[1]}"
+            )
+        if cone_axis.shape != (3,):
+            raise ValueError(
+                f"Initial guess for cone_axis should have shape "
+                f"of (3,), got: {cone_axis.shape}"
+            )
+
+    # Normalize cone axis:
+    cone_axis /= np.linalg.norm(cone_axis)
+
+    # Check that the input is correct
+    try:
+        spiral_vector = np.array(antiferro_q, dtype=float)
+    except:
+        raise ValueError(f"Spiral_vector is not array-like: " f"{antiferro_q}")
+    if spiral_vector.shape != (3,):
+        raise ValueError(
+            f"Spiral_vector should have shape " f"of (3,), got: {spiral_vector.shape}"
+        )
+
+    return [np.concatenate((spin_orientation, [cone_axis]), axis=0), spiral_vector]
 
 
 def _starting_spiral(n_spins, initial_guess=None):
@@ -181,8 +224,46 @@ def _update_x_ferro(x, search_direction, step=1):
     return x
 
 
-def _update_antiferro(x, search_direction, step=1):
-    raise NotImplementedError
+def _update_x_antiferro(x, search_direction, step=1):
+    r"""
+    Update the variables for the next step in the ferro case.
+
+    Parameters
+    ----------
+    x : list of two elements: (I+1, 3) :numpy:`ndarray` and (3,) :numpy:`ndarray`
+        First element:
+            * 0 - I-1:  Orientation of the spin vectors
+            * I: cone axis
+        Second element: spiral vector
+    search_direction : (I*3+6,) :numpy:`ndarray`
+        Search direction computed in L-BFGS step
+    step : float
+        Size of the step along the search direction.
+    """
+    x_0 = x[0].copy()
+    x_1 = x[1].copy()
+    a12 = search_direction[:-3:3] * step
+    a13 = search_direction[1:-3:3] * step
+    a23 = search_direction[2:-3:3] * step
+
+    thetas = np.sqrt(a12**2 + a13**2 + a23**2)
+
+    r = []
+    for i in range(len(thetas)):
+        theta = thetas[i]
+
+        if theta < np.finfo(float).eps:
+            continue
+
+        r = (np.array([-a23[i], a13[i], -a12[i]])) / theta
+
+        x_0[i] = (
+            np.cos(theta) * x_0[i]
+            + np.sin(theta) * np.cross(r, x_0[i])
+            + (1 - np.cos(theta)) * r * (r @ x_0[i])
+        )
+
+    return [x_0, x_1]
 
 
 def _update_x_spiral(x, search_direction, step=1):
@@ -258,7 +339,27 @@ def _unpack_ferro(x):
 
 
 def _unpack_antiferro(x):
-    raise NotImplementedError
+    r"""
+    Unpack parameters for the antiferro case.
+
+    Parameters
+    ----------
+    x : list of two elements: (I+1, 3) :numpy:`ndarray` and (3,) :numpy:`ndarray`
+        First element:
+            * 0 - I-1:  Orientation of the spin vectors
+            * I: cone axis
+        Second element: spiral vector
+
+    Returns
+    -------
+    spin_orientation : (I, 3) :numpy:`ndarray`
+        Orientation of the spin vectors.
+    cone_axis : (3,)
+        Cone axis.
+    spiral_vector : (3,)
+        Spiral vector.
+    """
+    return x[0][:-1], x[0][-1], x[1]
 
 
 def _unpack_spiral(x):
@@ -299,7 +400,7 @@ def _compute_torque_target_ferro(torques):
 
 
 def _compute_torque_target_antiferro(torques):
-    raise NotImplementedError
+    return np.linalg.norm(torques[:-1], axis=1).max(), np.linalg.norm(torques[-1])
 
 
 def _compute_torque_target_spiral(torques):
@@ -317,37 +418,68 @@ def _default_history_processor_ferro(history, filename=None, nspins=None):
         if nspins is None:
             _logger.error("If history is None, then nspins is required.")
             raise RunTimeError("If history is None, then nspins is required.")
-        header = f"{'Energy':8} {'Delta_E':8} {'Torque':8}"
+        header = f"{'Energy':>15} {'Torque':>11}"
 
         for i in range(nspins):
-            header += f" S{i+1:5}_x S{i+1:5}_y S{i+1:5}_z"
+            header += f" {f'S{i+1}_x':>11} {f'S{i+1}_y':>11} {f'S{i+1}_z':>11}"
         if filename is None:
             print(header, flush=True)
         else:
             with open(filename, "a") as file:
-                file.write(header + "\n")
-
-    for i in range(len(history)):
-        history[i] = (
-            f"{history[i][0]:.8e} "
-            + " ".join([f"{a:.8f}" for a in history[i][1]])
-            + " "
-            + " ".join([f"{a:.8f}" for a in history[i][2].flatten()])
-        )
-    if filename is None:
-        print("\n".join(history), flush=True)
+                file.write(header)
     else:
-        with open(filename, "a") as file:
-            file.write("\n" + "\n".join(history))
+        for i in range(len(history)):
+            history[i] = (
+                f"{history[i][0]:15.8e} "
+                + " ".join([f"{a:11.8f}" for a in history[i][1]])
+                + " "
+                + " ".join([f"{a:11.8f}" for a in history[i][2].flatten()])
+            )
+        if filename is None:
+            print("\n".join(history), flush=True)
+        else:
+            with open(filename, "a") as file:
+                file.write("\n" + "\n".join(history))
 
 
-def _default_history_processor_antiferro(history, filename=None):
-    raise NotImplementedError
-    if filename is None:
-        print("\n".join(history), flush=True)
+def _default_history_processor_antiferro(history, filename=None, nspins=None):
+    # Output header
+    if history is None:
+        if nspins is None:
+            _logger.error("If history is None, then nspins is required.")
+            raise RunTimeError("If history is None, then nspins is required.")
+        header = f"{'Energy':>15} {'Torque':>11} {'Torque_n':>11}"
+
+        for i in range(nspins):
+            header += f" {f'S{i+1}_x':>11} {f'S{i+1}_y':>11} {f'S{i+1}_z':>11}"
+
+        header += f" {'n_x':>11} {'n_y':>11} {'n_z':>11}"
+        header += f" {'q_x':>11} {'q_y':>11} {'q_z':>11}"
+
+        if filename is None:
+            print(header, flush=True)
+        else:
+            with open(filename, "a") as file:
+                file.write(header)
     else:
-        with open(filename, "a") as file:
-            file.write("\n" + "\n".join(history))
+        for i in range(len(history)):
+            history[i] = (
+                # energy
+                f"{history[i][0]:15.8e} "
+                # torques
+                + " ".join([f"{a:11.8f}" for a in history[i][1]])
+                + " "
+                # I spin vectors and cone axis
+                + " ".join([f"{a:11.8f}" for a in history[i][2][0].flatten()])
+                + " "
+                # spiral vector
+                + " ".join([f"{a:11.8f}" for a in history[i][2][1]])
+            )
+        if filename is None:
+            print("\n".join(history), flush=True)
+        else:
+            with open(filename, "a") as file:
+                file.write("\n" + "\n".join(history))
 
 
 def _default_history_processor_spiral(history, filename=None, nspins=None):
@@ -356,38 +488,38 @@ def _default_history_processor_spiral(history, filename=None, nspins=None):
         if nspins is None:
             _logger.error("If history is None, then nspins is required.")
             raise RunTimeError("If history is None, then nspins is required.")
-        header = f"{'Energy':8} {'Delta_E':8} {'Torque':8} {'Torque_n':8}"
+        header = f"{'Energy':>15} {'Torque':>11} {'Torque_n':>11}"
 
         for i in range(nspins):
-            header += f" S{i+1:5}_x S{i+1:5}_y S{i+1:5}_z"
+            header += f" {f'S{i+1}_x':>11} {f'S{i+1}_y':>11} {f'S{i+1}_z':>11}"
 
-        header += f" {'n_x':8} {'n_y':8} {'n_z':8}"
-        header += f" {'q_x':8} {'q_y':8} {'q_z':8}"
+        header += f" {'n_x':>11} {'n_y':>11} {'n_z':>11}"
+        header += f" {'q_x':>11} {'q_y':>11} {'q_z':>11}"
 
         if filename is None:
             print(header, flush=True)
         else:
             with open(filename, "a") as file:
-                file.write(header + "\n")
-
-    for i in range(len(history)):
-        history[i] = (
-            # energy
-            f"{history[i][0]:.8e} "
-            # torques
-            + " ".join([f"{a:.8f}" for a in history[i][1]])
-            + " "
-            # I spin vectors and cone axis
-            + " ".join([f"{a:.8f}" for a in history[i][2][0].flatten()])
-            + " "
-            # spiral vector
-            + " ".join([f"{a:.8f}" for a in history[i][2][1]])
-        )
-    if filename is None:
-        print("\n".join(history), flush=True)
+                file.write(header)
     else:
-        with open(filename, "a") as file:
-            file.write("\n" + "\n".join(history))
+        for i in range(len(history)):
+            history[i] = (
+                # energy
+                f"{history[i][0]:15.8e} "
+                # torques
+                + " ".join([f"{a:11.8f}" for a in history[i][1]])
+                + " "
+                # I spin vectors and cone axis
+                + " ".join([f"{a:11.8f}" for a in history[i][2][0].flatten()])
+                + " "
+                # spiral vector
+                + " ".join([f"{a:11.8f}" for a in history[i][2][1]])
+            )
+        if filename is None:
+            print("\n".join(history), flush=True)
+        else:
+            with open(filename, "a") as file:
+                file.write("\n" + "\n".join(history))
 
 
 ################################################################################
@@ -434,7 +566,7 @@ class Energy:
         for atom1, atom2, R, J in spinham.exchange_like:
             i = self._atom_indices[atom1]
             j = self._atom_indices[atom2]
-            d = spinham.get_vector(atom1, atom2, R)
+            d = R @ spinham.cell
             self._bonds.append([i, j, d, J])
 
         # Return original noatation of SpinHamiltonian
@@ -708,8 +840,80 @@ class Energy:
         if return_results:
             return gradient_vector, torques
 
-    def _antiferro_grad(self):
-        raise NotImplementedError
+    def _antiferro_grad(
+        self,
+        spin_orientation,
+        cone_axis,
+        spiral_vector,
+        gradient_vector=None,
+        torques=None,
+    ):
+        r"""
+        Gradient of the antiferro case looks like:
+
+        [ t_0z, -t_0y, t_0x, ..., t_(I-1)z, -t_(I-1)y,
+          t_(I-1)x, t_nz, -t_ny, t_nx]
+
+        where t_ix, t_iy, t_iz - are components of torque for ith spin in the
+        unit cell (i = 0, I-1); t_nx, t_ny, t_nz 0 - are the components of the "torque"
+        on the cone axis.
+
+        torques have the form:
+
+        [
+            [t_0x, t_0y, t_0z],
+            ...,
+            [t_(I-1)x, t_(I-1)y, t_(I-1)z],
+            [t_nx, t_ny, t_nz]
+        ]
+        """
+
+        if gradient_vector is None or torques is None:
+            gradient_vector = np.zeros((self._gradient_size), dtype=float)
+            torques = np.zeros((self._torque_size, 3), dtype=float)
+            return_results = True
+        else:
+            return_results = False
+
+        # Compute gradient for spin_orientation
+        for i in range(len(spin_orientation)):
+            h = 1e-4
+            gradient = []
+            for j in range(3):
+                spin_orientation[i][j] -= h
+                f_minus_h = self.antiferro(spin_orientation, cone_axis, spiral_vector)
+                spin_orientation[i][j] += 2 * h
+                f_plus_h = self.antiferro(spin_orientation, cone_axis, spiral_vector)
+                gradient.append((f_plus_h - f_minus_h) / 2 / h)
+                spin_orientation[i][j] -= h
+
+            t = np.cross(spin_orientation[i], gradient)
+            for j in range(0, 3):
+                torques[i][j] = t[j]
+            gradient_vector[3 * i] = t[2]
+            gradient_vector[3 * i + 1] = -t[1]
+            gradient_vector[3 * i + 2] = t[0]
+
+        # Compute gradient for cone_axis
+        h = 1e-4
+        gradient = []
+        for j in range(3):
+            cone_axis[j] -= h
+            f_minus_h = self.antiferro(spin_orientation, cone_axis, spiral_vector)
+            cone_axis[j] += 2 * h
+            f_plus_h = self.antiferro(spin_orientation, cone_axis, spiral_vector)
+            gradient.append((f_plus_h - f_minus_h) / 2 / h)
+            cone_axis[j] -= h
+
+        t = np.cross(cone_axis, gradient)
+        for j in range(0, 3):
+            torques[-1][j] = t[j]
+        gradient_vector[-6] = t[2]
+        gradient_vector[-5] = -t[1]
+        gradient_vector[-4] = t[0]
+
+        if return_results:
+            return gradient_vector, torques
 
     def _spiral_grad(
         self,
@@ -885,8 +1089,123 @@ class Energy:
 
         return energy
 
-    def antiferro(self):
-        raise NotImplementedError
+    def antiferro(self, spin_orientation, cone_axis, spiral_vector):
+        r"""
+        Computes energy of the antiferro cone state for given
+        ``spin_orientation``, ``cone_axis`` and ``spiral_vector``.
+
+        Parameters
+        ----------
+        spin_orientation : (I, 3) or (3,) |array-like|_
+            Orientation of the spin vectors.
+            If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are accepted.
+            The vectors are normalized to one, i.e. only direction of the vectors
+            is important.
+        cone_axis : (3,) |array-like|_
+            Orientation of the cone axis, only the direction is important.
+        spiral_vector : (3,) |array-like|_
+            Spiral vector.
+
+        Returns
+        -------
+        energy :  float.
+            Energy of the Hamiltonian for the given ``spin_orientation``, ``cone_axis``
+            and ``spiral_vector``.
+
+        Note
+        ----
+        Spiral vector is restricted to :math:`2\boldsymbol{q}=\boldsymbol{G}`.
+        """
+
+        # Check that the input is correct (spins)
+        try:
+            spin_orientation = np.array(spin_orientation, dtype=float)
+        except:
+            raise ValueError(f"spin_orientation is not array-like: {spin_orientation}")
+
+        if spin_orientation.shape[-1] != 3:
+            raise ValueError(
+                f"spin_orientation has to have the last dimension of "
+                f"size 3, got {spin_orientation.shape[-1]}"
+            )
+
+        # Check that the input is correct (cone_axis)
+        try:
+            cone_axis = np.array(cone_axis, dtype=float)
+        except:
+            raise ValueError(f"cone_axis is not array-like: {cone_axis}")
+
+        if cone_axis.shape != (3,):
+            raise ValueError(
+                f"cone_axis must have the shape of (3,) " f"got {cone_axis.shape}"
+            )
+
+        # Check that the input is correct (spiral vector)
+        try:
+            spiral_vector = np.array(spiral_vector, dtype=float)
+        except:
+            raise ValueError(f"spiral_vector is not array-like: {spiral_vector}")
+
+        if spiral_vector.shape != (3,):
+            raise ValueError(
+                f"spiral_vector must have the shape of (3,) "
+                f"got {spiral_vector.shape}"
+            )
+
+        # Make the input array have (I,3) shape for I = 1
+        if len(self._spins) == 1 and spin_orientation.shape == (3,):
+            spin_orientation = np.array([spin_orientation])
+
+        if len(self._spins) != spin_orientation.shape[0]:
+            raise ValueError(
+                f"Expected {len(self._spins)} spin orientations, "
+                f"got {spin_orientation.shape[0]}"
+            )
+
+        # Normalize spin orientations
+        for i in range(len(spin_orientation)):
+            spin_orientation[i] /= np.linalg.norm(spin_orientation[i])
+
+        # Normalize cone axis
+        cone_axis /= np.linalg.norm(cone_axis)
+
+        K = np.array(
+            [
+                [0, -cone_axis[2], cone_axis[1]],
+                [cone_axis[2], 0, -cone_axis[0]],
+                [-cone_axis[1], cone_axis[0], 0],
+            ]
+        )
+        K_sq = K @ K
+        IK_sq = np.eye(3, dtype=float) + K_sq
+
+        energy = 0
+
+        # Compute exchange and single-ion-like anisotropy energy
+        for i, j, d, J in self._bonds:
+            C_dij = (
+                IK_sq @ J.matrix @ IK_sq
+                + K_sq @ J.matrix @ K_sq * np.cos(spiral_vector @ d)
+                - K_sq @ J.matrix @ K * np.sin(spiral_vector @ d)
+            )
+
+            energy += (
+                self._factor
+                * self._spins[i]
+                * self._spins[j]
+                * np.einsum("i,ij,j", spin_orientation[i], C_dij, spin_orientation[j])
+            )
+
+        # Compute zeeman energy
+        if self.magnetic_field is not None:
+            so_prime = np.einsum(
+                "jk,ik ->ij", (np.eye(3, dtype=float) + IK_sq), spin_orientation
+            )
+            energy += BOHR_MAGNETON * np.einsum(
+                "i,j,ij", self._g_factors, self.magnetic_field, so_prime
+            )
+
+        return energy
 
     def spiral(self, spin_orientation, cone_axis, spiral_vector):
         r"""
@@ -1022,6 +1341,7 @@ class Energy:
         save_history=False,
         history_filename=None,
         history_step=1000,
+        antiferro_q=None,
     ):
         r"""
         Find the minima of the energy assuming the type of the ground state based on
@@ -1049,8 +1369,17 @@ class Energy:
                   If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are
                   accepted.
 
-            * ``case ="antiferro"``
-              FIXME
+            * ``case ="antiferro"`` tuple of (spin_orientation, cone_axis)
+
+              spin_orientation : (I, 3) or (3,) |array-like|_ or None
+                  Initial guess for the orientation of spin vectors.
+                  If none provided, then random orientation is chosen.
+                  The vectors are normalized to one, i.e. only direction of the vectors
+                  is important.
+                  If ``I = 1``, then both ``(1,3)`` and ``(3,)`` shaped inputs are
+                  accepted.
+              cone_axis : (3,) |array-like|_
+                  Cone axis. Only direction is important.
 
             * ``case ="spiral"`` tuple of (spin_orientation, cone_axis, spiral_vector)
 
@@ -1102,6 +1431,9 @@ class Energy:
         history_step : int, default 100
             The history is printed every ``history_step`` steps.
 
+        antiferro_q : (3,) |array-like|_
+            One of the 26 possible q vectors of the sntiferromagnetic case.
+
 
         Returns
         -------
@@ -1132,7 +1464,7 @@ class Energy:
             _compute_torque_target = _compute_torque_target_ferro
 
             # Switch to the default history processor if necessary
-            if save_history is None:
+            if save_history:
                 history_processor = _default_history_processor_ferro
 
             if tolerance is None:
@@ -1142,9 +1474,7 @@ class Energy:
                     f"Expected tuple of two floats for tolerance, got {tolerance}"
                 )
         elif case in [1, "antiferro"]:
-            # FIXME
-            raise NotImplementedError
-            x = _starting_antiferro(len(self._spins), initial_guess)
+            x = _starting_antiferro(len(self._spins), antiferro_q, initial_guess)
 
             self._gradient_size = 3 * len(self._spins) + 3
             self._torque_size = len(self._spins) + 1
@@ -1156,7 +1486,7 @@ class Energy:
             _compute_torque_target = _compute_torque_target_antiferro
 
             # Switch to the default history processor if necessary
-            if save_history is None:
+            if save_history:
                 history_processor = _default_history_processor_antiferro
             if tolerance is None:
                 tolerance = (1e-5, 1e-5, 1e-5)
@@ -1177,7 +1507,7 @@ class Energy:
             _compute_torque_target = _compute_torque_target_spiral
 
             # Switch to the default history processor if necessary
-            if save_history is None:
+            if save_history:
                 history_processor = _default_history_processor_spiral
             if tolerance is None:
                 tolerance = (1e-5, 1e-5, 1e-5)
@@ -1191,13 +1521,9 @@ class Energy:
                 f"0 or 1 or 2. Got {case}"
             )
 
-        # Switch to the default history processor if necessary
-        if save_history is None:
-            history_processor = _default_history_processor
-
         # Print header for the history
-        if save_history is None:
-            history_processor(None, nspins=len(self._spins))
+        if save_history:
+            history_processor(None, nspins=len(self._spins), filename=history_filename)
 
         # Set the iterators
         # Note: iteration counter and k are distinct: k might be set to zero during
@@ -1296,12 +1622,12 @@ class Energy:
                 )
                 # Output history is required
                 if iteration_counter % history_step == 0 and iteration_counter > 0:
-                    history_processor(history)
+                    history_processor(history, filename=history_filename)
                     history = []
 
         # Output remaining part of history
         if save_history:
-            history_processor(history)
+            history_processor(history, filename=history_filename)
 
         # Return minimized configuration
         return _unpack(x)

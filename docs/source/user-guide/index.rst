@@ -21,6 +21,8 @@ Prepared scripts
 .. toctree::
     :maxdepth: 1
 
+    scripts/convert-tb2j
+
 Theory behind
 =============
 

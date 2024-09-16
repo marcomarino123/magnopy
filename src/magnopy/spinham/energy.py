@@ -768,7 +768,7 @@ class Energy:
             )
         # print(f"\n\n{gradient}\n\n")
 
-        gradient_vector[-3:] = np.zeros(3)  # gradient
+        gradient_vector[-3:] = gradient
 
         if return_results:
             return gradient_vector, torques
@@ -947,18 +947,12 @@ class Energy:
                 / 2
                 * np.sin(spiral_vector @ d)
             )
-            C_dij_prime = J.matrix @ (
-                np.eye(3)
-                + K * np.sin(spiral_vector @ d)
-                + K_sq * (1 - np.cos(spiral_vector @ d))
-            )
+
             energy += (
                 self._factor
                 * self._spins[i]
                 * self._spins[j]
-                * np.einsum(
-                    "i,ij,j", spin_orientation[i], C_dij_prime, spin_orientation[j]
-                )
+                * np.einsum("i,ij,j", spin_orientation[i], C_dij, spin_orientation[j])
             )
 
         # Compute zeeman energy
@@ -1397,174 +1391,3 @@ class Energy:
                 raise ValueError("Wolfe failed")
             i += 1
         return step
-
-
-if __name__ == "__main__":
-    from magnopy.io import load_spinham_txt
-
-    # spinham = load_spinham_txt("/Users/rybakov.ad/Codes/magnopy/tmp/easy-along-y.txt")
-    # spinham = load_spinham_txt(
-    #     "/Users/rybakov.ad/Codes/magnopy/tmp/test/NiI2_varcell.txt"
-    # )
-    # nspins = 1
-    # spinham = load_spinham_txt(
-    #     "/Users/rybakov.ad/Codes/magnopy/tmp/crsbr-mono-grogu.txt"
-    # )
-    # so_history = []
-    # targets = [[], []]
-    # def hproc(history):
-    #     for i in range(len(history)):
-    #         so_history.append(history[i][2])
-    #         targets[0].append(history[i][0])
-    #         targets[1].append(history[i][1][0])
-    #         history[i] = (
-    #             f"{history[i][0]:.8e} "
-    #             + " ".join([f"{a:.8f}" for a in history[i][1]])
-    #             + " "
-    #             + " ".join([f"{a:.8f}" for a in history[i][2].flatten()])
-    #         )
-    #     print("\n".join(history))
-
-    spinham = load_spinham_txt(
-        "/Users/rybakov.ad/Codes/magnopy/tmp/crsbr-simplified.txt"
-    )
-    print(spinham.reciprocal_cell)
-    energy = Energy(spinham)
-    energy._wolfe_iter_max = 1000
-    result = energy.optimize(
-        initial_guess=(
-            [
-                [-1, 0, 0],
-                [-1, 0, 0],
-            ],
-            [0, -1, 0],
-            [1.79 * 0.00885 * 2, 0, 0],
-        ),
-        case="spiral",
-        save_history=True,
-        history_step=1,
-        max_iterations=10000,
-    )
-    # Start from here if desperate:
-    # E -9.51386694e+01 ([[0.45274431, 0.80280757, 0.38797242], [0.45808184, 0.80375575, 0.37965474]], [0.48337429, 0.78024133, 0.39695435], [0.17900000, 0.13200000, 0.00000000])
-    # print("\n\n", result, "\n")
-    print(energy.ferro([[0, 1, 0], [0, 1, 0]]))
-    print(energy.spiral(*result))
-    # -95.13
-    # [ 0,  1,  0]
-    # [ 0,  1,  0]
-    # Correct spiral minimizes n || s = [0,1,0] with the same energy.
-    # print(energy.ferro(*result))
-
-    # Lower wrong spiral
-    # s1 [-9.99999999e-01,  5.23312547e-05, -8.02683394e-10]
-    # s2 [-9.99999999e-01,  5.25754604e-05,  7.36070186e-10]
-    # n  [ 9.85508921e-01, -1.69623605e-01,  2.77555758e-11]
-    # q  [0.179, 0.   , 0.   ]
-    # E = -95.26431349491813
-
-    # Lower wrong spiral
-    # s1 [-1, 0, 0]
-    # s2 [-1, 0, 0]
-    # n  [ 0, -1, 0]
-    # q  [0.031683, 0.   , 0.   ]
-    # E = -95.28486545420179
-
-    # Wrong spirals
-    # s1 [-0.96462303, -0.25326014,  0.07322366]
-    # s2 [ 0.96462303,  0.25326014,  0.07322366]
-    # n [ 2.53944587e-01, -9.67218769e-01,  7.21842667e-11]
-    # q [0.32228685, 0.26316478, 0.88670813]
-    # E -57.88619042957858
-
-    # s1 [-0.01142785, -0.00311326, -0.99992985]
-    # s2 [-0.01142471, -0.00311225,  0.99992989]
-    # n [ 2.62842027e-01, -9.64838882e-01,  7.72376599e-08]
-    # q [0.28423305, 0.4168645 , 0.73826283]
-    # E -34.35901559333408
-
-    # phi = np.linspace(0, 2 * np.pi, 100)
-    # theta = np.linspace(0, np.pi, 100)
-
-    # data = np.zeros((100, 100))
-    # for i in range(100):
-    #     for j in range(100):
-    #         tmp_spins = []
-    #         for k in range(nspins):
-    #             tmp_spins.append(
-    #                 [
-    #                     np.cos(phi[j]) * np.sin(theta[i]),
-    #                     np.sin(phi[j]) * np.sin(theta[i]),
-    #                     np.cos(theta[i]),
-    #                 ]
-    #             )
-    #         data[i][j] = energy.ferro(tmp_spins)
-
-    # import matplotlib as mpl
-    # import matplotlib.pyplot as plt
-
-    # fig, axs = plt.subplots(2, 1)
-    # x = np.linspace(0, len(targets[0]) - 1, len(targets[0]))
-    # axs[0].plot(x, targets[0], color="black", lw=2)
-    # axs[1].plot(x, targets[1], color="black", lw=2)
-    # axs[0].set_xlabel("Iteration step", fontsize=20)
-    # axs[0].set_ylabel("Energy", fontsize=20)
-    # axs[1].set_xlabel("Iteration step", fontsize=20)
-    # axs[1].set_ylabel("Max torque", fontsize=20)
-    # plt.savefig("test-targets.png", dpi=300, bbox_inches="tight")
-    # plt.close()
-
-    # fig, ax = plt.subplots()
-    # ax.imshow(data, origin="lower", extent=[0, 2 * np.pi, 0, np.pi], cmap="bwr")
-    # ax.set_xlabel(R"$\phi$", fontsize=20)
-    # ax.set_ylabel(R"$\theta$", fontsize=20)
-    # ax.set_xticks(
-    #     [0, np.pi / 2, np.pi, 3 * np.pi / 2, 2 * np.pi],
-    #     [R"$0$", R"$\frac{\pi}{2}$", R"$\pi$", R"$\frac{3\pi}{2}$", R"$2\pi$"],
-    # )
-    # ax.set_yticks(
-    #     [0, np.pi / 2, np.pi],
-    #     [R"$0$", R"$\frac{\pi}{2}$", R"$\pi$"],
-    # )
-    # ax.grid("on")
-    # ax.set_aspect(1)
-
-    # cmap = mpl.colormaps["magma"]
-    # colors = ["tab:purple", "tab:green", "tab:orange"]
-    # norm = mpl.colors.Normalize(vmin=0, vmax=len(so_history) - 1)
-
-    # scattered = []
-    # for i in range(nspins):
-    #     scattered.append([])
-    # print(np.array(so_history).shape)
-    # for i, sos in enumerate(so_history):
-    #     for j in range(nspins):
-    #         so = sos[j]
-
-    #         xy = np.sqrt(so[0] ** 2 + so[1] ** 2)
-    #         if xy == 0:
-    #             phi = 0
-    #             if so[2] > 0:
-    #                 theta = 0
-    #             else:
-    #                 theta = np.pi
-    #         else:
-    #             theta = np.arctan2(np.sqrt(so[0] ** 2 + so[1] ** 2), so[2])
-    #             if theta < 0:
-    #                 theta *= 1
-    #             phi = np.arctan2(so[1], so[0])
-    #             if phi < 0:
-    #                 phi = 2 * np.pi + phi
-    #         if theta is not None and phi is not None:
-    #             scattered[j].append([phi, theta, i])
-
-    # scattered = np.array(scattered)
-    # phi = scattered[:, :, 0]
-    # theta = scattered[:, :, 1]
-    # i = scattered[:, :, 2]
-    # for j in range(nspins):
-    #     ax.plot(phi[j], theta[j], zorder=10, color=colors[j], lw=1)
-    #     ax.scatter(phi[j][-1], theta[j][-1], zorder=11, lw=0, s=20, color="black")
-
-    # plt.savefig("test.png", dpi=300, bbox_inches="tight")
-    # plt.close()

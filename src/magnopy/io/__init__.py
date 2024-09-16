@@ -22,14 +22,14 @@ from os.path import abspath
 from .hdf5 import *
 from .txt import *
 
-__all__ = []
+__all__ = ["load_spinham"]
 __all__.extend(txt.__all__)
 __all__.extend(hdf5.__all__)
 
 _logger = logging.getLogger(__name__)
 
 
-def load_apinham(filename, source_type=None):
+def load_spinham(filename, source_type=None, **kwargs):
     r"""
     Generalized interface function for the loading of the spin Hamiltonian.
 
@@ -56,6 +56,15 @@ def load_apinham(filename, source_type=None):
             If the Hamiltonian is obtained from the |TB2J|_ package.
 
         All keywords are case-insensitive.
+    ** kwargs
+        Optional keyword arguments, that are specific to the load function for each
+        ``source_type``.
+
+    See Also
+    --------
+    io.load_tb2j
+    io.load_spinham_txt
+    io.load_spinham_hdf5
     """
 
     if source_type is not None:
@@ -79,11 +88,11 @@ def load_apinham(filename, source_type=None):
             raise RuntimeError()
 
     if source_type == "txt":
-        return load_spinham_txt(filename)
+        return load_spinham_txt(filename, **kwargs)
     elif source_type == "hdf5":
-        return load_spinham_hdf5(filename=filename)
+        return load_spinham_hdf5(filename=filename, **kwargs)
     elif source_type == "tb2j":
-        return load_tb2j(filename)
+        return load_tb2j(filename, **kwargs)
     else:
         _logger.error(
             f"The file source {source_type} is not supported. "

@@ -80,27 +80,9 @@ class MagnonDispersion:
     ----------
     model : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian.
-    Q : (3,) |array-like|_
-        Ordering wave vector of the spin-spiral.
-        In relative coordinates with respect to the model`s reciprocal cell.
-        It rotates spins from unit cell to unit cell,
-        but not from atom to atom in (0, 0, 0) unit cell.
-    n : (3,) |array-like|_, optional
-        Global rotational axis. If None provided, then it is set to the direction of ``Q``.
-    nodmi : bool, default=False
-        If True, then DMI is not included in the dispersion.
-    noaniso : bool, default=False
-        If True, then anisotropy is not included in the dispersion.
-    custom_mask : func
-        Custom mask for the exchange parameter. Function which take (3,3) :numpy:`ndarray`
-        as an input and returns (3,3) :numpy:`ndarray` as an output.
 
     Attributes
     ----------
-    Q : (3,) :numpy:`ndarray`
-        Ordering wave vector of the spin-spiral. in absolute coordinates in reciprocal space.
-    n : (3,) :numpy:`ndarray`
-        Global rotational axis.
     N : int
         Number of magnetic atoms.
     J_matrices : (M,) :numpy:`ndarray`
@@ -119,46 +101,27 @@ class MagnonDispersion:
         Defined from local spin directions.
     """
 
-    def __init__(
-        self,
-        model: SpinHamiltonian,
-        Q=None,
-        n=None,
-        nodmi=False,
-        noaniso=False,
-        custom_mask=None,
-    ):
+    def __init__(self, model: SpinHamiltonian):
         self._C = None
         # Store the exchange model, but privately
         self._model = deepcopy(model)
         self._model.notation = "SpinW"
 
-        # Convert Q to absolute coordinates
-        if Q is None:
-            Q = [0, 0, 0]
-        self.Q = np.array(Q, dtype=float) @ self._model.reciprocal_cell
-
-        # Convert n to absolute coordinates, use Q if n is not provided
-        if n is None:
-            if np.allclose([0, 0, 0], Q):
-                self.n = np.array([0, 0, 1])
-            else:
-                self.n = self.Q / np.linalg.norm(self.Q)
-        else:
-            self.n = np.array(n, dtype=float) / np.linalg.norm(n)
-
         # Get the number of magnetic atoms
         self.N = len(self._model.magnetic_atoms)
 
         # Get the exchange parameters, indices and vectors form the SpinHamiltonian
-        (
-            self.J_matrices,
-            self.indices_i,
-            self.indices_j,
-            self.dis_vectors,
-        ) = self._model.input_for_magnons(
-            nodmi=nodmi, noaniso=noaniso, custom_mask=custom_mask
-        )
+
+        self.J_matrices = []
+        self.indices_i = []
+        self.indices_j = []
+        self.dis_vectors = []
+
+        for atom1, atom2, R, J in self._model.exchange_like:
+            i = self._atom_indices[atom1]
+            j = self._atom_indices[atom2]
+            d = self._model.get_vector(atom1, atom2, R)
+            self._bonds.append([i, j, d, J])
 
         # Initialize spin vector, u vector and v vector arrays
         self.S = np.zeros((self.N, 3), dtype=float)
@@ -176,12 +139,6 @@ class MagnonDispersion:
                 raise ValueError(
                     f"Spin vector is not defined for {atom.fullname} atom."
                 )
-
-        # Rotate exchange matrices
-        for i in range(len(self.J_matrices)):
-            rotvec = self.n * (self.Q @ self.dis_vectors[i])
-            R_nm = Rotation.from_rotvec(rotvec).as_matrix()
-            self.J_matrices[i] = self.J_matrices[i] @ R_nm
 
     def J(self, k):
         r"""

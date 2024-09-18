@@ -241,7 +241,7 @@ def _update_x_antiferro(x, search_direction, step=1):
         Size of the step along the search direction.
     """
     x_0 = x[0].copy()
-    x_1 = x[1].copy()
+    x_1 = x[1]
     a12 = search_direction[:-3:3] * step
     a13 = search_direction[1:-3:3] * step
     a23 = search_direction[2:-3:3] * step
@@ -1735,12 +1735,13 @@ class Energy:
         nabla_new = _grad(*_unpack(x_new))[0]
         nabla = _grad(*_unpack(x))[0]
         i = 0
+        tmp = [[], [], []]
         while energy(*_unpack(x_new)) > fx + (
             self._wolfe_c1 * step * nabla.T @ search_direction
         ) or abs(nabla_new.T @ search_direction) > abs(
             self._wolfe_c2 * nabla.T @ search_direction
         ):
-            step *= 0.5
+            step *= 0.99
             x_new = _update(x, search_direction, step)
             nabla_new = _grad(*_unpack(x_new))[0]
             # print(
@@ -1750,10 +1751,20 @@ class Energy:
             #     abs(nabla_new.T @ search_direction),
             #     abs(self._wolfe_c2 * nabla.T @ search_direction),
             # )
+            tmp[0].append(step)
+            tmp[1].append(energy(*_unpack(x_new)))
+            tmp[2].append(fx + step * self._wolfe_c1 * nabla.T @ search_direction)
             if i > self._wolfe_iter_max:
                 print("\n\n")
                 # TODO go into the details and deal with the failing cases
-                return 1
+                import matplotlib.pyplot as plt
+
+                fig, ax = plt.subplots()
+                ax.plot(tmp[0], tmp[1], lw=1, color="black")
+                ax.plot(tmp[0], tmp[2], lw=1, color="tab:red")
+                plt.savefig("tmp.png", dpi=300, bbox_inches="tight")
+                plt.close()
+                # return 1
                 raise ValueError("Wolfe failed")
             i += 1
         return step

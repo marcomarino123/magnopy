@@ -82,7 +82,7 @@ def _minimize_antiferro(energy: Energy, spinham, seedname, output_file):
         spin_orientation, cone_axis, _ = energy.optimize(
             case="antiferro",
             save_history=True,
-            history_filename=f"{seedname}-ferro-history",
+            history_filename=history_file,
             antiferro_q=q,
         )
         output_file.write(

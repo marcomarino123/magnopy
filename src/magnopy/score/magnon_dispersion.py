@@ -48,7 +48,7 @@ def manager(
     if len(out_head) == 0:
         out_head = head
     if len(out_tail) == 0:
-        out_tail = "magnon_dispersion"
+        out_tail = "dispersion"
 
     output_name = os.path.join(out_head, out_tail)
 
@@ -57,6 +57,7 @@ def manager(
         os.makedirs(out_head, exist_ok=True)
 
     # Load spin Hamiltonian from the input file
+    input_file = spinham
     spinham = load_spinham(spinham, spinham_format=spinham_format)
 
     # Standardize the unit cell
@@ -93,10 +94,10 @@ def manager(
 
     omegas = dispersion(kp)
 
-    ax.set_xticks(kp.coordinates(), kp.labels, fontsize=15)
+    ax.set_xticks(kp.ticks(), kp.labels, fontsize=15)
     ax.set_ylabel("E, meV", fontsize=15)
     ax.vlines(
-        kp.coordinates(),
+        kp.ticks(),
         0,
         1,
         transform=ax.get_xaxis_transform(),
@@ -118,14 +119,11 @@ def manager(
         info = [
             main_separator,
             logo(date_time=True, line_length=80),
-            f"\nMagnon dispersion is computed based on the file:\n{os.path.abspath(spinham)}\n",
+            f"\nMagnon dispersion is computed based on the file:\n{os.path.abspath(input_file)}\n",
         ]
-        if template_file is not None:
-            info.append(f"With template file:\n{os.path.abspath(template_file)}\n")
-
         info.append(main_separator)
         info.append("Cell:" + "\n")
-        print(spinham.cell)
+        info.append(str(spinham.cell) + "\n")
         info.append(f"Detected Bravais lattice: {spinham.variation}\n")
         info.append(main_separator)
 
@@ -139,7 +137,7 @@ def manager(
             header_column.append(f"{name:<6}")
             names_data.append(kp.hs_coordinates[name])
         info.append(
-            names_data,
+            str(names_data),
         )
 
         info.append("klabels" + "\n")
@@ -147,14 +145,8 @@ def manager(
         header_column = []
         for i in range(len(kp.labels)):
             header_column.append(f"{kp.labels[i]:<10}")
-            labels_data.append([kp.coordinates()[i]])
-        info.append(
-            labels_data,
-            borders=False,
-            fmt=">.8f",
-            print_result=False,
-            header_column=header_column,
-        )
+            labels_data.append([kp.ticks()[i]])
+        info.append(str(labels_data))
         info.append(main_separator)
         info.append("dispersion" + "\n")
 

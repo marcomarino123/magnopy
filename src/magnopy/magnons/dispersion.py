@@ -111,7 +111,9 @@ class MagnonDispersion:
         self.N = len(self._model.magnetic_atoms)
 
         # Get the exchange parameters, indices and vectors form the SpinHamiltonian
-
+        self._atom_indices = dict(
+            [(atom, i) for i, atom in enumerate(self._model.magnetic_atoms)]
+        )
         self.J_matrices = []
         self.indices_i = []
         self.indices_j = []
@@ -121,7 +123,10 @@ class MagnonDispersion:
             i = self._atom_indices[atom1]
             j = self._atom_indices[atom2]
             d = self._model.get_vector(atom1, atom2, R)
-            self._bonds.append([i, j, d, J])
+            self.J_matrices.append(J)
+            self.indices_i.append(i)
+            self.indices_j.append(j)
+            self.dis_vectors.append(d)
 
         # Initialize spin vector, u vector and v vector arrays
         self.S = np.zeros((self.N, 3), dtype=float)
@@ -164,7 +169,7 @@ class MagnonDispersion:
             i = self.indices_i[index]
             j = self.indices_j[index]
 
-            result[i][j] += self.J_matrices[index] * np.exp(
+            result[i][j] += self.J_matrices[index].matrix * np.exp(
                 -1j * (k @ self.dis_vectors[index])
             )
         return result

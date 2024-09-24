@@ -149,3 +149,19 @@ The LSWT Hamiltonian is then
    \left(T_{1/2}^{-1}(-\boldsymbol{k})+T_{1/2}^{1}(-\boldsymbol{k})\right)^*&
    \left(T_{-1/2}^{0}(-\boldsymbol{k})+T_{-1/2}^{-2}(-\boldsymbol{k})+T_{-1/2}^2(-\boldsymbol{k})\right)^*
   \end{pmatrix}
+
+The above expression is too complex, so we perform several simplifications. First, we assume a
+single atom per unit cell. Second, we assume that interactions run only to first neighbors that
+are labelled by :math:`\boldsymbol{d}`, and that they are isotropic in space, so that the
+:math:`\boldsymbol{d}`-subindex can be dropped. Third, we suppose that :math:`J^{xx}=J^{yy}`,
+:math:`A^{xx}=A^{yy}` and that :math:`S^{x}=0`. Then
+
+.. math::
+  T_{\pm 1/2}^0(\boldsymbol{k})+T_{\pm 1/2}^{-2}(\boldsymbol{k})+T_{\pm 1/2}^2(\boldsymbol{k}&\,=\,
+  S\,\sum_\boldsymbol{d}\,
+  \left(\mp\frac{J^{xx}-J^{yy}}{2}\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}}-s_d\,J^{zz}\right)\\
+  T_{\pm 1/2}^{-1}(\boldsymbol{k})+T_{\pm 1/2}^1(\boldsymbol{k}&\,=\,
+  \mp\,i\,S\,\sum_\boldsymbol{d}\,D^z\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}}\\
+  \Delta_{\mp 1/2}^0(\boldsymbol{k})+\Delta_{\mp 1/2}^{-2}(\boldsymbol{k})
+  +\Delta_{\mp 1/2}^2(\boldsymbol{k})&\,=\,\\
+  \Delta_{\mp 1/2}^{-1}(\boldsymbol{k})+\Delta_{\mp 1/2}^1(\boldsymbol{k})&\,=\

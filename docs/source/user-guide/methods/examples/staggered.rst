@@ -153,15 +153,50 @@ The LSWT Hamiltonian is then
 The above expression is too complex, so we perform several simplifications. First, we assume a
 single atom per unit cell. Second, we assume that interactions run only to first neighbors that
 are labelled by :math:`\boldsymbol{d}`, and that they are isotropic in space, so that the
-:math:`\boldsymbol{d}`-subindex can be dropped. Third, we suppose that :math:`J^{xx}=J^{yy}`,
-:math:`A^{xx}=A^{yy}` and that :math:`S^{x}=0`. Then
+:math:`\boldsymbol{d}`-subindex can be dropped. Third, we suppose that
+:math:`A^{xx}=A^{yy}=A`, and that :math:`S^{x}=0`. Then
 
 .. math::
-  T_{\pm 1/2}^0(\boldsymbol{k})+T_{\pm 1/2}^{-2}(\boldsymbol{k})+T_{\pm 1/2}^2(\boldsymbol{k}&\,=\,
-  S\,\sum_\boldsymbol{d}\,
-  \left(\mp\frac{J^{xx}-J^{yy}}{2}\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}}-s_d\,J^{zz}\right)\\
-  T_{\pm 1/2}^{-1}(\boldsymbol{k})+T_{\pm 1/2}^1(\boldsymbol{k}&\,=\,
-  \mp\,i\,S\,\sum_\boldsymbol{d}\,D^z\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}}\\
+  T_{\pm 1/2}^0(\boldsymbol{k})+T_{\pm 1/2}^{-2}(\boldsymbol{k})+T_{\pm 1/2}^2(\boldsymbol{k})&\,=\,
+  S\,\left(\mp J^-(\boldsymbol{k})+\,J^{zz}(\boldsymbol{k}=0)+2\,A\right)\\
   \Delta_{\mp 1/2}^0(\boldsymbol{k})+\Delta_{\mp 1/2}^{-2}(\boldsymbol{k})
-  +\Delta_{\mp 1/2}^2(\boldsymbol{k})&\,=\,\\
-  \Delta_{\mp 1/2}^{-1}(\boldsymbol{k})+\Delta_{\mp 1/2}^1(\boldsymbol{k})&\,=\
+  +\Delta_{\mp 1/2}^2(\boldsymbol{k})&\,=\,S\,J^+(\boldsymbol{k})
+  \\
+  T_{\pm 1/2}^{-1}(\boldsymbol{k})+T_{\pm 1/2}^1(\boldsymbol{k})&\,=\,\mp\,i\,S\,D^z(\boldsymbol{k})\\
+  \Delta_{\mp 1/2}^{-1}(\boldsymbol{k})+\Delta_{\mp 1/2}^1(\boldsymbol{k})&\,=\,\mp i\,S\,D^z(\boldsymbol{k})
+
+where
+
+.. math::
+  J^{\pm}&\,=\,\frac{J^{xx}\pm J^{yy}}{2}\\
+  J^{\pm}(\boldsymbol{k})&\,=\,J^{\pm}\,\sum_\boldsymbol{d}\, e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}}=
+  J^{\pm}\,\sum_\boldsymbol{d} \cos(\boldsymbol{k}\cdot\boldsymbol{d})\\
+  D^z(\boldsymbol{k})&\,=\,D^z\,\sum_\boldsymbol{d}\,e^{i\,\boldsymbol{k}\cdot\boldsymbol{d}}=
+  i\,D^z\,\sum_\boldsymbol{d}\,\sin(\boldsymbol{k}\cdot\boldsymbol{d})
+
+So that the Hamiltonian can be written as follows
+
+.. math::
+  \cal{\boldsymbol{H}}(\boldsymbol{k})\,=\,
+  S\,\begin{pmatrix} J^{zz}(0)+2\,A-J^{\pm}(\boldsymbol{k})&0&J^+(\boldsymbol{k})&D^z(\boldsymbol{k})\\
+  0&J^{zz}(0)+2\,A+J^{\pm}(\boldsymbol{k})&-D^z(\boldsymbol{k})&J^+(\boldsymbol{k})\\
+  -J^+(\boldsymbol{k})&-D^z(\boldsymbol{k})&J^{zz}(0)+2\,A+J^{\pm}(\boldsymbol{k})&0\\
+  D^z(\boldsymbol{k})&J^+(\boldsymbol{k})&0&J^{zz}(0)+2\,A-J^{\pm}(\boldsymbol{k})
+  \end{pmatrix}
+
+Diagonalising the dynamic matrix :math:`{\cal M}_\boldsymbol{k}=\tau_3\,{\cal M}_\boldsymbol{k}`,
+the following magnon dispersion is obtained
+
+.. math::
+  \omega(\boldsymbol{k})&\,=\,S\,\left((J^{zz}(0)+2\,A)^2+(J^-(\boldsymbol{k}))^2-
+  (D^z(\boldsymbol{k}))^2-(J^-(\boldsymbol{k}))^2\pm\,R(\boldsymbol{k})\right)^{1/2}\\
+  R(\boldsymbol{k})&\,=\,\left((D^z(\boldsymbol{k})\,J^+(\boldsymbol{k}))^2 +
+  (J^{zz}(0)\,J^-(\boldsymbol{k}))^2-(J^-(\boldsymbol{k})\,J^+(\boldsymbol{k}))^2\right)^{1/2}
+
+A last simplification arises if we set :math:`D^z` to zero, and we assume that
+:math:`J^{xx}=J^{yy}`. Then the magnon dispersion relation becomes
+
+.. math::
+  \omega(\boldsymbol{k})\,=\,S\,\sqrt{(2\,A+J^{zz}(0))^2-(J^{xx}(\boldsymbol{k}))^2}
+
+that agrees with the expression obtained in the previous example.

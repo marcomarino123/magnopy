@@ -6,9 +6,14 @@ Spiral
 
 This last example consists of a spin lattice containing a single atom per unit cell, where
 spin lie in the :math:`xy` plane displaying a spiral arrangement with wave-vector
-:math:`boldsymbol{q}`. We assume here that the two reference frames :math:`(\,x\,y\,z\,)`
+:math:`\boldsymbol{q}`. We assume here that the two reference frames :math:`(\,x\,y\,z\,)`
 and :math:`(\,u\,v\,n\,)` are identical, and perform only the intracell rotation given
 by :math:`\phi=0`, :math:`\theta=\pi/2`, as indicated in the figure below.
+
+
+.. image::
+  ../../../../images/spiral.pdf
+
 Then the intracell and intercell rotation matrices are
 
 .. math::
@@ -30,13 +35,36 @@ The magnetization is then
   \cos(\boldsymbol{q}\cdot\boldsymbol{r}_m)\\\sin(\boldsymbol{q}\cdot\boldsymbol{r}_m)\\0
   \end{pmatrix}
 
-The exchange tensor becomes in the rotated reference frame
+The exchange tensor assumes the following form in the rotated reference frame
 
+.. math::
+  ^{sz}\tilde{\boldsymbol{J}}_{\boldsymbol{d}}=
+  \begin{pmatrix}
+  \left(J^{xy,+}_{\boldsymbol{d}}+i\,D^z_{\boldsymbol{d}}\right)\,e^{-i\,\boldsymbol{q}\cdot\boldsymbol{d}}&
+  \left(J^{xy,-}_{\boldsymbol{d}}-i\,S^z_{\boldsymbol{d}}\right)\,
+  e^{i\,\boldsymbol{q}\cdot(2\,\boldsymbol{r}_m+\boldsymbol{d})}&
+  \frac{1}{\sqrt{2}}\,\left(J^{xz}_{\boldsymbol{d}}-i\,J^{yz}_{\boldsymbol{d}}\right)\,
+  e^{i\,\boldsymbol{q}\cdot\boldsymbol{r}_m}\\
+  \left(J^{xy,-}_{\boldsymbol{d}}+i\,S^z_{\boldsymbol{d}}\right)\,
+  e^{-i\,\boldsymbol{q}\cdot(2\,\boldsymbol{r}_m+\boldsymbol{d})}&
+  \left(J^{xy,+}_{\boldsymbol{d}}+i\,D^z_{\boldsymbol{d}}\right)\,
+  \,e^{i\,\boldsymbol{q}\cdot\boldsymbol{d}}&
+  \frac{1}{\sqrt{2}}\,\left(J^{xz}_{\boldsymbol{d}}+i\,J^{yz}_{\boldsymbol{d}}\right)\,
+  \,e^{-i\,\boldsymbol{q}\cdot\boldsymbol{r}_m}\\
+  \frac{1}{\sqrt{2}}\,\left(J^{zx}_{\boldsymbol{d}}+i\,J^{zy}_{\boldsymbol{d}}\right)
+  \,e^{-i\,\boldsymbol{q}\cdot(\boldsymbol{r}_m+\boldsymbol{d})}&
+  \frac{1}{\sqrt{2}}\,\left(J^{zx}_{\boldsymbol{d}}-i\,J^{zy}_{\boldsymbol{d}}\right)&
+  J^{zz}_{\boldsymbol{d}}
+  \end{pmatrix}
 
 We assume the following simplifications: :math:`J^{xx}=J^{yy}` and
 :math:`J^{zx}=J^{zy}=S^z=0`. Then the exchange tensor is written as follows
 
+.. math::
+
 The classical energy expression is
+
+.. math::
 
 =======================
 Linear Spin Wave Theory

@@ -10,6 +10,15 @@ Input-output (io)
 Functions
 =========
 
+General loader
+--------------
+
+.. autosummary::
+    :toctree: generated/
+
+    load_spinham
+
+
 Magnopy files
 -------------
 

@@ -14,7 +14,16 @@ Class
 
     Energy
 
-External parameters
+Hamiltonian parameters
+======================
+
+.. autosummary::
+    :toctree: generated/
+
+    Energy.g_factors
+    Energy.spins
+
+External conditions
 ===================
 
 .. autosummary::
@@ -22,12 +31,30 @@ External parameters
 
     Energy.magnetic_field
 
-Energy cases
-============
+Minimization parameters
+=======================
 
 .. autosummary::
     :toctree: generated/
 
-    Energy.ferromagnetic
-    Energy.antiferromagnetic_cone
+    Energy.m
+    Energy.wolfe_c1
+    Energy.wolfe_c2
+
+Ground state energies
+=====================
+
+.. autosummary::
+    :toctree: generated/
+
+    Energy.ferro
+    Energy.antiferro
     Energy.spiral
+
+Optimization routines
+=====================
+
+.. autosummary::
+    :toctree: generated/
+
+    Energy.optimize

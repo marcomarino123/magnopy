@@ -21,6 +21,7 @@ The main interface to the package may be imported as
    :maxdepth: 1
 
    spinham/index
+   magnons/index
    io/index
    units
    exceptions

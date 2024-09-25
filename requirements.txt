@@ -1,4 +1,5 @@
 # Package dependencies
 numpy
+scipy
 wulfric>=0.3
 h5py

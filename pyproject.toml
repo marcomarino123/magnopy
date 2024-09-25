@@ -30,7 +30,9 @@ classifiers = [
 
 [project.scripts]
 magnopy = "magnopy.__main__:main"
-magnopy-dispersion-tb2j = "magnopy.score.plot_tb2j_magnons:main"
+magnopy-convert-tb2j = "magnopy.score.convert_tb2j:main"
+magnopy-minimize-energy = "magnopy.score.minimize_energy:main"
+magnopy-magnon-dispersion = "magnopy.score.magnon_dispersion:main"
 
 [project.urls]
 Homepage = "https://magnopy.org"

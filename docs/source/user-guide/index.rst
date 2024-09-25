@@ -12,9 +12,23 @@ Getting started
 
     start/about
     start/installation
-
-    methods/index
-
+    start/how-to-run
     input/index
 
+Prepared scripts
+================
+
+.. toctree::
+    :maxdepth: 1
+
+    scripts/convert-tb2j
+    scripts/minimize-energy
+
+Theory behind
+=============
+
+.. toctree::
+    :maxdepth: 1
+
+    methods/index
     hamiltonian-notation

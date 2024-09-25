@@ -1,8 +1,8 @@
 .. _user-guide_methods_examples_spiral:
 
-******
-Spiral
-******
+*************************
+Spiral Spin configuration
+*************************
 
 This last example consists of a spin lattice containing a single atom per unit cell, where
 spin lie in the :math:`xy` plane displaying a spiral arrangement with wave-vector
@@ -72,7 +72,7 @@ The classical energy expression is
 .. math::
   E^{cl}=\frac{S^2}{2}\,\sum_\boldsymbol{d}\,
   \left(J^{xy,+}\,\cos(\boldsymbol{q}\cdot\boldsymbol{d})+
-  D^z\,\sin(\boldsymbol{q}\cdot\boldsymbol{d})
+  D^z\,\sin(\boldsymbol{q}\cdot\boldsymbol{d})+S^2\,A^{xy,+}
   \right)
 
 We assume the following simplifications: :math:`J^{xx}=J^{yy}`, :math:`A^{xx}=A^{yy}` and
@@ -88,7 +88,7 @@ written as follows
   \,e^{i\,\boldsymbol{q}\cdot\boldsymbol{d}}&0\\
   0&0&J^{zz}_{\boldsymbol{d}}
   \end{pmatrix}
-  +2,delta_{\boldsymbol{d},0}\,
+  +2\,\delta_{\boldsymbol{d},0}\,
   \begin{pmatrix}A^{xy,+}&0&0\\0&A^{xy,+}&0\\0&0&A^{zz}\end{pmatrix}
 
 =======================
@@ -99,12 +99,12 @@ We find that only the lowest harmonic :math:`p=0` contributes to the LSWT Hamilt
 
 .. math::
   T^0(\boldsymbol{k})&\,=\,\frac{S}{2}\,
-  \left(J^{zz}(\boldsymbol{k})-2\,A^{xx} +
+  \left(J^{zz}(\boldsymbol{k})-2\,(A^{xy,+}-A^{zz}) +
     \frac{J^{xy,+}(\boldsymbol{k}+\boldsymbol{q})+J^{xy,+}(\boldsymbol{k}-\boldsymbol{q})}{2}
     -2\,J^{xy,+}(\boldsymbol{q})
     -i\,\frac{D^z(\boldsymbol{k}+\boldsymbol{q})-D^z(\boldsymbol{k}-\boldsymbol{q})}{2}
     +2\,i\,D^z(\boldsymbol{q})\right)\\
-  \Delta^0(\boldsymbol{k})&\,=\,\frac{S}{2}\,\left(J^{zz}(\boldsymbol{k})-2\,A^{xx} -
+  \Delta^0(\boldsymbol{k})&\,=\,\frac{S}{2}\,\left(J^{zz}(\boldsymbol{k})-2\,(A^{xy,+}-A^{zz}) -
     \frac{J^{xy,+}(\boldsymbol{k}+\boldsymbol{q})+J^{xy,+}(\boldsymbol{k}-\boldsymbol{q})}{2}
     +i\,\frac{D^z(\boldsymbol{k}+\boldsymbol{q})-D^z(\boldsymbol{k}-\boldsymbol{q})}{2}
     \right)
@@ -126,10 +126,10 @@ Diagonalizing the dynamic matrix :math:`{\cal M}(\boldsymbol{k})` the magnon spe
   \omega(\boldsymbol{k})=
   \frac{S}{2}\,\sqrt{(T^0(\boldsymbol{k}))^2-(\Delta^0(\boldsymbol{k}))^2}
 
-A final simplification is achieved if :math:`A^{xx}=D^z=0` since then the known dispersion
+A final simplification is achieved if :math:`D^z=0` since then the known dispersion
 relation of an helical magnet is recovered
 
 .. math::
-  S\,\sqrt{\left(J^{zz}(\boldsymbol{k})-2\,A^{xx}-J^{xy,+}(\boldsymbol{k})\right)\,
+  S\,\sqrt{\left(J^{zz}(\boldsymbol{k})-2\,(A^{xy,+}-A^{zz})-J^{xy,+}(\boldsymbol{k})\right)\,
   \left(\frac{J^{xy,+}(\boldsymbol{k}+\boldsymbol{q})+J^{xy,+}(\boldsymbol{k}-\boldsymbol{q})}{2}
   -J^{xy,+}(\boldsymbol{q})\right)}

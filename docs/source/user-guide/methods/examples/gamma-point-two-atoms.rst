@@ -230,7 +230,7 @@ where we denote :math:`\varkappa_A=1` and :math:`\varkappa_B=-1` with
   J^\pm_{ij} &\,=\, \frac{J^{xx}_{ij}\pm J^{yy}_{ij}}{2}\\
   A^\pm_{i}  &\,=\, \frac{A^{xx}_{ij}\pm J^{yy}_{ij}}{2}
 
-If we assume inversion symmetry and symmetry under A, B exchange, then
+We assume inversion symmetry and symmetry under A, B exchange again so
 
 .. math::
   J_{AA}^\pm(\boldsymbol{k})=J_{BB}^\pm(\boldsymbol{k})&\,=\,
@@ -247,24 +247,24 @@ If we assume inversion symmetry and symmetry under A, B exchange, then
   i\,\sum_\boldsymbol{d}\,D^z_{AB}(\boldsymbol{d})\,\sin(\boldsymbol{k}\cdot \boldsymbol{d})
 
 If there exist only nearest-neighbor interactions then
-:math:`J_{AA}=J_{BB}=S_{AA}=S_{BB}=D_{AA}=D_{BB}=0`, and then we denote
-:math:`J=J_{AB},\,S=S_{AB}, \,D=D_{AB}` and the above matrices simnplify to
+:math:`J_{AA}=J_{BB}=S_{AA}=S_{BB}=D_{AA}=D_{BB}=0`, and we denote
+:math:`J=J_{AB},\,S=S_{AB}, \,D=D_{AB}`. The above matrices simplify to
 
 .. math::
   \boldsymbol{T(k)}&\,=\,
   S\,\begin{pmatrix}
-  2\,(A^+-A^{zz})-J^{zz}(\boldsymbol{k}=0)&
-  J^+(\boldsymbol{k})-i\,D^z(\boldsymbol{k})\\
-  J^+(\boldsymbol{k})-i\,D^z(\boldsymbol{k})&
-  2\,(A^+-A^{zz})-J^{zz}(\boldsymbol{k}=0)
+  2\,(A^+-A^{zz})+J^{zz}(\boldsymbol{k}=0)&
+  -J^-(\boldsymbol{k})\\
+  -J^-(\boldsymbol{k})&
+  2\,(A^+-A^{zz})+J^{zz}(\boldsymbol{k}=0)
   \end{pmatrix}
   \\\\
   \boldsymbol{\Delta(k)}&\,=\,
   S\,\begin{pmatrix}
-  2\,A^-&
-  J^-(\boldsymbol{k})-i\,S^z(\boldsymbol{k})\\
-  J^-(\boldsymbol{k})-i\,S^z(\boldsymbol{k})&
-  2\,A^-
+  2\,(A^--i\,A^{xy})&
+  -J^+(\boldsymbol{k})+\,D^z(\boldsymbol{k})\\
+  -J^+(\boldsymbol{k})+\,D^z(\boldsymbol{k})&
+  2\,(A^--i\,A^{xy})
   \end{pmatrix}
 
 If the material is isotropic, then :math:`J^-=A^-=0`, :math:`A^+=A^{xx}=A^{yy}` and
@@ -274,16 +274,17 @@ If the material is isotropic, then :math:`J^-=A^-=0`, :math:`A^+=A^{xx}=A^{yy}` 
 .. math::
   \boldsymbol{T(k)}&\,=\,
   S\,\begin{pmatrix}
-  2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)&
-  J^{xx}(\boldsymbol{k})\\
-  J^{xx}(\boldsymbol{k})&
-  2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)
+  2\,(A^{xx}-A^{zz})+J^{zz}(\boldsymbol{k}=0)&0\\
+  0&2\,(A^{xx}-A^{zz})+J^{zz}(\boldsymbol{k}=0)
   \end{pmatrix}
   \\\\
-  \boldsymbol{\Delta(k)}&\,=\, 0
+  \boldsymbol{\Delta(k)}&\,=\,
+  S\,\begin{pmatrix}0&-J^+(\boldsymbol{k})\\-J^+(\boldsymbol{k})&0\end{pmatrix}
 
 The magnon dispersion relation is
 
 .. math::
-  \Omega_\boldsymbol{k}^\pm\,=\,
-  S\,\left(2\,(A^{xx}-A^{zz})-J^{zz}(\boldsymbol{k}=0)\pm J^{xx}(\boldsymbol{k})\right)
+  \Omega_\boldsymbol{k}\,=\,
+  S\,\sqrt{\,(2\,(A^{xx}-A^{zz})+J^{zz}(\boldsymbol{k}=0)\,)^2- (J^{xx}(\boldsymbol{k}))^2}
+
+that agrees with the well-known mean-field dispersion relation of an antiferromagnet.

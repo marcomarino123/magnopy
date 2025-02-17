@@ -24,6 +24,14 @@ Prepared scripts
     scripts/convert-tb2j
     scripts/minimize-energy
 
+Algorithms
+==========
+
+.. toctree::
+    :maxdepth: 1
+
+    algorithms/energy-minimization
+
 Theory behind
 =============
 

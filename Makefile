@@ -14,6 +14,7 @@ help:
 	@echo "    help - show this message"
 	@echo "    html - build the html docs"
 	@echo "    clean-html - clean all files from docs and build html docs from scrutch"
+	@echo "    html-from-zero - as clean-html + replot all figures"
 	@echo "    doctest - run doctests"
 	@echo "    clean - clean all files from docs and pip routines"
 	@echo "    install - install the package"
@@ -26,6 +27,9 @@ html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
 
 clean-html: clean install html
+	@echo "Done"
+
+html-from-zero: clean install pictures-for-docs html
 	@echo "Done"
 
 doctest:

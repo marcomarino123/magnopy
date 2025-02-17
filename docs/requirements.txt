@@ -3,3 +3,7 @@ numpydoc
 sphinx-copybutton
 pydata-sphinx-theme
 sphinx-design
+
+# For doc's images
+matplotlib
+plotly

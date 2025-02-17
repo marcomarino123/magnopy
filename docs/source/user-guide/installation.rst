@@ -13,8 +13,8 @@ And several libraries:
 .. literalinclude:: ../../../requirements.txt
 
 
-Magnopy can be installed with :ref:`pip <_user-guide_installation_pip>` or from
-:ref:`source <_user-guide_installation_source>`.
+Magnopy can be installed with :ref:`pip <user-guide_installation_pip>` or from
+:ref:`source <user-guide_installation_source>`.
 
 Do you have Python?
 ===================

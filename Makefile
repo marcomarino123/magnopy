@@ -23,17 +23,15 @@ help:
 	@echo "    model-input-examples-run - run the model input examples"
 	@echo "    requirements - install all requirements"
 
-html:
-	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+# Development environment
+requirements:
+	@pip install -r requirements.txt --no-cache
+	@pip install -r requirements-dev.txt --no-cache
+	@pip install -r docs/requirements.txt --no-cache
+	@pip install -r utests/requirements.txt --no-cache
 
-clean-html: clean install html
-	@echo "Done"
-
-html-from-zero: clean install pictures-for-docs html
-	@echo "Done"
-
-doctest:
-	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+install:
+	@python3 -m pip install .
 
 clean:
 	-@rm -r docs/build
@@ -47,12 +45,7 @@ clean:
 	-@rm -r .venv/lib/python*/site-packages/magnopy*
 	-@rm -r .venv/bin/magnopy*
 
-install:
-	@python3 -m pip install .
-
-test:
-	@pytest -s #-o log_cli=true -o log_cli_level=DEBUG
-
+# Documentation and doctests
 pictures-for-docs:
 	@python3 docs/images/scripts/uvn-rf.py -rd .
 	@python3 docs/images/scripts/spin-rotations.py -rd .
@@ -60,11 +53,21 @@ pictures-for-docs:
 	@python3 docs/images/scripts/minimization-exchange.py -rd .
 	@python3 docs/images/scripts/plot-repositories.py -rd .
 
+html:
+	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+
+clean-html: clean install html
+	@echo "Done"
+
+html-from-zero: clean install pictures-for-docs html
+	@echo "Done"
+
+# Tests
+doctest:
+	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+	
+test:
+	@pytest -s #-o log_cli=true -o log_cli_level=DEBUG
+
 model-input-examples-run:
 	@python3 utests/test_io/test_txt/test_verify.py
-
-requirements:
-	@pip install -r requirements.txt --no-cache
-	@pip install -r requirements-dev.txt --no-cache
-	@pip install -r docs/requirements.txt --no-cache
-	@pip install -r utests/requirements.txt --no-cache

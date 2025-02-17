@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2024 Magnopy Team
+# Copyright (C) 2023-2025 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #

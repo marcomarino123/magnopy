@@ -65,7 +65,7 @@ html-from-zero: clean install pictures-for-docs html
 # Tests
 doctest:
 	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
-	
+
 test:
 	@pytest -s #-o log_cli=true -o log_cli_level=DEBUG
 

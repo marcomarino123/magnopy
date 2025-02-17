@@ -9,4 +9,13 @@ Magnopy is a Python package for the magnon-related properties:
 * Critical temperature
 * Correlations
 
-In development. To be released soon.
+Please visit an extensive documentation on `magnopy.org <https://magnopy.org>`_ to find out more.
+
+Installation
+============
+
+To install magnopy run (you may need to use ``pip3``):
+
+.. code-block:: console
+
+  pip install magnopy

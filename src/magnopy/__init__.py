@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2024 Magnopy Team
+# Copyright (C) 2023-2025 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -21,7 +21,7 @@ __doclink__ = "magnopy.org"
 __release_date__ = "undefined"
 __git_commit__ = "undefined"
 
-from . import exceptions, io, magnons, spinham, units
+from . import energy, exceptions, io, magnons, spinham, units
 from .exceptions import *
 from .io import *
 from .magnons import *
@@ -34,3 +34,4 @@ __all__.extend(io.__all__)
 __all__.extend(magnons.__all__)
 __all__.extend(exceptions.__all__)
 __all__.extend(units.__all__)
+__all__.extend(energy.__all__)

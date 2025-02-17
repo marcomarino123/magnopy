@@ -16,9 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from .hamiltonian import *
-from .parameter import *
+from .checkers import *
+from .line_search import *
+from .optimize import *
+from .sub_types import *
 
 __all__ = []
-__all__.extend(hamiltonian.__all__)
-__all__.extend(parameter.__all__)
+__all__.extend(checkers.__all__)
+__all__.extend(line_search.__all__)
+__all__.extend(optimize.__all__)
+__all__.extend(sub_types.__all__)

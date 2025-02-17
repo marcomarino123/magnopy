@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2024 Magnopy Team
+# Copyright (C) 2023-2025 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -23,126 +23,107 @@ import numpy as np
 
 from magnopy._osfix import _winwait
 from magnopy._pinfo import logo
+from magnopy.energy.sub_types import C1, C2, C5
 from magnopy.io import load_spinham
-from magnopy.spinham.energy import Energy
 
 _logger = logging.getLogger(__name__)
 
+logging.basicConfig(
+    filename="log.txt",
+    filemode="a",
+    format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+    datefmt="%H:%M:%S",
+    level=logging.DEBUG,
+)
 
-def _minimize_ferro(energy: Energy, spinham, seedname, output_file):
+
+def _minimize_C1(energy, spinham, seedname, output_file, spin_output_file):
     output_file.write(
-        f"Start to minimize assuming ferromagnetic ground state type.\n"
-        f"History of the minimization is written in the file\n"
-        f"{seedname}-ferro-history\n"
+        f"Start to minimize assuming C1 ground state type.\n"
+        "Variation with respect to the direction vectors.\n"
     )
-    spin_orientation = energy.optimize(
-        case="ferro",
-        save_history=True,
-        history_filename=f"{seedname}-ferro-history",
-    )[0]
+    direction_vectors = energy.optimize()
     output_file.write(
-        "Minimization for ferromagnetic case is done.\n"
+        "Minimization for C1 sub-type is done.\n"
         "Spin orientations in the minimum configuration:\n"
     )
     output_file.write(
         f"  {'name':>5} {'r1':>11} {'r2':>11} {'r3':>11} {'sx':>11} {'sy':>11} {'sz':>11}\n"
     )
-    for i, spin in enumerate(spin_orientation):
+    for i, spin in enumerate(direction_vectors):
         pos = spinham.magnetic_atoms[i].position
-        output_file.write(
+        line = (
             f"  {spinham.magnetic_atoms[i].name:>5} "
             f"{pos[0]:11.8f} {pos[1]:11.8f} {pos[2]:11.8f} "
             f"{spin[0]:11.8f} {spin[1]:11.8f} {spin[2]:11.8f}\n"
         )
+        output_file.write(line)
+        spin_output_file.write(line)
+    direction_vectors /= np.linalg.norm(direction_vectors, axis=1)[:, np.newaxis]
+    output_file.write(f"\n Energy: {energy.energy(direction_vectors)}\n")
 
-    return energy.ferro(spin_orientation)
 
-
-def _minimize_antiferro(energy: Energy, spinham, seedname, output_file):
+def _minimize_C2(energy, spinham, seedname, output_file, spin_output_file):
     output_file.write(
-        f"Start to minimize assuming antiferromagnetic ground state type.\n"
-        f"History of the minimization is written in the 26 files\n"
+        f"Start to minimize assuming C2 ground state type.\n"
+        "Variation with respect to the direction vectors, cone axis and spiral vector.\n"
     )
-
-    i = 0
-    energies = []
-    for qrel in (np.indices((3, 3, 3)) - 1).transpose((1, 2, 3, 0)).reshape(27, 3):
-        i += 1
-        print(qrel)
-        history_file = f"{seedname}-antiferro-history-{i}"
-        if (qrel == [0, 0, 0]).all():
-            continue
-
-        q = qrel @ spinham.reciprocal_cell / 2
-        output_file.write(
-            f"History for the q_rel = ({qrel[0]:2.0f}, {qrel[1]:2.0f}, {qrel[2]:2.0f}) "
-            f"is written to the file {history_file}"
-        )
-
-        spin_orientation, cone_axis, _ = energy.optimize(
-            case="antiferro",
-            save_history=True,
-            history_filename=history_file,
-            antiferro_q=q,
-        )
-        output_file.write(
-            f"Minimization for the antiferro case is done {i} out of 26.\n"
-            "Spin orientations in the minimum configuration:\n"
-        )
-        output_file.write(
-            f"  {'name':>5} {'r1':>11} {'r2':>11} {'r3':>11} {'sx':>11} {'sy':>11} {'sz':>11}\n"
-        )
-        for i, spin in enumerate(spin_orientation):
-            pos = spinham.magnetic_atoms[i].position
-            output_file.write(
-                f"  {spinham.magnetic_atoms[i].name:>5} "
-                f"{pos[0]:11.8f} {pos[1]:11.8f} {pos[2]:11.8f} "
-                f"{spin[0]:11.8f} {spin[1]:11.8f} {spin[2]:11.8f}\n"
-            )
-        output_file.write(
-            f"Cone axis is: {cone_axis[0]:.8f} {cone_axis[1]:.8f} {cone_axis[2]:.8f}\n"
-        )
-        output_file.write(f"Spiral vector is: {q[0]:.8f} {q[1]:.8f} {q[2]:.8f}\n")
-
-        energies.append(energy.antiferro(spin_orientation, cone_axis, q))
-
-    return energies
-
-
-def _minimize_spiral(energy: Energy, spinham, seedname, output_file):
+    direction_vectors, cone_axis = energy.optimize()
     output_file.write(
-        f"Start to minimize assuming spiral ground state type.\n"
-        f"History of the minimization is written in the file\n"
-        f"{seedname}-spiral-history\n"
-    )
-
-    spin_orientation, cone_axis, spiral_vector = energy.optimize(
-        case="spiral",
-        save_history=True,
-        history_filename=f"{seedname}-spiral-history",
-    )
-    output_file.write(
-        "Minimization for the spiral case is done.\n"
+        "Minimization for C2 sub-type is done.\n"
         "Spin orientations in the minimum configuration:\n"
     )
     output_file.write(
         f"  {'name':>5} {'r1':>11} {'r2':>11} {'r3':>11} {'sx':>11} {'sy':>11} {'sz':>11}\n"
     )
-    for i, spin in enumerate(spin_orientation):
+    for i, spin in enumerate(direction_vectors):
         pos = spinham.magnetic_atoms[i].position
-        output_file.write(
+        line = (
             f"  {spinham.magnetic_atoms[i].name:>5} "
             f"{pos[0]:11.8f} {pos[1]:11.8f} {pos[2]:11.8f} "
             f"{spin[0]:11.8f} {spin[1]:11.8f} {spin[2]:11.8f}\n"
         )
+        output_file.write(line)
+        spin_output_file.write(line)
+    direction_vectors /= np.linalg.norm(direction_vectors, axis=1)[:, np.newaxis]
     output_file.write(
-        f"Cone axis is: {cone_axis[0]:.8f} {cone_axis[1]:.8f} {cone_axis[2]:.8f}\n"
+        f"Cone axis: {cone_axis[0]:12.8f} {cone_axis[1]:12.8f} {cone_axis[2]:12.8f}\n"
     )
-    output_file.write(
-        f"Spiral vector is: {spiral_vector[0]:.8f} {spiral_vector[1]:.8f} {spiral_vector[2]:.8f}\n"
-    )
+    output_file.write(f"\n Energy: {energy.energy(direction_vectors, cone_axis)}\n")
 
-    return energy.spiral(spin_orientation, cone_axis, spiral_vector)
+
+def _minimize_C5(energy, spinham, seedname, output_file, spin_output_file):
+    output_file.write(
+        f"Start to minimize assuming C5 ground state type.\n"
+        "Variation with respect to the direction vectors, cone axis and spiral vector.\n"
+    )
+    direction_vectors, cone_axis, spiral_vector = energy.optimize()
+    output_file.write(
+        "Minimization for C5 sub-type is done.\n"
+        "Spin orientations in the minimum configuration:\n"
+    )
+    output_file.write(
+        f"  {'name':>5} {'r1':>11} {'r2':>11} {'r3':>11} {'sx':>11} {'sy':>11} {'sz':>11}\n"
+    )
+    for i, spin in enumerate(direction_vectors):
+        pos = spinham.magnetic_atoms[i].position
+        line = (
+            f"  {spinham.magnetic_atoms[i].name:>5} "
+            f"{pos[0]:11.8f} {pos[1]:11.8f} {pos[2]:11.8f} "
+            f"{spin[0]:11.8f} {spin[1]:11.8f} {spin[2]:11.8f}\n"
+        )
+        output_file.write(line)
+        spin_output_file.write(line)
+    direction_vectors /= np.linalg.norm(direction_vectors, axis=1)[:, np.newaxis]
+    output_file.write(
+        f"Cone axis: {cone_axis[0]:12.8f} {cone_axis[1]:12.8f} {cone_axis[2]:12.8f}\n"
+    )
+    output_file.write(
+        f"Spiral vector: {spiral_vector[0]:12.8f} {spiral_vector[1]:12.8f} {spiral_vector[2]:12.8f}\n"
+    )
+    output_file.write(
+        f"\n Energy: {energy.energy(direction_vectors, cone_axis, spiral_vector)}\n"
+    )
 
 
 def manager(
@@ -154,65 +135,63 @@ def manager(
 ):
     # Open main output file
     output_file = open(f"{output_seedname}-results", "w")
+    spin_output_file = open(f"{output_seedname}-spins.txt", "w")
     # Write a logo
     output_file.write(logo(date_time=True) + "\n")
 
     # Load spin Hamiltonian from the input file
     spinham = load_spinham(spinham, spinham_format=spinham_format)
 
-    # Create an instance of the energy class
-    energy = Energy(spinham)
-
-    # Put some magnetic field into it
-    if magnetic_field is not None:
-        energy.magnetic_field = magnetic_field
-
     # Decide which ground state types to minimize
     if "all" in ground_state_type:
-        gs_to_minimize = ["ferro", "antiferro", "spiral"]
+        gs_to_minimize = [f"C{i}" for i in range(1, 6)]
     else:
         gs_to_minimize = ground_state_type
 
     energies = []
     for gs in gs_to_minimize:
-        if gs == "ferro":
+        if gs == "C1":
+            # Create an instance of the energy class
+            energy = C1(spinham)
+
+            # Put some magnetic field into it
+            if magnetic_field is not None:
+                energy.magnetic_field = magnetic_field
             energies.append(
-                _minimize_ferro(
-                    energy=energy,
-                    spinham=spinham,
-                    seedname=output_seedname,
-                    output_file=output_file,
+                _minimize_C1(
+                    energy, spinham, output_seedname, output_file, spin_output_file
                 )
             )
-        elif gs == "antiferro":
+        elif gs == "C2":
+            # Create an instance of the energy class
+            energy = C2(spinham)
+
+            # Put some magnetic field into it
+            if magnetic_field is not None:
+                energy.magnetic_field = magnetic_field
             energies.append(
-                _minimize_antiferro(
-                    energy=energy,
-                    spinham=spinham,
-                    seedname=output_seedname,
-                    output_file=output_file,
+                _minimize_C2(
+                    energy, spinham, output_seedname, output_file, spin_output_file
                 )
             )
-        elif gs == "spiral":
+        elif gs == "C5":
+            # Create an instance of the energy class
+            energy = C5(spinham)
+
+            # Put some magnetic field into it
+            if magnetic_field is not None:
+                energy.magnetic_field = magnetic_field
             energies.append(
-                _minimize_spiral(
-                    energy=energy,
-                    spinham=spinham,
-                    seedname=output_seedname,
-                    output_file=output_file,
+                _minimize_C5(
+                    energy, spinham, output_seedname, output_file, spin_output_file
                 )
+            )
+        else:
+            output_file.write(
+                f"Minimization for {gs} ground state type is not implemented yet.\n"
             )
 
-    output_file.write("All minimization routines are finished. Summary:\n")
-    for i in range(len(energies)):
-        if gs_to_minimize[i] == "ferro":
-            output_file.write(f"Ferromagnetic energy : {energies[i]:.8f}\n")
-        if gs_to_minimize[i] == "antiferro":
-            output_file.write(f"Antiferromagnetic energies :\n")
-            for i in range(26):
-                output_file.write(f"  {i+1} {energies[i]:.8f}\n")
-        if gs_to_minimize[i] == "spiral":
-            output_file.write(f"Spiral energy : {energies[i]:.8f}\n")
+    output_file.write("All minimization routines are finished\n")
 
 
 def create_parser():
@@ -238,7 +217,7 @@ def create_parser():
         "--ground-state-type",
         nargs="*",
         type=str,
-        choices=["all", "ferro", "antiferro", "spiral"],
+        choices=["all", "C1", "C2", "C3", "C4", "C5"],
         default="all",
         help="Type of the ground state to be assumed for the minimization.",
     )

@@ -16,9 +16,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from .hamiltonian import *
-from .parameter import *
 
-__all__ = []
-__all__.extend(hamiltonian.__all__)
-__all__.extend(parameter.__all__)
+from ._parameter import *

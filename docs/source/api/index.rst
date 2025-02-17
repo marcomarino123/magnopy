@@ -8,20 +8,24 @@ API reference
 
 :Release: |version|
 
-The reference manual describes public classes and functions of magnopy.
-The main interface to the package may be imported as
+The main interface to the package should be imported as
 
-.. code-block:: python
+.. doctest::
 
-   import magnopy
+   >>> import magnopy
 
-
+Sub-modules
+===========
 .. toctree::
-   :caption: Modules
    :maxdepth: 1
 
-   spinham/index
-   magnons/index
-   io/index
-   units
-   exceptions
+   io
+
+Classes
+=======
+
+Top-level functions
+===================
+
+Exceptions
+==========

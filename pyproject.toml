@@ -8,8 +8,8 @@ name = "magnopy"
 dynamic = ["version"]
 description = "Magnopy is a Python package for magnons."
 authors = [{ name = "Andrey Rybakov", email = "rybakov.ad@icloud.com" }]
-dependencies = ["numpy", "wulfric>=0.3", "scipy", "h5py"]
-requires-python = ">=3.8"
+dependencies = ["numpy", "wulfric>=0.5.1", "h5py"]
+requires-python = ">=3.9"
 readme = "README.rst"
 classifiers = [
     'Development Status :: 1 - Planning',
@@ -17,11 +17,11 @@ classifiers = [
     'Intended Audience :: Developers',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Programming Language :: Python :: 3 :: Only',
     'Topic :: Software Development',
     'Topic :: Scientific/Engineering',

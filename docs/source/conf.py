@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 import sys
 from datetime import datetime
 from os.path import abspath, join
@@ -200,7 +201,7 @@ custom_links = {
     "PearsonSymbol": ("Pearson symbol", "https://en.wikipedia.org/wiki/Pearson_symbol"),
     "TB2J": ("TB2J", "https://tb2j.readthedocs.io/en/latest/"),
     "Vampire": ("Vampire", "https://vampire.york.ac.uk/"),
-    "Wulfric": ("Wulfric", "https://docs.wulfric.org/en/latest/"),
+    "Wulfric": ("wulfric", "https://docs.wulfric.org/en/latest/"),
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
     "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
     "h5py": ("h5py", "https://www.h5py.org/"),

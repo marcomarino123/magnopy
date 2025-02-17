@@ -11,7 +11,7 @@ Getting started
     :maxdepth: 1
 
     start/about
-    start/installation
+    installation
     start/how-to-run
     input/index
 

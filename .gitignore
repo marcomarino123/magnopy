@@ -14,7 +14,7 @@
 # Build
 **/build
 dist
-*.egg-info
+**/*.egg-info
 
 # Python cache
 __pycache__

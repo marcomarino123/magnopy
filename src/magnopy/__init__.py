@@ -22,7 +22,7 @@ __doclink__ = "magnopy.org"
 __release_date__ = "undefined"
 __git_commit__ = "undefined"
 
-from . import spinham
+from . import constants, spinham
 
 # from . import energy, exceptions, io, magnons, spinham, units
 # from .exceptions import *

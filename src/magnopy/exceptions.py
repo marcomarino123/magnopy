@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 __all__ = ["ColpaFailed", "NotationError", "FailedToVerifyTxtModelFile"]
 
 
@@ -26,34 +27,6 @@ class ColpaFailed(Exception):
 
     def __init__(self):
         self.message = "Diagonalization via Colpa failed."
-
-    def __str__(self):
-        return self.message
-
-
-class NotationError(ValueError):
-    r"""
-    Raised when the notation (or individual property) of :py:class:`.SpinHamiltonian` is not defined.
-
-    Gives a summary of the notation (or individual property) and hint on how to set it.
-
-    Parameters
-    ----------
-    name : str
-        Name of the corresponding attribute.
-
-    """
-
-    def __init__(self, name):
-        name = name.replace("_", " ")
-
-        self.message = " ".join(
-            [
-                f'Notation`s property "{name}" is not set.',
-                "Note: When the notation is set for the first time, parameters are not changed,",
-                "when it is set again the parameters are adjusted if necessary.",
-            ]
-        )
 
     def __str__(self):
         return self.message

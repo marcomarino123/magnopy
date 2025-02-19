@@ -19,6 +19,7 @@ Sub-modules
 .. toctree::
    :maxdepth: 1
 
+   spinham
    io
 
 Classes

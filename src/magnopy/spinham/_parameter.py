@@ -17,6 +17,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+R"""
+Functions for the common manipulation with the exchange parameters.
+"""
+
 import numpy as np
 
 # Save local scope at this moment
@@ -83,9 +87,9 @@ def get_matrix_parameter(iso=None, aniso=None, dmi=None) -> np.ndarray:
                [0., 1., 0.],
                [0., 0., 1.]])
         >>> magnopy.spinham.get_matrix_parameter(dmi = (1, 2, 0))
-        array([[0.,  0., -2.],
-               [0.,  0.,  1.],
-               [2., -1.,  0.]])
+        array([[ 0.,  0., -2.],
+               [ 0.,  0.,  1.],
+               [ 2., -1.,  0.]])
 
     """
 
@@ -208,10 +212,16 @@ def get_anisotropic_parameter(matrix):
         >>> import magnopy
         >>> matrix = [[1, 3, 4], [-1, -2, 0], [4, 0, 10]]
         >>> magnopy.spinham.get_anisotropic_parameter(matrix)
-        array([[-2.,  1., 4.],
-               [ 1., -5., 0.],
-               [ 4.,  0., 7.]])
+        array([[-2.,  1.,  4.],
+               [ 1., -5.,  0.],
+               [ 4.,  0.,  7.]])
     """
+
+    matrix = np.array(matrix)
+
+    return (matrix + matrix.T) / 2 - get_isotropic_parameter(
+        matrix=matrix, matrix_form=True
+    )
 
 
 def get_dmi(matrix, matrix_form=False):
@@ -285,7 +295,7 @@ def get_dmi(matrix, matrix_form=False):
         return asymm_matrix
 
     return np.array(
-        [self.asymm_matrix[1][2], self.asymm_matrix[2][0], self.asymm_matrix[0][1]],
+        [asymm_matrix[1][2], asymm_matrix[2][0], asymm_matrix[0][1]],
         dtype=float,
     )
 

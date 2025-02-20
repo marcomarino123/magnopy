@@ -1,4 +1,4 @@
 # Package dependencies
 numpy
-wulfric>=0.5.1
+wulfric>=0.5.2
 h5py

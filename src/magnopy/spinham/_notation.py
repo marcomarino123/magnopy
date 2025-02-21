@@ -53,9 +53,9 @@ class Notation:
     .. doctest::
 
         >>> from magnopy.spinham import Notation
-        >>> n1 = Notation(True, True, -0.5, 1)
-        >>> n2 = Notation(False, True, -0.5, 1)
-        >>> n3 = Notation(False, True, -0.5)
+        >>> n1 = Notation(True, True, c21=1, c22=-0.5)
+        >>> n2 = Notation(False, True, c21=1, c22=-0.5)
+        >>> n3 = Notation(False, True, c22=-0.5)
         >>> n1.double_counting
         True
         >>> n1 == n2
@@ -75,8 +75,8 @@ class Notation:
         self,
         double_counting: bool = None,
         spin_normalized: bool = None,
-        c22: float = None,
         c21: float = None,
+        c22: float = None,
         name: str = "custom",
     ) -> None:
         if double_counting is not None:

@@ -27,3 +27,11 @@ Notation of spin Hamiltonian
 
     Notation
     get_predefined_notation
+
+Spin Hamiltonian
+================
+
+.. autosummary::
+    :toctree: generated/
+
+    SpinHamiltonian

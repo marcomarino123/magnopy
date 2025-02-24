@@ -66,7 +66,12 @@ class Notation:
         >>> n3.c21
         Traceback (most recent call last):
         ...
-        ValueError: c21 factor of notation is not defined.
+        magnopy._exceptions.NotationError: Notation of spin Hamiltonian has an undefined property 'c21':
+        custom notation where
+          * Bonds are counted once in the sum;
+          * Spin vectors are normalized to 1;
+          * Undefined c21 factor;
+          * c22 = -0.5.
         >>> n3.name
         'custom'
 
@@ -120,13 +125,13 @@ class Notation:
         .. doctest::
 
             >>> from magnopy.spinham import Notation
-            >>> n1 = Notation(True, True, -0.5, 1)
+            >>> n1 = Notation(True, True, 1, -0.5)
             >>> n1.summary()
             custom notation where
               * Bonds are counted twice in the sum;
               * Spin vectors are normalized to 1;
-              * c22 = -0.5;
-              * c21 = 1.0.
+              * c21 = 1.0;
+              * c22 = -0.5.
         """
 
         summary = [f"{self.name} notation where"]
@@ -145,15 +150,15 @@ class Notation:
         else:
             summary.append("  * Spin vectors are not normalized;")
 
-        if self._c22 is None:
-            summary.append("  * Undefined c22 factor;")
-        else:
-            summary.append(f"  * c22 = {self._c22};")
-
         if self._c21 is None:
-            summary.append("  * Undefined c21 factor.")
+            summary.append("  * Undefined c21 factor;")
         else:
-            summary.append(f"  * c21 = {self._c21}.")
+            summary.append(f"  * c21 = {self._c21};")
+
+        if self._c22 is None:
+            summary.append("  * Undefined c22 factor.")
+        else:
+            summary.append(f"  * c22 = {self._c22}.")
 
         summary = ("\n").join(summary)
 
@@ -283,24 +288,24 @@ class Notation:
             >>> tb2j = magnopy.spinham.Notation.get_predefined("TB2J")
             >>> tb2j.summary()
             tb2j notation where
-            * Bonds are counted twice in the sum;
-            * Spin vectors are normalized to 1;
-            * c22 = -1.0;
-            * c21 = -1.0.
+              * Bonds are counted twice in the sum;
+              * Spin vectors are normalized to 1;
+              * c21 = -1.0;
+              * c22 = -1.0.
             >>> spinW = magnopy.spinham.Notation.get_predefined("spinW")
             >>> spinW.summary()
             spinw notation where
-            * Bonds are counted twice in the sum;
-            * Spin vectors are not normalized;
-            * c22 = 1.0;
-            * c21 = 1.0.
+              * Bonds are counted twice in the sum;
+              * Spin vectors are not normalized;
+              * c21 = 1.0;
+              * c22 = 1.0.
             >>> vampire = magnopy.spinham.Notation.get_predefined("Vampire")
             >>> vampire.summary()
             vampire notation where
-            * Bonds are counted twice in the sum;
-            * Spin vectors are normalized to 1;
-            * c22 = -1.0;
-            * c21 = -0.5.
+              * Bonds are counted twice in the sum;
+              * Spin vectors are normalized to 1;
+              * c21 = -0.5;
+              * c22 = -1.0.
         """
 
         name = name.lower()

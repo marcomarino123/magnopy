@@ -26,7 +26,6 @@ Notation of spin Hamiltonian
     :toctree: generated/
 
     Notation
-    get_predefined_notation
 
 Spin Hamiltonian
 ================

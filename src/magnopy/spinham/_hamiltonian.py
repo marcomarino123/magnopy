@@ -165,10 +165,10 @@ class SpinHamiltonian:
 
     """
 
-    def __init__(self, notation, cell, atoms) -> None:
-        self.cell = cell
+    def __init__(self, cell, atoms, notation) -> None:
+        self._cell = cell
 
-        self.atoms = add_sugar(atoms)
+        self._atoms = add_sugar(atoms)
 
         self._notation = notation
 
@@ -189,6 +189,131 @@ class SpinHamiltonian:
 
         # # [[atom1, atom2, atom3, atom4, ijk2, ijk3, ijk4, parameter], ...]
         # self._4_4 = []
+
+    ################################################################################
+    #                                Cell and Atoms                                #
+    ################################################################################
+
+    @property
+    def cell(self) -> dict:
+        r"""
+        Cell of the crystal on which the Hamiltonian is build.
+
+        Returns
+        -------
+        cell : (3, 3) :numpy:`ndarray`
+            Matrix of the cell, rows are lattice vectors.
+
+        Notes
+        -----
+        If is not recommended to change the ``cell`` property after the creation of
+        :py:class:`.SpinHamiltonian`. In fact an attempt to do so will raise an
+        ``AttributeError``:
+
+        .. doctest::
+
+            >>> import numpy as np
+            >>> import magnopy
+            >>> notation = magnopy.spinham.Notation()
+            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> spinham.cell = 2 * np.eye(3)
+            Traceback (most recent call last):
+            ...
+            AttributeError: Change of the cell attribute is not supported after the creation of SpinHamiltonian instance. If you need to modify cell, then use pre-defined methods of SpinHamiltonian or create a new one.
+
+        Use pre-defined methods of the :py:class:`.SpinHamiltonian` class to safely
+        modify the cell.
+
+        If you need to change the cell attribute, then use
+
+        .. doctest::
+
+            >>> import numpy as np
+            >>> import magnopy
+            >>> notation = magnopy.spinham.Notation()
+            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> spinham.cell
+            array([[1., 0., 0.],
+                   [0., 1., 0.],
+                   [0., 0., 1.]])
+            >>> spinham._cell = 2 * np.eye(3)
+            >>> spinham.cell
+            array([[2., 0., 0.],
+                   [0., 2., 0.],
+                   [0., 0., 2.]])
+
+
+        In the latter case correct behavior of magnopy **is not** guaranteed. Use only
+        if you have a deep understanding of the magnopy source code.
+        """
+
+        return self._cell
+
+    @cell.setter
+    def cell(self, new_value):
+        raise AttributeError(
+            f"Change of the cell attribute is not supported after "
+            "the creation of SpinHamiltonian instance. If you need to modify cell, "
+            "then use pre-defined methods of SpinHamiltonian or create a new one."
+        )
+
+    @property
+    def atoms(self) -> dict:
+        r"""
+        Atoms of the crystal on which the Hamiltonian is build.
+
+        Returns
+        -------
+        atoms : dict (with added sugar)
+            Dictionary with the atoms.
+
+        Notes
+        -----
+        If is not recommended to change the atoms property after the creation of
+        :py:class:`.SpinHamiltonian`. In fact an attempt to do so will raise an
+        ``AttributeError``:
+
+        .. doctest::
+
+            >>> import numpy as np
+            >>> import magnopy
+            >>> notation = magnopy.spinham.Notation()
+            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> spinham.atoms = {"names" : ["Cr"]}
+            Traceback (most recent call last):
+            ...
+            AttributeError: Change of the atoms dictionary is not supported after the creation of SpinHamiltonian instance. If you need to modify atoms, then use pre-defined methods of SpinHamiltonian or create a new one.
+
+        Use pre-defined methods of the :py:class:`.SpinHamiltonian` class to safely
+        modify atoms.
+
+        If you need to change the whole dictionary at once, then use
+
+        .. doctest::
+
+            >>> import numpy as np
+            >>> import magnopy
+            >>> notation = magnopy.spinham.Notation()
+            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> spinham.atoms
+            {}
+            >>> spinham._atoms = {"names" : ["Cr"]}
+            >>> spinham.atoms
+            {'names': ['Cr']}
+
+        In the latter case correct behavior of magnopy **is not** guaranteed. Use only
+        if you have a deep understanding of the magnopy source code.
+        """
+
+        return self._atoms
+
+    @atoms.setter
+    def atoms(self, new_value):
+        raise AttributeError(
+            f"Change of the atoms dictionary is not supported after "
+            "the creation of SpinHamiltonian instance. If you need to modify atoms, "
+            "then use pre-defined methods of SpinHamiltonian or create a new one."
+        )
 
     ################################################################################
     #                             One site : two spins                             #
@@ -360,15 +485,13 @@ class SpinHamiltonian:
         Parameters
         ----------
         atom1 : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``::
-
-                ``0 <= atom1 < len(spinham.atoms.names)``
-            Specifies atom from (0, 0, 0) unit cell
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``.Specifies atom from
+            (0, 0, 0) unit cell
         atom2 : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``::
-
-                ``0 <= atom2 < len(spinham.atoms.names)``
-            Specifies atom from (i, j, k) unit cell
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``.Specifies atom from
+            (i, j, k) unit cell
         ijk2 : tuple of 3 int
             Three indices along three lattice vectors, that specify the unit cell of
             the second atom.
@@ -452,15 +575,13 @@ class SpinHamiltonian:
         Parameters
         ----------
         atom1 : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``::
-
-                ``0 <= atom1 < len(spinham.atoms.names)``
-            Specifies atom from (0, 0, 0) unit cell
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
         atom2 : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``::
-
-                ``0 <= atom2 < len(spinham.atoms.names)``
-            Specifies atom from (i, j, k) unit cell
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i, j, k) unit cell
         ijk2 : tuple of 3 int
             Three indices along three lattice vectors, that specify the unit cell of
             the second atom.
@@ -646,7 +767,6 @@ class SpinHamiltonian:
         it.
 
         This property is dynamically computed at every call.
-        Atoms are sorted in the same way as in the ``spinham.atoms``.
 
         Returns
         -------
@@ -720,7 +840,7 @@ class SpinHamiltonian:
             >>> atoms = {"names" : ["Cr1", "Cr2"], "positions" : [[0, 0, 0], [0.5, 0.5, 0.5]]}
             >>> J = np.eye(3)
             >>> notation = magnopy.spinham.Notation(False, False, c22=1)
-            >>> spinham = magnopy.spinham.SpinHamiltonian(notation, cell, atoms)
+            >>> spinham = magnopy.spinham.SpinHamiltonian(cell, atoms, notation)
             >>> spinham.add_2_2(atom1=0, atom2=0, ijk2=(2,0,0), parameter=J)
             >>> spinham.add_2_2(atom1=0, atom2=1, ijk2=(0,0,0), parameter=2*J)
             >>> spinham.add_2_2(atom1=1, atom2=0, ijk2=(0,1,1), parameter=3*J)
@@ -728,8 +848,8 @@ class SpinHamiltonian:
             >>> for atom1, atom2, ijk, _ in spinham.p22:
             ...     print(atom1, atom2, ijk)
             ...
-            0 1 (0, 0, 0)
             0 0 (2, 0, 0)
+            0 1 (0, 0, 0)
             >>> spinham.filter_2_2(max_distance = 1)
             >>> for atom1, atom2, ijk, _ in spinham.p22:
             ...     print(atom1, atom2, ijk)
@@ -791,16 +911,18 @@ class SpinHamiltonian:
             >>> atoms = {"names" : ["Cr1", "Cr2"]}
             >>> A = np.array([[1,0,0], [0,0,0], [0,0,0]])
             >>> notation = magnopy.spinham.Notation(False, False, c22=1)
-            >>> spinham = magnopy.spinham.SpinHamiltonian(notation, cell, atoms)
+            >>> spinham = magnopy.spinham.SpinHamiltonian(cell, atoms, notation)
             >>> spinham.add_2_1(atom=0, parameter=A)
             >>> spinham.add_2_1(atom=1, parameter=2*A)
             >>> spinham.remove_atom(atom_name="Cr1")
             >>> spinham.atoms
             {'names': ['Cr2']}
-            >>> for a, _ in spinham.p21:
+            >>> for a, parameter in spinham.p21:
             ...    print(a)
+            ...    print(parameter)
             ...
-            0 [[2 0 0]
+            0
+            [[2 0 0]
              [0 0 0]
              [0 0 0]]
             >>> spinham.remove_atom(atom_index = 0)

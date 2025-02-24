@@ -122,20 +122,7 @@ recognized by magnopy are
   ``spinham["atoms"]``, that is understood to be from the (i, j, k) unit cell;
   third a tuple ``(i,j,k)``; fourth - a 3 x 3 symmetric matrix
   :math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta})`.
-* ``"double-counting"``
-
-  Boolean flag. Indicates whether the both spin pairs :math:`(\mu,\alpha;\mu+\nu,\beta)`
-  and :math:`(\mu+\nu,\beta;\mu,\alpha)` are included in the sum.
-* ``"spin-normalized"``
-
-  Boolean flag. Indicates whether the spin vectors are normalized in the third an fourth
-  term.
-* ``"C21"``
-
-  A ``float``. Numerical coefficient before the third sum.
-* ``"C22"``
-
-  A ``float``. Numerical coefficient before the fourth sum.
+* ``"notation"``
 
 First term describes effect of the magnetic field :math:`\boldsymbol{h}` in the Zeeman
 form. For this term two parameters of the crystal have to be stored: g-factors and

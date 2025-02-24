@@ -16,9 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 R"""
 Constants and custom units in the International system of units.
 """
+
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
 
 ################################################################################
 #                                    Units                                     #
@@ -44,5 +49,11 @@ BOHR_MAGNETON = 9.2740100783e-24  # Joule / Tesla
 PLANK_CONSTANT = 6.62607015e-34  # Joule * Second
 SPEED_OF_LIGHT = 299792458  # Metre / Second
 RYDBERG_CONSTANT = 10973731.568160  # 1 / Metre
-RYDBERG_ENERGY = PLANK_CONSTANT * SPEED_OF_LIGHT * RYDBERG_CONSTANT
+RYDBERG_ENERGY = PLANK_CONSTANT * SPEED_OF_LIGHT * RYDBERG_CONSTANT  # Joule
 ELEMENTARY_CHARGE = 1.602176634e-19  # Coulomb
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

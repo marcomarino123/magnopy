@@ -22,4 +22,4 @@ Vampire
 
     dump_vampire
     dump_vampire_mat
-    dump_vampre_UCF
+    dump_vampire_ucf

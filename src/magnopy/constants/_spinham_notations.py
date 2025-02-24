@@ -17,25 +17,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__all__ = ["ColpaFailed", "NotationError", "FailedToVerifyTxtModelFile"]
+R""" Pre-defined notations of spin Hamiltonian"""
 
-
-class ColpaFailed(Exception):
-    r"""
-    Raised when Diagonalization via Colpa fails.
-    """
-
-    def __init__(self):
-        self.message = "Diagonalization via Colpa failed."
-
-    def __str__(self):
-        return self.message
-
-
-class FailedToVerifyTxtModelFile(Exception):
-    R"""
-    Raise if the format of the model input file is invalid.
-    """
-
-    def __init__(self, message):
-        super().__init__(message)
+# (double_counting, spin_normalized, c21, c22)
+_NOTATIONS = {
+    "tb2j": (True, True, -1, -1),
+    "spinw": (True, False, 1, 1),
+    "vampire": (True, True, -0.5, -1),
+}

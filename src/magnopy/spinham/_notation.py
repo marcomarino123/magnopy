@@ -21,6 +21,9 @@ R"""
 Notation of spin Hamiltonian
 """
 
+from magnopy._exceptions import NotationError
+from magnopy.constants._spinham_notations import _NOTATIONS
+
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
@@ -82,7 +85,7 @@ class Notation:
         if double_counting is not None:
             self._double_counting = bool(double_counting)
         else:
-            self.double_counting = None
+            self._double_counting = None
 
         if spin_normalized is not None:
             self._spin_normalized = bool(spin_normalized)
@@ -119,28 +122,28 @@ class Notation:
             >>> from magnopy.spinham import Notation
             >>> n1 = Notation(True, True, -0.5, 1)
             >>> n1.summary()
-            custom notation with
-              * Bonds counted twice in the sum;
-              * Spin vectors normalized to 1;
+            custom notation where
+              * Bonds are counted twice in the sum;
+              * Spin vectors are normalized to 1;
               * c22 = -0.5;
               * c21 = 1.0.
         """
 
-        summary = [f"{self.name} notation with"]
+        summary = [f"{self.name} notation where"]
 
         if self._double_counting is None:
             summary.append("  * Undefined double counting;")
         elif self._double_counting:
-            summary.append("  * Bonds counted twice in the sum;")
+            summary.append("  * Bonds are counted twice in the sum;")
         else:
-            summary.append("  * Bonds counted once in the sum;")
+            summary.append("  * Bonds are counted once in the sum;")
 
         if self._spin_normalized is None:
             summary.append("  * Undefined spin normalization;")
         elif self._spin_normalized:
-            summary.append("  * Spin vectors normalized to 1;")
+            summary.append("  * Spin vectors are normalized to 1;")
         else:
-            summary.append("  * Not normalized spin vectors;")
+            summary.append("  * Spin vectors are not normalized;")
 
         if self._c22 is None:
             summary.append("  * Undefined c22 factor;")
@@ -169,7 +172,7 @@ class Notation:
 
     @name.setter
     def name(self, new_value: str):
-        self._name = str(name).lower()
+        self._name = str(new_value).lower()
 
     @property
     def double_counting(self) -> bool:
@@ -179,7 +182,7 @@ class Notation:
         If ``True``, then pairs are counted twice.
         """
         if self._double_counting is None:
-            raise ValueError(f"Double counting property of notation is not defined.")
+            raise NotationError(notation=self, property="double_counting")
         return self._double_counting
 
     @property
@@ -190,17 +193,8 @@ class Notation:
         If ``True``, then spin vectors/operators are normalized.
         """
         if self._spin_normalized is None:
-            raise ValueError(f"Spin normalized property of notation is not defined.")
+            raise NotationError(notation=self, property="spin_normalized")
         return self._spin_normalized
-
-    @property
-    def c22(self) -> float:
-        r"""
-        Numerical factor before the two-spins/two-sites sum of the Hamiltonian.
-        """
-        if self._c22 is None:
-            raise ValueError(f"c22 factor of notation is not defined.")
-        return self._c22
 
     @property
     def c21(self) -> float:
@@ -208,112 +202,119 @@ class Notation:
         Numerical factor before the two-spins/one-site sum of the Hamiltonian.
         """
         if self._c21 is None:
-            raise ValueError(f"c21 factor of notation is not defined.")
+            raise NotationError(notation=self, property="c21")
         return self._c21
+
+    @property
+    def c22(self) -> float:
+        r"""
+        Numerical factor before the two-spins/two-sites sum of the Hamiltonian.
+        """
+        if self._c22 is None:
+            raise NotationError(notation=self, property="c22")
+        return self._c22
 
     @double_counting.setter
     def double_counting(self, new_value: bool):
         raise AttributeError(
             "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of spinHamiltonian class to change notation."
+            "Use correct methods of SpinHamiltonian class to change notation."
         )
 
     @spin_normalized.setter
     def spin_normalized(self, new_value: bool):
         raise AttributeError(
             "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of spinHamiltonian class to change notation."
-        )
-
-    @c22.setter
-    def c22(self, new_value: float):
-        raise AttributeError(
-            "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of spinHamiltonian class to change notation."
+            "Use correct methods of SpinHamiltonian class to change notation."
         )
 
     @c21.setter
     def c21(self, new_value: float):
         raise AttributeError(
             "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of spinHamiltonian class to change notation."
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @c22.setter
+    def c22(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
         )
 
     def __eq__(self, other):
+        # Note semi-private attributes are compared intentionally, as
+        # public ones will raise an error if not defined
+        # If attributes are not defined in both notations,
+        # then that attribute is considered equal.
         return (
-            self.double_counting == other.double_counting
-            and self.spin_normalized == other.spin_normalized
-            and self.c22 == other.c22
-            and self.c21 == other.c21
+            self._double_counting == other._double_counting
+            and self._spin_normalized == other._spin_normalized
+            and self._c22 == other._c22
+            and self._c21 == other._c21
         )
 
+    @staticmethod
+    def get_predefined(name: str):
+        r"""
+        Returns one of the pre-defined notations.
 
-def get_predefined_notation(name: str) -> Notation:
-    r"""
-    Returns on eof the pre-defined notation in magnopy.
+        Parameters
+        ----------
+        name : str
+            Name of the desired pre-defined notation. Supported are
 
-    Parameters
-    ----------
-    name : str
-        Name of the desired pre-defined notation. Supported are
+            * "tb2j"
+            * "spinw"
+            * vampire"
 
-        * "tb2j"
-        * "spinw"
-        * vampire"
+            Case-insensitive.
 
-        Case-insensitive.
+        Returns
+        -------
+        notation : :py:class:`wulfric.spinham.Notation`
 
-    Returns
-    -------
-    notation : :py:class:`wulfric.spinham.Notation`
+        Examples
+        --------
 
-    Examples
-    --------
+        .. doctest::
 
-    .. doctest::
+            >>> import magnopy
+            >>> tb2j = magnopy.spinham.Notation.get_predefined("TB2J")
+            >>> tb2j.summary()
+            tb2j notation where
+            * Bonds are counted twice in the sum;
+            * Spin vectors are normalized to 1;
+            * c22 = -1.0;
+            * c21 = -1.0.
+            >>> spinW = magnopy.spinham.Notation.get_predefined("spinW")
+            >>> spinW.summary()
+            spinw notation where
+            * Bonds are counted twice in the sum;
+            * Spin vectors are not normalized;
+            * c22 = 1.0;
+            * c21 = 1.0.
+            >>> vampire = magnopy.spinham.Notation.get_predefined("Vampire")
+            >>> vampire.summary()
+            vampire notation where
+            * Bonds are counted twice in the sum;
+            * Spin vectors are normalized to 1;
+            * c22 = -1.0;
+            * c21 = -0.5.
+        """
 
-        >>> import magnopy
-        >>> tb2j = magnopy.spinham.get_predefined_notation("TB2J")
-        >>> tb2j.summary()
-        tb2j notation with
-          * Bonds counted twice in the sum;
-          * Spin vectors normalized to 1;
-          * c22 = -1.0;
-          * c21 = -1.0.
-        >>> spinW = magnopy.spinham.get_predefined_notation("spinW")
-        >>> spinW.summary()
-        spinw notation with
-          * Bonds counted twice in the sum;
-          * Not normalized spin vectors;
-          * c22 = 1.0;
-          * c21 = 1.0.
-        >>> vampire = magnopy.spinham.get_predefined_notation("Vampire")
-        >>> vampire.summary()
-        vampire notation with
-          * Bonds counted twice in the sum;
-          * Spin vectors normalized to 1;
-          * c22 = -1.0;
-          * c21 = -0.5.
-    """
+        name = name.lower()
 
-    name = name.lower()
+        if name not in _NOTATIONS:
+            ValueError(f"'{name}' notation is undefined.")
 
-    if name == "tb2j":
         return Notation(
-            name="tb2j", double_counting=True, spin_normalized=True, c21=-1, c22=-1
+            name=name,
+            double_counting=_NOTATIONS[name][0],
+            spin_normalized=_NOTATIONS[name][1],
+            c21=_NOTATIONS[name][2],
+            c22=_NOTATIONS[name][3],
         )
-
-    if name == "spinw":
-        return Notation(
-            name="spinw", double_counting=True, spin_normalized=False, c21=1, c22=1
-        )
-
-    if name == "vampire":
-        return Notation(
-            name="vampire", double_counting=True, spin_normalized=True, c21=-0.5, c22=-1
-        )
-
-    raise ValueError(f"'{name}' notation is undefined.")
 
 
 # Populate __all__ with objects defined in this file

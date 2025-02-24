@@ -12,15 +12,16 @@ The main interface to the package should be imported as
 
 .. doctest::
 
-   >>> import magnopy
+  >>> import magnopy
 
 Sub-modules
 ===========
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   spinham
-   io
+  spinham
+  magnons
+  io
 
 Classes
 =======
@@ -28,5 +29,16 @@ Classes
 Top-level functions
 ===================
 
+.. autosummary::
+  :toctree: generated/
+
+  logo
+
 Exceptions
 ==========
+
+.. autosummary::
+  :toctree: generated/
+
+  NotationError
+  ColpaFailed

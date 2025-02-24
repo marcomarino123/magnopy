@@ -16,7 +16,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from magnopy.magnons.diagonalization import solve_via_colpa
-from magnopy.magnons.dispersion import MagnonDispersion
 
-__all__ = ["solve_via_colpa", "MagnonDispersion"]
+from ._diagonalization import *

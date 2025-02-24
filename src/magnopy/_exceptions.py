@@ -17,7 +17,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__all__ = ["ColpaFailed", "NotationError", "FailedToVerifyTxtModelFile"]
+R"""Exceptions"""
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
 
 
 class ColpaFailed(Exception):
@@ -27,15 +30,6 @@ class ColpaFailed(Exception):
 
     def __init__(self):
         message = "Diagonalization via Colpa failed."
-        super().__init__(message)
-
-
-class FailedToVerifyTxtModelFile(Exception):
-    R"""
-    Raise if the format of the model input file is invalid.
-    """
-
-    def __init__(self, message):
         super().__init__(message)
 
 
@@ -50,3 +44,19 @@ class NotationError(Exception):
             + notation.summary(return_as_string=True)
         )
         super().__init__(message)
+
+
+class _FailedToVerifyTxtModelFile(Exception):
+    R"""
+    Raise if the format of the model input file is invalid.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

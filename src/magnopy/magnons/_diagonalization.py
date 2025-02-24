@@ -16,12 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 import numpy as np
 from numpy.linalg import LinAlgError
 
-from magnopy.exceptions import ColpaFailed
+from magnopy._exceptions import ColpaFailed
 
-__all__ = ["solve_via_colpa"]
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
 
 
 def solve_via_colpa(D):
@@ -147,3 +150,10 @@ def solve_via_colpa(D):
     G[N:, :N] *= -1
 
     return E, G
+
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

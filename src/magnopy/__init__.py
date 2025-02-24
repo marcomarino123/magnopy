@@ -22,19 +22,6 @@ __doclink__ = "magnopy.org"
 __release_date__ = "undefined"
 __git_commit__ = "undefined"
 
-from . import constants, spinham
-
-# from . import energy, exceptions, io, magnons, spinham, units
-# from .exceptions import *
-# from .io import *
-# from .magnons import *
-# from .spinham import *
-# from .units import *
-
-# __all__ = ["__version__", "__doclink__", "__release_date__"]
-# __all__.extend(spinham.__all__)
-# __all__.extend(io.__all__)
-# __all__.extend(magnons.__all__)
-# __all__.extend(exceptions.__all__)
-# __all__.extend(units.__all__)
-# __all__.extend(energy.__all__)
+from . import constants, magnons, spinham
+from ._exceptions import *
+from ._package_info import *

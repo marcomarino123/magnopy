@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from magnopy import __git_commit__, __version__
@@ -31,7 +32,7 @@ def main():
         "command",
         default=None,
         help="Which command to run",
-        choices=["logo", "warranty", "conditions", "version"],
+        choices=["logo", "warranty", "version"],
         nargs="?",
     )
     parser.add_argument(
@@ -51,8 +52,6 @@ def main():
         print(logo())
     elif args.command == "warranty":
         print("\n" + warranty() + "\n")
-    elif args.command == "conditions":
-        print("\n" + conditions() + "\n")
     elif args.command == "version" or args.version:
         print(f"Magnopy v{__version__}")
     elif args.git_commit:

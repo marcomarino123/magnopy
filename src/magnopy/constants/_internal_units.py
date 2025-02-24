@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 R"""
 Here we define default units of Magnopy.
 Input is supported in a variety of different unit, but it is converted to the internal ones as early as possible.
@@ -25,22 +26,11 @@ If you are using the constants inside magnopy, then import them from here and no
 magnopy.units.si
 """
 
-from magnopy.units import si
+from magnopy.constants import si
 
-__all__ = [
-    "LENGTH",
-    "ENERGY",
-    "TIME",
-    "MAGNETIC_FIELD",
-    "TEMPERATURE",
-    "LENGTH_NAME",
-    "ENERGY_NAME",
-    "TIME_NAME",
-    "MAGNETIC_FIELD_NAME",
-    "TEMPERATURE_NAME",
-    "TRUE_KEYWORDS",
-    "FALSE_KEYWORDS",
-]
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
 
 
 ################################################################################
@@ -67,3 +57,10 @@ TEMPERATURE_NAME = "Kelvin"
 ################################################################################
 TRUE_KEYWORDS = ["true", "t", "yes", "y", "1"]
 FALSE_KEYWORDS = ["false", "f", "no", "n", "0"]
+
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

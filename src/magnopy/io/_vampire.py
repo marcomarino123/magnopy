@@ -16,14 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__all__ = ["dump_vampire", "dump_mat", "dump_ucf"]
 
 import numpy as np
+from wulfric.cell import get_params
+from wulfric.crystal import get_atom_species
 
-from magnopy._pinfo import logo
-from magnopy.spinham.hamiltonian import SpinHamiltonian
-from magnopy.spinham.parameter import MatrixParameter
-from magnopy.units.inside import ENERGY
+from magnopy._package_info import logo
+from magnopy.constants._internal_units import ENERGY
+from magnopy.spinham._hamiltonian import SpinHamiltonian
+from magnopy.spinham._notation import Notation
+from magnopy.spinham._parameter import get_anisotropic_parameter, get_dmi
+
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
 
 
 def dump_vampire(
@@ -102,7 +108,9 @@ def dump_vampire(
         )
 
 
-def dump_mat(spinham: SpinHamiltonian, filename=None, materials=None, nologo=False):
+def dump_vampire_mat(
+    spinham: SpinHamiltonian, filename=None, materials=None, nologo=False
+):
     """
     Write .mat file for |Vampire|_.
 
@@ -115,11 +123,15 @@ def dump_mat(spinham: SpinHamiltonian, filename=None, materials=None, nologo=Fal
         If not given, the output is returned as a string.
     materials : list of int, optional
         List of materials for the atoms. Has to have the same length as the number of
-        magnetic atoms in the ``spinham``. Order is the same as in :py:attr:`.SpinHamiltonian.magnetic_atoms`.
-        If not given, each atom will be considered as a separate material. Starting from 0.
+        magnetic atoms in the ``spinham``. If not given, each atom will be considered
+        as a separate material. Starting from 0.
     nologo : bool, default False
         Whether to print the logo in the output files.
     """
+
+    if materials is None:
+        materials = [i for i in range(len(spinham.magnetic_atoms))]
+
     if nologo:
         text = []
     else:
@@ -128,26 +140,22 @@ def dump_mat(spinham: SpinHamiltonian, filename=None, materials=None, nologo=Fal
         text.append(f"material:num-materials = {max(materials)+1}")
     else:
         text.append(f"material:num-materials = {len(spinham.magnetic_atoms)}")
-    for i, atom in enumerate(spinham.magnetic_atoms):
-        if materials is None or materials[i] not in materials[:i]:
-            if materials is not None:
-                m_i = materials[i] + 1
-            else:
-                m_i = i + 1
+    for index in spinham.magnetic_atoms:
+        if materials[i] not in materials[:i]:
+            m_i = materials[i] + 1
             text.append("#---------------------------------------------------")
             text.append(f"# Material {m_i} \n")
             text.append("#---------------------------------------------------")
-            text.append(f"material[{m_i}]:material-name = {atom.name}")
-            text.append(f"material[{m_i}]:material-element = {atom.type}")
-            text.append(f"material[{m_i}]:atomic-spin-moment={atom.spin} ! muB")
-            if atom._spin_direction is not None:
-                text.append(
-                    f"material[{m_i}]:initial-spin-direction = {atom.spin_direction[0]:.8f},{atom.spin_direction[1]:.8f},{atom.spin_direction[2]:.8f}"
-                )
-            else:
-                text.append(f"material[{m_i}]:initial-spin-direction = random")
-            text.append(f"material[{m_i}]:damping-constant=0.1")
-            text.append(f"material[{m_i}]:uniaxial-anisotropy-constant=0.0")
+            text.append(f"material[{m_i}]:material-name = {spinham.atoms.names[index]}")
+            text.append(
+                f"material[{m_i}]:material-element = {get_atom_species(spinham.atoms.names[index])}"
+            )
+            text.append(
+                f"material[{m_i}]:atomic-spin-moment={spinham.atoms.spins[index]} ! muB"
+            )
+            text.append(f"material[{m_i}]:initial-spin-direction = random")
+            text.append(f"material[{m_i}]:damping-constant = 0.1")
+            text.append(f"material[{m_i}]:uniaxial-anisotropy-constant = 0.0")
     text.append("#---------------------------------------------------")
 
     text = "\n".join(text)
@@ -159,7 +167,7 @@ def dump_mat(spinham: SpinHamiltonian, filename=None, materials=None, nologo=Fal
         file.write("".join(text))
 
 
-def dump_ucf(
+def dump_vampire_ucf(
     spinham: SpinHamiltonian,
     filename=None,
     anisotropic=True,
@@ -203,45 +211,60 @@ def dump_ucf(
     """
     if materials is None:
         materials = [i for i in range(len(spinham.magnetic_atoms))]
+
     original_notation = spinham.notation
-    spinham.notation = "vampire"
+    spinham.notation = Notation.get_predefined(name="Vampire")
+
     if nologo:
         text = []
     else:
         text = [logo(comment=True, date_time=True)]
+
+    a, b, c, _, _, _ = get_params(spinham.cell)
     text.append("# Unit cell size:")
-    text.append(f"{spinham.a:.8f} {spinham.b:.8f} {spinham.c:.8f}")
+    text.append(f"{a:.8f} {b:.8f} {c:.8f}")
     text.append("# Unit cell lattice vectors:")
-    text.append(f"{spinham.a1[0]:15.8f} {spinham.a1[1]:15.8f} {spinham.a1[2]:15.8f}")
-    text.append(f"{spinham.a2[0]:15.8f} {spinham.a2[1]:15.8f} {spinham.a2[2]:15.8f}")
-    text.append(f"{spinham.a3[0]:15.8f} {spinham.a3[1]:15.8f} {spinham.a3[2]:15.8f}")
+    text.append(
+        f"{spinham.cell[0][0]:15.8f} {spinham.cell[0][1]:15.8f} {spinham.cell[0][2]:15.8f}"
+    )
+    text.append(
+        f"{spinham.cell[1][0]:15.8f} {spinham.cell[1][1]:15.8f} {spinham.cell[1][2]:15.8f}"
+    )
+    text.append(
+        f"{spinham.cell[2][0]:15.8f} {spinham.cell[2][1]:15.8f} {spinham.cell[2][2]:15.8f}"
+    )
     text.append("# Atoms")
     text.append(f"{len(spinham.magnetic_atoms)} {len(np.unique(materials))}")
-    atom_indices = {}
-    for a_i, atom in enumerate(spinham.magnetic_atoms):
+
+    index_mapping = {}
+    i = 0
+    for index in spinham.magnetic_atoms:
+        position = spinham.atoms.positions[index]
         text.append(
-            f"{a_i:<5} {atom.position[0]:15.8f} {atom.position[1]:15.8f} {atom.position[2]:15.8f} {materials[a_i]:>5}"
+            f"{index:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[0]:>5}"
         )
-        atom_indices[atom] = a_i
+        index_mapping[atom] = i
+        i += 1
+
     text.append("# Interactions")
-    text.append(f"{len(spinham.exchange_like)} tensorial")
+    text.append(f"{len(spinham.p22)} tensorial")
 
     IID = 0
-    for atom1, atom2, (i, j, k), J in spinham.exchange_like:
+    for atom1, atom2, (i, j, k), J in spinham.p22:
         if custom_mask is not None:
-            J = MatrixParameter(custom_mask(J.matrix))
+            J = custom_mask(J)
         else:
             if not dmi:
-                J = MatrixParameter(matrix=J.matrix - J.dmi_matrix)
+                J -= get_dmi(J, matrix_form=True)
             if not anisotropic:
-                J = MatrixParameter(matrix=J.matrix - J.aniso)
+                J -= get_anisotropic_parameter(J)
         J = J * ENERGY
         fmt = f"{7+decimals}.{decimals}e"
         text.append(
-            f"{IID:<5} {atom_indices[atom1]:>3} {atom_indices[atom2]:>3}  {i:>2} {j:>2} {k:>2}  "
-            f"{J.xx:{fmt}} {J.xy:{fmt}} {J.xz:{fmt}} "
-            f"{J.yx:{fmt}} {J.yy:{fmt}} {J.yz:{fmt}} "
-            f"{J.zx:{fmt}} {J.zy:{fmt}} {J.zz:{fmt}}"
+            f"{IID:<5} {index_mapping[atom1]:>3} {index_mapping[atom2]:>3}  {i:>2} {j:>2} {k:>2}  "
+            f"{J[0][0]:{fmt}} {J[0][1]:{fmt}} {J[0][2]:{fmt}} "
+            f"{J[1][0]:{fmt}} {J[1][1]:{fmt}} {J[1][2]:{fmt}} "
+            f"{J[2][0]:{fmt}} {J[2][1]:{fmt}} {J[2][2]:{fmt}}"
         )
         IID += 1
 
@@ -254,3 +277,10 @@ def dump_ucf(
 
     with open(filename, "w", encoding="utf-8") as file:
         file.write(text)
+
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

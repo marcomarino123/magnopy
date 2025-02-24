@@ -18,6 +18,7 @@
 
 
 from ._tb2j import *
+from ._vampire import *
 
 # import logging
 # from os.path import abspath

@@ -23,5 +23,5 @@ R""" Pre-defined notations of spin Hamiltonian"""
 _NOTATIONS = {
     "tb2j": (True, True, -1, -1),
     "spinw": (True, False, 1, 1),
-    "vampire": (True, True, -0.5, -1),
+    "vampire": (True, True, -1, -0.5),
 }

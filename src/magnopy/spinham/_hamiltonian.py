@@ -166,7 +166,7 @@ class SpinHamiltonian:
     """
 
     def __init__(self, cell, atoms, notation) -> None:
-        self._cell = cell
+        self._cell = np.array(cell)
 
         self._atoms = add_sugar(atoms)
 
@@ -653,18 +653,18 @@ class SpinHamiltonian:
 
     @notation.setter
     def notation(self, new_notation: Notation):
-        self._set_double_counting(new_notation.double_counting)
+        self._set_double_counting(new_notation._double_counting)
 
-        self._set_spin_normalization(new_notation.spin_normalized)
+        self._set_spin_normalization(new_notation._spin_normalized)
 
-        self._set_c21(new_notation.c21)
+        self._set_c21(new_notation._c21)
 
-        self._set_c22(new_notation.c22)
+        self._set_c22(new_notation._c22)
 
         self._notation = new_notation
 
     def _set_double_counting(self, double_counting: bool) -> None:
-        if double_counting is None or self.notation.double_counting is None:
+        if double_counting is None or self.notation._double_counting is None:
             return
 
         double_counting = bool(double_counting)
@@ -679,11 +679,11 @@ class SpinHamiltonian:
         else:
             factor = 2.0
 
-        for index in self._2_2:
+        for index in range(len(self._2_2)):
             self._2_2[index][3] *= factor
 
     def _set_spin_normalization(self, spin_normalized: bool) -> None:
-        if spin_normalized is None or self.notation.spin_normalized is None:
+        if spin_normalized is None or self.notation._spin_normalized is None:
             return
 
         spin_normalized = bool(spin_normalized)
@@ -694,28 +694,28 @@ class SpinHamiltonian:
         # Before it was not normalized
         if spin_normalized:
             # For on-site
-            for index in self._2_1:
+            for index in range(len(self._2_1)):
                 atom = self._2_1[index][0]
                 self._2_1[index][1] *= self.atoms.spins[atom] ** 2
             # For exchange
-            for index in self._2_2:
+            for index in range(len(self._2_2)):
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]
                 self._2_2[index][3] *= self.atoms.spins[atom1] * self.atoms.spins[atom2]
-        # Before it was  normalized
+        # Before it was normalized
         else:
             # For on-site
-            for index in self._2_1:
+            for index in range(len(self._2_1)):
                 atom = self._2_1[index][0]
                 self._2_1[index][1] /= self.atoms.spins[atom] ** 2
             # For exchange
-            for index in self._2_2:
+            for index in range(len(self._2_2)):
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]
                 self._2_2[index][3] /= self.atoms.spins[atom1] * self.atoms.spins[atom2]
 
     def _set_c21(self, new_c21: float) -> None:
-        if new_c21 is None or self.notation.c21 is None:
+        if new_c21 is None or self.notation._c21 is None:
             return
 
         new_c21 = float(new_c21)
@@ -724,11 +724,11 @@ class SpinHamiltonian:
             return
 
         # If factor is changing one need to scale parameters.
-        for index in self._2_1:
+        for index in range(len(self._2_1)):
             self._2_1[index][1] *= self.notation.c21 / new_c21
 
     def _set_c22(self, new_c22: float) -> None:
-        if new_c22 is None or self.notation.c22 is None:
+        if new_c22 is None or self.notation._c22 is None:
             return
 
         new_c22 = float(new_c22)
@@ -737,8 +737,8 @@ class SpinHamiltonian:
             return
 
         # If factor is changing one need to scale parameters.
-        for index in self._2_2:
-            self._2_1[index][3] *= self.notation.c22 / new_c22
+        for index in range(len(self._2_2)):
+            self._2_2[index][3] *= self.notation.c22 / new_c22
 
     ################################################################################
     #                                  Copy getter                                 #
@@ -782,7 +782,7 @@ class SpinHamiltonian:
             indices.add(atom1)
             indices.add(atom2)
 
-        return indices
+        return list(indices)
 
     @property
     def I(self):

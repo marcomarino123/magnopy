@@ -67,7 +67,7 @@ doctest:
 	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
 
 test:
-	@pytest -s #-o log_cli=true -o log_cli_level=DEBUG
+	@pytest -s utests #-o log_cli=true -o log_cli_level=DEBUG
 
 model-input-examples-run:
 	@python3 utests/test_io/test_txt/test_verify.py

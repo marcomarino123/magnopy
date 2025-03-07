@@ -18,3 +18,4 @@
 
 
 from ._diagonalization import *
+from ._representations import *

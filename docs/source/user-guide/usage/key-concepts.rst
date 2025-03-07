@@ -70,12 +70,7 @@ Keys recognized by magnopy:
     ``list`` of *relative* coordinates of atoms. Each element is an |array-like|_ of the
     length :math:`3`.
 *   "spins" :
-    ``list`` of ``float``. Spin values for each atom. It is assumed that
-    ``atoms["spins"][i] * atoms["spin_directions"][i]`` results in a spin vector of i-th
-    spin.
-*   "spin_directions" :
-    ``list`` of the direction vectors for atom's spins. Each element is an |array-like|_
-    of the length :math:`3`. It is assumed that every element has a length 1.
+    ``list`` of ``float``. Spin values for each atom.
 *   "g_factors" :
     ``list`` of ``float``.
 

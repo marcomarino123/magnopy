@@ -27,7 +27,7 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def solve_via_colpa(D):
+def solve_via_colpa(D, sort=True):
     r"""
     Diagonalize grand-dynamical matrix following the method of Colpa [1]_.
 
@@ -72,7 +72,8 @@ def solve_via_colpa(D):
     Parameters
     ----------
     D : (2N, 2N) |array-like|_
-        Grand dynamical matrix. Must be Hermitian and positive-defined.
+        Grand dynamical matrix. If it is Hermitian and positive-defined, then obtained
+        eigenvalues are positive and real.
 
         .. math::
 
@@ -80,27 +81,33 @@ def solve_via_colpa(D):
                 \boldsymbol{\Delta_1} & \boldsymbol{\Delta_2} \\
                 \boldsymbol{\Delta_3} & \boldsymbol{\Delta_4}
             \end{pmatrix}
+    sort : bool, default True
+        Whether to sort the diagonalized eigenvalues and transformation matrix. If
+        ``True``, then first N eigenvalues are sorted in descending order. Last N
+        eigenvalues are sorted in ascending order. In the case of diagonalization of
+        the magnon Hamiltonian first N eigenvalues are the same as last N eigenvalues,
+        but in reversed order.
 
     Returns
     -------
     E : (2N,) :numpy:`ndarray`
-        The eigenvalues, each repeated according to its multiplicity.
-        First N eigenvalues are sorted in descending order.
-        Last N eigenvalues are sorted in ascending order.
-        In the case of diagonalization of the magnon Hamiltonian
-        first N eigenvalues are the same as last N eigenvalues, but
-        in reversed order. It is an array of the diagonal elements of the
+        The eigenvalues.
+        It is an array of the diagonal elements of the
         diagonal matrix :math:`\boldsymbol{E}` from the diagonalized Hamiltonian.
 
     G : (2N, 2N) :numpy:`ndarray`
-        Transformation matrix, which change the basis from the original set of bosonic
-        operators :math:`\boldsymbol{a}` to the set of
-        new bosonic operators :math:`\boldsymbol{\hat{c}}` which diagonalize
-        the Hamiltonian:
+        Transformation matrix, which changes the basis from the original set of bosonic
+        operators :math:`\boldsymbol{a}` to the set of new bosonic operators
+        :math:`\boldsymbol{\hat{c}}` which diagonalize the Hamiltonian:
 
         .. math::
 
             \boldsymbol{\hat{c}} = \boldsymbol{G} \boldsymbol{a}
+
+    Raises
+    ------
+    ColpaFailed
+        If the algorithm fails.
 
     Notes
     -----
@@ -135,10 +142,11 @@ def solve_via_colpa(D):
     L, U = np.linalg.eig(K @ g @ np.conjugate(K).T)
 
     # Sort with respect to L, in descending order
-    U = np.concatenate((L[:, None], U.T), axis=1).T
-    U = U[:, np.argsort(U[0])]
-    L = U[0, ::-1]
-    U = U[1:, ::-1]
+    if sort:
+        U = np.concatenate((L[:, None], U.T), axis=1).T
+        U = U[:, np.argsort(U[0])]
+        L = U[0, ::-1]
+        U = U[1:, ::-1]
 
     E = g @ L
 

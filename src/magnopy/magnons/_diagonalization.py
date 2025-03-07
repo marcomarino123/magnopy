@@ -98,11 +98,11 @@ def solve_via_colpa(D, sort=True):
     G : (2N, 2N) :numpy:`ndarray`
         Transformation matrix, which changes the basis from the original set of bosonic
         operators :math:`\boldsymbol{a}` to the set of new bosonic operators
-        :math:`\boldsymbol{\hat{c}}` which diagonalize the Hamiltonian:
+        :math:`\boldsymbol{b}` which diagonalize the Hamiltonian:
 
         .. math::
 
-            \boldsymbol{\hat{c}} = \boldsymbol{G} \boldsymbol{a}
+            \boldsymbol{\cal B} = \boldsymbol{G} \boldsymbol{\cal A}
 
     Raises
     ------

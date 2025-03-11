@@ -47,7 +47,8 @@ clean:
 
 # Documentation and doctests
 pictures-for-docs:
-	@python3 docs/images/scripts/origin-upstream-local.py -rd .
+	@python3 dev-tools/images/origin-upstream-local.py -rd .
+	@python3 dev-tools/images/positions.py -rd .
 
 html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)

@@ -4,7 +4,7 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = _build
 
 help:
 	@echo "\x1b[31m"
@@ -13,7 +13,7 @@ help:
 	@echo "Available options are:\n"
 	@echo "    help - show this message"
 	@echo "    html - build the html docs"
-	@echo "    clean-html - clean all files from docs and build html docs from scrutch"
+	@echo "    clean-html - clean all files from docs and build html docs from scratch"
 	@echo "    html-from-zero - as clean-html + replot all figures"
 	@echo "    doctest - run doctests"
 	@echo "    clean - clean all files from docs and pip routines"
@@ -34,7 +34,7 @@ install:
 	@python3 -m pip install .
 
 clean:
-	-@rm -r docs/build
+	-@rm -r docs/_build
 	-@rm -r docs/source/*/generated
 	-@rm -r docs/source/*/*/generated
 	-@rm -r docs/source/*/*/*/generated

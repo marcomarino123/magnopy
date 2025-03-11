@@ -4,40 +4,36 @@
 Origin and Upstream
 *******************
 
-The collaboration model used in the development of magnopy is based on the
-|Fork-and-pull|_ model. We use the standard terminology **Upstream** and **Origin** to
-refer to the two |Git-remote|_ repositories that are used in the development process.
-The picture below summaries the relationship between the two repositories and the local
-repository with the most common communications between them:
+We use the terminology **Upstream** and **Origin** for the two remote repositories that
+are used in the development process. Relationships between them and the local repository
+with the most common command for communication between them is
 
 .. figure:: ../../images/origin-upstream-local.png
     :target: ../_images/origin-upstream-local.png
     :align: center
+
 
 .. _contribute_origin-upstream_origin:
 
 Origin repository
 =================
 
-We refer to the magnopy repository under **your** personal account as the **Origin**
-repository.
+**Origin** is a magnopy repository under **your** personal account.
 
-During the development process it is the repository that you will be pushing your
-changes to. Once the feature you're working on is ready, you will create a pull request
-from the **Origin** repository to the **Upstream** repository.
+During the development you push the changes to **Origin**. Once the feature you're working
+on is ready, you will create a pull request from **Origin** to **Upstream**.
 
 .. _contribute_origin-upstream_upstream:
 
 Upstream repository
 ===================
 
-We refer to the main |repository|_, from which the release is made, as the **Upstream**
-repository.
+**Upstream** is a  main |repository|_, from which the release is made.
 
-You can pull changes from the **Upstream** repository to your local repository to keep
-it up to date with the latest changes in the **Upstream** repository. Alternatively,
-you can  *sync fork* from the github interface to keep your **Origin** repository up to
-date with the **Upstream** repository.
+You can pull changes from the **Upstream** to your local repository to keep it up to date
+and then push the changes to **Origin**. Alternatively, you can  *sync fork* using github
+web interface to keep your **Origin** up to date and then pull the change to your local
+repository from **Origin**.
 
 
 .. _contribute_origin-upstream_local:
@@ -45,7 +41,6 @@ date with the **Upstream** repository.
 Local repository
 ================
 
-The local repository is the repository on your computer where you will be making
-changes to the code and committing them. Typically, you will be pushing your changes to
-the **Origin** repository and pulling changes of other people from the **Upstream**
-repository.
+The local repository is the repository on your computer where you will be making changes
+to the code and committing them. Typically, you will be pushing your changes to
+**Origin** and pulling changes made by others from **Upstream**.

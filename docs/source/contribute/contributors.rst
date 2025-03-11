@@ -3,7 +3,7 @@
 Contributors
 ============
 
-The creation of this package was initiated by `Andrey Rybakov <https://adrybakov.com/>`_
+Magnopy was initiated by `Andrey Rybakov <https://adrybakov.com/>`_
 and `Jaime Ferrer <https://github.com/JaimeVFerrer>`_.
 
 

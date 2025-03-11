@@ -97,7 +97,7 @@ taking into account the notation of the Hamiltonian of each source. Real constan
 :math:`C_1`, :math:`C_{2,1}`, :math:`C_{2,2}`, :math:`C_{4,1}`, :math:`C_{4,2,1}`,
 :math:`C_{4,2,2}`, :math:`C_{4,3}`, :math:`C_{4,4}` allow magnopy to support **any**
 notation of the spin Hamiltonian. To read more about what defines the notation of the
-spin Hamiltonian go :ref:`here <user-guide_theory-behind-notation>`.
+spin Hamiltonian go :ref:`here <user-guide_theory-behind_notation>`.
 
 In the :py:class:`.SpinHamiltonian` class, that is used to store the parameters of the
 Hamiltonian, each term is referenced by the numerical indices of the constants. For

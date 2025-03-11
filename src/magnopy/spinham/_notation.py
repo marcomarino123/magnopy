@@ -33,7 +33,7 @@ class Notation:
     R"""
     Notation of the spin Hamiltonian.
 
-    For the detailed description of the notation problem see :ref:`user-guide_theory-behind-notation`.
+    For the detailed description of the notation problem see :ref:`user-guide_theory-behind_notation`.
 
     Parameters
     ----------

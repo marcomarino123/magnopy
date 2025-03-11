@@ -1,7 +1,7 @@
-.. _user-guide_theory-behind-notation:
+.. _user-guide_theory-behind_notation:
 
-*********************************
-Notes on the Hamiltonian notation
-*********************************
+****************************
+Notation of spin Hamiltonian
+****************************
 
 #TODO

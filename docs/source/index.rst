@@ -21,7 +21,7 @@ Magnopy
 :ref:`support`
 
 In short, given :ref:`user-guide_theory-behind_spin-hamiltonian` in **any**
-:ref:`notation <user-guide_theory-behind-notation>` magnopy computes bosonic Hamiltonian
+:ref:`notation <user-guide_theory-behind_notation>` magnopy computes bosonic Hamiltonian
 of the form
 
 .. include:: core-formulas/bosonic-hamiltonian.inc

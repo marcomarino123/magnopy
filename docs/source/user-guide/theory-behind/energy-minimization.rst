@@ -1,4 +1,4 @@
-.. _user-guide_algorithms_energy_minimization:
+.. _user-guide_theory-behind_energy_minimization:
 
 ***********************************
 Minimization of the energy function
@@ -90,20 +90,20 @@ Formula for the inverse Hessian update:
 	\qquad
 	\rho_k = \dfrac{1}{\sum_i y^i_k s^i_k}
 
-Given :ref:`user-guide_algorithms_energy_minimization_initial-guess`
-:math:`\boldsymbol{x}_0` and :ref:`user-guide_algorithms_energy_minimization_initial-hessian`
+Given :ref:`user-guide_theory-behind_energy_minimization_initial-guess`
+:math:`\boldsymbol{x}_0` and :ref:`user-guide_theory-behind_energy_minimization_initial-hessian`
 :math:`\boldsymbol{H}_0`,
 
 
 1.  :math:`k \gets 0`
 #.  While convergence is not achieved:
 
-    a)  :ref:`Compute the gradient <user-guide_algorithms_energy_minimization_gradient>`
+    a)  :ref:`Compute the gradient <user-guide_theory-behind_energy_minimization_gradient>`
         of the function :math:`\boldsymbol{\nabla} F(\boldsymbol{x}_k)`;
     #)  Compute the search direction
         :math:`\boldsymbol{p}_k = -\boldsymbol{H}_k \boldsymbol{\nabla} F(\boldsymbol{x}_k)`;
     #)  Compute length of the step :math:`\alpha_k` via
-        :ref:`user-guide_algorithms_energy_minimization_line-search`;
+        :ref:`user-guide_theory-behind_energy_minimization_line-search`;
     #)  Set :math:`\boldsymbol{x}_{k+1} = \boldsymbol{x}_k + \alpha_k \boldsymbol{p}_k`
         and compute gradient :math:`\boldsymbol{\nabla} F(\boldsymbol{x}_{k+1})`;
     #)  Set :math:`\boldsymbol{s}_k = \boldsymbol{x}_{k+1} - \boldsymbol{x}_k` and
@@ -121,7 +121,7 @@ Given :ref:`user-guide_algorithms_energy_minimization_initial-guess`
 
 
 
-.. _user-guide_algorithms_energy_minimization_initial-guess:
+.. _user-guide_theory-behind_energy_minimization_initial-guess:
 
 Initial guess
 =============
@@ -143,7 +143,7 @@ of the vector parameter :math:`\boldsymbol{x}_0` is then constructed as:
 		q^x_0, q^y_0, q^z_0
 	)
 
-.. _user-guide_algorithms_energy_minimization_initial-hessian:
+.. _user-guide_theory-behind_energy_minimization_initial-hessian:
 
 Initial approximation of the inverse hessian matrix
 ===================================================
@@ -151,7 +151,7 @@ Initial approximation of the inverse hessian matrix
 We take an identity matrix as an initial approximation of the hessian matrix.
 
 
-.. _user-guide_algorithms_energy_minimization_gradient:
+.. _user-guide_theory-behind_energy_minimization_gradient:
 
 Gradient of the function F(x)
 =============================
@@ -181,7 +181,7 @@ Same approach is taken for :math:`\boldsymbol{n}`.
 For the spiral vector the gradient is a direct differentiation of the energy function.
 
 
-.. _user-guide_algorithms_energy_minimization_line-search:
+.. _user-guide_theory-behind_energy_minimization_line-search:
 
 Line search
 ===========
@@ -225,7 +225,7 @@ Given :math:`\boldsymbol{x}_k` and :math:`\boldsymbol{p}_k`
         then return :math:`\alpha_i`;
     #)  If :math:`f^{\prime}(\alpha_i) \ge 0`,
         then return :math:`zoom(\alpha_i, \alpha_{i-1})`;
-    #)  Choose :math:`\alpha_{i+1}` via :ref:`user-guide_algorithms_energy_minimization_cubic-interpolation`;
+    #)  Choose :math:`\alpha_{i+1}` via :ref:`user-guide_theory-behind_energy_minimization_cubic-interpolation`;
     #)  :math:`i \gets i + 1`.
 
 
@@ -235,7 +235,7 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
 
 1.  Repeat
 
-    a)  Interpolate :math:`\alpha_j` via :ref:`user-guide_algorithms_energy_minimization_cubic-interpolation`;
+    a)  Interpolate :math:`\alpha_j` via :ref:`user-guide_theory-behind_energy_minimization_cubic-interpolation`;
     #)  Compute :math:`f(\alpha_j) = F(\boldsymbol{x}_k + \alpha_j \boldsymbol{p}_k)`;
     #)  If :math:`f(\alpha_j) > f(0) + c_1 \alpha_j f^{\prime}(0)`
         or :math:`f(\alpha_j) \ge f(\alpha_{lo})`,
@@ -250,7 +250,7 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
         #) :math:`\alpha_{lo} \gets \alpha_j`.
 
 
-.. _user-guide_algorithms_energy_minimization_cubic-interpolation:
+.. _user-guide_theory-behind_energy_minimization_cubic-interpolation:
 
 Cubic interpolation method
 --------------------------

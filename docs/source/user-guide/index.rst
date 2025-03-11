@@ -44,5 +44,5 @@ Theory behind
 .. toctree::
     :maxdepth: 1
 
-    algorithms/energy-minimization
-    hamiltonian-notation
+    theory-behind/hamiltonian-notation
+    theory-behind/energy-minimization

@@ -1,4 +1,4 @@
-.. _user-guide_hamiltonian-notation:
+.. _user-guide_theory-behind-notation:
 
 *********************************
 Notes on the Hamiltonian notation

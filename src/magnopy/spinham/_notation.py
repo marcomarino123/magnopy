@@ -315,7 +315,7 @@ class Notation:
 
         Returns
         -------
-        notation : :py:class:`wulfric.spinham.Notation`
+        notation : :py:class:`.Notation`
 
         Examples
         --------
@@ -326,21 +326,21 @@ class Notation:
             >>> tb2j = magnopy.spinham.Notation.get_predefined("TB2J")
             >>> tb2j.summary()
             tb2j notation where
-              * Bonds are counted twice in the sum;
+              * Bonds are counted multiple times in the sum;
               * Spin vectors are normalized to 1;
               * c21 = -1.0;
               * c22 = -1.0.
             >>> spinW = magnopy.spinham.Notation.get_predefined("spinW")
             >>> spinW.summary()
             spinw notation where
-              * Bonds are counted twice in the sum;
+              * Bonds are counted multiple times in the sum;
               * Spin vectors are not normalized;
               * c21 = 1.0;
               * c22 = 1.0.
             >>> vampire = magnopy.spinham.Notation.get_predefined("Vampire")
             >>> vampire.summary()
             vampire notation where
-              * Bonds are counted twice in the sum;
+              * Bonds are counted multiple times in the sum;
               * Spin vectors are normalized to 1;
               * c21 = -0.5;
               * c22 = -1.0.

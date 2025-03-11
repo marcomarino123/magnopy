@@ -173,11 +173,15 @@ class SpinHamiltonian:
         self._notation = notation
 
         # [[atom, parameter], ...]
+        self._1 = []
+
+        # [[atom, parameter], ...]
         self._2_1 = []
 
         # [[atom1, atom2, ijk2, parameter], ...]
         self._2_2 = []
 
+        # TODO
         # # [[atom, parameter], ...]
         # self._4_1 = []
 
@@ -316,13 +320,133 @@ class SpinHamiltonian:
         )
 
     ################################################################################
-    #                             One site : two spins                             #
+    #                              One spin & one site                             #
+    ################################################################################
+
+    @property
+    def p1(self) -> list:
+        r"""
+        Parameters of (one spin & one site) term of the hamiltonian.
+
+        Returns
+        -------
+        parameters : list
+            List of parameters. Length of the list is between zero and amount of atoms
+            in ``spinham.atoms``. The list has a format of
+
+            .. code-block:: python
+
+                [[i, A], ...]
+
+            where ``i`` is an index of the atom to which the parameter is assigned and
+            ``A`` is a (3, ) :numpy:`ndarray`. The parameters are sorted in the
+            ascending order by the index of an atom ``i``.
+
+        See Also
+        --------
+        add_1
+        remove_1
+
+        Notes
+        -----
+        Parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})` of the term
+
+        .. math::
+
+            C_1
+            \sum_{\substack{\mu, \\ \alpha \\ k}}
+            J^k(\boldsymbol{r}_{\alpha})
+            S_{\mu,\alpha}^k
+        """
+
+        return self._1
+
+    def add_1(self, atom: int, parameter, replace=False) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        Parameters
+        ----------
+        atom : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i. e. ``0 <= atom < len(spinham.atoms.names)``.
+        parameter : (3, ) |array-like|_
+            Vector of a parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p1
+        remove_1
+        """
+
+        _validate_index(index=atom, atoms=self.atoms)
+
+        parameter = np.array(parameter)
+
+        # TODO Replace with binary search
+        # Try to find the place for the new one inside the list
+        index = 0
+        while index < len(self._1):
+            # If already present in the model
+            if self._1[index][0] == atom:
+                # Either replace
+                if replace:
+                    self._1[index] = [atom, parameter]
+                    return
+                # Or raise an error
+                raise ValueError(
+                    f"(One spin & one site) parameter is already set "
+                    f"for atom {atom} ('{self.atoms.names[atom]}')"
+                )
+
+            # If it should be inserted before current element
+            if self._1[index][0] > atom:
+                self._1.insert(index, [atom, parameter])
+                return
+
+            index += 1
+
+        # If it should be inserted at the end or at the beginning of the list
+        self._1.append([atom, parameter])
+
+    def remove_1(self, atom: int) -> None:
+        r"""
+        Remove a parameter from the Hamiltonian.
+
+        Parameters
+        ----------
+        atom : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i. e. ``0 <= atom < len(spinham.atoms.names)``.
+
+        See Also
+        --------
+        p1
+        add_1
+        """
+
+        _validate_index(index=atom, atoms=self.atoms)
+
+        for i in range(len(self._1)):
+            # As the list is sorted, there is no point in resuming the search
+            # when a larger element is found
+            if self._1[i][0] > atom:
+                return
+
+            if self._1[i][0] == atom:
+                del self._1[i]
+                return
+
+    ################################################################################
+    #                             Two spins & one site                             #
     ################################################################################
 
     @property
     def p21(self) -> list:
         r"""
-        Parameters of (one site; two spins) term of the hamiltonian.
+        Parameters of (two spins & one site) term of the hamiltonian.
 
         Returns
         -------
@@ -338,17 +462,22 @@ class SpinHamiltonian:
             ``A`` is a (3, 3) :numpy:`ndarray`. The parameters are sorted in the
             ascending order by the index of an atom ``i``.
 
+        See Also
+        --------
+        add_2_1
+        remove_2_1
+
         Notes
         -----
-        Parameters :math:`\boldsymbol{A}(\boldsymbol{r}_{\alpha})` of the term
+        Parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})` of the term
 
         .. math::
 
             C_{2,1}
-            \sum_{\mu,\alpha}
-            \boldsymbol{S}_{\mu,\alpha}
-            \boldsymbol{A}(\boldsymbol{r}_{\alpha})
-            \boldsymbol{S}_{\mu,\alpha}
+            \sum_{\substack{\mu, \\ \alpha, \\ k,l}}
+            J^{kl}(\boldsymbol{r}_{\alpha})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
         """
 
         return self._2_1
@@ -360,9 +489,8 @@ class SpinHamiltonian:
         Parameters
         ----------
         atom : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``::
-
-                ``0 <= atom < len(spinham.atoms.names)``
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i. e. ``0 <= atom < len(spinham.atoms.names)``.
         parameter : (3, 3) |array-like|_
             Full matrix of the parameter. It should be symmetric, but magnopy do not
             check for it.
@@ -372,6 +500,7 @@ class SpinHamiltonian:
         See Also
         --------
         p21
+        remove_2_1
         """
 
         _validate_index(index=atom, atoms=self.atoms)
@@ -411,13 +540,13 @@ class SpinHamiltonian:
         Parameters
         ----------
         atom : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``::
-
-                ``0 <= atom < len(spinham.atoms.names)``
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i. e. ``0 <= atom < len(spinham.atoms.names)``.
 
         See Also
         --------
         p21
+        add_2_1
         """
 
         _validate_index(index=atom, atoms=self.atoms)
@@ -433,13 +562,13 @@ class SpinHamiltonian:
                 return
 
     ################################################################################
-    #                             Two sites : two spins                            #
+    #                             Two spins & two sites                            #
     ################################################################################
 
     @property
     def p22(self):
         r"""
-        Parameters of (two sites; two spins) term of the hamiltonian.
+        Parameters of (two spins & two sites) term of the hamiltonian.
 
         Returns
         -------
@@ -454,6 +583,11 @@ class SpinHamiltonian:
             index of the atom from (i, j, k) unit cell; ``ijk`` defines (i, j, k) unit
             cell; ``J`` is a (3, 3) :numpy:`ndarray`.
 
+        See Also
+        --------
+        add_2_2
+        remove_2_2
+
 
         Notes
         -----
@@ -462,12 +596,10 @@ class SpinHamiltonian:
         .. math::
 
             C_{2,2}
-            \sum_{\mu,\alpha}
-            \sum_{\nu, \beta}
-            \boldsymbol{S}_{\mu,\alpha}
-            \boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta})
-            \boldsymbol{S}_{\mu+\nu,\beta}
-
+            \sum_{\substack{\mu,\nu, \\ \alpha, \beta, \\ k,l}}
+            J^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
+            S_{\mu,\alpha}^k
+            S_{\mu+\nu,\beta}^l
         """
 
         return _P22_iterator(self)
@@ -503,6 +635,7 @@ class SpinHamiltonian:
         See Also
         --------
         p22
+        remove_2_2
 
         Notes
         -----
@@ -589,6 +722,7 @@ class SpinHamiltonian:
         See Also
         --------
         p22
+        add_2_2
 
         Notes
         -----
@@ -657,6 +791,8 @@ class SpinHamiltonian:
 
         self._set_spin_normalization(new_notation._spin_normalized)
 
+        self._set_c1(new_notation._c1)
+
         self._set_c21(new_notation._c21)
 
         self._set_c22(new_notation._c22)
@@ -713,6 +849,19 @@ class SpinHamiltonian:
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]
                 self._2_2[index][3] /= self.atoms.spins[atom1] * self.atoms.spins[atom2]
+
+    def _set_c1(self, new_c1: float) -> None:
+        if new_c1 is None or self.notation._c1 is None:
+            return
+
+        new_c1 = float(new_c1)
+
+        if self.notation.c1 == new_c1:
+            return
+
+        # If factor is changing one need to scale parameters.
+        for index in range(len(self._1)):
+            self._1[index][1] *= self.notation.c1 / new_c1
 
     def _set_c21(self, new_c21: float) -> None:
         if new_c21 is None or self.notation._c21 is None:
@@ -772,6 +921,10 @@ class SpinHamiltonian:
         -------
         magnetic_atoms : list of int
             Indices of magnetic atoms in the ``spinham.atoms``.
+
+        See Also
+        --------
+        M
         """
         indices = set()
 
@@ -785,13 +938,13 @@ class SpinHamiltonian:
         return list(indices)
 
     @property
-    def I(self):
+    def M(self):
         r"""
         Number of spins (magnetic atoms) in the unit cell.
 
         Returns
         -------
-        I : int
+        M : int
             Number of spins (magnetic atoms) in the unit cell.
 
         See Also
@@ -880,7 +1033,7 @@ class SpinHamiltonian:
                 self.remove_2_2(atom1=atom1, atom2=atom2, ijk2=ijk2)
 
     ################################################################################
-    # Manipulations with the underlying structure#
+    #                  Manipulations with the underlying structure                 #
     ################################################################################
     def remove_atom(self, atom_index=None, atom_name=None) -> None:
         r"""
@@ -975,7 +1128,7 @@ class SpinHamiltonian:
 
 class _P22_iterator:
     R"""
-    Iterator over the (two sites; two spins) parameters of the spin Hamiltonian.
+    Iterator over the (two spins & two sites) parameters of the spin Hamiltonian.
     """
 
     def __init__(self, spinham) -> None:

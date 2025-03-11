@@ -33,7 +33,7 @@ class Notation:
     R"""
     Notation of the spin Hamiltonian.
 
-    For the detailed description of the notation problem see :ref:`TODO`.
+    For the detailed description of the notation problem see :ref:`user-guide_theory-behind-notation`.
 
     Parameters
     ----------
@@ -43,10 +43,12 @@ class Notation:
     spin_normalized : bool, optional
         Whether spin vectors/operators are normalized to 1. If ``True``, then spin
         vectors/operators are normalized.
+    c1 : float, optional
+        Numerical factor before the (one spin & one site) term of the Hamiltonian.
     c21 : float, optional
-        Numerical factor before the two-spins/one-site sum of the Hamiltonian.
+        Numerical factor before the (two spins & one site) term of the Hamiltonian.
     c22 : float, optional
-        Numerical factor before the two-spins/two-sites sum of the Hamiltonian.
+        Numerical factor before the (two spins & two sites) term of the Hamiltonian.
     name : str, default "custom"
         A label for the notation. Any string, case-insensitive.
 
@@ -70,6 +72,7 @@ class Notation:
         custom notation where
           * Bonds are counted once in the sum;
           * Spin vectors are normalized to 1;
+          * Undefined c1 factor;
           * Undefined c21 factor;
           * c22 = -0.5.
         >>> n3.name
@@ -77,12 +80,13 @@ class Notation:
 
     """
 
-    __slots__ = ("_double_counting", "_spin_normalized", "_c22", "_c21", "_name")
+    __slots__ = ("_double_counting", "_spin_normalized", "_c1", "_c21", "_c22", "_name")
 
     def __init__(
         self,
         double_counting: bool = None,
         spin_normalized: bool = None,
+        c1: float = None,
         c21: float = None,
         c22: float = None,
         name: str = "custom",
@@ -97,15 +101,20 @@ class Notation:
         else:
             self._spin_normalized = None
 
-        if c22 is not None:
-            self._c22 = float(c22)
+        if c1 is not None:
+            self._c1 = float(c1)
         else:
-            self._c22 = None
+            self._c1 = None
 
         if c21 is not None:
             self._c21 = float(c21)
         else:
             self._c21 = None
+
+        if c22 is not None:
+            self._c22 = float(c22)
+        else:
+            self._c22 = None
 
         self._name = str(name).lower()
 
@@ -125,11 +134,12 @@ class Notation:
         .. doctest::
 
             >>> from magnopy.spinham import Notation
-            >>> n1 = Notation(True, True, 1, -0.5)
+            >>> n1 = Notation(True, True, c21=1, c22=-0.5)
             >>> n1.summary()
             custom notation where
               * Bonds are counted twice in the sum;
               * Spin vectors are normalized to 1;
+              * Undefined c1 factor
               * c21 = 1.0;
               * c22 = -0.5.
         """
@@ -149,6 +159,11 @@ class Notation:
             summary.append("  * Spin vectors are normalized to 1;")
         else:
             summary.append("  * Spin vectors are not normalized;")
+
+        if self._c1 is None:
+            summary.append("  * Undefined c1 factor;")
+        else:
+            summary.append(f"  * c1 = {self._c1};")
 
         if self._c21 is None:
             summary.append("  * Undefined c21 factor;")
@@ -202,9 +217,18 @@ class Notation:
         return self._spin_normalized
 
     @property
+    def c1(self) -> float:
+        r"""
+        Numerical factor before the (one spin & one site) sum of the Hamiltonian.
+        """
+        if self._c1 is None:
+            raise NotationError(notation=self, property="c1")
+        return self._c1
+
+    @property
     def c21(self) -> float:
         r"""
-        Numerical factor before the two-spins/one-site sum of the Hamiltonian.
+        Numerical factor before the (two spins & one site) sum of the Hamiltonian.
         """
         if self._c21 is None:
             raise NotationError(notation=self, property="c21")
@@ -213,7 +237,7 @@ class Notation:
     @property
     def c22(self) -> float:
         r"""
-        Numerical factor before the two-spins/two-sites sum of the Hamiltonian.
+        Numerical factor before the (two spins & two sites) sum of the Hamiltonian.
         """
         if self._c22 is None:
             raise NotationError(notation=self, property="c22")
@@ -228,6 +252,13 @@ class Notation:
 
     @spin_normalized.setter
     def spin_normalized(self, new_value: bool):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @c1.setter
+    def c1(self, new_value: float):
         raise AttributeError(
             "It is intentionally forbidden to set properties of notation. "
             "Use correct methods of SpinHamiltonian class to change notation."
@@ -255,8 +286,9 @@ class Notation:
         return (
             self._double_counting == other._double_counting
             and self._spin_normalized == other._spin_normalized
-            and self._c22 == other._c22
+            and self._c1 == other._c1
             and self._c21 == other._c21
+            and self._c22 == other._c22
         )
 
     @staticmethod

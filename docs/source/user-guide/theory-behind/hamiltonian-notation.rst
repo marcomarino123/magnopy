@@ -53,9 +53,9 @@ on the parameters. It depend on the both parameters **and** notation.
 For example if the Hamiltonian above is given for the notation (1) with
 :math:`J_{\nu} = 1`. Then for the remaining three notations the parameters should be
 
-* (2) :math:`J_{\nu} = 1/13.5`, then :math:`E = 6`;
-* (3) :math:`J_{\nu} = 1/3`, then :math:`E = 6`;
-* (4) :math:`J_{\nu} = 1/6.75`, then :math:`E = 6`.
+* (2) :math:`J_{\nu} = 6/13.5`, then :math:`E = 6`;
+* (3) :math:`J_{\nu} = 2`, then :math:`E = 6`;
+* (4) :math:`J_{\nu} = 6/6.75`, then :math:`E = 6`.
 
 If the pair of the parameters and notation is specified correctly, then the energy of
 the system does not depend on it.
@@ -63,10 +63,12 @@ the system does not depend on it.
 Magnopy's approach
 ==================
 
-Magnopy does not give preference to any notation and support each one of them. If the
-Hamiltonian is read from the know source (TODO put examples), then the notation of this
-source is known and set automatically. However, the user should be aware of the notation
-problem and specify it if the Hamiltonian is created by hands.
+Magnopy does not give preference to any notation, supports each one of them and
+implements conversion between any pair of notations. Magnopy was written to handle
+everything that concerns notation of the Hamiltonian automatically. User only have to
+specify the notation upon the creation of spin Hamiltonian. If the Hamiltonian is read
+from the know source (TODO put examples), then the notation of this source is known and
+set automatically.
 
 The Notation in magnopy is implemented in the form of the small :py:class:`.Notation`
 class and is fully defined by the following

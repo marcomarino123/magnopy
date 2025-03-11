@@ -44,5 +44,6 @@ Theory behind
 .. toctree::
     :maxdepth: 1
 
+    theory-behind/spin-hamiltonian
     theory-behind/hamiltonian-notation
     theory-behind/energy-minimization

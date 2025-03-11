@@ -13,7 +13,6 @@ Getting started
     start/about
     installation
     start/how-to-run
-    input/index
 
 Prepared scripts
 ================
@@ -46,5 +45,4 @@ Theory behind
     :maxdepth: 1
 
     algorithms/energy-minimization
-    methods/index
     hamiltonian-notation

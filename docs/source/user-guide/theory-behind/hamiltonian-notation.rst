@@ -4,4 +4,102 @@
 Notation of spin Hamiltonian
 ****************************
 
-#TODO
+
+An illustration
+===============
+
+To illustrate the problem of the notation we consider an simple example of a
+nearest-neighbor model on a cubic lattice with one spin per unit cell
+
+.. math::
+    \mathcal{H}
+    =
+    \sum_{\mu,\nu}
+    J_{\nu}
+    (\boldsymbol{S}_{\mu}
+    \cdot\boldsymbol{S}_{\mu+\nu})
+
+where :math:`J_{\nu} = 1` meV if two spins :math:`\boldsymbol{S}_{\mu}` and
+:math:`\boldsymbol{S}_{\mu+\nu}` are nearest-neighbors and zero otherwise.
+Moreover, we assume that the value of spin is :math:`|\boldsymbol{S}_{\mu}| = 3/2` and
+all spins are oriented along positive :math:`\hat{z}` direction. What is the energy of
+the system in this configuration? The answer to this question is, surprisingly,
+impossible to give, as we do not know two important facts:
+
+*   Does the sum count both terms :math:`(\mu;\mu+\nu)` and :math:`(\mu+\nu;\mu)`?
+    In other words: does the sum include double-counting?
+
+*   Are spin vectors normalized to unity? I.e. does :math:`|\boldsymbol{S}_{\mu}| = 1`
+    in the sum and the spin value is accounted for in the exchange parameters or not?
+
+Each of those questions has two answers and together we have four different possible
+answers for the energy per unit cell:
+
+* (1) :math:`E = 6` meV if bonds are counted twice and spins are normalized;
+* (2) :math:`E = 13.5` meV if bonds are counted twice and spins are not normalized;
+* (3) :math:`E = 3` meV if bonds are counted once and spins are normalized;
+* (4) :math:`E = 6.75` meV if bonds are counted once and spins are not normalized.
+
+If one add the freedom of writing the constant before the sum, then the amount of
+different answers will be even more. Often in the literature the same Hamiltonian is
+written with :math:`\pm 1` or :math:`\pm 1/2` in from of the sum.
+
+Therefore, set of parameters, without the *knowledge of the notation* of spin
+Hamiltonian is not enough to define it. At the same time is does not matter in what
+notation the Hamiltonian is written if the parameters are *correctly converted to it*.
+In other words, energy of the system does not depend on the just on the notation or just
+on the parameters. It depend on the both parameters **and** notation.
+
+For example if the Hamiltonian above is given for the notation (1) with
+:math:`J_{\nu} = 1`. Then for the remaining three notations the parameters should be
+
+* (2) :math:`J_{\nu} = 1/13.5`, then :math:`E = 6`;
+* (3) :math:`J_{\nu} = 1/3`, then :math:`E = 6`;
+* (4) :math:`J_{\nu} = 1/6.75`, then :math:`E = 6`.
+
+If the pair of the parameters and notation is specified correctly, then the energy of
+the system does not depend on it.
+
+Magnopy's approach
+==================
+
+Magnopy does not give preference to any notation and support each one of them. If the
+Hamiltonian is read from the know source (TODO put examples), then the notation of this
+source is known and set automatically. However, the user should be aware of the notation
+problem and specify it if the Hamiltonian is created by hands.
+
+The Notation in magnopy is implemented in the form of the small :py:class:`.Notation`
+class and is fully defined by the following
+
+*   ``c1``, ``c21``, ``c22``, ``c41``, ``c421``, ``c422``, ``c43``, ``c44``
+
+    Eight constants of the expanded form of the spin Hamiltonian
+
+    .. math::
+        C_1 \qquad
+        C_{2,1} \qquad
+        C_{2,2} \qquad
+        C_{4,1} \qquad
+        C_{4,2,1} \qquad
+        C_{4,2,2} \qquad
+        C_{4,3} \qquad
+        C_{4,4}
+
+    Each constant is an individual property of the notation and affect the corresponding
+    term of the expanded form of the Hamiltonian.
+
+*   ``spin_normalized``
+
+    Whether spins are normalized. This property affects all terms of the expanded form.
+*   ``multiple_counting``
+
+    Whether bonds are counted multiple times. This property does not affect first,
+    second and fourth terms of the expanded form.
+
+    This property is responsible for the double counting from the example. However, for
+    the terms with more than two spins the equivalent bonds may be counter not twice,
+    but more times. That is why we do not name this property as "double counting".
+
+
+Some of the properties above can be undefined if no corresponding parameter are present.
+If any of the parameters is affected by some property, then it have to be defined.

@@ -4,13 +4,13 @@
 How to cite us?
 ***************
 
-If you use the package in ypur work, please cite in the following form:
+If you use the package in your work, please cite us
 
 .. code-block::
 
-    #TODO
+    magnopy.org
 
-Use the following BibTeX entry:
+Use the following BibTeX entry
 
 .. code-block:: LaTeX
 
@@ -19,7 +19,7 @@ Use the following BibTeX entry:
     }
 
 You can consult the version and Git hash in the txt output files or by running
-the following command in the terminal (you may need to use ``python3``):
+the following command in the terminal (you may need to use ``python3``)
 
 .. code-block:: bash
 

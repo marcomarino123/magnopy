@@ -20,31 +20,13 @@ Magnopy
 :ref:`Cite us <cite>` |
 :ref:`support`
 
-In short magnopy computes bosonic Hamiltonian of the form
+In short, given :ref:`user-guide_theory-behind_spin-hamiltonian` in **any**
+:ref:`notation <user-guide_theory-behind-notation>` magnopy computes bosonic Hamiltonian
+of the form
 
-.. math::
-    \mathcal{H}
-    \approx
-    \Bigl(
-    E_0 + E_0^{(2)}
-    \Bigr)
-    +
-    \sum_{\alpha}
-    \sum_{\boldsymbol{k}\in 1^{st} BZ}
-    \Delta_{\alpha}(\boldsymbol{k})
-    +
-    \sum_{\alpha}
-    \sum_{\boldsymbol{k}\in 1^{st} BZ}
-    \omega_{\alpha}(\boldsymbol{k})
-    \Biggl(
-    b^{\dagger}_{\alpha}(\boldsymbol{k})b_{\alpha}(\boldsymbol{k})
-    +
-    \dfrac{1}{2}
-    \Biggr)
-    +
-    \dots
+.. include:: core-formulas/bosonic-hamiltonian.inc
 
-From the given spin Hamiltonian with the user-defined bosonic representation of spins.
+where
 
 * :math:`E_0` is a classical energy of the ground state.
 * :math:`E_0^{(2)}` is a quantum correction to the ground state energy arising from the

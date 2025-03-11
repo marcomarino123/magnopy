@@ -37,9 +37,8 @@ class Notation:
 
     Parameters
     ----------
-    double_counting : bool, optional
-        Whether the pairs of spins are counted twice in the Hamiltonian's sums. If
-        ``True``, then pairs are counted twice.
+    multiple_counting : bool, optional
+        Whether the pairs of spins are counted multiple times in the Hamiltonian's sums.
     spin_normalized : bool, optional
         Whether spin vectors/operators are normalized to 1. If ``True``, then spin
         vectors/operators are normalized.
@@ -61,7 +60,7 @@ class Notation:
         >>> n1 = Notation(True, True, c21=1, c22=-0.5)
         >>> n2 = Notation(False, True, c21=1, c22=-0.5)
         >>> n3 = Notation(False, True, c22=-0.5)
-        >>> n1.double_counting
+        >>> n1.multiple_counting
         True
         >>> n1 == n2
         False
@@ -80,21 +79,28 @@ class Notation:
 
     """
 
-    __slots__ = ("_double_counting", "_spin_normalized", "_c1", "_c21", "_c22", "_name")
+    __slots__ = (
+        "_multiple_counting",
+        "_spin_normalized",
+        "_c1",
+        "_c21",
+        "_c22",
+        "_name",
+    )
 
     def __init__(
         self,
-        double_counting: bool = None,
+        multiple_counting: bool = None,
         spin_normalized: bool = None,
         c1: float = None,
         c21: float = None,
         c22: float = None,
         name: str = "custom",
     ) -> None:
-        if double_counting is not None:
-            self._double_counting = bool(double_counting)
+        if multiple_counting is not None:
+            self._multiple_counting = bool(multiple_counting)
         else:
-            self._double_counting = None
+            self._multiple_counting = None
 
         if spin_normalized is not None:
             self._spin_normalized = bool(spin_normalized)
@@ -137,7 +143,7 @@ class Notation:
             >>> n1 = Notation(True, True, c21=1, c22=-0.5)
             >>> n1.summary()
             custom notation where
-              * Bonds are counted twice in the sum;
+              * Bonds are counted multiple times in the sum
               * Spin vectors are normalized to 1;
               * Undefined c1 factor
               * c21 = 1.0;
@@ -146,10 +152,10 @@ class Notation:
 
         summary = [f"{self.name} notation where"]
 
-        if self._double_counting is None:
-            summary.append("  * Undefined double counting;")
-        elif self._double_counting:
-            summary.append("  * Bonds are counted twice in the sum;")
+        if self._multiple_counting is None:
+            summary.append("  * Undefined multiple counting;")
+        elif self._multiple_counting:
+            summary.append("  * Bonds are counted multiple times in the sum;")
         else:
             summary.append("  * Bonds are counted once in the sum;")
 
@@ -195,15 +201,15 @@ class Notation:
         self._name = str(new_value).lower()
 
     @property
-    def double_counting(self) -> bool:
+    def multiple_counting(self) -> bool:
         r"""
-        Whether the pairs of spins are counted twice in the Hamiltonian's sums.
+        Whether the pairs of spins are counted multiple times in the Hamiltonian's sums.
 
-        If ``True``, then pairs are counted twice.
+        If ``True``, then pairs are counted multiple times.
         """
-        if self._double_counting is None:
-            raise NotationError(notation=self, property="double_counting")
-        return self._double_counting
+        if self._multiple_counting is None:
+            raise NotationError(notation=self, property="multiple_counting")
+        return self._multiple_counting
 
     @property
     def spin_normalized(self) -> bool:
@@ -243,8 +249,8 @@ class Notation:
             raise NotationError(notation=self, property="c22")
         return self._c22
 
-    @double_counting.setter
-    def double_counting(self, new_value: bool):
+    @multiple_counting.setter
+    def multiple_counting(self, new_value: bool):
         raise AttributeError(
             "It is intentionally forbidden to set properties of notation. "
             "Use correct methods of SpinHamiltonian class to change notation."
@@ -284,7 +290,7 @@ class Notation:
         # If attributes are not defined in both notations,
         # then that attribute is considered equal.
         return (
-            self._double_counting == other._double_counting
+            self._multiple_counting == other._multiple_counting
             and self._spin_normalized == other._spin_normalized
             and self._c1 == other._c1
             and self._c21 == other._c21
@@ -347,7 +353,7 @@ class Notation:
 
         return Notation(
             name=name,
-            double_counting=_NOTATIONS[name][0],
+            multiple_counting=_NOTATIONS[name][0],
             spin_normalized=_NOTATIONS[name][1],
             c21=_NOTATIONS[name][2],
             c22=_NOTATIONS[name][3],

@@ -31,7 +31,7 @@ def test_Notation_raises():
     notation = Notation()
 
     with pytest.raises(NotationError):
-        notation.double_counting
+        notation.multiple_counting
 
     with pytest.raises(NotationError):
         notation.spin_normalized
@@ -55,13 +55,13 @@ def test_Notation_name(name):
 
 
 @given(st.booleans(), st.booleans())
-def test_Notation_double_counting(value, new_value):
-    notation = Notation(double_counting=value)
+def test_Notation_multiple_counting(value, new_value):
+    notation = Notation(multiple_counting=value)
 
-    assert notation.double_counting == value
+    assert notation.multiple_counting == value
 
     with pytest.raises(AttributeError):
-        notation.double_counting = new_value
+        notation.multiple_counting = new_value
 
 
 @given(st.booleans(), st.booleans())
@@ -98,12 +98,12 @@ def test_Notation_c22(value, new_value):
     st.booleans(), st.booleans(), st.floats(allow_nan=False), st.floats(allow_nan=False)
 )
 def test_Notation_eq_dc(dc, sn, c21, c22):
-    notation1 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
-    notation2 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
-    notation3 = Notation(double_counting=not dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation1 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation2 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation3 = Notation(multiple_counting=not dc, spin_normalized=sn, c21=c21, c22=c22)
     notation4 = Notation()
-    notation5 = Notation(double_counting=dc)
-    notation6 = Notation(double_counting=dc)
+    notation5 = Notation(multiple_counting=dc)
+    notation6 = Notation(multiple_counting=dc)
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -116,9 +116,9 @@ def test_Notation_eq_dc(dc, sn, c21, c22):
     st.booleans(), st.booleans(), st.floats(allow_nan=False), st.floats(allow_nan=False)
 )
 def test_Notation_eq_sn(dc, sn, c21, c22):
-    notation1 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
-    notation2 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
-    notation3 = Notation(double_counting=dc, spin_normalized=not sn, c21=c21, c22=c22)
+    notation1 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation2 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation3 = Notation(multiple_counting=dc, spin_normalized=not sn, c21=c21, c22=c22)
     notation4 = Notation()
     notation5 = Notation(spin_normalized=sn)
     notation6 = Notation(spin_normalized=sn)
@@ -134,10 +134,10 @@ def test_Notation_eq_sn(dc, sn, c21, c22):
     st.booleans(), st.booleans(), st.floats(allow_nan=False), st.floats(allow_nan=False)
 )
 def test_Notation_eq_c21(dc, sn, c21, c22):
-    notation1 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
-    notation2 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation1 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation2 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
     notation3 = Notation(
-        double_counting=dc, spin_normalized=sn, c21=3 if c21 != 3 else 4, c22=c22
+        multiple_counting=dc, spin_normalized=sn, c21=3 if c21 != 3 else 4, c22=c22
     )
     notation4 = Notation()
     notation5 = Notation(c21=c21)
@@ -154,10 +154,10 @@ def test_Notation_eq_c21(dc, sn, c21, c22):
     st.booleans(), st.booleans(), st.floats(allow_nan=False), st.floats(allow_nan=False)
 )
 def test_Notation_eq_c22(dc, sn, c21, c22):
-    notation1 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
-    notation2 = Notation(double_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation1 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
+    notation2 = Notation(multiple_counting=dc, spin_normalized=sn, c21=c21, c22=c22)
     notation3 = Notation(
-        double_counting=dc, spin_normalized=sn, c21=c21, c22=3 if c22 != 3 else 4
+        multiple_counting=dc, spin_normalized=sn, c21=c21, c22=3 if c22 != 3 else 4
     )
     notation4 = Notation()
     notation5 = Notation(c22=c22)

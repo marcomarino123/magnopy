@@ -227,11 +227,11 @@ def test_remove_2_2(r_atom1, r_atom2, r_ijk, unit_cells):
             spinham.remove_2_2(r_atom1, r_atom2, r_ijk)
 
 
-def test_notation_double_counting():
+def test_notation_multiple_counting():
     spinham = SpinHamiltonian(
         cell=np.eye(3),
         atoms={"names": ["Cr1", "Cr2"]},
-        notation=Notation(double_counting=True),
+        notation=Notation(multiple_counting=True),
     )
 
     spinham.add_2_1(0, np.eye(3))
@@ -251,7 +251,7 @@ def test_notation_double_counting():
     assert (params[1][3] == params[-2][3]).all()
     assert (params[2][3] == params[-3][3]).all()
 
-    spinham.notation = Notation(double_counting=False)
+    spinham.notation = Notation(multiple_counting=False)
 
     assert len(spinham._2_2) == 3
     assert len(spinham.p22) == 3
@@ -264,7 +264,7 @@ def test_magnetic_atoms():
     spinham = SpinHamiltonian(
         cell=np.eye(3),
         atoms={"names": ["Cr1", "Cr2"]},
-        notation=Notation(double_counting=True),
+        notation=Notation(multiple_counting=True),
     )
 
     spinham.add_2_1(0, np.eye(3))
@@ -416,7 +416,7 @@ def test_notation_manipulation():
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    assert spinham.notation.double_counting
+    assert spinham.notation.multiple_counting
 
     spinham.notation = Notation(False, False, c21=1, c22=0.5)
     assert len(spinham.p22) == 1

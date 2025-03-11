@@ -17,9 +17,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-R""" Pre-defined notations of spin Hamiltonian"""
+R"""Pre-defined notations of spin Hamiltonian"""
 
-# (double_counting, spin_normalized, c21, c22)
+# (multiple_counting, spin_normalized, c21, c22)
 _NOTATIONS = {
     "tb2j": (True, True, -1, -1),
     "spinw": (True, False, 1, 1),

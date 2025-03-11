@@ -639,11 +639,11 @@ class SpinHamiltonian:
 
         Notes
         -----
-        If ``spinham.notation.double_counting`` is ``True``, then this function adds both
+        If ``spinham.notation.multiple_counting`` is ``True``, then this function adds both
         the bond and its double to the Hamiltonian. It will cause an ``ValueError`` to
         add the double of the bond after the bond is added.
 
-        If ``spinham.notation.double_counting`` is ``False``, then only the "prime"
+        If ``spinham.notation.multiple_counting`` is ``False``, then only the "prime"
         version of the bond is added to the Hamiltonian. Out of the bond and its double
         magnopy keep the one that satisfies one of the following
 
@@ -726,10 +726,10 @@ class SpinHamiltonian:
 
         Notes
         -----
-        If ``spinham.notation.double_counting`` is ``True``, then this function removes
+        If ``spinham.notation.multiple_counting`` is ``True``, then this function removes
         both the bond and its double from the Hamiltonian.
 
-        If ``spinham.notation.double_counting`` is ``False``, then this function removes
+        If ``spinham.notation.multiple_counting`` is ``False``, then this function removes
         the "prime" version of the provided bond. Out of the bond and its double
         magnopy keep the one that satisfies one of the following
 
@@ -740,8 +740,8 @@ class SpinHamiltonian:
 
         For instance, if ``(1, 0, (0, 0, 0))`` is provided, then this function attempts to
         remove either both ``(1, 0, (0, 0, 0))`` and ``(0, 1, (0, 0, 0))`` if
-        ``spinham.notation.double_counting == True`` or the prime version
-        ``(0, 1, (0, 0, 0))`` if ``spinham.notation.double_counting == False``.
+        ``spinham.notation.multiple_counting == True`` or the prime version
+        ``(0, 1, (0, 0, 0))`` if ``spinham.notation.multiple_counting == False``.
         """
 
         _validate_index(index=atom1, atoms=self.atoms)
@@ -787,7 +787,7 @@ class SpinHamiltonian:
 
     @notation.setter
     def notation(self, new_notation: Notation):
-        self._set_double_counting(new_notation._double_counting)
+        self._set_multiple_counting(new_notation._multiple_counting)
 
         self._set_spin_normalization(new_notation._spin_normalized)
 
@@ -799,17 +799,19 @@ class SpinHamiltonian:
 
         self._notation = new_notation
 
-    def _set_double_counting(self, double_counting: bool) -> None:
-        if double_counting is None or self.notation._double_counting is None:
+    def _set_multiple_counting(self, multiple_counting: bool) -> None:
+        if multiple_counting is None or self.notation._multiple_counting is None:
             return
 
-        double_counting = bool(double_counting)
+        multiple_counting = bool(multiple_counting)
 
-        if self.notation.double_counting == double_counting:
+        if self.notation.multiple_counting == multiple_counting:
             return
+
+        # For (two spins & two sites)
 
         # It was absent before
-        if double_counting:
+        if multiple_counting:
             factor = 0.5
         # It was present before
         else:
@@ -817,6 +819,8 @@ class SpinHamiltonian:
 
         for index in range(len(self._2_2)):
             self._2_2[index][3] *= factor
+
+        # TODO For (four spins & ...)
 
     def _set_spin_normalization(self, spin_normalized: bool) -> None:
         if spin_normalized is None or self.notation._spin_normalized is None:
@@ -1133,7 +1137,7 @@ class _P22_iterator:
 
     def __init__(self, spinham) -> None:
         self.container = spinham._2_2
-        self.dc = spinham.notation.double_counting
+        self.dc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
 

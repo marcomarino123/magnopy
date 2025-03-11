@@ -238,7 +238,7 @@ def get_dmi(matrix, matrix_form=False):
     Returns
     -------
     dmi : (3,) or (3, 3) :numpy:`ndarray`
-        Antisymmetic exchage (DMI). If ``matrix_form == True``, then return a matrix.
+        Antisymmetic exchange (DMI). If ``matrix_form == True``, then return a matrix.
 
     Notes
     -----

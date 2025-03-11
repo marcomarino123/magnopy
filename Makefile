@@ -47,11 +47,7 @@ clean:
 
 # Documentation and doctests
 pictures-for-docs:
-	@python3 docs/images/scripts/uvn-rf.py -rd .
-	@python3 docs/images/scripts/spin-rotations.py -rd .
-	@python3 docs/images/scripts/single-q.py -rd .
-	@python3 docs/images/scripts/minimization-exchange.py -rd .
-	@python3 docs/images/scripts/plot-repositories.py -rd .
+	@python3 docs/images/scripts/origin-upstream-local.py -rd .
 
 html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)

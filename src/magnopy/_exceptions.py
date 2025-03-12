@@ -46,15 +46,6 @@ class NotationError(Exception):
         super().__init__(message)
 
 
-class _FailedToVerifyTxtModelFile(Exception):
-    R"""
-    Raise if the format of the model input file is invalid.
-    """
-
-    def __init__(self, message):
-        super().__init__(message)
-
-
 # Populate __all__ with objects defined in this file
 __all__ = list(set(dir()) - old_dir)
 # Remove all semi-private objects

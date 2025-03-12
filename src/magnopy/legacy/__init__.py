@@ -17,11 +17,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__version__ = "0.1.0"
-__doclink__ = "magnopy.org"
-__release_date__ = "undefined"
-__git_commit__ = "undefined"
-
-from . import constants, io, legacy, magnons, spinham
-from ._exceptions import *
-from ._package_info import *
+from ._verify_grogu import verify_model_file

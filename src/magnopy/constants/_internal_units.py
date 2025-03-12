@@ -52,12 +52,6 @@ TIME_NAME = "Second"
 MAGNETIC_FIELD_NAME = "Tesla"
 TEMPERATURE_NAME = "Kelvin"
 
-################################################################################
-#                               Technical units                                #
-################################################################################
-TRUE_KEYWORDS = ["true", "t", "yes", "y", "1"]
-FALSE_KEYWORDS = ["false", "f", "no", "n", "0"]
-
 
 # Populate __all__ with objects defined in this file
 __all__ = list(set(dir()) - old_dir)

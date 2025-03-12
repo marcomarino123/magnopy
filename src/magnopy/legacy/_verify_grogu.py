@@ -19,12 +19,22 @@
 
 import logging
 
-from magnopy.exceptions import FailedToVerifyTxtModelFile
-from magnopy.units.inside import FALSE_KEYWORDS, TRUE_KEYWORDS
-
 _all_ = []
 
 _logger = logging.getLogger(__name__)
+
+
+class _FailedToVerifyTxtModelFile(Exception):
+    R"""
+    Raise if the format of the model input file is invalid.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+
+TRUE_KEYWORDS = ["true", "t", "yes", "y", "1"]
+FALSE_KEYWORDS = ["false", "f", "no", "n", "0"]
 
 
 ################################################################################
@@ -1421,7 +1431,7 @@ _VERIFY = {
 ################################################################################
 #                              Full file checker                               #
 ################################################################################
-def _verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=False):
+def verify_model_file(lines, line_indices, raise_on_fail=True, return_sections=False):
     r"""
     Verify the content of the input file with the model.
 

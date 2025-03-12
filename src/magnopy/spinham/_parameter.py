@@ -102,7 +102,7 @@ def get_matrix_parameter(iso=None, aniso=None, dmi=None) -> np.ndarray:
         aniso = np.array(aniso, dtype=float)
 
         # Make sure that it is traceless
-        aniso -= np.linalg.trace(aniso)
+        aniso -= np.eye(3) * np.linalg.trace(aniso) / 3
 
         # Make sure that is is symmetric
         aniso = (aniso + aniso.T) / 2

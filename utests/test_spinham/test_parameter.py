@@ -41,6 +41,10 @@ ARRAY_3 = harrays(
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 
+################################################################################
+#                                 Generic tests                                #
+################################################################################
+
 
 @given(st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS))
 def test_get_matrix_parameter_from_iso(iso):
@@ -98,6 +102,35 @@ def test_get_dmi(matrix):
 
     dmi_matrix = get_dmi(matrix, matrix_form=True)
     assert np.allclose(dmi_matrix, asymm)
+
+
+################################################################################
+#                           Tests that captured a bug                          #
+################################################################################
+
+
+def test_get_anisotropic_parameter_wrong_trace():
+    r"""
+    Bug when the input matrix was not made traceless, but rather all elements were
+    decreased by a matrix trace.
+    """
+
+    # Intentionally not traceless
+    aniso = [[3, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+    matrix = get_matrix_parameter(aniso=aniso)
+
+    assert matrix[0][0] == 2
+    assert matrix[0][1] == 0
+    assert matrix[0][2] == 0
+
+    assert matrix[1][0] == 0
+    assert matrix[1][1] == -1
+    assert matrix[1][2] == 0
+
+    assert matrix[2][0] == 0
+    assert matrix[2][1] == 0
+    assert matrix[2][2] == -1
 
 
 ################################################################################

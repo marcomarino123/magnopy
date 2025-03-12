@@ -269,28 +269,28 @@ def test_magnetic_atoms():
 
     spinham.add_2_1(0, np.eye(3))
     assert len(spinham.magnetic_atoms) == 1
-    assert spinham.I == 1
+    assert spinham.M == 1
     assert spinham.magnetic_atoms[0] == 0
 
     spinham.add_2_2(0, 1, (0, 0, 0), 1 * np.eye(3))
     assert len(spinham.magnetic_atoms) == 2
-    assert spinham.I == 2
+    assert spinham.M == 2
     assert spinham.magnetic_atoms[0] == 0
     assert spinham.magnetic_atoms[1] == 1
     spinham.add_2_2(0, 1, (1, 0, 0), 2 * np.eye(3))
     assert len(spinham.magnetic_atoms) == 2
-    assert spinham.I == 2
+    assert spinham.M == 2
     assert spinham.magnetic_atoms[0] == 0
     assert spinham.magnetic_atoms[1] == 1
     spinham.add_2_2(1, 0, (0, -1, 0), 2 * np.eye(3))
     assert len(spinham.magnetic_atoms) == 2
-    assert spinham.I == 2
+    assert spinham.M == 2
     assert spinham.magnetic_atoms[0] == 0
     assert spinham.magnetic_atoms[1] == 1
 
     spinham.remove_atom(1)
     assert len(spinham.magnetic_atoms) == 1
-    assert spinham.I == 1
+    assert spinham.M == 1
     assert spinham.magnetic_atoms[0] == 0
 
 

@@ -20,8 +20,11 @@ Magnopy
 :ref:`Cite us <cite>` |
 :ref:`support`
 
-In short, given :ref:`user-guide_theory-behind_spin-hamiltonian` in **any**
-:ref:`notation <user-guide_theory-behind_notation>` magnopy computes bosonic Hamiltonian
+What is magnopy?
+================
+
+Magnopy is a python code that, given :ref:`user-guide_theory-behind_spin-hamiltonian` in **any**
+:ref:`notation <user-guide_theory-behind_notation>`, computes bosonic Hamiltonian
 of the form
 
 .. include:: core-formulas/bosonic-hamiltonian.inc
@@ -34,3 +37,7 @@ where
 * :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion relation that is computed
   at the level of LSWT.
 * ...
+
+Magnopy supports Holstein-Primakoff bosonic representation with Taylor or Newton
+expansion of the square root and Dyson-Maleev representation. Moreover, it supports any
+user-defined polynomial single-boson representation.

@@ -10,8 +10,7 @@ Getting started
 .. toctree::
     :maxdepth: 1
 
-    start/about
-    installation
+    start/installation
     start/how-to-run
 
 Prepared scripts
@@ -46,4 +45,3 @@ Theory behind
 
     theory-behind/spin-hamiltonian
     theory-behind/hamiltonian-notation
-    theory-behind/energy-minimization

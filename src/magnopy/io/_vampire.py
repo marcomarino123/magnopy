@@ -124,23 +124,48 @@ def dump_vampire_mat(
     materials : list of int, optional
         List of materials for the atoms. Has to have the same length as the number of
         magnetic atoms in the ``spinham``. If not given, each atom will be considered
-        as a separate material. Starting from 0.
+        as a separate material. Material index starts from 0 and should contain all
+        consecutive integers between 0 and number of materials. Number of materials
+        cannot be higher than number of magnetic atoms.
     nologo : bool, default False
         Whether to print the logo in the output files.
+
+    Notes
+    -----
+    Examples of the correct ``materials`` list for 5 magnetic atoms
+
+    .. code-block:: python
+
+        [0, 0, 0, 0, 0]
+        [1, 3, 2, 1, 0]
+        [0, 1, 2, 3, 4]
     """
 
     if materials is None:
         materials = [i for i in range(len(spinham.magnetic_atoms))]
+    else:
+        if len(materials) != len(spinham.magnetic_atoms):
+            raise ValueError(
+                f"Expected {len(spinham.magnetic_atoms)} materials, got "
+                f"{len(materials)}."
+            )
+        materials_pool = set(materials)
+        higher_material = max(materials_pool)
+        for i in range(0, higher_material + 1):
+            if i not in materials_pool:
+                raise ValueError(
+                    f"Materials indices should be consecutive integers between 0 and "
+                    f"{higher_material}. Missing {i}."
+                )
 
     if nologo:
         text = []
     else:
         text = [logo(comment=True, date_time=True)]
-    if materials is not None:
-        text.append(f"material:num-materials = {max(materials)+1}")
-    else:
-        text.append(f"material:num-materials = {len(spinham.magnetic_atoms)}")
-    for index in spinham.magnetic_atoms:
+
+    text.append(f"material:num-materials = {max(materials)+1}")
+
+    for i, index in enumerate(spinham.magnetic_atoms):
         if materials[i] not in materials[:i]:
             m_i = materials[i] + 1
             text.append("#---------------------------------------------------")
@@ -156,6 +181,7 @@ def dump_vampire_mat(
             text.append(f"material[{m_i}]:initial-spin-direction = random")
             text.append(f"material[{m_i}]:damping-constant = 0.1")
             text.append(f"material[{m_i}]:uniaxial-anisotropy-constant = 0.0")
+
     text.append("#---------------------------------------------------")
 
     text = "\n".join(text)
@@ -250,6 +276,27 @@ def dump_vampire_ucf(
     text.append(f"{len(spinham.p22)} tensorial")
 
     IID = 0
+
+    # Write (two spins & one site)
+    for atom1, J in spinham.p21:
+        if custom_mask is not None:
+            J = custom_mask(J)
+        else:
+            if not dmi:
+                J -= get_dmi(J, matrix_form=True)
+            if not anisotropic:
+                J -= get_anisotropic_parameter(J)
+        J = J * ENERGY
+        fmt = f"{7+decimals}.{decimals}e"
+        text.append(
+            f"{IID:<5} {index_mapping[atom1]:>3} {index_mapping[atom1]:>3}  {0:>2} {0:>2} {0:>2}  "
+            f"{J[0][0]:{fmt}} {J[0][1]:{fmt}} {J[0][2]:{fmt}} "
+            f"{J[1][0]:{fmt}} {J[1][1]:{fmt}} {J[1][2]:{fmt}} "
+            f"{J[2][0]:{fmt}} {J[2][1]:{fmt}} {J[2][2]:{fmt}}"
+        )
+        IID += 1
+
+    # Write (two spins & two sites)
     for atom1, atom2, (i, j, k), J in spinham.p22:
         if custom_mask is not None:
             J = custom_mask(J)

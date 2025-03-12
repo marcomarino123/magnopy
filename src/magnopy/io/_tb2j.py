@@ -91,13 +91,13 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
             )
 
         # Read atoms
-        atoms = dict(
-            names=[],
-            positions=[],
-            magnetic_moments=[],
-            charges=[],
-        )
         if line and atoms_flag in line:
+            atoms = dict(
+                names=[],
+                positions=[],
+                magnetic_moments=[],
+                charges=[],
+            )
             line = file.readline()
             line = file.readline()
             line = file.readline().split()
@@ -124,7 +124,6 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
         # Check if the exchange section is reached
         if line and exchange_flag in line:
             break
-
     # Create a spin Hamiltonian
     spinham = SpinHamiltonian(
         cell=cell, atoms=atoms, notation=Notation.get_predefined(name="tb2j")
@@ -172,7 +171,14 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
 
         # Adding info from the exchange block to the SpinHamiltonian structure
         spinham.add_2_2(
-            atom1, atom2, ijk, get_matrix_parameter(iso=iso, aniso=aniso, dmi=dmi)
+            atom1,
+            atom2,
+            ijk,
+            # Avoid passing aniso to the function as then the function make it traceless
+            # and symmetric, potentially loosing part of the matrix.
+            # Due to the TB2J problem: aniso not always traceless.
+            get_matrix_parameter(iso=iso, dmi=dmi) + aniso,
+            replace=True,
         )
 
         computed_distance = get_distance(spinham.cell, spinham.atoms, atom1, atom2, ijk)
@@ -183,7 +189,7 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
                 + f"Read: {distance:.4f}\n"
             )
 
-    return model
+    return spinham
 
 
 # Populate __all__ with objects defined in this file

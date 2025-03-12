@@ -14,6 +14,14 @@ TB2J
 
     load_tb2j
 
+GROGU
+=====
+
+.. autosummary::
+    :toctree: generated
+
+    load_grogu
+
 Vampire
 =======
 

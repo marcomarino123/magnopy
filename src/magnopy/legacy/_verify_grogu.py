@@ -1303,116 +1303,12 @@ def _verify_on_site(lines, line_indices, allowed_atoms) -> bool:
 
 
 ################################################################################
-#                          Cone-axis section checker                           #
-################################################################################
-def _verify_cone_axis(lines, line_indices) -> bool:
-    r"""
-    Check that the found "cone-axis" section is following the input file specification.
-
-    Parameters
-    ----------
-    lines : list of str
-        List of the "cone-axis" section lines from the input file.
-        Without comments and blank lines.
-        ``len(lines) == len(line_indices)``
-    line_indices : list of int
-        Original line numbers, before filtering.
-        ``len(line_indices) == len(lines)``
-
-    Returns
-    -------
-    errors : bool
-        ``True`` if errors are found, ``False`` otherwise.
-    """
-
-    # At the beginning we assume that the the cone-axis section has at least one line in it
-    # with the section header that starts with "cone-axis" keyword.
-
-    # There are no errors yet
-    errors = False
-
-    # Check size of the cone-axis section it has to have exactly 2 lines
-    if _verify_size_of_section("cone-axis", lines, line_indices[0], [2], exact=True):
-        # Do not proceed with the rest of the checks,
-        # since the behavior of the rest of the checks is unpredictable
-        return True
-
-    # Starting from this line it is assumed that the section has exactly 2 lines
-
-    # Check the section header
-    errors = errors or _verify_section_header(lines[0], line_indices[0], ["a", "r"])
-
-    # Check that next line contain three or two numbers
-    errors = errors or _verify_numerical_data_block(
-        [lines[1]], [[3, 2]], [line_indices[1]]
-    )
-
-    return errors
-
-
-################################################################################
-#                        Spiral-vector section checker                         #
-################################################################################
-def _verify_spiral_vector(lines, line_indices) -> bool:
-    r"""
-    Check that the found "spiral-vector" section is following the input file specification.
-
-    Parameters
-    ----------
-    lines : list of str
-        List of the "spiral-vector" section lines from the input file.
-        Without comments and blank lines.
-        ``len(lines) == len(line_indices)``
-    line_indices : list of int
-        Original line numbers, before filtering.
-        ``len(line_indices) == len(lines)``
-
-    Returns
-    -------
-    errors : bool
-        ``True`` if errors are found, ``False`` otherwise.
-    """
-
-    # At the beginning we assume that the the spiral-vector section has at least one line in it
-    # with the section header that starts with "spiral-vector" keyword.
-
-    # There are no errors yet
-    errors = False
-
-    # Check size of the spiral-vector section it has to have exactly 2 lines
-    if _verify_size_of_section(
-        "spiral-vector", lines, line_indices[0], [2], exact=True
-    ):
-        # Do not proceed with the rest of the checks,
-        # since the behavior of the rest of the checks is unpredictable
-        return True
-
-    # Starting from this line it is assumed that the section has exactly 2 lines
-
-    # Check the section header
-    errors = errors or _verify_section_header(lines[0], line_indices[0], ["a", "r"])
-
-    # Check that next line contain three numbers
-    errors = errors or _verify_numerical_data_block([lines[1]], [3], [line_indices[1]])
-
-    return errors
-
-
-################################################################################
 #                   Rules (check additional ones at the end)                   #
 ################################################################################
 
-_REQUIRED_SECTIONS = ["cell", "atoms"]
+_REQUIRED_SECTIONS = ["cell", "atoms", "notation"]
 
-_SUPPORTED_SECTIONS = {
-    "cell",
-    "atoms",
-    "notation",
-    "exchange",
-    "on-site",
-    "cone-axis",
-    "spiral-vector",
-}
+_SUPPORTED_SECTIONS = {"cell", "atoms", "notation", "exchange", "on-site"}
 ################################################################################
 #                      Mapping of verification functions                       #
 ################################################################################
@@ -1423,8 +1319,6 @@ _VERIFY = {
     "notation": _verify_notation,
     "exchange": _verify_exchange,
     "on-site": _verify_on_site,
-    "cone-axis": _verify_cone_axis,
-    "spiral-vector": _verify_spiral_vector,
 }
 
 

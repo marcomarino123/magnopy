@@ -42,7 +42,7 @@ answers for the energy per unit cell:
 
 If one add the freedom of writing the constant before the sum, then the amount of
 different answers will be even more. Often in the literature the same Hamiltonian is
-written with :math:`\pm 1` or :math:`\pm 1/2` in from of the sum.
+written with :math:`\pm 1` or :math:`\pm 1/2` in front of the sum.
 
 Therefore, set of parameters, without the *knowledge of the notation* of spin
 Hamiltonian is not enough to define it. At the same time is does not matter in what

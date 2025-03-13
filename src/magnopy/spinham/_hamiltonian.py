@@ -818,7 +818,7 @@ class SpinHamiltonian:
             factor = 2.0
 
         for index in range(len(self._2_2)):
-            self._2_2[index][3] *= factor
+            self._2_2[index][3] = self._2_2[index][3] * factor
 
         # TODO For (four spins & ...)
 
@@ -836,23 +836,29 @@ class SpinHamiltonian:
             # For on-site
             for index in range(len(self._2_1)):
                 atom = self._2_1[index][0]
-                self._2_1[index][1] *= self.atoms.spins[atom] ** 2
+                self._2_1[index][1] = self._2_1[index][1] * self.atoms.spins[atom] ** 2
             # For exchange
             for index in range(len(self._2_2)):
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]
-                self._2_2[index][3] *= self.atoms.spins[atom1] * self.atoms.spins[atom2]
+                self._2_2[index][3] = self._2_2[index][3] * (
+                    self.atoms.spins[atom1] * self.atoms.spins[atom2]
+                )
         # Before it was normalized
         else:
             # For on-site
             for index in range(len(self._2_1)):
                 atom = self._2_1[index][0]
-                self._2_1[index][1] /= self.atoms.spins[atom] ** 2
+                self._2_1[index][1] = self._2_1[index][1] / self.atoms.spins[atom] ** 2
             # For exchange
             for index in range(len(self._2_2)):
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]
-                self._2_2[index][3] /= self.atoms.spins[atom1] * self.atoms.spins[atom2]
+                self._2_2[index][3] = self._2_2[index][3] / (
+                    self.atoms.spins[atom1] * self.atoms.spins[atom2]
+                )
+
+        # TODO For (four spins & ...)
 
     def _set_c1(self, new_c1: float) -> None:
         if new_c1 is None or self.notation._c1 is None:
@@ -865,7 +871,7 @@ class SpinHamiltonian:
 
         # If factor is changing one need to scale parameters.
         for index in range(len(self._1)):
-            self._1[index][1] *= self.notation.c1 / new_c1
+            self._1[index][1] = self._1[index][1] * self.notation.c1 / new_c1
 
     def _set_c21(self, new_c21: float) -> None:
         if new_c21 is None or self.notation._c21 is None:
@@ -878,7 +884,7 @@ class SpinHamiltonian:
 
         # If factor is changing one need to scale parameters.
         for index in range(len(self._2_1)):
-            self._2_1[index][1] *= self.notation.c21 / new_c21
+            self._2_1[index][1] = self._2_1[index][1] * self.notation.c21 / new_c21
 
     def _set_c22(self, new_c22: float) -> None:
         if new_c22 is None or self.notation._c22 is None:
@@ -891,7 +897,7 @@ class SpinHamiltonian:
 
         # If factor is changing one need to scale parameters.
         for index in range(len(self._2_2)):
-            self._2_2[index][3] *= self.notation.c22 / new_c22
+            self._2_2[index][3] = self._2_2[index][3] * self.notation.c22 / new_c22
 
     ################################################################################
     #                                  Copy getter                                 #

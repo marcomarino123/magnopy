@@ -179,15 +179,15 @@ class PolynomialParameter:
         return len(self._data) - 1
 
 
-def get_hp_taylor(atoms, n=1):
+def get_hp_taylor(spin_values, n=1):
     r"""
     Computes A and B for Holstein-primakoff representation with Taylor expansion around
     zero.
 
     Parameters
     ----------
-    atoms : dict
-        Dictionary with the atoms. This function relies on ``atoms["spins"]``.
+    spin_values : (M) interable
+        Values of atom's spins, i.e. ``spin_values``.
     n : int, default 1
         Maximum allowed amount of the bosonic operators in the representation. Note that
         ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
@@ -205,22 +205,22 @@ def get_hp_taylor(atoms, n=1):
     if n > 1:
         raise NotImplementedError
 
-    A = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
-    B = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
+    A = [PolynomialParameter() for _ in range(len(spin_values))]
+    B = [PolynomialParameter() for _ in range(len(spin_values))]
 
-    for index in range(len(atoms["spins"])):
-        A[index][1, 1] = sqrt(2 * spinham.atoms.spins[index])
-        B[index][1, 0] = sqrt(2 * spinham.atoms.spins[index])
+    for index in range(len(spin_values)):
+        A[index][1, 1] = sqrt(2 * spin_values[index])
+        B[index][1, 0] = sqrt(2 * spin_values[index])
 
 
-def get_hp_newton(atoms, n=1):
+def get_hp_newton(spin_values, n=1):
     r"""
     Computes A and B for Holstein-primakoff representation with Newton expansion.
 
     Parameters
     ----------
-    atoms : dict
-        Dictionary with the atoms. This function relies on ``atoms["spins"]``.
+    spin_values : (M) interable
+        Values of atom's spins, i.e. ``spin_values``.
     n : int, default 1
         Maximum allowed amount of the bosonic operators in the representation. Note that
         ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
@@ -238,22 +238,22 @@ def get_hp_newton(atoms, n=1):
     if n > 1:
         raise NotImplementedError
 
-    A = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
-    B = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
+    A = [PolynomialParameter() for _ in range(len(spin_values))]
+    B = [PolynomialParameter() for _ in range(len(spin_values))]
 
-    for index in range(len(atoms["spins"])):
-        A[index][1, 1] = sqrt(2 * spinham.atoms.spins[index])
-        B[index][1, 0] = sqrt(2 * spinham.atoms.spins[index])
+    for index in range(len(spin_values)):
+        A[index][1, 1] = sqrt(2 * spin_values[index])
+        B[index][1, 0] = sqrt(2 * spin_values[index])
 
 
-def get_dyson_maleev(atoms, conjugate=False):
+def get_dyson_maleev(spin_values, conjugate=False):
     r"""
     Computes A and B for Dyson-Maleev  or conjugate Dyson-Maleev representation.
 
     Parameters
     ----------
-    atoms : dict
-        Dictionary with the atoms. This function relies on ``atoms["spins"]``.
+    spin_values : (M) interable
+        Values of atom's spins, i.e. ``spin_values``.
     conjugate : bool, default False
         Whether to return normal or conjugate Dyson-Maleev representation.
 
@@ -268,24 +268,24 @@ def get_dyson_maleev(atoms, conjugate=False):
         :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
     """
 
-    A = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
-    B = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
+    A = [PolynomialParameter() for _ in range(len(spin_values))]
+    B = [PolynomialParameter() for _ in range(len(spin_values))]
 
     if conjugate:
-        for i in range(len(atoms["spins"])):
+        for i in range(len(spin_values)):
             # n = 1
-            A[i][1, 1] = sqrt(2 * atoms["spins"][i])
-            B[i][1, 0] = sqrt(2 * atoms["spins"][i])
+            A[i][1, 1] = sqrt(2 * spin_values[i])
+            B[i][1, 0] = sqrt(2 * spin_values[i])
             # n = 3
-            B[i][3, 1] = -1 / sqrt(2 * atoms["spins"][i])
+            B[i][3, 1] = -1 / sqrt(2 * spin_values[i])
     else:
-        for i in range(len(atoms["spins"])):
+        for i in range(len(spin_values)):
             # n = 1
-            A[i][1, 1] = sqrt(2 * atoms["spins"][i])
-            B[i][1, 0] = sqrt(2 * atoms["spins"][i])
+            A[i][1, 1] = sqrt(2 * spin_values[i])
+            B[i][1, 0] = sqrt(2 * spin_values[i])
 
             # n = 3
-            A[i][3, 2] = -1 / sqrt(2 * atoms["spins"][i])
+            A[i][3, 2] = -1 / sqrt(2 * spin_values[i])
 
     return A, B
 

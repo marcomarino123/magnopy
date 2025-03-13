@@ -11,25 +11,25 @@ Getting started
     :maxdepth: 1
 
     start/installation
-    start/how-to-run
-
-Prepared scripts
-================
-
-If you do not intend to use magnopy within python, then go straight for the scripts
-described below.
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
-    scripts/convert-tb2j
-    scripts/minimize-energy
+    how-to/index
 
 Fundamentals and usage
 ======================
 
-Guides from this section introduce the key concepts of magnopy as a python package and
-give an explanation for it's behavior with examples.
+If you do not want to use magnopy in your python scripts and just want to use it as
+a black-box tool, then use the scripts that are defined in magnopy.
+
+.. toctree::
+    :maxdepth: 2
+
+    scripts/index
+
+The content below goes over the key concepts of magnopy and describe how to use it as
+a python library.
 
 .. toctree::
     :maxdepth: 1

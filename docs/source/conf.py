@@ -202,6 +202,10 @@ custom_links = {
     "TB2J": ("TB2J", "https://tb2j.readthedocs.io/en/latest/"),
     "Vampire": ("Vampire", "https://vampire.york.ac.uk/"),
     "Wulfric": ("wulfric", "https://docs.wulfric.org/en/latest/"),
+    "Wulfric-Bravais-lattices": (
+        "Bravais lattices",
+        "https://docs.wulfric.org/en/latest/user-guide/conventions/bravais-lattices/index.html",
+    ),
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
     "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
     "h5py": ("h5py", "https://www.h5py.org/"),

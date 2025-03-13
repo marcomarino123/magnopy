@@ -4,6 +4,11 @@
 Spin Hamiltonian
 ****************
 
+.. _user-guide_theory-behind_spin-hamiltonian_compact-form:
+
+Compact form
+============
+
 Magnopy works with the spin Hamiltonian of the general  **compact** form that includes
 at most four linearly coupled spins
 
@@ -78,6 +83,13 @@ The parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})`,
 :math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})`
 can describe either some external effect or internal interactions between spins. The
 Hamiltonian above is discussed and solved  in the (TODO) research paper about magnopy.
+
+
+.. _user-guide_theory-behind_spin-hamiltonian_expanded-form:
+
+Expanded form
+=============
+
 However, internally and as a part of public API magnopy stores the Hamiltonian in the
 **expanded** form
 

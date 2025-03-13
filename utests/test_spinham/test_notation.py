@@ -20,7 +20,7 @@
 from math import isnan
 
 import pytest
-from hypothesis import example, given
+from hypothesis import given
 from hypothesis import strategies as st
 
 from magnopy._exceptions import NotationError

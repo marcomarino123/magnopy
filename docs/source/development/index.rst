@@ -16,8 +16,8 @@ It is not necessary to be a programmer to contribute. You can help us with the
 Contribution process is summarized below. We assume that you have an account on
 `<https://github.com>`_ and familiar with `Git <https://git-scm.com/>`_.
 
-Development workflow
-====================
+Development process
+===================
 
 Fork and clone
 --------------
@@ -184,3 +184,4 @@ Development process in details
   tests
   origin-upstream
   branches
+  theory-notes

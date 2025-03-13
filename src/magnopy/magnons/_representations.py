@@ -189,7 +189,7 @@ def get_hp_taylor(atoms, n=1):
     atoms : dict
         Dictionary with the atoms. This function relies on ``atoms["spins"]``.
     n : int, default 1
-        Maximum allowed amount of the bosonic operators in the expansion. Note that
+        Maximum allowed amount of the bosonic operators in the representation. Note that
         ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
 
     Returns
@@ -202,10 +202,15 @@ def get_hp_taylor(atoms, n=1):
         :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
     """
 
-    raise NotImplementedError
+    if n > 1:
+        raise NotImplementedError
 
     A = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
     B = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
+
+    for index in range(len(atoms["spins"])):
+        A[index][1, 1] = sqrt(2 * spinham.atoms.spins[index])
+        B[index][1, 0] = sqrt(2 * spinham.atoms.spins[index])
 
 
 def get_hp_newton(atoms, n=1):
@@ -217,7 +222,8 @@ def get_hp_newton(atoms, n=1):
     atoms : dict
         Dictionary with the atoms. This function relies on ``atoms["spins"]``.
     n : int, default 1
-        Maximum allowed amount of the bosonic operators in the expansion.
+        Maximum allowed amount of the bosonic operators in the representation. Note that
+        ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
 
     Returns
     -------
@@ -229,10 +235,15 @@ def get_hp_newton(atoms, n=1):
         :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
     """
 
-    raise NotImplementedError
+    if n > 1:
+        raise NotImplementedError
 
     A = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
     B = [PolynomialParameter() for _ in range(len(atoms["spins"]))]
+
+    for index in range(len(atoms["spins"])):
+        A[index][1, 1] = sqrt(2 * spinham.atoms.spins[index])
+        B[index][1, 0] = sqrt(2 * spinham.atoms.spins[index])
 
 
 def get_dyson_maleev(atoms, conjugate=False):

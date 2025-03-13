@@ -1,16 +1,16 @@
-.. _contribute:
+.. _development:
 
-*******************
-Contributor`s guide
-*******************
+***********
+Development
+***********
 
 If you're interested in seeing who has already contributed to this project, please visit
-our :ref:`Contributors page <contribute_contributors>`. We appreciate all contributions
+our :ref:`Contributors page <development_contributors>`. We appreciate all contributions
 and look forward to see your name on that list.
 
 It is not necessary to be a programmer to contribute. You can help us with the
-:ref:`documentation <contribute_documentation>`,
-:ref:`new features <contribute_feature>` and :ref:`finding bugs <contribute_bug>`.
+:ref:`documentation <development_documentation>`,
+:ref:`new features <development_feature>` and :ref:`finding bugs <development_bug>`.
 
 
 Contribution process is summarized below. We assume that you have an account on
@@ -22,9 +22,9 @@ Development workflow
 Fork and clone
 --------------
 
-* Go to the |repository|_ (:ref:`upstream <contribute_origin-upstream_upstream>`) and
+* Go to the |repository|_ (:ref:`upstream <development_origin-upstream_upstream>`) and
   click on the "Fork" button. Now you have your own copy of the magnopy repository
-  under your GitHub account (:ref:`origin <contribute_origin-upstream_origin>`).
+  under your GitHub account (:ref:`origin <development_origin-upstream_origin>`).
 * Clone your fork to your local machine:
 
   - If you are using ssh-key
@@ -46,10 +46,10 @@ Fork and clone
     cd magnopy
 
   Now you are in the root folder of you local repository
-  (:ref:`local <contribute_origin-upstream_local>`).
+  (:ref:`local <development_origin-upstream_local>`).
 
-* Add the :ref:`upstream <contribute_origin-upstream>` repository to your
-  :ref:`local <contribute_origin-upstream_local>` repository
+* Add the :ref:`upstream <development_origin-upstream>` repository to your
+  :ref:`local <development_origin-upstream_local>` repository
 
   .. code-block:: bash
 
@@ -130,7 +130,7 @@ add the fixed files to the staging area and commit again.
 Develop your contribution
 -------------------------
 
-* Create a :ref:`dedicated branch <contribute_branches>` for your feature, that you are
+* Create a :ref:`dedicated branch <development_branches>` for your feature, that you are
   going to develop
 
   .. code-block:: bash
@@ -140,8 +140,8 @@ Develop your contribution
 * Develop your contribution. Commit your progress locally
   (`git-add <https://git-scm.com/docs/git-add>`_ and
   `git-commit <https://git-scm.com/docs/git-commit>`_). Use |good-commit-messages|_.
-  Write :ref:`tests <contribute_tests>`. Write
-  :ref:`documentation <contribute_documentation>`.
+  Write :ref:`tests <development_tests>`. Write
+  :ref:`documentation <development_documentation>`.
 
 Submit your contribution
 ------------------------
@@ -161,7 +161,7 @@ Review and merge
 
 * Once the pull request is submitted, the code will be reviewed. If there are any
   comments, please fix them. You can make the changes locally, commit them and push to
-  the same branch of :ref:`origin <contribute_origin-upstream_origin>` repository and
+  the same branch of :ref:`origin <development_origin-upstream_origin>` repository and
   they will be added to the pull request automatically.
 * Once the pull request is approved, it will be merged to the
   `main <https://github.com/magnopy/magnopy>`_ branch.

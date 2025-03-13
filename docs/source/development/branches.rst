@@ -1,4 +1,4 @@
-.. _contribute_branches:
+.. _development_branches:
 
 ************
 Branch rules

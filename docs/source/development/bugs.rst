@@ -1,4 +1,4 @@
-.. _contribute_bug:
+.. _development_bug:
 
 **********
 Bug report

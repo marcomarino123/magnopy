@@ -1,4 +1,4 @@
-.. _contribute_tests:
+.. _development_tests:
 
 *******
 Testing
@@ -37,7 +37,7 @@ Documentation tests
 Across the documentation there are many examples of how to use magnopy with code
 snippets. These code snippets are tested using |doctest|_, which ensure that the
 documentation correctly reflects an actual behavior of the code. In order to run
-doctests you need to build the :ref:`documentation <contribute_documentation>` and then
+doctests you need to build the :ref:`documentation <development_documentation>` and then
 run the doctests using the following command (provided that the |GNU-make|_ command is
 available)
 

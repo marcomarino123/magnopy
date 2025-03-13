@@ -1,4 +1,4 @@
-.. _contribute_documentation:
+.. _development_documentation:
 
 *************
 Documentation
@@ -62,9 +62,9 @@ among other things
 
   The release notes for each version of magnopy.
 
-* "docs/source/contribute/" directory
+* "docs/source/development/" directory
 
-  Root folder for the documentation of how to contribute to magnopy.
+  Root folder for the documentation for the development of magnopy.
 
 
 Docstrings

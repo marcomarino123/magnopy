@@ -9,7 +9,7 @@ Magnopy
     User Guide <user-guide/index>
     api/index
     support
-    contribute/index
+    development/index
     cite
 
 :Release: |version|

@@ -1,4 +1,4 @@
-.. _contribute_contributors:
+.. _development_contributors:
 
 Contributors
 ============

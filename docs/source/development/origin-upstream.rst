@@ -1,4 +1,4 @@
-.. _contribute_origin-upstream:
+.. _development_origin-upstream:
 
 *******************
 Origin and Upstream
@@ -13,7 +13,7 @@ with the most common command for communication between them is
     :align: center
 
 
-.. _contribute_origin-upstream_origin:
+.. _development_origin-upstream_origin:
 
 Origin repository
 =================
@@ -23,7 +23,7 @@ Origin repository
 During the development you push the changes to **Origin**. Once the feature you're working
 on is ready, you will create a pull request from **Origin** to **Upstream**.
 
-.. _contribute_origin-upstream_upstream:
+.. _development_origin-upstream_upstream:
 
 Upstream repository
 ===================
@@ -36,7 +36,7 @@ web interface to keep your **Origin** up to date and then pull the change to you
 repository from **Origin**.
 
 
-.. _contribute_origin-upstream_local:
+.. _development_origin-upstream_local:
 
 Local repository
 ================

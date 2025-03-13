@@ -10,7 +10,7 @@ Getting started
 .. toctree::
     :maxdepth: 1
 
-    start/installation
+    installation
 
 .. toctree::
     :maxdepth: 2

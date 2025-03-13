@@ -143,9 +143,9 @@ class Notation:
             >>> n1 = Notation(True, True, c21=1, c22=-0.5)
             >>> n1.summary()
             custom notation where
-              * Bonds are counted multiple times in the sum
+              * Bonds are counted multiple times in the sum;
               * Spin vectors are normalized to 1;
-              * Undefined c1 factor
+              * Undefined c1 factor;
               * c21 = 1.0;
               * c22 = -0.5.
         """
@@ -328,6 +328,7 @@ class Notation:
             tb2j notation where
               * Bonds are counted multiple times in the sum;
               * Spin vectors are normalized to 1;
+              * Undefined c1 factor;
               * c21 = -1.0;
               * c22 = -1.0.
             >>> spinW = magnopy.spinham.Notation.get_predefined("spinW")
@@ -335,6 +336,7 @@ class Notation:
             spinw notation where
               * Bonds are counted multiple times in the sum;
               * Spin vectors are not normalized;
+              * Undefined c1 factor;
               * c21 = 1.0;
               * c22 = 1.0.
             >>> vampire = magnopy.spinham.Notation.get_predefined("Vampire")
@@ -342,8 +344,9 @@ class Notation:
             vampire notation where
               * Bonds are counted multiple times in the sum;
               * Spin vectors are normalized to 1;
-              * c21 = -0.5;
-              * c22 = -1.0.
+              * Undefined c1 factor;
+              * c21 = -1.0;
+              * c22 = -0.5.
         """
 
         name = name.lower()

@@ -301,9 +301,9 @@ def span_local_rf(direction_vector):
 
     Returns
     -------
-    x : (3, ) :numpy:`ndarray`
-    y : (3, ) :numpy:`ndarray`
-    z : (3, ) :numpy:`ndarray`
+    x_alpha : (3, ) :numpy:`ndarray`
+    y_alpha : (3, ) :numpy:`ndarray`
+    z_alpha : (3, ) :numpy:`ndarray`
     """
 
     direction_vector = np.array(direction_vector, dtype=float)
@@ -340,7 +340,7 @@ def span_local_rf(direction_vector):
     # direction_vector and z_dir are unit vectors
     ux, uy, uz = np.cross(z_dir, direction_vector) / sin_rot_angle
 
-    x_a = np.array(
+    x_alpha = np.array(
         [
             ux**2 * (1 - cos_rot_angle) + cos_rot_angle,
             ux * uy * (1 - cos_rot_angle) + uz * sin_rot_angle,
@@ -348,7 +348,7 @@ def span_local_rf(direction_vector):
         ]
     )
 
-    y_a = np.array(
+    y_alpha = np.array(
         [
             ux * uy * (1 - cos_rot_angle) - uz * sin_rot_angle,
             uy**2 * (1 - cos_rot_angle) + cos_rot_angle,
@@ -356,7 +356,7 @@ def span_local_rf(direction_vector):
         ]
     )
 
-    return x_a, y_a, direction_vector
+    return x_alpha, y_alpha, direction_vector
 
 
 def get_vector_parameter(A, B, spin_values, spin_directions):

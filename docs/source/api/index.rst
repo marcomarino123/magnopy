@@ -22,6 +22,7 @@ Sub-modules
   spinham
   magnons
   io
+  constants
 
 Classes
 =======

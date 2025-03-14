@@ -1,7 +1,7 @@
 .. _development_theory-notes:
 
 ************
-Theory-notes
+Theory notes
 ************
 
 In this page we write some formulas that did not make it neither to the publication

@@ -36,3 +36,4 @@ Energy of the ground state
     :toctree: generated/
 
     get_classical_energy
+    get_energy_correction_lswt

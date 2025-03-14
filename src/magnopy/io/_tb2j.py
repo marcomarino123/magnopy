@@ -29,7 +29,7 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
+def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltonian:
     r"""
     Read spin Hamiltonian from |TB2J|_ output file.
 
@@ -37,6 +37,16 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
     ----------
     filename : str
         Path to the |TB2J|_ output file.
+    spins : (M, ) iterable of floats, optional
+        Spin Values for each atom. In the same order as in TB2J file. TB2J outputs
+        magnetic moments and not spin values, therefore the spin values for each atom
+        are subject to user definition. If user does not define the spin values, then
+        magnopy set spin value as :math:`|\boldsymbol{m} / g_factor|` for each spin.
+    g_factors : (M, ) iterable of floats, optional
+        g-factors for each atom. In the same order as in TB2J file. TB2J does not
+        provide g-factors, therefore g-factor for each atom is subject to user
+        definition. If user does not define g-factors, then magnopy sets g-factor of
+        each atom to :math:`2`.
     quiet : bool, default True
         Whether to suppress output.
 
@@ -92,12 +102,7 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
 
         # Read atoms
         if line and atoms_flag in line:
-            atoms = dict(
-                names=[],
-                positions=[],
-                magnetic_moments=[],
-                charges=[],
-            )
+            atoms = dict(names=[], positions=[], magnetic_moments=[], charges=[])
             line = file.readline()
             line = file.readline()
             line = file.readline().split()
@@ -124,6 +129,23 @@ def load_tb2j(filename, quiet=True) -> SpinHamiltonian:
         # Check if the exchange section is reached
         if line and exchange_flag in line:
             break
+
+    # Populate g_factors of atoms
+    if g_factors is None:
+        g_factors = [2.0 for _ in range(len(atoms["names"]))]
+
+    atoms["g_factors"] = g_factors
+
+    # Populate spins of atoms
+    if spins is None:
+        spins = [
+            float(np.linalg.norm(atoms["magnetic_moments"][alpha]))
+            / atoms["g_factors"][alpha]
+            for alpha in range(len(atoms["names"]))
+        ]
+
+    atoms["spins"] = spins
+
     # Create a spin Hamiltonian
     spinham = SpinHamiltonian(
         cell=cell, atoms=atoms, notation=Notation.get_predefined(name="tb2j")

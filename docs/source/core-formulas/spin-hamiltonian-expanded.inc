@@ -3,24 +3,24 @@
     =&
     \,C_1
     \sum_{\substack{\mu, \\ \alpha \\ k}}
-    J^k(\boldsymbol{r}_{\alpha})
+    J_1^k(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^k
     +
     C_{2,1}
     \sum_{\substack{\mu, \\ \alpha, \\ k,l}}
-    J^{kl}(\boldsymbol{r}_{\alpha})
+    J_{2,1}^{kl}(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^k
     S_{\mu,\alpha}^l
     +
     C_{2,2}
     \sum_{\substack{\mu,\nu, \\ \alpha, \beta, \\ k,l}}
-    J^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
+    J_{2,2}^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
     S_{\mu,\alpha}^k
     S_{\mu+\nu,\beta}^l
     +\\&+
     C_{4, 1}
     \sum_{\substack{\mu, \\ \alpha, \\ k,l,i,j}}
-    J^{klij}(\boldsymbol{r}_{\alpha})
+    J_{4, 1}^{klij}(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^k
     S_{\mu,\alpha}^l
     S_{\mu,\alpha}^i
@@ -28,7 +28,7 @@
     +\\&+
     C_{4, 2, 1}
     \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_1^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
+    J_{4, 2, 1}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
     S_{\mu,\alpha}^k
     S_{\mu,\alpha}^l
     S_{\mu,\alpha}^i
@@ -36,7 +36,7 @@
     +\\&+
     C_{4, 2, 2}
     \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_2^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
+    J_{4, 2, 2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
     S_{\mu,\alpha}^k
     S_{\mu,\alpha}^l
     S_{\mu+\nu,\beta}^i
@@ -44,7 +44,7 @@
     +\\&+
     C_{4, 3}
     \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i,j}}
-    J^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+    J_{4, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
     S_{\mu,\alpha}^k
     S_{\mu,\alpha}^l
     S_{\mu+\nu,\beta}^i
@@ -52,7 +52,7 @@
     +\\&+
     C_{4, 4}
     \sum_{\substack{\mu,\nu,\lambda,\rho, \\ \alpha,\beta,\gamma,\varepsilon, \\ k,l,i,j}}
-    J^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
+    J_{4, 4}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
     S_{\mu,\alpha}^k
     S_{\mu+\nu,\beta}^l
     S_{\mu+\lambda,\gamma}^i

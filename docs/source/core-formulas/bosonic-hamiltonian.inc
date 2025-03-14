@@ -7,10 +7,6 @@
   +
   \sum_{\alpha}
   \sum_{\boldsymbol{k}\in 1^{st} BZ}
-  \Delta_{\alpha}(\boldsymbol{k})
-  +
-  \sum_{\alpha}
-  \sum_{\boldsymbol{k}\in 1^{st} BZ}
   \omega_{\alpha}(\boldsymbol{k})
   \Biggl(
   b^{\dagger}_{\alpha}(\boldsymbol{k})b_{\alpha}(\boldsymbol{k})

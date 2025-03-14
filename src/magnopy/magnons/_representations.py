@@ -208,9 +208,9 @@ def get_hp_taylor(spin_values, n=1):
     A = [PolynomialParameter() for _ in range(len(spin_values))]
     B = [PolynomialParameter() for _ in range(len(spin_values))]
 
-    for index in range(len(spin_values)):
-        A[index][1, 1] = sqrt(2 * spin_values[index])
-        B[index][1, 0] = sqrt(2 * spin_values[index])
+    for alpha in range(len(spin_values)):
+        A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
+        B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
 
 
 def get_hp_newton(spin_values, n=1):
@@ -241,9 +241,9 @@ def get_hp_newton(spin_values, n=1):
     A = [PolynomialParameter() for _ in range(len(spin_values))]
     B = [PolynomialParameter() for _ in range(len(spin_values))]
 
-    for index in range(len(spin_values)):
-        A[index][1, 1] = sqrt(2 * spin_values[index])
-        B[index][1, 0] = sqrt(2 * spin_values[index])
+    for alpha in range(len(spin_values)):
+        A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
+        B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
 
 
 def get_dyson_maleev(spin_values, conjugate=False):
@@ -272,25 +272,25 @@ def get_dyson_maleev(spin_values, conjugate=False):
     B = [PolynomialParameter() for _ in range(len(spin_values))]
 
     if conjugate:
-        for i in range(len(spin_values)):
+        for alpha in range(len(spin_values)):
             # n = 1
-            A[i][1, 1] = sqrt(2 * spin_values[i])
-            B[i][1, 0] = sqrt(2 * spin_values[i])
+            A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
+            B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
             # n = 3
-            B[i][3, 1] = -1 / sqrt(2 * spin_values[i])
+            B[alpha][3, 1] = -1 / sqrt(2 * spin_values[alpha])
     else:
-        for i in range(len(spin_values)):
+        for alpha in range(len(spin_values)):
             # n = 1
-            A[i][1, 1] = sqrt(2 * spin_values[i])
-            B[i][1, 0] = sqrt(2 * spin_values[i])
+            A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
+            B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
 
             # n = 3
-            A[i][3, 2] = -1 / sqrt(2 * spin_values[i])
+            A[alpha][3, 2] = -1 / sqrt(2 * spin_values[alpha])
 
     return A, B
 
 
-def _span_local_rf(direction_vector):
+def span_local_rf(direction_vector):
     r"""
     Span local  right-handed reference frame from the direction vector.
 
@@ -385,20 +385,22 @@ def get_vector_parameter(A, B, spin_values, spin_directions):
 
     v = [PolynomialParameter() for _ in range(len(spin_values))]
 
-    for index in range(len(spin_values)):
-        x_a, y_a, z_a = span_local_rf(spin_directions[index])
+    for alpha in range(len(spin_values)):
+        x_a, y_a, z_a = span_local_rf(spin_directions[alpha])
         p_a = x_a + 1j * y_a
-        nmax = max(A.nmax, B.nmax)
+        nmax = max(A[alpha].nmax, B[alpha].nmax)
 
         for n in range(nmax + 1):
             for m in range(n + 1):
-                v[n, m] = np.conjugate(p_a) / 2 * A[n, m] + p_a / 2 * B[n, m]
+                v[alpha][n, m] = (
+                    np.conjugate(p_a) / 2 * A[alpha][n, m] + p_a / 2 * B[alpha][n, m]
+                )
 
                 if n == 0 and m == 0:
-                    v[n, m] = v[n, m] + z_a * spin_values[index]
+                    v[alpha][n, m] = v[alpha][n, m] + z_a * spin_values[alpha]
 
                 if n == 2 and m == 1:
-                    v[n, m] = v[n, m] - z_a
+                    v[alpha][n, m] = v[alpha][n, m] - z_a
 
     return v
 

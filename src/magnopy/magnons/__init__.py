@@ -18,4 +18,5 @@
 
 
 from ._diagonalization import *
+from ._energy import *
 from ._representations import *

@@ -833,11 +833,15 @@ class SpinHamiltonian:
 
         # Before it was not normalized
         if spin_normalized:
-            # For on-site
+            # For (one spin & one site)
+            for index in range(len(self._1)):
+                atom = self._1[index][0]
+                self._1[index][1] = self._1[index][1] * self.atoms.spins[atom]
+            # For (two spins & one site)
             for index in range(len(self._2_1)):
                 atom = self._2_1[index][0]
                 self._2_1[index][1] = self._2_1[index][1] * self.atoms.spins[atom] ** 2
-            # For exchange
+            # For (two spins & two sites)
             for index in range(len(self._2_2)):
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]
@@ -846,11 +850,15 @@ class SpinHamiltonian:
                 )
         # Before it was normalized
         else:
-            # For on-site
+            # For (one spin & one site)
+            for index in range(len(self._1)):
+                atom = self._1[index][0]
+                self._1[index][1] = self._1[index][1] / self.atoms.spins[atom]
+            # For (two spins & one site)
             for index in range(len(self._2_1)):
                 atom = self._2_1[index][0]
                 self._2_1[index][1] = self._2_1[index][1] / self.atoms.spins[atom] ** 2
-            # For exchange
+            # For (two spins & two sites)
             for index in range(len(self._2_2)):
                 atom1 = self._2_2[index][0]
                 atom2 = self._2_2[index][1]

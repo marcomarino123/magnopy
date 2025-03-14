@@ -187,7 +187,7 @@ def get_hp_taylor(spin_values, n=1):
     Parameters
     ----------
     spin_values : (M) interable
-        Values of atom's spins, i.e. ``spin_values``.
+        Values of atom's spins, i.e. ``atoms["spins"]``.
     n : int, default 1
         Maximum allowed amount of the bosonic operators in the representation. Note that
         ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
@@ -220,7 +220,7 @@ def get_hp_newton(spin_values, n=1):
     Parameters
     ----------
     spin_values : (M) interable
-        Values of atom's spins, i.e. ``spin_values``.
+        Values of atom's spins, i.e. ``atoms["spins"]``.
     n : int, default 1
         Maximum allowed amount of the bosonic operators in the representation. Note that
         ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
@@ -253,7 +253,7 @@ def get_dyson_maleev(spin_values, conjugate=False):
     Parameters
     ----------
     spin_values : (M) interable
-        Values of atom's spins, i.e. ``spin_values``.
+        Values of atom's spins, i.e. ``atoms["spins"]``.
     conjugate : bool, default False
         Whether to return normal or conjugate Dyson-Maleev representation.
 
@@ -288,6 +288,119 @@ def get_dyson_maleev(spin_values, conjugate=False):
             A[i][3, 2] = -1 / sqrt(2 * spin_values[i])
 
     return A, B
+
+
+def _span_local_rf(direction_vector):
+    r"""
+    Span local  right-handed reference frame from the direction vector.
+
+    Parameters
+    ----------
+    direction_vector : (3, ) |array-like|_
+        Direction of the z axis of the local reference frame.
+
+    Returns
+    -------
+    x : (3, ) :numpy:`ndarray`
+    y : (3, ) :numpy:`ndarray`
+    z : (3, ) :numpy:`ndarray`
+    """
+
+    direction_vector = np.array(direction_vector, dtype=float)
+
+    if np.allclose(direction_vector, np.zeros(3)):
+        raise ValueError("Zero vector.")
+
+    direction_vector /= np.linalg.norm(direction_vector)
+
+    if np.allclose(direction_vector, [0, 0, 1]):
+        return np.array(
+            [
+                [1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1],
+            ],
+            dtype=float,
+        )
+
+    if np.allclose(direction_vector, [0, 0, -1]):
+        return np.array(
+            [
+                [0, -1, 0],
+                [-1, 0, 0],
+                [0, 0, -1],
+            ],
+            dtype=float,
+        )
+
+    z_dir = [0, 0, 1]
+
+    sin_rot_angle = np.linalg.norm(np.cross(z_dir, direction_vector))
+    cos_rot_angle = np.dot(direction_vector, z_dir)
+    # direction_vector and z_dir are unit vectors
+    ux, uy, uz = np.cross(z_dir, direction_vector) / sin_rot_angle
+
+    x_a = np.array(
+        [
+            ux**2 * (1 - cos_rot_angle) + cos_rot_angle,
+            ux * uy * (1 - cos_rot_angle) + uz * sin_rot_angle,
+            ux * uz * (1 - cos_rot_angle) - uy * sin_rot_angle,
+        ]
+    )
+
+    y_a = np.array(
+        [
+            ux * uy * (1 - cos_rot_angle) - uz * sin_rot_angle,
+            uy**2 * (1 - cos_rot_angle) + cos_rot_angle,
+            uy * uz * (1 - cos_rot_angle) + ux * sin_rot_angle,
+        ]
+    )
+
+    return x_a, y_a, direction_vector
+
+
+def get_vector_parameter(A, B, spin_values, spin_directions):
+    r"""
+    Computes :math:`\boldsymbol{v}^{nm}_{\alpha}`.
+
+    Parameters
+    ----------
+    A : (M) list of :py:class:`.PolynomialParameter`
+        Parameters :math:`A^{nm}_{\alpha}` of the bosonic expansion for
+        :math:`\boldsymbol{S}^+_{\mu,\alpha}`.
+    B : (M) list of :py:class:`.PolynomialParameter`
+        Parameters :math:`B^{nm}_{\alpha}` of the bosonic expansion for
+        :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
+    spin_values : (M) iterable
+        Values of atom's spins, i.e. ``atoms["spins"]``.
+    spin_directions : (M, 3) |array-like|_
+        Directions of spin vectors. Only directions of vectors are used, modulus is
+        ignored.
+
+    Returns
+    -------
+    v : (M) list of :py:class:`.PolynomialParameter`
+        Vector parameters :math:`\boldsymbol{v}^{nm}_{\alpha}`.
+    """
+
+    v = [PolynomialParameter() for _ in range(len(spin_values))]
+
+    for index in range(len(spin_values)):
+        x_a, y_a, z_a = span_local_rf(spin_directions[index])
+        p_a = x_a + 1j * y_a
+        nmax = max(A.nmax, B.nmax)
+
+        for n in range(nmax + 1):
+            for m in range(n + 1):
+                v[n, m] = np.conjugate(p_a) / 2 * A[n, m] + p_a / 2 * B[n, m]
+
+                if n == 0 and m == 0:
+                    v[n, m] = v[n, m] + z_a * spin_values[index]
+
+                if n == 2 and m == 1:
+                    v[n, m] = v[n, m] - z_a
+
+    return v
 
 
 # Populate __all__ with objects defined in this file

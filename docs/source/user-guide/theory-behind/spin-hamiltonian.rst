@@ -95,21 +95,22 @@ However, internally and as a part of public API magnopy stores the Hamiltonian i
 
 .. include:: ../../core-formulas/spin-hamiltonian-expanded.inc
 
-Expanded form is more convenient as the terms with the same amount of spins, but
-different number of unique sites can represent distinct physical properties or
-interactions. Moreover, often the numerical constants before the sum for those terms
-are different. For example, the on-site quadratic anisotropy is often written with
-:math:`C_{2,1} = \pm1` and bilinear exchange interaction with :math:`C_{2,2} = \pm1/2`.
-Both of them describe interaction with two spins, however, it is impossible to write
-them in the same form with one constant :math:`C_2` without modification of the
-parameters themselves.
+Expanded form look monstrous, but it is more convenient as the terms with the same
+amount of spins, but different number of unique sites can represent distinct physical
+properties or interactions. Moreover, often the numerical constants before the sum for
+those terms are different. For example, the on-site quadratic anisotropy is often
+written with :math:`C_{2,1} = \pm1` and bilinear exchange interaction with
+:math:`C_{2,2} = \pm1/2`. Both of them describe interaction with two spins, however, it
+is impossible to write them in the same form with one constant :math:`C_2` without
+modification of the parameters themselves.
 
 Magnopy can read this spin Hamiltonian from (TODO supported sources) automatically,
 taking into account the notation of the Hamiltonian of each source. Real constants
-:math:`C_1`, :math:`C_{2,1}`, :math:`C_{2,2}`, :math:`C_{4,1}`, :math:`C_{4,2,1}`,
-:math:`C_{4,2,2}`, :math:`C_{4,3}`, :math:`C_{4,4}` allow magnopy to support **any**
-notation of the spin Hamiltonian. To read more about what defines the notation of the
-spin Hamiltonian go :ref:`here <user-guide_theory-behind_notation>`.
+:math:`C_1`, :math:`C_{2,1}`, :math:`C_{2,2}`, :math:`C_{3,1}`, :math:`C_{3,2}`,
+:math:`C_{3,3}`, :math:`C_{4,1}`, :math:`C_{4,2,1}`, :math:`C_{4,2,2}`, :math:`C_{4,3}`,
+:math:`C_{4,4}` allow magnopy to support **any** notation of the spin Hamiltonian. To
+read more about what defines the notation of the spin Hamiltonian go
+:ref:`here <user-guide_theory-behind_notation>`.
 
 In the :py:class:`.SpinHamiltonian` class, that is used to store the parameters of the
 Hamiltonian, each term is referenced by the numerical indices of the constants. For
@@ -135,7 +136,8 @@ Linear coupling with the magnetic field is usually written as
     \mu_B\boldsymbol{h}\sum_{\mu,\alpha} g_a \boldsymbol{S}_{\mu, \alpha}
 
 This term can be written as the first term of the expanded form if one define
-:math:`C_1 = 1` and :math:`\boldsymbol{J}_{\alpha} = \mu_B\boldsymbol{h} g_a`.
+:math:`C_1 = 1` and
+:math:`\boldsymbol{J}_1(\boldsymbol{r}_{\alpha}) = \mu_B\boldsymbol{h} g_a`.
 
 On-site anisotropy
 ------------------
@@ -158,7 +160,7 @@ This Hamiltonian can be written as the second term of the expanded form if one d
 :math:`C_{2,1} = 1` and
 
 .. math::
-    \boldsymbol{J}(\boldsymbol{r}_{\alpha})
+    \boldsymbol{J}_{2,1}(\boldsymbol{r}_{\alpha})
     =
     \begin{pmatrix}
         K^x & 0 & 0 \\
@@ -196,7 +198,7 @@ This Hamiltonian can be written as the third term of the expanded form if one de
 :math:`C_{2,1} = 1/2` and
 
 .. math::
-    J(\boldsymbol{r}_{\nu,\alpha\beta})
+    J_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})
     =
     \begin{pmatrix}
         J^{iso}(\boldsymbol{r}_{\nu,\alpha\beta}) & D^z(\boldsymbol{r}_{\nu,\alpha\beta}) & -D^y(\boldsymbol{r}_{\nu,\alpha\beta}) \\
@@ -221,8 +223,8 @@ Isotropic biquadratic exchange interaction can be written as
 
 This Hamiltonian can be written as the sixth term of the expanded form is one defines
 :math:`C_{4,2,2} = 1` and defining tensor
-:math:`\boldsymbol{J_2}(\boldsymbol{r}_{\nu,\alpha\beta})` such as
-:math:`J_2^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}) = J(\boldsymbol{r}_{\nu,\alpha\beta})`
+:math:`\boldsymbol{J}_{4,2,2}(\boldsymbol{r}_{\nu,\alpha\beta})` such as
+:math:`J_{4,2,2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}) = J(\boldsymbol{r}_{\nu,\alpha\beta})`
 if  :math:`(klij)` is one of
 
 .. math::

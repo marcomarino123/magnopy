@@ -73,14 +73,18 @@ set automatically.
 The Notation in magnopy is implemented in the form of the small :py:class:`.Notation`
 class and is fully defined by the following
 
-*   ``c1``, ``c21``, ``c22``, ``c41``, ``c421``, ``c422``, ``c43``, ``c44``
+*   ``c1``, ``c21``, ``c22``, ``c31``, ``c32``, ``c33``, ``c41``, ``c421``, ``c422``,
+    ``c43``, ``c44``
 
-    Eight constants of the expanded form of the spin Hamiltonian
+    Eleven constants of the expanded form of the spin Hamiltonian
 
     .. math::
         C_1 \qquad
         C_{2,1} \qquad
         C_{2,2} \qquad
+        C_{3,1} \qquad
+        C_{3,2} \qquad
+        C_{3,3} \\
         C_{4,1} \qquad
         C_{4,2,1} \qquad
         C_{4,2,2} \qquad

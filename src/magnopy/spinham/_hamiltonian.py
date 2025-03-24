@@ -181,18 +181,29 @@ class SpinHamiltonian:
         # [[atom1, atom2, ijk2, parameter], ...]
         self._2_2 = []
 
-        # TODO
-        # # [[atom, parameter], ...]
-        # self._4_1 = []
+        # [[atom, parameter], ...]
+        self._3_1 = []
 
-        # # [[atom1, atom2, ijk2, parameter], ...]
-        # self._4_2 = []
+        # [[atom1, atom2, ijk2, parameter], ...]
+        self._3_2 = []
 
-        # # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
-        # self._4_3 = []
+        # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
+        self._3_3 = []
 
-        # # [[atom1, atom2, atom3, atom4, ijk2, ijk3, ijk4, parameter], ...]
-        # self._4_4 = []
+        # [[atom, parameter], ...]
+        self._4_1 = []
+
+        # [[atom1, atom2, ijk2, parameter], ...]
+        self._4_2_1 = []
+
+        # [[atom1, atom2, ijk2, parameter], ...]
+        self._4_2_2 = []
+
+        # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
+        self._4_3 = []
+
+        # [[atom1, atom2, atom3, atom4, ijk2, ijk3, ijk4, parameter], ...]
+        self._4_4 = []
 
     ################################################################################
     #                                Cell and Atoms                                #
@@ -326,7 +337,7 @@ class SpinHamiltonian:
     @property
     def p1(self) -> list:
         r"""
-        Parameters of (one spin & one site) term of the hamiltonian.
+        Parameters of (one spin & one site) term of the Hamiltonian.
 
         Returns
         -------
@@ -349,13 +360,13 @@ class SpinHamiltonian:
 
         Notes
         -----
-        Parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})` of the term
+        Parameters :math:`\boldsymbol{J}_1(\boldsymbol{r}_{\alpha})` of the term
 
         .. math::
 
             C_1
             \sum_{\substack{\mu, \\ \alpha \\ k}}
-            J^k(\boldsymbol{r}_{\alpha})
+            J_1^k(\boldsymbol{r}_{\alpha})
             S_{\mu,\alpha}^k
         """
 
@@ -446,7 +457,7 @@ class SpinHamiltonian:
     @property
     def p21(self) -> list:
         r"""
-        Parameters of (two spins & one site) term of the hamiltonian.
+        Parameters of (two spins & one site) term of the Hamiltonian.
 
         Returns
         -------
@@ -469,13 +480,13 @@ class SpinHamiltonian:
 
         Notes
         -----
-        Parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})` of the term
+        Parameters :math:`\boldsymbol{J}_{2,1}(\boldsymbol{r}_{\alpha})` of the term
 
         .. math::
 
             C_{2,1}
             \sum_{\substack{\mu, \\ \alpha, \\ k,l}}
-            J^{kl}(\boldsymbol{r}_{\alpha})
+            J^{kl}_{2,1}(\boldsymbol{r}_{\alpha})
             S_{\mu,\alpha}^k
             S_{\mu,\alpha}^l
         """
@@ -568,7 +579,7 @@ class SpinHamiltonian:
     @property
     def p22(self):
         r"""
-        Parameters of (two spins & two sites) term of the hamiltonian.
+        Parameters of (two spins & two sites) term of the Hamiltonian.
 
         Returns
         -------
@@ -591,13 +602,13 @@ class SpinHamiltonian:
 
         Notes
         -----
-        Parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta})` of the term
+        Parameters :math:`\boldsymbol{J}_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})` of the term
 
         .. math::
 
             C_{2,2}
             \sum_{\substack{\mu,\nu, \\ \alpha, \beta, \\ k,l}}
-            J^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
+            J^{kl}_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})
             S_{\mu,\alpha}^k
             S_{\mu+\nu,\beta}^l
         """
@@ -771,6 +782,1049 @@ class SpinHamiltonian:
                 return
 
     ################################################################################
+    #                            Three spins & one site                            #
+    ################################################################################
+
+    @property
+    def p31(self):
+        r"""
+        Parameters of (three spins & one site) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i, J], ...]
+
+            where ``i`` is an index of the atom from (0,0,0) unit cell ``J`` is a
+            (3, 3, 3) :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_3_1
+        remove_3_1
+
+
+        Notes
+        -----
+        Parameters :math:`\boldsymbol{J}_{3, 1}(\boldsymbol{r}_{\alpha})` of the term
+
+        .. math::
+
+            C_{3, 1}
+            \sum_{\substack{\mu, \\ \alpha, \\ k,l,i}}
+            J_{3, 1}^{kli}(\boldsymbol{r}_{\alpha})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
+            S_{\mu,\alpha}^i
+        """
+
+        raise NotImplementedError
+
+    def add_3_1(self, atom: int, parameter, replace=False) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+
+        Parameters
+        ----------
+        atom : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        parameter : (3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p31
+        remove_3_1
+        """
+
+        _validate_index(index=atom, atoms=self.atoms)
+        parameter = np.array(parameter)
+
+        raise NotImplementedError
+
+    def remove_3_1(self, atom: int) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        Parameters
+        ----------
+        atom : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom < len(spinham.atoms.names)``.
+
+        See Also
+        --------
+        p31
+        add_3_1
+        """
+
+        _validate_index(index=atom, atoms=self.atoms)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                            Three spins & two sites                           #
+    ################################################################################
+
+    @property
+    def p32(self):
+        r"""
+        Parameters of (three spins & two sites) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i1, i2, ijk, J], ...]
+
+            where ``i1`` is an index of the atom from (0,0,0) unit cell; ``i2`` is an
+            index of the atom from (i, j, k) unit cell; ``ijk`` defines (i, j, k) unit
+            cell; ``J`` is a (3, 3, 3) :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_3_2
+        remove_3_2
+
+
+        Notes
+        -----
+        Parameters :math:`\boldsymbol{J}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})` of
+        the term
+
+        .. math::
+
+            C_{3, 2}
+            \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i}}
+            J_{3, 2}^{kli}(\boldsymbol{r}_{\nu,\alpha\beta})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
+            S_{\mu+\nu,\beta}^i
+        """
+
+        raise NotImplementedError
+
+    def add_3_2(
+        self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
+    ) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``.Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``.Specifies atom from
+            (i, j, k) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        parameter : (3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p32
+        remove_3_2
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        parameter = np.array(parameter)
+
+        raise NotImplementedError
+
+    def remove_3_2(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i, j, k) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+
+        See Also
+        --------
+        p32
+        add_3_2
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                           Three spins & three sites                          #
+    ################################################################################
+
+    @property
+    def p33(self):
+        r"""
+        Parameters of (three spins & three sites) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i1, i2, i3, ijk2, ijk3, J], ...]
+
+            where ``i1`` is an index of the atom from (0,0,0) unit cell; ``i2`` is an
+            index of the atom from (i2, j2, k2) unit cell; ``i3`` is an
+            index of the atom from (i3, j3, k3) unit cell; ``ijk2`` defines (i2, j2, k2)
+            unit cell; ``ijk3`` defines (i3, j3, k3) unit cell; ``J`` is a (3, 3, 3)
+            :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_3_3
+        remove_3_3
+
+
+        Notes
+        -----
+        Parameters
+        :math:`\boldsymbol{J}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})`
+        of the term
+
+        .. math::
+
+            C_{3, 3}
+            \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i}}
+            J_{3, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+            S_{\mu,\alpha}^k
+            S_{\mu+\nu,\beta}^l
+            S_{\mu+\lambda,\gamma}^i
+        """
+
+        raise NotImplementedError
+
+    def add_3_3(
+        self,
+        atom1: int,
+        atom2: int,
+        atom3: int,
+        ijk2: tuple,
+        ijk3: tuple,
+        parameter,
+        replace=False,
+    ) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i2, j2, k2) unit cell
+        atom3 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom3 < len(spinham.atoms.names)``. Specifies atom from
+            (i3, j3, k3) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        ijk3 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the third atom.
+        parameter : (3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p33
+        remove_3_3
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_index(index=atom3, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        _validate_ijk(ijk=ijk3)
+
+        raise NotImplementedError
+
+    def remove_3_3(
+        self, atom1: int, atom2: int, atom3: int, ijk2: tuple, ijk3: tuple
+    ) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom3 < len(spinham.atoms.names)``. Specifies atom from
+            (i2, j2, k2) unit cell
+        atom3 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i3, j3, k3) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        ijk3 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the third atom.
+
+        See Also
+        --------
+        p33
+        add_3_3
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_index(index=atom3, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        _validate_ijk(ijk=ijk3)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                             Four spins & one site                            #
+    ################################################################################
+
+    @property
+    def p41(self):
+        r"""
+        Parameters of (four spins & one site) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i, J], ...]
+
+            where ``i`` is an index of the atom from (0,0,0) unit cell ``J`` is a
+            (3, 3, 3, 3) :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_4_1
+        remove_4_1
+
+
+        Notes
+        -----
+        Parameters :math:`\boldsymbol{J}_{4, 1}(\boldsymbol{r}_{\alpha})` of the term
+
+        .. math::
+
+            C_{4, 1}
+            \sum_{\substack{\mu, \\ \alpha, \\ k,l,i,j}}
+            J_{4, 1}^{kli}(\boldsymbol{r}_{\alpha})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
+            S_{\mu,\alpha}^i
+            S_{\mu,\alpha}^j
+        """
+
+        raise NotImplementedError
+
+    def add_4_1(self, atom: int, parameter, replace=False) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+
+        Parameters
+        ----------
+        atom : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        parameter : (3, 3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p41
+        remove_4_1
+        """
+
+        _validate_index(index=atom, atoms=self.atoms)
+        parameter = np.array(parameter)
+
+        raise NotImplementedError
+
+    def remove_4_1(self, atom: int) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        Parameters
+        ----------
+        atom : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom < len(spinham.atoms.names)``.
+
+        See Also
+        --------
+        p41
+        add_4_1
+        """
+
+        _validate_index(index=atom, atoms=self.atoms)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                         Four spins & two sites (1+3)                         #
+    ################################################################################
+
+    @property
+    def p421(self):
+        r"""
+        Parameters of (four spins & two sites (1+3)) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i1, i2, ijk, J], ...]
+
+            where ``i1`` is an index of the atom from (0,0,0) unit cell; ``i2`` is an
+            index of the atom from (i, j, k) unit cell; ``ijk`` defines (i, j, k) unit
+            cell; ``J`` is a (3, 3, 3, 3) :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_4_2_1
+        remove_4_2_1
+
+
+        Notes
+        -----
+        Parameters :math:`\boldsymbol{J}_{4, 2, 1}(\boldsymbol{r}_{\nu,\alpha\beta})` of
+        the term
+
+        .. math::
+
+            C_{4, 2, 1}
+            \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i,j}}
+            J_{4, 2, 1}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
+            S_{\mu,\alpha}^i
+            S_{\mu+\nu,\beta}^j
+        """
+
+        raise NotImplementedError
+
+    def add_4_2_1(
+        self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
+    ) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``.Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``.Specifies atom from
+            (i, j, k) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        parameter : (3, 3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p421
+        remove_4_2_1
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        parameter = np.array(parameter)
+
+        raise NotImplementedError
+
+    def remove_4_2_1(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i, j, k) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+
+        See Also
+        --------
+        p421
+        add_4_2_1
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                         Four spins & two sites (2+2)                         #
+    ################################################################################
+
+    @property
+    def p422(self):
+        r"""
+        Parameters of (four spins & two sites (2+2)) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i1, i2, ijk, J], ...]
+
+            where ``i1`` is an index of the atom from (0,0,0) unit cell; ``i2`` is an
+            index of the atom from (i, j, k) unit cell; ``ijk`` defines (i, j, k) unit
+            cell; ``J`` is a (3, 3, 3, 3) :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_4_2_2
+        remove_4_2_2
+
+
+        Notes
+        -----
+        Parameters :math:`\boldsymbol{J}_{4, 2, 2}(\boldsymbol{r}_{\nu,\alpha\beta})` of
+        the term
+
+        .. math::
+
+            C_{4, 2, 2}
+            \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i,j}}
+            J_{4, 2, 2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
+            S_{\mu+\nu,\beta}^i
+            S_{\mu+\nu,\beta}^j
+        """
+
+        raise NotImplementedError
+
+    def add_4_2_2(
+        self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
+    ) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``.Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``.Specifies atom from
+            (i, j, k) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        parameter : (3, 3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p422
+        remove_4_2_2
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        parameter = np.array(parameter)
+
+        raise NotImplementedError
+
+    def remove_4_2_2(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i, j, k) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+
+        See Also
+        --------
+        p422
+        add_4_2_2
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                           Four spins & three sites                           #
+    ################################################################################
+
+    @property
+    def p43(self):
+        r"""
+        Parameters of (four spins & three sites) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i1, i2, i3, ijk2, ijk3, J], ...]
+
+            where ``i1`` is an index of the atom from (0,0,0) unit cell; ``i2`` is an
+            index of the atom from (i2, j2, k2) unit cell; ``i3`` is an
+            index of the atom from (i3, j3, k3) unit cell; ``ijk2`` defines (i2, j2, k2)
+            unit cell; ``ijk3`` defines (i3, j3, k3) unit cell; ``J`` is a (3, 3, 3, 3)
+            :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_4_3
+        remove_4_3
+
+
+        Notes
+        -----
+        Parameters
+        :math:`\boldsymbol{J}_{4, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})`
+        of the term
+
+        .. math::
+
+            C_{4, 3}
+            \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i,j}}
+            J_{4, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+            S_{\mu,\alpha}^k
+            S_{\mu,\alpha}^l
+            S_{\mu+\nu,\beta}^i
+            S_{\mu+\lambda,\gamma}^j
+        """
+
+        raise NotImplementedError
+
+    def add_4_3(
+        self,
+        atom1: int,
+        atom2: int,
+        atom3: int,
+        ijk2: tuple,
+        ijk3: tuple,
+        parameter,
+        replace=False,
+    ) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i2, j2, k2) unit cell
+        atom3 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom3 < len(spinham.atoms.names)``. Specifies atom from
+            (i3, j3, k3) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        ijk3 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the third atom.
+        parameter : (3, 3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p43
+        remove_4_3
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_index(index=atom3, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        _validate_ijk(ijk=ijk3)
+
+        raise NotImplementedError
+
+    def remove_4_3(
+        self, atom1: int, atom2: int, atom3: int, ijk2: tuple, ijk3: tuple
+    ) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i2, j2, k2) unit cell
+        atom3 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom3 < len(spinham.atoms.names)``. Specifies atom from
+            (i3, j3, k3) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        ijk3 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the third atom.
+
+        See Also
+        --------
+        p43
+        add_4_3
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_index(index=atom3, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        _validate_ijk(ijk=ijk3)
+
+        raise NotImplementedError
+
+    ################################################################################
+    #                            Four spins & four sites                           #
+    ################################################################################
+
+    @property
+    def p44(self):
+        r"""
+        Parameters of (four spins & three sites) term of the Hamiltonian.
+
+        Returns
+        -------
+        parameters : iterator
+            List of parameters. The list has a format of
+
+            .. code-block:: python
+
+                [[i1, i2, i3, i4, ijk2, ijk3, ijk4, J], ...]
+
+            where ``i1`` is an index of the atom from (0,0,0) unit cell; ``i2`` is an
+            index of the atom from (i2, j2, k2) unit cell; ``i3`` is an
+            index of the atom from (i3, j3, k3) unit cell; ``ijk2`` defines (i2, j2, k2)
+            unit cell; ``ijk3`` defines (i3, j3, k3) unit cell; ``ijk4`` defines (i4,
+            j4, k4) unit cell; ``J`` is a (3, 3, 3, 3) :numpy:`ndarray`.
+
+        See Also
+        --------
+        add_4_4
+        remove_4_4
+
+
+        Notes
+        -----
+        Parameters
+        :math:`\boldsymbol{J}_{4, 4}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})`
+        of the term
+
+        .. math::
+
+            C_{4, 4}
+            \sum_{\substack{\mu,\nu,\lambda,\rho, \\ \alpha,\beta,\gamma,\varepsilon, \\ k,l,i,j}}
+            J_{4, 4}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
+            S_{\mu,\alpha}^k
+            S_{\mu+\nu,\beta}^l
+            S_{\mu+\lambda,\gamma}^i
+            S_{\mu+\rho,\varepsilon}^j
+        """
+
+        raise NotImplementedError
+
+    def add_4_4(
+        self,
+        atom1: int,
+        atom2: int,
+        atom3: int,
+        atom4: int,
+        ijk2: tuple,
+        ijk3: tuple,
+        ijk4: tuple,
+        parameter,
+        replace=False,
+    ) -> None:
+        r"""
+        Adds a parameter to the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i2, j2, k2) unit cell
+        atom3 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom3 < len(spinham.atoms.names)``. Specifies atom from
+            (i3, j3, k3) unit cell
+        atom4 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom4 < len(spinham.atoms.names)``. Specifies atom from
+            (i4, j4, k4) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        ijk3 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the third atom.
+        ijk4 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the fourth atom.
+        parameter : (3, 3, 3, 3) |array-like|_
+            Full matrix of the parameter.
+        replace : bool, default False
+            Whether to replace the parameter if it is already present in the Hamiltonian.
+
+        See Also
+        --------
+        p44
+        remove_4_4
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_index(index=atom3, atoms=self.atoms)
+        _validate_index(index=atom4, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        _validate_ijk(ijk=ijk3)
+        _validate_ijk(ijk=ijk4)
+
+        raise NotImplementedError
+
+    def remove_4_4(
+        self,
+        atom1: int,
+        atom2: int,
+        atom3: int,
+        atom4: int,
+        ijk2: tuple,
+        ijk3: tuple,
+        ijk4: tuple,
+    ) -> None:
+        r"""
+        Removes a parameter from the Hamiltonian.
+
+        TODO
+
+        Parameters
+        ----------
+        atom1 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom1 < len(spinham.atoms.names)``. Specifies atom from
+            (0, 0, 0) unit cell
+        atom2 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom2 < len(spinham.atoms.names)``. Specifies atom from
+            (i2, j2, k2) unit cell
+        atom3 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom3 < len(spinham.atoms.names)``. Specifies atom from
+            (i3, j3, k3) unit cell
+        atom4 : int
+            Atom index, that should be consistent with the amount of ``spinham.atoms``,
+            i.e. ``0 <= atom4 < len(spinham.atoms.names)``. Specifies atom from
+            (i4, j4, k4) unit cell
+        ijk2 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the second atom.
+        ijk3 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the third atom.
+        ijk4 : tuple of 3 int
+            Three indices along three lattice vectors, that specify the unit cell of
+            the fourth atom.
+
+        See Also
+        --------
+        p44
+        add_4_4
+
+        Notes
+        -----
+        TODO
+        """
+
+        _validate_index(index=atom1, atoms=self.atoms)
+        _validate_index(index=atom2, atoms=self.atoms)
+        _validate_index(index=atom3, atoms=self.atoms)
+        _validate_index(index=atom4, atoms=self.atoms)
+        _validate_ijk(ijk=ijk2)
+        _validate_ijk(ijk=ijk3)
+        _validate_ijk(ijk=ijk4)
+
+        raise NotImplementedError
+
+    ################################################################################
     #                             Notation properties                              #
     ################################################################################
     @property
@@ -794,8 +1848,17 @@ class SpinHamiltonian:
         self._set_c1(new_notation._c1)
 
         self._set_c21(new_notation._c21)
-
         self._set_c22(new_notation._c22)
+
+        self._set_c31(new_notation._c31)
+        self._set_c32(new_notation._c32)
+        self._set_c33(new_notation._c33)
+
+        self._set_c41(new_notation._c41)
+        self._set_c421(new_notation._c421)
+        self._set_c422(new_notation._c422)
+        self._set_c43(new_notation._c43)
+        self._set_c44(new_notation._c44)
 
         self._notation = new_notation
 
@@ -906,6 +1969,94 @@ class SpinHamiltonian:
         # If factor is changing one need to scale parameters.
         for index in range(len(self._2_2)):
             self._2_2[index][3] = self._2_2[index][3] * self.notation.c22 / new_c22
+
+    def _set_c31(self, new_c31: float) -> None:
+        if new_c31 is None or self.notation._c31 is None:
+            return
+
+        new_c31 = float(new_c31)
+
+        if self.notation.c31 == new_c31:
+            return
+
+        raise NotImplementedError
+
+    def _set_c32(self, new_c32: float) -> None:
+        if new_c32 is None or self.notation._c32 is None:
+            return
+
+        new_c32 = float(new_c32)
+
+        if self.notation.c32 == new_c32:
+            return
+
+        raise NotImplementedError
+
+    def _set_c33(self, new_c33: float) -> None:
+        if new_c33 is None or self.notation._c33 is None:
+            return
+
+        new_c33 = float(new_c33)
+
+        if self.notation.c33 == new_c33:
+            return
+
+        raise NotImplementedError
+
+    def _set_c41(self, new_c41: float) -> None:
+        if new_c41 is None or self.notation._c41 is None:
+            return
+
+        new_c41 = float(new_c41)
+
+        if self.notation.c41 == new_c41:
+            return
+
+        raise NotImplementedError
+
+    def _set_c421(self, new_c421: float) -> None:
+        if new_c421 is None or self.notation._c421 is None:
+            return
+
+        new_c421 = float(new_c421)
+
+        if self.notation.c421 == new_c421:
+            return
+
+        raise NotImplementedError
+
+    def _set_c422(self, new_c422: float) -> None:
+        if new_c422 is None or self.notation._c422 is None:
+            return
+
+        new_c422 = float(new_c422)
+
+        if self.notation.c422 == new_c422:
+            return
+
+        raise NotImplementedError
+
+    def _set_c43(self, new_c43: float) -> None:
+        if new_c43 is None or self.notation._c43 is None:
+            return
+
+        new_c43 = float(new_c43)
+
+        if self.notation.c43 == new_c43:
+            return
+
+        raise NotImplementedError
+
+    def _set_c44(self, new_c44: float) -> None:
+        if new_c44 is None or self.notation._c44 is None:
+            return
+
+        new_c44 = float(new_c44)
+
+        if self.notation.c44 == new_c44:
+            return
+
+        raise NotImplementedError
 
     ################################################################################
     #                                  Copy getter                                 #
@@ -1142,6 +2293,8 @@ class SpinHamiltonian:
             else:
                 self._2_2[index][0] = new_indices[atom1]
                 self._2_2[index][1] = new_indices[atom2]
+
+        # TODO take care of the rest of the terms
 
 
 class _P22_iterator:

@@ -147,8 +147,9 @@ def solve_via_colpa(D, sort=True):
         U = U[:, np.argsort(U[0])]
         L = U[0, ::-1]
         U = U[1:, ::-1]
-
-    E = g @ L
+        E = g @ L
+    else:
+        E = np.abs(L)
 
     G_minus_one = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
 

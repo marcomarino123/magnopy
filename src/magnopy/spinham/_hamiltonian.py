@@ -1650,7 +1650,7 @@ class SpinHamiltonian:
     @property
     def p44(self):
         r"""
-        Parameters of (four spins & three sites) term of the Hamiltonian.
+        Parameters of (four spins & four sites) term of the Hamiltonian.
 
         Returns
         -------

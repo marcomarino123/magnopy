@@ -35,27 +35,28 @@ impossible to give, as we do not know two important facts:
 Each of those questions has two answers and together we have four different possible
 answers for the energy per unit cell:
 
-* (1) :math:`E = 6` meV if bonds are counted twice and spins are normalized;
-* (2) :math:`E = 13.5` meV if bonds are counted twice and spins are not normalized;
-* (3) :math:`E = 3` meV if bonds are counted once and spins are normalized;
-* (4) :math:`E = 6.75` meV if bonds are counted once and spins are not normalized.
+
+(1) :math:`E = 6` meV if bonds are counted twice and spins are normalized;
+(2) :math:`E = 13.5` meV if bonds are counted twice and spins are not normalized;
+(3) :math:`E = 3` meV if bonds are counted once and spins are normalized;
+(4) :math:`E = 6.75` meV if bonds are counted once and spins are not normalized.
 
 If one add the freedom of writing the constant before the sum, then the amount of
-different answers will be even more. Often in the literature the same Hamiltonian is
+different answers will be even larger. Often in the literature the same Hamiltonian is
 written with :math:`\pm 1` or :math:`\pm 1/2` in front of the sum.
 
 Therefore, set of parameters, without the *knowledge of the notation* of spin
 Hamiltonian is not enough to define it. At the same time is does not matter in what
 notation the Hamiltonian is written if the parameters are *correctly converted to it*.
-In other words, energy of the system does not depend on the just on the notation or just
-on the parameters. It depend on the both parameters **and** notation.
+In other words, energy of the system does not depend just on the notation or just
+on the parameters. It depend on the both **parameters and notation**.
 
-For example if the Hamiltonian above is given for the notation (1) with
-:math:`J_{\nu} = 1`. Then for the remaining three notations the parameters should be
+If the Hamiltonian above is given for the notation (1) with :math:`J_{\nu} = 1` meV. Then
+for the remaining three notations the parameters should be
 
-* (2) :math:`J_{\nu} = 6/13.5`, then :math:`E = 6`;
-* (3) :math:`J_{\nu} = 2`, then :math:`E = 6`;
-* (4) :math:`J_{\nu} = 6/6.75`, then :math:`E = 6`.
+(2) :math:`J_{\nu} = 6/13.5` meV, then :math:`E = 6` meV;
+(3) :math:`J_{\nu} = 2` meV, then :math:`E = 6` meV;
+(4) :math:`J_{\nu} = 6/6.75` meV, then :math:`E = 6` meV.
 
 If the pair of the parameters and notation is specified correctly, then the energy of
 the system does not depend on it.
@@ -64,11 +65,11 @@ Magnopy's approach
 ==================
 
 Magnopy does not give preference to any notation, supports each one of them and
-implements conversion between any pair of notations. Magnopy was written to handle
-everything that concerns notation of the Hamiltonian automatically. User only have to
-specify the notation upon the creation of spin Hamiltonian. If the Hamiltonian is read
-from the know source (TODO put examples), then the notation of this source is known and
-set automatically.
+implements conversion between any pair of notations. Magnopy was written to
+automatically handle everything that concerns notation of the Hamiltonian. User only
+have to specify the notation upon the creation of spin Hamiltonian. If the Hamiltonian
+is read from the know source (i.e. |TB2J|_, GROGU), then the notation of this source is
+known and set automatically.
 
 The Notation in magnopy is implemented in the form of the small :py:class:`.Notation`
 class and is fully defined by the following

@@ -5,13 +5,13 @@
     \sum_{\substack{\mu, \\ \alpha \\ k}}
     J_1^k(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^k
-    +
+    +\\&+
     C_{2,1}
     \sum_{\substack{\mu, \\ \alpha, \\ k,l}}
     J_{2,1}^{kl}(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^k
     S_{\mu,\alpha}^l
-    +
+    +\\&+
     C_{2,2}
     \sum_{\substack{\mu,\nu, \\ \alpha, \beta, \\ k,l}}
     J_{2,2}^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})

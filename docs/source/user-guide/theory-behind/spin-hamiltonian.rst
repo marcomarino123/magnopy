@@ -79,7 +79,9 @@ at most four linearly coupled spins
             :align: center
 
 The parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})`,
-:math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta})` and
+:math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta})`,
+:math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})`
+and
 :math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})`
 can describe either some external effect or internal interactions between spins. The
 Hamiltonian above is discussed and solved  in the (TODO) research paper about magnopy.
@@ -119,8 +121,8 @@ example, to have access to the third term (two spins & two sites) one can use
 should use :py:meth:`.SpinHamiltonian.add_2_2` and
 :py:meth:`.SpinHamiltonian.remove_2_2`.
 
-Common terms
-============
+Examples
+========
 
 In this part we show how the common terms of the spin Hamiltonian can be written in the
 expanded form.
@@ -135,7 +137,7 @@ Linear coupling with the magnetic field is usually written as
     =
     \mu_B\boldsymbol{h}\sum_{\mu,\alpha} g_a \boldsymbol{S}_{\mu, \alpha}
 
-This term can be written as the first term of the expanded form if one define
+This term can be written as the first term of the expanded form if one defines
 :math:`C_1 = 1` and
 :math:`\boldsymbol{J}_1(\boldsymbol{r}_{\alpha}) = \mu_B\boldsymbol{h} g_a`.
 
@@ -171,8 +173,8 @@ This Hamiltonian can be written as the second term of the expanded form if one d
 Exchange interaction
 --------------------
 
-Bilinear exchange interaction with isotropic and Dzyaloshinskii-Moriya interaction
-(DMI) exchange can be written as
+Bilinear exchange interaction with isotropic and Dzyaloshinskii-Moriya (DM) exchange can
+be written as
 
 .. math::
     \mathcal{H}
@@ -193,8 +195,8 @@ Bilinear exchange interaction with isotropic and Dzyaloshinskii-Moriya interacti
     \boldsymbol{S}_{\mu+\nu,\beta})
     \Bigr]
 
-where :math:`\boldsymbol{D}(\boldsymbol{r}_{\nu,\alpha\beta})` is a DMI vector.
-This Hamiltonian can be written as the third term of the expanded form if one defines
+where :math:`\boldsymbol{D}(\boldsymbol{r}_{\nu,\alpha\beta})` is a DM vector. This
+Hamiltonian can be written as the third term of the expanded form if one defines
 :math:`C_{2,1} = 1/2` and
 
 .. math::
@@ -221,8 +223,8 @@ Isotropic biquadratic exchange interaction can be written as
     \cdot
     \boldsymbol{S}_{\mu+\nu,\beta})^2
 
-This Hamiltonian can be written as the sixth term of the expanded form is one defines
-:math:`C_{4,2,2} = 1` and defining tensor
+This Hamiltonian can be written as the ninth term of the expanded form is one defines
+:math:`C_{4,2,2} = 1` and tensor
 :math:`\boldsymbol{J}_{4,2,2}(\boldsymbol{r}_{\nu,\alpha\beta})` such as
 :math:`J_{4,2,2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}) = J(\boldsymbol{r}_{\nu,\alpha\beta})`
 if  :math:`(klij)` is one of
@@ -234,4 +236,4 @@ if  :math:`(klij)` is one of
     (zxzx), & (zyzy), & (yyyy)
     \end{matrix}
 
-and zero otherwise.
+and :math:`J_{4,2,2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}) = 0` otherwise.

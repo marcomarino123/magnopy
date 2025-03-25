@@ -101,10 +101,10 @@ class and is fully defined by the following
 *   ``multiple_counting``
 
     Whether bonds are counted multiple times. This property does not affect first,
-    second and fourth terms of the expanded form.
+    second, fourth and seventh terms of the expanded form.
 
     This property is responsible for the double counting from the example. However, for
-    the terms with more than two spins the equivalent bonds may be counter not twice,
+    the terms with more than two spins the equivalent bonds are counter not twice,
     but more times. That is why we do not name this property as "double counting".
 
 

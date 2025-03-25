@@ -82,7 +82,7 @@ Keys recognized by magnopy:
 *   "g_factors" :
     ``list`` of ``float``.
 
-As you can see, magnopy extends the definition of ``atoms`` from |wulfric|_, therefore,
+Magnopy extends the definition of ``atoms`` from |wulfric|_, therefore,
 any function of |wulfric|_ may be used on it.
 
 .. _user-guide_usage_key-concepts_notation:
@@ -110,7 +110,15 @@ that define notation in one data structure.
       * Spin vectors are not normalized;
       * c1 = 1.0;
       * c21 = 1.0;
-      * Undefined c22 factor.
+      * Undefined c22 factor;
+      * Undefined c31 factor;
+      * Undefined c32 factor;
+      * Undefined c33 factor;
+      * Undefined c41 factor;
+      * Undefined c421 factor;
+      * Undefined c422 factor;
+      * Undefined c43 factor;
+      * Undefined c44 factor.
 
 Notation is meant to be static, therefore the properties of the notation can not be changed
 
@@ -137,14 +145,30 @@ popular codes
       * Spin vectors are normalized to 1;
       * Undefined c1 factor;
       * c21 = -1.0;
-      * c22 = -1.0.
+      * c22 = -1.0;
+      * Undefined c31 factor;
+      * Undefined c32 factor;
+      * Undefined c33 factor;
+      * Undefined c41 factor;
+      * Undefined c421 factor;
+      * Undefined c422 factor;
+      * Undefined c43 factor;
+      * Undefined c44 factor.
     >>> vampire_notation.summary()
     vampire notation where
       * Bonds are counted multiple times in the sum;
       * Spin vectors are normalized to 1;
       * Undefined c1 factor;
       * c21 = -1.0;
-      * c22 = -0.5.
+      * c22 = -0.5;
+      * Undefined c31 factor;
+      * Undefined c32 factor;
+      * Undefined c33 factor;
+      * Undefined c41 factor;
+      * Undefined c421 factor;
+      * Undefined c422 factor;
+      * Undefined c43 factor;
+      * Undefined c44 factor.
 
 To see all supported codes see :py:meth:`.spinham.Notation.get_predefined`.
 

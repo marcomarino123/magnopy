@@ -48,6 +48,22 @@ class Notation:
         Numerical factor before the (two spins & one site) term of the Hamiltonian.
     c22 : float, optional
         Numerical factor before the (two spins & two sites) term of the Hamiltonian.
+    c31 : float, optional
+        Numerical factor before the (three spins & one site) term of the Hamiltonian.
+    c32 : float, optional
+        Numerical factor before the (three spins & two sites) term of the Hamiltonian.
+    c33 : float, optional
+        Numerical factor before the (three spins & three sites) term of the Hamiltonian.
+    c41 : float, optional
+        Numerical factor before the (four spins & one site) term of the Hamiltonian.
+    c421 : float, optional
+        Numerical factor before the (four spins & two sites & 1+3) term of the Hamiltonian.
+    c422 : float, optional
+        Numerical factor before the (four spins & two sites & 2+2) term of the Hamiltonian.
+    c43 : float, optional
+        Numerical factor before the (four spins & three sites) term of the Hamiltonian.
+    c44 : float, optional
+        Numerical factor before the (four spins & four sites) term of the Hamiltonian.
     name : str, default "custom"
         A label for the notation. Any string, case-insensitive.
 
@@ -73,7 +89,15 @@ class Notation:
           * Spin vectors are normalized to 1;
           * Undefined c1 factor;
           * Undefined c21 factor;
-          * c22 = -0.5.
+          * c22 = -0.5;
+          * Undefined c31 factor;
+          * Undefined c32 factor;
+          * Undefined c33 factor;
+          * Undefined c41 factor;
+          * Undefined c421 factor;
+          * Undefined c422 factor;
+          * Undefined c43 factor;
+          * Undefined c44 factor.
         >>> n3.name
         'custom'
 
@@ -85,6 +109,14 @@ class Notation:
         "_c1",
         "_c21",
         "_c22",
+        "_c31",
+        "_c32",
+        "_c33",
+        "_c41",
+        "_c421",
+        "_c422",
+        "_c43",
+        "_c44",
         "_name",
     )
 
@@ -95,6 +127,14 @@ class Notation:
         c1: float = None,
         c21: float = None,
         c22: float = None,
+        c31: float = None,
+        c32: float = None,
+        c33: float = None,
+        c41: float = None,
+        c421: float = None,
+        c422: float = None,
+        c43: float = None,
+        c44: float = None,
         name: str = "custom",
     ) -> None:
         if multiple_counting is not None:
@@ -122,6 +162,46 @@ class Notation:
         else:
             self._c22 = None
 
+        if c31 is not None:
+            self._c31 = float(c31)
+        else:
+            self._c31 = None
+
+        if c32 is not None:
+            self._c32 = float(c32)
+        else:
+            self._c32 = None
+
+        if c33 is not None:
+            self._c33 = float(c33)
+        else:
+            self._c33 = None
+
+        if c41 is not None:
+            self._c41 = float(c41)
+        else:
+            self._c41 = None
+
+        if c421 is not None:
+            self._c421 = float(c421)
+        else:
+            self._c421 = None
+
+        if c422 is not None:
+            self._c422 = float(c422)
+        else:
+            self._c422 = None
+
+        if c43 is not None:
+            self._c43 = float(c43)
+        else:
+            self._c43 = None
+
+        if c44 is not None:
+            self._c44 = float(c44)
+        else:
+            self._c44 = None
+
         self._name = str(name).lower()
 
     def summary(self, return_as_string=False):
@@ -147,7 +227,15 @@ class Notation:
               * Spin vectors are normalized to 1;
               * Undefined c1 factor;
               * c21 = 1.0;
-              * c22 = -0.5.
+              * c22 = -0.5;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * Undefined c33 factor;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
         """
 
         summary = [f"{self.name} notation where"]
@@ -166,20 +254,64 @@ class Notation:
         else:
             summary.append("  * Spin vectors are not normalized;")
 
+        # One spin
         if self._c1 is None:
             summary.append("  * Undefined c1 factor;")
         else:
             summary.append(f"  * c1 = {self._c1};")
 
+        # Two spins
         if self._c21 is None:
             summary.append("  * Undefined c21 factor;")
         else:
             summary.append(f"  * c21 = {self._c21};")
 
         if self._c22 is None:
-            summary.append("  * Undefined c22 factor.")
+            summary.append("  * Undefined c22 factor;")
         else:
-            summary.append(f"  * c22 = {self._c22}.")
+            summary.append(f"  * c22 = {self._c22};")
+
+        # Three spins
+        if self._c31 is None:
+            summary.append("  * Undefined c31 factor;")
+        else:
+            summary.append(f"  * c31 = {self._c31};")
+
+        if self._c32 is None:
+            summary.append("  * Undefined c32 factor;")
+        else:
+            summary.append(f"  * c32 = {self._c32};")
+
+        if self._c33 is None:
+            summary.append("  * Undefined c33 factor;")
+        else:
+            summary.append(f"  * c33 = {self._c33};")
+
+        # Four spins
+        if self._c41 is None:
+            summary.append("  * Undefined c41 factor;")
+        else:
+            summary.append(f"  * c41 = {self._c41};")
+
+        if self._c421 is None:
+            summary.append("  * Undefined c421 factor;")
+        else:
+            summary.append(f"  * c421 = {self._c421};")
+
+        if self._c422 is None:
+            summary.append("  * Undefined c422 factor;")
+        else:
+            summary.append(f"  * c422 = {self._c422};")
+
+        if self._c43 is None:
+            summary.append("  * Undefined c43 factor;")
+        else:
+            summary.append(f"  * c43 = {self._c43};")
+
+        if self._c44 is None:
+            summary.append("  * Undefined c44 factor.")
+        else:
+            summary.append(f"  * c44 = {self._c44}.")
 
         summary = ("\n").join(summary)
 
@@ -200,6 +332,9 @@ class Notation:
     def name(self, new_value: str):
         self._name = str(new_value).lower()
 
+    ################################################################################
+    #                               Multiple counting                              #
+    ################################################################################
     @property
     def multiple_counting(self) -> bool:
         r"""
@@ -211,6 +346,16 @@ class Notation:
             raise NotationError(notation=self, property="multiple_counting")
         return self._multiple_counting
 
+    @multiple_counting.setter
+    def multiple_counting(self, new_value: bool):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    ################################################################################
+    #                            Normalization of spins                            #
+    ################################################################################
     @property
     def spin_normalized(self) -> bool:
         r"""
@@ -222,6 +367,16 @@ class Notation:
             raise NotationError(notation=self, property="spin_normalized")
         return self._spin_normalized
 
+    @spin_normalized.setter
+    def spin_normalized(self, new_value: bool):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    ################################################################################
+    #                                   One spin                                   #
+    ################################################################################
     @property
     def c1(self) -> float:
         r"""
@@ -231,6 +386,16 @@ class Notation:
             raise NotationError(notation=self, property="c1")
         return self._c1
 
+    @c1.setter
+    def c1(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    ################################################################################
+    #                                   Two spins                                  #
+    ################################################################################
     @property
     def c21(self) -> float:
         r"""
@@ -239,6 +404,13 @@ class Notation:
         if self._c21 is None:
             raise NotationError(notation=self, property="c21")
         return self._c21
+
+    @c21.setter
+    def c21(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
 
     @property
     def c22(self) -> float:
@@ -249,36 +421,142 @@ class Notation:
             raise NotationError(notation=self, property="c22")
         return self._c22
 
-    @multiple_counting.setter
-    def multiple_counting(self, new_value: bool):
-        raise AttributeError(
-            "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of SpinHamiltonian class to change notation."
-        )
-
-    @spin_normalized.setter
-    def spin_normalized(self, new_value: bool):
-        raise AttributeError(
-            "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of SpinHamiltonian class to change notation."
-        )
-
-    @c1.setter
-    def c1(self, new_value: float):
-        raise AttributeError(
-            "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of SpinHamiltonian class to change notation."
-        )
-
-    @c21.setter
-    def c21(self, new_value: float):
-        raise AttributeError(
-            "It is intentionally forbidden to set properties of notation. "
-            "Use correct methods of SpinHamiltonian class to change notation."
-        )
-
     @c22.setter
     def c22(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    ################################################################################
+    #                                  Three spins                                 #
+    ################################################################################
+    @property
+    def c31(self) -> float:
+        r"""
+        Numerical factor before the (three spins & one site) sum of the Hamiltonian.
+        """
+        if self._c31 is None:
+            raise NotationError(notation=self, property="c31")
+        return self._c31
+
+    @c31.setter
+    def c31(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @property
+    def c32(self) -> float:
+        r"""
+        Numerical factor before the (three spins & two sites) sum of the Hamiltonian.
+        """
+        if self._c32 is None:
+            raise NotationError(notation=self, property="c32")
+        return self._c32
+
+    @c32.setter
+    def c32(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @property
+    def c33(self) -> float:
+        r"""
+        Numerical factor before the (three spins & three sites) sum of the Hamiltonian.
+        """
+        if self._c33 is None:
+            raise NotationError(notation=self, property="c33")
+        return self._c33
+
+    @c33.setter
+    def c33(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    ################################################################################
+    #                                  Four spins                                  #
+    ################################################################################
+    @property
+    def c41(self) -> float:
+        r"""
+        Numerical factor before the (four spins & one site) sum of the Hamiltonian.
+        """
+        if self._c41 is None:
+            raise NotationError(notation=self, property="c41")
+        return self._c41
+
+    @c41.setter
+    def c41(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @property
+    def c421(self) -> float:
+        r"""
+        Numerical factor before the (four spins & two sites (1+3)) sum of the Hamiltonian.
+        """
+        if self._c421 is None:
+            raise NotationError(notation=self, property="c421")
+        return self._c421
+
+    @c421.setter
+    def c421(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @property
+    def c422(self) -> float:
+        r"""
+        Numerical factor before the (four spins & two sites (2+2)) sum of the Hamiltonian.
+        """
+        if self._c422 is None:
+            raise NotationError(notation=self, property="c422")
+        return self._c422
+
+    @c422.setter
+    def c422(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @property
+    def c43(self) -> float:
+        r"""
+        Numerical factor before the (four spins & three sites) sum of the Hamiltonian.
+        """
+        if self._c43 is None:
+            raise NotationError(notation=self, property="c43")
+        return self._c43
+
+    @c43.setter
+    def c43(self, new_value: float):
+        raise AttributeError(
+            "It is intentionally forbidden to set properties of notation. "
+            "Use correct methods of SpinHamiltonian class to change notation."
+        )
+
+    @property
+    def c44(self) -> float:
+        r"""
+        Numerical factor before the (four spins & four sites) sum of the Hamiltonian.
+        """
+        if self._c44 is None:
+            raise NotationError(notation=self, property="c44")
+        return self._c44
+
+    @c44.setter
+    def c44(self, new_value: float):
         raise AttributeError(
             "It is intentionally forbidden to set properties of notation. "
             "Use correct methods of SpinHamiltonian class to change notation."
@@ -295,6 +573,14 @@ class Notation:
             and self._c1 == other._c1
             and self._c21 == other._c21
             and self._c22 == other._c22
+            and self._c31 == other._c31
+            and self._c32 == other._c32
+            and self._c33 == other._c33
+            and self._c41 == other._c41
+            and self._c421 == other._c421
+            and self._c422 == other._c422
+            and self._c43 == other._c43
+            and self._c44 == other._c44
         )
 
     @staticmethod
@@ -330,7 +616,15 @@ class Notation:
               * Spin vectors are normalized to 1;
               * Undefined c1 factor;
               * c21 = -1.0;
-              * c22 = -1.0.
+              * c22 = -1.0;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * Undefined c33 factor;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
             >>> spinW = magnopy.spinham.Notation.get_predefined("spinW")
             >>> spinW.summary()
             spinw notation where
@@ -338,7 +632,15 @@ class Notation:
               * Spin vectors are not normalized;
               * Undefined c1 factor;
               * c21 = 1.0;
-              * c22 = 1.0.
+              * c22 = 1.0;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * Undefined c33 factor;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
             >>> vampire = magnopy.spinham.Notation.get_predefined("Vampire")
             >>> vampire.summary()
             vampire notation where
@@ -346,7 +648,15 @@ class Notation:
               * Spin vectors are normalized to 1;
               * Undefined c1 factor;
               * c21 = -1.0;
-              * c22 = -0.5.
+              * c22 = -0.5;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * Undefined c33 factor;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
         """
 
         name = name.lower()
@@ -360,6 +670,14 @@ class Notation:
             spin_normalized=_NOTATIONS[name][1],
             c21=_NOTATIONS[name][2],
             c22=_NOTATIONS[name][3],
+            c31=_NOTATIONS[name][4],
+            c32=_NOTATIONS[name][5],
+            c33=_NOTATIONS[name][6],
+            c41=_NOTATIONS[name][7],
+            c421=_NOTATIONS[name][8],
+            c422=_NOTATIONS[name][9],
+            c43=_NOTATIONS[name][10],
+            c44=_NOTATIONS[name][11],
         )
 
 

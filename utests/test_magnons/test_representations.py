@@ -23,7 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.magnons._representations import PolynomialParameter, _span_local_rf
+from magnopy.magnons._representations import PolynomialParameter, span_local_rf
 
 
 @given(st.integers(), st.integers())
@@ -52,7 +52,7 @@ def test_PolynomialParameter():
 def test_span_local_rf_along_z():
     direction = [0, 0, 1]
 
-    x_a, y_a, z_a = _span_local_rf(direction)
+    x_a, y_a, z_a = span_local_rf(direction)
 
     assert np.allclose(x_a, [1, 0, 0])
     assert np.allclose(y_a, [0, 1, 0])
@@ -62,7 +62,7 @@ def test_span_local_rf_along_z():
 def test_span_local_rf_opposite_z():
     direction_vector = [0, 0, -1]
 
-    x_a, y_a, z_a = _span_local_rf(direction_vector)
+    x_a, y_a, z_a = span_local_rf(direction_vector)
 
     assert np.allclose(x_a, [0, -1, 0])
     assert np.allclose(y_a, [-1, 0, 0])
@@ -79,10 +79,10 @@ def test_span_local_rf_opposite_z():
 def test_span_local_rf(direction_vector):
     if np.allclose(direction_vector, np.zeros(3)):
         with pytest.raises(ValueError):
-            x_a, y_a, z_a = _span_local_rf(direction_vector)
+            x_a, y_a, z_a = span_local_rf(direction_vector)
 
     else:
-        x_a, y_a, z_a = _span_local_rf(direction_vector)
+        x_a, y_a, z_a = span_local_rf(direction_vector)
 
         assert np.linalg.det([x_a, y_a, z_a]) > 0.0
 

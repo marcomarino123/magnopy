@@ -2,7 +2,7 @@
   \mathcal{H}
   \approx
   \Bigl(
-  E_0 + E_0^{(2)}
+  E^{(0)} + E^{(2)}
   \Bigr)
   +
   \sum_{\alpha}

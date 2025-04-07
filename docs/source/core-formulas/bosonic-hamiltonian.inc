@@ -5,6 +5,9 @@
   E^{(0)} + E^{(2)}
   \Bigr)
   +
+  \sum_{\boldsymbol{k}}
+  \Delta(\boldsymbol{k})
+  +
   \sum_{\alpha}
   \sum_{\boldsymbol{k}\in 1^{st} BZ}
   \omega_{\alpha}(\boldsymbol{k})

@@ -27,7 +27,7 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def solve_via_colpa(D, sort=True):
+def solve_via_colpa(D):
     r"""
     Diagonalize grand-dynamical matrix following the method of Colpa [1]_.
 
@@ -81,19 +81,17 @@ def solve_via_colpa(D, sort=True):
                 \boldsymbol{\Delta_1} & \boldsymbol{\Delta_2} \\
                 \boldsymbol{\Delta_3} & \boldsymbol{\Delta_4}
             \end{pmatrix}
-    sort : bool, default True
-        Whether to sort the diagonalized eigenvalues and transformation matrix. If
-        ``True``, then first N eigenvalues are sorted in descending order. Last N
-        eigenvalues are sorted in ascending order. In the case of diagonalization of
-        the magnon Hamiltonian first N eigenvalues are the same as last N eigenvalues,
-        but in reversed order.
-
     Returns
     -------
     E : (2N,) :numpy:`ndarray`
         The eigenvalues.
         It is an array of the diagonal elements of the
-        diagonal matrix :math:`\boldsymbol{E}` from the diagonalized Hamiltonian.
+        diagonal matrix :math:`\boldsymbol{E}` from the diagonalized Hamiltonian. The
+        eigenvalues are sorted in descending order before the multiplication by the
+        paraunitary matrix. Therefore, first N elements correspond to the
+        :math:`b^{\dagger}(\boldsymbol{k})b(\boldsymbol{k})` and last N elements - to
+        the :math:`b(-\boldsymbol{k})b^{\dagger}(-\boldsymbol{k})`.
+
 
     G : (2N, 2N) :numpy:`ndarray`
         Transformation matrix, which changes the basis from the original set of bosonic
@@ -103,6 +101,8 @@ def solve_via_colpa(D, sort=True):
         .. math::
 
             \boldsymbol{\cal B} = \boldsymbol{G} \boldsymbol{\cal A}
+
+        The rows are ordered in the same way as the eigenvalues.
 
     Raises
     ------
@@ -142,14 +142,11 @@ def solve_via_colpa(D, sort=True):
     L, U = np.linalg.eig(K @ g @ np.conjugate(K).T)
 
     # Sort with respect to L, in descending order
-    if sort:
-        U = np.concatenate((L[:, None], U.T), axis=1).T
-        U = U[:, np.argsort(U[0])]
-        L = U[0, ::-1]
-        U = U[1:, ::-1]
-        E = g @ L
-    else:
-        E = np.abs(L)
+    U = np.concatenate((L[:, None], U.T), axis=1).T
+    U = U[:, np.argsort(U[0])]
+    L = U[0, ::-1]
+    U = U[1:, ::-1]
+    E = g @ L
 
     G_minus_one = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
 

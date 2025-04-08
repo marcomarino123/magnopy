@@ -2089,13 +2089,16 @@ class SpinHamiltonian:
         Returns
         -------
         magnetic_atoms : list of int
-            Indices of magnetic atoms in the ``spinham.atoms``.
+            Indices of magnetic atoms in the ``spinham.atoms``. Sorted.
 
         See Also
         --------
         M
         """
         indices = set()
+
+        for atom, _ in self._1:
+            indices.add(atom)
 
         for atom, _ in self._2_1:
             indices.add(atom)
@@ -2104,7 +2107,9 @@ class SpinHamiltonian:
             indices.add(atom1)
             indices.add(atom2)
 
-        return list(indices)
+        # TODO three and four spin terms
+
+        return sorted(list(indices))
 
     @property
     def M(self):

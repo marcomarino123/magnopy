@@ -44,11 +44,12 @@ def get_classical_energy(spinham, spin_directions) -> float:
     energy = 0
     spin_directions = np.array(spin_directions, dtype=float)
 
-    index_mapping = spinham.magnetic_atoms
     tmp = 0
     # One spin & one site
     for atom, parameter in spinham.p1:
-        tmp = spinham.notation.c1 * parameter @ spin_directions[index_mapping[atom]]
+        alpha = spinham.index_map[atom]
+
+        tmp = spinham.notation.c1 * parameter @ spin_directions[alpha]
 
         if not spinham.notation.spin_normalized:
             tmp *= spinham.atoms.spins[atom]
@@ -57,11 +58,12 @@ def get_classical_energy(spinham, spin_directions) -> float:
 
     # Two spins & one site
     for atom, parameter in spinham.p21:
+        alpha = spinham.index_map[atom]
         tmp = (
             spinham.notation.c21
-            * spin_directions[index_mapping[atom]]
+            * spin_directions[alpha]
             @ parameter
-            @ spin_directions[index_mapping[atom]]
+            @ spin_directions[alpha]
         )
 
         if not spinham.notation.spin_normalized:
@@ -71,11 +73,13 @@ def get_classical_energy(spinham, spin_directions) -> float:
 
     # Two spins & two sites
     for atom1, atom2, _, parameter in spinham.p22:
+        alpha = spinham.index_map[atom1]
+        beta = spinham.index_map[atom2]
         tmp = (
             spinham.notation.c22
-            * spin_directions[index_mapping[atom1]]
+            * spin_directions[alpha]
             @ parameter
-            @ spin_directions[index_mapping[atom2]]
+            @ spin_directions[beta]
         )
 
         if not spinham.notation.spin_normalized:
@@ -113,13 +117,11 @@ def get_energy_correction_lswt(spinham, spin_directions) -> float:
     energy = 0
     spin_directions = np.array(spin_directions, dtype=float)
 
-    index_mapping = spinham.magnetic_atoms
     tmp = 0
     # One spin & one site
     for atom, parameter in spinham.p1:
-        tmp = (
-            0.5 * spinham.notation.c1 * parameter @ spin_directions[index_mapping[atom]]
-        )
+        alpha = spinham.index_map[atom]
+        tmp = 0.5 * spinham.notation.c1 * parameter @ spin_directions[alpha]
 
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom]
@@ -128,11 +130,12 @@ def get_energy_correction_lswt(spinham, spin_directions) -> float:
 
     # Two spins & one site
     for atom, parameter in spinham.p21:
+        alpha = spinham.index_map[atom]
         tmp = (
             spinham.notation.c21
-            * spin_directions[index_mapping[atom]]
+            * spin_directions[alpha]
             @ parameter
-            @ spin_directions[index_mapping[atom]]
+            @ spin_directions[alpha]
         )
 
         if spinham.notation.spin_normalized:
@@ -144,11 +147,13 @@ def get_energy_correction_lswt(spinham, spin_directions) -> float:
 
     # Two spins & two sites
     for atom1, atom2, _, parameter in spinham.p22:
+        alpha = spinham.index_map[atom1]
+        beta = spinham.index_map[atom2]
         tmp = (
             spinham.notation.c22
-            * spin_directions[index_mapping[atom1]]
+            * spin_directions[alpha]
             @ parameter
-            @ spin_directions[index_mapping[atom2]]
+            @ spin_directions[beta]
         )
 
         if spinham.notation.spin_normalized:

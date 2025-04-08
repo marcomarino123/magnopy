@@ -33,6 +33,7 @@ Local reference frame
     :toctree: generated/
 
     span_local_rf
+    span_local_rfs
 
 Energy of the ground state
 ==========================

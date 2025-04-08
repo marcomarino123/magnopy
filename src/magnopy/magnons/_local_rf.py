@@ -17,8 +17,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from math import factorial, sqrt
-
 import numpy as np
 
 # Save local scope at this moment
@@ -26,7 +24,7 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def span_local_rf(direction_vector):
+def span_local_rf(direction_vector, hybridize=False):
     r"""
     Span local  right-handed reference frame from the direction vector.
 
@@ -34,11 +32,14 @@ def span_local_rf(direction_vector):
     ----------
     direction_vector : (3, ) |array-like|_
         Direction of the z axis of the local reference frame.
+    hybridize : bool, default False
+        Whether to return X_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
 
     Returns
     -------
     x_alpha : (3, ) :numpy:`ndarray`
     y_alpha : (3, ) :numpy:`ndarray`
+    p_alpha : (3, ) : numpy:`ndarray`
     z_alpha : (3, ) :numpy:`ndarray`
     """
 
@@ -92,7 +93,43 @@ def span_local_rf(direction_vector):
         ]
     )
 
+    if hybridize:
+        return x_alpha + 1j * y_alpha, direction_vector
     return x_alpha, y_alpha, direction_vector
+
+
+def span_local_rfs(directional_vectors, hybridize=False):
+    r"""
+    Span local  right-handed reference frames from the direction vectors.
+
+    Parameters
+    ----------
+    direction_vectors : (M, 3) |array-like|_
+        Direction of the z axis of the local reference frames.
+    hybridize : bool, default False
+        Whether to return X_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
+
+    Returns
+    -------
+    x_alphas : (M, 3) :numpy:`ndarray`
+    y_alphas : (M, 3) :numpy:`ndarray`
+    p_alphas : (M, 3) : numpy:`ndarray`
+    z_alphas : (M, 3) :numpy:`ndarray`
+    """
+
+    results = []
+
+    for directional_vector in directional_vectors:
+        results.append(
+            span_local_rf(direction_vector=directional_vector, hybridize=hybridize)
+        )
+
+    results = np.array(results)
+
+    if hybridize:
+        return results[:, 0], results[:, 1]
+
+    return results[:, 0], results[:, 1], results[:, 2]
 
 
 # Populate __all__ with objects defined in this file

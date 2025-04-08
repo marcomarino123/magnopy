@@ -20,6 +20,7 @@
 import numpy as np
 
 from magnopy.magnons._local_rf import span_local_rfs
+from magnopy.magnons._representations import get_hp_newton
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -53,10 +54,11 @@ def get_A(spinham, spin_directions, k, A=None, B=None):
 
     Returns
     -------
-    A_ab : (M, M) :numpy:`ndarray`
+    D_A : (M, M) :numpy:`ndarray`
     """
 
     spin_directions = np.array(spin_directions, dtype=float)
+    spin_values = spinham.magnetic_atoms.spins
     k = np.array(k)
 
     if A is None and B is None:
@@ -68,58 +70,56 @@ def get_A(spinham, spin_directions, k, A=None, B=None):
     if B is None:
         B = A
 
-    p_a, z_a = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
+    p, z = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
 
-    A_ab = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
-
-    index_mapping = spinham.magnetic_atoms
+    D_A = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
 
     # One spin one site
     for atom, parameter in spinham.p1:
-        alpha = index_mapping[atom]
+        alpha = spinham.index_map[atom]
         tmp = -0.5 * spinham.notation.c1 * parameter @ spin_directions[alpha]
 
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom]
 
-        A_ab[alpha][alpha] += tmp
+        D_A[alpha][alpha] += tmp
 
     # Two spins one site
-    for atom, parameter in spinhsm.p21:
-        alpha = index_mapping[atom]
+    for atom, parameter in spinham.p21:
+        alpha = spinham.index_map[atom]
 
         tmp = (
             spinham.notation.c21
             / 4
-            * p_a[alpha]
+            * p[alpha]
             @ parameter
-            @ np.conjugate(p_a[alpha])
+            @ np.conjugate(p[alpha])
             * B[alpha][0]
             * A[alpha][0]
             - spinham.notation.c21
-            * z_a[alpha]
+            * z[alpha]
             @ parameter
-            @ z_a[alpha]
+            @ z[alpha]
             * spinham.atoms.spins[atom]
         )
 
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom] ** 2
 
-        A_ab[alpha][alpha] += tmp
+        D_A[alpha][alpha] += tmp
 
     # Two spins two sites
-    for atom1, atom2, ijk2, parameter in spinhsm.p21:
-        alpha = index_mapping[atom1]
-        beta = index_mapping[atom2]
+    for atom1, atom2, ijk2, parameter in spinham.p22:
+        alpha = spinham.index_map[atom1]
+        beta = spinham.index_map[atom2]
         r_nu = ijk2 @ spinham.cell
 
         tmp1 = (
             spinham.notation.c22
             / 4
-            * p_a[alpha]
+            * p[alpha]
             @ parameter
-            @ np.conjugate(p_a[beta])
+            @ np.conjugate(p[beta])
             * B[alpha][0]
             * A[beta][0]
             * np.exp(-1j * (k @ r_nu))
@@ -127,9 +127,9 @@ def get_A(spinham, spin_directions, k, A=None, B=None):
 
         tmp2 = (
             -spinham.notation.c22
-            * z_a[alpha]
+            * z[alpha]
             @ parameter
-            @ z_a[beta]
+            @ z[beta]
             * spinham.atoms.spins[atom2]
         )
 
@@ -137,10 +137,10 @@ def get_A(spinham, spin_directions, k, A=None, B=None):
             tmp1 /= spinham.atoms.spins[atom1] * spinham.atoms.spins[atom2]
             tmp2 /= spinham.atoms.spins[atom1] * spinham.atoms.spins[atom2]
 
-        A_ab[alpha][beta] += tmp1
-        A_ab[alpha][alpha] += tmp2
+        D_A[alpha][beta] += tmp1
+        D_A[alpha][alpha] += tmp2
 
-    return A_ab
+    return D_A
 
 
 def get_D(spinham, spin_directions, k, A=None, B=None):
@@ -170,10 +170,11 @@ def get_D(spinham, spin_directions, k, A=None, B=None):
 
     Returns
     -------
-    D_ab : (M, M) :numpy:`ndarray`
+    D_D : (M, M) :numpy:`ndarray`
     """
 
     spin_directions = np.array(spin_directions, dtype=float)
+    spin_values = spinham.magnetic_atoms.spins
     k = np.array(k)
 
     if A is None and B is None:
@@ -185,58 +186,56 @@ def get_D(spinham, spin_directions, k, A=None, B=None):
     if B is None:
         B = A
 
-    p_a, z_a = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
+    p, z = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
 
-    D_ab = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
-
-    index_mapping = spinham.magnetic_atoms
+    D_D = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
 
     # One spin one site
     for atom, parameter in spinham.p1:
-        alpha = index_mapping[atom]
+        alpha = spinham.index_map[atom]
         tmp = -0.5 * spinham.notation.c1 * parameter @ spin_directions[alpha]
 
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom]
 
-        D_ab[alpha][alpha] += tmp
+        D_D[alpha][alpha] += tmp
 
     # Two spins one site
-    for atom, parameter in spinhsm.p21:
-        alpha = index_mapping[atom]
+    for atom, parameter in spinham.p21:
+        alpha = spinham.index_map[atom]
 
         tmp = (
             spinham.notation.c21
             / 4
-            * np.conjugate(p_a[alpha])
+            * np.conjugate(p[alpha])
             @ parameter
-            @ p_a[alpha]
+            @ p[alpha]
             * A[alpha][0]
             * B[alpha][0]
             - spinham.notation.c21
-            * z_a[alpha]
+            * z[alpha]
             @ parameter
-            @ z_a[alpha]
+            @ z[alpha]
             * spinham.atoms.spins[atom]
         )
 
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom] ** 2
 
-        D_ab[alpha][alpha] += tmp
+        D_D[alpha][alpha] += tmp
 
     # Two spins two sites
-    for atom1, atom2, ijk2, parameter in spinhsm.p21:
-        alpha = index_mapping[atom1]
-        beta = index_mapping[atom2]
+    for atom1, atom2, ijk2, parameter in spinham.p22:
+        alpha = spinham.index_map[atom1]
+        beta = spinham.index_map[atom2]
         r_nu = ijk2 @ spinham.cell
 
         tmp1 = (
             spinham.notation.c22
             / 4
-            * np.conjugate(p_a[alpha])
+            * np.conjugate(p[alpha])
             @ parameter
-            @ p_a[beta]
+            @ p[beta]
             * A[alpha][0]
             * B[beta][0]
             * np.exp(-1j * (k @ r_nu))
@@ -244,9 +243,9 @@ def get_D(spinham, spin_directions, k, A=None, B=None):
 
         tmp2 = (
             -spinham.notation.c22
-            * z_a[alpha]
+            * z[alpha]
             @ parameter
-            @ z_a[beta]
+            @ z[beta]
             * spinham.atoms.spins[atom2]
         )
 
@@ -254,10 +253,10 @@ def get_D(spinham, spin_directions, k, A=None, B=None):
             tmp1 /= spinham.atoms.spins[atom1] * spinham.atoms.spins[atom2]
             tmp2 /= spinham.atoms.spins[atom1] * spinham.atoms.spins[atom2]
 
-        D_ab[alpha][beta] += tmp1
-        D_ab[alpha][alpha] += tmp2
+        D_D[alpha][beta] += tmp1
+        D_D[alpha][alpha] += tmp2
 
-    return D_ab
+    return D_D
 
 
 def get_B(spinham, spin_directions, k, A=None, B=None):
@@ -287,10 +286,11 @@ def get_B(spinham, spin_directions, k, A=None, B=None):
 
     Returns
     -------
-    B_ab : (M, M) :numpy:`ndarray`
+    D_B : (M, M) :numpy:`ndarray`
     """
 
     spin_directions = np.array(spin_directions, dtype=float)
+    spin_values = spinham.magnetic_atoms.spins
     k = np.array(k)
 
     if A is None and B is None:
@@ -302,24 +302,22 @@ def get_B(spinham, spin_directions, k, A=None, B=None):
     if B is None:
         B = A
 
-    p_a, z_a = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
+    p, z = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
 
-    B_ab = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
-
-    index_mapping = spinham.magnetic_atoms
+    D_B = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
 
     # One spin one site do not contribute
 
     # Two spins one site
-    for atom, parameter in spinhsm.p21:
-        alpha = index_mapping[atom]
+    for atom, parameter in spinham.p21:
+        alpha = spinham.index_map[atom]
 
         tmp = (
             spinham.notation.c21
             / 4
-            * p_a[alpha]
+            * p[alpha]
             @ parameter
-            @ p_a[alpha]
+            @ p[alpha]
             * B[alpha][0]
             * B[alpha][0]
         )
@@ -327,20 +325,20 @@ def get_B(spinham, spin_directions, k, A=None, B=None):
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom] ** 2
 
-        B_ab[alpha][alpha] += tmp
+        D_B[alpha][alpha] += tmp
 
     # Two spins two sites
-    for atom1, atom2, ijk2, parameter in spinhsm.p21:
-        alpha = index_mapping[atom1]
-        beta = index_mapping[atom2]
+    for atom1, atom2, ijk2, parameter in spinham.p22:
+        alpha = spinham.index_map[atom1]
+        beta = spinham.index_map[atom2]
         r_nu = ijk2 @ spinham.cell
 
         tmp = (
             spinham.notation.c22
             / 4
-            * p_a[alpha]
+            * p[alpha]
             @ parameter
-            @ p_a[beta]
+            @ p[beta]
             * B[alpha][0]
             * B[beta][0]
             * np.exp(-1j * (k @ r_nu))
@@ -349,9 +347,9 @@ def get_B(spinham, spin_directions, k, A=None, B=None):
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom1] * spinham.atoms.spins[atom2]
 
-        B_ab[alpha][beta] += tmp
+        D_B[alpha][beta] += tmp
 
-    return B_ab
+    return D_B
 
 
 def get_C(spinham, spin_directions, k, A=None, B=None):
@@ -381,10 +379,11 @@ def get_C(spinham, spin_directions, k, A=None, B=None):
 
     Returns
     -------
-    C_ab : (M, M) :numpy:`ndarray`
+    D_C : (M, M) :numpy:`ndarray`
     """
 
     spin_directions = np.array(spin_directions, dtype=float)
+    spin_values = spinham.magnetic_atoms.spins
     k = np.array(k)
 
     if A is None and B is None:
@@ -396,24 +395,22 @@ def get_C(spinham, spin_directions, k, A=None, B=None):
     if B is None:
         B = A
 
-    p_a, z_a = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
+    p, z = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
 
-    C_ab = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
-
-    index_mapping = spinham.magnetic_atoms
+    D_C = np.zeros((len(spin_directions), len(spin_directions)), dtype=complex)
 
     # One spin one site do not contribute
 
     # Two spins one site
-    for atom, parameter in spinhsm.p21:
-        alpha = index_mapping[atom]
+    for atom, parameter in spinham.p21:
+        alpha = spinham.index_map[atom]
 
         tmp = (
             spinham.notation.c21
             / 4
-            * np.conjugate(p_a[alpha])
+            * np.conjugate(p[alpha])
             @ parameter
-            @ np.conjugate(p_a[alpha])
+            @ np.conjugate(p[alpha])
             * A[alpha][0]
             * A[alpha][0]
         )
@@ -421,20 +418,20 @@ def get_C(spinham, spin_directions, k, A=None, B=None):
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom] ** 2
 
-        C_ab[alpha][alpha] += tmp
+        D_C[alpha][alpha] += tmp
 
     # Two spins two sites
-    for atom1, atom2, ijk2, parameter in spinhsm.p21:
-        alpha = index_mapping[atom1]
-        beta = index_mapping[atom2]
+    for atom1, atom2, ijk2, parameter in spinham.p22:
+        alpha = spinham.index_map[atom1]
+        beta = spinham.index_map[atom2]
         r_nu = ijk2 @ spinham.cell
 
         tmp = (
             spinham.notation.c22
             / 4
-            * np.conjugate(p_a[alpha])
+            * np.conjugate(p[alpha])
             @ parameter
-            @ np.conjugate(p_a[beta])
+            @ np.conjugate(p[beta])
             * A[alpha][0]
             * A[beta][0]
             * np.exp(-1j * (k @ r_nu))
@@ -443,9 +440,9 @@ def get_C(spinham, spin_directions, k, A=None, B=None):
         if spinham.notation.spin_normalized:
             tmp /= spinham.atoms.spins[atom1] * spinham.atoms.spins[atom2]
 
-        C_ab[alpha][beta] += tmp
+        D_C[alpha][beta] += tmp
 
-    return C_ab
+    return D_C
 
 
 def get_GDM(spinham, spin_directions, k, A=None, B=None):
@@ -482,6 +479,8 @@ def get_GDM(spinham, spin_directions, k, A=None, B=None):
     B = get_B(spinham=spinham, spin_directions=spin_directions, k=k, A=A, B=B)
     C = get_C(spinham=spinham, spin_directions=spin_directions, k=k, A=A, B=B)
     D = get_D(spinham=spinham, spin_directions=spin_directions, k=k, A=A, B=B)
+
+    print(A, B, C, D, sep="\n")
 
     left = np.concatenate((A, C), axis=0)
     right = np.concatenate((B, D), axis=0)

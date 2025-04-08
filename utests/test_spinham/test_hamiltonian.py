@@ -349,9 +349,9 @@ def test_remove_atom():
     assert len(spinham._2_2) == 3
     assert len(spinham._2_1) == 1
     assert "Cr1" in spinham.atoms.names
-    assert len(spinham.magnetic_atoms) == 3
+    assert len(spinham.magnetic_atoms.names) == 3
     spinham.remove_atom(0)
-    assert len(spinham.magnetic_atoms) == 2
+    assert len(spinham.magnetic_atoms.names) == 2
     assert len(spinham._2_2) == 1
     assert len(spinham._2_1) == 0
     assert "Cr1" not in spinham.atoms.names

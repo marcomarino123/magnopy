@@ -1,9 +1,9 @@
 .. math::
   \mathcal{H}
   \approx
-  \Bigl(
-  E^{(0)} + E^{(2)}
-  \Bigr)
+  E^{(0)}
+  +
+  E^{(2)}
   +
   \sum_{\boldsymbol{k}}
   \Delta(\boldsymbol{k})

@@ -19,7 +19,7 @@
 
 import pytest
 
-from magnopy.magnons import get_classical_energy
+from magnopy.magnons import get_classical_energy, get_energy_correction_lswt
 from magnopy.spinham import Notation, SpinHamiltonian
 
 
@@ -47,14 +47,21 @@ def test_spin_normalized(spin_normalized):
     target_energy = get_classical_energy(
         spinham=spinham, spin_directions=spin_directions
     )
+    target_energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     spinham.notation = Notation(
         spin_normalized=spin_normalized, multiple_counting=True, c1=1, c21=1, c22=1
     )
 
     energy = get_classical_energy(spinham=spinham, spin_directions=spin_directions)
+    energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     assert abs(energy - target_energy) < 1e-8
+    assert abs(energy_lswt - target_energy_lswt) < 1e-8
 
 
 @pytest.mark.parametrize("multiple_counting", (True, False))
@@ -81,6 +88,9 @@ def test_multiple_counting(multiple_counting):
     target_energy = get_classical_energy(
         spinham=spinham, spin_directions=spin_directions
     )
+    target_energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     spinham.notation = Notation(
         spin_normalized=False,
@@ -91,8 +101,12 @@ def test_multiple_counting(multiple_counting):
     )
 
     energy = get_classical_energy(spinham=spinham, spin_directions=spin_directions)
+    energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     assert abs(energy - target_energy) < 1e-8
+    assert abs(energy_lswt - target_energy_lswt) < 1e-8
 
 
 @pytest.mark.parametrize("c1", (-1, -0.5, 0.5, 1))
@@ -119,14 +133,21 @@ def test_c1(c1):
     target_energy = get_classical_energy(
         spinham=spinham, spin_directions=spin_directions
     )
+    target_energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     spinham.notation = Notation(
         spin_normalized=False, multiple_counting=True, c1=c1, c21=1, c22=1
     )
 
     energy = get_classical_energy(spinham=spinham, spin_directions=spin_directions)
+    energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     assert abs(energy - target_energy) < 1e-8
+    assert abs(energy_lswt - target_energy_lswt) < 1e-8
 
 
 @pytest.mark.parametrize("c21", (-1, -0.5, 0.5, 1))
@@ -153,14 +174,21 @@ def test_c21(c21):
     target_energy = get_classical_energy(
         spinham=spinham, spin_directions=spin_directions
     )
+    target_energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     spinham.notation = Notation(
         spin_normalized=False, multiple_counting=True, c1=1, c21=c21, c22=1
     )
 
     energy = get_classical_energy(spinham=spinham, spin_directions=spin_directions)
+    energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     assert abs(energy - target_energy) < 1e-8
+    assert abs(energy_lswt - target_energy_lswt) < 1e-8
 
 
 @pytest.mark.parametrize("c22", (-1, -0.5, 0.5, 1))
@@ -187,14 +215,21 @@ def test_c22(c22):
     target_energy = get_classical_energy(
         spinham=spinham, spin_directions=spin_directions
     )
+    target_energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     spinham.notation = Notation(
         spin_normalized=False, multiple_counting=True, c1=1, c21=1, c22=c22
     )
 
     energy = get_classical_energy(spinham=spinham, spin_directions=spin_directions)
+    energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     assert abs(energy - target_energy) < 1e-8
+    assert abs(energy_lswt - target_energy_lswt) < 1e-8
 
 
 def test_all_notations():
@@ -220,6 +255,9 @@ def test_all_notations():
     target_energy = get_classical_energy(
         spinham=spinham, spin_directions=spin_directions
     )
+    target_energy_lswt = get_energy_correction_lswt(
+        spinham=spinham, spin_directions=spin_directions
+    )
 
     for spin_normalized in [True, False]:
         for multiple_counting in [True, False]:
@@ -237,5 +275,9 @@ def test_all_notations():
                         energy = get_classical_energy(
                             spinham=spinham, spin_directions=spin_directions
                         )
+                        energy_lswt = get_energy_correction_lswt(
+                            spinham=spinham, spin_directions=spin_directions
+                        )
 
                         assert abs(energy - target_energy) < 1e-8
+                        assert abs(energy_lswt - target_energy_lswt) < 1e-8

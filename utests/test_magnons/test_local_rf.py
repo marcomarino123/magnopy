@@ -23,30 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.magnons._representations import PolynomialParameter, span_local_rf
-
-
-@given(st.integers(), st.integers())
-def test_PolynomialParameter_errors_zeros(n, m):
-    A = PolynomialParameter()
-
-    if n >= 0 and m >= 0 and n >= m:
-        assert A[n, m] == 0.0
-    else:
-        with pytest.raises(ValueError):
-            A[n, m]
-
-
-def test_PolynomialParameter():
-    A = PolynomialParameter()
-
-    assert A.nmax == -1
-
-    A[0, 0] = 1
-    assert A.nmax == 0
-
-    A[2, 1] = 3
-    assert A.nmax == 2
+from magnopy.magnons._local_rf import span_local_rf
 
 
 def test_span_local_rf_along_z():

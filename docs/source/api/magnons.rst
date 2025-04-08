@@ -25,9 +25,14 @@ Bosonic representation
     get_hp_taylor
     get_hp_newton
     get_dyson_maleev
-    PolynomialParameter
+
+Local reference frame
+=====================
+
+.. autosummary::
+    :toctree: generated/
+
     span_local_rf
-    get_vector_parameter
 
 Energy of the ground state
 ==========================

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from math import sqrt
+from math import factorial, sqrt
 
 import numpy as np
 
@@ -26,160 +26,7 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-class PolynomialParameter:
-    r"""
-    Coefficients of polynomial bosonic representation :math:`A^{nm}`
-
-    Syntax ``A[n,m]`` returns value of the parameter :math:`A^{nm}`.
-
-    Syntax ``A[n]`` returns a list with :math:`n+1` parameters
-    :math:`A^{n0}, \dots, A^{nn}`.
-
-    Only syntax ``A[n,m] = 123`` supported for adding parameters.
-
-    Examples
-    --------
-
-    .. doctest::
-
-        >>> import magnopy
-        >>> # Creation does not take any arguments
-        >>> A = magnopy.magnons.PolynomialParameter()
-        >>> # Now all coefficients are zero for any n and m
-        >>> A[0,0]
-        0.0
-        >>> A[2,1]
-        0.0
-        >>> A[1232132, 232131]
-        0.0
-        >>> A[5]
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        >>> # Set value to some parameter
-        >>> A[0,0] = 1
-        >>> A[2,1] = 0.5
-        >>> A[2]
-        [0.0, 0.5, 0.0]
-        >>> A[0]
-        [1]
-        >>> A[0,0]
-        1
-
-    Intended use-case for this class is
-
-    .. doctest::
-
-        >>> for n in range(0, A.nmax + 1):
-        ...     for m in range(0, n + 1):
-        ...         print(n, m, A[n,m])
-        ...
-        0 0 1
-        1 0 0.0
-        1 1 0.0
-        2 0 0.0
-        2 1 0.5
-        2 2 0.0
-
-    """
-
-    def __init__(self):
-        self._data = []
-
-    def __getitem__(self, key):
-        if isinstance(key, int):
-            if key < 0:
-                raise ValueError("n < 0")
-
-            if key >= len(self._data):
-                return [0.0 for i in range(key + 1)]
-
-            max_m = len(self._data[key]) - 1
-
-            if key > max_m:
-                for i in range(max_m, key):
-                    self._data[key].append(0.0)
-
-            return self._data[key]
-
-        n, m = key
-
-        if m > n:
-            raise ValueError("m > n")
-
-        if n < 0:
-            raise ValueError("n < 0")
-
-        if m < 0:
-            raise ValueError("m < 0")
-
-        if n >= len(self._data):
-            return 0.0
-
-        if m >= len(self._data[n]):
-            return 0.0
-
-        return self._data[n][m]
-
-    def __setitem__(self, key, value):
-        n, m = key
-
-        if m > n:
-            raise ValueError("m > n")
-
-        if n < 0:
-            raise ValueError("n < 0")
-
-        if m < 0:
-            raise ValueError("m < 0")
-
-        max_n = len(self._data) - 1
-
-        if n > max_n:
-            for _ in range(max_n, n):
-                self._data.append([])
-
-        max_m = len(self._data[n]) - 1
-
-        if m > max_m:
-            for i in range(max_m, m):
-                self._data[n].append(0.0)
-
-        self._data[n][m] = value
-
-    @property
-    def nmax(self) -> int:
-        r"""
-        Maximum value of n at which the sum is cut.
-
-        Returns
-        -------
-        nmax : int
-
-        Examples
-        --------
-
-        .. doctest::
-
-            >>> import magnopy
-            >>> A = magnopy.magnons.PolynomialParameter()
-            >>> # -1 is intended here, as then range(0, A.nmax + 1) works correctly for
-            >>> # any nmax
-            >>> A.nmax
-            -1
-            >>> A[0,0] = 1
-            >>> A.nmax
-            0
-            >>> A[1,0] = -3.14
-            >>> A.nmax
-            1
-            >>> A[32,0] = -3.14
-            >>> A.nmax
-            32
-        """
-
-        return len(self._data) - 1
-
-
-def get_hp_taylor(spin_values, n=1):
+def get_hp_taylor(spin_values, n_max=1):
     r"""
     Computes A and B for Holstein-primakoff representation with Taylor expansion around
     zero.
@@ -188,62 +35,127 @@ def get_hp_taylor(spin_values, n=1):
     ----------
     spin_values : (M) interable
         Values of atom's spins, i.e. ``atoms["spins"]``.
-    n : int, default 1
-        Maximum allowed amount of the bosonic operators in the representation. Note that
-        ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
+    n_max : int, default 1
+        From the equation (5) of the polynomial expansion. See notes
 
     Returns
     -------
-    A : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`A^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^+_{\mu,\alpha}`.
-    B : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`B^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
+    A : (M, n_max) :numpy:`ndarray`
+        Parameters :math:`A^n_{\alpha}` of the bosonic expansion.
+    B : (M, n_max) :numpy:`ndarray`
+        Parameters :math:`B^n_{\alpha}` of the bosonic expansion.
+
+    Notes
+    -----
+
+    .. math::
+
+        \boldsymbol{S}_{\mu, \alpha}
+        =
+        \sum_{n=0}^{n_{max}}
+        \left(
+        \dfrac{\overline{\boldsymbol{p}_{\alpha}}A^n_{\alpha}}{2}
+        (a_{\mu, \alpha}^{\dagger})^n(a_{\mu, \alpha})^{n+1}
+        +
+        \dfrac{\boldsymbol{p}_{\alpha}B^n_{\alpha}}{2}
+        (a_{\mu, \alpha}^{\dagger})^{n+1}(a_{\mu, \alpha})^n
+        +
+        \boldsymbol{z}_{\alpha}
+        (S_{\alpha} - a^{\dagger}_{\mu, \alpha}a_{\mu, \alpha})
+        \right)
     """
 
-    if n > 1:
-        raise NotImplementedError
+    if n_max < 0:
+        raise ValueError(R"Require n >= 0")
 
-    A = [PolynomialParameter() for _ in range(len(spin_values))]
-    B = [PolynomialParameter() for _ in range(len(spin_values))]
+    if n_max == 0:
+        return [[sqrt(2 * spin_value)] for spin_value in spin_values], [
+            [sqrt(2 * spin_value)] for spin_value in spin_values
+        ]
 
-    for alpha in range(len(spin_values)):
-        A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
-        B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
+    if n_max == 1:
+        return [
+            [sqrt(2 * spin_value), -1 / 2 / sqrt(2 * spin_value)]
+            for spin_value in spin_values
+        ], [
+            [sqrt(2 * spin_value), -1 / 2 / sqrt(2 * spin_value)]
+            for spin_value in spin_values
+        ]
+
+    if n_max > 1:
+        raise NotImplementedError(f"Not implemented for n_max > 1.")
 
 
-def get_hp_newton(spin_values, n=1):
+def get_hp_newton(spin_values, n_max=1):
     r"""
     Computes A and B for Holstein-primakoff representation with Newton expansion.
 
     Parameters
     ----------
-    spin_values : (M) interable
+    spin_values : (M) |array-like|_
         Values of atom's spins, i.e. ``atoms["spins"]``.
-    n : int, default 1
-        Maximum allowed amount of the bosonic operators in the representation. Note that
-        ``n=2k`` and ``n=2k+1`` will give the same result for any :math:`k \ge 0`.
+    n_max : int, default 1
+        From the equation (5) of the polynomial expansion. See notes
 
     Returns
     -------
-    A : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`A^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^+_{\mu,\alpha}`.
-    B : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`B^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
+    A : (M, n_max) :numpy:`ndarray`
+        Parameters :math:`A^n_{\alpha}` of the bosonic expansion.
+    B : (M, n_max) :numpy:`ndarray`
+        Parameters :math:`B^n_{\alpha}` of the bosonic expansion.
+
+    Notes
+    -----
+
+    .. math::
+
+        \boldsymbol{S}_{\mu, \alpha}
+        =
+        \sum_{n=0}^{n_{max}}
+        \left(
+        \dfrac{\overline{\boldsymbol{p}_{\alpha}}A^n_{\alpha}}{2}
+        (a_{\mu, \alpha}^{\dagger})^n(a_{\mu, \alpha})^{n+1}
+        +
+        \dfrac{\boldsymbol{p}_{\alpha}B^n_{\alpha}}{2}
+        (a_{\mu, \alpha}^{\dagger})^{n+1}(a_{\mu, \alpha})^n
+        +
+        \boldsymbol{z}_{\alpha}
+        (S_{\alpha} - a^{\dagger}_{\mu, \alpha}a_{\mu, \alpha})
+        \right)
+
+    .. math::
+        A_{\alpha}^n = B_{\alpha}^n
+        =
+        \sum_{l=0}^{n}
+        \dfrac{(-1)^{n-l}}{l!(n-l)!}
+        \sqrt{2S_{\alpha} - l}
     """
 
-    if n > 1:
-        raise NotImplementedError
+    spin_values = np.array(spin_values)
 
-    A = [PolynomialParameter() for _ in range(len(spin_values))]
-    B = [PolynomialParameter() for _ in range(len(spin_values))]
+    n_max_allowed = 2 * int(spin_values.min())
 
-    for alpha in range(len(spin_values)):
-        A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
-        B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
+    if n_max > n_max_allowed:
+        raise ValueError(f"For given spin_values n_max should be <= {n_max_allowed}.")
+
+    A = []
+    B = []
+    for spin_value in spin_values:
+        A.append([])
+        B.append([])
+        for n in range(int(2 * spin_value)):
+            tmp = 0
+            for l in range(n + 1):
+                tmp += (
+                    (-1) ** (n - l)
+                    * sqrt(2 * spin_value - l)
+                    / factorial(l)
+                    / factorial(n - l)
+                )
+            A[-1].append(tmp)
+            B[-1].append(tmp)
+
+    return A, B
 
 
 def get_dyson_maleev(spin_values, conjugate=False):
@@ -252,157 +164,50 @@ def get_dyson_maleev(spin_values, conjugate=False):
 
     Parameters
     ----------
-    spin_values : (M) interable
+    spin_values : (M) |array-like|_
         Values of atom's spins, i.e. ``atoms["spins"]``.
-    conjugate : bool, default False
-        Whether to return normal or conjugate Dyson-Maleev representation.
-
+    n_max : int, default 1
+        From the equation (5) of the polynomial expansion. See notes
 
     Returns
     -------
-    A : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`A^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^+_{\mu,\alpha}`.
-    B : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`B^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
-    """
+    A : (M, n_max) :numpy:`ndarray`
+        Parameters :math:`A^n_{\alpha}` of the bosonic expansion.
+    B : (M, n_max) :numpy:`ndarray`
+        Parameters :math:`B^n_{\alpha}` of the bosonic expansion.
 
-    A = [PolynomialParameter() for _ in range(len(spin_values))]
-    B = [PolynomialParameter() for _ in range(len(spin_values))]
+    Notes
+    -----
+
+    .. math::
+
+        \boldsymbol{S}_{\mu, \alpha}
+        =
+        \sum_{n=0}^{n_{max}}
+        \left(
+        \dfrac{\overline{\boldsymbol{p}_{\alpha}}A^n_{\alpha}}{2}
+        (a_{\mu, \alpha}^{\dagger})^n(a_{\mu, \alpha})^{n+1}
+        +
+        \dfrac{\boldsymbol{p}_{\alpha}B^n_{\alpha}}{2}
+        (a_{\mu, \alpha}^{\dagger})^{n+1}(a_{\mu, \alpha})^n
+        +
+        \boldsymbol{z}_{\alpha}
+        (S_{\alpha} - a^{\dagger}_{\mu, \alpha}a_{\mu, \alpha})
+        \right)
+    """
 
     if conjugate:
-        for alpha in range(len(spin_values)):
-            # n = 1
-            A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
-            B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
-            # n = 3
-            B[alpha][3, 1] = -1 / sqrt(2 * spin_values[alpha])
+        return [[sqrt(2 * spin_value), 0] for spin_value in spin_values], [
+            [sqrt(2 * spin_value), -1 / sqrt(2 * spin_value)]
+            for spin_value in spin_values
+        ]
     else:
-        for alpha in range(len(spin_values)):
-            # n = 1
-            A[alpha][1, 1] = sqrt(2 * spin_values[alpha])
-            B[alpha][1, 0] = sqrt(2 * spin_values[alpha])
-
-            # n = 3
-            A[alpha][3, 2] = -1 / sqrt(2 * spin_values[alpha])
+        return [
+            [sqrt(2 * spin_value), -1 / sqrt(2 * spin_value)]
+            for spin_value in spin_values
+        ], [[sqrt(2 * spin_value), 0] for spin_value in spin_values]
 
     return A, B
-
-
-def span_local_rf(direction_vector):
-    r"""
-    Span local  right-handed reference frame from the direction vector.
-
-    Parameters
-    ----------
-    direction_vector : (3, ) |array-like|_
-        Direction of the z axis of the local reference frame.
-
-    Returns
-    -------
-    x_alpha : (3, ) :numpy:`ndarray`
-    y_alpha : (3, ) :numpy:`ndarray`
-    z_alpha : (3, ) :numpy:`ndarray`
-    """
-
-    direction_vector = np.array(direction_vector, dtype=float)
-
-    if np.allclose(direction_vector, np.zeros(3)):
-        raise ValueError("Zero vector.")
-
-    direction_vector /= np.linalg.norm(direction_vector)
-
-    if np.allclose(direction_vector, [0, 0, 1]):
-        return np.array(
-            [
-                [1, 0, 0],
-                [0, 1, 0],
-                [0, 0, 1],
-            ],
-            dtype=float,
-        )
-
-    if np.allclose(direction_vector, [0, 0, -1]):
-        return np.array(
-            [
-                [0, -1, 0],
-                [-1, 0, 0],
-                [0, 0, -1],
-            ],
-            dtype=float,
-        )
-
-    z_dir = [0, 0, 1]
-
-    sin_rot_angle = np.linalg.norm(np.cross(z_dir, direction_vector))
-    cos_rot_angle = np.dot(direction_vector, z_dir)
-    # direction_vector and z_dir are unit vectors
-    ux, uy, uz = np.cross(z_dir, direction_vector) / sin_rot_angle
-
-    x_alpha = np.array(
-        [
-            ux**2 * (1 - cos_rot_angle) + cos_rot_angle,
-            ux * uy * (1 - cos_rot_angle) + uz * sin_rot_angle,
-            ux * uz * (1 - cos_rot_angle) - uy * sin_rot_angle,
-        ]
-    )
-
-    y_alpha = np.array(
-        [
-            ux * uy * (1 - cos_rot_angle) - uz * sin_rot_angle,
-            uy**2 * (1 - cos_rot_angle) + cos_rot_angle,
-            uy * uz * (1 - cos_rot_angle) + ux * sin_rot_angle,
-        ]
-    )
-
-    return x_alpha, y_alpha, direction_vector
-
-
-def get_vector_parameter(A, B, spin_values, spin_directions):
-    r"""
-    Computes :math:`\boldsymbol{v}^{nm}_{\alpha}`.
-
-    Parameters
-    ----------
-    A : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`A^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^+_{\mu,\alpha}`.
-    B : (M) list of :py:class:`.PolynomialParameter`
-        Parameters :math:`B^{nm}_{\alpha}` of the bosonic expansion for
-        :math:`\boldsymbol{S}^-_{\mu,\alpha}`.
-    spin_values : (M) iterable
-        Values of atom's spins, i.e. ``atoms["spins"]``.
-    spin_directions : (M, 3) |array-like|_
-        Directions of spin vectors. Only directions of vectors are used, modulus is
-        ignored.
-
-    Returns
-    -------
-    v : (M) list of :py:class:`.PolynomialParameter`
-        Vector parameters :math:`\boldsymbol{v}^{nm}_{\alpha}`.
-    """
-
-    v = [PolynomialParameter() for _ in range(len(spin_values))]
-
-    for alpha in range(len(spin_values)):
-        x_a, y_a, z_a = span_local_rf(spin_directions[alpha])
-        p_a = x_a + 1j * y_a
-        nmax = max(A[alpha].nmax, B[alpha].nmax)
-
-        for n in range(nmax + 1):
-            for m in range(n + 1):
-                v[alpha][n, m] = (
-                    np.conjugate(p_a) / 2 * A[alpha][n, m] + p_a / 2 * B[alpha][n, m]
-                )
-
-                if n == 0 and m == 0:
-                    v[alpha][n, m] = v[alpha][n, m] + z_a * spin_values[alpha]
-
-                if n == 2 and m == 1:
-                    v[alpha][n, m] = v[alpha][n, m] - z_a
-
-    return v
 
 
 # Populate __all__ with objects defined in this file

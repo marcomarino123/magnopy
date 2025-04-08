@@ -19,4 +19,5 @@
 
 from ._diagonalization import *
 from ._energy import *
+from ._local_rf import *
 from ._representations import *

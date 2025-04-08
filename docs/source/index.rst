@@ -31,8 +31,8 @@ of the form
 
 where
 
-* :math:`E_0` is a classical energy of the ground state.
-* :math:`E_0^{(2)}` is a quantum correction to the ground state energy arising from the
+* :math:`E^{(0)}` is a classical energy of the ground state.
+* :math:`E^{(2)}` is a quantum correction to the ground state energy arising from the
   Linear Spin Wave Theory (LSWT).
 * :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion relation that is computed
   at the level of LSWT.

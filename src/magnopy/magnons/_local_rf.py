@@ -51,47 +51,36 @@ def span_local_rf(direction_vector, hybridize=False):
     direction_vector /= np.linalg.norm(direction_vector)
 
     if np.allclose(direction_vector, [0, 0, 1]):
-        return np.array(
+        x_alpha = np.array([1, 0, 0], dtype=float)
+        y_alpha = np.array([0, 1, 0], dtype=float)
+        z_alpha = np.array([0, 0, 1], dtype=float)
+    elif np.allclose(direction_vector, [0, 0, -1]):
+        x_alpha = np.array([0, -1, 0], dtype=float)
+        y_alpha = np.array([-1, 0, 0], dtype=float)
+        z_alpha = np.array([0, 0, -1], dtype=float)
+    else:
+        z_dir = [0, 0, 1]
+
+        sin_rot_angle = np.linalg.norm(np.cross(z_dir, direction_vector))
+        cos_rot_angle = np.dot(direction_vector, z_dir)
+        # direction_vector and z_dir are unit vectors
+        ux, uy, uz = np.cross(z_dir, direction_vector) / sin_rot_angle
+
+        x_alpha = np.array(
             [
-                [1, 0, 0],
-                [0, 1, 0],
-                [0, 0, 1],
-            ],
-            dtype=float,
+                ux**2 * (1 - cos_rot_angle) + cos_rot_angle,
+                ux * uy * (1 - cos_rot_angle) + uz * sin_rot_angle,
+                ux * uz * (1 - cos_rot_angle) - uy * sin_rot_angle,
+            ]
         )
 
-    if np.allclose(direction_vector, [0, 0, -1]):
-        return np.array(
+        y_alpha = np.array(
             [
-                [0, -1, 0],
-                [-1, 0, 0],
-                [0, 0, -1],
-            ],
-            dtype=float,
+                ux * uy * (1 - cos_rot_angle) - uz * sin_rot_angle,
+                uy**2 * (1 - cos_rot_angle) + cos_rot_angle,
+                uy * uz * (1 - cos_rot_angle) + ux * sin_rot_angle,
+            ]
         )
-
-    z_dir = [0, 0, 1]
-
-    sin_rot_angle = np.linalg.norm(np.cross(z_dir, direction_vector))
-    cos_rot_angle = np.dot(direction_vector, z_dir)
-    # direction_vector and z_dir are unit vectors
-    ux, uy, uz = np.cross(z_dir, direction_vector) / sin_rot_angle
-
-    x_alpha = np.array(
-        [
-            ux**2 * (1 - cos_rot_angle) + cos_rot_angle,
-            ux * uy * (1 - cos_rot_angle) + uz * sin_rot_angle,
-            ux * uz * (1 - cos_rot_angle) - uy * sin_rot_angle,
-        ]
-    )
-
-    y_alpha = np.array(
-        [
-            ux * uy * (1 - cos_rot_angle) - uz * sin_rot_angle,
-            uy**2 * (1 - cos_rot_angle) + cos_rot_angle,
-            uy * uz * (1 - cos_rot_angle) + ux * sin_rot_angle,
-        ]
-    )
 
     if hybridize:
         return x_alpha + 1j * y_alpha, direction_vector

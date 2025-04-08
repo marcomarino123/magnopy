@@ -36,6 +36,7 @@ where
   Linear Spin Wave Theory (LSWT).
 * :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion relation that is computed
   at the level of LSWT.
+* :math:`\Delta(\boldsymbol{k})` is a ...
 * ...
 
 Magnopy supports Holstein-Primakoff bosonic representation with Taylor or Newton

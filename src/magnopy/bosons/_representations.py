@@ -86,7 +86,7 @@ def get_hp_taylor(spin_values, n_max=1):
         raise NotImplementedError(f"Not implemented for n_max > 1.")
 
 
-def get_hp_newton(spin_values, n_max=1):
+def get_hp_newton(spin_values, n_max=None):
     r"""
     Computes A and B for Holstein-primakoff representation with Newton expansion.
 
@@ -94,7 +94,7 @@ def get_hp_newton(spin_values, n_max=1):
     ----------
     spin_values : (M) |array-like|_
         Values of atom's spins, i.e. ``atoms["spins"]``.
-    n_max : int, default 1
+    n_max : int, optional
         From the equation (5) of the polynomial expansion. See notes
 
     Returns
@@ -133,9 +133,11 @@ def get_hp_newton(spin_values, n_max=1):
 
     spin_values = np.array(spin_values)
 
-    n_max_allowed = 2 * int(spin_values.min())
+    n_max_allowed = int(2 * spin_values.min())
 
-    if n_max > n_max_allowed:
+    if n_max is None:
+        n_max = n_max_allowed
+    elif n_max > n_max_allowed:
         raise ValueError(f"For given spin_values n_max should be <= {n_max_allowed}.")
 
     A = []
@@ -143,7 +145,7 @@ def get_hp_newton(spin_values, n_max=1):
     for spin_value in spin_values:
         A.append([])
         B.append([])
-        for n in range(int(2 * spin_value)):
+        for n in range(n_max + 1):
             tmp = 0
             for l in range(n + 1):
                 tmp += (

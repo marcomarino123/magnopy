@@ -17,7 +17,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from ._diagonalization import *
-from ._energy import *
-from ._local_rf import *
-from ._representations import *
+from ._dispersion import *

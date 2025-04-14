@@ -24,8 +24,8 @@ from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 from numpy.linalg import LinAlgError
 
+from magnopy._diagonalization import solve_via_colpa
 from magnopy._exceptions import ColpaFailed
-from magnopy.magnons._diagonalization import solve_via_colpa
 
 
 @given(

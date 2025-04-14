@@ -19,6 +19,8 @@
 
 import numpy as np
 
+from magnopy.spinham._notation import Notation
+
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
@@ -26,8 +28,6 @@ old_dir.add("old_dir")
 
 class Energy:
     def __init__(self, spinham):
-        spin_directions = np.array(spin_directions, dtype=float)
-
         initial_notation = spinham.notation
 
         magnopy_notation = Notation(
@@ -36,10 +36,10 @@ class Energy:
             c1=initial_notation._c1,
             c21=initial_notation._c21,
             c22=initial_notation._c22,
-            c22=initial_notation._c31,
-            c31=initial_notation._c32,
-            c32=initial_notation._c33,
-            c33=initial_notation._c41,
+            c31=initial_notation._c31,
+            c32=initial_notation._c32,
+            c33=initial_notation._c33,
+            c41=initial_notation._c41,
             c421=initial_notation._c421,
             c422=initial_notation._c422,
             c43=initial_notation._c43,
@@ -48,14 +48,14 @@ class Energy:
 
         spinham.notation = magnopy_notation
 
-        self.J_1 = np.zeros(spinham.M, dtype=float)
+        self.J_1 = np.zeros((spinham.M, 3), dtype=float)
 
         for atom, parameter in spinham.p1:
             alpha = spinham.index_map[atom]
 
             self.J_1[alpha] += spinham.notation.c1 * parameter
 
-        self.J_21 = np.zeros(spinham.M, dtype=float)
+        self.J_21 = np.zeros((spinham.M, 3, 3), dtype=float)
 
         for atom, parameter in spinham.p21:
             alpha = spinham.index_map[atom]
@@ -66,9 +66,9 @@ class Energy:
 
         for atom1, atom2, ijk, parameter in spinham.p22:
             alpha = spinham.index_map[atom1]
-            beta = spinhamindex_map[atom2]
+            beta = spinham.index_map[atom2]
 
-            if (alpha, beta) not in self.K_22:
+            if (alpha, beta) not in self.J_22:
                 self.J_22[(alpha, beta)] = np.zeros((3, 3), dtype=float)
 
             self.J_22[(alpha, beta)] += spinham.notation.c22 * parameter

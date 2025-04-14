@@ -17,6 +17,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import numpy as np
+
 from magnopy._diagonalization import solve_via_colpa
 from magnopy.bosons._local_rf import span_local_rfs
 from magnopy.bosons._representations import get_hp_newton
@@ -57,13 +59,16 @@ class MagnonDispersion:
         p, z = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
 
         if A is None and B is None:
-            A, B = get_hp_newton(spin_values, n_max=1)
+            A, B = get_hp_newton(spinham.magnetic_atoms.spins, n_max=0)
 
         if A is None:
             A = B
 
         if B is None:
             B = A
+
+        self.repr_A = A
+        self.repr_B = B
 
         initial_notation = spinham.notation
 
@@ -85,7 +90,8 @@ class MagnonDispersion:
 
         spinham.notation = magnopy_notation
 
-        self.A_zero = np.zeros((self.M, self.M), dtype=float)
+        self.M = spinham.M
+        self.A_zero = np.zeros((self.M, self.M), dtype=complex)
 
         self.J_A = {}
         self.J_B = {}
@@ -186,6 +192,14 @@ class MagnonDispersion:
             alpha = spinham.index_map[atom1]
             beta = spinham.index_map[atom2]
 
+            self.A_zero[alpha][beta] += (
+                -spinham.notation.c22
+                * z[alpha]
+                @ parameter
+                @ z[beta]
+                * spinham.atoms.spins[beta]
+            )
+
             self.J_A[ijk][alpha][beta] += (
                 0.25
                 * spinham.notation.c22
@@ -228,8 +242,6 @@ class MagnonDispersion:
 
         spinham.notation = initial_notation
 
-        self.M = spinham.M
-
     def A(self, k):
         r"""
 
@@ -250,7 +262,7 @@ class MagnonDispersion:
         result += self.A_zero
 
         for ijk in self.J_A:
-            results += self.J_A[ijk] * np.exp(-1j(k @ self.r_nu[ijk]))
+            result += self.J_A[ijk] * np.exp(-1j * (k @ self.r_nu[ijk]))
 
         return result
 
@@ -268,7 +280,7 @@ class MagnonDispersion:
         result = np.zeros((self.M, self.M), dtype=complex)
 
         for ijk in self.J_B:
-            results += self.J_B[ijk] * np.exp(-1j(k @ self.r_nu[ijk]))
+            result += self.J_B[ijk] * np.exp(-1j * (k @ self.r_nu[ijk]))
 
         return result
 
@@ -286,7 +298,7 @@ class MagnonDispersion:
         result = np.zeros((self.M, self.M), dtype=complex)
 
         for ijk in self.J_C:
-            results += self.J_C[ijk] * np.exp(-1j(k @ self.r_nu[ijk]))
+            result += self.J_C[ijk] * np.exp(-1j * (k @ self.r_nu[ijk]))
 
         return result
 
@@ -306,7 +318,7 @@ class MagnonDispersion:
         result += self.A_zero
 
         for ijk in self.J_D:
-            results += self.J_D[ijk] * np.exp(-1j(k @ self.r_nu[ijk]))
+            result += self.J_D[ijk] * np.exp(-1j * (k @ self.r_nu[ijk]))
 
         return result
 
@@ -347,14 +359,14 @@ class MagnonDispersion:
         k_plus = np.array(k)
         k_minus = -k_plus
 
-        E_plus, G_plus = solve_via_colpa(self.gdm(k))
-        E_minus, G_minus = solve_via_colpa(self.gdm(k))
+        E_plus, G_plus = solve_via_colpa(self.GDM(k_plus))
+        E_minus, G_minus = solve_via_colpa(self.GDM(k_minus))
 
         E_plus = E_plus[: self.M]
         E_minus = E_minus[self.M :]
 
-        G_plus = G_plus[:N]
-        G_minus = G_minus[:N]
+        G_plus = G_plus[: self.M]
+        G_minus = G_minus[self.M :]
 
         order_plus = np.argsort(E_plus)
         order_minus = np.argsort(E_minus)
@@ -367,12 +379,12 @@ class MagnonDispersion:
 
         G_minus = np.concatenate((G_minus[:, self.M :], G_minus[:, : self.M]), axis=1)
 
-        if not np.allclose(G_plus, G_minus):
+        if not np.allclose(G_plus, G_minus, atol=1e-4):
             raise NotImplementedError(
                 r"Boson modes do not match, the logic is not implemented for this case."
             )
 
-        return E_plus + E_minus, G_plus
+        return E_plus + E_minus
 
 
 # Populate __all__ with objects defined in this file

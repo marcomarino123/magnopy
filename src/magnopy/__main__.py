@@ -20,7 +20,7 @@
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from magnopy import __git_commit__, __version__
-from magnopy._pinfo import conditions, logo, warranty
+from magnopy._package_info import _warranty, logo
 
 
 def main():
@@ -51,7 +51,7 @@ def main():
     if args.command == "logo":
         print(logo())
     elif args.command == "warranty":
-        print("\n" + warranty() + "\n")
+        print("\n" + _warranty() + "\n")
     elif args.command == "version" or args.version:
         print(f"Magnopy v{__version__}")
     elif args.git_commit:

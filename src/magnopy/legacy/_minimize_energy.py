@@ -23,7 +23,7 @@ from argparse import ArgumentParser
 import numpy as np
 
 from magnopy._osfix import _winwait
-from magnopy._pinfo import logo
+from magnopy._package_info import logo
 from magnopy.energy.sub_types import C1, C2, C5
 from magnopy.io import load_spinham
 

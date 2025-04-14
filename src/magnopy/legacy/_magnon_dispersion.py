@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from magnopy._osfix import _winwait
-from magnopy._pinfo import logo
+from magnopy._package_info import logo
 from magnopy.io import load_spinham
 from magnopy.magnons.dispersion import MagnonDispersion
 from magnopy.spinham.energy import Energy

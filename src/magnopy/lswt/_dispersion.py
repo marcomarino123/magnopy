@@ -22,6 +22,10 @@ from magnopy.bosons._local_rf import span_local_rfs
 from magnopy.bosons._representations import get_hp_newton
 from magnopy.spinham._notation import Notation
 
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
+
 
 class MagnonDispersion:
     r"""
@@ -49,6 +53,7 @@ class MagnonDispersion:
 
     def __init__(self, spinham, spin_directions, A=None, B=None):
         spin_directions = np.array(spin_directions, dtype=float)
+        spin_directions /= np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
         p, z = span_local_rfs(directional_vectors=spin_directions, hybridize=True)
 
         if A is None and B is None:
@@ -65,9 +70,17 @@ class MagnonDispersion:
         magnopy_notation = Notation(
             spin_normalized=False,
             multiple_counting=True,
-            c1=initial_notation.c1,
-            c21=initial_notation.c21,
-            c22=initial_notation.c22,
+            c1=initial_notation._c1,
+            c21=initial_notation._c21,
+            c22=initial_notation._c22,
+            c22=initial_notation._c31,
+            c31=initial_notation._c32,
+            c32=initial_notation._c33,
+            c33=initial_notation._c41,
+            c421=initial_notation._c421,
+            c422=initial_notation._c422,
+            c43=initial_notation._c43,
+            c44=initial_notation._c44,
         )
 
         spinham.notation = magnopy_notation
@@ -360,3 +373,10 @@ class MagnonDispersion:
             )
 
         return E_plus + E_minus, G_plus
+
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

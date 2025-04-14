@@ -133,7 +133,7 @@ class MagnonDispersion:
                 * spinham.atoms.spins[alpha]
             )
 
-            self.J_A[ijk][alpha][alpha] += (
+            self.J_A[(0, 0, 0)][alpha][alpha] += (
                 0.25
                 * spinham.notation.c21
                 * p[alpha]
@@ -143,7 +143,7 @@ class MagnonDispersion:
                 * A[alpha][0]
             )
 
-            self.J_B[ijk][alpha][alpha] += (
+            self.J_B[(0, 0, 0)][alpha][alpha] += (
                 0.25
                 * spinham.notation.c21
                 * p[alpha]
@@ -153,7 +153,7 @@ class MagnonDispersion:
                 * B[alpha][0]
             )
 
-            self.J_C[ijk][alpha][alpha] += (
+            self.J_C[(0, 0, 0)][alpha][alpha] += (
                 0.25
                 * spinham.notation.c21
                 * np.conjugate(p[alpha])
@@ -163,7 +163,7 @@ class MagnonDispersion:
                 * A[alpha][0]
             )
 
-            self.J_D[ijk][alpha][alpha] += (
+            self.J_D[(0, 0, 0)][alpha][alpha] += (
                 0.25
                 * spinham.notation.c21
                 * np.conjugate(p[alpha])

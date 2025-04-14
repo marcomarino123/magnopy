@@ -20,7 +20,9 @@ Sub-modules
   :maxdepth: 1
 
   spinham
-  magnons
+  energy
+  bosons
+  lswt
   io
   constants
 
@@ -33,6 +35,7 @@ Top-level functions
 .. autosummary::
   :toctree: generated/
 
+  solve_via_colpa
   logo
 
 Exceptions

@@ -23,5 +23,6 @@ __release_date__ = "undefined"
 __git_commit__ = "undefined"
 
 from . import constants, io, legacy, magnons, spinham
+from ._diagonalization import *
 from ._exceptions import *
 from ._package_info import *

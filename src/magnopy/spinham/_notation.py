@@ -680,6 +680,129 @@ class Notation:
             c44=_NOTATIONS[name][11],
         )
 
+    def get_modified(
+        self,
+        multiple_counting: bool = None,
+        spin_normalized: bool = None,
+        c1: float = None,
+        c21: float = None,
+        c22: float = None,
+        c31: float = None,
+        c32: float = None,
+        c33: float = None,
+        c41: float = None,
+        c421: float = None,
+        c422: float = None,
+        c43: float = None,
+        c44: float = None,
+        name: str = None,
+    ):
+        r"""
+        Returns the new instance of the :py:class:`.Notation` class based on the called
+        one with changed given properties.
+
+        Parameters
+        ----------
+        multiple_counting : bool, optional
+            Whether the pairs of spins are counted multiple times in the Hamiltonian's sums.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        spin_normalized : bool, optional
+            Whether spin vectors/operators are normalized to 1. If ``True``, then spin
+            vectors/operators are normalized.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c1 : float, optional
+            Numerical factor before the (one spin & one site) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c21 : float, optional
+            Numerical factor before the (two spins & one site) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c22 : float, optional
+            Numerical factor before the (two spins & two sites) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c31 : float, optional
+            Numerical factor before the (three spins & one site) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c32 : float, optional
+            Numerical factor before the (three spins & two sites) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c33 : float, optional
+            Numerical factor before the (three spins & three sites) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c41 : float, optional
+            Numerical factor before the (four spins & one site) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c421 : float, optional
+            Numerical factor before the (four spins & two sites & 1+3) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c422 : float, optional
+            Numerical factor before the (four spins & two sites & 2+2) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c43 : float, optional
+            Numerical factor before the (four spins & three sites) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        c44 : float, optional
+            Numerical factor before the (four spins & four sites) term of the Hamiltonian.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        name : str, optional
+            A label for the notation. Any string, case-insensitive.
+            Modified to the given value, if None, then kept the same as in the original notation.
+        """
+
+        if multiple_counting is None:
+            multiple_counting = self._multiple_counting
+
+        if spin_normalized is None:
+            spin_normalized = self._spin_normalized
+
+        if c1 is None:
+            c1 = self._c1
+
+        if c21 is None:
+            c21 = self._c21
+
+        if c22 is None:
+            c22 = self._c22
+
+        if c31 is None:
+            c31 = self._c31
+
+        if c32 is None:
+            c32 = self._c32
+
+        if c33 is None:
+            c33 = self._c33
+
+        if c41 is None:
+            c41 = self._41
+
+        if c421 is None:
+            c421 = self._c421
+
+        if c422 is None:
+            c422 = self._c422
+
+        if c43 is None:
+            c43 = self._c43
+
+        if c44 is None:
+            c44 = self._c44
+
+        return Notation(
+            spin_normalized=spin_normalized,
+            multiple_counting=multiple_counting,
+            c1=_c1,
+            c21=_c21,
+            c22=_c22,
+            c31=_c31,
+            c32=_c32,
+            c33=_c33,
+            c41=_c41,
+            c421=_c421,
+            c422=_c422,
+            c43=_c43,
+            c44=_c44,
+        )
+
 
 # Populate __all__ with objects defined in this file
 __all__ = list(set(dir()) - old_dir)

@@ -81,6 +81,7 @@ def solve_via_colpa(D):
                 \boldsymbol{\Delta_1} & \boldsymbol{\Delta_2} \\
                 \boldsymbol{\Delta_3} & \boldsymbol{\Delta_4}
             \end{pmatrix}
+
     Returns
     -------
     E : (2N,) :numpy:`ndarray`

@@ -773,7 +773,7 @@ class Notation:
             c33 = self._c33
 
         if c41 is None:
-            c41 = self._41
+            c41 = self._c41
 
         if c421 is None:
             c421 = self._c421
@@ -790,17 +790,17 @@ class Notation:
         return Notation(
             spin_normalized=spin_normalized,
             multiple_counting=multiple_counting,
-            c1=_c1,
-            c21=_c21,
-            c22=_c22,
-            c31=_c31,
-            c32=_c32,
-            c33=_c33,
-            c41=_c41,
-            c421=_c421,
-            c422=_c422,
-            c43=_c43,
-            c44=_c44,
+            c1=c1,
+            c21=c21,
+            c22=c22,
+            c31=c31,
+            c32=c32,
+            c33=c33,
+            c41=c41,
+            c421=c421,
+            c422=c422,
+            c43=c43,
+            c44=c44,
         )
 
 

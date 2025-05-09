@@ -17,7 +17,7 @@ Magnopy
 
 **Useful links**:
 `Issue Tracker <https://github.com/magnopy/magnopy/issues>`_ |
-:ref:`Cite us <cite>` |
+:ref:`Cite <cite>` |
 :ref:`support`
 
 What is magnopy?
@@ -36,9 +36,4 @@ where
   Linear Spin Wave Theory (LSWT).
 * :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion relation that is computed
   at the level of LSWT.
-* :math:`\Delta(\boldsymbol{k})` is a ...
-* ...
-
-Magnopy supports Holstein-Primakoff bosonic representation with Taylor or Newton
-expansion of the square root and Dyson-Maleev representation. Moreover, it supports any
-user-defined polynomial single-boson representation.
+* :math:`\sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})` is a zero is most of the cases.

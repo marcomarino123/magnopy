@@ -65,6 +65,7 @@ at most four linearly coupled spins
         :math:`\in [0, 1]`.
 
         We hope that three images below will help to understand the Greek indices better
+        (click to enlarge)
 
         .. figure:: ../../../images/positions_unit-cells.png
             :target: ../../_images/positions_unit-cells.png

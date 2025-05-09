@@ -27,11 +27,46 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
+def _check_grand_dynamical_matrix(D):
+    r"""
+    Check that grand dynamical matrix is (2N, 2N) matrix
+
+    Parameters
+    ----------
+    D : |array-like|_
+        Candidate for the grand dynamical matrix
+
+    Returns
+    -------
+    D : (2N, 2N) :numpy:`ndarray`
+        Grand dynamical matrix.
+    N : int
+
+    Raises
+    ------
+    ValueError
+        If the check is not passed
+    """
+
+    D = np.array(D)
+
+    if len(D.shape) != 2:
+        raise ValueError(f"Grand dynamical matrix is not 2-dimensional, got {D.shape}.")
+
+    if D.shape[0] != D.shape[1]:
+        raise (f"Grand dynamical matrix is not square, got {D.shape}.")
+
+    if D.shape[0] % 2 != 0:
+        raise (f"Size of the grand dynamical matrix is not even, got {D.shape}.")
+
+    return D, D.shape[0] // 2
+
+
 def solve_via_colpa(D):
     r"""
     Diagonalize grand-dynamical matrix following the method of Colpa [1]_.
 
-    Algorithm itself is described in section 3, Remark 1 of [1]_.
+    Algorithm is described in section 3, remark 1 of [1]_.
 
     Solves the Bogoliubov Hamiltonian of the form:
 
@@ -67,7 +102,9 @@ def solve_via_colpa(D):
 
     .. math::
 
-        \hat{H} = \boldsymbol{\cal B}^{\dagger} \boldsymbol{E} \boldsymbol{\cal B}
+        \hat{H}
+        =
+        \boldsymbol{\cal B}^{\dagger} \boldsymbol{\mathcal{E}} \boldsymbol{\cal B}
 
     Parameters
     ----------
@@ -77,7 +114,7 @@ def solve_via_colpa(D):
 
         .. math::
 
-            \boldsymbol{D} = \begin{pmatrix}
+            \boldsymbol{\mathcal{D}} = \begin{pmatrix}
                 \boldsymbol{\Delta_1} & \boldsymbol{\Delta_2} \\
                 \boldsymbol{\Delta_3} & \boldsymbol{\Delta_4}
             \end{pmatrix}
@@ -87,12 +124,19 @@ def solve_via_colpa(D):
     E : (2N,) :numpy:`ndarray`
         The eigenvalues.
         It is an array of the diagonal elements of the
-        diagonal matrix :math:`\boldsymbol{E}` from the diagonalized Hamiltonian. The
-        eigenvalues are sorted in descending order before the multiplication by the
+        diagonal matrix :math:`\boldsymbol{\mathcal{E}}` of the diagonalized Hamiltonian.
+        The eigenvalues are sorted in descending order before the multiplication by the
         paraunitary matrix. Therefore, first N elements correspond to the
         :math:`b^{\dagger}(\boldsymbol{k})b(\boldsymbol{k})` and last N elements - to
         the :math:`b(-\boldsymbol{k})b^{\dagger}(-\boldsymbol{k})`.
 
+        It is a diagonal of the matrix
+
+        .. math::
+
+            \boldsymbol{\mathcal{E}}
+            =
+            (\boldsymbol{G}^{\dagger})^{-1} \boldsymbol{D} \boldsymbol{G}^{-1}
 
     G : (2N, 2N) :numpy:`ndarray`
         Transformation matrix, which changes the basis from the original set of bosonic
@@ -101,25 +145,19 @@ def solve_via_colpa(D):
 
         .. math::
 
-            \boldsymbol{\cal B} = \boldsymbol{G} \boldsymbol{\cal A}
+            \boldsymbol{\cal A} = \boldsymbol{G} \boldsymbol{\cal B}
+
+            \boldsymbol{\cal B} = \boldsymbol{G}^{-1} \boldsymbol{\cal A}
 
         The rows are ordered in the same way as the eigenvalues.
 
     Raises
     ------
     ColpaFailed
-        If the algorithm fails.
-
-    Notes
-    -----
-
-    Let :math:`\boldsymbol{E}` be the diagonal matrix of eigenvalues ``E``, then:
-
-    .. math::
-
-        \boldsymbol{E} = (\boldsymbol{G}^{\dagger})^{-1} \boldsymbol{D} \boldsymbol{G}^{-1}
-
-
+        If the algorithm fails. Typically it means that the grand dynamical matrix
+        :math:`\boldsymbol{D}` is not positive-defined.
+    ValueError
+        If the grand dynamical matrix is not square or its shape is not even.
 
     References
     ----------
@@ -129,9 +167,8 @@ def solve_via_colpa(D):
         93(3-4), pp.327-353.
     """
 
-    D = np.array(D)
+    D, N = _check_grand_dynamical_matrix(D)
 
-    N = len(D) // 2
     g = np.diag(np.concatenate((np.ones(N), -np.ones(N))))
 
     try:

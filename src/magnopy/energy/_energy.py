@@ -27,26 +27,35 @@ old_dir.add("old_dir")
 
 
 class Energy:
+    r"""
+    Ground state energy of the given spin Hamiltonian.
+
+    This class is optimized for the computation of the energy for any spin
+    directions for the given Hamiltonian.
+
+    If the spin Hamiltonian is modified, then a new instance of the energy class
+    should be created from it.
+
+    Parameters
+    ----------
+    spinham : py:class:.SpinHamiltonian`
+        Spin Hamiltonian for the calculation of energy.
+    """
+
     def __init__(self, spinham):
         initial_notation = spinham.notation
 
-        magnopy_notation = Notation(
-            spin_normalized=False,
-            multiple_counting=True,
-            c1=initial_notation._c1,
-            c21=initial_notation._c21,
-            c22=initial_notation._c22,
-            c31=initial_notation._c31,
-            c32=initial_notation._c32,
-            c33=initial_notation._c33,
-            c41=initial_notation._c41,
-            c421=initial_notation._c421,
-            c422=initial_notation._c422,
-            c43=initial_notation._c43,
-            c44=initial_notation._c44,
+        magnopy_notation = initial_notation.get_modified(
+            spin_normalized=False, multiple_counting=False
         )
 
         spinham.notation = magnopy_notation
+
+        self.spins = np.array(spinham.magnetic_atoms.spins, dtype=float)
+
+        ########################################################################
+        #                               One spin                               #
+        ########################################################################
 
         self.J_1 = np.zeros((spinham.M, 3), dtype=float)
 
@@ -54,6 +63,10 @@ class Energy:
             alpha = spinham.index_map[atom]
 
             self.J_1[alpha] += spinham.notation.c1 * parameter
+
+        ########################################################################
+        #                               Two spins                              #
+        ########################################################################
 
         self.J_21 = np.zeros((spinham.M, 3, 3), dtype=float)
 
@@ -73,17 +86,24 @@ class Energy:
 
             self.J_22[(alpha, beta)] += spinham.notation.c22 * parameter
 
-        self.spins = np.array(spinham.magnetic_atoms.spins, dtype=float)
+        ########################################################################
+        #                              Three spins                             #
+        ########################################################################
+        # TODO
+        ########################################################################
+        #                              Four spins                              #
+        ########################################################################
+        # TODO
+
         spinham.notation = initial_notation
 
     def E_0(self, spin_directions):
         r"""
         spin_directions : (M, 3) |array-like|_
-            Directions of spin vectors. Only directions of vectors are used, modulus is
-            ignored. Note that spin directions have to be given for all atoms even if they
-            are not magnetic. ``M`` is the amount of magnetic atoms in the Hamiltonian. The
-            order of spin directions is the same as the order of magnetic atoms in
-            ``spinham.atoms.spins``
+            Directions of spin vectors. Only directions of vectors are used,
+            modulus is ignored. ``M`` is the amount of magnetic atoms in the
+            Hamiltonian. The order of spin directions is the same as the order
+            of magnetic atoms in ``spinham.magnetic_atoms.spins``.
         """
 
         spin_directions = np.array(spin_directions, dtype=float)
@@ -99,16 +119,17 @@ class Energy:
         for alpha, beta in self.J_22:
             energy += spins[alpha] @ self.J_22[(alpha, beta)] @ spins[beta]
 
+        # TODO three and four spins
+
         return energy
 
     def E_2(self, spin_directions):
         r"""
         spin_directions : (M, 3) |array-like|_
-            Directions of spin vectors. Only directions of vectors are used, modulus is
-            ignored. Note that spin directions have to be given for all atoms even if they
-            are not magnetic. ``M`` is the amount of magnetic atoms in the Hamiltonian. The
-            order of spin directions is the same as the order of magnetic atoms in
-            ``spinham.atoms.spins``
+            Directions of spin vectors.  Only directions of vectors are used,
+            modulus is ignored. ``M`` is the amount of magnetic atoms in the
+            Hamiltonian. The order of spin directions is the same as the order
+            of magnetic atoms in ``spinham.magnetic_atoms.spins``.
         """
 
         spin_directions = np.array(spin_directions, dtype=float)
@@ -123,6 +144,8 @@ class Energy:
 
         for alpha, beta in self.J_22:
             energy += spin_directions[alpha] @ self.J_22[(alpha, beta)] @ spins[beta]
+
+        # TODO three and four spins
 
         return energy
 

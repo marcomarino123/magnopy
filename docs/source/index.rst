@@ -37,3 +37,13 @@ where
 * :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion relation that is computed
   at the level of LSWT.
 * :math:`\sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})` is a zero is most of the cases.
+
+
+Planned to be implemented
+=========================
+
+(Please indicate to the developers if you would like to use those features or if you
+would like to participate in their implementation)
+
+* Renormalized Spin Wave theory (RSWT)
+* ...

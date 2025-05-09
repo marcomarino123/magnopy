@@ -25,7 +25,7 @@ from magnopy._exceptions import NotationError
 from magnopy.spinham._notation import Notation
 
 
-def test_Notation_raises():
+def tes_raises():
     notation = Notation()
 
     with pytest.raises(NotationError):
@@ -69,7 +69,7 @@ def test_Notation_raises():
 
 
 @given(st.text())
-def test_Notation_name(name):
+def test_name(name):
     notation = Notation()
 
     assert notation.name == "custom"
@@ -79,7 +79,7 @@ def test_Notation_name(name):
     assert notation.name == name.lower()
 
 
-def test_Notation_get_predefined():
+def test_get_predefined():
     notation = Notation.get_predefined(name="tb2j")
     notation = Notation.get_predefined(name="vampire")
     notation = Notation.get_predefined(name="spinW")

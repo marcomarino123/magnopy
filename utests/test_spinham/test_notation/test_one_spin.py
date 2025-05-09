@@ -47,3 +47,37 @@ def test_eq_c1(c1):
     assert notation2 != notation3
     assert notation2 != notation4
     assert notation3 != notation4
+
+
+def test_get_modified_c1():
+    notation = Notation(
+        spin_normalized=True,
+        multiple_counting=True,
+        c1=1,
+        c21=1,
+        c22=1,
+        c31=1,
+        c32=1,
+        c33=1,
+        c41=1,
+        c421=1,
+        c422=1,
+        c43=1,
+        c44=1,
+    )
+
+    mod_notation = notation.get_modified(c1=2)
+
+    assert mod_notation.spin_normalized == True
+    assert mod_notation.multiple_counting == True
+    assert mod_notation.c1 == 2
+    assert mod_notation.c21 == 1
+    assert mod_notation.c22 == 1
+    assert mod_notation.c31 == 1
+    assert mod_notation.c32 == 1
+    assert mod_notation.c33 == 1
+    assert mod_notation.c41 == 1
+    assert mod_notation.c421 == 1
+    assert mod_notation.c422 == 1
+    assert mod_notation.c43 == 1
+    assert mod_notation.c44 == 1

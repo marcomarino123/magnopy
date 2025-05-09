@@ -49,6 +49,40 @@ def test_eq_c31(c31):
     assert notation3 != notation4
 
 
+def test_get_modified_c31():
+    notation = Notation(
+        spin_normalized=True,
+        multiple_counting=True,
+        c1=1,
+        c21=1,
+        c22=1,
+        c31=1,
+        c32=1,
+        c33=1,
+        c41=1,
+        c421=1,
+        c422=1,
+        c43=1,
+        c44=1,
+    )
+
+    mod_notation = notation.get_modified(c31=2)
+
+    assert mod_notation.spin_normalized == True
+    assert mod_notation.multiple_counting == True
+    assert mod_notation.c1 == 1
+    assert mod_notation.c21 == 1
+    assert mod_notation.c22 == 1
+    assert mod_notation.c31 == 2
+    assert mod_notation.c32 == 1
+    assert mod_notation.c33 == 1
+    assert mod_notation.c41 == 1
+    assert mod_notation.c421 == 1
+    assert mod_notation.c422 == 1
+    assert mod_notation.c43 == 1
+    assert mod_notation.c44 == 1
+
+
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c32(value, new_value):
     notation = Notation(c32=value)
@@ -74,6 +108,40 @@ def test_eq_c32(c32):
     assert notation3 != notation4
 
 
+def test_get_modified_c32():
+    notation = Notation(
+        spin_normalized=True,
+        multiple_counting=True,
+        c1=1,
+        c21=1,
+        c22=1,
+        c31=1,
+        c32=1,
+        c33=1,
+        c41=1,
+        c421=1,
+        c422=1,
+        c43=1,
+        c44=1,
+    )
+
+    mod_notation = notation.get_modified(c32=2)
+
+    assert mod_notation.spin_normalized == True
+    assert mod_notation.multiple_counting == True
+    assert mod_notation.c1 == 1
+    assert mod_notation.c21 == 1
+    assert mod_notation.c22 == 1
+    assert mod_notation.c31 == 1
+    assert mod_notation.c32 == 2
+    assert mod_notation.c33 == 1
+    assert mod_notation.c41 == 1
+    assert mod_notation.c421 == 1
+    assert mod_notation.c422 == 1
+    assert mod_notation.c43 == 1
+    assert mod_notation.c44 == 1
+
+
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c33(value, new_value):
     notation = Notation(c33=value)
@@ -97,3 +165,37 @@ def test_eq_c33(c33):
     assert notation2 != notation3
     assert notation2 != notation4
     assert notation3 != notation4
+
+
+def test_get_modified_c33():
+    notation = Notation(
+        spin_normalized=True,
+        multiple_counting=True,
+        c1=1,
+        c21=1,
+        c22=1,
+        c31=1,
+        c32=1,
+        c33=1,
+        c41=1,
+        c421=1,
+        c422=1,
+        c43=1,
+        c44=1,
+    )
+
+    mod_notation = notation.get_modified(c33=2)
+
+    assert mod_notation.spin_normalized == True
+    assert mod_notation.multiple_counting == True
+    assert mod_notation.c1 == 1
+    assert mod_notation.c21 == 1
+    assert mod_notation.c22 == 1
+    assert mod_notation.c31 == 1
+    assert mod_notation.c32 == 1
+    assert mod_notation.c33 == 2
+    assert mod_notation.c41 == 1
+    assert mod_notation.c421 == 1
+    assert mod_notation.c422 == 1
+    assert mod_notation.c43 == 1
+    assert mod_notation.c44 == 1

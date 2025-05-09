@@ -21,7 +21,6 @@ Sub-modules
 
   spinham
   energy
-  bosons
   lswt
   io
   constants
@@ -36,6 +35,8 @@ Top-level functions
   :toctree: generated/
 
   solve_via_colpa
+  span_local_rf
+  span_local_rfs
   logo
 
 Exceptions

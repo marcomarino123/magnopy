@@ -123,32 +123,6 @@ class Energy:
 
         return energy
 
-    def E_2(self, spin_directions):
-        r"""
-        spin_directions : (M, 3) |array-like|_
-            Directions of spin vectors.  Only directions of vectors are used,
-            modulus is ignored. ``M`` is the amount of magnetic atoms in the
-            Hamiltonian. The order of spin directions is the same as the order
-            of magnetic atoms in ``spinham.magnetic_atoms.spins``.
-        """
-
-        spin_directions = np.array(spin_directions, dtype=float)
-        spin_directions /= np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
-        spins = spin_directions * self.spins[:, np.newaxis]
-
-        energy = 0
-
-        energy += 0.5 * np.diag(self.J_1 @ spin_directions.T).sum()
-
-        energy += np.einsum("mk,mkl,ml->m", spin_directions, self.J_21, spins).sum()
-
-        for alpha, beta in self.J_22:
-            energy += spin_directions[alpha] @ self.J_22[(alpha, beta)] @ spins[beta]
-
-        # TODO three and four spins
-
-        return energy
-
 
 # Populate __all__ with objects defined in this file
 __all__ = list(set(dir()) - old_dir)

@@ -53,7 +53,6 @@ def test_spin_normalized(spin_normalized):
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
-    assert abs(energy.E_2(spin_directions) - target_energy.E_2(spin_directions)) < 1e-8
 
 
 @pytest.mark.parametrize("multiple_counting", (True, False))
@@ -90,7 +89,6 @@ def test_multiple_counting(multiple_counting):
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
-    assert abs(energy.E_2(spin_directions) - target_energy.E_2(spin_directions)) < 1e-8
 
 
 @pytest.mark.parametrize("c1", (-1, -0.5, 0.5, 1))
@@ -123,7 +121,6 @@ def test_c1(c1):
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
-    assert abs(energy.E_2(spin_directions) - target_energy.E_2(spin_directions)) < 1e-8
 
 
 @pytest.mark.parametrize("c21", (-1, -0.5, 0.5, 1))
@@ -156,7 +153,6 @@ def test_c21(c21):
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
-    assert abs(energy.E_2(spin_directions) - target_energy.E_2(spin_directions)) < 1e-8
 
 
 @pytest.mark.parametrize("c22", (-1, -0.5, 0.5, 1))
@@ -189,7 +185,6 @@ def test_c22(c22):
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
-    assert abs(energy.E_2(spin_directions) - target_energy.E_2(spin_directions)) < 1e-8
 
 
 def test_all_notations():
@@ -233,13 +228,6 @@ def test_all_notations():
                             abs(
                                 energy.E_0(spin_directions)
                                 - target_energy.E_0(spin_directions)
-                            )
-                            < 1e-8
-                        )
-                        assert (
-                            abs(
-                                energy.E_2(spin_directions)
-                                - target_energy.E_2(spin_directions)
                             )
                             < 1e-8
                         )

@@ -126,7 +126,7 @@ def _add_2_1(self, alpha: int, parameter, replace=False) -> None:
 
 def _remove_2_1(self, alpha: int) -> None:
     r"""
-    Remove a (two spins & one site) parameter from the Hamiltonian.
+    Removes a (two spins & one site) parameter from the Hamiltonian.
 
     Parameters
     ----------

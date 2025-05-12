@@ -125,7 +125,7 @@ def _add_1(spinham, alpha: int, parameter, replace=False) -> None:
 
 def _remove_1(spinham, alpha: int) -> None:
     r"""
-    Remove a (one spin & one site) parameter from the Hamiltonian.
+    Removes a (one spin & one site) parameter from the Hamiltonian.
 
     Parameters
     ----------

@@ -127,7 +127,7 @@ def _add_3_1(self, alpha: int, parameter, replace=False) -> None:
 
 def _remove_3_1(self, alpha: int) -> None:
     r"""
-    Remove a (three spins & one site) parameter from the Hamiltonian.
+    Removes a (three spins & one site) parameter from the Hamiltonian.
 
     Parameters
     ----------

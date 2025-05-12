@@ -238,7 +238,12 @@ def _add_3_2(
     parameter = np.array(parameter)
 
     alpha, beta, nu, parameter = _get_primary_p32(
-        alpha=alpha, beta=beta, nu=nu, parameter=parameter
+        alpha=alpha,
+        beta=beta,
+        nu=nu,
+        parameter=parameter,
+        S_alpha=spinham.atoms.spins[alpha],
+        S_beta=spinham.atoms.spins[beta],
     )
 
     # TODO Rewrite with binary search

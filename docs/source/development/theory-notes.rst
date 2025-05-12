@@ -12,6 +12,9 @@ of the developers.
 Classical energy
 ================
 
+The formulas for the classical energy are written for the case of non-normalized spins,
+all other notation properties are arbitrary.
+
 .. math::
     E^{(0)}
     =&
@@ -118,6 +121,9 @@ Classical energy
 
 Correction to classical energy from LSWT
 ========================================
+
+The formulas for the correction to the classical energy are written for the case
+of non-normalized spins, all other notation properties are arbitrary.
 
 .. math::
     E^{(2)}

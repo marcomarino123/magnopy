@@ -24,6 +24,7 @@ from wulfric import add_sugar
 from wulfric.crystal import get_distance
 
 from magnopy.spinham._c1 import _add_1, _p1, _remove_1
+from magnopy.spinham._c21 import _add_21, _p21, _remove_21
 from magnopy.spinham._notation import Notation
 from magnopy.spinham._validators import _validate_ijk, _validate_index
 
@@ -572,7 +573,7 @@ class SpinHamiltonian:
         if self.notation.c1 == new_c1:
             return
 
-        # If factor is changing one need to scale parameters.
+        # If factor is changing one has to scale parameters.
         for index in range(len(self._1)):
             self._1[index][1] = self._1[index][1] * self.notation.c1 / new_c1
 
@@ -585,7 +586,7 @@ class SpinHamiltonian:
         if self.notation.c21 == new_c21:
             return
 
-        # If factor is changing one need to scale parameters.
+        # If factor is changing one has to scale parameters.
         for index in range(len(self._2_1)):
             self._2_1[index][1] = self._2_1[index][1] * self.notation.c21 / new_c21
 
@@ -598,7 +599,7 @@ class SpinHamiltonian:
         if self.notation.c22 == new_c22:
             return
 
-        # If factor is changing one need to scale parameters.
+        # If factor is changing one has to scale parameters.
         for index in range(len(self._2_2)):
             self._2_2[index][3] = self._2_2[index][3] * self.notation.c22 / new_c22
 
@@ -715,126 +716,9 @@ class SpinHamiltonian:
     ################################################################################
     #                             Two spins & one site                             #
     ################################################################################
-
-    @property
-    def p21(self) -> list:
-        r"""
-        Parameters of (two spins & one site) term of the Hamiltonian.
-
-        Returns
-        -------
-        parameters : list
-            List of parameters. Length of the list is between zero and amount of atoms
-            in ``spinham.atoms``. The list has a format of
-
-            .. code-block:: python
-
-                [[i, A], ...]
-
-            where ``i`` is an index of the atom to which the parameter is assigned and
-            ``A`` is a (3, 3) :numpy:`ndarray`. The parameters are sorted in the
-            ascending order by the index of an atom ``i``.
-
-        See Also
-        --------
-        add_2_1
-        remove_2_1
-
-        Notes
-        -----
-        Parameters :math:`\boldsymbol{J}_{2,1}(\boldsymbol{r}_{\alpha})` of the term
-
-        .. math::
-
-            C_{2,1}
-            \sum_{\substack{\mu, \\ \alpha, \\ k,l}}
-            J^{kl}_{2,1}(\boldsymbol{r}_{\alpha})
-            S_{\mu,\alpha}^k
-            S_{\mu,\alpha}^l
-        """
-
-        return self._2_1
-
-    def add_2_1(self, atom: int, parameter, replace=False) -> None:
-        r"""
-        Adds a parameter to the Hamiltonian.
-
-        Parameters
-        ----------
-        atom : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``,
-            i. e. ``0 <= atom < len(spinham.atoms.names)``.
-        parameter : (3, 3) |array-like|_
-            Full matrix of the parameter. It should be symmetric, but magnopy do not
-            check for it.
-        replace : bool, default False
-            Whether to replace the parameter if it is already present in the Hamiltonian.
-
-        See Also
-        --------
-        p21
-        remove_2_1
-        """
-
-        _validate_index(index=atom, atoms=self.atoms)
-        self._reset_internals()
-
-        parameter = np.array(parameter)
-
-        # TODO Replace with binary search
-        # Try to find the place for the new one inside the list
-        index = 0
-        while index < len(self._2_1):
-            # If already present in the model
-            if self._2_1[index][0] == atom:
-                # Either replace
-                if replace:
-                    self._2_1[index] = [atom, parameter]
-                    return
-                # Or raise an error
-                raise ValueError(
-                    f"On-site quadratic anisotropy already set "
-                    f"for atom {atom} ('{self.atoms.names[atom]}')"
-                )
-
-            # If it should be inserted before current element
-            if self._2_1[index][0] > atom:
-                self._2_1.insert(index, [atom, parameter])
-                return
-
-            index += 1
-
-        # If it should be inserted at the end or at the beginning of the list
-        self._2_1.append([atom, parameter])
-
-    def remove_2_1(self, atom: int) -> None:
-        r"""
-        Remove a parameter from the Hamiltonian.
-
-        Parameters
-        ----------
-        atom : int
-            Atom index, that should be consistent with the amount of ``spinham.atoms``,
-            i. e. ``0 <= atom < len(spinham.atoms.names)``.
-
-        See Also
-        --------
-        p21
-        add_2_1
-        """
-
-        _validate_index(index=atom, atoms=self.atoms)
-        self._reset_internals()
-
-        for i in range(len(self._2_1)):
-            # As the list is sorted, there is no point in resuming the search
-            # when a larger element is found
-            if self._2_1[i][0] > atom:
-                return
-
-            if self._2_1[i][0] == atom:
-                del self._2_1[i]
-                return
+    p21 = _p21
+    add_2_1 = _add_21
+    remove_2_1 = _remove_21
 
     ################################################################################
     #                             Two spins & two sites                            #

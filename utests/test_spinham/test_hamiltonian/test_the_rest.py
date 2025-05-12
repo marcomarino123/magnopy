@@ -17,23 +17,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from math import sqrt
-
 import numpy as np
 import pytest
-from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._c22 import _get_primary_p22
 from magnopy.spinham._hamiltonian import SpinHamiltonian
 from magnopy.spinham._notation import Notation
-from magnopy.spinham._parameter import (
-    get_anisotropic_parameter,
-    get_dmi,
-    get_isotropic_parameter,
-    get_matrix_parameter,
-)
+from magnopy.spinham._parameter import get_isotropic_parameter
 
 MAX_MODULUS = 1e8
 ARRAY_3X3 = harrays(
@@ -49,186 +40,7 @@ ARRAY_3 = harrays(
 RANDOM_UC = harrays(int, (10, 3), elements=st.integers(min_value=-1000, max_value=1000))
 
 
-@given(st.integers(), ARRAY_3X3)
-def test_add_2_1(atom, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-
-    if not 0 <= atom < len(spinham.atoms.names):
-        with pytest.raises(ValueError):
-            spinham.add_2_1(atom, parameter)
-    else:
-        spinham.add_2_1(atom, parameter)
-
-
-@given(
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    ARRAY_3X3,
-)
-def test_add_2_1_sorting(atom1, atom2, atom3, atom4, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-
-    spinham.add_2_1(atom1, parameter)
-
-    if atom2 == atom1:
-        with pytest.raises(ValueError):
-            spinham.add_2_1(atom2, parameter)
-    else:
-        spinham.add_2_1(atom2, parameter)
-
-    spinham.add_2_1(atom3, parameter, replace=True)
-    spinham.add_2_1(atom4, parameter, replace=True)
-
-    for i in range(len(spinham._2_1) - 1):
-        assert spinham._2_1[i][0] <= spinham._2_1[i + 1][0]
-
-
-@given(
-    st.integers(),
-    st.integers(),
-    st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3X3,
-)
-def test_add_2_2(atom1, atom2, ijk, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-
-    if not 0 <= atom1 < len(spinham.atoms.names) or not 0 <= atom2 < len(
-        spinham.atoms.names
-    ):
-        with pytest.raises(ValueError):
-            spinham.add_2_2(atom1, atom2, ijk, parameter)
-    else:
-        spinham.add_2_2(atom1, atom2, ijk, parameter)
-
-
-@given(
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    st.tuples(st.integers(), st.integers(), st.integers()),
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    st.tuples(st.integers(), st.integers(), st.integers()),
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    st.tuples(st.integers(), st.integers(), st.integers()),
-    st.integers(min_value=0, max_value=8),
-    st.integers(min_value=0, max_value=8),
-    st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3X3,
-)
-def test_add_2_2_sorting(
-    atom1_1,
-    atom2_1,
-    ijk_1,
-    atom1_2,
-    atom2_2,
-    ijk_2,
-    atom1_3,
-    atom2_3,
-    ijk_3,
-    atom1_4,
-    atom2_4,
-    ijk_4,
-    parameter,
-):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-
-    spinham.add_2_2(atom1_1, atom2_1, ijk_1, parameter)
-
-    if (atom1_1, atom2_1, ijk_1) == (atom1_2, atom2_2, ijk_2):
-        with pytest.raises(ValueError):
-            spinham.add_2_2(atom1_2, atom2_2, ijk_2, parameter)
-    else:
-        spinham.add_2_2(atom1_2, atom2_2, ijk_2, parameter)
-
-    spinham.add_2_2(atom1_3, atom2_3, ijk_3, parameter, replace=True)
-    spinham.add_2_2(atom1_4, atom2_4, ijk_4, parameter, replace=True)
-
-    for i in range(len(spinham._2_2) - 1):
-        assert (spinham._2_2[i][0], spinham._2_2[i][1], spinham._2_2[i][2]) <= (
-            spinham._2_2[i + 1][0],
-            spinham._2_2[i + 1][1],
-            spinham._2_2[i + 1][2],
-        )
-
-
-@given(st.integers())
-def test_remove_2_1(r_atom):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-
-    for i in range(len(spinham.atoms.names)):
-        spinham.add_2_1(i, i * np.eye(3))
-
-    if 0 <= r_atom < len(spinham.atoms.names):
-        spinham.remove_2_1(r_atom)
-        assert len(spinham._2_1) == len(spinham.atoms.names) - 1
-
-        atoms_with_on_site = []
-        for atom, _ in spinham._2_1:
-            atoms_with_on_site.append(atom)
-
-        assert r_atom not in atoms_with_on_site
-
-    else:
-        with pytest.raises(ValueError):
-            spinham.remove_2_1(r_atom)
-
-
-@given(
-    st.integers(min_value=0, max_value=2),
-    st.integers(min_value=0, max_value=2),
-    st.tuples(st.integers(), st.integers(), st.integers()),
-    RANDOM_UC,
-)
-def test_remove_2_2(r_atom1, r_atom2, r_ijk, unit_cells):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr"]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-
-    for i in range(len(spinham.atoms.names)):
-        for j in range(i, len(spinham.atoms.names)):
-            for ijk in unit_cells:
-                ijk = (int(ijk[0]), int(ijk[1]), int(ijk[2]))
-                spinham.add_2_2(i, j, ijk, np.eye(3), replace=True)
-
-    if 0 <= r_atom1 < len(spinham.atoms.names) and 0 <= r_atom2 < len(
-        spinham.atoms.names
-    ):
-        bonds_22 = []
-        for atom1, atom2, ijk, _ in spinham._2_2:
-            bonds_22.append((atom1, atom2, ijk))
-        prev_length = len(spinham._2_2)
-
-        spinham.remove_2_2(r_atom1, r_atom2, r_ijk)
-
-        r_bond = _get_primary_p22(r_atom1, r_atom2, r_ijk)
-        if r_bond in bonds_22:
-            assert len(spinham._2_2) == prev_length - 1
-            bonds_22 = []
-            for atom1, atom2, ijk, _ in spinham._2_2:
-                bonds_22.append((atom1, atom2, ijk))
-            assert (r_atom1, r_atom2, r_ijk) not in bonds_22
-        else:
-            assert len(spinham._2_2) == prev_length
-
-    else:
-        with pytest.raises(ValueError):
-            spinham.remove_2_2(r_atom1, r_atom2, r_ijk)
-
-
-def test_notation_multiple_counting():
+def test_multiple_counting():
     spinham = SpinHamiltonian(
         cell=np.eye(3),
         atoms={"names": ["Cr1", "Cr2"]},

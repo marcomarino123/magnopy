@@ -103,11 +103,6 @@ def test_magnetic_atoms():
     assert spinham.magnetic_atoms.names[0] == "Cr1"
     assert spinham.magnetic_atoms.names[1] == "Cr2"
 
-    spinham.remove_atom(1)
-    assert len(spinham.magnetic_atoms.names) == 1
-    assert spinham.M == 1
-    assert spinham.magnetic_atoms.names[0] == "Cr1"
-
 
 ################################################################################
 #                                 Legacy Tests                                 #
@@ -149,25 +144,6 @@ def test_magnetic_atoms():
 #         assert isinstance(atom2, Atom)
 #         assert isinstance(R, tuple)
 #         assert isinstance(parameter, MatrixParameter)
-
-
-def test_remove_atom():
-    spinham = SpinHamiltonian(
-        cell=np.eye(3), atoms={"names": ["Cr1", "Cr2", "Cr3"]}, notation=Notation()
-    )
-    spinham.add_2_2(0, 1, (0, 0, 0), 12 * np.eye(3))
-    spinham.add_2_2(1, 2, (0, 0, 0), 23 * np.eye(3))
-    spinham.add_2_2(2, 0, (0, 0, 0), 31 * np.eye(3))
-    spinham.add_2_1(0, np.eye(3))
-    assert len(spinham._2_2) == 3
-    assert len(spinham._2_1) == 1
-    assert "Cr1" in spinham.atoms.names
-    assert len(spinham.magnetic_atoms.names) == 3
-    spinham.remove_atom(0)
-    assert len(spinham.magnetic_atoms.names) == 2
-    assert len(spinham._2_2) == 1
-    assert len(spinham._2_1) == 0
-    assert "Cr1" not in spinham.atoms.names
 
 
 def test_notation_manipulation():

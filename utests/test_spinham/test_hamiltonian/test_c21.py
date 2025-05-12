@@ -27,14 +27,14 @@ from magnopy.spinham._hamiltonian import SpinHamiltonian
 from magnopy.spinham._notation import Notation
 
 MAX_MODULUS = 1e8
-ARRAY_3 = harrays(
+ARRAY_3X3 = harrays(
     np.float64,
-    (3,),
+    (3, 3),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 
 
-@given(st.integers(), ARRAY_3)
+@given(st.integers(), ARRAY_3X3)
 def test_add_2_1(atom, parameter):
     atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
 
@@ -52,7 +52,7 @@ def test_add_2_1(atom, parameter):
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
-    ARRAY_3,
+    ARRAY_3X3,
 )
 def test_add_2_1_sorting(atom1, atom2, atom3, atom4, parameter):
     atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}

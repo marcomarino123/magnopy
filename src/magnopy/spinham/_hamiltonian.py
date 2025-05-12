@@ -27,6 +27,7 @@ from magnopy.spinham._c1 import _add_1, _p1, _remove_1
 from magnopy.spinham._c21 import _add_2_1, _p21, _remove_2_1
 from magnopy.spinham._c22 import _add_2_2, _p22, _remove_2_2
 from magnopy.spinham._c31 import _add_3_1, _p31, _remove_3_1
+from magnopy.spinham._c32 import _add_3_2, _p32, _remove_3_2
 from magnopy.spinham._c41 import _add_4_1, _p41, _remove_4_1
 from magnopy.spinham._notation import Notation
 from magnopy.spinham._validators import _validate_atom_index, _validate_unit_cell_index
@@ -62,37 +63,37 @@ class SpinHamiltonian:
 
         self._notation = notation
 
-        # [[atom, parameter], ...]
+        # [[alpha, parameter], ...]
         self._1 = []
 
-        # [[atom, parameter], ...]
+        # [[alpha, parameter], ...]
         self._2_1 = []
 
-        # [[atom1, atom2, ijk2, parameter], ...]
+        # [[alpha, beta, nu, parameter], ...]
         self._2_2 = []
 
-        # [[atom, parameter], ...]
+        # [[alpha, parameter], ...]
         self._3_1 = []
 
-        # [[atom1, atom2, ijk2, parameter], ...]
+        # [[alpha, beta, nu, parameter], ...]
         self._3_2 = []
 
-        # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
+        # [[alpha, beta, gamma, nu, lambda, parameter], ...]
         self._3_3 = []
 
-        # [[atom, parameter], ...]
+        # [[alpha, parameter], ...]
         self._4_1 = []
 
-        # [[atom1, atom2, ijk2, parameter], ...]
+        # [[alpha, beta, nu, parameter], ...]
         self._4_2_1 = []
 
-        # [[atom1, atom2, ijk2, parameter], ...]
+        # [[alpha, beta, nu, parameter], ...]
         self._4_2_2 = []
 
-        # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
+        # [[alpha, beta, gamma, nu, lambda, parameter], ...]
         self._4_3 = []
 
-        # [[atom1, atom2, atom3, atom4, ijk2, ijk3, ijk4, parameter], ...]
+        # [[alpha, beta, gamma, epsilon, nu, lambda, rho, parameter], ...]
         self._4_4 = []
 
     ############################################################################
@@ -228,21 +229,25 @@ class SpinHamiltonian:
         # Identify magnetic sites
         indices = set()
 
-        for atom, _ in self._1:
-            indices.add(atom)
+        for alpha, _ in self._1:
+            indices.add(alpha)
 
-        for atom, _ in self._2_1:
-            indices.add(atom)
+        for alpha, _ in self._2_1:
+            indices.add(alpha)
 
-        for atom1, atom2, _, _ in self._2_2:
-            indices.add(atom1)
-            indices.add(atom2)
+        for alpha, beta, _, _ in self._2_2:
+            indices.add(alpha)
+            indices.add(beta)
 
-        for atom, _ in self._3_1:
-            indices.add(atom)
+        for alpha, _ in self._3_1:
+            indices.add(alpha)
 
-        for atom, _ in self._4_1:
-            indices.add(atom)
+        for alpha, beta, _, _ in self._3_2:
+            indices.add(alpha)
+            indices.add(beta)
+
+        for alpha, _ in self._4_1:
+            indices.add(alpha)
 
         # TODO three and four spin terms
 
@@ -379,6 +384,18 @@ class SpinHamiltonian:
         for index in range(len(self._2_2)):
             self._2_2[index][3] = self._2_2[index][3] * factor
 
+        # For (three spins & two sites)
+
+        # It was absent before
+        if multiple_counting:
+            factor = 0.5
+        # It was present before
+        else:
+            factor = 2.0
+
+        for index in range(len(self._3_2)):
+            self._3_2[index][3] = self._3_2[index][3] * factor
+
         # TODO For (four spins & ...)
 
     def _set_spin_normalization(self, spin_normalized: bool) -> None:
@@ -394,52 +411,66 @@ class SpinHamiltonian:
         if spin_normalized:
             # For (one spin & one site)
             for index in range(len(self._1)):
-                atom = self._1[index][0]
-                self._1[index][1] = self._1[index][1] * self.atoms.spins[atom]
+                alpha = self._1[index][0]
+                self._1[index][1] = self._1[index][1] * self.atoms.spins[alpha]
             # For (two spins & one site)
             for index in range(len(self._2_1)):
-                atom = self._2_1[index][0]
-                self._2_1[index][1] = self._2_1[index][1] * self.atoms.spins[atom] ** 2
+                alpha = self._2_1[index][0]
+                self._2_1[index][1] = self._2_1[index][1] * self.atoms.spins[alpha] ** 2
             # For (two spins & two sites)
             for index in range(len(self._2_2)):
-                atom1 = self._2_2[index][0]
-                atom2 = self._2_2[index][1]
+                alpha = self._2_2[index][0]
+                beta = self._2_2[index][1]
                 self._2_2[index][3] = self._2_2[index][3] * (
-                    self.atoms.spins[atom1] * self.atoms.spins[atom2]
+                    self.atoms.spins[alpha] * self.atoms.spins[beta]
                 )
             # For (three spins & one site)
             for index in range(len(self._3_1)):
-                atom = self._3_1[index][0]
-                self._3_1[index][1] = self._3_1[index][1] * self.atoms.spins[atom] ** 3
+                alpha = self._3_1[index][0]
+                self._3_1[index][1] = self._3_1[index][1] * self.atoms.spins[alpha] ** 3
+            # For (three spins & two sites)
+            for index in range(len(self._3_2)):
+                alpha = self._3_2[index][0]
+                beta = self._3_2[index][1]
+                self._3_2[index][3] = self._3_2[index][3] * (
+                    self.atoms.spins[alpha] ** 2 * self.atoms.spins[beta]
+                )
             # For (four spins & one site)
             for index in range(len(self._4_1)):
-                atom = self._4_1[index][0]
-                self._4_1[index][1] = self._4_1[index][1] * self.atoms.spins[atom] ** 4
+                alpha = self._4_1[index][0]
+                self._4_1[index][1] = self._4_1[index][1] * self.atoms.spins[alpha] ** 4
         # Before it was normalized
         else:
             # For (one spin & one site)
             for index in range(len(self._1)):
-                atom = self._1[index][0]
-                self._1[index][1] = self._1[index][1] / self.atoms.spins[atom]
+                alpha = self._1[index][0]
+                self._1[index][1] = self._1[index][1] / self.atoms.spins[alpha]
             # For (two spins & one site)
             for index in range(len(self._2_1)):
-                atom = self._2_1[index][0]
-                self._2_1[index][1] = self._2_1[index][1] / self.atoms.spins[atom] ** 2
+                alpha = self._2_1[index][0]
+                self._2_1[index][1] = self._2_1[index][1] / self.atoms.spins[alpha] ** 2
             # For (two spins & two sites)
             for index in range(len(self._2_2)):
-                atom1 = self._2_2[index][0]
-                atom2 = self._2_2[index][1]
+                alpha = self._2_2[index][0]
+                beta = self._2_2[index][1]
                 self._2_2[index][3] = self._2_2[index][3] / (
-                    self.atoms.spins[atom1] * self.atoms.spins[atom2]
+                    self.atoms.spins[alpha] * self.atoms.spins[beta]
                 )
             # For (three spins & one site)
             for index in range(len(self._3_1)):
-                atom = self._3_1[index][0]
-                self._3_1[index][1] = self._3_1[index][1] / self.atoms.spins[atom] ** 3
+                alpha = self._3_1[index][0]
+                self._3_1[index][1] = self._3_1[index][1] / self.atoms.spins[alpha] ** 3
+            # For (three spins & two sites)
+            for index in range(len(self._3_2)):
+                alpha = self._3_2[index][0]
+                beta = self._3_2[index][1]
+                self._3_2[index][3] = self._3_2[index][3] / (
+                    self.atoms.spins[alpha] ** 2 * self.atoms.spins[beta]
+                )
             # For (four spins & one site)
             for index in range(len(self._4_1)):
-                atom = self._4_1[index][0]
-                self._4_1[index][1] = self._4_1[index][1] / self.atoms.spins[atom] ** 4
+                alpha = self._4_1[index][0]
+                self._4_1[index][1] = self._4_1[index][1] / self.atoms.spins[alpha] ** 4
 
         # TODO For (four spins & ...)
 
@@ -504,7 +535,9 @@ class SpinHamiltonian:
         if self.notation.c32 == new_c32:
             return
 
-        raise NotImplementedError
+        # If factor is changing one has to scale parameters.
+        for index in range(len(self._3_2)):
+            self._3_2[index][3] = self._3_2[index][3] * self.notation.c32 / new_c32
 
     def _set_c33(self, new_c33: float) -> None:
         if new_c33 is None or self.notation._c33 is None:
@@ -616,6 +649,13 @@ class SpinHamiltonian:
     p31 = _p31
     add_3_1 = _add_3_1
     remove_3_1 = _remove_3_1
+
+    ############################################################################
+    #                          Three spins & two sites                         #
+    ############################################################################
+    p32 = _p32
+    add_3_2 = _add_3_2
+    remove_3_2 = _remove_3_2
 
     ############################################################################
     #                           Four spins & one site                          #

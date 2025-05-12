@@ -26,6 +26,7 @@ from wulfric.crystal import get_distance
 from magnopy.spinham._c1 import _add_1, _p1, _remove_1
 from magnopy.spinham._c21 import _add_2_1, _p21, _remove_2_1
 from magnopy.spinham._c22 import _add_2_2, _p22, _remove_2_2
+from magnopy.spinham._c31 import _add_3_1, _p31, _remove_3_1
 from magnopy.spinham._notation import Notation
 from magnopy.spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
@@ -236,6 +237,9 @@ class SpinHamiltonian:
             indices.add(atom1)
             indices.add(atom2)
 
+        for atom, _ in self._3_1:
+            indices.add(atom)
+
         # TODO three and four spin terms
 
         indices = sorted(list(indices))
@@ -311,103 +315,6 @@ class SpinHamiltonian:
         """
 
         return len(self.magnetic_atoms.names)
-
-    ################################################################################
-    #                  Manipulations with the underlying structure                 #
-    ################################################################################
-    def remove_atom(self, atom_index=None, atom_name=None) -> None:
-        r"""
-        Remove an atom from the crystal structure and all parameters that are associated
-        with it.
-
-        Parameters
-        ----------
-        atom_index : int, optional
-            Index of an atom to be removed.
-        atom_name : str, optional
-            Name of the atom to be removed. If several atoms have the same name, then
-            **all** of them are removed.
-
-        Notes
-        -----
-        If both ``atom_index`` and ``atom_name`` are given, then atom with the matching
-        index **and** all atoms with the matching name are removed.
-
-        Examples
-        --------
-
-        .. doctest::
-
-            >>> import numpy as np
-            >>> import magnopy
-            >>> cell = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-            >>> atoms = {"names" : ["Cr1", "Cr2"]}
-            >>> A = np.array([[1,0,0], [0,0,0], [0,0,0]])
-            >>> notation = magnopy.spinham.Notation(False, False, c22=1)
-            >>> spinham = magnopy.spinham.SpinHamiltonian(cell, atoms, notation)
-            >>> spinham.add_2_1(atom=0, parameter=A)
-            >>> spinham.add_2_1(atom=1, parameter=2*A)
-            >>> spinham.remove_atom(atom_name="Cr1")
-            >>> spinham.atoms
-            {'names': ['Cr2']}
-            >>> for a, parameter in spinham.p21:
-            ...    print(a)
-            ...    print(parameter)
-            ...
-            0
-            [[2 0 0]
-             [0 0 0]
-             [0 0 0]]
-            >>> spinham.remove_atom(atom_index = 0)
-            >>> spinham.atoms
-            {'names': []}
-            >>> len(spinham.p21)
-            0
-
-        """
-
-        # After removing of atoms the indices in the parameters should change
-        # Therefore, first we compute new indices and indices of the atoms to remove
-        removed_atoms = set()
-        new_indices = {}
-        new_i = 0
-        for i in range(len(self.atoms.names)):
-            if atom_index is not None and atom_index == i:
-                removed_atoms.add(i)
-            elif atom_name is not None and self.atoms.names[i] == atom_name:
-                removed_atoms.add(i)
-            else:
-                new_indices[i] = new_i
-                new_i += 1
-
-        # Then we remove atoms
-        for index in sorted(removed_atoms, reverse=True):
-            for key in self.atoms:
-                del self.atoms.names[index]
-
-        # Then we remove on-site terms and update indices of the on-site parameters
-        for index in range(len(self._2_1) - 1, -1, -1):
-            atom = self._2_1[index][0]
-
-            if atom in removed_atoms:
-                del self._2_1[index]
-            else:
-                self._2_1[index][0] = new_indices[atom]
-
-        # Finally, we remove and update indices of the exchange parameters
-        for index in range(len(self._2_2) - 1, -1, -1):
-            atom1 = self._2_2[index][0]
-            atom2 = self._2_2[index][1]
-
-            if atom1 in removed_atoms or atom2 in removed_atoms:
-                del self._2_2[index]
-            else:
-                self._2_2[index][0] = new_indices[atom1]
-                self._2_2[index][1] = new_indices[atom2]
-
-        # TODO take care of the rest of the terms
-
-        self._reset_internals()
 
     ################################################################################
     #                             Notation properties                              #
@@ -496,6 +403,10 @@ class SpinHamiltonian:
                 self._2_2[index][3] = self._2_2[index][3] * (
                     self.atoms.spins[atom1] * self.atoms.spins[atom2]
                 )
+            # For (three spins & one site)
+            for index in range(len(self._3_1)):
+                atom = self._3_1[index][0]
+                self._3_1[index][1] = self._3_1[index][1] * self.atoms.spins[atom] ** 3
         # Before it was normalized
         else:
             # For (one spin & one site)
@@ -513,6 +424,10 @@ class SpinHamiltonian:
                 self._2_2[index][3] = self._2_2[index][3] / (
                     self.atoms.spins[atom1] * self.atoms.spins[atom2]
                 )
+            # For (three spins & one site)
+            for index in range(len(self._3_1)):
+                atom = self._3_1[index][0]
+                self._3_1[index][1] = self._3_1[index][1] / self.atoms.spins[atom] ** 3
 
         # TODO For (four spins & ...)
 
@@ -564,7 +479,9 @@ class SpinHamiltonian:
         if self.notation.c31 == new_c31:
             return
 
-        raise NotImplementedError
+        # If factor is changing one has to scale parameters.
+        for index in range(len(self._3_1)):
+            self._3_1[index][1] = self._3_1[index][1] * self.notation.c31 / new_c31
 
     def _set_c32(self, new_c32: float) -> None:
         if new_c32 is None or self.notation._c32 is None:
@@ -678,6 +595,13 @@ class SpinHamiltonian:
     p22 = _p22
     add_2_2 = _add_2_2
     remove_2_2 = _remove_2_2
+
+    ################################################################################
+    #                              One spin & one site                             #
+    ################################################################################
+    p31 = _p31
+    add_3_1 = _add_3_1
+    remove_3_1 = _remove_3_1
 
 
 # Populate __all__ with objects defined in this file

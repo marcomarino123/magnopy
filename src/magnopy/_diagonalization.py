@@ -62,7 +62,7 @@ def _check_grand_dynamical_matrix(D):
     return D, D.shape[0] // 2
 
 
-def solve_via_colpa(D):
+def solve_via_colpa(D, return_inverse=False):
     r"""
     Diagonalize grand-dynamical matrix following the method of Colpa [1]_.
 
@@ -118,6 +118,9 @@ def solve_via_colpa(D):
                 \boldsymbol{\Delta_1} & \boldsymbol{\Delta_2} \\
                 \boldsymbol{\Delta_3} & \boldsymbol{\Delta_4}
             \end{pmatrix}
+    return_inverse : bool, default False
+        Whether to return :math:`(\boldsymbol{G}^{\dagger})^{-1}` instead of
+        :math:`\boldsymbol{G}^{\dagger}`.
 
     Returns
     -------
@@ -150,6 +153,12 @@ def solve_via_colpa(D):
             \boldsymbol{\cal B} = \boldsymbol{G}^{-1} \boldsymbol{\cal A}
 
         The rows are ordered in the same way as the eigenvalues.
+
+        If ``return_inverse == False``, then :math:`\boldsymbol{G}^{\dagger}` is
+        returned.
+
+        If ``return_inverse == True``, then :math:`(\boldsymbol{G}^{\dagger})^{-1}` is
+        returned.
 
     Raises
     ------
@@ -187,6 +196,9 @@ def solve_via_colpa(D):
     E = g @ L
 
     G_minus_one = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
+
+    if return_inverse:
+        return E, G_minus_one
 
     # Compute G from G^-1 following Colpa, see equation (3.7) for details
     G = np.conjugate(G_minus_one).T

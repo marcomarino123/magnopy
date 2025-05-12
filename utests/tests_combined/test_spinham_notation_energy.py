@@ -38,11 +38,11 @@ def test_spin_normalized(spin_normalized):
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    spinham.add_1(atom=0, parameter=[0, 0, 1])
-    spinham.add_2_1(atom=0, parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=parameter)
+    spinham.add_1(alpha=0, parameter=[0, 0, 1])
+    spinham.add_2_1(alpha=0, parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -70,11 +70,11 @@ def test_multiple_counting(multiple_counting):
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    spinham.add_1(atom=0, parameter=[0, 0, 1])
-    spinham.add_2_1(atom=0, parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=parameter)
+    spinham.add_1(alpha=0, parameter=[0, 0, 1])
+    spinham.add_2_1(alpha=0, parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -106,11 +106,11 @@ def test_c1(c1):
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    spinham.add_1(atom=0, parameter=[0, 0, 1])
-    spinham.add_2_1(atom=0, parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=parameter)
+    spinham.add_1(alpha=0, parameter=[0, 0, 1])
+    spinham.add_2_1(alpha=0, parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -138,11 +138,11 @@ def test_c21(c21):
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    spinham.add_1(atom=0, parameter=[0, 0, 1])
-    spinham.add_2_1(atom=0, parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=parameter)
+    spinham.add_1(alpha=0, parameter=[0, 0, 1])
+    spinham.add_2_1(alpha=0, parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -170,11 +170,11 @@ def test_c22(c22):
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    spinham.add_1(atom=0, parameter=[0, 0, 1])
-    spinham.add_2_1(atom=0, parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=parameter)
+    spinham.add_1(alpha=0, parameter=[0, 0, 1])
+    spinham.add_2_1(alpha=0, parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -201,11 +201,11 @@ def test_all_notations():
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    spinham.add_1(atom=0, parameter=[0, 0, 1])
-    spinham.add_2_1(atom=0, parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=parameter)
+    spinham.add_1(alpha=0, parameter=[0, 0, 1])
+    spinham.add_2_1(alpha=0, parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 

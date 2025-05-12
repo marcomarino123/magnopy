@@ -25,7 +25,8 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._hamiltonian import SpinHamiltonian, _get_P22_prime
+from magnopy.spinham._c22 import _get_primary_p22
+from magnopy.spinham._hamiltonian import SpinHamiltonian
 from magnopy.spinham._notation import Notation
 from magnopy.spinham._parameter import (
     get_anisotropic_parameter,
@@ -212,7 +213,7 @@ def test_remove_2_2(r_atom1, r_atom2, r_ijk, unit_cells):
 
         spinham.remove_2_2(r_atom1, r_atom2, r_ijk)
 
-        r_bond = _get_P22_prime(r_atom1, r_atom2, r_ijk)
+        r_bond = _get_primary_p22(r_atom1, r_atom2, r_ijk)
         if r_bond in bonds_22:
             assert len(spinham._2_2) == prev_length - 1
             bonds_22 = []

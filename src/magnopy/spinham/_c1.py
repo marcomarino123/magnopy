@@ -19,7 +19,7 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import _validate_index
+from magnopy.spinham._validators import _validate_atom_index
 
 
 @property
@@ -64,26 +64,26 @@ def _p1(spinham) -> list:
     return spinham._1
 
 
-def _add_1(spinham, atom: int, parameter, replace=False) -> None:
+def _add_1(spinham, alpha: int, parameter, replace=False) -> None:
     r"""
     Adds a (one spin & one site) parameter to the Hamiltonian.
 
     Parameters
     ----------
-    atom : int
+    alpha : int
         Index of an atom, with which the parameter is associated.
 
-        ``0 <= atom < len(spinham.atoms.names)``.
+        ``0 <= alpha < len(spinham.atoms.names)``.
     parameter : (3, ) |array-like|_
         Value of the parameter (:math:`3\times1` vector).
     replace : bool, default False
-        Whether to replace the value of the parameter if an ``atom`` already has a
+        Whether to replace the value of the parameter if an atom already has a
         parameter associated with it.
 
     Raises
     ------
     ValueError
-        If an ``atom`` already has a parameter associated with it.
+        If an atom already has a parameter associated with it.
 
     See Also
     --------
@@ -91,7 +91,7 @@ def _add_1(spinham, atom: int, parameter, replace=False) -> None:
     remove_1
     """
 
-    _validate_index(index=atom, atoms=spinham.atoms)
+    _validate_atom_index(index=alpha, atoms=spinham.atoms)
     spinham._reset_internals()
 
     parameter = np.array(parameter)
@@ -101,38 +101,38 @@ def _add_1(spinham, atom: int, parameter, replace=False) -> None:
     index = 0
     while index < len(spinham._1):
         # If already present in the model
-        if spinham._1[index][0] == atom:
+        if spinham._1[index][0] == alpha:
             # Either replace
             if replace:
-                spinham._1[index] = [atom, parameter]
+                spinham._1[index] = [alpha, parameter]
                 return
             # Or raise an error
             raise ValueError(
                 f"(One spin & one site) parameter is already set "
-                f"for atom {atom} ('{spinham.atoms.names[atom]}')"
+                f"for atom {alpha} ('{spinham.atoms.names[alpha]}')"
             )
 
         # If it should be inserted before current element
-        if spinham._1[index][0] > atom:
-            spinham._1.insert(index, [atom, parameter])
+        if spinham._1[index][0] > alpha:
+            spinham._1.insert(index, [alpha, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    spinham._1.append([atom, parameter])
+    spinham._1.append([alpha, parameter])
 
 
-def _remove_1(spinham, atom: int) -> None:
+def _remove_1(spinham, alpha: int) -> None:
     r"""
     Remove a (one spin & one site) parameter from the Hamiltonian.
 
     Parameters
     ----------
-    atom : int
+    alpha : int
         Index of an atom, with which the parameter is associated.
 
-        ``0 <= atom < len(spinham.atoms.names)``.
+        ``0 <= alpha < len(spinham.atoms.names)``.
 
     See Also
     --------
@@ -140,15 +140,15 @@ def _remove_1(spinham, atom: int) -> None:
     add_1
     """
 
-    _validate_index(index=atom, atoms=spinham.atoms)
-    spinham._reset_internals()
+    _validate_atom_index(index=alpha, atoms=spinham.atoms)
 
     for i in range(len(spinham._1)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if spinham._1[i][0] > atom:
+        if spinham._1[i][0] > alpha:
             return
 
-        if spinham._1[i][0] == atom:
+        if spinham._1[i][0] == alpha:
             del spinham._1[i]
+            spinham._reset_internals()
             return

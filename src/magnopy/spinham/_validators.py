@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-def _validate_index(index, atoms) -> None:
+def _validate_atom_index(index, atoms) -> None:
     r"""
     Validate that the atom index is in agreement with the amount of atoms
 
@@ -49,7 +49,7 @@ def _validate_index(index, atoms) -> None:
         )
 
 
-def _validate_ijk(ijk) -> None:
+def _validate_unit_cell_index(ijk) -> None:
     r"""
     Validate that ijk can specify unit cell.
 

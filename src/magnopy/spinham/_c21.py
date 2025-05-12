@@ -19,7 +19,7 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import _validate_index
+from magnopy.spinham._validators import _validate_atom_index
 
 
 @property
@@ -65,26 +65,26 @@ def _p21(self) -> list:
     return self._2_1
 
 
-def _add_21(self, atom: int, parameter, replace=False) -> None:
+def _add_2_1(self, alpha: int, parameter, replace=False) -> None:
     r"""
     Adds a (two spins & one site) parameter to the Hamiltonian.
 
     Parameters
     ----------
-    atom : int
+    alpha : int
         Index of an atom, with which the parameter is associated.
 
-        ``0 <= atom < len(spinham.atoms.names)``.
+        ``0 <= alpha < len(spinham.atoms.names)``.
     parameter : (3, ) |array-like|_
         Value of the parameter (:math:`3\times1` vector).
     replace : bool, default False
-        Whether to replace the value of the parameter if an ``atom`` already has a
+        Whether to replace the value of the parameter if an atom already has a
         parameter associated with it.
 
     Raises
     ------
     ValueError
-        If an ``atom`` already has a parameter associated with it.
+        If an atom already has a parameter associated with it.
 
     See Also
     --------
@@ -92,7 +92,7 @@ def _add_21(self, atom: int, parameter, replace=False) -> None:
     remove_2_1
     """
 
-    _validate_index(index=atom, atoms=self.atoms)
+    _validate_atom_index(index=alpha, atoms=self.atoms)
     self._reset_internals()
 
     parameter = np.array(parameter)
@@ -102,38 +102,38 @@ def _add_21(self, atom: int, parameter, replace=False) -> None:
     index = 0
     while index < len(self._2_1):
         # If already present in the model
-        if self._2_1[index][0] == atom:
+        if self._2_1[index][0] == alpha:
             # Either replace
             if replace:
-                self._2_1[index] = [atom, parameter]
+                self._2_1[index] = [alpha, parameter]
                 return
             # Or raise an error
             raise ValueError(
                 f"On-site quadratic anisotropy already set "
-                f"for atom {atom} ('{self.atoms.names[atom]}')"
+                f"for atom {alpha} ('{self.atoms.names[alpha]}')"
             )
 
         # If it should be inserted before current element
-        if self._2_1[index][0] > atom:
-            self._2_1.insert(index, [atom, parameter])
+        if self._2_1[index][0] > alpha:
+            self._2_1.insert(index, [alpha, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    self._2_1.append([atom, parameter])
+    self._2_1.append([alpha, parameter])
 
 
-def _remove_21(self, atom: int) -> None:
+def _remove_2_1(self, alpha: int) -> None:
     r"""
     Remove a (two spins & one site) parameter from the Hamiltonian.
 
     Parameters
     ----------
-    atom : int
+    alpha : int
         Index of an atom, with which the parameter is associated.
 
-        ``0 <= atom < len(spinham.atoms.names)``.
+        ``0 <= alpha < len(spinham.atoms.names)``.
 
     See Also
     --------
@@ -141,15 +141,15 @@ def _remove_21(self, atom: int) -> None:
     add_2_1
     """
 
-    _validate_index(index=atom, atoms=self.atoms)
+    _validate_atom_index(index=alpha, atoms=self.atoms)
     self._reset_internals()
 
     for i in range(len(self._2_1)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if self._2_1[i][0] > atom:
+        if self._2_1[i][0] > alpha:
             return
 
-        if self._2_1[i][0] == atom:
+        if self._2_1[i][0] == alpha:
             del self._2_1[i]
             return

@@ -45,3 +45,4 @@ Theory behind
 
     theory-behind/spin-hamiltonian
     theory-behind/hamiltonian-notation
+    theory-behind/multiple-counting

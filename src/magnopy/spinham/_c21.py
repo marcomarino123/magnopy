@@ -142,7 +142,6 @@ def _remove_2_1(self, alpha: int) -> None:
     """
 
     _validate_atom_index(index=alpha, atoms=self.atoms)
-    self._reset_internals()
 
     for i in range(len(self._2_1)):
         # As the list is sorted, there is no point in resuming the search
@@ -152,4 +151,5 @@ def _remove_2_1(self, alpha: int) -> None:
 
         if self._2_1[i][0] == alpha:
             del self._2_1[i]
+            self._reset_internals()
             return

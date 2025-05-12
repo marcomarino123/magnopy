@@ -31,12 +31,13 @@ of the form
 
 where
 
-* :math:`E^{(0)}` is a classical energy of the ground state.
-* :math:`E^{(2)}` is a quantum correction to the ground state energy arising from the
-  Linear Spin Wave Theory (LSWT).
-* :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion relation that is computed
-  at the level of LSWT.
-* :math:`\sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})` is a zero is most of the cases.
+* :math:`E^{(0)}` is a classical energy of the ground state;
+
+and next three terms are derived with the Linear Spin Wave Theory (LSWT):
+
+* :math:`E^{(2)}` is a quantum correction to the ground state energy;
+* :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion at the level of LSWT;
+* :math:`\sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})` is zero in most of the cases.
 
 
 Planned to be implemented

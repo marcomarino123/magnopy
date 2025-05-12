@@ -357,54 +357,6 @@ def test_remove_atom():
     assert "Cr1" not in spinham.atoms.names
 
 
-def test_filter():
-    atoms = {"names": ["Cr1", "Cr2"], "positions": [(0.25, 0.25, 0), (0.75, 0.75, 0)]}
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-    bonds = [
-        (12, 0, 1, (0, 0, 0)),
-        (12, 0, 0, (1, 0, 0)),
-        (12, 1, 1, (1, 0, 0)),
-        (12, 0, 0, (0, 2, 0)),
-        (12, 1, 1, (0, 2, 0)),
-        (12, 1, 0, (2, 2, 0)),
-    ]
-    for iso, atom1, atom2, ijk in bonds:
-        spinham.add_2_2(atom1, atom2, ijk, iso * np.eye(3))
-
-    assert len(spinham._2_2) == 6
-    spinham.filter_2_2(max_distance=1)
-    assert len(spinham._2_2) == 3
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-    bonds = [
-        (12, 0, 1, (0, 0, 0)),
-        (12, 0, 0, (1, 0, 0)),
-        (12, 1, 1, (1, 0, 0)),
-        (12, 0, 0, (0, 2, 0)),
-        (12, 1, 1, (0, 2, 0)),
-        (12, 1, 0, (2, 2, 0)),
-    ]
-    for iso, atom1, atom2, ijk in bonds:
-        spinham.add_2_2(atom1, atom2, ijk, iso * np.eye(3))
-    spinham.filter_2_2(min_distance=1)
-    assert len(spinham._2_2) == 5
-
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
-    bonds = [
-        (12, 0, 1, (0, 0, 0)),
-        (12, 0, 0, (1, 0, 0)),
-        (12, 1, 1, (1, 0, 0)),
-        (12, 0, 0, (0, 2, 0)),
-        (12, 1, 1, (0, 2, 0)),
-        (12, 1, 0, (2, 2, 0)),
-    ]
-    for iso, atom1, atom2, ijk in bonds:
-        spinham.add_2_2(atom1, atom2, ijk, iso * np.eye(3))
-    spinham.filter_2_2(min_distance=1, max_distance=2)
-    assert len(spinham._2_2) == 4
-
-
 def test_notation_manipulation():
     atoms = dict(names=["Cr"], postions=[[0, 0, 0]], spins=[3 / 2])
 

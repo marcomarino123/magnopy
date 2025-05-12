@@ -27,6 +27,7 @@ from magnopy.spinham._c1 import _add_1, _p1, _remove_1
 from magnopy.spinham._c21 import _add_2_1, _p21, _remove_2_1
 from magnopy.spinham._c22 import _add_2_2, _p22, _remove_2_2
 from magnopy.spinham._c31 import _add_3_1, _p31, _remove_3_1
+from magnopy.spinham._c41 import _add_4_1, _p41, _remove_4_1
 from magnopy.spinham._notation import Notation
 from magnopy.spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
@@ -94,9 +95,9 @@ class SpinHamiltonian:
         # [[atom1, atom2, atom3, atom4, ijk2, ijk3, ijk4, parameter], ...]
         self._4_4 = []
 
-    ################################################################################
-    #                                Cell and Atoms                                #
-    ################################################################################
+    ############################################################################
+    #                              Cell and Atoms                              #
+    ############################################################################
 
     @property
     def cell(self) -> dict:
@@ -240,6 +241,9 @@ class SpinHamiltonian:
         for atom, _ in self._3_1:
             indices.add(atom)
 
+        for atom, _ in self._4_1:
+            indices.add(atom)
+
         # TODO three and four spin terms
 
         indices = sorted(list(indices))
@@ -316,9 +320,9 @@ class SpinHamiltonian:
 
         return len(self.magnetic_atoms.names)
 
-    ################################################################################
-    #                             Notation properties                              #
-    ################################################################################
+    ############################################################################
+    #                           Notation properties                            #
+    ############################################################################
     @property
     def notation(self) -> Notation:
         r"""
@@ -407,6 +411,10 @@ class SpinHamiltonian:
             for index in range(len(self._3_1)):
                 atom = self._3_1[index][0]
                 self._3_1[index][1] = self._3_1[index][1] * self.atoms.spins[atom] ** 3
+            # For (four spins & one site)
+            for index in range(len(self._4_1)):
+                atom = self._4_1[index][0]
+                self._4_1[index][1] = self._4_1[index][1] * self.atoms.spins[atom] ** 4
         # Before it was normalized
         else:
             # For (one spin & one site)
@@ -428,6 +436,10 @@ class SpinHamiltonian:
             for index in range(len(self._3_1)):
                 atom = self._3_1[index][0]
                 self._3_1[index][1] = self._3_1[index][1] / self.atoms.spins[atom] ** 3
+            # For (four spins & one site)
+            for index in range(len(self._4_1)):
+                atom = self._4_1[index][0]
+                self._4_1[index][1] = self._4_1[index][1] / self.atoms.spins[atom] ** 4
 
         # TODO For (four spins & ...)
 
@@ -514,7 +526,9 @@ class SpinHamiltonian:
         if self.notation.c41 == new_c41:
             return
 
-        raise NotImplementedError
+        # If factor is changing one has to scale parameters.
+        for index in range(len(self._4_1)):
+            self._4_1[index][1] = self._4_1[index][1] * self.notation.c41 / new_c41
 
     def _set_c421(self, new_c421: float) -> None:
         if new_c421 is None or self.notation._c421 is None:
@@ -560,9 +574,9 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    ################################################################################
-    #                                  Copy getter                                 #
-    ################################################################################
+    ############################################################################
+    #                                Copy getter                               #
+    ############################################################################
     def copy(self):
         R"""
         Returns a new, independent copy of the same Hamiltonian.
@@ -575,33 +589,40 @@ class SpinHamiltonian:
 
         return deepcopy(self)
 
-    ################################################################################
-    #                              One spin & one site                             #
-    ################################################################################
+    ############################################################################
+    #                            One spin & one site                           #
+    ############################################################################
     p1 = _p1
     add_1 = _add_1
     remove_1 = _remove_1
 
-    ################################################################################
-    #                             Two spins & one site                             #
-    ################################################################################
+    ############################################################################
+    #                           Two spins & one site                           #
+    ############################################################################
     p21 = _p21
     add_2_1 = _add_2_1
     remove_2_1 = _remove_2_1
 
-    ################################################################################
-    #                             Two spins & two sites                            #
-    ################################################################################
+    ############################################################################
+    #                           Two spins & two sites                          #
+    ############################################################################
     p22 = _p22
     add_2_2 = _add_2_2
     remove_2_2 = _remove_2_2
 
-    ################################################################################
-    #                              One spin & one site                             #
-    ################################################################################
+    ############################################################################
+    #                          Three spins & one site                          #
+    ############################################################################
     p31 = _p31
     add_3_1 = _add_3_1
     remove_3_1 = _remove_3_1
+
+    ############################################################################
+    #                           Four spins & one site                          #
+    ############################################################################
+    p41 = _p41
+    add_4_1 = _add_4_1
+    remove_4_1 = _remove_4_1
 
 
 # Populate __all__ with objects defined in this file

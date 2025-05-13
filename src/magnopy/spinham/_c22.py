@@ -86,10 +86,10 @@ class _P22_iterator:
             return self.container[self.index - 1]
 
         elif self.mc and self.index < 2 * self.length:
-            alpha, beta, (i, j, k), parameter = self.container[
-                2 * self.length - self.index - 1
-            ]
             self.index += 1
+            alpha, beta, (i, j, k), parameter = self.container[
+                self.index - 1 - self.length
+            ]
             return [beta, alpha, (-i, -j, -k), parameter.T]
 
         raise StopIteration
@@ -139,9 +139,6 @@ def _p22(spinham):
         integers.
 
         ``J`` is a (3, 3) :numpy:`ndarray`.
-
-        The parameters are sorted in the ascending order by the tuple of
-        ``alpha, beta, nu``.
 
     See Also
     --------

@@ -258,8 +258,8 @@ two cases are possible
       =
       J_{4, 2, 2}^{uvij}(\boldsymbol{r}_{\nu,\alpha\beta})
 
-Four spins and three sites
-==========================
+Four spins & three sites
+========================
 
 For the given term of the Hamiltonian
 

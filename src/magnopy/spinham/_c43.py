@@ -283,7 +283,7 @@ def _p43(spinham):
     .. math::
 
         C_{4,3}
-        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u}}
+        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u, v}}
         J^{ijuv}_{4,3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
         S_{\mu,\alpha}^i
         S_{\mu,\alpha}^j

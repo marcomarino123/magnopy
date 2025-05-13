@@ -115,7 +115,7 @@ def _p422(spinham):
     .. math::
 
         C_{4,2,2}
-        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u}}
+        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u, v}}
         J^{ijuv}_{4,2,2}(\boldsymbol{r}_{\nu,\alpha\beta})
         S_{\mu,\alpha}^i
         S_{\mu,\alpha}^j

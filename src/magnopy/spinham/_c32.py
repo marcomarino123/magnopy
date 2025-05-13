@@ -56,22 +56,13 @@ def _get_primary_p32(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None)
         Full matrix of the parameter. It is returned only if ``parameter is not None``.
     """
 
-    i, j, k = nu
-
-    if (
-        i < 0
-        or (i == 0 and j < 0)
-        or (i == 0 and j == 0 and k < 0)
-        or (i == 0 and j == 0 and k == 0 and alpha > beta)
-    ):
-        if parameter is None:
-            return beta, alpha, (-i, -j, -k)
-        return (
-            beta,
-            alpha,
-            (-i, -j, -k),
-            np.transpose(parameter, (2, 1, 0)) * S_alpha / S_beta,
-        )
+    if _spins_ordered(mu1=(0, 0, 0), alpha1=alpha, mu2=nu, alpha2=beta):
+        pass
+    else:
+        i, j, k = nu
+        alpha, beta, nu = beta, alpha, (-i, -j, -k)
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 1, 0)) * S_alpha / S_beta
 
     if parameter is None:
         return alpha, beta, nu

@@ -10,17 +10,17 @@ spin operators.
 
 For the sake of the choosing the primary version of the same bond we define the
 comparison of two spin operators based on their positions as
-(where :math:`\nu = (\nu_1, \nu_2, \nu_3)`)
+(where :math:`\mu = (\mu^1, \mu^2, \mu^3)`)
 
-* :math:`\boldsymbol{S}_{\mu,\alpha} < \boldsymbol{S}_{\mu+\nu,\beta}` if one of the
+* :math:`\boldsymbol{S}_{\mu_1,\alpha_1} < \boldsymbol{S}_{\mu_2,\alpha_2}` if one of the
   conditions is met
 
-  * :math:`\nu_1 > 0`
-  * :math:`\nu_1 = 0, \nu_2 > 0`
-  * :math:`\nu_1 = \nu_2 = 0, \nu_3 > 0`
-  * :math:`\nu_1 = \nu_2 = \nu_3 = 0, \alpha < \beta`
+  * :math:`\mu_2^1 - \mu_1^1 > 0`
+  * :math:`\mu_2^1 - \mu_1^1 = 0, \mu_2^2 - \mu_1^2 > 0`
+  * :math:`\mu_2^1 - \mu_1^1 = \mu_2^2 - \mu_1^2 = 0, \mu_2^3 - \mu_1^3 > 0`
+  * :math:`\mu_2^1 - \mu_1^1 = \mu_2^2 - \mu_1^2 = \mu_2^3 - \mu_1^3 = 0, \alpha_2 - \alpha_1 > 0`
 
-* :math:`\boldsymbol{S}_{\mu,\alpha} > \boldsymbol{S}_{\mu+\nu,\beta}` otherwise.
+* :math:`\boldsymbol{S}_{\mu_1,\alpha_1} > \boldsymbol{S}_{\mu_2,\alpha_2}` otherwise.
 
 Moreover, we use in this page a short notation for the terms of the Hamiltonian
 

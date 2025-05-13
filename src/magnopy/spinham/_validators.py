@@ -86,3 +86,40 @@ def _validate_unit_cell_index(ijk) -> None:
             f"Third element of the unit cell index is not an 'int', got "
             f"{type(ijk[2])} from '{ijk[2]}'"
         )
+
+
+def _spins_ordered(mu1, alpha1, mu2, alpha2) -> bool:
+    r"""
+    Compare two spins based on their positions.
+
+    For the definition of comparison see
+    :ref:`user-guide_theory-behind_multiple-counting`.
+
+    Parameters
+    ----------
+    mu1 : tuple of 3 int
+    alpha1 : int
+    mu2 : tuple of 3 int
+    alpha2 : int
+
+    Returns
+    -------
+    result : bool
+    """
+
+    i1, j1, k1 = mu1
+    i2, j2, k2 = mu2
+
+    i = i2 - i1
+    j = j2 - j1
+    k = k2 - k1
+
+    if (
+        i > 0
+        or (i == 0 and j > 0)
+        or (i == 0 and j == 0 and k > 0)
+        or (i == 0 and j == 0 and k == 0 and alpha1 < alpha2)
+    ):
+        return True
+
+    return False

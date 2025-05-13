@@ -76,7 +76,7 @@ class _P22_iterator:
 
     def __init__(self, spinham) -> None:
         self.container = spinham._2_2
-        self.dc = spinham.notation.multiple_counting
+        self.mc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
 
@@ -85,7 +85,7 @@ class _P22_iterator:
             self.index += 1
             return self.container[self.index - 1]
 
-        elif self.dc and self.index < 2 * self.length:
+        elif self.mc and self.index < 2 * self.length:
             alpha, beta, (i, j, k), parameter = self.container[
                 2 * self.length - self.index - 1
             ]
@@ -95,7 +95,7 @@ class _P22_iterator:
         raise StopIteration
 
     def __len__(self):
-        return self.length * (1 + int(self.dc))
+        return self.length * (1 + int(self.mc))
 
     def __iter__(self):
         return self

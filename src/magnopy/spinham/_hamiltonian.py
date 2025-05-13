@@ -31,6 +31,7 @@ from magnopy.spinham._c32 import _add_32, _p32, _remove_32
 from magnopy.spinham._c33 import _add_33, _p33, _remove_33
 from magnopy.spinham._c41 import _add_41, _p41, _remove_41
 from magnopy.spinham._c43 import _add_43, _p43, _remove_43
+from magnopy.spinham._c44 import _add_44, _p44, _remove_44
 from magnopy.spinham._c421 import _add_421, _p421, _remove_421
 from magnopy.spinham._c422 import _add_422, _p422, _remove_422
 from magnopy.spinham._notation import Notation
@@ -271,7 +272,11 @@ class SpinHamiltonian:
             indices.add(beta)
             indices.add(gamma)
 
-        # TODO four spin terms
+        for alpha, beta, gamma, epsilon, _, _, _, _ in self._44:
+            indices.add(alpha)
+            indices.add(beta)
+            indices.add(gamma)
+            indices.add(epsilon)
 
         indices = sorted(list(indices))
 
@@ -466,7 +471,17 @@ class SpinHamiltonian:
         for index in range(len(self._43)):
             self._43[index][5] = self._43[index][5] * factor
 
-        # TODO For (four spins & ...)
+        # For (four spins & four sites)
+
+        # It was absent before
+        if multiple_counting:
+            factor = 1 / 24
+        # It was present before
+        else:
+            factor = 24
+
+        for index in range(len(self._44)):
+            self._44[index][7] = self._44[index][7] * factor
 
     def _set_spin_normalization(self, spin_normalized: bool) -> None:
         if spin_normalized is None or self.notation._spin_normalized is None:
@@ -543,6 +558,18 @@ class SpinHamiltonian:
                     * self.atoms.spins[beta]
                     * self.atoms.spins[gamma]
                 )
+            # For (four spins & four sites)
+            for index in range(len(self._44)):
+                alpha = self._44[index][0]
+                beta = self._44[index][1]
+                gamma = self._44[index][2]
+                epsilon = self._44[index][3]
+                self._44[index][7] = self._44[index][7] * (
+                    self.atoms.spins[alpha]
+                    * self.atoms.spins[beta]
+                    * self.atoms.spins[gamma]
+                    * self.atoms.spins[epsilon]
+                )
         # Before it was normalized
         else:
             # For (one spin & one site)
@@ -609,8 +636,18 @@ class SpinHamiltonian:
                     * self.atoms.spins[beta]
                     * self.atoms.spins[gamma]
                 )
-
-        # TODO For (four spins & ...)
+            # For (four spins & four sites)
+            for index in range(len(self._44)):
+                alpha = self._44[index][0]
+                beta = self._44[index][1]
+                gamma = self._44[index][2]
+                epsilon = self._44[index][3]
+                self._44[index][7] = self._44[index][7] / (
+                    self.atoms.spins[alpha]
+                    * self.atoms.spins[beta]
+                    * self.atoms.spins[gamma]
+                    * self.atoms.spins[epsilon]
+                )
 
     def _set_c1(self, new_c1: float) -> None:
         if new_c1 is None or self.notation._c1 is None:
@@ -751,7 +788,9 @@ class SpinHamiltonian:
         if self.notation.c44 == new_c44:
             return
 
-        raise NotImplementedError
+        # If factor is changing one has to scale parameters.
+        for index in range(len(self._44)):
+            self._44[index][7] = self._44[index][7] * self.notation.c44 / new_c44
 
     ############################################################################
     #                                Copy getter                               #
@@ -837,6 +876,13 @@ class SpinHamiltonian:
     p43 = _p43
     add_43 = _add_43
     remove_43 = _remove_43
+
+    ############################################################################
+    #                          Four spins & four sites                         #
+    ############################################################################
+    p44 = _p44
+    add_44 = _add_44
+    remove_44 = _remove_44
 
 
 # Populate __all__ with objects defined in this file

@@ -30,6 +30,7 @@ from magnopy.spinham._c31 import _add_3_1, _p31, _remove_3_1
 from magnopy.spinham._c32 import _add_3_2, _p32, _remove_3_2
 from magnopy.spinham._c33 import _add_3_3, _p33, _remove_3_3
 from magnopy.spinham._c41 import _add_4_1, _p41, _remove_4_1
+from magnopy.spinham._c421 import _add_4_2_1, _p421, _remove_4_2_1
 from magnopy.spinham._notation import Notation
 from magnopy.spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
@@ -255,6 +256,10 @@ class SpinHamiltonian:
         for alpha, _ in self._4_1:
             indices.add(alpha)
 
+        for alpha, beta, _, _ in self._4_2_1:
+            indices.add(alpha)
+            indices.add(beta)
+
         # TODO four spin terms
 
         indices = sorted(list(indices))
@@ -414,6 +419,18 @@ class SpinHamiltonian:
         for index in range(len(self._3_3)):
             self._3_3[index][5] = self._3_3[index][5] * factor
 
+        # For (four spins & two sites (3+1))
+
+        # It was absent before
+        if multiple_counting:
+            factor = 0.5
+        # It was present before
+        else:
+            factor = 2.0
+
+        for index in range(len(self._4_2_1)):
+            self._4_2_1[index][3] = self._4_2_1[index][3] * factor
+
         # TODO For (four spins & ...)
 
     def _set_spin_normalization(self, spin_normalized: bool) -> None:
@@ -467,6 +484,13 @@ class SpinHamiltonian:
             for index in range(len(self._4_1)):
                 alpha = self._4_1[index][0]
                 self._4_1[index][1] = self._4_1[index][1] * self.atoms.spins[alpha] ** 4
+            # For (four spins & two sites (3+1))
+            for index in range(len(self._4_2_1)):
+                alpha = self._4_2_1[index][0]
+                beta = self._4_2_1[index][1]
+                self._4_2_1[index][3] = self._4_2_1[index][3] * (
+                    self.atoms.spins[alpha] ** 3 * self.atoms.spins[beta]
+                )
         # Before it was normalized
         else:
             # For (one spin & one site)
@@ -509,6 +533,13 @@ class SpinHamiltonian:
             for index in range(len(self._4_1)):
                 alpha = self._4_1[index][0]
                 self._4_1[index][1] = self._4_1[index][1] / self.atoms.spins[alpha] ** 4
+            # For (four spins & two sites (3+1))
+            for index in range(len(self._4_2_1)):
+                alpha = self._4_2_1[index][0]
+                beta = self._4_2_1[index][1]
+                self._4_2_1[index][3] = self._4_2_1[index][3] / (
+                    self.atoms.spins[alpha] ** 3 * self.atoms.spins[beta]
+                )
 
         # TODO For (four spins & ...)
 
@@ -612,7 +643,11 @@ class SpinHamiltonian:
         if self.notation.c421 == new_c421:
             return
 
-        raise NotImplementedError
+        # If factor is changing one has to scale parameters.
+        for index in range(len(self._4_2_1)):
+            self._4_2_1[index][3] = (
+                self._4_2_1[index][3] * self.notation.c421 / new_c421
+            )
 
     def _set_c422(self, new_c422: float) -> None:
         if new_c422 is None or self.notation._c422 is None:
@@ -710,6 +745,13 @@ class SpinHamiltonian:
     p41 = _p41
     add_4_1 = _add_4_1
     remove_4_1 = _remove_4_1
+
+    ############################################################################
+    #                          Four spins & two sites (3+1)                    #
+    ############################################################################
+    p421 = _p421
+    add_4_2_1 = _add_4_2_1
+    remove_4_2_1 = _remove_4_2_1
 
 
 # Populate __all__ with objects defined in this file

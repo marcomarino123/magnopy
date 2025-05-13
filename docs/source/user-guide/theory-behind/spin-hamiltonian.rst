@@ -16,7 +16,7 @@ at most four linearly coupled spins
 
 .. dropdown:: Meaning of indices
 
-    *   Superscript Latin letters :math:`k, l, i, j` denotes three cartesian components.
+    *   Superscript Latin letters :math:`i, j, u, v` denotes three cartesian components.
         Therefore, the scalar product of two vectors
         :math:`\boldsymbol{S}_{\mu, \alpha}` and :math:`\boldsymbol{J}_{\alpha}`
         is written as
@@ -25,7 +25,7 @@ at most four linearly coupled spins
             (\boldsymbol{S}_{\mu, \alpha} \cdot \boldsymbol{J}_{\alpha})
             =
             \sum_k
-            S^k_{\mu, \alpha} \cdot J^k_{\alpha}
+            S^i_{\mu, \alpha} \cdot J^i_{\alpha}
 
     *   Subscript Greek letters denote the position of the unit cell in the periodic
         crystal (:math:`\mu, \nu, \lambda, \rho`) or position of the spin within some
@@ -45,7 +45,7 @@ at most four linearly coupled spins
 
             \boldsymbol{r}_{\mu}
             =
-            \sum_{i=1}^3 \mu_i\boldsymbol{a}_i
+            \sum_{n=1}^3 \mu_n\boldsymbol{a}_n
 
         and the position of the second unit cell that contains the spin
         :math:`\boldsymbol{S}_{\mu+\nu,\beta}` is
@@ -53,11 +53,11 @@ at most four linearly coupled spins
         .. math::
             \boldsymbol{r}_{\mu + \nu}
             =
-            \sum_{i=1}^3 (\mu_i + \nu_i)\boldsymbol{a}_i
+            \sum_{i=n}^3 (\mu_n + \nu_n)\boldsymbol{a}_n
             =
             \boldsymbol{r}_{\mu} + \boldsymbol{r}_{\nu}.
 
-        where :math:`\boldsymbol{a}_i` are the three lattice vectors of the Bravais
+        where :math:`\boldsymbol{a}_n` are the three lattice vectors of the Bravais
         lattice of the underlying crystal. In other word the summation and addition of
         this indices directly translates into the summation and addition of the
         corresponding position vectors. Note, hat the indices :math:`\alpha` and
@@ -227,8 +227,8 @@ Isotropic biquadratic exchange interaction can be written as
 This Hamiltonian can be written as the ninth term of the expanded form is one defines
 :math:`C_{4,2,2} = 1` and tensor
 :math:`\boldsymbol{J}_{4,2,2}(\boldsymbol{r}_{\nu,\alpha\beta})` such as
-:math:`J_{4,2,2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}) = J(\boldsymbol{r}_{\nu,\alpha\beta})`
-if  :math:`(klij)` is one of
+:math:`J_{4,2,2}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}) = J(\boldsymbol{r}_{\nu,\alpha\beta})`
+if  :math:`(ijuv)` is one of
 
 .. math::
     \begin{matrix}
@@ -237,4 +237,4 @@ if  :math:`(klij)` is one of
     (zxzx), & (zyzy), & (yyyy)
     \end{matrix}
 
-and :math:`J_{4,2,2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}) = 0` otherwise.
+and :math:`J_{4,2,2}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}) = 0` otherwise.

@@ -2,79 +2,79 @@
     \mathcal{H}
     =&
     \,C_1
-    \sum_{\substack{\mu, \\ \alpha \\ k}}
-    J_1^k(\boldsymbol{r}_{\alpha})
-    S_{\mu,\alpha}^k
-    +\\&+
-    C_{2,1}
-    \sum_{\substack{\mu, \\ \alpha, \\ k,l}}
-    J_{2,1}^{kl}(\boldsymbol{r}_{\alpha})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
-    +\\&+
-    C_{2,2}
-    \sum_{\substack{\mu,\nu, \\ \alpha, \beta, \\ k,l}}
-    J_{2,2}^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
-    S_{\mu,\alpha}^k
-    S_{\mu+\nu,\beta}^l
-    +\\&+
-    C_{3, 1}
-    \sum_{\substack{\mu, \\ \alpha, \\ k,l,i}}
-    J_{3, 1}^{kli}(\boldsymbol{r}_{\alpha})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
+    \sum_{\substack{\mu, \\ \alpha \\ i}}
+    J_1^i(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^i
     +\\&+
-    C_{3, 2}
-    \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i}}
-    J_{3, 2}^{kli}(\boldsymbol{r}_{\nu,\alpha\beta})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
-    S_{\mu+\nu,\beta}^i
-    +\\&+
-    C_{3, 3}
-    \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i}}
-    J_{3, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
-    S_{\mu,\alpha}^k
-    S_{\mu+\nu,\beta}^l
-    S_{\mu+\lambda,\gamma}^i
-    +\\&+
-    C_{4, 1}
-    \sum_{\substack{\mu, \\ \alpha, \\ k,l,i,j}}
-    J_{4, 1}^{klij}(\boldsymbol{r}_{\alpha})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
+    C_{2,1}
+    \sum_{\substack{\mu, \\ \alpha, \\ i,j}}
+    J_{2,1}^{ij}(\boldsymbol{r}_{\alpha})
     S_{\mu,\alpha}^i
     S_{\mu,\alpha}^j
     +\\&+
-    C_{4, 2, 1}
-    \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_{4, 2, 1}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
+    C_{2,2}
+    \sum_{\substack{\mu,\nu, \\ \alpha, \beta, \\ i,j}}
+    J_{2,2}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
     S_{\mu,\alpha}^i
     S_{\mu+\nu,\beta}^j
     +\\&+
-    C_{4, 2, 2}
-    \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_{4, 2, 2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
-    S_{\mu+\nu,\beta}^i
+    C_{3, 1}
+    \sum_{\substack{\mu, \\ \alpha, \\ i,j,u}}
+    J_{3, 1}^{iju}(\boldsymbol{r}_{\alpha})
+    S_{\mu,\alpha}^i
+    S_{\mu,\alpha}^j
+    S_{\mu,\alpha}^u
+    +\\&+
+    C_{3, 2}
+    \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ i,j,u}}
+    J_{3, 2}^{iju}(\boldsymbol{r}_{\nu,\alpha\beta})
+    S_{\mu,\alpha}^i
+    S_{\mu,\alpha}^j
+    S_{\mu+\nu,\beta}^u
+    +\\&+
+    C_{3, 3}
+    \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ i,j,u}}
+    J_{3, 3}^{iju}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+    S_{\mu,\alpha}^i
     S_{\mu+\nu,\beta}^j
+    S_{\mu+\lambda,\gamma}^u
+    +\\&+
+    C_{4, 1}
+    \sum_{\substack{\mu, \\ \alpha, \\ i,j,u,v}}
+    J_{4, 1}^{ijuv}(\boldsymbol{r}_{\alpha})
+    S_{\mu,\alpha}^i
+    S_{\mu,\alpha}^j
+    S_{\mu,\alpha}^u
+    S_{\mu,\alpha}^v
+    +\\&+
+    C_{4, 2, 1}
+    \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ i,j,u,v}}
+    J_{4, 2, 1}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+    S_{\mu,\alpha}^i
+    S_{\mu,\alpha}^j
+    S_{\mu,\alpha}^u
+    S_{\mu+\nu,\beta}^v
+    +\\&+
+    C_{4, 2, 2}
+    \sum_{\substack{\mu,\nu, \\ \alpha,\beta, \\ i,j,u,v}}
+    J_{4, 2, 2}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+    S_{\mu,\alpha}^i
+    S_{\mu,\alpha}^j
+    S_{\mu+\nu,\beta}^u
+    S_{\mu+\nu,\beta}^v
     +\\&+
     C_{4, 3}
-    \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i,j}}
-    J_{4, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
-    S_{\mu,\alpha}^k
-    S_{\mu,\alpha}^l
-    S_{\mu+\nu,\beta}^i
-    S_{\mu+\lambda,\gamma}^j
+    \sum_{\substack{\mu,\nu,\lambda, \\ \alpha,\beta,\gamma, \\ i,j,u,v}}
+    J_{4, 3}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+    S_{\mu,\alpha}^i
+    S_{\mu,\alpha}^j
+    S_{\mu+\nu,\beta}^u
+    S_{\mu+\lambda,\gamma}^v
     +\\&+
     C_{4, 4}
-    \sum_{\substack{\mu,\nu,\lambda,\rho, \\ \alpha,\beta,\gamma,\varepsilon, \\ k,l,i,j}}
-    J_{4, 4}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
-    S_{\mu,\alpha}^k
-    S_{\mu+\nu,\beta}^l
-    S_{\mu+\lambda,\gamma}^i
-    S_{\mu+\rho,\varepsilon}^j
+    \sum_{\substack{\mu,\nu,\lambda,\rho, \\ \alpha,\beta,\gamma,\varepsilon, \\ i,j,u,v}}
+    J_{4, 4}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
+    S_{\mu,\alpha}^i
+    S_{\mu+\nu,\beta}^j
+    S_{\mu+\lambda,\gamma}^u
+    S_{\mu+\rho,\varepsilon}^v

@@ -75,7 +75,7 @@ class _P22_iterator:
     """
 
     def __init__(self, spinham) -> None:
-        self.container = spinham._2_2
+        self.container = spinham._22
         self.mc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
@@ -142,14 +142,14 @@ def _p22(spinham):
 
     See Also
     --------
-    add_2_2
-    remove_2_2
+    add_22
+    remove_22
     """
 
     return _P22_iterator(spinham)
 
 
-def _add_2_2(
+def _add_22(
     spinham, alpha: int, beta: int, nu: tuple, parameter, replace=False
 ) -> None:
     r"""
@@ -195,7 +195,7 @@ def _add_2_2(
     See Also
     --------
     p22
-    remove_2_2
+    remove_22
 
     Notes
     -----
@@ -225,12 +225,12 @@ def _add_2_2(
 
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(spinham._2_2):
+    while index < len(spinham._22):
         # If already present in the model
-        if spinham._2_2[index][:3] == [alpha, beta, nu]:
+        if spinham._22[index][:3] == [alpha, beta, nu]:
             # Either replace
             if replace:
-                spinham._2_2[index] = [alpha, beta, nu, parameter]
+                spinham._22[index] = [alpha, beta, nu, parameter]
                 return
             # Or raise an error
             raise ValueError(
@@ -239,17 +239,17 @@ def _add_2_2(
             )
 
         # If it should be inserted before current element
-        if spinham._2_2[index][:3] > [alpha, beta, nu]:
-            spinham._2_2.insert(index, [alpha, beta, nu, parameter])
+        if spinham._22[index][:3] > [alpha, beta, nu]:
+            spinham._22.insert(index, [alpha, beta, nu, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    spinham._2_2.append([alpha, beta, nu, parameter])
+    spinham._22.append([alpha, beta, nu, parameter])
 
 
-def _remove_2_2(spinham, alpha: int, beta: int, nu: tuple) -> None:
+def _remove_22(spinham, alpha: int, beta: int, nu: tuple) -> None:
     r"""
     Removes a (two spins & two sites) parameter from the Hamiltonian.
 
@@ -280,7 +280,7 @@ def _remove_2_2(spinham, alpha: int, beta: int, nu: tuple) -> None:
     See Also
     --------
     p22
-    add_2_2
+    add_22
 
     Notes
     -----
@@ -307,13 +307,13 @@ def _remove_2_2(spinham, alpha: int, beta: int, nu: tuple) -> None:
 
     # TODO Rewrite with binary search
 
-    for index in range(len(spinham._2_2)):
+    for index in range(len(spinham._22)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if spinham._2_2[index][:3] > [alpha, beta, nu]:
+        if spinham._22[index][:3] > [alpha, beta, nu]:
             return
 
-        if spinham._2_2[index][:3] == [alpha, beta, nu]:
-            del spinham._2_2[index]
+        if spinham._22[index][:3] == [alpha, beta, nu]:
+            del spinham._22[index]
             spinham._reset_internals()
             return

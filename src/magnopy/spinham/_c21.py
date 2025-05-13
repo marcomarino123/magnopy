@@ -58,14 +58,14 @@ def _p21(self) -> list:
 
     See Also
     --------
-    add_2_1
-    remove_2_1
+    add_21
+    remove_21
     """
 
-    return self._2_1
+    return self._21
 
 
-def _add_2_1(self, alpha: int, parameter, replace=False) -> None:
+def _add_21(self, alpha: int, parameter, replace=False) -> None:
     r"""
     Adds a (two spins & one site) parameter to the Hamiltonian.
 
@@ -89,7 +89,7 @@ def _add_2_1(self, alpha: int, parameter, replace=False) -> None:
     See Also
     --------
     p21
-    remove_2_1
+    remove_21
     """
 
     _validate_atom_index(index=alpha, atoms=self.atoms)
@@ -100,12 +100,12 @@ def _add_2_1(self, alpha: int, parameter, replace=False) -> None:
     # TODO Replace with binary search
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(self._2_1):
+    while index < len(self._21):
         # If already present in the model
-        if self._2_1[index][0] == alpha:
+        if self._21[index][0] == alpha:
             # Either replace
             if replace:
-                self._2_1[index] = [alpha, parameter]
+                self._21[index] = [alpha, parameter]
                 return
             # Or raise an error
             raise ValueError(
@@ -114,17 +114,17 @@ def _add_2_1(self, alpha: int, parameter, replace=False) -> None:
             )
 
         # If it should be inserted before current element
-        if self._2_1[index][0] > alpha:
-            self._2_1.insert(index, [alpha, parameter])
+        if self._21[index][0] > alpha:
+            self._21.insert(index, [alpha, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    self._2_1.append([alpha, parameter])
+    self._21.append([alpha, parameter])
 
 
-def _remove_2_1(self, alpha: int) -> None:
+def _remove_21(self, alpha: int) -> None:
     r"""
     Removes a (two spins & one site) parameter from the Hamiltonian.
 
@@ -138,18 +138,18 @@ def _remove_2_1(self, alpha: int) -> None:
     See Also
     --------
     p21
-    add_2_1
+    add_21
     """
 
     _validate_atom_index(index=alpha, atoms=self.atoms)
 
-    for i in range(len(self._2_1)):
+    for i in range(len(self._21)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if self._2_1[i][0] > alpha:
+        if self._21[i][0] > alpha:
             return
 
-        if self._2_1[i][0] == alpha:
-            del self._2_1[i]
+        if self._21[i][0] == alpha:
+            del self._21[i]
             self._reset_internals()
             return

@@ -219,11 +219,11 @@ every type of the parameter of the
     >>> import numpy as np
     >>> # Add on-site anisotropy (two spins & one site)
     >>> # Atoms are given by their index in the spinham.atoms: 0 for Fe1
-    >>> spinham.add_2_1(atom=0, parameter=np.diag([2, -1, -1]))
+    >>> spinham.add_21(atom=0, parameter=np.diag([2, -1, -1]))
     >>> # Add nearest-neighbor bilinear exchange (two spins & two sites)
-    >>> spinham.add_2_2(atom1 = 0, atom2 = 0, ijk2 = (1, 0, 0), parameter = np.eye(3))
-    >>> spinham.add_2_2(atom1 = 0, atom2 = 0, ijk2 = (0, 1, 0), parameter = np.eye(3))
-    >>> spinham.add_2_2(atom1 = 0, atom2 = 0, ijk2 = (0, 0, 1), parameter = np.eye(3))
+    >>> spinham.add_22(atom1 = 0, atom2 = 0, ijk2 = (1, 0, 0), parameter = np.eye(3))
+    >>> spinham.add_22(atom1 = 0, atom2 = 0, ijk2 = (0, 1, 0), parameter = np.eye(3))
+    >>> spinham.add_22(atom1 = 0, atom2 = 0, ijk2 = (0, 0, 1), parameter = np.eye(3))
 
 Each parameter property behaves as a list with parameters (technically it is either a
 list or an iterator)

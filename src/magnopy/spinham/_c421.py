@@ -79,7 +79,7 @@ class _P421_iterator:
     """
 
     def __init__(self, spinham) -> None:
-        self.container = spinham._4_2_1
+        self.container = spinham._421
         self.mc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
@@ -155,14 +155,14 @@ def _p421(spinham):
 
     See Also
     --------
-    add_4_2_1
-    remove_4_2_1
+    add_421
+    remove_421
     """
 
     return _P421_iterator(spinham)
 
 
-def _add_4_2_1(
+def _add_421(
     spinham, alpha: int, beta: int, nu: tuple, parameter, replace=False
 ) -> None:
     r"""
@@ -207,7 +207,7 @@ def _add_4_2_1(
     See Also
     --------
     p421
-    remove_4_2_1
+    remove_421
 
     Notes
     -----
@@ -242,12 +242,12 @@ def _add_4_2_1(
 
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(spinham._4_2_1):
+    while index < len(spinham._421):
         # If already present in the model
-        if spinham._4_2_1[index][:3] == [alpha, beta, nu]:
+        if spinham._421[index][:3] == [alpha, beta, nu]:
             # Either replace
             if replace:
-                spinham._4_2_1[index] = [alpha, beta, nu, parameter]
+                spinham._421[index] = [alpha, beta, nu, parameter]
                 return
             # Or raise an error
             raise ValueError(
@@ -256,17 +256,17 @@ def _add_4_2_1(
             )
 
         # If it should be inserted before current element
-        if spinham._4_2_1[index][:3] > [alpha, beta, nu]:
-            spinham._4_2_1.insert(index, [alpha, beta, nu, parameter])
+        if spinham._421[index][:3] > [alpha, beta, nu]:
+            spinham._421.insert(index, [alpha, beta, nu, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    spinham._4_2_1.append([alpha, beta, nu, parameter])
+    spinham._421.append([alpha, beta, nu, parameter])
 
 
-def _remove_4_2_1(spinham, alpha: int, beta: int, nu: tuple) -> None:
+def _remove_421(spinham, alpha: int, beta: int, nu: tuple) -> None:
     r"""
     Removes a (four spins & two sites (3+1)) parameter from the Hamiltonian.
 
@@ -296,7 +296,7 @@ def _remove_4_2_1(spinham, alpha: int, beta: int, nu: tuple) -> None:
     See Also
     --------
     p421
-    add_4_2_1
+    add_421
 
     Notes
     -----
@@ -323,13 +323,13 @@ def _remove_4_2_1(spinham, alpha: int, beta: int, nu: tuple) -> None:
 
     # TODO Rewrite with binary search
 
-    for index in range(len(spinham._4_2_1)):
+    for index in range(len(spinham._421)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if spinham._4_2_1[index][:3] > [alpha, beta, nu]:
+        if spinham._421[index][:3] > [alpha, beta, nu]:
             return
 
-        if spinham._4_2_1[index][:3] == [alpha, beta, nu]:
-            del spinham._4_2_1[index]
+        if spinham._421[index][:3] == [alpha, beta, nu]:
+            del spinham._421[index]
             spinham._reset_internals()
             return

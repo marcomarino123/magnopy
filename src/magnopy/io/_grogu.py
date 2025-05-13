@@ -502,7 +502,7 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
             if spinham.atoms.names[atom_index_2] == name2:
                 break
 
-        spinham.add_2_2(
+        spinham.add_22(
             atom1=atom_index_1,
             atom2=atom_index_2,
             ijk2=R,
@@ -624,7 +624,7 @@ def _read_on_site(lines, spinham: SpinHamiltonian):
         i += 1
 
         # Add on-site anisotropy to the Hamiltonian
-        spinham.add_2_1(atom=atom_index, parameter=matrix)
+        spinham.add_21(atom=atom_index, parameter=matrix)
 
     return spinham
 

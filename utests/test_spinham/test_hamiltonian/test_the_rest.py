@@ -47,15 +47,15 @@ def test_multiple_counting():
         notation=Notation(multiple_counting=True),
     )
 
-    spinham.add_2_1(0, np.eye(3))
-    spinham.add_2_2(0, 1, (0, 0, 0), 1 * np.eye(3))
-    spinham.add_2_2(0, 1, (1, 0, 0), 2 * np.eye(3))
-    spinham.add_2_2(1, 0, (0, -1, 0), 2 * np.eye(3))
+    spinham.add_21(0, np.eye(3))
+    spinham.add_22(0, 1, (0, 0, 0), 1 * np.eye(3))
+    spinham.add_22(0, 1, (1, 0, 0), 2 * np.eye(3))
+    spinham.add_22(1, 0, (0, -1, 0), 2 * np.eye(3))
 
-    assert len(spinham._2_2) == 3
+    assert len(spinham._22) == 3
     assert len(spinham.p22) == 6
 
-    assert len(spinham._2_1) == 1
+    assert len(spinham._21) == 1
     assert len(spinham.p21) == 1
 
     params = list(spinham.p22)
@@ -66,10 +66,10 @@ def test_multiple_counting():
 
     spinham.notation = Notation(multiple_counting=False)
 
-    assert len(spinham._2_2) == 3
+    assert len(spinham._22) == 3
     assert len(spinham.p22) == 3
 
-    assert len(spinham._2_1) == 1
+    assert len(spinham._21) == 1
     assert len(spinham.p21) == 1
 
 
@@ -80,24 +80,24 @@ def test_magnetic_atoms():
         notation=Notation(multiple_counting=True),
     )
 
-    spinham.add_2_1(0, np.eye(3))
+    spinham.add_21(0, np.eye(3))
     assert len(spinham.magnetic_atoms.names) == 1
     assert spinham.M == 1
     assert spinham.magnetic_atoms.names[0] == "Cr1"
 
-    spinham.add_2_2(0, 1, (0, 0, 0), 1 * np.eye(3))
+    spinham.add_22(0, 1, (0, 0, 0), 1 * np.eye(3))
     assert len(spinham.magnetic_atoms.names) == 2
     assert spinham.M == 2
     assert spinham.magnetic_atoms.names[0] == "Cr1"
     assert spinham.magnetic_atoms.names[1] == "Cr2"
 
-    spinham.add_2_2(0, 1, (1, 0, 0), 2 * np.eye(3))
+    spinham.add_22(0, 1, (1, 0, 0), 2 * np.eye(3))
     assert len(spinham.magnetic_atoms.names) == 2
     assert spinham.M == 2
     assert spinham.magnetic_atoms.names[0] == "Cr1"
     assert spinham.magnetic_atoms.names[1] == "Cr2"
 
-    spinham.add_2_2(1, 0, (0, -1, 0), 2 * np.eye(3))
+    spinham.add_22(1, 0, (0, -1, 0), 2 * np.eye(3))
     assert len(spinham.magnetic_atoms.names) == 2
     assert spinham.M == 2
     assert spinham.magnetic_atoms.names[0] == "Cr1"
@@ -152,8 +152,8 @@ def test_notation_manipulation():
     spinham = SpinHamiltonian(
         cell=np.eye(3), atoms=atoms, notation=Notation(True, False, c21=1, c22=0.5)
     )
-    spinham.add_2_1(0, np.eye(3))
-    spinham.add_2_2(0, 0, (1, 0, 0), np.eye(3))
+    spinham.add_21(0, np.eye(3))
+    spinham.add_22(0, 0, (1, 0, 0), np.eye(3))
 
     assert len(spinham.p22) == 2
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1

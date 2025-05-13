@@ -39,10 +39,10 @@ def test_spin_normalized(spin_normalized):
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     spinham.add_1(alpha=0, parameter=[0, 0, 1])
-    spinham.add_2_1(alpha=0, parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -71,10 +71,10 @@ def test_multiple_counting(multiple_counting):
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     spinham.add_1(alpha=0, parameter=[0, 0, 1])
-    spinham.add_2_1(alpha=0, parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -107,10 +107,10 @@ def test_c1(c1):
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     spinham.add_1(alpha=0, parameter=[0, 0, 1])
-    spinham.add_2_1(alpha=0, parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -139,10 +139,10 @@ def test_c21(c21):
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     spinham.add_1(alpha=0, parameter=[0, 0, 1])
-    spinham.add_2_1(alpha=0, parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -171,10 +171,10 @@ def test_c22(c22):
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     spinham.add_1(alpha=0, parameter=[0, 0, 1])
-    spinham.add_2_1(alpha=0, parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 
@@ -202,10 +202,10 @@ def test_all_notations():
 
     parameter = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     spinham.add_1(alpha=0, parameter=[0, 0, 1])
-    spinham.add_2_1(alpha=0, parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
-    spinham.add_2_2(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 1, 0), parameter=parameter)
+    spinham.add_22(alpha=0, beta=0, nu=(0, 0, 1), parameter=parameter)
 
     target_energy = Energy(spinham)
 

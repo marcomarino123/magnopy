@@ -134,7 +134,7 @@ class _P33_iterator:
     """
 
     def __init__(self, spinham) -> None:
-        self.container = spinham._3_3
+        self.container = spinham._33
         self.mc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
@@ -291,14 +291,14 @@ def _p33(spinham):
 
     See Also
     --------
-    add_3_3
-    remove_3_3
+    add_33
+    remove_33
     """
 
     return _P33_iterator(spinham)
 
 
-def _add_3_3(
+def _add_33(
     spinham,
     alpha: int,
     beta: int,
@@ -363,7 +363,7 @@ def _add_3_3(
     See Also
     --------
     p33
-    remove_3_3
+    remove_33
 
     Notes
     -----
@@ -395,12 +395,12 @@ def _add_3_3(
 
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(spinham._3_3):
+    while index < len(spinham._33):
         # If already present in the model
-        if spinham._3_3[index][:5] == [alpha, beta, gamma, nu, _lambda]:
+        if spinham._33[index][:5] == [alpha, beta, gamma, nu, _lambda]:
             # Either replace
             if replace:
-                spinham._3_3[index] = [alpha, beta, gamma, nu, _lambda, parameter]
+                spinham._33[index] = [alpha, beta, gamma, nu, _lambda, parameter]
                 return
             # Or raise an error
             raise ValueError(
@@ -409,17 +409,17 @@ def _add_3_3(
             )
 
         # If it should be inserted before current element
-        if spinham._3_3[index][:5] > [alpha, beta, gamma, nu, _lambda]:
-            spinham._3_3.insert(index, [alpha, beta, gamma, nu, _lambda, parameter])
+        if spinham._33[index][:5] > [alpha, beta, gamma, nu, _lambda]:
+            spinham._33.insert(index, [alpha, beta, gamma, nu, _lambda, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    spinham._3_3.append([alpha, beta, gamma, nu, _lambda, parameter])
+    spinham._33.append([alpha, beta, gamma, nu, _lambda, parameter])
 
 
-def _remove_3_3(
+def _remove_33(
     spinham, alpha: int, beta: int, gamma: int, nu: tuple, _lambda: tuple
 ) -> None:
     r"""
@@ -464,7 +464,7 @@ def _remove_3_3(
     See Also
     --------
     p33
-    add_3_3
+    add_33
 
     Notes
     -----
@@ -490,13 +490,13 @@ def _remove_3_3(
 
     # TODO Rewrite with binary search
 
-    for index in range(len(spinham._3_3)):
+    for index in range(len(spinham._33)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if spinham._3_3[index][:5] > [alpha, beta, gamma, nu, _lambda]:
+        if spinham._33[index][:5] > [alpha, beta, gamma, nu, _lambda]:
             return
 
-        if spinham._3_3[index][:5] == [alpha, beta, gamma, nu, _lambda]:
-            del spinham._3_3[index]
+        if spinham._33[index][:5] == [alpha, beta, gamma, nu, _lambda]:
+            del spinham._33[index]
             spinham._reset_internals()
             return

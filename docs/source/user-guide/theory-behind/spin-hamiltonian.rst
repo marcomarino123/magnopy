@@ -119,8 +119,8 @@ In the :py:class:`.SpinHamiltonian` class, that is used to store the parameters 
 Hamiltonian, each term is referenced by the numerical indices of the constants. For
 example, to have access to the third term (two spins & two sites) one can use
 :py:attr:`.SpinHamiltonian.p22` property. To add or remove parameters of this term one
-should use :py:meth:`.SpinHamiltonian.add_2_2` and
-:py:meth:`.SpinHamiltonian.remove_2_2`.
+should use :py:meth:`.SpinHamiltonian.add_22` and
+:py:meth:`.SpinHamiltonian.remove_22`.
 
 Examples
 ========

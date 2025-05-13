@@ -158,7 +158,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
     for index, name in enumerate(spinham.atoms.names):
         index_mapping[name] = index
 
-    # Read exchange (2_2) parameters
+    # Read exchange (22) parameters
     while line:
         while line and minor_sep not in line:
             line = file.readline()
@@ -192,7 +192,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
                 dmi = tuple(map(float, line.translate(garbage).split()[-3:]))
 
         # Adding info from the exchange block to the SpinHamiltonian structure
-        spinham.add_2_2(
+        spinham.add_22(
             atom1,
             atom2,
             ijk,

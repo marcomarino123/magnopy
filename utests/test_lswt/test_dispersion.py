@@ -59,13 +59,13 @@ def test_ferromagnet_one_spin_cubic(spin_direction, k):
         notation=Notation(spin_normalized=False, multiple_counting=True, c22=1),
     )
 
-    spinham.add_2_2(
+    spinham.add_22(
         atom1=0, atom2=0, ijk2=(1, 0, 0), parameter=J * np.eye(3, dtype=float)
     )
-    spinham.add_2_2(
+    spinham.add_22(
         atom1=0, atom2=0, ijk2=(0, 1, 0), parameter=J * np.eye(3, dtype=float)
     )
-    spinham.add_2_2(
+    spinham.add_22(
         atom1=0, atom2=0, ijk2=(0, 0, 1), parameter=J * np.eye(3, dtype=float)
     )
 

@@ -35,16 +35,16 @@ ARRAY_3X3X3 = harrays(
 
 
 @given(st.integers(), ARRAY_3X3X3)
-def test_add_3_1(atom, parameter):
+def test_add_31(atom, parameter):
     atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
     if not 0 <= atom < len(spinham.atoms.names):
         with pytest.raises(ValueError):
-            spinham.add_3_1(atom, parameter)
+            spinham.add_31(atom, parameter)
     else:
-        spinham.add_3_1(atom, parameter)
+        spinham.add_31(atom, parameter)
 
 
 @given(
@@ -54,45 +54,45 @@ def test_add_3_1(atom, parameter):
     st.integers(min_value=0, max_value=8),
     ARRAY_3X3X3,
 )
-def test_add_3_1_sorting(atom1, atom2, atom3, atom4, parameter):
+def test_add_31_sorting(atom1, atom2, atom3, atom4, parameter):
     atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    spinham.add_3_1(atom1, parameter)
+    spinham.add_31(atom1, parameter)
 
     if atom2 == atom1:
         with pytest.raises(ValueError):
-            spinham.add_3_1(atom2, parameter)
+            spinham.add_31(atom2, parameter)
     else:
-        spinham.add_3_1(atom2, parameter)
+        spinham.add_31(atom2, parameter)
 
-    spinham.add_3_1(atom3, parameter, replace=True)
-    spinham.add_3_1(atom4, parameter, replace=True)
+    spinham.add_31(atom3, parameter, replace=True)
+    spinham.add_31(atom4, parameter, replace=True)
 
-    for i in range(len(spinham._3_1) - 1):
-        assert spinham._3_1[i][0] <= spinham._3_1[i + 1][0]
+    for i in range(len(spinham._31) - 1):
+        assert spinham._31[i][0] <= spinham._31[i + 1][0]
 
 
 @given(st.integers())
-def test_remove_3_1(r_atom):
+def test_remove_31(r_atom):
     atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
     for i in range(len(spinham.atoms.names)):
-        spinham.add_3_1(i, i * np.eye(3))
+        spinham.add_31(i, i * np.eye(3))
 
     if 0 <= r_atom < len(spinham.atoms.names):
-        spinham.remove_3_1(r_atom)
-        assert len(spinham._3_1) == len(spinham.atoms.names) - 1
+        spinham.remove_31(r_atom)
+        assert len(spinham._31) == len(spinham.atoms.names) - 1
 
         atoms_with_on_site = []
-        for atom, _ in spinham._3_1:
+        for atom, _ in spinham._31:
             atoms_with_on_site.append(atom)
 
         assert r_atom not in atoms_with_on_site
 
     else:
         with pytest.raises(ValueError):
-            spinham.remove_3_1(r_atom)
+            spinham.remove_31(r_atom)

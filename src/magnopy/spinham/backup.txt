@@ -182,34 +182,34 @@ class SpinHamiltonian:
         self._1 = []
 
         # [[atom, parameter], ...]
-        self._2_1 = []
+        self._21 = []
 
         # [[atom1, atom2, ijk2, parameter], ...]
-        self._2_2 = []
+        self._22 = []
 
         # [[atom, parameter], ...]
-        self._3_1 = []
+        self._31 = []
 
         # [[atom1, atom2, ijk2, parameter], ...]
-        self._3_2 = []
+        self._32 = []
 
         # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
-        self._3_3 = []
+        self._33 = []
 
         # [[atom, parameter], ...]
-        self._4_1 = []
+        self._41 = []
 
         # [[atom1, atom2, ijk2, parameter], ...]
-        self._4_2_1 = []
+        self._421 = []
 
         # [[atom1, atom2, ijk2, parameter], ...]
-        self._4_2_2 = []
+        self._422 = []
 
         # [[atom1, atom2, atom3, ijk2, ijk3, parameter], ...]
-        self._4_3 = []
+        self._43 = []
 
         # [[atom1, atom2, atom3, atom4, ijk2, ijk3, ijk4, parameter], ...]
-        self._4_4 = []
+        self._44 = []
 
     ################################################################################
     #                                Cell and Atoms                                #
@@ -347,10 +347,10 @@ class SpinHamiltonian:
         for atom, _ in self._1:
             indices.add(atom)
 
-        for atom, _ in self._2_1:
+        for atom, _ in self._21:
             indices.add(atom)
 
-        for atom1, atom2, _, _ in self._2_2:
+        for atom1, atom2, _, _ in self._22:
             indices.add(atom1)
             indices.add(atom2)
 
@@ -463,8 +463,8 @@ class SpinHamiltonian:
             >>> A = np.array([[1,0,0], [0,0,0], [0,0,0]])
             >>> notation = magnopy.spinham.Notation(False, False, c22=1)
             >>> spinham = magnopy.spinham.SpinHamiltonian(cell, atoms, notation)
-            >>> spinham.add_2_1(atom=0, parameter=A)
-            >>> spinham.add_2_1(atom=1, parameter=2*A)
+            >>> spinham.add_21(atom=0, parameter=A)
+            >>> spinham.add_21(atom=1, parameter=2*A)
             >>> spinham.remove_atom(atom_name="Cr1")
             >>> spinham.atoms
             {'names': ['Cr2']}
@@ -504,24 +504,24 @@ class SpinHamiltonian:
                 del self.atoms.names[index]
 
         # Then we remove on-site terms and update indices of the on-site parameters
-        for index in range(len(self._2_1) - 1, -1, -1):
-            atom = self._2_1[index][0]
+        for index in range(len(self._21) - 1, -1, -1):
+            atom = self._21[index][0]
 
             if atom in removed_atoms:
-                del self._2_1[index]
+                del self._21[index]
             else:
-                self._2_1[index][0] = new_indices[atom]
+                self._21[index][0] = new_indices[atom]
 
         # Finally, we remove and update indices of the exchange parameters
-        for index in range(len(self._2_2) - 1, -1, -1):
-            atom1 = self._2_2[index][0]
-            atom2 = self._2_2[index][1]
+        for index in range(len(self._22) - 1, -1, -1):
+            atom1 = self._22[index][0]
+            atom2 = self._22[index][1]
 
             if atom1 in removed_atoms or atom2 in removed_atoms:
-                del self._2_2[index]
+                del self._22[index]
             else:
-                self._2_2[index][0] = new_indices[atom1]
-                self._2_2[index][1] = new_indices[atom2]
+                self._22[index][0] = new_indices[atom1]
+                self._22[index][1] = new_indices[atom2]
 
         # TODO take care of the rest of the terms
 
@@ -583,8 +583,8 @@ class SpinHamiltonian:
         else:
             factor = 2.0
 
-        for index in range(len(self._2_2)):
-            self._2_2[index][3] = self._2_2[index][3] * factor
+        for index in range(len(self._22)):
+            self._22[index][3] = self._22[index][3] * factor
 
         # TODO For (four spins & ...)
 
@@ -604,14 +604,14 @@ class SpinHamiltonian:
                 atom = self._1[index][0]
                 self._1[index][1] = self._1[index][1] * self.atoms.spins[atom]
             # For (two spins & one site)
-            for index in range(len(self._2_1)):
-                atom = self._2_1[index][0]
-                self._2_1[index][1] = self._2_1[index][1] * self.atoms.spins[atom] ** 2
+            for index in range(len(self._21)):
+                atom = self._21[index][0]
+                self._21[index][1] = self._21[index][1] * self.atoms.spins[atom] ** 2
             # For (two spins & two sites)
-            for index in range(len(self._2_2)):
-                atom1 = self._2_2[index][0]
-                atom2 = self._2_2[index][1]
-                self._2_2[index][3] = self._2_2[index][3] * (
+            for index in range(len(self._22)):
+                atom1 = self._22[index][0]
+                atom2 = self._22[index][1]
+                self._22[index][3] = self._22[index][3] * (
                     self.atoms.spins[atom1] * self.atoms.spins[atom2]
                 )
         # Before it was normalized
@@ -621,14 +621,14 @@ class SpinHamiltonian:
                 atom = self._1[index][0]
                 self._1[index][1] = self._1[index][1] / self.atoms.spins[atom]
             # For (two spins & one site)
-            for index in range(len(self._2_1)):
-                atom = self._2_1[index][0]
-                self._2_1[index][1] = self._2_1[index][1] / self.atoms.spins[atom] ** 2
+            for index in range(len(self._21)):
+                atom = self._21[index][0]
+                self._21[index][1] = self._21[index][1] / self.atoms.spins[atom] ** 2
             # For (two spins & two sites)
-            for index in range(len(self._2_2)):
-                atom1 = self._2_2[index][0]
-                atom2 = self._2_2[index][1]
-                self._2_2[index][3] = self._2_2[index][3] / (
+            for index in range(len(self._22)):
+                atom1 = self._22[index][0]
+                atom2 = self._22[index][1]
+                self._22[index][3] = self._22[index][3] / (
                     self.atoms.spins[atom1] * self.atoms.spins[atom2]
                 )
 
@@ -657,8 +657,8 @@ class SpinHamiltonian:
             return
 
         # If factor is changing one need to scale parameters.
-        for index in range(len(self._2_1)):
-            self._2_1[index][1] = self._2_1[index][1] * self.notation.c21 / new_c21
+        for index in range(len(self._21)):
+            self._21[index][1] = self._21[index][1] * self.notation.c21 / new_c21
 
     def _set_c22(self, new_c22: float) -> None:
         if new_c22 is None or self.notation._c22 is None:
@@ -670,8 +670,8 @@ class SpinHamiltonian:
             return
 
         # If factor is changing one need to scale parameters.
-        for index in range(len(self._2_2)):
-            self._2_2[index][3] = self._2_2[index][3] * self.notation.c22 / new_c22
+        for index in range(len(self._22)):
+            self._22[index][3] = self._22[index][3] * self.notation.c22 / new_c22
 
     def _set_c31(self, new_c31: float) -> None:
         if new_c31 is None or self.notation._c31 is None:
@@ -923,8 +923,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_2_1
-        remove_2_1
+        add_21
+        remove_21
 
         Notes
         -----
@@ -939,9 +939,9 @@ class SpinHamiltonian:
             S_{\mu,\alpha}^l
         """
 
-        return self._2_1
+        return self._21
 
-    def add_2_1(self, atom: int, parameter, replace=False) -> None:
+    def add_21(self, atom: int, parameter, replace=False) -> None:
         r"""
         Adds a parameter to the Hamiltonian.
 
@@ -959,7 +959,7 @@ class SpinHamiltonian:
         See Also
         --------
         p21
-        remove_2_1
+        remove_21
         """
 
         _validate_atom_index(index=atom, atoms=self.atoms)
@@ -970,12 +970,12 @@ class SpinHamiltonian:
         # TODO Replace with binary search
         # Try to find the place for the new one inside the list
         index = 0
-        while index < len(self._2_1):
+        while index < len(self._21):
             # If already present in the model
-            if self._2_1[index][0] == atom:
+            if self._21[index][0] == atom:
                 # Either replace
                 if replace:
-                    self._2_1[index] = [atom, parameter]
+                    self._21[index] = [atom, parameter]
                     return
                 # Or raise an error
                 raise ValueError(
@@ -984,16 +984,16 @@ class SpinHamiltonian:
                 )
 
             # If it should be inserted before current element
-            if self._2_1[index][0] > atom:
-                self._2_1.insert(index, [atom, parameter])
+            if self._21[index][0] > atom:
+                self._21.insert(index, [atom, parameter])
                 return
 
             index += 1
 
         # If it should be inserted at the end or at the beginning of the list
-        self._2_1.append([atom, parameter])
+        self._21.append([atom, parameter])
 
-    def remove_2_1(self, atom: int) -> None:
+    def remove_21(self, atom: int) -> None:
         r"""
         Remove a parameter from the Hamiltonian.
 
@@ -1006,20 +1006,20 @@ class SpinHamiltonian:
         See Also
         --------
         p21
-        add_2_1
+        add_21
         """
 
         _validate_atom_index(index=atom, atoms=self.atoms)
         self._reset_internals()
 
-        for i in range(len(self._2_1)):
+        for i in range(len(self._21)):
             # As the list is sorted, there is no point in resuming the search
             # when a larger element is found
-            if self._2_1[i][0] > atom:
+            if self._21[i][0] > atom:
                 return
 
-            if self._2_1[i][0] == atom:
-                del self._2_1[i]
+            if self._21[i][0] == atom:
+                del self._21[i]
                 return
 
     ################################################################################
@@ -1046,8 +1046,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_2_2
-        remove_2_2
+        add_22
+        remove_22
 
 
         Notes
@@ -1065,7 +1065,7 @@ class SpinHamiltonian:
 
         return _P22_iterator(self)
 
-    def add_2_2(
+    def add_22(
         self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
     ) -> None:
         r"""
@@ -1096,7 +1096,7 @@ class SpinHamiltonian:
         See Also
         --------
         p22
-        remove_2_2
+        remove_22
 
         Notes
         -----
@@ -1129,16 +1129,16 @@ class SpinHamiltonian:
 
         # Try to find the place for the new one inside the list
         index = 0
-        while index < len(self._2_2):
+        while index < len(self._22):
             # If already present in the model
-            if (self._2_2[index][0], self._2_2[index][1], self._2_2[index][2]) == (
+            if (self._22[index][0], self._22[index][1], self._22[index][2]) == (
                 atom1,
                 atom2,
                 (i, j, k),
             ):
                 # Either replace
                 if replace:
-                    self._2_2[index] = [atom1, atom2, (i, j, k), parameter]
+                    self._22[index] = [atom1, atom2, (i, j, k), parameter]
                     return
                 # Or raise an error
                 raise ValueError(
@@ -1147,20 +1147,20 @@ class SpinHamiltonian:
                 )
 
             # If it should be inserted before current element
-            if (self._2_2[index][0], self._2_2[index][1], self._2_2[index][2]) > (
+            if (self._22[index][0], self._22[index][1], self._22[index][2]) > (
                 atom1,
                 atom2,
                 (i, j, k),
             ):
-                self._2_2.insert(index, [atom1, atom2, (i, j, k), parameter])
+                self._22.insert(index, [atom1, atom2, (i, j, k), parameter])
                 return
 
             index += 1
 
         # If it should be inserted at the end or at the beginning of the list
-        self._2_2.append([atom1, atom2, (i, j, k), parameter])
+        self._22.append([atom1, atom2, (i, j, k), parameter])
 
-    def remove_2_2(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+    def remove_22(self, atom1: int, atom2: int, ijk2: tuple) -> None:
         r"""
         Removes a parameter from the Hamiltonian.
 
@@ -1185,7 +1185,7 @@ class SpinHamiltonian:
         See Also
         --------
         p22
-        add_2_2
+        add_22
 
         Notes
         -----
@@ -1216,22 +1216,22 @@ class SpinHamiltonian:
 
         # TODO Replace with binary search
 
-        for index in range(len(self._2_2)):
+        for index in range(len(self._22)):
             # As the list is sorted, there is no point in resuming the search
             # when a larger element is found
-            if (self._2_2[index][0], self._2_2[index][1], self._2_2[index][2]) > (
+            if (self._22[index][0], self._22[index][1], self._22[index][2]) > (
                 atom1,
                 atom2,
                 (i, j, k),
             ):
                 return
 
-            if (self._2_2[index][0], self._2_2[index][1], self._2_2[index][2]) == (
+            if (self._22[index][0], self._22[index][1], self._22[index][2]) == (
                 atom1,
                 atom2,
                 (i, j, k),
             ):
-                del self._2_2[index]
+                del self._22[index]
                 return
 
     ################################################################################
@@ -1257,8 +1257,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_3_1
-        remove_3_1
+        add_31
+        remove_31
 
 
         Notes
@@ -1277,7 +1277,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    # def add_3_1(self, atom: int, parameter, replace=False) -> None:
+    # def add_31(self, atom: int, parameter, replace=False) -> None:
     #     r"""
     #     Adds a parameter to the Hamiltonian.
 
@@ -1295,7 +1295,7 @@ class SpinHamiltonian:
     #     See Also
     #     --------
     #     p31
-    #     remove_3_1
+    #     remove_31
     #     """
 
     #     _validate_atom_index(index=atom, atoms=self.atoms)
@@ -1305,9 +1305,9 @@ class SpinHamiltonian:
 
     #     raise NotImplementedError
 
-    add_3_1 = add_c31
+    add_31 = add_c31
 
-    def remove_3_1(self, atom: int) -> None:
+    def remove_31(self, atom: int) -> None:
         r"""
         Removes a parameter from the Hamiltonian.
 
@@ -1320,7 +1320,7 @@ class SpinHamiltonian:
         See Also
         --------
         p31
-        add_3_1
+        add_31
         """
 
         _validate_atom_index(index=atom, atoms=self.atoms)
@@ -1352,8 +1352,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_3_2
-        remove_3_2
+        add_32
+        remove_32
 
 
         Notes
@@ -1373,7 +1373,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_3_2(
+    def add_32(
         self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
     ) -> None:
         r"""
@@ -1402,7 +1402,7 @@ class SpinHamiltonian:
         See Also
         --------
         p32
-        remove_3_2
+        remove_32
 
         Notes
         -----
@@ -1418,7 +1418,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_3_2(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+    def remove_32(self, atom1: int, atom2: int, ijk2: tuple) -> None:
         r"""
         Removes a parameter from the Hamiltonian.
 
@@ -1441,7 +1441,7 @@ class SpinHamiltonian:
         See Also
         --------
         p32
-        add_3_2
+        add_32
 
         Notes
         -----
@@ -1481,8 +1481,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_3_3
-        remove_3_3
+        add_33
+        remove_33
 
 
         Notes
@@ -1503,7 +1503,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_3_3(
+    def add_33(
         self,
         atom1: int,
         atom2: int,
@@ -1546,7 +1546,7 @@ class SpinHamiltonian:
         See Also
         --------
         p33
-        remove_3_3
+        remove_33
 
         Notes
         -----
@@ -1564,7 +1564,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_3_3(
+    def remove_33(
         self, atom1: int, atom2: int, atom3: int, ijk2: tuple, ijk3: tuple
     ) -> None:
         r"""
@@ -1596,7 +1596,7 @@ class SpinHamiltonian:
         See Also
         --------
         p33
-        add_3_3
+        add_33
 
         Notes
         -----
@@ -1635,8 +1635,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_4_1
-        remove_4_1
+        add_41
+        remove_41
 
 
         Notes
@@ -1656,7 +1656,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_4_1(self, atom: int, parameter, replace=False) -> None:
+    def add_41(self, atom: int, parameter, replace=False) -> None:
         r"""
         Adds a parameter to the Hamiltonian.
 
@@ -1675,7 +1675,7 @@ class SpinHamiltonian:
         See Also
         --------
         p41
-        remove_4_1
+        remove_41
         """
 
         _validate_atom_index(index=atom, atoms=self.atoms)
@@ -1685,7 +1685,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_4_1(self, atom: int) -> None:
+    def remove_41(self, atom: int) -> None:
         r"""
         Removes a parameter from the Hamiltonian.
 
@@ -1698,7 +1698,7 @@ class SpinHamiltonian:
         See Also
         --------
         p41
-        add_4_1
+        add_41
         """
 
         _validate_atom_index(index=atom, atoms=self.atoms)
@@ -1730,8 +1730,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_4_2_1
-        remove_4_2_1
+        add_421
+        remove_421
 
 
         Notes
@@ -1752,7 +1752,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_4_2_1(
+    def add_421(
         self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
     ) -> None:
         r"""
@@ -1781,7 +1781,7 @@ class SpinHamiltonian:
         See Also
         --------
         p421
-        remove_4_2_1
+        remove_421
 
         Notes
         -----
@@ -1797,7 +1797,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_4_2_1(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+    def remove_421(self, atom1: int, atom2: int, ijk2: tuple) -> None:
         r"""
         Removes a parameter from the Hamiltonian.
 
@@ -1820,7 +1820,7 @@ class SpinHamiltonian:
         See Also
         --------
         p421
-        add_4_2_1
+        add_421
 
         Notes
         -----
@@ -1858,8 +1858,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_4_2_2
-        remove_4_2_2
+        add_422
+        remove_422
 
 
         Notes
@@ -1880,7 +1880,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_4_2_2(
+    def add_422(
         self, atom1: int, atom2: int, ijk2: tuple, parameter, replace=False
     ) -> None:
         r"""
@@ -1909,7 +1909,7 @@ class SpinHamiltonian:
         See Also
         --------
         p422
-        remove_4_2_2
+        remove_422
 
         Notes
         -----
@@ -1925,7 +1925,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_4_2_2(self, atom1: int, atom2: int, ijk2: tuple) -> None:
+    def remove_422(self, atom1: int, atom2: int, ijk2: tuple) -> None:
         r"""
         Removes a parameter from the Hamiltonian.
 
@@ -1948,7 +1948,7 @@ class SpinHamiltonian:
         See Also
         --------
         p422
-        add_4_2_2
+        add_422
 
         Notes
         -----
@@ -1988,8 +1988,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_4_3
-        remove_4_3
+        add_43
+        remove_43
 
 
         Notes
@@ -2011,7 +2011,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_4_3(
+    def add_43(
         self,
         atom1: int,
         atom2: int,
@@ -2054,7 +2054,7 @@ class SpinHamiltonian:
         See Also
         --------
         p43
-        remove_4_3
+        remove_43
 
         Notes
         -----
@@ -2072,7 +2072,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_4_3(
+    def remove_43(
         self, atom1: int, atom2: int, atom3: int, ijk2: tuple, ijk3: tuple
     ) -> None:
         r"""
@@ -2104,7 +2104,7 @@ class SpinHamiltonian:
         See Also
         --------
         p43
-        add_4_3
+        add_43
 
         Notes
         -----
@@ -2146,8 +2146,8 @@ class SpinHamiltonian:
 
         See Also
         --------
-        add_4_4
-        remove_4_4
+        add_44
+        remove_44
 
 
         Notes
@@ -2169,7 +2169,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def add_4_4(
+    def add_44(
         self,
         atom1: int,
         atom2: int,
@@ -2221,7 +2221,7 @@ class SpinHamiltonian:
         See Also
         --------
         p44
-        remove_4_4
+        remove_44
 
         Notes
         -----
@@ -2241,7 +2241,7 @@ class SpinHamiltonian:
 
         raise NotImplementedError
 
-    def remove_4_4(
+    def remove_44(
         self,
         atom1: int,
         atom2: int,
@@ -2287,7 +2287,7 @@ class SpinHamiltonian:
         See Also
         --------
         p44
-        add_4_4
+        add_44
 
         Notes
         -----
@@ -2312,7 +2312,7 @@ class _P22_iterator:
     """
 
     def __init__(self, spinham) -> None:
-        self.container = spinham._2_2
+        self.container = spinham._22
         self.dc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0

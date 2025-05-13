@@ -123,9 +123,9 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         parameter = np.transpose(parameter, (2, 1, 0))
 
     if parameter is None:
-        return alpha, beta, gamma, _lambda
+        return alpha, beta, gamma, nu, _lambda
 
-    return alpha, beta, gamma, _lambda, parameter
+    return alpha, beta, gamma, nu, _lambda, parameter
 
 
 class _P33_iterator:
@@ -206,7 +206,7 @@ class _P33_iterator:
                 (nu1, nu2, nu3),
                 (lambda1, lambda2, lambda3),
                 parameter,
-            ) = self.container[self.index - 1 - 3 * self.length]
+            ) = self.container[self.index - 1 - 4 * self.length]
             return [
                 gamma,
                 alpha,
@@ -225,7 +225,7 @@ class _P33_iterator:
                 (nu1, nu2, nu3),
                 (lambda1, lambda2, lambda3),
                 parameter,
-            ) = self.container[self.index - 1 - 3 * self.length]
+            ) = self.container[self.index - 1 - 5 * self.length]
             return [
                 gamma,
                 beta,

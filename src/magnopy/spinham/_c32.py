@@ -19,7 +19,11 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import _validate_atom_index, _validate_unit_cell_index
+from magnopy.spinham._validators import (
+    _spins_ordered,
+    _validate_atom_index,
+    _validate_unit_cell_index,
+)
 
 
 def _get_primary_p32(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None):

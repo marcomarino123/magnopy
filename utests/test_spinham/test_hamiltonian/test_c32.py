@@ -23,14 +23,14 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._c22 import _get_primary_p22
+from magnopy.spinham._c32 import _get_primary_p32
 from magnopy.spinham._hamiltonian import SpinHamiltonian
 from magnopy.spinham._notation import Notation
 
 MAX_MODULUS = 1e8
-ARRAY_3x3 = harrays(
+ARRAY_3x3x3 = harrays(
     np.float64,
-    (3, 3),
+    (3, 3, 3),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value=1000))
@@ -40,18 +40,18 @@ RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value
     st.integers(),
     st.integers(),
     st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3x3,
+    ARRAY_3x3x3,
 )
-def test_add_22(alpha, beta, nu, parameter):
+def test_add_32(alpha, beta, nu, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
     if 0 <= alpha < len(spinham.atoms.names) and 0 <= beta < len(spinham.atoms.names):
-        spinham.add_22(alpha, beta, nu, parameter)
+        spinham.add_32(alpha, beta, nu, parameter)
     else:
         with pytest.raises(ValueError):
-            spinham.add_22(alpha, beta, nu, parameter)
+            spinham.add_32(alpha, beta, nu, parameter)
 
 
 @given(
@@ -67,9 +67,9 @@ def test_add_22(alpha, beta, nu, parameter):
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
     st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3x3,
+    ARRAY_3x3x3,
 )
-def test_add_22_sorting(
+def test_add_32_sorting(
     alpha1,
     beta1,
     nu1,
@@ -88,19 +88,19 @@ def test_add_22_sorting(
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    spinham.add_22(alpha1, beta1, nu1, parameter)
+    spinham.add_32(alpha1, beta1, nu1, parameter)
 
     if [alpha1, beta1, nu1] == [alpha2, beta2, nu2]:
         with pytest.raises(ValueError):
-            spinham.add_22(alpha2, beta2, nu2, parameter)
+            spinham.add_32(alpha2, beta2, nu2, parameter)
     else:
-        spinham.add_22(alpha2, beta2, nu2, parameter)
+        spinham.add_32(alpha2, beta2, nu2, parameter)
 
-    spinham.add_22(alpha3, beta3, nu3, parameter, replace=True)
-    spinham.add_22(alpha4, beta4, nu4, parameter, replace=True)
+    spinham.add_32(alpha3, beta3, nu3, parameter, replace=True)
+    spinham.add_32(alpha4, beta4, nu4, parameter, replace=True)
 
-    for i in range(len(spinham._22) - 1):
-        assert spinham._22[i][:-1] <= spinham._22[i + 1][:-1]
+    for i in range(len(spinham._32) - 1):
+        assert spinham._32[i][:-1] <= spinham._32[i + 1][:-1]
 
 
 @given(
@@ -109,7 +109,7 @@ def test_add_22_sorting(
     st.tuples(st.integers(), st.integers(), st.integers()),
     RANDOM_UC,
 )
-def test_remove_22(r_alpha, r_beta, r_nu, nus):
+def test_remove_32(r_alpha, r_beta, r_nu, nus):
     atoms = {"names": ["Cr" for _ in range(4)], "spins": [1 for _ in range(4)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
@@ -118,27 +118,27 @@ def test_remove_22(r_alpha, r_beta, r_nu, nus):
         for beta in range(alpha, len(spinham.atoms.names)):
             for nu in nus:
                 nu = (int(nu[0]), int(nu[1]), int(nu[2]))
-                spinham.add_22(alpha, beta, nu, np.eye(3), replace=True)
+                spinham.add_32(alpha, beta, nu, np.ones((3, 3, 3)), replace=True)
 
     bond = [r_alpha, r_beta, r_nu]
     if 0 <= r_alpha < len(spinham.atoms.names) and 0 <= r_beta < len(
         spinham.atoms.names
     ):
-        original_bonds = [tmp[:-1] for tmp in spinham._22]
-        original_length = len(spinham._22)
+        original_bonds = [tmp[:-1] for tmp in spinham._32]
+        original_length = len(spinham._32)
 
-        spinham.remove_22(*bond)
+        spinham.remove_32(*bond)
 
-        primary_bond = list(_get_primary_p22(*bond))
+        primary_bond = list(_get_primary_p32(*bond))
         if primary_bond in original_bonds:
-            updated_bonds = [tmp[:-1] for tmp in spinham._22]
+            updated_bonds = [tmp[:-1] for tmp in spinham._32]
 
-            assert len(spinham._22) == original_length - 1
+            assert len(spinham._32) == original_length - 1
             assert bond not in updated_bonds
             assert primary_bond not in updated_bonds
         else:
-            assert len(spinham._22) == original_length
+            assert len(spinham._32) == original_length
 
     else:
         with pytest.raises(ValueError):
-            spinham.remove_22(*bond)
+            spinham.remove_32(*bond)

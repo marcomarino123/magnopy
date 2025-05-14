@@ -37,7 +37,7 @@ ARRAY_3 = harrays(
     (3,),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
-RANDOM_UC = harrays(int, (10, 3), elements=st.integers(min_value=-1000, max_value=1000))
+RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value=1000))
 
 
 def test_multiple_counting():

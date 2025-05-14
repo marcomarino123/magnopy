@@ -27,24 +27,24 @@ from magnopy.spinham._hamiltonian import SpinHamiltonian
 from magnopy.spinham._notation import Notation
 
 MAX_MODULUS = 1e8
-ARRAY_3X3 = harrays(
+ARRAY_3x3 = harrays(
     np.float64,
     (3, 3),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 
 
-@given(st.integers(), ARRAY_3X3)
-def test_add_21(atom, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
+@given(st.integers(), ARRAY_3x3)
+def test_add_21(alpha, parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    if not 0 <= atom < len(spinham.atoms.names):
-        with pytest.raises(ValueError):
-            spinham.add_21(atom, parameter)
+    if 0 <= alpha < len(spinham.atoms.names):
+        spinham.add_21(alpha, parameter)
     else:
-        spinham.add_21(atom, parameter)
+        with pytest.raises(ValueError):
+            spinham.add_21(alpha, parameter)
 
 
 @given(
@@ -52,47 +52,51 @@ def test_add_21(atom, parameter):
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
-    ARRAY_3X3,
+    ARRAY_3x3,
 )
-def test_add_21_sorting(atom1, atom2, atom3, atom4, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
+def test_add_21_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    spinham.add_21(atom1, parameter)
+    spinham.add_21(alpha1, parameter)
 
-    if atom2 == atom1:
+    if alpha2 == alpha1:
         with pytest.raises(ValueError):
-            spinham.add_21(atom2, parameter)
+            spinham.add_21(alpha2, parameter)
     else:
-        spinham.add_21(atom2, parameter)
+        spinham.add_21(alpha2, parameter)
 
-    spinham.add_21(atom3, parameter, replace=True)
-    spinham.add_21(atom4, parameter, replace=True)
+    spinham.add_21(alpha3, parameter, replace=True)
+    spinham.add_21(alpha4, parameter, replace=True)
 
     for i in range(len(spinham._21) - 1):
-        assert spinham._21[i][0] <= spinham._21[i + 1][0]
+        assert spinham._21[i][:-1] <= spinham._21[i + 1][:-1]
 
 
 @given(st.integers())
-def test_remove_21(r_atom):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
+def test_remove_21(r_alpha):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    for i in range(len(spinham.atoms.names)):
-        spinham.add_21(i, i * np.eye(3))
+    for alpha in range(len(spinham.atoms.names)):
+        spinham.add_21(alpha, np.eye(3))
 
-    if 0 <= r_atom < len(spinham.atoms.names):
-        spinham.remove_21(r_atom)
-        assert len(spinham._21) == len(spinham.atoms.names) - 1
+    bond = [r_alpha]
+    if 0 <= r_alpha < len(spinham.atoms.names):
+        original_bonds = [tmp[:-1] for tmp in spinham._21]
+        original_length = len(spinham._21)
 
-        atoms_with_on_site = []
-        for atom, _ in spinham._21:
-            atoms_with_on_site.append(atom)
+        spinham.remove_21(*bond)
 
-        assert r_atom not in atoms_with_on_site
+        if bond in original_bonds:
+            updated_bonds = [tmp[:-1] for tmp in spinham._21]
 
+            assert len(spinham._21) == original_length - 1
+            assert bond not in updated_bonds
+        else:
+            assert len(spinham._21) == original_length
     else:
         with pytest.raises(ValueError):
-            spinham.remove_21(r_atom)
+            spinham.remove_21(*bond)

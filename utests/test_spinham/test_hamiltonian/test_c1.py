@@ -35,16 +35,16 @@ ARRAY_3 = harrays(
 
 
 @given(st.integers(), ARRAY_3)
-def test_add_1(atom, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
+def test_add_1(alpha, parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    if not 0 <= atom < len(spinham.atoms.names):
-        with pytest.raises(ValueError):
-            spinham.add_1(atom, parameter)
+    if 0 <= alpha < len(spinham.atoms.names):
+        spinham.add_1(alpha, parameter)
     else:
-        spinham.add_1(atom, parameter)
+        with pytest.raises(ValueError):
+            spinham.add_1(alpha, parameter)
 
 
 @given(
@@ -54,45 +54,49 @@ def test_add_1(atom, parameter):
     st.integers(min_value=0, max_value=8),
     ARRAY_3,
 )
-def test_add_1_sorting(atom1, atom2, atom3, atom4, parameter):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
+def test_add_1_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    spinham.add_1(atom1, parameter)
+    spinham.add_1(alpha1, parameter)
 
-    if atom2 == atom1:
+    if alpha2 == alpha1:
         with pytest.raises(ValueError):
-            spinham.add_1(atom2, parameter)
+            spinham.add_1(alpha2, parameter)
     else:
-        spinham.add_1(atom2, parameter)
+        spinham.add_1(alpha2, parameter)
 
-    spinham.add_1(atom3, parameter, replace=True)
-    spinham.add_1(atom4, parameter, replace=True)
+    spinham.add_1(alpha3, parameter, replace=True)
+    spinham.add_1(alpha4, parameter, replace=True)
 
     for i in range(len(spinham._1) - 1):
-        assert spinham._1[i][0] <= spinham._1[i + 1][0]
+        assert spinham._1[i][:-1] <= spinham._1[i + 1][:-1]
 
 
 @given(st.integers())
-def test_remove_1(r_atom):
-    atoms = {"names": ["Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr", "Cr"]}
+def test_remove_1(r_alpha):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    for i in range(len(spinham.atoms.names)):
-        spinham.add_1(i, i * np.eye(3))
+    for alpha in range(len(spinham.atoms.names)):
+        spinham.add_1(alpha, np.eye(3))
 
-    if 0 <= r_atom < len(spinham.atoms.names):
-        spinham.remove_1(r_atom)
-        assert len(spinham._1) == len(spinham.atoms.names) - 1
+    bond = [r_alpha]
+    if 0 <= r_alpha < len(spinham.atoms.names):
+        original_bonds = [tmp[:-1] for tmp in spinham._1]
+        original_length = len(spinham._1)
 
-        atoms_with_on_site = []
-        for atom, _ in spinham._1:
-            atoms_with_on_site.append(atom)
+        spinham.remove_1(*bond)
 
-        assert r_atom not in atoms_with_on_site
+        if bond in original_bonds:
+            updated_bonds = [tmp[:-1] for tmp in spinham._1]
 
+            assert len(spinham._1) == original_length - 1
+            assert bond not in updated_bonds
+        else:
+            assert len(spinham._1) == original_length
     else:
         with pytest.raises(ValueError):
-            spinham.remove_1(r_atom)
+            spinham.remove_1(*bond)

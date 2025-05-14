@@ -23,14 +23,14 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._c22 import _get_primary_p22
+from magnopy.spinham._c43 import _get_primary_p43
 from magnopy.spinham._hamiltonian import SpinHamiltonian
 from magnopy.spinham._notation import Notation
 
 MAX_MODULUS = 1e8
-ARRAY_3x3 = harrays(
+ARRAY_3x3x3x3 = harrays(
     np.float64,
-    (3, 3),
+    (3, 3, 3, 3),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value=1000))
@@ -39,106 +39,144 @@ RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value
 @given(
     st.integers(),
     st.integers(),
+    st.integers(),
     st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3x3,
+    st.tuples(st.integers(), st.integers(), st.integers()),
+    ARRAY_3x3x3x3,
 )
-def test_add_22(alpha, beta, nu, parameter):
+def test_add_43(alpha, beta, gamma, nu, _lambda, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    if 0 <= alpha < len(spinham.atoms.names) and 0 <= beta < len(spinham.atoms.names):
-        spinham.add_22(alpha, beta, nu, parameter)
+    if (
+        0 <= alpha < len(spinham.atoms.names)
+        and 0 <= beta < len(spinham.atoms.names)
+        and 0 <= gamma < len(spinham.atoms.names)
+    ):
+        spinham.add_43(alpha, beta, gamma, nu, _lambda, parameter)
     else:
         with pytest.raises(ValueError):
-            spinham.add_22(alpha, beta, nu, parameter)
+            spinham.add_43(alpha, beta, gamma, nu, _lambda, parameter)
 
 
 @given(
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
+    st.integers(min_value=0, max_value=8),
+    st.tuples(st.integers(), st.integers(), st.integers()),
     st.tuples(st.integers(), st.integers(), st.integers()),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
+    st.integers(min_value=0, max_value=8),
+    st.tuples(st.integers(), st.integers(), st.integers()),
     st.tuples(st.integers(), st.integers(), st.integers()),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
+    st.integers(min_value=0, max_value=8),
+    st.tuples(st.integers(), st.integers(), st.integers()),
     st.tuples(st.integers(), st.integers(), st.integers()),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
+    st.integers(min_value=0, max_value=8),
     st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3x3,
+    st.tuples(st.integers(), st.integers(), st.integers()),
+    ARRAY_3x3x3x3,
 )
-def test_add_22_sorting(
+def test_add_43_sorting(
     alpha1,
     beta1,
+    gamma1,
     nu1,
+    _lambda1,
     alpha2,
     beta2,
+    gamma2,
     nu2,
+    _lambda2,
     alpha3,
     beta3,
+    gamma3,
     nu3,
+    _lambda3,
     alpha4,
     beta4,
+    gamma4,
     nu4,
+    _lambda4,
     parameter,
 ):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
-    spinham.add_22(alpha1, beta1, nu1, parameter)
+    spinham.add_43(alpha1, beta1, gamma1, nu1, _lambda1, parameter)
 
-    if [alpha1, beta1, nu1] == [alpha2, beta2, nu2]:
+    if [alpha1, beta1, gamma1, nu1, _lambda1] == [alpha2, beta2, gamma2, nu2, _lambda2]:
         with pytest.raises(ValueError):
-            spinham.add_22(alpha2, beta2, nu2, parameter)
+            spinham.add_43(alpha2, beta2, gamma2, nu2, _lambda2, parameter)
     else:
-        spinham.add_22(alpha2, beta2, nu2, parameter)
+        spinham.add_43(alpha2, beta2, gamma2, nu2, _lambda2, parameter)
 
-    spinham.add_22(alpha3, beta3, nu3, parameter, replace=True)
-    spinham.add_22(alpha4, beta4, nu4, parameter, replace=True)
+    spinham.add_43(alpha3, beta3, gamma3, nu3, _lambda3, parameter, replace=True)
+    spinham.add_43(alpha4, beta4, gamma4, nu4, _lambda4, parameter, replace=True)
 
-    for i in range(len(spinham._22) - 1):
-        assert spinham._22[i][:-1] <= spinham._22[i + 1][:-1]
+    for i in range(len(spinham._43) - 1):
+        assert spinham._43[i][:-1] <= spinham._43[i + 1][:-1]
 
 
 @given(
     st.integers(min_value=0, max_value=2),
     st.integers(min_value=0, max_value=2),
+    st.integers(min_value=0, max_value=2),
+    st.tuples(st.integers(), st.integers(), st.integers()),
     st.tuples(st.integers(), st.integers(), st.integers()),
     RANDOM_UC,
+    RANDOM_UC,
 )
-def test_remove_22(r_alpha, r_beta, r_nu, nus):
+def test_remove_43(r_alpha, r_beta, r_gamma, r_nu, r_lambda, nus, lambdas):
     atoms = {"names": ["Cr" for _ in range(4)], "spins": [1 for _ in range(4)]}
 
     spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
 
     for alpha in range(len(spinham.atoms.names)):
         for beta in range(alpha, len(spinham.atoms.names)):
-            for nu in nus:
-                nu = (int(nu[0]), int(nu[1]), int(nu[2]))
-                spinham.add_22(alpha, beta, nu, np.eye(3), replace=True)
+            for gamma in range(beta, len(spinham.atoms.names)):
+                for nu in nus:
+                    for _lambda in lambdas:
+                        nu = (int(nu[0]), int(nu[1]), int(nu[2]))
+                        _lambda = (int(_lambda[0]), int(_lambda[1]), int(_lambda[2]))
+                        spinham.add_43(
+                            alpha,
+                            beta,
+                            gamma,
+                            nu,
+                            _lambda,
+                            np.ones((3, 3, 3, 3)),
+                            replace=True,
+                        )
 
-    bond = [r_alpha, r_beta, r_nu]
-    if 0 <= r_alpha < len(spinham.atoms.names) and 0 <= r_beta < len(
-        spinham.atoms.names
+    bond = [r_alpha, r_beta, r_gamma, r_nu, r_lambda]
+    if (
+        0 <= r_alpha < len(spinham.atoms.names)
+        and 0 <= r_beta < len(spinham.atoms.names)
+        and 0 <= r_gamma < len(spinham.atoms.names)
     ):
-        original_bonds = [tmp[:-1] for tmp in spinham._22]
-        original_length = len(spinham._22)
+        original_bonds = [tmp[:-1] for tmp in spinham._43]
+        original_length = len(spinham._43)
 
-        spinham.remove_22(*bond)
+        spinham.remove_43(*bond)
 
-        primary_bond = list(_get_primary_p22(*bond))
+        primary_bond = list(_get_primary_p43(*bond))
         if primary_bond in original_bonds:
-            updated_bonds = [tmp[:-1] for tmp in spinham._22]
+            updated_bonds = [tmp[:-1] for tmp in spinham._43]
 
-            assert len(spinham._22) == original_length - 1
+            assert len(spinham._43) == original_length - 1
             assert bond not in updated_bonds
             assert primary_bond not in updated_bonds
         else:
-            assert len(spinham._22) == original_length
+            assert len(spinham._43) == original_length
 
     else:
         with pytest.raises(ValueError):
-            spinham.remove_22(*bond)
+            spinham.remove_43(*bond)

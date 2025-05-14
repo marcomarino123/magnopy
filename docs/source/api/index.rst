@@ -31,6 +31,7 @@ Classes
     Notation
     SpinHamiltonian
     Energy
+    LSWT
 
 Functions
 =========

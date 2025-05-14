@@ -104,7 +104,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
     ):
         alpha, beta, gamma, epsilon = alpha, beta, epsilon, gamma
         nu, _lambda, rho = nu, rho, _lambda
-        parameter = np.transpose(parameter, (0, 1, 3, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (0, 1, 3, 2))
     # Case 3
     elif _ordered(
         mu1=(0, 0, 0),
@@ -118,7 +119,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
     ):
         alpha, beta, gamma, epsilon = alpha, gamma, beta, epsilon
         nu, _lambda, rho = _lambda, nu, rho
-        parameter = np.transpose(parameter, (0, 2, 1, 3))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (0, 2, 1, 3))
     # Case 4
     elif _ordered(
         mu1=(0, 0, 0),
@@ -132,7 +134,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
     ):
         alpha, beta, gamma, epsilon = alpha, gamma, epsilon, beta
         nu, _lambda, rho = _lambda, rho, nu
-        parameter = np.transpose(parameter, (0, 3, 1, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (0, 3, 1, 2))
     # Case 5
     elif _ordered(
         mu1=(0, 0, 0),
@@ -146,7 +149,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
     ):
         alpha, beta, gamma, epsilon = alpha, epsilon, beta, gamma
         nu, _lambda, rho = rho, nu, _lambda
-        parameter = np.transpose(parameter, (0, 2, 3, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (0, 2, 3, 1))
     # Case 6
     elif _ordered(
         mu1=(0, 0, 0),
@@ -160,7 +164,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
     ):
         alpha, beta, gamma, epsilon = alpha, epsilon, gamma, beta
         nu, _lambda, rho = rho, _lambda, nu
-        parameter = np.transpose(parameter, (0, 3, 2, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (0, 3, 2, 1))
     # Case 7
     elif _ordered(
         mu1=nu,
@@ -179,7 +184,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (-nu1, -nu2, -nu3)
         _lambda = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         rho = (rho1 - nu1, rho2 - nu2, rho3 - nu3)
-        parameter = np.transpose(parameter, (1, 0, 2, 3))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 0, 2, 3))
     # Case 8
     elif _ordered(
         mu1=nu,
@@ -198,7 +204,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (-nu1, -nu2, -nu3)
         _lambda = (rho1 - nu1, rho2 - nu2, rho3 - nu3)
         rho = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
-        parameter = np.transpose(parameter, (1, 0, 3, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 0, 3, 2))
     # Case 9
     elif _ordered(
         mu1=nu,
@@ -217,7 +224,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         _lambda = (-nu1, -nu2, -nu3)
         rho = (rho1 - nu1, rho2 - nu2, rho3 - nu3)
-        parameter = np.transpose(parameter, (2, 0, 1, 3))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 0, 1, 3))
     # Case 10
     elif _ordered(
         mu1=nu,
@@ -236,7 +244,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         _lambda = (rho1 - nu1, rho2 - nu2, rho3 - nu3)
         rho = (-nu1, -nu2, -nu3)
-        parameter = np.transpose(parameter, (3, 0, 1, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (3, 0, 1, 2))
     # Case 11
     elif _ordered(
         mu1=nu,
@@ -255,7 +264,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (rho1 - nu1, rho2 - nu2, rho3 - nu3)
         _lambda = (-nu1, -nu2, -nu3)
         rho = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
-        parameter = np.transpose(parameter, (2, 0, 3, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 0, 3, 1))
     # Case 12
     elif _ordered(
         mu1=nu,
@@ -274,7 +284,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (rho1 - nu1, rho2 - nu2, rho3 - nu3)
         _lambda = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         rho = (-nu1, -nu2, -nu3)
-        parameter = np.transpose(parameter, (3, 0, 2, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (3, 0, 2, 1))
     # Case 13
     elif _ordered(
         mu1=_lambda,
@@ -293,7 +304,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (-lambda1, -lambda2, -lambda3)
         _lambda = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         rho = (rho1 - lambda1, rho2 - lambda2, rho3 - lambda3)
-        parameter = np.transpose(parameter, (1, 2, 0, 3))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 2, 0, 3))
     # Case 14
     elif _ordered(
         mu1=_lambda,
@@ -312,7 +324,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (-lambda1, -lambda2, -lambda3)
         _lambda = (rho1 - lambda1, rho2 - lambda2, rho3 - lambda3)
         rho = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
-        parameter = np.transpose(parameter, (1, 3, 0, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 3, 0, 2))
     # Case 15
     elif _ordered(
         mu1=_lambda,
@@ -331,7 +344,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         _lambda = (-lambda1, -lambda2, -lambda3)
         rho = (rho1 - lambda1, rho2 - lambda2, rho3 - lambda3)
-        parameter = np.transpose(parameter, (2, 1, 0, 3))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 1, 0, 3))
     # Case 16
     elif _ordered(
         mu1=_lambda,
@@ -350,7 +364,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         _lambda = (rho1 - lambda1, rho2 - lambda2, rho3 - lambda3)
         rho = (-lambda1, -lambda2, -lambda3)
-        parameter = np.transpose(parameter, (3, 1, 0, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (3, 1, 0, 2))
     # Case 17
     elif _ordered(
         mu1=_lambda,
@@ -369,7 +384,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (rho1 - lambda1, rho2 - lambda2, rho3 - lambda3)
         _lambda = (-lambda1, -lambda2, -lambda3)
         rho = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
-        parameter = np.transpose(parameter, (2, 3, 0, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 3, 0, 1))
     # Case 18
     elif _ordered(
         mu1=_lambda,
@@ -388,7 +404,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (rho1 - lambda1, rho2 - lambda2, rho3 - lambda3)
         _lambda = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         rho = (-lambda1, -lambda2, -lambda3)
-        parameter = np.transpose(parameter, (3, 2, 0, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (3, 2, 0, 1))
     # Case 19
     elif _ordered(
         mu1=rho,
@@ -407,7 +424,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (-rho1, -rho2, -rho3)
         _lambda = (nu1 - rho1, nu2 - rho2, nu3 - rho3)
         rho = (lambda1 - rho1, lambda2 - rho2, lambda3 - rho3)
-        parameter = np.transpose(parameter, (1, 2, 3, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 2, 3, 0))
     # Case 20
     elif _ordered(
         mu1=rho,
@@ -426,7 +444,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (-rho1, -rho2, -rho3)
         _lambda = (lambda1 - rho1, lambda2 - rho2, lambda3 - rho3)
         rho = (nu1 - rho1, nu2 - rho2, nu3 - rho3)
-        parameter = np.transpose(parameter, (1, 3, 2, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 3, 2, 0))
     # Case 21
     elif _ordered(
         mu1=rho,
@@ -445,7 +464,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (nu1 - rho1, nu2 - rho2, nu3 - rho3)
         _lambda = (-rho1, -rho2, -rho3)
         rho = (lambda1 - rho1, lambda2 - rho2, lambda3 - rho3)
-        parameter = np.transpose(parameter, (2, 1, 3, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 1, 3, 0))
     # Case 22
     elif _ordered(
         mu1=rho,
@@ -464,7 +484,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (nu1 - rho1, nu2 - rho2, nu3 - rho3)
         _lambda = (lambda1 - rho1, lambda2 - rho2, lambda3 - rho3)
         rho = (-rho1, -rho2, -rho3)
-        parameter = np.transpose(parameter, (3, 1, 2, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (3, 1, 2, 0))
     # Case 23
     elif _ordered(
         mu1=rho,
@@ -483,7 +504,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (lambda1 - rho1, lambda2 - rho2, lambda3 - rho3)
         _lambda = (-rho1, -rho2, -rho3)
         rho = (nu1 - rho1, nu2 - rho2, nu3 - rho3)
-        parameter = np.transpose(parameter, (2, 3, 1, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 3, 1, 0))
     # Case 24
     elif _ordered(
         mu1=rho,
@@ -502,7 +524,8 @@ def _get_primary_p44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter=No
         nu = (lambda1 - rho1, lambda2 - rho2, lambda3 - rho3)
         _lambda = (nu1 - rho1, nu2 - rho2, nu3 - rho3)
         rho = (-rho1, -rho2, -rho3)
-        parameter = np.transpose(parameter, (3, 2, 1, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (3, 2, 1, 0))
 
     if parameter is None:
         return alpha, beta, gamma, epsilon, nu, _lambda, rho
@@ -1247,7 +1270,14 @@ def _add_44(
 
 
 def _remove_44(
-    spinham, alpha: int, beta: int, gamma: int, nu: tuple, _lambda: tuple
+    spinham,
+    alpha: int,
+    beta: int,
+    gamma: int,
+    epsilon: int,
+    nu: tuple,
+    _lambda: tuple,
+    rho: tuple,
 ) -> None:
     r"""
     Removes a (four spins & four sites) parameter from the Hamiltonian.

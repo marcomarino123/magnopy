@@ -80,7 +80,8 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
     ):
         alpha, beta, gamma = alpha, gamma, beta
         nu, _lambda = _lambda, nu
-        parameter = np.transpose(parameter, (0, 2, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (0, 2, 1))
     # Case 3
     elif _ordered(
         mu1=nu, alpha1=beta, mu2=(0, 0, 0), alpha2=alpha, mu3=_lambda, alpha3=gamma
@@ -90,7 +91,8 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         lambda1, lambda2, lambda3 = _lambda
         nu = (-nu1, -nu2, -nu3)
         _lambda = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
-        parameter = np.transpose(parameter, (1, 0, 2))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 0, 2))
     # Case 4
     elif _ordered(
         mu1=nu, alpha1=beta, mu2=_lambda, alpha2=gamma, mu3=(0, 0, 0), alpha3=alpha
@@ -100,7 +102,8 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         lambda1, lambda2, lambda3 = _lambda
         nu = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         _lambda = (-nu1, -nu2, -nu3)
-        parameter = np.transpose(parameter, (2, 0, 1))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 0, 1))
     # Case 5
     elif _ordered(
         mu1=_lambda, alpha1=gamma, mu2=(0, 0, 0), alpha2=alpha, mu3=nu, alpha3=beta
@@ -110,7 +113,8 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         lambda1, lambda2, lambda3 = _lambda
         nu = (-lambda1, -lambda2, -lambda3)
         _lambda = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
-        parameter = np.transpose(parameter, (1, 2, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (1, 2, 0))
     # Case 6
     elif _ordered(
         mu1=_lambda, alpha1=gamma, mu2=nu, alpha2=beta, mu3=(0, 0, 0), alpha3=alpha
@@ -120,7 +124,8 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         lambda1, lambda2, lambda3 = _lambda
         nu = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         _lambda = (-lambda1, -lambda2, -lambda3)
-        parameter = np.transpose(parameter, (2, 1, 0))
+        if parameter is not None:
+            parameter = np.transpose(parameter, (2, 1, 0))
 
     if parameter is None:
         return alpha, beta, gamma, nu, _lambda

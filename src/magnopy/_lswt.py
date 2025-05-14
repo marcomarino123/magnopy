@@ -411,7 +411,7 @@ class LSWT:
         E_2 : float
         """
 
-        return 0.5 * np.sum(self._J1, self.z)
+        return 0.5 * np.sum(self._J1 * self.z)
 
     @property
     def O(self):

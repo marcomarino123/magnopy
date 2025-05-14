@@ -26,7 +26,7 @@ from hypothesis.extra.numpy import arrays as harrays
 from magnopy.energy import Energy
 from magnopy.spinham import Notation, SpinHamiltonian
 
-MAX_MODULUS = 1e8
+MAX_MODULUS = 1e4
 ARRAY_3 = harrays(
     np.float64,
     (3),

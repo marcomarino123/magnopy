@@ -19,7 +19,7 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import (
+from magnopy._spinham._validators import (
     _spins_ordered,
     _validate_atom_index,
     _validate_unit_cell_index,

@@ -19,8 +19,7 @@
 
 import pytest
 
-from magnopy.energy import Energy
-from magnopy.spinham import Notation, SpinHamiltonian
+from magnopy import Energy, Notation, SpinHamiltonian
 
 
 def _get_spinham():

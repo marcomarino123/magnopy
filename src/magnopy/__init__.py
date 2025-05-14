@@ -22,8 +22,10 @@ __doclink__ = "magnopy.org"
 __release_date__ = "undefined"
 __git_commit__ = "undefined"
 
-from . import constants, energy, io, legacy, lswt, spinham
+from . import constants, io, legacy
 from ._diagonalization import *
+from ._energy import *
 from ._exceptions import *
 from ._local_rf import *
 from ._package_info import *
+from ._spinham import *

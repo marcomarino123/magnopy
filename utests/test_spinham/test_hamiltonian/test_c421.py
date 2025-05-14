@@ -23,9 +23,8 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._c421 import _get_primary_p421
-from magnopy.spinham._hamiltonian import SpinHamiltonian
-from magnopy.spinham._notation import Notation
+from magnopy import Notation, SpinHamiltonian
+from magnopy._spinham._c421 import _get_primary_p421
 
 MAX_MODULUS = 1e8
 ARRAY_3x3x3x3 = harrays(

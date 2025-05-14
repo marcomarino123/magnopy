@@ -22,9 +22,8 @@ import pytest
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._hamiltonian import SpinHamiltonian
-from magnopy.spinham._notation import Notation
-from magnopy.spinham._parameter import get_isotropic_parameter
+from magnopy import Notation, SpinHamiltonian
+from magnopy._spinham._parameter import get_isotropic_parameter
 
 MAX_MODULUS = 1e8
 ARRAY_3X3 = harrays(

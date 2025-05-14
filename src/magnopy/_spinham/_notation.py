@@ -72,7 +72,7 @@ class Notation:
 
     .. doctest::
 
-        >>> from magnopy.spinham import Notation
+        >>> from magnopy._spinham import Notation
         >>> n1 = Notation(True, True, c21=1, c22=-0.5)
         >>> n2 = Notation(False, True, c21=1, c22=-0.5)
         >>> n3 = Notation(False, True, c22=-0.5)
@@ -219,7 +219,7 @@ class Notation:
 
         .. doctest::
 
-            >>> from magnopy.spinham import Notation
+            >>> from magnopy._spinham import Notation
             >>> n1 = Notation(True, True, c21=1, c22=-0.5)
             >>> n1.summary()
             custom notation where

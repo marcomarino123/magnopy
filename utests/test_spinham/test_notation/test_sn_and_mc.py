@@ -21,7 +21,7 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy.spinham._notation import Notation
+from magnopy import Notation
 
 
 ################################################################################

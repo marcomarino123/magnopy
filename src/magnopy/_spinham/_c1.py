@@ -19,28 +19,26 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import _validate_atom_index
+from magnopy._spinham._validators import _validate_atom_index
 
 
 @property
-def _p31(self) -> list:
+def _p1(spinham) -> list:
     r"""
-    Parameters of (three spins & one site) term of the Hamiltonian.
+    Parameters of (one spin & one site) term of the Hamiltonian.
 
     .. math::
 
-        \boldsymbol{J}_{3,1}(\boldsymbol{r}_{\alpha})
+        \boldsymbol{J}_1(\boldsymbol{r}_{\alpha})
 
     of the term
 
     .. math::
 
-        C_{3,1}
-        \sum_{\mu, \alpha, i, j, u}
-        J^{iju}_{3,1}(\boldsymbol{r}_{\alpha})
+        C_1
+        \sum_{\mu, \alpha, i}
+        J_1^i(\boldsymbol{r}_{\alpha})
         S_{\mu,\alpha}^i
-        S_{\mu,\alpha}^j
-        S_{\mu,\alpha}^u
 
     Returns
     -------
@@ -54,21 +52,21 @@ def _p31(self) -> list:
         ``0 <= len(parameters) <= len(spinham.atoms.names)``.
 
         where ``alpha`` is an index of the atom to which the parameter is assigned and
-        ``J`` is a (3, 3, 3) :numpy:`ndarray`. The parameters are sorted by the index of
-        an atom ``alpha`` in the ascending order.
+        ``J``  is a (3, ) :numpy:`ndarray`. The parameters are sorted by the index of an
+        atom ``alpha`` in the ascending order.
 
     See Also
     --------
-    add_31
-    remove_31
+    add_1
+    remove_1
     """
 
-    return self._31
+    return spinham._1
 
 
-def _add_31(self, alpha: int, parameter, replace=False) -> None:
+def _add_1(spinham, alpha: int, parameter, replace=False) -> None:
     r"""
-    Adds a (three spins & one site) parameter to the Hamiltonian.
+    Adds a (one spin & one site) parameter to the Hamiltonian.
 
     Parameters
     ----------
@@ -76,8 +74,8 @@ def _add_31(self, alpha: int, parameter, replace=False) -> None:
         Index of an atom, with which the parameter is associated.
 
         ``0 <= alpha < len(spinham.atoms.names)``.
-    parameter : (3, 3, 3) |array-like|_
-        Value of the parameter (:math:`3\times3\times3` tensor).
+    parameter : (3, ) |array-like|_
+        Value of the parameter (:math:`3\times1` vector).
     replace : bool, default False
         Whether to replace the value of the parameter if an atom already has a
         parameter associated with it.
@@ -89,45 +87,45 @@ def _add_31(self, alpha: int, parameter, replace=False) -> None:
 
     See Also
     --------
-    p31
-    remove_31
+    p1
+    remove_1
     """
 
-    _validate_atom_index(index=alpha, atoms=self.atoms)
-    self._reset_internals()
+    _validate_atom_index(index=alpha, atoms=spinham.atoms)
+    spinham._reset_internals()
 
     parameter = np.array(parameter)
 
     # TD-BINARY_SEARCH
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(self._31):
+    while index < len(spinham._1):
         # If already present in the model
-        if self._31[index][0] == alpha:
+        if spinham._1[index][0] == alpha:
             # Either replace
             if replace:
-                self._31[index] = [alpha, parameter]
+                spinham._1[index] = [alpha, parameter]
                 return
             # Or raise an error
             raise ValueError(
-                f"On-site qubic anisotropy already set "
-                f"for atom {alpha} ('{self.atoms.names[alpha]}')"
+                f"(One spin & one site) parameter is already set "
+                f"for atom {alpha} ('{spinham.atoms.names[alpha]}')"
             )
 
         # If it should be inserted before current element
-        if self._31[index][0] > alpha:
-            self._31.insert(index, [alpha, parameter])
+        if spinham._1[index][0] > alpha:
+            spinham._1.insert(index, [alpha, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    self._31.append([alpha, parameter])
+    spinham._1.append([alpha, parameter])
 
 
-def _remove_31(self, alpha: int) -> None:
+def _remove_1(spinham, alpha: int) -> None:
     r"""
-    Removes a (three spins & one site) parameter from the Hamiltonian.
+    Removes a (one spin & one site) parameter from the Hamiltonian.
 
     Parameters
     ----------
@@ -138,19 +136,19 @@ def _remove_31(self, alpha: int) -> None:
 
     See Also
     --------
-    p31
-    add_31
+    p1
+    add_1
     """
 
-    _validate_atom_index(index=alpha, atoms=self.atoms)
+    _validate_atom_index(index=alpha, atoms=spinham.atoms)
 
-    for i in range(len(self._31)):
+    for i in range(len(spinham._1)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if self._31[i][0] > alpha:
+        if spinham._1[i][0] > alpha:
             return
 
-        if self._31[i][0] == alpha:
-            del self._31[i]
-            self._reset_internals()
+        if spinham._1[i][0] == alpha:
+            del spinham._1[i]
+            spinham._reset_internals()
             return

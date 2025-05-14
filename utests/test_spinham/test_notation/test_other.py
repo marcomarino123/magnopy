@@ -21,8 +21,7 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy._exceptions import NotationError
-from magnopy.spinham._notation import Notation
+from magnopy import Notation, NotationError
 
 
 def tes_raises():

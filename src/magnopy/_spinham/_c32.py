@@ -19,14 +19,14 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import (
+from magnopy._spinham._validators import (
     _spins_ordered,
     _validate_atom_index,
     _validate_unit_cell_index,
 )
 
 
-def _get_primary_p421(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None):
+def _get_primary_p32(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None):
     r"""
     Return the primary version of the parameter.
 
@@ -41,7 +41,7 @@ def _get_primary_p421(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None
         Index of the second atom.
     nu : tuple of 3 int
         Unit cell for the second atom.
-    parameter : (3, 3, 3, 3) :numpy:`ndarray`, optional
+    parameter : (3, 3, 3) :numpy:`ndarray`, optional
         Full matrix of the parameter.
     S_alpha : float, optional
         Spin value of atom ``alpha``
@@ -56,7 +56,7 @@ def _get_primary_p421(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None
         Index of the second atom.
     nu : tuple of 3 int
         Unit cell for the second atom.
-    parameter : (3, 3, 3, 3) :numpy:`ndarray`
+    parameter : (3, 3, 3) :numpy:`ndarray`
         Full matrix of the parameter. It is returned only if ``parameter is not None``.
     """
 
@@ -66,20 +66,20 @@ def _get_primary_p421(alpha, beta, nu, parameter=None, S_alpha=None, S_beta=None
         i, j, k = nu
         alpha, beta, nu = beta, alpha, (-i, -j, -k)
         if parameter is not None:
-            parameter = np.transpose(parameter, (3, 1, 2, 0)) * (S_alpha / S_beta) ** 2
+            parameter = np.transpose(parameter, (2, 1, 0)) * S_alpha / S_beta
 
     if parameter is None:
         return alpha, beta, nu
     return alpha, beta, nu, parameter
 
 
-class _P421_iterator:
+class _P32_iterator:
     R"""
-    Iterator over the (four spins & two sites (3+1)) parameters of the spin Hamiltonian.
+    Iterator over the (three spins & two sites) parameters of the spin Hamiltonian.
     """
 
     def __init__(self, spinham) -> None:
-        self.container = spinham._421
+        self.container = spinham._32
         self.mc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
@@ -99,8 +99,9 @@ class _P421_iterator:
                 beta,
                 alpha,
                 (-i, -j, -k),
-                np.transpose(parameter, (3, 1, 2, 0))
-                * (self.spins[alpha] / self.spins[beta]) ** 2,
+                np.transpose(parameter, (2, 1, 0))
+                * self.spins[alpha]
+                / self.spins[beta],
             ]
 
         raise StopIteration
@@ -113,25 +114,24 @@ class _P421_iterator:
 
 
 @property
-def _p421(spinham):
+def _p32(spinham):
     r"""
-    Parameters of (four spins & two sites (3+1)) term of the Hamiltonian.
+    Parameters of (three spins & two sites) term of the Hamiltonian.
 
     .. math::
 
-        \boldsymbol{J}_{4,2,1}(\boldsymbol{r}_{\nu,\alpha\beta})
+        \boldsymbol{J}_{3,2}(\boldsymbol{r}_{\nu,\alpha\beta})
 
     of the term
 
     .. math::
 
-        C_{4,2,1}
-        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u, v}}
-        J^{ijuv}_{4,2,1}(\boldsymbol{r}_{\nu,\alpha\beta})
+        C_{3,2}
+        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u}}
+        J^{iju}_{3,2}(\boldsymbol{r}_{\nu,\alpha\beta})
         S_{\mu,\alpha}^i
         S_{\mu,\alpha}^j
-        S_{\mu,\alpha}^u
-        S_{\mu+\nu,\beta}^v
+        S_{\mu+\nu,\beta}^u
 
     Returns
     -------
@@ -151,22 +151,22 @@ def _p421(spinham):
         ``nu`` defines the unit cell of the second atom (beta). It is a tuple of 3
         integers.
 
-        ``J`` is a (3, 3, 3, 3) :numpy:`ndarray`.
+        ``J`` is a (3, 3, 3) :numpy:`ndarray`.
 
     See Also
     --------
-    add_421
-    remove_421
+    add_32
+    remove_32
     """
 
-    return _P421_iterator(spinham)
+    return _P32_iterator(spinham)
 
 
-def _add_421(
+def _add_32(
     spinham, alpha: int, beta: int, nu: tuple, parameter, replace=False
 ) -> None:
     r"""
-    Adds a (four spins & two sites (3+1)) parameter to the Hamiltonian.
+    Adds a (three spins & two sites) parameter to the Hamiltonian.
 
     Doubles of the bonds are managed automatically (independently of the notation of the
     Hamiltonian).
@@ -197,8 +197,8 @@ def _add_421(
             =
             (x_{\boldsymbol{a}_1}, x_{\boldsymbol{a}_2}, x_{\boldsymbol{a}_3})
 
-    parameter : (3, 3, 3, 3) |array-like|_
-        Value of the parameter (:math:`3\times3\times3\times3` matrix).
+    parameter : (3, 3, 3) |array-like|_
+        Value of the parameter (:math:`3\times3\times3` matrix).
     replace : bool, default False
         Whether to replace the value of the parameter if the pair of atoms
         ``alpha, beta, nu`` or its double already have a parameter associated
@@ -206,8 +206,8 @@ def _add_421(
 
     See Also
     --------
-    p421
-    remove_421
+    p32
+    remove_32
 
     Notes
     -----
@@ -229,7 +229,7 @@ def _add_421(
 
     parameter = np.array(parameter)
 
-    alpha, beta, nu, parameter = _get_primary_p421(
+    alpha, beta, nu, parameter = _get_primary_p32(
         alpha=alpha,
         beta=beta,
         nu=nu,
@@ -242,12 +242,12 @@ def _add_421(
 
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(spinham._421):
+    while index < len(spinham._32):
         # If already present in the model
-        if spinham._421[index][:3] == [alpha, beta, nu]:
+        if spinham._32[index][:3] == [alpha, beta, nu]:
             # Either replace
             if replace:
-                spinham._421[index] = [alpha, beta, nu, parameter]
+                spinham._32[index] = [alpha, beta, nu, parameter]
                 return
             # Or raise an error
             raise ValueError(
@@ -256,19 +256,19 @@ def _add_421(
             )
 
         # If it should be inserted before current element
-        if spinham._421[index][:3] > [alpha, beta, nu]:
-            spinham._421.insert(index, [alpha, beta, nu, parameter])
+        if spinham._32[index][:3] > [alpha, beta, nu]:
+            spinham._32.insert(index, [alpha, beta, nu, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    spinham._421.append([alpha, beta, nu, parameter])
+    spinham._32.append([alpha, beta, nu, parameter])
 
 
-def _remove_421(spinham, alpha: int, beta: int, nu: tuple) -> None:
+def _remove_32(spinham, alpha: int, beta: int, nu: tuple) -> None:
     r"""
-    Removes a (four spins & two sites (3+1)) parameter from the Hamiltonian.
+    Removes a (three spins & two sites) parameter from the Hamiltonian.
 
     Doubles of the bonds are managed automatically (independently of the notation of the
     Hamiltonian).
@@ -295,8 +295,8 @@ def _remove_421(spinham, alpha: int, beta: int, nu: tuple) -> None:
 
     See Also
     --------
-    p421
-    add_421
+    p32
+    add_32
 
     Notes
     -----
@@ -319,17 +319,17 @@ def _remove_421(spinham, alpha: int, beta: int, nu: tuple) -> None:
     _validate_atom_index(index=beta, atoms=spinham.atoms)
     _validate_unit_cell_index(ijk=nu)
 
-    alpha, beta, nu = _get_primary_p421(alpha=alpha, beta=beta, nu=nu)
+    alpha, beta, nu = _get_primary_p32(alpha=alpha, beta=beta, nu=nu)
 
     # TD-BINARY_SEARCH
 
-    for index in range(len(spinham._421)):
+    for index in range(len(spinham._32)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if spinham._421[index][:3] > [alpha, beta, nu]:
+        if spinham._32[index][:3] > [alpha, beta, nu]:
             return
 
-        if spinham._421[index][:3] == [alpha, beta, nu]:
-            del spinham._421[index]
+        if spinham._32[index][:3] == [alpha, beta, nu]:
+            del spinham._32[index]
             spinham._reset_internals()
             return

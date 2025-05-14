@@ -96,7 +96,7 @@ that define notation in one data structure.
 
 .. doctest::
 
-    >>> from magnopy.spinham import Notation
+    >>> from magnopy import Notation
     >>> notation = Notation(multiple_counting = True, spin_normalized = False, c1 = 1, c21 = 1)
     >>> notation.name
     'custom'
@@ -203,10 +203,10 @@ To create spin Hamiltonian one need three objects:
     ...     "spins" : [5/2],
     ...     "g_factors" : [2]
     ... }
-    >>> notation = magnopy.spinham.Notation(
+    >>> notation = magnopy.Notation(
     ...     multiple_counting=True, spin_normalized=False, c1=1, c21=1, c22=1 / 2
     ... )
-    >>> spinham = magnopy.spinham.SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
+    >>> spinham = magnopy.SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
 
 Once it is created you can add parameters to it. Spin Hamiltonian class
 has a property (starts with ``p``) that give access to the parameters and two methods

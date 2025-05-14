@@ -23,6 +23,9 @@ import numpy as np
 from wulfric.constants import TORADIANS
 from wulfric.geometry import absolute_to_relative
 
+from magnopy._spinham._hamiltonian import SpinHamiltonian
+from magnopy._spinham._notation import Notation
+from magnopy._spinham._parameter import get_matrix_parameter
 from magnopy.constants._internal_units import ENERGY, ENERGY_NAME, LENGTH, LENGTH_NAME
 from magnopy.constants.si import (
     ANGSTROM,
@@ -32,9 +35,6 @@ from magnopy.constants.si import (
     RYDBERG_ENERGY,
 )
 from magnopy.legacy._verify_grogu import verify_model_file
-from magnopy.spinham._hamiltonian import SpinHamiltonian
-from magnopy.spinham._notation import Notation
-from magnopy.spinham._parameter import get_matrix_parameter
 
 _logger = logging.getLogger(__name__)
 

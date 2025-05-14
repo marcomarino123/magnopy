@@ -23,8 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.energy import Energy
-from magnopy.spinham import Notation, SpinHamiltonian
+from magnopy import Energy, Notation, SpinHamiltonian
 
 MAX_MODULUS = 1e4
 ARRAY_3 = harrays(

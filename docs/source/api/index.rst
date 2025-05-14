@@ -19,17 +19,21 @@ Sub-modules
 .. toctree::
   :maxdepth: 1
 
-  spinham
-  energy
-  lswt
   io
   constants
 
 Classes
 =======
 
-Top-level functions
-===================
+.. autosummary::
+    :toctree: generated/
+
+    Notation
+    SpinHamiltonian
+    Energy
+
+Functions
+=========
 
 .. autosummary::
   :toctree: generated/

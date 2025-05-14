@@ -19,14 +19,24 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import (
+from magnopy._spinham._validators import (
     _spins_ordered,
     _validate_atom_index,
     _validate_unit_cell_index,
 )
 
 
-def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
+def _get_primary_p43(
+    alpha,
+    beta,
+    gamma,
+    nu,
+    _lambda,
+    parameter=None,
+    S_alpha=None,
+    S_beta=None,
+    S_gamma=None,
+):
     r"""
     Return the primary version of the parameter.
 
@@ -45,8 +55,14 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         Unit cell for the second atom.
     _lambda : tuple of 3 int
         Unit cell for the third atom.
-    parameter : (3, 3, 3) :numpy:`ndarray`, optional
+    parameter : (3, 3, 3, 3) :numpy:`ndarray`, optional
         Full matrix of the parameter.
+    S_alpha : float, optional
+        Spin value of atom ``alpha``
+    S_beta : float, optional
+        Spin value of atom ``beta``
+    S_gamma : float, optional
+        Spin value of atom ``gamma``
 
     Returns
     -------
@@ -60,7 +76,7 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         Unit cell for the second atom.
     _lambda : tuple of 3 int
         Unit cell for the third atom.
-    parameter : (3, 3, 3) :numpy:`ndarray`, optional
+    parameter : (3, 3, 3, 3) :numpy:`ndarray`, optional
         Full matrix of the parameter. It is returned only if ``parameter is not None``.
     """
 
@@ -81,7 +97,7 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         alpha, beta, gamma = alpha, gamma, beta
         nu, _lambda = _lambda, nu
         if parameter is not None:
-            parameter = np.transpose(parameter, (0, 2, 1))
+            parameter = np.transpose(parameter, (0, 1, 3, 2))
     # Case 3
     elif _ordered(
         mu1=nu, alpha1=beta, mu2=(0, 0, 0), alpha2=alpha, mu3=_lambda, alpha3=gamma
@@ -92,7 +108,7 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         nu = (-nu1, -nu2, -nu3)
         _lambda = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         if parameter is not None:
-            parameter = np.transpose(parameter, (1, 0, 2))
+            parameter = np.transpose(parameter, (2, 1, 0, 3)) * S_alpha / S_beta
     # Case 4
     elif _ordered(
         mu1=nu, alpha1=beta, mu2=_lambda, alpha2=gamma, mu3=(0, 0, 0), alpha3=alpha
@@ -103,7 +119,7 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         nu = (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3)
         _lambda = (-nu1, -nu2, -nu3)
         if parameter is not None:
-            parameter = np.transpose(parameter, (2, 0, 1))
+            parameter = np.transpose(parameter, (3, 1, 0, 2)) * S_alpha / S_beta
     # Case 5
     elif _ordered(
         mu1=_lambda, alpha1=gamma, mu2=(0, 0, 0), alpha2=alpha, mu3=nu, alpha3=beta
@@ -114,7 +130,7 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         nu = (-lambda1, -lambda2, -lambda3)
         _lambda = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         if parameter is not None:
-            parameter = np.transpose(parameter, (1, 2, 0))
+            parameter = np.transpose(parameter, (2, 1, 3, 0)) * S_alpha / S_gamma
     # Case 6
     elif _ordered(
         mu1=_lambda, alpha1=gamma, mu2=nu, alpha2=beta, mu3=(0, 0, 0), alpha3=alpha
@@ -125,7 +141,7 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
         nu = (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3)
         _lambda = (-lambda1, -lambda2, -lambda3)
         if parameter is not None:
-            parameter = np.transpose(parameter, (2, 1, 0))
+            parameter = np.transpose(parameter, (3, 1, 2, 0)) * S_alpha / S_gamma
 
     if parameter is None:
         return alpha, beta, gamma, nu, _lambda
@@ -133,16 +149,17 @@ def _get_primary_p33(alpha, beta, gamma, nu, _lambda, parameter=None):
     return alpha, beta, gamma, nu, _lambda, parameter
 
 
-class _P33_iterator:
+class _P43_iterator:
     R"""
-    Iterator over the (three spins & three sites) parameters of the spin Hamiltonian.
+    Iterator over the (four spins & three sites) parameters of the spin Hamiltonian.
     """
 
     def __init__(self, spinham) -> None:
-        self.container = spinham._33
+        self.container = spinham._43
         self.mc = spinham.notation.multiple_counting
         self.length = len(self.container)
         self.index = 0
+        self.spins = spinham.magnetic_atoms.spins
 
     def __next__(self):
         # Case 1
@@ -161,7 +178,7 @@ class _P33_iterator:
                 beta,
                 _lambda,
                 nu,
-                np.transpose(parameter, (0, 2, 1)),
+                np.transpose(parameter, (0, 1, 3, 2)),
             ]
         # Case 3
         elif self.mc and self.index < 3 * self.length:
@@ -180,7 +197,9 @@ class _P33_iterator:
                 gamma,
                 (-nu1, -nu2, -nu3),
                 (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3),
-                np.transpose(parameter, (1, 0, 2)),
+                np.transpose(parameter, (2, 1, 0, 3))
+                * self.spins[alpha]
+                / self.spins[beta],
             ]
         # Case 4
         elif self.mc and self.index < 4 * self.length:
@@ -199,7 +218,9 @@ class _P33_iterator:
                 alpha,
                 (lambda1 - nu1, lambda2 - nu2, lambda3 - nu3),
                 (-nu1, -nu2, -nu3),
-                np.transpose(parameter, (2, 0, 1)),
+                np.transpose(parameter, (3, 1, 0, 2))
+                * self.spins[alpha]
+                / self.spins[beta],
             ]
         # Case 5
         elif self.mc and self.index < 5 * self.length:
@@ -218,7 +239,9 @@ class _P33_iterator:
                 beta,
                 (-lambda1, -lambda2, -lambda3),
                 (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3),
-                np.transpose(parameter, (1, 2, 0)),
+                np.transpose(parameter, (2, 1, 3, 0))
+                * self.spins[alpha]
+                / self.spins[gamma],
             ]
         # Case 6
         elif self.mc and self.index < 6 * self.length:
@@ -237,7 +260,9 @@ class _P33_iterator:
                 alpha,
                 (nu1 - lambda1, nu2 - lambda2, nu3 - lambda3),
                 (-lambda1, -lambda2, -lambda3),
-                np.transpose(parameter, (2, 1, 0)),
+                np.transpose(parameter, (3, 1, 2, 0))
+                * self.spins[alpha]
+                / self.spins[gamma],
             ]
 
         raise StopIteration
@@ -250,24 +275,25 @@ class _P33_iterator:
 
 
 @property
-def _p33(spinham):
+def _p43(spinham):
     r"""
-    Parameters of (three spins & three sites) term of the Hamiltonian.
+    Parameters of (four spins & three sites) term of the Hamiltonian.
 
     .. math::
 
-        \boldsymbol{J}_{3,3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        \boldsymbol{J}_{4,3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
 
     of the term
 
     .. math::
 
-        C_{3,3}
-        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u}}
-        J^{iju}_{3,3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        C_{4,3}
+        \sum_{\substack{\mu, \nu, \alpha, \beta,\\ i, j, u, v}}
+        J^{ijuv}_{4,3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
         S_{\mu,\alpha}^i
-        S_{\mu+\nu,\beta}^j
-        S_{\mu+\lambda, \gamma}^u
+        S_{\mu,\alpha}^j
+        S_{\mu+\nu,\beta}^u
+        S_{\mu+\lambda, \gamma}^v
 
     Returns
     -------
@@ -292,18 +318,18 @@ def _p33(spinham):
         ``lambda`` defines the unit cell of the third atom (gamma). It is a tuple of 3
         integers.
 
-        ``J`` is a (3, 3, 3) :numpy:`ndarray`.
+        ``J`` is a (3, 3, 3, 3) :numpy:`ndarray`.
 
     See Also
     --------
-    add_33
-    remove_33
+    add_43
+    remove_43
     """
 
-    return _P33_iterator(spinham)
+    return _P43_iterator(spinham)
 
 
-def _add_33(
+def _add_43(
     spinham,
     alpha: int,
     beta: int,
@@ -314,7 +340,7 @@ def _add_33(
     replace=False,
 ) -> None:
     r"""
-    Adds a (three spins & three sites) parameter to the Hamiltonian.
+    Adds a (four spins & three sites) parameter to the Hamiltonian.
 
     Doubles of the bonds are managed automatically (independently of the notation of the
     Hamiltonian).
@@ -358,8 +384,8 @@ def _add_33(
             =
             (x_{\boldsymbol{a}_1}, x_{\boldsymbol{a}_2}, x_{\boldsymbol{a}_3})
 
-    parameter : (3, 3, 3) |array-like|_
-        Value of the parameter (:math:`3\times3\times3` matrix).
+    parameter : (3, 3, 3, 3) |array-like|_
+        Value of the parameter (:math:`3\times3\times3\times3` matrix).
     replace : bool, default False
         Whether to replace the value of the parameter if the triplet of atoms
         ``alpha, beta, gamma, nu, lambda`` or one of its duplicates already have a
@@ -367,8 +393,8 @@ def _add_33(
 
     See Also
     --------
-    p33
-    remove_33
+    p43
+    remove_43
 
     Notes
     -----
@@ -392,20 +418,28 @@ def _add_33(
 
     parameter = np.array(parameter)
 
-    alpha, beta, gamma, nu, _lambda, parameter = _get_primary_p33(
-        alpha=alpha, beta=beta, gamma=gamma, nu=nu, _lambda=_lambda, parameter=parameter
+    alpha, beta, gamma, nu, _lambda, parameter = _get_primary_p43(
+        alpha=alpha,
+        beta=beta,
+        gamma=gamma,
+        nu=nu,
+        _lambda=_lambda,
+        parameter=parameter,
+        S_alpha=spinham.atoms.spins[alpha],
+        S_beta=spinham.atoms.spins[beta],
+        S_gamma=spinham.atoms.spins[gamma],
     )
 
     # TD-BINARY_SEARCH
 
     # Try to find the place for the new one inside the list
     index = 0
-    while index < len(spinham._33):
+    while index < len(spinham._43):
         # If already present in the model
-        if spinham._33[index][:5] == [alpha, beta, gamma, nu, _lambda]:
+        if spinham._43[index][:5] == [alpha, beta, gamma, nu, _lambda]:
             # Either replace
             if replace:
-                spinham._33[index] = [alpha, beta, gamma, nu, _lambda, parameter]
+                spinham._43[index] = [alpha, beta, gamma, nu, _lambda, parameter]
                 return
             # Or raise an error
             raise ValueError(
@@ -414,21 +448,21 @@ def _add_33(
             )
 
         # If it should be inserted before current element
-        if spinham._33[index][:5] > [alpha, beta, gamma, nu, _lambda]:
-            spinham._33.insert(index, [alpha, beta, gamma, nu, _lambda, parameter])
+        if spinham._43[index][:5] > [alpha, beta, gamma, nu, _lambda]:
+            spinham._43.insert(index, [alpha, beta, gamma, nu, _lambda, parameter])
             return
 
         index += 1
 
     # If it should be inserted at the end or at the beginning of the list
-    spinham._33.append([alpha, beta, gamma, nu, _lambda, parameter])
+    spinham._43.append([alpha, beta, gamma, nu, _lambda, parameter])
 
 
-def _remove_33(
+def _remove_43(
     spinham, alpha: int, beta: int, gamma: int, nu: tuple, _lambda: tuple
 ) -> None:
     r"""
-    Removes a (three spins & three sites) parameter from the Hamiltonian.
+    Removes a (four spins & three sites) parameter from the Hamiltonian.
 
     Duplicates of the bonds are managed automatically (independently of the notation of
     the Hamiltonian).
@@ -468,8 +502,8 @@ def _remove_33(
 
     See Also
     --------
-    p33
-    add_33
+    p43
+    add_43
 
     Notes
     -----
@@ -489,19 +523,19 @@ def _remove_33(
     _validate_unit_cell_index(ijk=nu)
     _validate_unit_cell_index(ijk=_lambda)
 
-    alpha, beta, gamma, nu, _lambda = _get_primary_p33(
+    alpha, beta, gamma, nu, _lambda = _get_primary_p43(
         alpha=alpha, beta=beta, gamma=gamma, nu=nu, _lambda=_lambda
     )
 
     # TD-BINARY_SEARCH
 
-    for index in range(len(spinham._33)):
+    for index in range(len(spinham._43)):
         # As the list is sorted, there is no point in resuming the search
         # when a larger element is found
-        if spinham._33[index][:5] > [alpha, beta, gamma, nu, _lambda]:
+        if spinham._43[index][:5] > [alpha, beta, gamma, nu, _lambda]:
             return
 
-        if spinham._33[index][:5] == [alpha, beta, gamma, nu, _lambda]:
-            del spinham._33[index]
+        if spinham._43[index][:5] == [alpha, beta, gamma, nu, _lambda]:
+            del spinham._43[index]
             spinham._reset_internals()
             return

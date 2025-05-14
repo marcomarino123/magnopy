@@ -20,9 +20,9 @@
 import numpy as np
 from wulfric.crystal import get_distance
 
-from magnopy.spinham._hamiltonian import SpinHamiltonian
-from magnopy.spinham._notation import Notation
-from magnopy.spinham._parameter import get_matrix_parameter
+from magnopy._spinham._hamiltonian import SpinHamiltonian
+from magnopy._spinham._notation import Notation
+from magnopy._spinham._parameter import get_matrix_parameter
 
 # Save local scope at this moment
 old_dir = set(dir())

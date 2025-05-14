@@ -26,9 +26,9 @@ from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
 from magnopy._exceptions import ColpaFailed
+from magnopy._spinham._hamiltonian import SpinHamiltonian
+from magnopy._spinham._notation import Notation
 from magnopy.lswt._dispersion import MagnonDispersion
-from magnopy.spinham._hamiltonian import SpinHamiltonian
-from magnopy.spinham._notation import Notation
 
 
 @pytest.mark.parametrize(

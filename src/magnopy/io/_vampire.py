@@ -22,10 +22,10 @@ from wulfric.cell import get_params
 from wulfric.crystal import get_atom_species
 
 from magnopy._package_info import logo
+from magnopy._spinham._hamiltonian import SpinHamiltonian
+from magnopy._spinham._notation import Notation
+from magnopy._spinham._parameter import get_anisotropic_parameter, get_dmi
 from magnopy.constants._internal_units import ENERGY
-from magnopy.spinham._hamiltonian import SpinHamiltonian
-from magnopy.spinham._notation import Notation
-from magnopy.spinham._parameter import get_anisotropic_parameter, get_dmi
 
 # Save local scope at this moment
 old_dir = set(dir())

@@ -22,7 +22,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy.spinham._parameter import (
+from magnopy._spinham._parameter import (
     get_anisotropic_parameter,
     get_dmi,
     get_isotropic_parameter,

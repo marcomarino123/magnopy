@@ -23,19 +23,19 @@ import numpy as np
 from wulfric import add_sugar
 from wulfric.crystal import get_distance
 
-from magnopy.spinham._c1 import _add_1, _p1, _remove_1
-from magnopy.spinham._c21 import _add_21, _p21, _remove_21
-from magnopy.spinham._c22 import _add_22, _p22, _remove_22
-from magnopy.spinham._c31 import _add_31, _p31, _remove_31
-from magnopy.spinham._c32 import _add_32, _p32, _remove_32
-from magnopy.spinham._c33 import _add_33, _p33, _remove_33
-from magnopy.spinham._c41 import _add_41, _p41, _remove_41
-from magnopy.spinham._c43 import _add_43, _p43, _remove_43
-from magnopy.spinham._c44 import _add_44, _p44, _remove_44
-from magnopy.spinham._c421 import _add_421, _p421, _remove_421
-from magnopy.spinham._c422 import _add_422, _p422, _remove_422
-from magnopy.spinham._notation import Notation
-from magnopy.spinham._validators import _validate_atom_index, _validate_unit_cell_index
+from magnopy._spinham._c1 import _add_1, _p1, _remove_1
+from magnopy._spinham._c21 import _add_21, _p21, _remove_21
+from magnopy._spinham._c22 import _add_22, _p22, _remove_22
+from magnopy._spinham._c31 import _add_31, _p31, _remove_31
+from magnopy._spinham._c32 import _add_32, _p32, _remove_32
+from magnopy._spinham._c33 import _add_33, _p33, _remove_33
+from magnopy._spinham._c41 import _add_41, _p41, _remove_41
+from magnopy._spinham._c43 import _add_43, _p43, _remove_43
+from magnopy._spinham._c44 import _add_44, _p44, _remove_44
+from magnopy._spinham._c421 import _add_421, _p421, _remove_421
+from magnopy._spinham._c422 import _add_422, _p422, _remove_422
+from magnopy._spinham._notation import Notation
+from magnopy._spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
 # Save local scope at this moment
 old_dir = set(dir())

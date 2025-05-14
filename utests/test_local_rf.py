@@ -23,7 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy._local_rf import span_local_rf
+from magnopy import span_local_rf
 
 
 def test_span_local_rf_along_z():

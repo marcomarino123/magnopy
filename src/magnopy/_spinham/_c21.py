@@ -19,7 +19,7 @@
 
 import numpy as np
 
-from magnopy.spinham._validators import _validate_atom_index
+from magnopy._spinham._validators import _validate_atom_index
 
 
 @property

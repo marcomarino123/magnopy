@@ -27,5 +27,6 @@ from ._diagonalization import *
 from ._energy import *
 from ._exceptions import *
 from ._local_rf import *
+from ._lswt import *
 from ._package_info import *
 from ._spinham import *

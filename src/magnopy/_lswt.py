@@ -1,0 +1,546 @@
+# MAGNOPY - Python package for magnons.
+# Copyright (C) 2023-2025 Magnopy Team
+#
+# e-mail: anry@uv.es, web: magnopy.com
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+from math import sqrt
+
+import numpy as np
+
+from magnopy._diagonalization import solve_via_colpa
+from magnopy._local_rf import span_local_rfs
+from magnopy._spinham._notation import Notation
+
+# Save local scope at this moment
+old_dir = set(dir())
+old_dir.add("old_dir")
+
+
+class LSWT:
+    r"""
+    Linear Spin Wave theory.
+
+    It is created from some spin Hamitlonian and set of direction vectors,
+    that define the orientation of spins.
+
+    Parameters
+    ----------
+    spinham : :py:class:`.spinham.SpinHamiltonian`
+        Spin Hamiltonian.
+    spin_directions : (M, 3) |array-like|_
+        Directions of spin vectors. Only directions of vectors are used, modulus is
+        ignored.
+        If spin Hamiltonian contains non-magnetic atom, then only the spin directions
+        for the magnetic atoms are expected. The order of spin directions is the same as
+        the order of magnetic atoms in ``spinham.atoms.spins``.
+
+    Notes
+    -----
+    If spin Hamiltonian contains three atoms Cr1, Br, Cr3 in that order. Assume that two
+    atoms are magnetic (Cr1 and Cr2), one atom is not (Br). Then ``spin_directions`` is
+    a (2, 3) array with ``spin_directions[0]`` being the direction for spin of Cr1 and
+    ``spin_directions[1]`` being the direction of spin for Cr2.
+    """
+
+    def __init__(self, spinham, spin_directions):
+        spin_directions = np.array(spin_directions, dtype=float)
+        spin_directions /= np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
+        self.p, self.z = span_local_rfs(
+            directional_vectors=spin_directions, hybridize=True
+        )
+
+        self.spins = np.array(spinham.magnetic_atoms.spins, dtype=float)
+
+        initial_notation = spinham.notation
+
+        spinham.notation = initial_notation.get_modified(
+            spin_normalized=False, multiple_counting=True
+        )
+
+        self.M = spinham.M
+        self.cell = spinham.cell
+
+        ########################################################################
+        #                    Renormalized one-spin parameter                   #
+        ########################################################################
+        self._J1 = np.zeros((self.M, 3), dtype=float)
+
+        # One spin
+        for alpha, parameter in spinham.p1:
+            self._J1[alpha] = self._J1[alpha] + spinham.notation.c1 * parameter
+
+        # Two spins & one site
+        for alpha, parameter in spinham.p21:
+            self._J1[alpha] = self._J1[alpha] + (
+                2
+                * spinham.notation.c21
+                * np.einsum("ij,j->i", parameter, self.z[alpha])
+                * self.spins[alpha]
+            )
+
+        # Two spins & two sites
+        for alpha, beta, _, parameter in spinham.p22:
+            self._J1[alpha] = self._J1[alpha] + (
+                2 * spinham.notation.c22 * (parameter @ self.z[beta]) * self.spins[beta]
+            )
+
+        # Three spins & one site
+        for alpha, parameter in spinham.p31:
+            self._J1[alpha] = self._J1[alpha] + (
+                3
+                * spinham.notation.c31
+                * np.einsum("iju,j,u->i", parameter, self.z[alpha], self.z[alpha])
+                * self.spins[alpha] ** 2
+            )
+
+        # Three spins & two sites
+        for alpha, beta, _, parameter in spinham.p32:
+            self._J1[alpha] = self._J1[alpha] + (
+                3
+                * spinham.notation.c32
+                * np.einsum("iju,j,u->i", parameter, self.z[alpha], self.z[beta])
+                * self.spins[alpha]
+                * self.spins[beta]
+            )
+
+        # Three spins & three sites
+        for alpha, beta, gamma, _, _, parameter in spinham.p33:
+            self._J1[alpha] = self._J1[alpha] + (
+                3
+                * spinham.notation.c33
+                * np.einsum("iju,j,u->i", parameter, self.z[beta], self.z[gamma])
+                * self.spins[beta]
+                * self.spins[gamma]
+            )
+
+        # Four spins & one site
+        for alpha, parameter in spinham.p41:
+            self._J1[alpha] = self._J1[alpha] + (
+                4
+                * spinham.notation.c41
+                * np.einsum(
+                    "ijuv,j,u,v->i",
+                    parameter,
+                    self.z[alpha],
+                    self.z[alpha],
+                    self.z[alpha],
+                )
+                * self.spins[alpha] ** 3
+            )
+
+        # Four spins & two sites (1+3)
+        for alpha, beta, _, parameter in spinham.p421:
+            self._J1[alpha] = self._J1[alpha] + (
+                4
+                * spinham.notation.c421
+                * np.einsum(
+                    "ijuv,j,u,v->i",
+                    parameter,
+                    self.z[alpha],
+                    self.z[alpha],
+                    self.z[beta],
+                )
+                * self.spins[alpha] ** 2
+                * self.spins[beta]
+            )
+
+        # Four spins & two sites (2+2)
+        for alpha, beta, _, parameter in spinham.p422:
+            self._J1[alpha] = self._J1[alpha] + (
+                4
+                * spinham.notation.c422
+                * np.einsum(
+                    "ijuv,j,u,v->i",
+                    parameter,
+                    self.z[alpha],
+                    self.z[beta],
+                    self.z[beta],
+                )
+                * self.spins[alpha]
+                * self.spins[beta] ** 2
+            )
+
+        # Four spins & three sites
+        for alpha, beta, gamma, _, _, parameter in spinham.p43:
+            self._J1[alpha] = self._J1[alpha] + (
+                4
+                * spinham.notation.c43
+                * np.einsum(
+                    "ijuv,j,u,v->i",
+                    parameter,
+                    self.z[alpha],
+                    self.z[beta],
+                    self.z[gamma],
+                )
+                * self.spins[alpha]
+                * self.spins[beta]
+                * self.spins[gamma]
+            )
+
+        # Four spins & four sites
+        for alpha, beta, gamma, epsilon, _, _, _, parameter in spinham.p44:
+            self._J1[alpha] = self._J1[alpha] + (
+                4
+                * spinham.notation.c44
+                * np.einsum(
+                    "ijuv,j,u,v->i",
+                    parameter,
+                    self.z[beta],
+                    self.z[gamma],
+                    self.z[epsilon],
+                )
+                * self.spins[beta]
+                * self.spins[gamma]
+                * self.spins[epsilon]
+            )
+
+        ########################################################################
+        #                   Renormalized two-spins parameter                   #
+        ########################################################################
+        self._J2 = {}
+
+        # First - terms with delta in from of them
+
+        # Two spins & one site
+        for alpha, parameter in spinham.p21:
+            if (0, 0, 0) not in self._J2:
+                self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[(0, 0, 0)][alpha, alpha] += 2 * spinham.notation.c21 * parameter
+
+        # Three spins & one site
+        for alpha, parameter in spinham.p31:
+            if (0, 0, 0) not in self._J2:
+                self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[(0, 0, 0)][alpha, alpha] += (
+                3
+                * spinham.notation.c31
+                * np.einsum("iju,u->ij", parameter, self.z[alpha])
+                * self.spins[alpha]
+            )
+
+        # Four spins & one site
+        for alpha, parameter in spinham.p41:
+            if (0, 0, 0) not in self._J2:
+                self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[(0, 0, 0)][alpha, alpha] += (
+                6
+                * spinham.notation.c41
+                * np.einsum("ijuv,u,v->ij", parameter, self.z[alpha], self.z[alpha])
+                * self.spins[alpha] ** 2
+            )
+
+        # Then all other parameters
+
+        # Two spins & two sites
+        for alpha, beta, nu, parameter in spinham.p22:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += spinham.notation.c22 * parameter
+
+        # Three spins & two sites
+        for alpha, beta, nu, parameter in spinham.p32:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += (
+                3
+                * spinham.notation.c32
+                * np.einsum("iuj,u->ij", parameter, self.z[alpha])
+                * self.spins[alpha]
+            )
+
+        # Three spins & three sites
+        for alpha, beta, gamma, nu, _, parameter in spinham.p33:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += (
+                3
+                * spinham.notation.c33
+                * np.einsum("iju,u->ij", parameter, self.z[gamma])
+                * self.spins[gamma]
+            )
+
+        # Four spins & two sites (1+3)
+        for alpha, beta, nu, parameter in spinham.p421:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += (
+                6
+                * spinham.notation.c421
+                * np.einsum("iuvj,u,v->ij", parameter, self.z[alpha], self.z[alpha])
+                * self.spins[alpha] ** 2
+            )
+
+        # Four spins & two sites (2+2)
+        for alpha, beta, nu, parameter in spinham.p422:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += (
+                6
+                * spinham.notation.c422
+                * np.einsum("iujv,u,v->ij", parameter, self.z[alpha], self.z[beta])
+                * self.spins[alpha]
+                * self.spins[beta]
+            )
+
+        # Four spins & three sites
+        for alpha, beta, gamma, nu, _, parameter in spinham.p43:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += (
+                6
+                * spinham.notation.c43
+                * np.einsum("iujv,u->ij", parameter, self.z[alpha], self.z[gamma])
+                * self.spins[alpha]
+                * self.spins[gamma]
+            )
+
+        # Four spins & three sites
+        for alpha, beta, gamma, epsilon, nu, _, _, parameter in spinham.p44:
+            if nu not in self._J2:
+                self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
+
+            self._J2[nu][alpha, beta] += (
+                6
+                * spinham.notation.c44
+                * np.einsum("ijuv,u->ij", parameter, self.z[gamma], self.z[epsilon])
+                * self.spins[gamma]
+                * self.spins[epsilon]
+            )
+
+        spinham.notation = initial_notation
+
+        self.A1 = 0.5 * np.sum(self._J1 * self.z, axis=1)
+
+        self.A2 = {}
+        self.B2 = {}
+
+        for nu in self._J2:
+            self.A2[nu] = 0.5 * np.einsum(
+                "abij,a,b,ai,bj->ab",
+                self._J2[nu],
+                np.sqrt(self.spins),
+                np.sqrt(self.spins),
+                self.p,
+                np.conjugate(self.p),
+            )
+            self.B2[nu] = 0.5 * np.einsum(
+                "abij,a,b,ai,bj->ab",
+                self._J2[nu],
+                np.sqrt(self.spins),
+                np.sqrt(self.spins),
+                np.conjugate(self.p),
+                np.conjugate(self.p),
+            )
+
+    @property
+    def E_2(self) -> float:
+        r"""
+        Correction to the ground state energy that arises from the LSWT.
+
+        Returns
+        -------
+        E_2 : float
+        """
+
+        return 0.5 * np.sum(self._J1, self.z)
+
+    @property
+    def O(self):
+        r"""
+        Coefficient before the one-operator terms.
+
+        Returns
+        -------
+        O : (M, ) :numpy:`ndarray`
+            ``complex``.
+        """
+
+        return np.einsum(
+            "a,ai,ai->a",
+            np.sqrt(self.spins) / np.sqrt(2),
+            np.conjugate(self.p),
+            self._J1,
+        )
+
+    def A(self, k, relative=False):
+        r"""
+
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
+
+        Returns
+        -------
+        A : (M, M) :numpy:`ndarray`
+            :math:`A_{\alpha\beta}(\boldsymbol{k})`.
+        """
+
+        k = np.array(k)
+
+        result = np.zeros((self.M, self.M), dtype=complex)
+
+        for nu in self.A2:
+            if relative:
+                phase = k @ nu * 2 * np.pi
+            else:
+                phase = k @ (nu @ self.cell)
+            result = result + self.A2[nu] * np.exp(1j * phase)
+
+        result = result - np.diag(self.A1)
+
+        return result
+
+    def B(self, k, relative=False):
+        r"""
+
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
+
+        Returns
+        -------
+        B : (M, M) :numpy:`ndarray`
+            :math:`B_{\alpha\beta}(\boldsymbol{k})`.
+        """
+
+        k = np.array(k)
+
+        result = np.zeros((self.M, self.M), dtype=complex)
+
+        for nu in self.B2:
+            if relative:
+                phase = k @ nu * 2 * np.pi
+            else:
+                phase = k @ (nu @ self.cell)
+            result = result + self.B2[nu] * np.exp(1j * phase)
+
+        result = result - np.diag(self.A1)
+
+        return result
+
+    def GDM(self, k, relative=False):
+        r"""
+
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
+
+        Returns
+        -------
+        gdm : (2M, 2M) :numpy:`ndarray`
+            Gran dynamical matrix.
+
+            .. math::
+
+                \mathcal{D}(\boldsymbol{k})
+                =
+                \begin{pmatrix}
+                    A(\boldsymbol{k}) & B^{\dagger}(\boldsymbol{k}) \\
+                    B(\boldsymbol{k}) & \overline{A(-\boldsymbol{k})}
+                \end{pmatrix}
+        """
+
+        k = np.array(k, dtype=float)
+
+        A = self.A(k=k, relative=relative)
+        A_m = self.A(k=-k, relative=relative)
+
+        B = self.B(k=k, relative=relative)
+
+        left = np.concatenate((A, B), axis=0)
+        right = np.concatenate((np.conjugate(B).T, np.conjugate(A_m)), axis=0)
+        gdm = np.concatenate((left, right), axis=1)
+
+        return gdm
+
+    def omegas(self, k, relative=False):
+        r"""
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
+
+        Returns
+        -------
+        omegas : (M, ) :numpy:`ndarray`
+        """
+
+        k_plus = np.array(k)
+        k_minus = -k_plus
+
+        E_plus, _ = solve_via_colpa(self.GDM(k_plus), return_inverse=True)
+        E_minus, _ = solve_via_colpa(self.GDM(k_minus), return_inverse=True)
+
+        return E_plus[: self.M] + E_minus[N:]
+
+    def delta(self, k, relative=False):
+        r"""
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
+
+        Returns
+        -------
+        delta : float
+            :math:`\Delta(\boldsymbol{k})`
+        """
+
+        k_plus = k
+
+        E, _ = solve_via_colpa(self.GDM(k_plus), return_inverse=True)
+
+        return 0.5 * (np.sum(E[self.M :]) - np.sum(E[: self.M]))
+
+
+# Populate __all__ with objects defined in this file
+__all__ = list(set(dir()) - old_dir)
+# Remove all semi-private objects
+__all__ = [i for i in __all__ if not i.startswith("_")]
+del old_dir

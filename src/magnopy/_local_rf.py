@@ -33,7 +33,7 @@ def span_local_rf(direction_vector, hybridize=False):
     direction_vector : (3, ) |array-like|_
         Direction of the z axis of the local reference frame.
     hybridize : bool, default False
-        Whether to return X_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
+        Whether to return x_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
 
     Returns
     -------
@@ -96,7 +96,7 @@ def span_local_rfs(directional_vectors, hybridize=False):
     direction_vectors : (M, 3) |array-like|_
         Direction of the z axis of the local reference frames.
     hybridize : bool, default False
-        Whether to return X_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
+        Whether to return x_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
 
     Returns
     -------

@@ -22,6 +22,7 @@ from math import sqrt
 import numpy as np
 
 from magnopy._diagonalization import solve_via_colpa
+from magnopy._exceptions import ColpaFailed
 from magnopy._local_rf import span_local_rfs
 from magnopy._spinham._notation import Notation
 
@@ -59,9 +60,11 @@ class LSWT:
     def __init__(self, spinham, spin_directions):
         spin_directions = np.array(spin_directions, dtype=float)
         spin_directions /= np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
-        self.p, self.z = span_local_rfs(
-            directional_vectors=spin_directions, hybridize=True
+
+        x, y, self.z = span_local_rfs(
+            directional_vectors=spin_directions, hybridize=False
         )
+        self.p = x + 1j * y
 
         self.spins = np.array(spinham.magnetic_atoms.spins, dtype=float)
 
@@ -81,10 +84,12 @@ class LSWT:
 
         # One spin
         for alpha, parameter in spinham.p1:
+            alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + spinham.notation.c1 * parameter
 
         # Two spins & one site
         for alpha, parameter in spinham.p21:
+            alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + (
                 2
                 * spinham.notation.c21
@@ -94,12 +99,15 @@ class LSWT:
 
         # Two spins & two sites
         for alpha, beta, _, parameter in spinham.p22:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 2 * spinham.notation.c22 * (parameter @ self.z[beta]) * self.spins[beta]
             )
 
         # Three spins & one site
         for alpha, parameter in spinham.p31:
+            alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + (
                 3
                 * spinham.notation.c31
@@ -109,6 +117,8 @@ class LSWT:
 
         # Three spins & two sites
         for alpha, beta, _, parameter in spinham.p32:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 3
                 * spinham.notation.c32
@@ -119,6 +129,9 @@ class LSWT:
 
         # Three spins & three sites
         for alpha, beta, gamma, _, _, parameter in spinham.p33:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
+            gamma = spinham.index_map[gamma]
             self._J1[alpha] = self._J1[alpha] + (
                 3
                 * spinham.notation.c33
@@ -129,6 +142,7 @@ class LSWT:
 
         # Four spins & one site
         for alpha, parameter in spinham.p41:
+            alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + (
                 4
                 * spinham.notation.c41
@@ -144,6 +158,8 @@ class LSWT:
 
         # Four spins & two sites (1+3)
         for alpha, beta, _, parameter in spinham.p421:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 4
                 * spinham.notation.c421
@@ -160,6 +176,8 @@ class LSWT:
 
         # Four spins & two sites (2+2)
         for alpha, beta, _, parameter in spinham.p422:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 4
                 * spinham.notation.c422
@@ -176,6 +194,9 @@ class LSWT:
 
         # Four spins & three sites
         for alpha, beta, gamma, _, _, parameter in spinham.p43:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
+            gamma = spinham.index_map[gamma]
             self._J1[alpha] = self._J1[alpha] + (
                 4
                 * spinham.notation.c43
@@ -193,6 +214,10 @@ class LSWT:
 
         # Four spins & four sites
         for alpha, beta, gamma, epsilon, _, _, _, parameter in spinham.p44:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
+            gamma = spinham.index_map[gamma]
+            epsilon = spinham.index_map[epsilon]
             self._J1[alpha] = self._J1[alpha] + (
                 4
                 * spinham.notation.c44
@@ -217,6 +242,7 @@ class LSWT:
 
         # Two spins & one site
         for alpha, parameter in spinham.p21:
+            alpha = spinham.index_map[alpha]
             if (0, 0, 0) not in self._J2:
                 self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -224,6 +250,7 @@ class LSWT:
 
         # Three spins & one site
         for alpha, parameter in spinham.p31:
+            alpha = spinham.index_map[alpha]
             if (0, 0, 0) not in self._J2:
                 self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -236,6 +263,7 @@ class LSWT:
 
         # Four spins & one site
         for alpha, parameter in spinham.p41:
+            alpha = spinham.index_map[alpha]
             if (0, 0, 0) not in self._J2:
                 self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -250,6 +278,8 @@ class LSWT:
 
         # Two spins & two sites
         for alpha, beta, nu, parameter in spinham.p22:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -257,6 +287,8 @@ class LSWT:
 
         # Three spins & two sites
         for alpha, beta, nu, parameter in spinham.p32:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -269,6 +301,9 @@ class LSWT:
 
         # Three spins & three sites
         for alpha, beta, gamma, nu, _, parameter in spinham.p33:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
+            gamma = spinham.index_map[gamma]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -281,6 +316,8 @@ class LSWT:
 
         # Four spins & two sites (1+3)
         for alpha, beta, nu, parameter in spinham.p421:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -293,6 +330,8 @@ class LSWT:
 
         # Four spins & two sites (2+2)
         for alpha, beta, nu, parameter in spinham.p422:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -306,6 +345,9 @@ class LSWT:
 
         # Four spins & three sites
         for alpha, beta, gamma, nu, _, parameter in spinham.p43:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
+            gamma = spinham.index_map[gamma]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -317,8 +359,12 @@ class LSWT:
                 * self.spins[gamma]
             )
 
-        # Four spins & three sites
+        # Four spins & four sites
         for alpha, beta, gamma, epsilon, nu, _, _, parameter in spinham.p44:
+            alpha = spinham.index_map[alpha]
+            beta = spinham.index_map[beta]
+            gamma = spinham.index_map[gamma]
+            epsilon = spinham.index_map[epsilon]
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
@@ -409,7 +455,7 @@ class LSWT:
 
         for nu in self.A2:
             if relative:
-                phase = k @ nu * 2 * np.pi
+                phase = 2 * np.pi * (k @ nu)
             else:
                 phase = k @ (nu @ self.cell)
             result = result + self.A2[nu] * np.exp(1j * phase)
@@ -442,12 +488,12 @@ class LSWT:
 
         for nu in self.B2:
             if relative:
-                phase = k @ nu * 2 * np.pi
+                phase = 2 * np.pi * (k @ nu)
             else:
                 phase = k @ (nu @ self.cell)
             result = result + self.B2[nu] * np.exp(1j * phase)
 
-        result = result - np.diag(self.A1)
+        result = result
 
         return result
 
@@ -510,10 +556,20 @@ class LSWT:
         k_plus = np.array(k)
         k_minus = -k_plus
 
-        E_plus, _ = solve_via_colpa(self.GDM(k_plus), return_inverse=True)
-        E_minus, _ = solve_via_colpa(self.GDM(k_minus), return_inverse=True)
+        GDM_plus = self.GDM(k_plus)
+        GDM_minus = self.GDM(k_minus)
 
-        return E_plus[: self.M] + E_minus[N:]
+        try:
+            E_plus, _ = solve_via_colpa(GDM_plus, return_inverse=True)
+            E_minus, _ = solve_via_colpa(GDM_minus, return_inverse=True)
+        except ColpaFailed:
+            try:
+                E_plus, _ = solve_via_colpa(-GDM_plus, return_inverse=True)
+                E_minus, _ = solve_via_colpa(-GDM_minus, return_inverse=True)
+            except ColpaFailed:
+                return [None for _ in range(self.M)]
+
+        return E_plus[: self.M].real + E_minus[self.M :].real
 
     def delta(self, k, relative=False):
         r"""

@@ -219,10 +219,10 @@ def solve_via_colpa(D, return_inverse=False):
         if np.allclose(difference, np.zeros(difference.shape)):
             return 0.0
 
-        return difference[np.nonzer(difference)[0][0]]
+        return difference[np.nonzero(difference)[0][0]]
 
-    upper_part = sorted(tmp[:N], key=cmp_to_key(compare))
-    lower_part = sorted(tmp[N:], key=cmp_to_key(compare))
+    upper_part = np.array(sorted(tmp[:N], key=cmp_to_key(compare)))
+    lower_part = np.array(sorted(tmp[N:], key=cmp_to_key(compare)))
 
     E = np.concatenate((upper_part[:, 0], lower_part[:, 0]))
     G_minus_one = np.concatenate((upper_part[:, 1:], lower_part[:, 1:]), axis=0)

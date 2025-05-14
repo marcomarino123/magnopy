@@ -238,7 +238,7 @@ def _add_32(
         S_beta=spinham.atoms.spins[beta],
     )
 
-    # TODO Rewrite with binary search
+    # TD-BINARY_SEARCH
 
     # Try to find the place for the new one inside the list
     index = 0
@@ -321,7 +321,7 @@ def _remove_32(spinham, alpha: int, beta: int, nu: tuple) -> None:
 
     alpha, beta, nu = _get_primary_p32(alpha=alpha, beta=beta, nu=nu)
 
-    # TODO Rewrite with binary search
+    # TD-BINARY_SEARCH
 
     for index in range(len(spinham._32)):
         # As the list is sorted, there is no point in resuming the search

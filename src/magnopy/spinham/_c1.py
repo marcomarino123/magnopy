@@ -96,7 +96,7 @@ def _add_1(spinham, alpha: int, parameter, replace=False) -> None:
 
     parameter = np.array(parameter)
 
-    # TODO Rewrite with binary search
+    # TD-BINARY_SEARCH
     # Try to find the place for the new one inside the list
     index = 0
     while index < len(spinham._1):

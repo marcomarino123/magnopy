@@ -97,7 +97,7 @@ def _add_21(self, alpha: int, parameter, replace=False) -> None:
 
     parameter = np.array(parameter)
 
-    # TODO Replace with binary search
+    # TD-BINARY_SEARCH
     # Try to find the place for the new one inside the list
     index = 0
     while index < len(self._21):

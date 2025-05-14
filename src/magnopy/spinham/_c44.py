@@ -1230,7 +1230,7 @@ def _add_44(
         parameter=parameter,
     )
 
-    # TODO Rewrite with binary search
+    # TD-BINARY_SEARCH
 
     # Try to find the place for the new one inside the list
     index = 0
@@ -1366,7 +1366,7 @@ def _remove_44(
         rho=rho,
     )
 
-    # TODO Rewrite with binary search
+    # TD-BINARY_SEARCH
 
     for index in range(len(spinham._44)):
         # As the list is sorted, there is no point in resuming the search

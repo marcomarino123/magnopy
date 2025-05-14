@@ -60,9 +60,9 @@ def test_multiple_counting():
 
     params = list(spinham.p22)
 
-    assert (params[0][3] == params[-1][3]).all()
-    assert (params[1][3] == params[-2][3]).all()
-    assert (params[2][3] == params[-3][3]).all()
+    assert (params[0][3] == params[3][3]).all()
+    assert (params[1][3] == params[4][3]).all()
+    assert (params[2][3] == params[5][3]).all()
 
     spinham.notation = Notation(multiple_counting=False)
 

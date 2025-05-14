@@ -503,9 +503,9 @@ def _read_bond(lines, spinham: SpinHamiltonian, units_conversion=1):
                 break
 
         spinham.add_22(
-            atom1=atom_index_1,
-            atom2=atom_index_2,
-            ijk2=R,
+            alpha=atom_index_1,
+            beta=atom_index_2,
+            nu=R,
             parameter=get_matrix_parameter(iso=iso, aniso=symm, dmi=dmi),
             replace=True,
         )
@@ -624,7 +624,7 @@ def _read_on_site(lines, spinham: SpinHamiltonian):
         i += 1
 
         # Add on-site anisotropy to the Hamiltonian
-        spinham.add_21(atom=atom_index, parameter=matrix)
+        spinham.add_21(alpha=atom_index, parameter=matrix)
 
     return spinham
 

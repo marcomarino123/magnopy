@@ -193,13 +193,13 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
 
         # Adding info from the exchange block to the SpinHamiltonian structure
         spinham.add_22(
-            atom1,
-            atom2,
-            ijk,
+            alpha=atom1,
+            beta=atom2,
+            nu=ijk,
             # Avoid passing aniso to the function as then the function make it traceless
             # and symmetric, potentially loosing part of the matrix.
             # Due to the TB2J problem: aniso not always traceless.
-            get_matrix_parameter(iso=iso, dmi=dmi) + aniso,
+            parameter=get_matrix_parameter(iso=iso, dmi=dmi) + aniso,
             replace=True,
         )
 

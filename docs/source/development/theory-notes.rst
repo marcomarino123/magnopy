@@ -148,7 +148,7 @@ There are four parameters that are important for LSWT.
 .. math::
 
     A_{\alpha\beta}(\boldsymbol{k})
-    =
+    &=
     \sum_{\nu, i, j}
     e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
     \dfrac{\sqrt{S_{\alpha}S_{\beta}}}{2}
@@ -161,17 +161,29 @@ There are four parameters that are important for LSWT.
     \sum_{i}
     z^i_{\alpha}
     \tilde{J}^i(\boldsymbol{r}_{\alpha})
+    =\\&=
+    \sum_{\nu, i, j}
+    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
+    A_{\nu,\alpha\beta}
+    -
+    \delta_{\alpha,\beta}
+    A_{\alpha}
+
 
 .. math::
 
     B_{\alpha\beta}(\boldsymbol{k})
-    =
+    &=
     \sum_{\nu, i, j}
     e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
     \dfrac{\sqrt{S_{\alpha}S_{\beta}}}{2}
     \overline{p^i_{\alpha}}
     \overline{p^j_{\beta}}
     \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
+    =\\&=
+    \sum_{\nu, i, j}
+    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
+    B_{\nu,\alpha\beta}
 
 Where :math:`\tilde{J}^i(\boldsymbol{r}_{\alpha})` and
 :math:`\tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})` are the one-spin and two-spin

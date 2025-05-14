@@ -77,7 +77,7 @@ class Energy:
 
         self.J_22 = {}
 
-        for atom1, atom2, ijk, parameter in spinham.p22:
+        for atom1, atom2, _, parameter in spinham.p22:
             alpha = spinham.index_map[atom1]
             beta = spinham.index_map[atom2]
 
@@ -89,11 +89,96 @@ class Energy:
         ########################################################################
         #                              Three spins                             #
         ########################################################################
-        # TODO
+
+        self.J_31 = np.zeros((spinham.M, 3, 3, 3), dtype=float)
+
+        for atom, parameter in spinham.p31:
+            alpha = spinham.index_map[atom]
+
+            self.J_31[alpha] += spinham.notation.c31 * parameter
+
+        self.J_32 = {}
+
+        for atom1, atom2, _, parameter in spinham.p32:
+            alpha = spinham.index_map[atom1]
+            beta = spinham.index_map[atom2]
+
+            if (alpha, beta) not in self.J_32:
+                self.J_32[(alpha, beta)] = np.zeros((3, 3, 3), dtype=float)
+
+            self.J_32[(alpha, beta)] += spinham.notation.c32 * parameter
+
+        self.J_33 = {}
+
+        for atom1, atom2, atom3, _, _, parameter in spinham.p33:
+            alpha = spinham.index_map[atom1]
+            beta = spinham.index_map[atom2]
+            gamma = spinham.index_map[atom3]
+
+            if (alpha, beta, gamma) not in self.J_33:
+                self.J_33[(alpha, beta, gamma)] = np.zeros((3, 3, 3), dtype=float)
+
+            self.J_33[(alpha, beta, gamma)] += spinham.notation.c33 * parameter
+
         ########################################################################
         #                              Four spins                              #
         ########################################################################
-        # TODO
+
+        self.J_41 = np.zeros((spinham.M, 3, 3, 3, 3), dtype=float)
+
+        for atom, parameter in spinham.p41:
+            alpha = spinham.index_map[atom]
+
+            self.J_41[alpha] += spinham.notation.c41 * parameter
+
+        self.J_421 = {}
+
+        for atom1, atom2, _, parameter in spinham.p421:
+            alpha = spinham.index_map[atom1]
+            beta = spinham.index_map[atom2]
+
+            if (alpha, beta) not in self.J_421:
+                self.J_421[(alpha, beta)] = np.zeros((3, 3, 3, 3), dtype=float)
+
+            self.J_421[(alpha, beta)] += spinham.notation.c421 * parameter
+
+        self.J_422 = {}
+
+        for atom1, atom2, _, parameter in spinham.p422:
+            alpha = spinham.index_map[atom1]
+            beta = spinham.index_map[atom2]
+
+            if (alpha, beta) not in self.J_422:
+                self.J_422[(alpha, beta)] = np.zeros((3, 3, 3, 3), dtype=float)
+
+            self.J_422[(alpha, beta)] += spinham.notation.c422 * parameter
+
+        self.J_43 = {}
+
+        for atom1, atom2, atom3, _, _, parameter in spinham.p43:
+            alpha = spinham.index_map[atom1]
+            beta = spinham.index_map[atom2]
+            gamma = spinham.index_map[atom3]
+
+            if (alpha, beta, gamma) not in self.J_43:
+                self.J_43[(alpha, beta, gamma)] = np.zeros((3, 3, 3, 3), dtype=float)
+
+            self.J_43[(alpha, beta, gamma)] += spinham.notation.c43 * parameter
+
+        self.J_44 = {}
+
+        for atom1, atom2, atom3, atom4, _, _, _, parameter in spinham.p44:
+            alpha = spinham.index_map[atom1]
+            beta = spinham.index_map[atom2]
+            gamma = spinham.index_map[atom3]
+            epsilon = spinham.index_map[atom4]
+
+            if (alpha, beta, gamma, epsilon) not in self.J_44:
+                self.J_44[(alpha, beta, gamma, epsilon)] = np.zeros(
+                    (3, 3, 3, 3), dtype=float
+                )
+
+            self.J_44[(alpha, beta, gamma, epsilon)] += spinham.notation.c44 * parameter
 
         spinham.notation = initial_notation
 
@@ -114,12 +199,74 @@ class Energy:
 
         energy += np.diag(self.J_1 @ spins.T).sum()
 
-        energy += np.einsum("mk,mkl,ml->m", spins, self.J_21, spins).sum()
+        energy += np.einsum("mij,mi,mj->m", self.J_21, spins, spins).sum()
+
+        energy += np.einsum("miju,mi,mj,mu->m", self.J_31, spins, spins, spins).sum()
+
+        energy += np.einsum(
+            "mijuv,mi,mj,mu,mv->m", self.J_41, spins, spins, spins, spins
+        ).sum()
 
         for alpha, beta in self.J_22:
             energy += spins[alpha] @ self.J_22[(alpha, beta)] @ spins[beta]
 
-        # TODO three and four spins
+        for alpha, beta in self.J_32:
+            energy += np.einsum(
+                "iju,i,j,u",
+                self.J_32[(alpha, beta)],
+                spins[alpha],
+                spins[alpha],
+                spins[beta],
+            )
+
+        for alpha, beta in self.J_421:
+            energy += np.einsum(
+                "ijuv,i,j,u,v",
+                self.J_421[(alpha, beta)],
+                spins[alpha],
+                spins[alpha],
+                spins[alpha],
+                spins[beta],
+            )
+
+        for alpha, beta in self.J_422:
+            energy += np.einsum(
+                "ijuv,i,j,u,v",
+                self.J_422[(alpha, beta)],
+                spins[alpha],
+                spins[alpha],
+                spins[beta],
+                spins[beta],
+            )
+
+        for alpha, beta, gamma in self.J_33:
+            energy += np.einsum(
+                "iju,i,j,u",
+                self.J_33[(alpha, beta, gamma)],
+                spins[alpha],
+                spins[beta],
+                spins[gamma],
+            )
+
+        for alpha, beta, gamma in self.J_43:
+            energy += np.einsum(
+                "ijuv,i,j,u,v",
+                self.J_43[(alpha, beta, gamma)],
+                spins[alpha],
+                spins[alpha],
+                spins[beta],
+                spins[gamma],
+            )
+
+        for alpha, beta, gamma, epsilon in self.J_44:
+            energy += np.einsum(
+                "ijuv,i,j,u,v",
+                self.J_44[(alpha, beta, gamma, epsilon)],
+                spins[alpha],
+                spins[beta],
+                spins[gamma],
+                spins[epsilon],
+            )
 
         return energy
 

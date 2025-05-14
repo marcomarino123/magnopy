@@ -17,6 +17,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from functools import cmp_to_key
+
 import numpy as np
 from numpy.linalg import LinAlgError
 
@@ -60,6 +62,15 @@ def _check_grand_dynamical_matrix(D):
         raise (f"Size of the grand dynamical matrix is not even, got {D.shape}.")
 
     return D, D.shape[0] // 2
+
+
+def _inverse_by_colpa(matrix):
+    # Compute G from G^-1 following Colpa, see equation (3.7) for details
+    matrix = np.conjugate(matrix).T
+    matrix[:N, N:] *= -1
+    matrix[N:, :N] *= -1
+
+    return matrix
 
 
 def solve_via_colpa(D, return_inverse=False):
@@ -128,10 +139,12 @@ def solve_via_colpa(D, return_inverse=False):
         The eigenvalues.
         It is an array of the diagonal elements of the
         diagonal matrix :math:`\boldsymbol{\mathcal{E}}` of the diagonalized Hamiltonian.
-        The eigenvalues are sorted in descending order before the multiplication by the
-        paraunitary matrix. Therefore, first N elements correspond to the
+        First N elements correspond to the
         :math:`b^{\dagger}(\boldsymbol{k})b(\boldsymbol{k})` and last N elements - to
         the :math:`b(-\boldsymbol{k})b^{\dagger}(-\boldsymbol{k})`.
+
+        Eigenvalues are sorted individually for the first N and the last N elements,
+        based on the transformation matrix and not on the values of E itself.
 
         It is a diagonal of the matrix
 
@@ -190,6 +203,7 @@ def solve_via_colpa(D, return_inverse=False):
 
     # Sort with respect to L, in descending order
     U = np.concatenate((L[:, None], U.T), axis=1).T
+    # U = np.concatenate((L[np.newaxis, :], U), axis=0)
     U = U[:, np.argsort(U[0])]
     L = U[0, ::-1]
     U = U[1:, ::-1]
@@ -197,15 +211,26 @@ def solve_via_colpa(D, return_inverse=False):
 
     G_minus_one = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
 
+    # Sort first N and second N individually based on the transformation matrix
+    tmp = np.concatenate((E[:, np.newaxis], G_minus_one), axis=1)
+
+    def compare(array1, array2):
+        difference = np.round(array1 - array2, decimals=15)
+        if np.allclose(difference, np.zeros(difference.shape)):
+            return 0.0
+
+        return difference[np.nonzer(difference)[0][0]]
+
+    upper_part = sorted(tmp[:N], key=cmp_to_key(compare))
+    lower_part = sorted(tmp[N:], key=cmp_to_key(compare))
+
+    E = np.concatenate((upper_part[:, 0], lower_part[:, 0]))
+    G_minus_one = np.concatenate((upper_part[:, 1:], lower_part[:, 1:]), axis=0)
+
     if return_inverse:
         return E, G_minus_one
 
-    # Compute G from G^-1 following Colpa, see equation (3.7) for details
-    G = np.conjugate(G_minus_one).T
-    G[:N, N:] *= -1
-    G[N:, :N] *= -1
-
-    return E, G
+    return E, _inverse_by_colpa(G_minus_one)
 
 
 # Populate __all__ with objects defined in this file

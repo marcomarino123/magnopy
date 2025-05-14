@@ -104,48 +104,6 @@ def test_magnetic_atoms():
     assert spinham.magnetic_atoms.names[1] == "Cr2"
 
 
-################################################################################
-#                                 Legacy Tests                                 #
-################################################################################
-
-# def test_iteration_exchange_like():
-#     model = SpinHamiltonian()
-#     Cr1 = Atom("Cr1", (0.25, 0.25, 0))
-#     Cr2 = Atom("Cr2", (0.75, 0.75, 0))
-#     model.add_atom(Cr1)
-#     model.add_atom(Cr2)
-#     bonds = [
-#         (12, Cr1, Cr2, (0, 0, 0)),
-#         (2, Cr2, Cr1, (0, 0, 0)),
-#         (6, Cr1, Cr1, (1, 0, 0)),
-#         (3.425, Cr1, Cr1, (-1, 0, 0)),
-#         (5.3, Cr2, Cr2, (1, 0, 0)),
-#         (7.34, Cr2, Cr2, (-1, 0, 0)),
-#         (12.4, Cr1, Cr1, (0, 2, 0)),
-#         (34, Cr1, Cr1, (0, -2, 0)),
-#         (1.098, Cr2, Cr2, (0, 2, 0)),
-#         (0.0054, Cr2, Cr2, (0, -2, 0)),
-#         (0.35, Cr2, Cr1, (2, 2, 0)),
-#         (-2.35, Cr1, Cr2, (-2, -2, 0)),
-#     ]
-#     model.add_on_site("Cr1", matrix=np.eye(3))
-#     model.add_on_site("Cr2", matrix=np.eye(3))
-#     for iso, atom1, atom2, R in bonds:
-#         model.add_exchange(atom1, atom2, R, iso=iso)
-#     with pytest.raises(NotationError):
-#         assert len(model.exchange_like) == 14
-
-#     model.exchange_factor = 1
-#     model.on_site_factor = 1
-#     assert len(model.exchange_like) == 14
-
-#     for i, (atom1, atom2, R, parameter) in enumerate(model.exchange_like):
-#         assert isinstance(atom1, Atom)
-#         assert isinstance(atom2, Atom)
-#         assert isinstance(R, tuple)
-#         assert isinstance(parameter, MatrixParameter)
-
-
 def test_notation_manipulation():
     atoms = dict(names=["Cr"], postions=[[0, 0, 0]], spins=[3 / 2])
 

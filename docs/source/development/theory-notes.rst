@@ -13,213 +13,329 @@ Classical energy
 ================
 
 The formulas for the classical energy are written for the case of non-normalized spins,
-all other notation properties are arbitrary.
+all other notation properties being arbitrary.
 
 .. math::
     E^{(0)}
     =&
     \,C_1
-    \sum_{\substack{\alpha \\ k}}
-    J_1^k(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        S_{\alpha}
+    \sum_{\alpha, i}
+    J_1^i(\boldsymbol{r}_{\alpha})
+        z^u_{\alpha}
+    S_{\alpha}
     +\\&+
     C_{2,1}
-    \sum_{\substack{\alpha, \\ k,l}}
-    J_{2,1}^{kl}(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        z^l_{\alpha}
+    \sum_{\alpha, i,j}
+    J_{2,1}^{ij}(\boldsymbol{r}_{\alpha})
+        z^u_{\alpha}
+        z^v_{\alpha}
         (S_{\alpha})^2
     +\\&+
     C_{2,2}
-    \sum_{\substack{\nu, \\ \alpha, \beta, \\ k,l}}
-    J_{2,2}^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\beta}
+    \sum_{\substack{\alpha, \beta, \nu, \\ i,j}}
+    J_{2,2}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^u_{\alpha}
+        z^j_{\beta}
         S_{\alpha}
         S_{\beta}
     +\\&+
     C_{3, 1}
-    \sum_{\substack{\alpha, \\ k,l,i}}
-    J^{kli}_{3, 1}(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        z^l_{\alpha}
+    \sum_{\substack{\alpha, \\ i, j, u}}
+    J^{iju}_{3, 1}(\boldsymbol{r}_{\alpha})
         z^i_{\alpha}
+        z^j_{\alpha}
+        z^u_{\alpha}
         (S_{\alpha})^3
     +\\&+
     C_{3, 2}
-    \sum_{\substack{\alpha,\beta,\nu, \\ k,l,i}}
-    J^{kli}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\beta}
+    \sum_{\substack{\alpha, \beta, \nu, \\ i, j, u}}
+    J^{iju}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^i_{\alpha}
+        z^j_{\alpha}
+        z^u_{\beta}
         (S_{\alpha})^2
         S_{\beta}
     +\\&+
     C_{3, 3}
-    \sum_{\substack{\alpha,\beta,\gamma, \\ \nu,\lambda, \\ k,l,i}}
-    J^{kli}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
-        z^k_{\alpha}
-        z^l_{\beta}
-        z^i_{\gamma}
+    \sum_{\substack{\alpha, \beta, \gamma, \\ \nu, \lambda, \\ i, j, u}}
+    J^{iju}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        z^i_{\alpha}
+        z^j_{\beta}
+        z^u_{\gamma}
         S_{\alpha}
         S_{\beta}
         S_{\gamma}
     +\\&+
     C_{4, 1}
-    \sum_{\substack{\alpha, \\ k,l,i,j}}
-    J_{4, 1}^{klij}(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        z^l_{\alpha}
+    \sum_{\substack{\alpha, \\ i, j, u, v}}
+    J_{4, 1}^{ijuv}(\boldsymbol{r}_{\alpha})
         z^i_{\alpha}
         z^j_{\alpha}
+        z^u_{\alpha}
+        z^v_{\alpha}
         (S_{\alpha})^4
     +\\&+
     C_{4, 2, 1}
-    \sum_{\substack{\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_{4, 2, 1}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\alpha}
+    \sum_{\substack{\alpha, \beta, \nu, \\ i, j, u, v}}
+    J_{4, 2, 1}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta})
         z^i_{\alpha}
-        z^j_{\beta}
+        z^j_{\alpha}
+        z^u_{\alpha}
+        z^v_{\beta}
         (S_{\alpha})^3
         S_{\beta}
     +\\&+
     C_{4, 2, 2}
-    \sum_{\substack{\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_{4, 2, 2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\beta}
-        z^j_{\beta}
+    \sum_{\substack{\alpha, \beta, \nu, \\ i, j, u, v}}
+    J_{4, 2, 2}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^i_{\alpha}
+        z^j_{\alpha}
+        z^u_{\beta}
+        z^v_{\beta}
         (S_{\alpha})^2
         (S_{\beta})^2
     +\\&+
     C_{4, 3}
-    \sum_{\substack{\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i,j}}
-    J_{4, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\beta}
-        z^j_{\gamma}
+    \sum_{\substack{\alpha, \beta, \gamma, \\ \nu, \lambda, \\ i, j, u, v}}
+    J_{4, 3}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        z^i_{\alpha}
+        z^j_{\alpha}
+        z^u_{\beta}
+        z^v_{\gamma}
         (S_{\alpha})^2
         S_{\beta}
         S_{\gamma}
     +\\&+
     C_{4, 4}
-    \sum_{\substack{\nu,\lambda,\rho, \\ \alpha,\beta,\gamma,\varepsilon, \\ k,l,i,j}}
-    J_{4, 4}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
-        z^k_{\alpha}
-        z^l_{\beta}
-        z^i_{\gamma}
-        z^j_{\varepsilon}
+    \sum_{\substack{\alpha, \beta, \gamma, \varepsilon, \nu, \lambda, \rho, \\ \\ i, j, u, v}}
+    J_{4, 4}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
+        z^i_{\alpha}
+        z^j_{\beta}
+        z^u_{\gamma}
+        z^v_{\varepsilon}
         S_{\alpha}
         S_{\beta}
         S_{\gamma}
         S_{\varepsilon}
 
 
-Correction to classical energy from LSWT
-========================================
+Linear Spin-wave theory (LSWT)
+==============================
 
-The formulas for the correction to the classical energy are written for the case
-of non-normalized spins, all other notation properties are arbitrary.
+The formulas for the linear spin-wace theory are written for non-normalized spins,
+with multiple counting in mind and all other notation properties being arbitrary.
+
+There are four parameters that are important for LSWT.
 
 .. math::
+
     E^{(2)}
-    =&
-    \,\dfrac{1}{2}C_1
-    \sum_{\substack{\alpha \\ k}}
-    J_1^k(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-    +\\&+
-    C_{2,1}
-    \sum_{\substack{\alpha, \\ k,l}}
-    J_{2,1}^{kl}(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        S_{\alpha}
-    +\\&+
+    =
+    \dfrac{1}{2}
+    C_1
+    \sum_{\alpha, i}
+    z^i_{\alpha}
+    \tilde{J}^i(\boldsymbol{r}_{\alpha})
+
+.. math::
+
+    O_{\alpha}
+    =
+    C_1
+    \sqrt{\dfrac{S_{\alpha}}{2}}
+    \sum_{i}
+    \overline{p^i_{\alpha}}
+    \tilde{J}^i(\boldsymbol{r}_{\alpha})
+
+.. math::
+
+    A_{\alpha\beta}(\boldsymbol{k})
+    =
     C_{2,2}
-    \sum_{\substack{\nu, \\ \alpha, \beta, \\ k,l}}
-    J_{2,2}^{kl}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\beta}
-        S_{\beta}
+    \sum_{\nu, i, j}
+    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
+    \dfrac{\sqrt{S_{\alpha}S_{\beta}}}{2}
+    p^i_{\alpha}
+    \overline{p^j_{\beta}}
+    \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
+    -
+    \delta_{\alpha,\beta}
+    \dfrac{1}{2}
+     C_1
+    \sum_{i}
+    z^i_{\alpha}
+    \tilde{J}^i(\boldsymbol{r}_{\alpha})
+
+.. math::
+
+    B_{\alpha\beta}(\boldsymbol{k})
+    =
+    C_{2,2}
+    \sum_{\nu, i, j}
+    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
+    \dfrac{\sqrt{S_{\alpha}S_{\beta}}}{2}
+    \overline{p^i_{\alpha}}
+    \overline{p^j_{\beta}}
+    \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
+
+Where :math:`\tilde{J}^i(\boldsymbol{r}_{\alpha})` and
+:math:`\tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})` are the one-spin and two-spin
+& two-site parameters that are renormalized by the higher order parameters.
+
+.. math::
+    \tilde{J}^i(\boldsymbol{r}_{\alpha})
+    =&
+    J^i_1(\boldsymbol{r}_{\alpha})
     +\\&+
-    \dfrac{3}{2}C_{3, 1}
-    \sum_{\substack{\alpha, \\ k,l,i}}
-    J^{kli}_{3, 1}(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\alpha}
-        (S_{\alpha})^2
+    2\dfrac{C_{2,1}}{C_1}
+    \sum_{j}
+    J^{ij}_{2,1}(\boldsymbol{r}_{\alpha})
+        z^j_{\alpha}S_{\alpha}
     +\\&+
-    \dfrac{3}{2}C_{3, 2}
-    \sum_{\substack{\alpha,\beta,\nu, \\ k,l,i}}
-    J^{kli}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\beta}
-        S_{\alpha}
-        S_{\beta}
+    2\dfrac{C_{2,2}}{C_1}
+    \sum_{\beta, \nu, j}
+    J^{ij}_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\beta}S_{\beta}
     +\\&+
-    \dfrac{3}{2}C_{3, 3}
-    \sum_{\substack{\alpha,\beta,\gamma, \\ \nu,\lambda, \\ k,l,i}}
-    J^{kli}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
-        z^k_{\alpha}
-        z^l_{\beta}
-        z^i_{\gamma}
-        S_{\beta}
-        S_{\gamma}
-    +\\&+
-    2C_{4, 1}
-    \sum_{\substack{\alpha, \\ k,l,i,j}}
-    J_{4, 1}^{klij}(\boldsymbol{r}_{\alpha})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\alpha}
+    3\dfrac{C_{3, 1}}{C_1}
+    \sum_{j, u}
+    J^{iju}_{3, 1}(\boldsymbol{r}_{\alpha})
         z^j_{\alpha}
-        (S_{\alpha})^3
+        z^u_{\alpha}
+        S_{\alpha}
+        S_{\alpha}
     +\\&+
-    2C_{4, 2, 1}
-    \sum_{\substack{\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_{4, 2, 1}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\alpha}
-        z^j_{\beta}
-        (S_{\alpha})^2
+    3\dfrac{C_{3, 2}}{C_1}
+    \sum_{\substack{\beta, \nu, \\ j, u}}
+    J^{iju}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\alpha}
+        z^u_{\beta}
+        S_{\alpha}
         S_{\beta}
     +\\&+
-    2C_{4, 2, 2}
-    \sum_{\substack{\nu, \\ \alpha,\beta, \\ k,l,i,j}}
-    J_{4, 2, 2}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\beta}
+    3\dfrac{C_{3, 3}}{C_1}
+    \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, \\ j, u}}
+    J^{iju}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
         z^j_{\beta}
-        S_{\alpha}
-        (S_{\beta})^2
+        z^u_{\gamma}
+        S_{\beta}
+        S_{\gamma}
     +\\&+
-    2C_{4, 3}
-    \sum_{\substack{\nu,\lambda, \\ \alpha,\beta,\gamma, \\ k,l,i,j}}
-    J_{4, 3}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
-        z^k_{\alpha}
-        z^l_{\alpha}
-        z^i_{\beta}
-        z^j_{\gamma}
+    4\dfrac{C_{4, 1}}{C_1}
+    \sum_{\substack{j, u, v}}
+    J_{4, 1}^{ijuv}(\boldsymbol{r}_{\alpha})
+        z^j_{\alpha}
+        z^u_{\alpha}
+        z^v_{\alpha}
+        S_{\alpha}
+        S_{\alpha}
+        S_{\alpha}
+    +\\&+
+    4\dfrac{C_{4, 2, 1}}{C_1}
+    \sum_{\substack{\beta, \nu, \\ j, u, v}}
+    J_{4, 2, 1}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\alpha}
+        z^u_{\alpha}
+        z^v_{\beta}
+        S_{\alpha}
+        S_{\alpha}
+        S_{\beta}
+    +\\&+
+    4\dfrac{C_{4, 2, 2}}{C_1}
+    \sum_{\substack{\beta, \nu, \\ j, u, v}}
+    J_{4, 2, 2}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\alpha}
+        z^u_{\beta}
+        z^v_{\beta}
+        S_{\alpha}
+        S_{\beta}
+        S_{\beta}
+    +\\&+
+    4\dfrac{C_{4, 3}}{C_1}
+    \sum_{\substack{\beta, \gamma \\ \nu, \lambda, \\ j, u, v}}
+    J_{4, 3}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        z^j_{\alpha}
+        z^u_{\beta}
+        z^v_{\gamma}
         S_{\alpha}
         S_{\beta}
         S_{\gamma}
     +\\&+
-    2C_{4, 4}
-    \sum_{\substack{\nu,\lambda,\rho, \\ \alpha,\beta,\gamma,\varepsilon, \\ k,l,i,j}}
-    J_{4, 4}^{klij}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
-        z^k_{\alpha}
-        z^l_{\beta}
-        z^i_{\gamma}
-        z^j_{\varepsilon}
+    4\dfrac{C_{4, 4}}{C_1}
+    \sum_{\substack{\beta, \gamma, \varepsilon, \\ \nu, \lambda, \rho, \\ j, u, v}}
+    J_{4, 4}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
+        z^j_{\beta}
+        z^u_{\gamma}
+        z^v_{\varepsilon}
         S_{\beta}
+        S_{\gamma}
+        S_{\varepsilon}
+
+
+.. math::
+    \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
+    =&
+    J^{ij}_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})+\\&+
+    \delta_{\alpha,\beta}
+    \Biggl(
+        2\dfrac{C_{2,1}}{C_{2, 2}}
+        J^{ij}_{2,1}(\boldsymbol{r}_{\alpha})
+        +\\&\phantom{+\delta_{\alpha,\beta}\Biggl(}+
+        3\dfrac{C_{3, 1}}{C_{2, 2}}
+        \sum_{u}
+        J^{iiu}_{3, 1}(\boldsymbol{r}_{\alpha})
+            z^u_{\alpha}
+            S_{\alpha}
+        +\\&\phantom{+\delta_{\alpha,\beta}\Biggl(}+
+        6\dfrac{C_{4, 1}}{C_{2, 2}}
+        \sum_{u, v}
+        J_{4, 1}^{ijuv}(\boldsymbol{r}_{\alpha})
+            z^u_{\alpha}
+            z^v_{\alpha}
+            S_{\alpha}
+            S_{\alpha}
+    \Biggr)
+    +\\&+
+    3\dfrac{C_{3, 2}}{C_{2, 2}}
+    \sum_{\nu, u}
+    J^{iuj}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^u_{\alpha}
+        S_{\alpha}
+    +\\&+
+    3\dfrac{C_{3, 3}}{C_{2, 2}}
+    \sum_{\gamma, \lambda, u}
+    J^{iju}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        z^u_{\gamma}
+        S_{\gamma}
+    +\\&+
+    6\dfrac{C_{4, 2, 1}}{C_{2, 2}}
+    \sum_{u, v}
+    J_{4, 2, 1}^{iuvj}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^u_{\alpha}
+        z^v_{\alpha}
+        S_{\alpha}
+        S_{\alpha}
+    +\\&+
+    6\dfrac{C_{4, 2, 2}}{C_{2, 2}}
+    \sum_{u, v}
+    J_{4, 2, 2}^{iujv}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^u_{\alpha}
+        z^v_{\beta}
+        S_{\alpha}
+        S_{\beta}
+    +\\&+
+    6\dfrac{C_{4, 3}}{C_{2, 2}}
+    \sum_{\substack{\gamma, \lambda, \\ u, v}}
+    J_{4, 3}^{iujv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        z^u_{\alpha}
+        z^v_{\gamma}
+        S_{\alpha}
+        S_{\gamma}
+    +\\&+
+    6\dfrac{C_{4, 4}}{C_{2, 2}}
+    \sum_{\substack{\gamma, \varepsilon, \\ \lambda, \rho, \\ u, v}}
+    J_{4, 4}^{ijuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
+        z^u_{\gamma}
+        z^v_{\varepsilon}
         S_{\gamma}
         S_{\varepsilon}

@@ -280,7 +280,7 @@ Where :math:`\tilde{J}^i(\boldsymbol{r}_{\alpha})` and
         +\\&\phantom{+\delta_{\alpha,\beta}\Biggl(}+
         3C_{3, 1}
         \sum_{u}
-        J^{iiu}_{3, 1}(\boldsymbol{r}_{\alpha})
+        J^{iju}_{3, 1}(\boldsymbol{r}_{\alpha})
             z^u_{\alpha}
             S_{\alpha}
         +\\&\phantom{+\delta_{\alpha,\beta}\Biggl(}+

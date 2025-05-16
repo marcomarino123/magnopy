@@ -49,4 +49,5 @@ would like to participate in their implementation)
 
 * Energy minimization
 * Renormalized Spin Wave theory (RSWT)
+* Use lazy imports
 * ...

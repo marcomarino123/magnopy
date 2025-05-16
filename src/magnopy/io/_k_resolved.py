@@ -273,26 +273,32 @@ def plot_k_resolved(data, kp=None, output_filename=None, ylabel=None):
 
     if len(data.shape) == 2:
         for entry in data:
-            ax.plot(kp.flatten_points(), entry, lw=1, color="#9B2335")
+            if kp is not None:
+                ax.plot(kp.flatten_points(), entry, lw=1, color="#9B2335")
+            else:
+                ax.plot(entry, lw=1, color="#9B2335")
     else:
-        ax.plot(kp.flatten_points(), data, lw=1, color="#9B2335")
+        if kp is not None:
+            ax.plot(kp.flatten_points(), data, lw=1, color="#9B2335")
+        else:
+            ax.plot(data, lw=1, color="#9B2335")
 
-    ax.set_xticks(kp.ticks(), kp.labels, fontsize=13)
+    if kp is not None:
+        ax.set_xticks(kp.ticks(), kp.labels, fontsize=13)
+        ax.set_xlim(kp.ticks()[0], kp.ticks()[-1])
+        ax.vlines(
+            kp.ticks(),
+            0,
+            1,
+            lw=0.5,
+            color="grey",
+            ls="dashed",
+            zorder=0,
+            transform=ax.get_xaxis_transform(),
+        )
+
     if ylabel is not None:
         ax.set_ylabel(ylabel, fontsize=15)
-
-    ax.set_xlim(kp.ticks()[0], kp.ticks()[-1])
-
-    ax.vlines(
-        kp.ticks(),
-        0,
-        1,
-        lw=0.5,
-        color="grey",
-        ls="dashed",
-        zorder=0,
-        transform=ax.get_xaxis_transform(),
-    )
 
     ax.hlines(
         0,

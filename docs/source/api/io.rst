@@ -6,6 +6,14 @@ Input-output (io)
 
 .. currentmodule:: magnopy.io
 
+Other
+=====
+
+.. autosummary::
+    :toctree: generated/
+
+    read_spin_directions
+
 TB2J
 ====
 

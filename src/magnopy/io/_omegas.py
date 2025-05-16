@@ -45,7 +45,7 @@ def output_omegas(
     output_filename : str, optional
         Name of the file for saving the omegas. If ``None``, then the result is returned
         as a string.
-    kpoints ) (N, 3) |array-like|_
+    kpoints : (N, 3) |array-like|_
         List of the kpoints. ``kpoints[i]`` correspond to the ``omegas[i]`` modes.
     relative : bool, default False
         If ``relative == True``, then ``kpoints`` are interpreted as given relative to

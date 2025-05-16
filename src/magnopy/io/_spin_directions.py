@@ -24,15 +24,15 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def read_spin_directions(spin_directions):
+def read_spin_directions(filename: str):
     r"""
     Read directions of the spins from the file.
 
     Parameters
     ----------
-    spin_directions : str or (3*M, ) |array-like|_
-        File with the spin directions or a flattened array of spin components.
-        See notes for the specification of the file format.
+    filename : str or (3*M, ) |array-like|_
+        File with the spin directions. See notes for the specification of the file
+        format.
 
     Returns
     -------
@@ -41,21 +41,6 @@ def read_spin_directions(spin_directions):
 
     Notes
     -----
-    If ``spin_directions`` is a list, then it is interpreted as (for two spins)
-
-    .. code-block:: python
-
-        [S1_x, S1_y, S1_z, S2_x, S2_y, S2_z]
-
-    .. doctest::
-
-        >>> import magnopy.io as mio
-        >>> spin_directions = [0, 0, 2, 0, 1, 1]
-        >>> spin_directions = mio.read_spin_directions(spin_directions=spin_directions)
-        >>> spin_directions
-        array([[0.        , 0.        , 1.        ],
-               [0.        , 0.70710678, 0.70710678]])
-
     The file is expected to contain three numbers per line, here is an example for two
     spins
 
@@ -78,26 +63,25 @@ def read_spin_directions(spin_directions):
 
     """
 
-    if isinstance(spin_directions, str):
-        spin_directions = []
-        with open(spin_directions, "r") as f:
-            i = 1
-            for line in f:
-                # Remove comment lines
-                if line.startswith("#"):
-                    continue
-                # Remove inline comments and leading/trailing whitespaces
-                line = line.split("#")[0].strip()
-                # Check for empty lines empty lines
-                if line:
-                    line = line.split()
-                    if len(line) != 3:
-                        raise ValueError(
-                            f"Expected three numbers per line (in line{i}),"
-                            f"got: {len(line)}."
-                        )
-                    for tmp in line:
-                        spin_directions.append(float(tmp))
+    spin_directions = []
+    with open(spin_directions, "r") as f:
+        i = 1
+        for line in f:
+            # Remove comment lines
+            if line.startswith("#"):
+                continue
+            # Remove inline comments and leading/trailing whitespaces
+            line = line.split("#")[0].strip()
+            # Check for empty lines empty lines
+            if line:
+                line = line.split()
+                if len(line) != 3:
+                    raise ValueError(
+                        f"Expected three numbers per line (in line{i}),"
+                        f"got: {len(line)}."
+                    )
+                for tmp in line:
+                    spin_directions.append(float(tmp))
 
     if len(spin_directions) % 3 != 0:
         raise ValueError(

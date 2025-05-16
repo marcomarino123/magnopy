@@ -24,24 +24,24 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def read_spin_directions(spins):
+def read_spin_directions(spin_directions):
     r"""
     Read directions of the spins from the file.
 
     Parameters
     ----------
-    spins : str or (3*M, ) |array-like|_
+    spin_directions : str or (3*M, ) |array-like|_
         File with the spin directions or a flattened array of spin components.
         See notes for the specification of the file format.
 
     Returns
     -------
     spin_directions : (M, ) :numpy:`ndarray`
-        If ``spins`` is an |array-like|_, then first three elements are
+        If ``spin_directions`` is an |array-like|_, then first three elements are
 
     Notes
     -----
-    If ``spins`` is a list, then it is interpreted as (for two spins)
+    If ``spin_directions`` is a list, then it is interpreted as (for two spins)
 
     .. code-block:: python
 
@@ -50,8 +50,8 @@ def read_spin_directions(spins):
     .. doctest::
 
         >>> import magnopy.io as mio
-        >>> spins = [0, 0, 2, 0, 1, 1]
-        >>> spin_directions = mio.read_spin_directions(spins=spins)
+        >>> spin_directions = [0, 0, 2, 0, 1, 1]
+        >>> spin_directions = mio.read_spin_directions(spin_directions=spin_directions)
         >>> spin_directions
         array([[0.        , 0.        , 1.        ],
                [0.        , 0.70710678, 0.70710678]])
@@ -78,9 +78,9 @@ def read_spin_directions(spins):
 
     """
 
-    if isinstance(spins, str):
-        spins = []
-        with open(spins, "r") as f:
+    if isinstance(spin_directions, str):
+        spin_directions = []
+        with open(spin_directions, "r") as f:
             i = 1
             for line in f:
                 # Remove comment lines
@@ -97,16 +97,18 @@ def read_spin_directions(spins):
                             f"got: {len(line)}."
                         )
                     for tmp in line:
-                        spins.append(float(tmp))
+                        spin_directions.append(float(tmp))
 
-    if len(spins) % 3 != 0:
+    if len(spin_directions) % 3 != 0:
         raise ValueError(
-            f"Length of the spin list should be dividable by three, got: {len(spins)}."
+            f"Length of the spin list should be dividable by three, got: {len(spin_directions)}."
         )
 
-    spins = np.array(spins, dtype=float)
-    spins = np.reshape(spins, shape=(len(spins) // 3, 3))
-    spin_directions = spins / np.linalg.norm(spins, axis=1)[:, np.newaxis]
+    spin_directions = np.array(spin_directions, dtype=float)
+    spin_directions = np.reshape(spin_directions, shape=(len(spin_directions) // 3, 3))
+    spin_directions = (
+        spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
+    )
     return spin_directions
 
 

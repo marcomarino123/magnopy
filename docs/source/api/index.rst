@@ -20,6 +20,7 @@ Sub-modules
   :maxdepth: 1
 
   io
+  scenarios
   constants
 
 Classes

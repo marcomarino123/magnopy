@@ -200,15 +200,9 @@ def output_k_resolved(
 
         if isinstance(data[i], Iterable):
             for entry in data[i]:
-                if entry is None:
-                    line.append(f"{'nan':>{chars}}")
-                else:
-                    line.append(f"{entry:{fmt}}")
+                line.append(f"{entry:{fmt}}")
         else:
-            if data[i] is None:
-                line.append(f"{'nan':>{chars}}")
-            else:
-                line.append(f"{data[i]:{fmt}}")
+            line.append(f"{data[i]:{fmt}}")
 
         if kpoints is not None:
             if rcell is not None:

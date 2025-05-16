@@ -238,7 +238,7 @@ def solve_lswt(
         print(
             "Eigenfrequiencies has non-zero imaginary component for some k vectors. It might\n"
             "indicate that the ground state (spin directions) is not a ground state of the\n"
-            "considered spin Hamiltonian. The results that are obtained might not be meaningful.\n"
+            "considered spin Hamiltonian. The results might not be meaningful.\n"
         )
         filename = os.path.join(output_folder, "OMEGAS-IMAG.txt")
         output_k_resolved(
@@ -290,8 +290,8 @@ def solve_lswt(
     )
     print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
 
-    deltas[deltas == None] = 0
-    omegas[omegas == None] = 0
+    deltas = np.nan_to_num(deltas)
+    omegas = np.nan_to_num(omegas)
 
     energy_no_excitations = (
         E_0

@@ -736,9 +736,9 @@ class LSWT:
                     )
                 except ColpaFailed:
                     return (
-                        [None for _ in range(self.M)],
-                        None,
-                        [[None for _ in range(2 * self.M)] for _ in range(self.M)],
+                        [np.nan for _ in range(self.M)],
+                        np.nan,
+                        [[np.nan for _ in range(2 * self.M)] for _ in range(self.M)],
                     )
 
         return (

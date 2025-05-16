@@ -24,7 +24,7 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def multiprocess_over_k(kpoints, function, relative=False, number_processors=None):
+def multiprocess_over_k(kpoints, function, kwargs, number_processors=None):
     r"""
     Parallelize calculation over the kpoints using multiprocessing.
 
@@ -34,30 +34,27 @@ def multiprocess_over_k(kpoints, function, relative=False, number_processors=Non
         List of the kpoints.
     function : callable
         Function that prcess one kpoint and will be called as call signature
-        ``function(kpoints[i], relative)``.
-    relative : bool, default False
-        If ``relative == True``, then ``k`` is interpreted as given relative to the
-        reciprocal unit cell. Otherwise it is interpreted as given in absolute
-        coordinates.
+        ``function(kpoints[i], **kwargs)``.
+    kwargs : dict
+        Keyword arguments that will be passed to the ``function``.
     number_processors : int, optional
         By default use all available processes. Pass ``number_processors=1`` to run in
         serial.
 
     Returns
     -------
-    results : (N, ) list of objects that are returned by the ``function``.
+    results : (N, ) list
+        List of objects that are returned by the ``function``.
     """
 
-    relative = [relative for _ in kpoints]
+    def wrapper_function(k):
+        return function(k=k, **kwargs)
 
     if number_processors == 1:
-        results = list(map(function, kpoints, relative))
+        results = list(map(wrapper_function, kpoints))
     else:
         with Pool(number_processors) as p:
-            results = p.starmap(
-                wait_some_do_some,
-                zip(kpoints, relative),
-            )
+            results = p.map(wrapper_function, kpoints)
 
     return results
 

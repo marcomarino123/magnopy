@@ -43,6 +43,7 @@ Functions
   span_local_rf
   span_local_rfs
   logo
+  multiprocess_over_k
 
 Exceptions
 ==========

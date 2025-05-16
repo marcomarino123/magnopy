@@ -22,7 +22,7 @@ __doclink__ = "magnopy.org"
 __release_date__ = "undefined"
 __git_commit__ = "undefined"
 
-from . import constants, io, legacy
+from . import constants, io
 from ._diagonalization import *
 from ._energy import *
 from ._exceptions import *

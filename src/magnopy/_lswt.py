@@ -665,8 +665,11 @@ class LSWT:
 
         return gdm
 
-    def omega(self, k, relative=False):
+    def diagonalize(self, k, relative=False):
         r"""
+        Diagonalize the Hamiltonian for the given ``k`` point and return all possible
+        quantity at once.
+
         Parameters
         ----------
         k : (3,) |array-like|_
@@ -679,6 +682,33 @@ class LSWT:
         Returns
         -------
         omegas : (M, ) :numpy:`ndarray`
+            Array of omegas. Note, that data type is complex. If the ground state is correct,
+            then the complex part should be zero.
+        delta : float
+            Constant energy term that results from diagonalization. Note, that data type is complex. If the ground state is correct,
+            then the complex part should be zero.
+        G_minus_one : (M, 2M) :numpy:`ndarray`
+            Transformation matrix from the original boson operators.
+            Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
+
+            .. math::
+
+                \begin{pmatrix}
+                    b_1(\boldsymbol{k}),
+                    \dots,
+                    b_M(\boldsymbol{k}),
+                \end{pmatrix}
+                =
+                (\mathcal{G})^{-1}
+
+                \begin{pmatrix}
+                    a_1(\boldsymbol{k}),
+                    \dots,
+                    a_M(\boldsymbol{k}),
+                    a^{\dagger}_1(-\boldsymbol{k}),
+                    \dots,
+                    a^{\dagger}_M(-\boldsymbol{k}),
+                \end{pmatrix}
         """
 
         k_plus = np.array(k)
@@ -688,26 +718,56 @@ class LSWT:
         GDM_minus = self.GDM(k_minus)
 
         try:
-            E_plus, _ = solve_via_colpa(GDM_plus, return_inverse=True)
-            E_minus, _ = solve_via_colpa(GDM_minus, return_inverse=True)
+            E_plus, G_plus = solve_via_colpa(GDM_plus, return_inverse=True)
+            E_minus, _G_minus = solve_via_colpa(GDM_minus, return_inverse=True)
         except ColpaFailed:
             try:
-                E_plus, _ = solve_via_colpa(-GDM_plus, return_inverse=True)
-                E_minus, _ = solve_via_colpa(-GDM_minus, return_inverse=True)
+                E_plus, G_plus = solve_via_colpa(-GDM_plus, return_inverse=True)
+                E_minus, G_minus = solve_via_colpa(-GDM_minus, return_inverse=True)
             except ColpaFailed:
                 try:
-                    E_plus, _ = solve_via_colpa(
+                    E_plus, G_plus = solve_via_colpa(
                         GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float),
                         return_inverse=True,
                     )
-                    E_minus, _ = solve_via_colpa(
+                    E_minus, G_minus = solve_via_colpa(
                         GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float),
                         return_inverse=True,
                     )
                 except ColpaFailed:
-                    return [None for _ in range(self.M)]
+                    return (
+                        [None for _ in range(self.M)],
+                        None,
+                        [[None for _ in range(2 * self.M)] for _ in range(self.M)],
+                    )
 
-        return E_plus[: self.M].real + E_minus[self.M :].real
+        return (
+            E_plus[: self.M].real + E_minus[self.M :],
+            0.5 * (np.sum(E_plus[self.M :]) - np.sum(E_plus[: self.M])),
+            G_plus[: self.M],
+        )
+
+    def omega(self, k, relative=False, return_delta=False):
+        r"""
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
+        return_delta : bool, default False
+            Whether to return delta as well.
+
+        Returns
+        -------
+        omegas : (M, ) :numpy:`ndarray`
+            Array of omegas. Note, that data type is complex. If the ground state is correct,
+            then the complex part should be zero.
+        """
+
+        return self.diagonalize(k=k, relative=relative)[0]
 
     def delta(self, k, relative=False):
         r"""
@@ -723,25 +783,48 @@ class LSWT:
         Returns
         -------
         delta : float
-            :math:`\Delta(\boldsymbol{k})`
+            Constant energy term that results from diagonalization. Note, that data type is complex. If the ground state is correct,
+            then the complex part should be zero.
         """
+        return self.diagonalize(k=k, relative=relative)[1]
 
-        GDM = self.GDM(k)
-        try:
-            E, _ = solve_via_colpa(GDM, return_inverse=True)
-        except ColpaFailed:
-            try:
-                E, _ = solve_via_colpa(-GDM, return_inverse=True)
-            except ColpaFailed:
-                try:
-                    E, _ = solve_via_colpa(
-                        GDM + (1e-8) * np.ones(GDM.shape, dtype=float),
-                        return_inverse=True,
-                    )
-                except ColpaFailed:
-                    return None
+    def G_minus_one(self, k, relative=False):
+        r"""
+        Parameters
+        ----------
+        k : (3,) |array-like|_
+            Reciprocal vector
+        relative : bool, default False
+            If ``relative=True``, then ``k`` is interpreted as given relative to the
+            reciprocal unit cell. Otherwise it is interpreted as given in absolute
+            coordinates.
 
-        return 0.5 * (np.sum(E[self.M :]) - np.sum(E[: self.M]))
+        Returns
+        -------
+        G_minus_one : (M, 2M) :numpy:`ndarray`
+            Transformation matrix from the original boson operators.
+            Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
+
+            .. math::
+
+                \begin{pmatrix}
+                    b_1(\boldsymbol{k}),
+                    \dots,
+                    b_M(\boldsymbol{k}),
+                \end{pmatrix}
+                =
+                (\mathcal{G})^{-1}
+
+                \begin{pmatrix}
+                    a_1(\boldsymbol{k}),
+                    \dots,
+                    a_M(\boldsymbol{k}),
+                    a^{\dagger}_1(-\boldsymbol{k}),
+                    \dots,
+                    a^{\dagger}_M(-\boldsymbol{k}),
+                \end{pmatrix}
+        """
+        return self.diagonalize(k=k, relative=relative)[2]
 
 
 # Populate __all__ with objects defined in this file

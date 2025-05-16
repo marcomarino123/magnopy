@@ -422,6 +422,31 @@ class LSWT:
         -------
         O : (M, ) :numpy:`ndarray`
             ``complex``.
+
+        Notes
+        -----
+        Before the diagonalization, the magnon Hamiltonian has the form
+
+        .. math::
+
+            \mathcal{H}
+            =
+            \dots
+            +
+            \sqrt{N}
+            \sum_{\alpha}
+            \Bigl(
+            O_{\alpha}
+            a_{\alpha}(\boldsymbol{0})
+            +
+            \overline{O_{\alpha}}
+            a^{\dagger}_{\alpha}(\boldsymbol{0})
+            \Bigr)
+            +
+            \dots
+
+        where overline denotes complex conjugation. This function computes the
+        coefficients :math:`O_{\alpha}`.
         """
 
         return np.einsum(
@@ -447,6 +472,40 @@ class LSWT:
         -------
         A : (M, M) :numpy:`ndarray`
             :math:`A_{\alpha\beta}(\boldsymbol{k})`.
+
+        Notes
+        -----
+        Before the diagonalization, the magnon Hamiltonian has the form
+
+        .. math::
+
+            \mathcal{H}
+            =
+            \dots
+            +
+            \sum_{\boldsymbol{k}, \alpha}
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})^{\dagger}
+            \begin{pmatrix}
+            \boldsymbol{A}(\boldsymbol{k}) & \boldsymbol{B}^{\dagger}(\boldsymbol{k}) \\
+            \boldsymbol{B}(\boldsymbol{k}) & \overline{\boldsymbol{A}(-\boldsymbol{k})}
+            \end{pmatrix}
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})
+
+        where
+
+        .. math::
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})
+            =
+            \begin{pmatrix}
+            a_1(\boldsymbol{k}),
+            \dots,
+            a_M(\boldsymbol{k}),
+            a^{\dagger}_1(-\boldsymbol{k}),
+            \dots,
+            a^{\dagger}_M(-\boldsymbol{k}),
+            \end{pmatrix}
+
+        This function computes the matrix :math:`\boldsymbol{A}(\boldsymbol{k})`.
         """
 
         k = np.array(k)
@@ -480,6 +539,40 @@ class LSWT:
         -------
         B : (M, M) :numpy:`ndarray`
             :math:`B_{\alpha\beta}(\boldsymbol{k})`.
+
+        Notes
+        -----
+        Before the diagonalization, the magnon Hamiltonian has the form
+
+        .. math::
+
+            \mathcal{H}
+            =
+            \dots
+            +
+            \sum_{\boldsymbol{k}, \alpha}
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})^{\dagger}
+            \begin{pmatrix}
+            \boldsymbol{A}(\boldsymbol{k}) & \boldsymbol{B}^{\dagger}(\boldsymbol{k}) \\
+            \boldsymbol{B}(\boldsymbol{k}) & \overline{\boldsymbol{A}(-\boldsymbol{k})}
+            \end{pmatrix}
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})
+
+        where
+
+        .. math::
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})
+            =
+            \begin{pmatrix}
+            a_1(\boldsymbol{k}),
+            \dots,
+            a_M(\boldsymbol{k}),
+            a^{\dagger}_1(-\boldsymbol{k}),
+            \dots,
+            a^{\dagger}_M(-\boldsymbol{k}),
+            \end{pmatrix}
+
+        This function computes the matrix :math:`\boldsymbol{B}(\boldsymbol{k})`.
         """
 
         k = np.array(k)
@@ -514,14 +607,49 @@ class LSWT:
         gdm : (2M, 2M) :numpy:`ndarray`
             Gran dynamical matrix.
 
-            .. math::
+        Notes
+        -----
+        Before the diagonalization, the magnon Hamiltonian has the form
 
-                \mathcal{D}(\boldsymbol{k})
-                =
-                \begin{pmatrix}
-                    A(\boldsymbol{k}) & B^{\dagger}(\boldsymbol{k}) \\
-                    B(\boldsymbol{k}) & \overline{A(-\boldsymbol{k})}
-                \end{pmatrix}
+        .. math::
+
+            \mathcal{H}
+            =
+            \dots
+            +
+            \sum_{\boldsymbol{k}, \alpha}
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})^{\dagger}
+            \begin{pmatrix}
+            \boldsymbol{A}(\boldsymbol{k}) & \boldsymbol{B}^{\dagger}(\boldsymbol{k}) \\
+            \boldsymbol{B}(\boldsymbol{k}) & \overline{\boldsymbol{A}(-\boldsymbol{k})}
+            \end{pmatrix}
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})
+
+        where
+
+        .. math::
+            \boldsymbol{\mathcal{A}}(\boldsymbol{k})
+            =
+            \begin{pmatrix}
+            a_1(\boldsymbol{k}),
+            \dots,
+            a_M(\boldsymbol{k}),
+            a^{\dagger}_1(-\boldsymbol{k}),
+            \dots,
+            a^{\dagger}_M(-\boldsymbol{k}),
+            \end{pmatrix}
+
+        This function computes the grand dynamical matrix
+        :math:`\boldsymbol{D}(\boldsymbol{k})`
+
+        .. math::
+
+            \boldsymbol{D}(\boldsymbol{k})
+            =
+            \begin{pmatrix}
+            \boldsymbol{A}(\boldsymbol{k}) & \boldsymbol{B}^{\dagger}(\boldsymbol{k}) \\
+            \boldsymbol{B}(\boldsymbol{k}) & \overline{\boldsymbol{A}(-\boldsymbol{k})}
+            \end{pmatrix}
         """
 
         k = np.array(k, dtype=float)

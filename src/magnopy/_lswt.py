@@ -665,7 +665,7 @@ class LSWT:
 
         return gdm
 
-    def omegas(self, k, relative=False):
+    def omega(self, k, relative=False):
         r"""
         Parameters
         ----------

@@ -567,7 +567,17 @@ class LSWT:
                 E_plus, _ = solve_via_colpa(-GDM_plus, return_inverse=True)
                 E_minus, _ = solve_via_colpa(-GDM_minus, return_inverse=True)
             except ColpaFailed:
-                return [None for _ in range(self.M)]
+                try:
+                    E_plus, _ = solve_via_colpa(
+                        GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float),
+                        return_inverse=True,
+                    )
+                    E_minus, _ = solve_via_colpa(
+                        GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float),
+                        return_inverse=True,
+                    )
+                except ColpaFailed:
+                    return [None for _ in range(self.M)]
 
         return E_plus[: self.M].real + E_minus[self.M :].real
 
@@ -588,9 +598,20 @@ class LSWT:
             :math:`\Delta(\boldsymbol{k})`
         """
 
-        k_plus = k
-
-        E, _ = solve_via_colpa(self.GDM(k_plus), return_inverse=True)
+        GDM = self.GDM(k)
+        try:
+            E, _ = solve_via_colpa(GDM, return_inverse=True)
+        except ColpaFailed:
+            try:
+                E, _ = solve_via_colpa(-GDM, return_inverse=True)
+            except ColpaFailed:
+                try:
+                    E, _ = solve_via_colpa(
+                        GDM + (1e-8) * np.ones(GDM.shape, dtype=float),
+                        return_inverse=True,
+                    )
+                except ColpaFailed:
+                    return None
 
         return 0.5 * (np.sum(E[self.M :]) - np.sum(E[: self.M]))
 

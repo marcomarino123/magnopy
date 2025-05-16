@@ -33,11 +33,12 @@ where
 
 * :math:`E^{(0)}` is a classical energy of the ground state;
 
-and next three terms are derived with the Linear Spin Wave Theory (LSWT):
+and the next three terms are derived with the Linear Spin Wave Theory (LSWT):
 
 * :math:`E^{(2)}` is a quantum correction to the ground state energy;
 * :math:`\omega_{\alpha}(\boldsymbol{k})` is magnon dispersion at the level of LSWT;
-* :math:`\sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})` is zero in most of the cases.
+* :math:`\sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})` is an energy measure of
+  :math:`\pm \boldsymbol{k}` asymmetry.
 
 
 Planned to be implemented
@@ -46,5 +47,6 @@ Planned to be implemented
 (Please indicate to the developers if you would like to use those features or if you
 would like to participate in their implementation)
 
+* Energy minimization
 * Renormalized Spin Wave theory (RSWT)
 * ...

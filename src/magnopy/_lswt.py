@@ -714,8 +714,8 @@ class LSWT:
         k_plus = np.array(k)
         k_minus = -k_plus
 
-        GDM_plus = self.GDM(k_plus)
-        GDM_minus = self.GDM(k_minus)
+        GDM_plus = self.GDM(k_plus, relative=relative)
+        GDM_minus = self.GDM(k_minus, relative=relative)
 
         try:
             E_plus, G_plus = solve_via_colpa(GDM_plus, return_inverse=True)

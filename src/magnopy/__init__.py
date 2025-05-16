@@ -29,4 +29,5 @@ from ._exceptions import *
 from ._local_rf import *
 from ._lswt import *
 from ._package_info import *
+from ._parallelization import *
 from ._spinham import *

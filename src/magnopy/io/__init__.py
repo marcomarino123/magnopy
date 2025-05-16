@@ -18,5 +18,6 @@
 
 
 from ._grogu import *
+from ._spin_directions import *
 from ._tb2j import *
 from ._vampire import *

@@ -13,7 +13,8 @@ Other
     :toctree: generated/
 
     read_spin_directions
-    output_omegas
+    output_k_resolved
+    plot_k_resolved
 
 TB2J
 ====

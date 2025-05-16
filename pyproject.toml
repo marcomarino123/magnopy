@@ -30,7 +30,6 @@ classifiers = [
 
 [project.scripts]
 magnopy = "magnopy.__main__:main"
-magnopy-magnon-dispersion = "magnopy.cli.magnon_dispersion:main"
 
 [project.urls]
 Homepage = "https://magnopy.org"

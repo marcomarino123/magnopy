@@ -4,8 +4,6 @@
 Magnopy user guide
 ******************
 
-Getting started
-===============
 
 .. toctree::
     :maxdepth: 1

@@ -236,6 +236,7 @@ custom_links = {
         "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model",
     ),
     "venv": ("venv", "https://docs.python.org/3/library/venv.html"),
+    "PYPI": ("Python package index", "https://pypi.org/"),
 }
 rst_epilog += "\n".join(
     map(

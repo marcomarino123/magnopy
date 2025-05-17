@@ -49,5 +49,6 @@ would like to participate in their implementation)
 
 * Energy minimization
 * Renormalized Spin Wave theory (RSWT)
+* Magnon decay rate
 * Use lazy imports
 * ...

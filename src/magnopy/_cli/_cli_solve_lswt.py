@@ -87,6 +87,7 @@ def get_parser():
         type=str,
         metavar="filename",
         default=None,
+        required=True,
         help="Path to the spin Hamiltonian file, from where the parameters would be read.",
     )
     parser.add_argument(
@@ -95,6 +96,7 @@ def get_parser():
         type=str,
         metavar="name",
         default=None,
+        required=True,
         choices=["GROGU", "TB2J"],
         help='Source of the spin Hamiltonian. Either "GROGU" or "TB2J"',
     )
@@ -103,6 +105,7 @@ def get_parser():
         "--spin-directions",
         nargs="*",
         type=str,
+        required=True,
         metavar="S1_x S2_y S3_z ...",
         help="To fully define the system for the calculations of magnons one need the "
         "information about the ground state in addition to the parameters of the "
@@ -144,13 +147,13 @@ def get_parser():
     parser.add_argument(
         "-r",
         "--relative",
-        type=bool,
         default=False,
+        action="store_true",
         help="When an explicit list of k-points is given, this option specify whether "
-        "to consider them as relative or absolute coordinates.",
+        "to consider them as relative or absolute coordinates. Absolute by default.",
     )
     parser.add_argument(
-        "-os",
+        "-of",
         "--output-folder",
         type=str,
         default="magnopy-results",

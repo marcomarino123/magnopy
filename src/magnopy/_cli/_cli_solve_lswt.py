@@ -82,7 +82,7 @@ def get_parser():
         type=str,
         metavar="filename",
         default=None,
-        help="Path to the spin Hamiltonian file.",
+        help="Path to the spin Hamiltonian file, from where the parameters would be read.",
     )
     parser.add_argument(
         "-ss",
@@ -91,7 +91,7 @@ def get_parser():
         metavar="name",
         default=None,
         choices=["GROGU", "TB2J"],
-        help="Source of the spin Hamiltonian, case-insensitive.",
+        help='Source of the spin Hamiltonian. Either "GROGU" or "TB2J"',
     )
     parser.add_argument(
         "-sd",
@@ -99,8 +99,13 @@ def get_parser():
         nargs="*",
         type=str,
         metavar="S1_x S2_y S3_z ...",
-        help="Either a file with the direction of spins in the ground state or directly "
-        "the components of the spin directions. Order is the same as in the Hamiltonian",
+        help="To fully define the system for the calculations of magnons one need the "
+        "information about the ground state in addition to the parameters of the "
+        "Hamiltonian. There are two ways to give this information to magnopy:\n"
+        " * Give a path to the file. In the file there should be M lines with three "
+        "numbers in each. The order of the lines would match the order of magnetic "
+        "atoms in the spin Hamiltonian."
+        " * Give a sequence of 3*M numbers directly to this parameter.",
     )
     parser.add_argument(
         "-s",
@@ -108,7 +113,10 @@ def get_parser():
         nargs="*",
         type=str,
         metavar="S1 S2 S3 ...",
-        help="Spin values, same order as in the Hamiltonian.",
+        help="In the case when the parameters of spin Hamiltonian comes from TB2J, one "
+        "might want to change the values of spins to be closer to half-integers. This "
+        "option allows that. Order of the M numbers should match the order of magnetic "
+        "atoms in the spin Hamiltonian.",
     )
     parser.add_argument(
         "-kp",
@@ -116,28 +124,32 @@ def get_parser():
         default=None,
         metavar="G-X-S|G-Y",
         type=str,
-        help="Path in reciprocal space for the magnon dispersion.",
+        help="Path of high symmetry k-points for the plots of dispersion and other "
+        "quantities.",
     )
     parser.add_argument(
         "-kps",
         "--kpoints",
         type=str,
         default=None,
-        help="File with kpoints. Every line is one kpoint and contain three floats.",
+        help="Alternatively one could provide an explicit list of k-points for calculation. "
+        "In that case provide a path to the file, in which each k-point is given in a "
+        "separate line with three numbers per line.",
     )
     parser.add_argument(
         "-r",
         "--relative",
         type=bool,
         default=False,
-        help="Whether to interpret the coordinates of given kpoints as relative or absolute.",
+        help="When an explicit list of k-points is given, this option specify whether "
+        "to consider them as relative or absolute coordinates.",
     )
     parser.add_argument(
         "-os",
         "--output-folder",
         type=str,
         default="magnopy-results",
-        help="Seedname for output files.",
+        help="Folder where all output files of magnopy wil be saved.",
     )
     parser.add_argument(
         "-np",

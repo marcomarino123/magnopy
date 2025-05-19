@@ -106,7 +106,7 @@ class SpinHamiltonian:
     ############################################################################
 
     @property
-    def cell(self) -> dict:
+    def cell(self):
         r"""
         Cell of the crystal on which the Hamiltonian is build.
 

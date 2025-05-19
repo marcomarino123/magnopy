@@ -1,8 +1,8 @@
 .. _user-guide_installation:
 
-************
-Installation
-************
+**********************
+How to install magnopy
+**********************
 
 Requirement for magnopy installation are:
 

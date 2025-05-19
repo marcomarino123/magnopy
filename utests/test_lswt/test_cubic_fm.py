@@ -85,11 +85,11 @@ def test_ferromagnet_one_spin_cubic(spin_direction, k):
 
     if cos(k[0] * a) - 1 == 0 and cos(k[1] * a) - 1 == 0 and cos(k[2] * a) - 1 == 0:
         try:
-            omega = disp.omegas(k=k)
+            omega = disp.omega(k=k)
         except ColpaFailed:
             return
     else:
-        omega = disp.omegas(k=k)
+        omega = disp.omega(k=k)
 
     assert len(omega) == 1
 

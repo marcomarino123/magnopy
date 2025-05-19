@@ -20,7 +20,7 @@ the Hamiltonian. It is created based on some spin Hamiltonian
     ...     "g_factors" : [2]
     ... }
     >>> notation = magnopy.Notation(
-    ...     multiple_counting=True, spin_normalized=False, c1=1, c21=1, c22=1 / 2, c31=1, c41=1
+    ...     multiple_counting=True, spin_normalized=False, c1=1, c21=1, c22=-1 / 2, c31=1, c41=1
     ... )
     >>> spinham = magnopy.SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
     >>> spinham.add_21(alpha=0, parameter=np.diag([2, -1, -1]))
@@ -34,8 +34,8 @@ And then takes a set of spin directions to compute :math:`E^{(0)}` (:py:meth:`.E
 .. doctest::
 
     >>> energy.E_0(spin_directions = [[0, 0, 1]])
-    12.5
+    -25.0
     >>> energy.E_0(spin_directions = [[0, 1, 0]])
-    12.5
+    -25.0
     >>> energy.E_0(spin_directions = [[1, 0, 0]])
-    31.25
+    -6.25

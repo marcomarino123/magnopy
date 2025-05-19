@@ -125,8 +125,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.spinham.Notation()
-            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> notation = magnopy.Notation()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.cell = 2 * np.eye(3)
             Traceback (most recent call last):
             ...
@@ -141,8 +141,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.spinham.Notation()
-            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> notation = magnopy.Notation()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.cell
             array([[1., 0., 0.],
                    [0., 1., 0.],
@@ -188,8 +188,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.spinham.Notation()
-            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> notation = magnopy.Notation()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.atoms = {"names" : ["Cr"]}
             Traceback (most recent call last):
             ...
@@ -204,8 +204,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.spinham.Notation()
-            >>> spinham = magnopy.spinham.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> notation = magnopy.Notation()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.atoms
             {}
             >>> spinham._atoms = {"names" : ["Cr"]}

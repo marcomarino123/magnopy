@@ -72,7 +72,7 @@ class Notation:
 
     .. doctest::
 
-        >>> from magnopy._spinham import Notation
+        >>> from magnopy import Notation
         >>> n1 = Notation(True, True, c21=1, c22=-0.5)
         >>> n2 = Notation(False, True, c21=1, c22=-0.5)
         >>> n3 = Notation(False, True, c22=-0.5)
@@ -219,7 +219,7 @@ class Notation:
 
         .. doctest::
 
-            >>> from magnopy._spinham import Notation
+            >>> from magnopy import Notation
             >>> n1 = Notation(True, True, c21=1, c22=-0.5)
             >>> n1.summary()
             custom notation where
@@ -609,7 +609,7 @@ class Notation:
         .. doctest::
 
             >>> import magnopy
-            >>> tb2j = magnopy.spinham.Notation.get_predefined("TB2J")
+            >>> tb2j = magnopy.Notation.get_predefined("TB2J")
             >>> tb2j.summary()
             tb2j notation where
               * Bonds are counted multiple times in the sum;
@@ -625,7 +625,7 @@ class Notation:
               * Undefined c422 factor;
               * Undefined c43 factor;
               * Undefined c44 factor.
-            >>> spinW = magnopy.spinham.Notation.get_predefined("spinW")
+            >>> spinW = magnopy.Notation.get_predefined("spinW")
             >>> spinW.summary()
             spinw notation where
               * Bonds are counted multiple times in the sum;
@@ -641,7 +641,7 @@ class Notation:
               * Undefined c422 factor;
               * Undefined c43 factor;
               * Undefined c44 factor.
-            >>> vampire = magnopy.spinham.Notation.get_predefined("Vampire")
+            >>> vampire = magnopy.Notation.get_predefined("Vampire")
             >>> vampire.summary()
             vampire notation where
               * Bonds are counted multiple times in the sum;

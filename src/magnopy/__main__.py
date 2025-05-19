@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2024 Magnopy Team
+# Copyright (C) 2023-2025 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -16,51 +16,51 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
-from magnopy import __git_commit__, __version__
-from magnopy._pinfo import conditions, logo, warranty
+from magnopy import __version__
+from magnopy._package_info import _warranty, logo
 
 
 def main():
     parser = ArgumentParser(
-        description=logo(),
+        description=logo() + f"\n\nAvailable scripts are:\n\n"
+        "* magnopy-lswt\n\n"
+        "To call for help for each script type <script name> --help\n"
+        "Information below is relevant only to 'magnopy' command.",
         formatter_class=RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "command",
+        "commands",
         default=None,
-        help="Which command to run",
-        choices=["logo", "warranty", "conditions", "version"],
-        nargs="?",
+        help="command/commands on what to do. Use to display some information about package.",
+        choices=["logo", "warranty"],
+        nargs="*",
     )
     parser.add_argument(
         "-v",
         "--version",
         action="store_true",
-        help="Print version",
+        help="print version of magnopy",
     )
-    parser.add_argument(
-        "-gc",
-        "--git-commit",
-        action="store_true",
-        help="Print the git commit hash of the current version",
-    )
+
     args = parser.parse_args()
-    if args.command == "logo":
-        print(logo())
-    elif args.command == "warranty":
-        print("\n" + warranty() + "\n")
-    elif args.command == "conditions":
-        print("\n" + conditions() + "\n")
-    elif args.command == "version" or args.version:
-        print(f"Magnopy v{__version__}")
-    elif args.git_commit:
-        print(f"Git commit hash: {__git_commit__}")
-    elif args.command is None:
+
+    if args.version:
+        print(f"magnopy v{__version__}")
+
+    if len(args.commands) == 0:
         parser.print_help()
-    else:
-        raise ValueError(f"Command {args.command} is not recognized.")
+        return
+
+    for command in args.commands:
+        if command == "logo":
+            print(logo())
+        elif command == "warranty":
+            print("\n" + _warranty() + "\n")
+        else:
+            raise ValueError(f"Sub-command {args.command} is not recognized.")
 
 
 if __name__ == "__main__":

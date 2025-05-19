@@ -8,20 +8,49 @@ API reference
 
 :Release: |version|
 
-The reference manual describes public classes and functions of magnopy.
-The main interface to the package may be imported as
+The main interface to the package should be imported as
 
-.. code-block:: python
+.. doctest::
 
-   import magnopy
+  >>> import magnopy
 
-
+Sub-modules
+===========
 .. toctree::
-   :caption: Modules
-   :maxdepth: 1
+  :maxdepth: 1
 
-   spinham/index
-   magnons/index
-   io/index
-   units
-   exceptions
+  io
+  scenarios
+  constants
+
+Classes
+=======
+
+.. autosummary::
+    :toctree: generated/
+
+    Notation
+    SpinHamiltonian
+    Energy
+    LSWT
+
+Functions
+=========
+
+.. autosummary::
+  :toctree: generated/
+
+  solve_via_colpa
+  span_local_rf
+  span_local_rfs
+  logo
+  multiprocess_over_k
+
+Exceptions
+==========
+
+.. autosummary::
+  :toctree: generated/
+
+  NotationError
+  ColpaFailed

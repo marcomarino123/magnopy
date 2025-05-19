@@ -17,5 +17,5 @@ Both places are  monitored and answered by the authors, choose the one you prefe
 If you found a found a bug or want to request a feature,
 then consider posting an `issue at github <https://github.com/magnopy/magnopy/issues>`_:
 
-* :ref:`contribute_bug`
-* :ref:`contribute_feature`.
+* :ref:`development_bug`
+* :ref:`development_feature`.

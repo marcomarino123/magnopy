@@ -19,7 +19,7 @@ repos:
   - id: black
     language_version: python3.11
 - repo: https://github.com/adrybakov/pre-commit-hooks
-  rev: 0.2.0                # Check available tags on the GitHub page
+  rev: 0.2.1                # Check available tags on the GitHub page
   hooks:
     - id: license-headers   # Required
       args:                 # Optional (as the next lines)

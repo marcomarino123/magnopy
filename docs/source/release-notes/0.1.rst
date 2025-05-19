@@ -1,0 +1,15 @@
+.. _release-notes_0.1:
+
+***********
+Version 0.1
+***********
+
+
+Whats new?
+----------
+
+First release of magnopy.
+
+0.1.0
+-----
+First magnopy release.

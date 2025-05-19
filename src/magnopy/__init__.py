@@ -1,5 +1,5 @@
 # MAGNOPY - Python package for magnons.
-# Copyright (C) 2023-2024 Magnopy Team
+# Copyright (C) 2023-2025 Magnopy Team
 #
 # e-mail: anry@uv.es, web: magnopy.com
 #
@@ -16,21 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__version__ = "0.0.0"
+
+__version__ = "0.1.0"
 __doclink__ = "magnopy.org"
-__release_date__ = "undefined"
-__git_commit__ = "undefined"
+__release_date__ = "19 May 2025"
 
-from . import exceptions, io, magnons, spinham, units
-from .exceptions import *
-from .io import *
-from .magnons import *
-from .spinham import *
-from .units import *
-
-__all__ = ["__version__", "__doclink__", "__release_date__"]
-__all__.extend(spinham.__all__)
-__all__.extend(io.__all__)
-__all__.extend(magnons.__all__)
-__all__.extend(exceptions.__all__)
-__all__.extend(units.__all__)
+from . import constants, io, scenarios
+from ._diagonalization import *
+from ._energy import *
+from ._exceptions import *
+from ._local_rf import *
+from ._lswt import *
+from ._package_info import *
+from ._parallelization import *
+from ._spinham import *

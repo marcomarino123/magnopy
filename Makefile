@@ -4,7 +4,7 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = _build
 
 help:
 	@echo "\x1b[31m"
@@ -13,7 +13,8 @@ help:
 	@echo "Available options are:\n"
 	@echo "    help - show this message"
 	@echo "    html - build the html docs"
-	@echo "    clean-html - clean all files from docs and build html docs from scrutch"
+	@echo "    clean-html - clean all files from docs and build html docs from scratch"
+	@echo "    html-from-zero - as clean-html + replot all figures"
 	@echo "    doctest - run doctests"
 	@echo "    clean - clean all files from docs and pip routines"
 	@echo "    install - install the package"
@@ -22,17 +23,18 @@ help:
 	@echo "    model-input-examples-run - run the model input examples"
 	@echo "    requirements - install all requirements"
 
-html:
-	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+# Development environment
+requirements:
+	@pip install -r requirements.txt --no-cache
+	@pip install -r requirements-dev.txt --no-cache
+	@pip install -r docs/requirements.txt --no-cache
+	@pip install -r utests/requirements.txt --no-cache
 
-clean-html: clean install html
-	@echo "Done"
-
-doctest:
-	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+install:
+	@python3 -m pip install .
 
 clean:
-	-@rm -r docs/build
+	-@rm -r docs/_build
 	-@rm -r docs/source/*/generated
 	-@rm -r docs/source/*/*/generated
 	-@rm -r docs/source/*/*/*/generated
@@ -43,24 +45,40 @@ clean:
 	-@rm -r .venv/lib/python*/site-packages/magnopy*
 	-@rm -r .venv/bin/magnopy*
 
-install:
-	@python3 -m pip install .
+# Documentation and doctests
+pictures-for-docs:
+	@python3 dev-tools/images/origin-upstream-local.py -rd .
+	@python3 dev-tools/images/positions.py -rd .
+
+files-for-docs:
+	-@rm docs/source/user-guide/cli/magnopy-lswt-help.inc
+	@magnopy-lswt --help > docs/source/user-guide/cli/magnopy-lswt-help.inc
+
+html:
+	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
+
+clean-html: clean install html
+	@echo "Done"
+
+html-from-zero: clean install pictures-for-docs files-for-docs html
+	@echo "Done"
+
+# Tests
+doctest:
+	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
 
 test:
-	@pytest -s #-o log_cli=true -o log_cli_level=DEBUG
+	@pytest -s utests #-o log_cli=true -o log_cli_level=DEBUG
 
-pictures-for-docs:
-	@python3 docs/images/scripts/uvn-rf.py -rd .
-	@python3 docs/images/scripts/spin-rotations.py -rd .
-	@python3 docs/images/scripts/single-q.py -rd .
-	@python3 docs/images/scripts/minimization-exchange.py -rd .
-	@python3 docs/images/scripts/plot-repositories.py -rd .
 
-model-input-examples-run:
-	@python3 utests/test_io/test_txt/test_verify.py
-
-requirements:
-	@pip install -r requirements.txt --no-cache
-	@pip install -r requirements-dev.txt --no-cache
-	@pip install -r docs/requirements.txt --no-cache
-	@pip install -r utests/requirements.txt --no-cache
+.ONESHELL:
+pip:
+	@read -p "Press Enter to publish to PyPI"
+	-@rm -r dist
+	-@rm -r build
+	-@rm -r magnopy.egg-info
+	-@rm -r src/dist
+	-@rm -r src/build
+	-@rm -r src/magnopy.egg-info
+	@python3 -m build
+	@python3 -m twine upload --repository pypi dist/* --verbose

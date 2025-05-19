@@ -835,7 +835,7 @@ class SpinHamiltonian:
         for alpha, parameter in self._1:
             new_1[self.index_map[alpha]] = new_1[self.index_map[alpha]] + parameter
 
-        self._1 = list(zip(range(self.M), new_1))
+        self._1 = list(map(list, zip(range(self.M), new_1)))
 
     ############################################################################
     #                                Copy getter                               #

@@ -119,7 +119,7 @@ def solve_lswt(
     )
 
     if magnetic_field is not None:
-        spinham.add_magnetic_field(h=magnetic_Field)
+        spinham.add_magnetic_field(h=magnetic_field)
 
     # Treat kpoints
     if kpoints is not None:

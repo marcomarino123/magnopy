@@ -8,7 +8,7 @@ name = "magnopy"
 dynamic = ["version"]
 description = "Magnopy is a Python package for magnons."
 authors = [{ name = "Andrey Rybakov", email = "rybakov.ad@icloud.com" }]
-dependencies = ["numpy", "wulfric>=0.5.4", "h5py"]
+dependencies = ["numpy", "matplotlib", "wulfric>=0.5.4"]
 requires-python = ">=3.9"
 readme = "README.rst"
 classifiers = [

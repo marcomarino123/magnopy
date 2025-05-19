@@ -34,7 +34,7 @@ Options
 
 Every script accepts one or more "arguments" (or "parameters" or "options") as an input.
 
-There are two types of arguments
+There are three types of arguments
 
 *   Positional arguments
 
@@ -57,7 +57,7 @@ There are two types of arguments
     then the situation will be the opposite: "input_file.txt" will be used as an output
     and "output_file.txt" will be used as input source.
 
-*   Keyword arguments
+*   Keyword arguments with value
 
     For this type of argument user should provide a keyword and the a value of an
     argument. The keyword is used by the script to understand how to interpret the
@@ -86,3 +86,23 @@ There are two types of arguments
         magnopy-scenario -if input_file.txt
 
     would be identical with "--input_file" being the long name and "-if" - the short one.
+
+*   Keyword arguments without value
+
+    This type of argument is very similar to the keyword argument with value. It is
+    typically used for the True/False values. If the argument is not given, then the
+    default value is assumed, if it is given, then the opposite is understood. For
+    example, if the script has an argument defined with the keyword "--relative" and
+    default value "False", then when user runs
+
+    .. code-block:: bash
+
+        magnopy-scenario
+
+    the script will use ``relative = False``. However, if user runs the command
+
+    .. code-block:: bash
+
+        magnopy-scenario --relative
+
+    the script will use ``relative = True``.

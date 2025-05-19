@@ -19,8 +19,7 @@
 
 __version__ = "0.1.0"
 __doclink__ = "magnopy.org"
-__release_date__ = "undefined"
-__git_commit__ = "undefined"
+__release_date__ = "19 May 2025"
 
 from . import constants, io, scenarios
 from ._diagonalization import *

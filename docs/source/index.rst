@@ -10,6 +10,7 @@ Magnopy
     api/index
     support
     development/index
+    release-notes/index
     cite
 
 :Release: |version|

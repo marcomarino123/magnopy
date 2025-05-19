@@ -1,6 +1,7 @@
 usage: magnopy-lswt [-h] -sf filename -ss name -sd [S1_x S2_y S3_z ... ...]
                     [-s [S1 S2 S3 ... ...]] [-kp G-X-S|G-Y] [-kps KPOINTS]
-                    [-r] [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS]
+                    [-r] [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
+                    [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -53,6 +54,9 @@ options:
   -r, --relative        When an explicit list of k-points is given, this
                         option specify whether to consider them as relative or
                         absolute coordinates. Absolute by default.
+  -mf, --magnetic-field MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD
+                        Vector of external magnetic field, given in the units
+                        of Tesla.
   -of, --output-folder OUTPUT_FOLDER
                         Folder where all output files of magnopy wil be saved.
   -np, --number-processors NUMBER_PROCESSORS

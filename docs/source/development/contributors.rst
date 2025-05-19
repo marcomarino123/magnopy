@@ -4,7 +4,7 @@ Contributors
 ============
 
 Magnopy was initiated by `Andrey Rybakov <https://adrybakov.com/>`_
-and `Jaime Ferrer <https://github.com/JaimeVFerrer>`_.
+and `Jaime Ferrer <https://scholar.google.com/citations?user=0Iqb9h8AAAAJ>`_.
 
 
 Here's a list of the contributors who shape its evolution:

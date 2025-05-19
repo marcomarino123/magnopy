@@ -18,6 +18,7 @@
 
 
 import os
+import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 import numpy as np
@@ -31,6 +32,10 @@ def manager():
     parser = get_parser()
 
     args = parser.parse_args()
+
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
 
     if len(args.spin_directions) == 1:
         args.spin_directions = read_spin_directions(filename=args.spin_directions)

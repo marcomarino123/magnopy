@@ -50,13 +50,17 @@ pictures-for-docs:
 	@python3 dev-tools/images/origin-upstream-local.py -rd .
 	@python3 dev-tools/images/positions.py -rd .
 
+files-for-docs:
+	-@rm docs/source/user-guide/cli/magnopy-lswt-help.inc
+	@magnopy-lswt --help > docs/source/user-guide/cli/magnopy-lswt-help.inc
+
 html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
 
 clean-html: clean install html
 	@echo "Done"
 
-html-from-zero: clean install pictures-for-docs html
+html-from-zero: clean install pictures-for-docs files-for-docs html
 	@echo "Done"
 
 # Tests
@@ -65,6 +69,3 @@ doctest:
 
 test:
 	@pytest -s utests #-o log_cli=true -o log_cli_level=DEBUG
-
-model-input-examples-run:
-	@python3 utests/test_io/test_txt/test_verify.py

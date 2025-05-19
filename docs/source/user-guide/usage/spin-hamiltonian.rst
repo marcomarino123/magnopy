@@ -225,5 +225,5 @@ The indices in the specification of parameters correspond to the
 
 .. doctest::
 
-    >>> index_in_magnetic_atoms = 0
-    >>> index_in_atoms = spinham.index_map[index_in_magnetic_atoms]
+    >>> index_in_atoms = 0
+    >>> index_in_magnetic_atoms = spinham.index_map[index_in_atoms]

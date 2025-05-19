@@ -82,11 +82,11 @@ def get_matrix_parameter(iso=None, aniso=None, dmi=None) -> np.ndarray:
     .. doctest::
 
         >>> import magnopy
-        >>> magnopy.spinham.get_matrix_parameter(iso=1)
+        >>> magnopy._spinham.get_matrix_parameter(iso=1)
         array([[1., 0., 0.],
                [0., 1., 0.],
                [0., 0., 1.]])
-        >>> magnopy.spinham.get_matrix_parameter(dmi = (1, 2, 0))
+        >>> magnopy._spinham.get_matrix_parameter(dmi = (1, 2, 0))
         array([[ 0.,  0., -2.],
                [ 0.,  0.,  1.],
                [ 2., -1.,  0.]])
@@ -161,9 +161,9 @@ def get_isotropic_parameter(matrix, matrix_form=False):
 
         >>> import magnopy
         >>> matrix = [[1, 3, 4], [-1, -2, 3], [4, 0, 10]]
-        >>> magnopy.spinham.get_isotropic_parameter(matrix)
+        >>> magnopy._spinham.get_isotropic_parameter(matrix)
         3.0
-        >>> magnopy.spinham.get_isotropic_parameter(matrix, matrix_form=True)
+        >>> magnopy._spinham.get_isotropic_parameter(matrix, matrix_form=True)
         array([[3., 0., 0.],
                [0., 3., 0.],
                [0., 0., 3.]])
@@ -211,7 +211,7 @@ def get_anisotropic_parameter(matrix):
 
         >>> import magnopy
         >>> matrix = [[1, 3, 4], [-1, -2, 0], [4, 0, 10]]
-        >>> magnopy.spinham.get_anisotropic_parameter(matrix)
+        >>> magnopy._spinham.get_anisotropic_parameter(matrix)
         array([[-2.,  1.,  4.],
                [ 1., -5.,  0.],
                [ 4.,  0.,  7.]])
@@ -279,9 +279,9 @@ def get_dmi(matrix, matrix_form=False):
 
         >>> import magnopy
         >>> matrix = [[1, 3, 0], [-1, -2, 3], [0, 3, 9]]
-        >>> magnopy.spinham.get_dmi(matrix)
+        >>> magnopy._spinham.get_dmi(matrix)
         array([0., 0., 2.])
-        >>> magnopy.spinham.get_dmi(matrix, matrix_form = True)
+        >>> magnopy._spinham.get_dmi(matrix, matrix_form = True)
         array([[ 0.,  2.,  0.],
                [-2.,  0.,  0.],
                [ 0.,  0.,  0.]])

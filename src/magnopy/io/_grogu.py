@@ -303,7 +303,7 @@ def _read_notation(lines):
 
     Returns
     -------
-    notation : :py:class:`.spinham.Notation`
+    notation : :py:class:`.Notation`
         Notation of spin Hamiltonian.
 
     Notes

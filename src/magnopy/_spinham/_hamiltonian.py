@@ -792,6 +792,51 @@ class SpinHamiltonian:
         for index in range(len(self._44)):
             self._44[index][7] = self._44[index][7] * self.notation.c44 / new_c44
 
+    def add_magnetic_field(self, h) -> None:
+        r"""
+        Adds external magnetic field to the Hamiltonian in the form of one spin
+        parameters.
+
+        .. math::
+
+            \mu_B \boldsymbol{h}\cdot\sum_{\mu,\alpha} g_{\alpha} \boldsymbol{S}_{\mu,\alpha}
+
+        Parameters
+        ----------
+        h : (3, ) |array-like|_
+            Vector of magnetic field given in the units of Tesla.
+
+        Notes
+        -----
+        If Hamiltonian read from TB2J or GROGU, then by default g factors are positive (=2).
+        Therefore, to minimize the energy the magnetic moment will be aligned with the
+        direction of the external field. But pin vector will be directed opposite to the
+        direction of the magnetic field.
+
+        Magnetic field is added *only* to the magnetic atoms. In other words, magnetic
+        field is added only to the atoms that have at least one other parameter
+        associated with them.
+        """
+
+        if self.notation._c1 is None:
+            self.notation._c1 = 1.0
+
+        h = np.array(h, dtype=float)
+
+        BOHR_MAGNETON = 0.057883818060  # meV / Tesla
+
+        new_1 = []
+
+        for i in range(0, self.M):
+            new_1.append(
+                BOHR_MAGNETON * self.magnetic_atoms.g_factors[i] * h / self.notation.c1
+            )
+
+        for alpha, parameter in self._1:
+            new_1[self.index_map[alpha]] = new_1[self.index_map[alpha]] + parameter
+
+        self._1 = list(zip(range(self.M), new_1))
+
     ############################################################################
     #                                Copy getter                               #
     ############################################################################

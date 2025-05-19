@@ -182,13 +182,21 @@ class Energy:
 
         spinham.notation = initial_notation
 
-    def E_0(self, spin_directions):
+    def E_0(self, spin_directions) -> float:
         r"""
+
+        Parameters
+        ----------
         spin_directions : (M, 3) |array-like|_
             Directions of spin vectors. Only directions of vectors are used,
             modulus is ignored. ``M`` is the amount of magnetic atoms in the
             Hamiltonian. The order of spin directions is the same as the order
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
+
+        Returns
+        -------
+        E_0 : float
+            Classic energy of state with ``spin_directions``.
         """
 
         spin_directions = np.array(spin_directions, dtype=float)
@@ -268,7 +276,7 @@ class Energy:
                 spins[epsilon],
             )
 
-        return energy
+        return float(energy)
 
 
 # Populate __all__ with objects defined in this file

@@ -24,11 +24,7 @@ calculation with magnopy and can be executed as any other command line tool.
     cli/how-to-execute
     cli/magnopy-lswt
 
-
-
-
-To get your started with magnopy we prepared a number of guides. Every one of them shows
-how to achieve a particular goal using magnopy.
+The rest of the user guide describe how to use magnopy within python.
 
 .. toctree::
     :caption: How-to guides
@@ -36,22 +32,23 @@ how to achieve a particular goal using magnopy.
 
     how-to/index
 
-For the more in-deep understanding on how to use magnopy yiu can read the material below
+For the more in-deep understanding on how to use magnopy you can read the material below
 where we explain how different elements of magnopy python library can be used
 
 .. toctree::
     :caption: Fundamentals and usage
     :maxdepth: 1
 
-    usage/key-concepts
+    usage/data-structures
+    usage/cell
+    usage/atoms
 
 
-With any tool it is important to understand what it does exactly, both for the
-interpretation of results and for the good quality research. Here we prepared some
+With any tool it is important to understand what it does exactly. Here we prepared some
 explanatory material about theory behind magnopy.
 
-First of all, at the heart of magnopy there is a spin Hamiltonian.In the following pages
-we explain how the Hamiltonian is defined and how is it stored within magnopy.
+First of all, at the heart of magnopy there is a spin Hamiltonian. In the pages below we
+explain how the Hamiltonian is defined and stored within magnopy.
 
 .. toctree::
     :caption: Theory behind

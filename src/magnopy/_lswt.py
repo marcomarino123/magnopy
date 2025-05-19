@@ -40,7 +40,7 @@ class LSWT:
 
     Parameters
     ----------
-    spinham : :py:class:`.spinham.SpinHamiltonian`
+    spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian.
     spin_directions : (M, 3) |array-like|_
         Directions of spin vectors. Only directions of vectors are used, modulus is
@@ -48,6 +48,19 @@ class LSWT:
         If spin Hamiltonian contains non-magnetic atom, then only the spin directions
         for the magnetic atoms are expected. The order of spin directions is the same as
         the order of magnetic atoms in ``spinham.atoms.spins``.
+
+    Attributes
+    ----------
+    z : (M, 3) :numpy:`ndarray`
+        Spin directions.
+    p : (M, 3) :numpy:`ndarray`
+        Hybridized x and y components of the local coordinate system.
+    M : int
+        Number of spins in the unit cell
+    cell : (3, 3) :numpy:`ndarray`
+        Unit cell. Rows are vectors, columns are cartesian components.
+    spins : (M, ) :numpy:`ndarray`
+        Spin values.
 
     Notes
     -----
@@ -411,7 +424,7 @@ class LSWT:
         E_2 : float
         """
 
-        return 0.5 * np.sum(self._J1 * self.z)
+        return float(0.5 * np.sum(self._J1 * self.z))
 
     @property
     def O(self):
@@ -458,6 +471,7 @@ class LSWT:
 
     def A(self, k, relative=False):
         r"""
+        Part of the Grand dynamical matrix.
 
         Parameters
         ----------
@@ -525,6 +539,7 @@ class LSWT:
 
     def B(self, k, relative=False):
         r"""
+        Part of the Grand dynamical matrix.
 
         Parameters
         ----------
@@ -592,6 +607,7 @@ class LSWT:
 
     def GDM(self, k, relative=False):
         r"""
+        Grand dynamical matrix.
 
         Parameters
         ----------
@@ -747,7 +763,7 @@ class LSWT:
             G_plus[: self.M],
         )
 
-    def omega(self, k, relative=False, return_delta=False):
+    def omega(self, k, relative=False):
         r"""
         Parameters
         ----------
@@ -757,8 +773,6 @@ class LSWT:
             If ``relative=True``, then ``k`` is interpreted as given relative to the
             reciprocal unit cell. Otherwise it is interpreted as given in absolute
             coordinates.
-        return_delta : bool, default False
-            Whether to return delta as well.
 
         Returns
         -------
@@ -771,6 +785,12 @@ class LSWT:
 
     def delta(self, k, relative=False):
         r"""
+        Constant energy term of the diagonalized Hamiltonian.
+
+        .. math::
+
+            \sum_{\boldsymbol{k}}\Delta(\boldsymbol{k})
+
         Parameters
         ----------
         k : (3,) |array-like|_
@@ -790,6 +810,16 @@ class LSWT:
 
     def G_minus_one(self, k, relative=False):
         r"""
+        Inverse of the transformation matrix to the new bosonic operators.
+
+        .. math::
+
+            b_{\alpha}(\boldsymbol{k})
+            =
+            \sum_{\beta}
+            (\mathcal{G}^{-1})_{\alpha, \beta}(\boldsymbol{k})
+            \mathcal{A}_{\beta}(\boldsymbol{k})
+
         Parameters
         ----------
         k : (3,) |array-like|_
@@ -804,25 +834,6 @@ class LSWT:
         G_minus_one : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
             Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
-
-            .. math::
-
-                \begin{pmatrix}
-                    b_1(\boldsymbol{k}),
-                    \dots,
-                    b_M(\boldsymbol{k}),
-                \end{pmatrix}
-                =
-                (\mathcal{G})^{-1}
-
-                \begin{pmatrix}
-                    a_1(\boldsymbol{k}),
-                    \dots,
-                    a_M(\boldsymbol{k}),
-                    a^{\dagger}_1(-\boldsymbol{k}),
-                    \dots,
-                    a^{\dagger}_M(-\boldsymbol{k}),
-                \end{pmatrix}
         """
         return self.diagonalize(k=k, relative=relative)[2]
 

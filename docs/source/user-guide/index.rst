@@ -45,6 +45,7 @@ where we explain how different elements of magnopy python library can be used
     usage/notation
     usage/spin-hamiltonian
     usage/energy
+    usage/lswt
 
 
 With any tool it is important to understand what it does exactly. Here we prepared some

@@ -45,6 +45,7 @@ def solve_lswt(
     k_path=None,
     kpoints=None,
     relative=False,
+    magnetic_field=None,
     output_folder="magnopy-results",
     number_processors=None,
 ) -> None:
@@ -77,6 +78,8 @@ def solve_lswt(
         If ``relative == True``, then ``kpoints`` are interpreted as given relative to
         the reciprocal unit cell. Otherwise it is interpreted as given in absolute
         coordinates.
+    magnetic_field : (3, ) |array-like|_
+        Vector of external magnetic field, given in Tesla.
     output_folder : str, default "magnopy-results"
         Name for the folder where to save the output files. If the folder does not exist
         then it will be created.
@@ -114,6 +117,9 @@ def solve_lswt(
         f"Loaded parameters of the spin Hamiltonian from the file\n  "
         f"{os.path.abspath(spinham_filename)}."
     )
+
+    if magnetic_field is not None:
+        spinham.add_magnetic_field(h=magnetic_Field)
 
     # Treat kpoints
     if kpoints is not None:

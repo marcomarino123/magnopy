@@ -153,6 +153,14 @@ def get_parser():
         "to consider them as relative or absolute coordinates. Absolute by default.",
     )
     parser.add_argument(
+        "-mf",
+        "--magnetic-field",
+        default=None,
+        nargs=3,
+        type=float,
+        help="Vector of external magnetic field, given in the units of Tesla.",
+    )
+    parser.add_argument(
         "-of",
         "--output-folder",
         type=str,

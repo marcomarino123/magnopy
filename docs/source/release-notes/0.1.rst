@@ -21,3 +21,8 @@ First magnopy release.
     Now it is written "meV". The values were always outputted in meV.
 
 *   Replace GROGU interface for the temporary simpler one.
+
+0.1.2
+-----
+
+Change colors in the plots.

@@ -268,14 +268,14 @@ def plot_k_resolved(data, kp=None, output_filename=None, ylabel=None):
     if len(data.shape) == 2:
         for entry in data:
             if kp is not None:
-                ax.plot(kp.flatten_points(), entry, lw=1, color="#9B2335")
+                ax.plot(kp.flatten_points(), entry, lw=1, color="#A47864")
             else:
-                ax.plot(entry, lw=1, color="#9B2335")
+                ax.plot(entry, lw=1, color="#A47864")
     else:
         if kp is not None:
-            ax.plot(kp.flatten_points(), data, lw=1, color="#9B2335")
+            ax.plot(kp.flatten_points(), data, lw=1, color="#A47864")
         else:
-            ax.plot(data, lw=1, color="#9B2335")
+            ax.plot(data, lw=1, color="#A47864")
 
     if kp is not None:
         ax.set_xticks(kp.ticks(), kp.labels, fontsize=13)

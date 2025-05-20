@@ -178,9 +178,9 @@ def solve_lswt(
 
     print(
         f"\n{'Classic ground state energy (E_0)':<51} : "
-        f"{E_0:>15.6f} eV\n"
+        f"{E_0:>15.6f} meV\n"
         f"{'Correction to the classic ground state energy (E_2)':<50} : "
-        f"{lswt.E_2:>15.6f} eV\n"
+        f"{lswt.E_2:>15.6f} meV\n"
     )
 
     print(
@@ -234,7 +234,7 @@ def solve_lswt(
         data=omegas.real,
         kp=kp,
         output_filename=filename,
-        ylabel=R"$\omega_{\alpha}(\boldsymbol{k})$, eV",
+        ylabel=R"$\omega_{\alpha}(\boldsymbol{k})$, meV",
     )
     print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
 
@@ -268,7 +268,7 @@ def solve_lswt(
             data=omegas.imag,
             kp=kp,
             output_filename=filename,
-            ylabel=R"$\mathcal{Im}(\omega_{\alpha}(\boldsymbol{k}))$, eV",
+            ylabel=R"$\mathcal{Im}(\omega_{\alpha}(\boldsymbol{k}))$, meV",
         )
         print(f"Plot of imaginary part is saved in file\n  {os.path.abspath(filename)}")
         print(f"{'  END OF WARNING  ':!^90}\n")
@@ -292,7 +292,7 @@ def solve_lswt(
         data=deltas.real,
         kp=kp,
         output_filename=filename,
-        ylabel=R"$\Delta(\boldsymbol{k})$, eV",
+        ylabel=R"$\Delta(\boldsymbol{k})$, meV",
     )
     print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
 
@@ -308,7 +308,7 @@ def solve_lswt(
 
     print(
         f"\nTotal energy of the system with no excitations is : "
-        f"{energy_no_excitations:15.6f} eV"
+        f"{energy_no_excitations:15.6f} meV"
     )
 
     if all_good:

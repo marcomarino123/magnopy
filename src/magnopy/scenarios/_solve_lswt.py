@@ -296,21 +296,6 @@ def solve_lswt(
     )
     print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
 
-    deltas = np.nan_to_num(deltas)
-    omegas = np.nan_to_num(omegas)
-
-    energy_no_excitations = (
-        E_0
-        + lswt.E_2
-        + np.sum(deltas).real / len(kpoints)
-        + 0.5 * np.sum(omegas).real / len(kpoints)
-    )
-
-    print(
-        f"\nTotal energy of the system with no excitations is : "
-        f"{energy_no_excitations:15.6f} meV"
-    )
-
     if all_good:
         print(f"\n{' Finished OK ':=^90}")
     else:

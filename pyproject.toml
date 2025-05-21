@@ -12,9 +12,11 @@ dependencies = ["numpy", "matplotlib", "wulfric>=0.5.4"]
 requires-python = ">=3.9"
 readme = "README.rst"
 classifiers = [
-    'Development Status :: 1 - Planning',
+    'Development Status :: 4 - Beta',
     'Intended Audience :: Science/Research',
     'Intended Audience :: Developers',
+    'Intended Audience :: Education',
+    'Intended Audience :: End Users/Desktop',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.9',

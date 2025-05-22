@@ -198,7 +198,7 @@ be written as
 
 where :math:`\boldsymbol{D}(\boldsymbol{r}_{\nu,\alpha\beta})` is a DM vector. This
 Hamiltonian can be written as the third term of the expanded form if one defines
-:math:`C_{2,1} = 1/2` and
+:math:`C_{2,2} = 1/2` and
 
 .. math::
     J_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})

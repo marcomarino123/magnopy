@@ -62,7 +62,7 @@ def span_local_rf(direction_vector, hybridize=False):
         z_dir = [0, 0, 1]
 
         sin_rot_angle = np.linalg.norm(np.cross(z_dir, direction_vector))
-        cos_rot_angle = np.dot(direction_vector, z_dir)
+        cos_rot_angle = np.dot(z_dir, direction_vector)
         # direction_vector and z_dir are unit vectors
         ux, uy, uz = np.cross(z_dir, direction_vector) / sin_rot_angle
 

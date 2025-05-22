@@ -33,15 +33,15 @@ class ColpaFailed(Exception):
         super().__init__(message)
 
 
-class NotationError(Exception):
+class ConventionError(Exception):
     r"""
-    Raised if notation or part of the notation of spin Hamiltonian is not defined.
+    Raised if convention or part of the convention of spin Hamiltonian is not defined.
     """
 
-    def __init__(self, notation, property):
+    def __init__(self, convention, property):
         message = (
-            f"Notation of spin Hamiltonian has an undefined property '{property}':\n"
-            + notation.summary(return_as_string=True)
+            f"Convention of spin Hamiltonian has an undefined property '{property}':\n"
+            + convention.summary(return_as_string=True)
         )
         super().__init__(message)
 

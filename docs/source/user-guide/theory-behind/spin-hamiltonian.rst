@@ -108,12 +108,12 @@ is impossible to write them in the same form with one constant :math:`C_2` witho
 modification of the parameters themselves.
 
 Magnopy can read this spin Hamiltonian from (TODO supported sources) automatically,
-taking into account the notation of the Hamiltonian of each source. Real constants
+taking into account the convention of the Hamiltonian of each source. Real constants
 :math:`C_1`, :math:`C_{2,1}`, :math:`C_{2,2}`, :math:`C_{3,1}`, :math:`C_{3,2}`,
 :math:`C_{3,3}`, :math:`C_{4,1}`, :math:`C_{4,2,1}`, :math:`C_{4,2,2}`, :math:`C_{4,3}`,
-:math:`C_{4,4}` allow magnopy to support **any** notation of the spin Hamiltonian. To
-read more about what defines the notation of the spin Hamiltonian go
-:ref:`here <user-guide_theory-behind_notation>`.
+:math:`C_{4,4}` allow magnopy to support **any** convention of the spin Hamiltonian. To
+read more about what defines the convention of the spin Hamiltonian go
+:ref:`here <user-guide_theory-behind_convention-problem>`.
 
 In the :py:class:`.SpinHamiltonian` class, that is used to store the parameters of the
 Hamiltonian, each term is referenced by the numerical indices of the constants. For

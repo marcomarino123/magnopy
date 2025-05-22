@@ -19,11 +19,11 @@
 
 import pytest
 
-from magnopy import Energy, Notation, SpinHamiltonian
+from magnopy import Convention, Energy, SpinHamiltonian
 
 
 def _get_spinham():
-    basic_notation = Notation(
+    basic_convention = Convention(
         spin_normalized=False,
         multiple_counting=False,
         c1=1,
@@ -49,7 +49,7 @@ def _get_spinham():
 
     spin_directions = [[0, 0, 1], [0, 0, 1]]
 
-    spinham = SpinHamiltonian(cell=cell, atoms=atoms, notation=basic_notation)
+    spinham = SpinHamiltonian(cell=cell, atoms=atoms, convention=basic_convention)
 
     spinham.add_1(alpha=0, parameter=[1, 1, 1])
     spinham.add_1(alpha=1, parameter=[1, 1, 1])
@@ -174,18 +174,18 @@ def _get_spinham():
         parameter=parameter,
     )
 
-    return spinham, basic_notation, spin_directions
+    return spinham, basic_convention, spin_directions
 
 
 @pytest.mark.parametrize("spin_normalized", (True, False))
 def test_spin_normalized(spin_normalized):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
 
-    modified_notation = notation.get_modified(spin_normalized=spin_normalized)
+    modified_convention = convention.get_modified(spin_normalized=spin_normalized)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -193,13 +193,13 @@ def test_spin_normalized(spin_normalized):
 
 @pytest.mark.parametrize("multiple_counting", (True, False))
 def test_multiple_counting(multiple_counting):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
 
-    modified_notation = notation.get_modified(multiple_counting=multiple_counting)
+    modified_convention = convention.get_modified(multiple_counting=multiple_counting)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -207,14 +207,14 @@ def test_multiple_counting(multiple_counting):
 
 @pytest.mark.parametrize("c1", (-1, -0.5, 0.5, 1))
 def test_c1(c1):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p1) > 0
 
-    modified_notation = notation.get_modified(c1=c1)
+    modified_convention = convention.get_modified(c1=c1)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -222,14 +222,14 @@ def test_c1(c1):
 
 @pytest.mark.parametrize("c21", (-1, -0.5, 0.5, 1))
 def test_c21(c21):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p21) > 0
 
-    modified_notation = notation.get_modified(c21=c21)
+    modified_convention = convention.get_modified(c21=c21)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -237,14 +237,14 @@ def test_c21(c21):
 
 @pytest.mark.parametrize("c22", (-1, -0.5, 0.5, 1))
 def test_c22(c22):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p22) > 0
 
-    modified_notation = notation.get_modified(c22=c22)
+    modified_convention = convention.get_modified(c22=c22)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -252,14 +252,14 @@ def test_c22(c22):
 
 @pytest.mark.parametrize("c31", (-1, -0.5, 0.5, 1))
 def test_c31(c31):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p31) > 0
 
-    modified_notation = notation.get_modified(c31=c31)
+    modified_convention = convention.get_modified(c31=c31)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -267,14 +267,14 @@ def test_c31(c31):
 
 @pytest.mark.parametrize("c32", (-1, -0.5, 0.5, 1))
 def test_c32(c32):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p32) > 0
 
-    modified_notation = notation.get_modified(c32=c32)
+    modified_convention = convention.get_modified(c32=c32)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -282,14 +282,14 @@ def test_c32(c32):
 
 @pytest.mark.parametrize("c33", (-1, -0.5, 0.5, 1))
 def test_c33(c33):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p33) > 0
 
-    modified_notation = notation.get_modified(c33=c33)
+    modified_convention = convention.get_modified(c33=c33)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -297,14 +297,14 @@ def test_c33(c33):
 
 @pytest.mark.parametrize("c41", (-1, -0.5, 0.5, 1))
 def test_c41(c41):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p41) > 0
 
-    modified_notation = notation.get_modified(c41=c41)
+    modified_convention = convention.get_modified(c41=c41)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -312,14 +312,14 @@ def test_c41(c41):
 
 @pytest.mark.parametrize("c421", (-1, -0.5, 0.5, 1))
 def test_c421(c421):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p421) > 0
 
-    modified_notation = notation.get_modified(c421=c421)
+    modified_convention = convention.get_modified(c421=c421)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -327,14 +327,14 @@ def test_c421(c421):
 
 @pytest.mark.parametrize("c422", (-1, -0.5, 0.5, 1))
 def test_c422(c422):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p422) > 0
 
-    modified_notation = notation.get_modified(c422=c422)
+    modified_convention = convention.get_modified(c422=c422)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -342,14 +342,14 @@ def test_c422(c422):
 
 @pytest.mark.parametrize("c43", (-1, -0.5, 0.5, 1))
 def test_c43(c43):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p43) > 0
 
-    modified_notation = notation.get_modified(c43=c43)
+    modified_convention = convention.get_modified(c43=c43)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
@@ -357,21 +357,21 @@ def test_c43(c43):
 
 @pytest.mark.parametrize("c44", (-1, -0.5, 0.5, 1))
 def test_c44(c44):
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p44) > 0
 
-    modified_notation = notation.get_modified(c44=c44)
+    modified_convention = convention.get_modified(c44=c44)
 
     target_energy = Energy(spinham)
 
-    spinham.notation = modified_notation
+    spinham.convention = modified_convention
     energy = Energy(spinham)
 
     assert abs(energy.E_0(spin_directions) - target_energy.E_0(spin_directions)) < 1e-8
 
 
 def test_altogether():
-    spinham, notation, spin_directions = _get_spinham()
+    spinham, convention, spin_directions = _get_spinham()
     assert len(spinham.p1) > 0
     assert len(spinham.p21) > 0
     assert len(spinham.p22) > 0
@@ -399,7 +399,7 @@ def test_altogether():
                                             for c422 in [-1, 0.5]:
                                                 for c43 in [-1, 0.5]:
                                                     for c44 in [-1, 0.5]:
-                                                        spinham.notation = Notation(
+                                                        spinham.convention = Convention(
                                                             spin_normalized=spin_normalized,
                                                             multiple_counting=multiple_counting,
                                                             c1=c1,

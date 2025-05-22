@@ -23,7 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy import Notation, SpinHamiltonian
+from magnopy import Convention, SpinHamiltonian
 
 MAX_MODULUS = 1e8
 ARRAY_3x3 = harrays(
@@ -37,7 +37,7 @@ ARRAY_3x3 = harrays(
 def test_add_21(alpha, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     if 0 <= alpha < len(spinham.atoms.names):
         spinham.add_21(alpha, parameter)
@@ -56,7 +56,7 @@ def test_add_21(alpha, parameter):
 def test_add_21_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     spinham.add_21(alpha1, parameter)
 
@@ -77,7 +77,7 @@ def test_add_21_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
 def test_remove_21(r_alpha):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     for alpha in range(len(spinham.atoms.names)):
         spinham.add_21(alpha, np.eye(3))

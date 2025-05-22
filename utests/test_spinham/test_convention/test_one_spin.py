@@ -21,36 +21,36 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy import Notation
+from magnopy import Convention
 
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c1(value, new_value):
-    notation = Notation(c1=value)
+    convention = Convention(c1=value)
 
-    assert notation.c1 == value
+    assert convention.c1 == value
 
     with pytest.raises(AttributeError):
-        notation.c1 = new_value
+        convention.c1 = new_value
 
 
 @given(st.floats(allow_nan=False))
 def test_eq_c1(c1):
-    notation1 = Notation(c1=c1)
-    notation2 = Notation(c1=c1)
-    notation3 = Notation(c1=3 if c1 != 3 else 4)
-    notation4 = Notation()
+    convention1 = Convention(c1=c1)
+    convention2 = Convention(c1=c1)
+    convention3 = Convention(c1=3 if c1 != 3 else 4)
+    convention4 = Convention()
 
-    assert notation1 == notation2
-    assert notation1 != notation3
-    assert notation1 != notation4
-    assert notation2 != notation3
-    assert notation2 != notation4
-    assert notation3 != notation4
+    assert convention1 == convention2
+    assert convention1 != convention3
+    assert convention1 != convention4
+    assert convention2 != convention3
+    assert convention2 != convention4
+    assert convention3 != convention4
 
 
 def test_get_modified_c1():
-    notation = Notation(
+    convention = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -66,18 +66,18 @@ def test_get_modified_c1():
         c44=1,
     )
 
-    mod_notation = notation.get_modified(c1=2)
+    mod_convention = convention.get_modified(c1=2)
 
-    assert mod_notation.spin_normalized == True
-    assert mod_notation.multiple_counting == True
-    assert mod_notation.c1 == 2
-    assert mod_notation.c21 == 1
-    assert mod_notation.c22 == 1
-    assert mod_notation.c31 == 1
-    assert mod_notation.c32 == 1
-    assert mod_notation.c33 == 1
-    assert mod_notation.c41 == 1
-    assert mod_notation.c421 == 1
-    assert mod_notation.c422 == 1
-    assert mod_notation.c43 == 1
-    assert mod_notation.c44 == 1
+    assert mod_convention.spin_normalized == True
+    assert mod_convention.multiple_counting == True
+    assert mod_convention.c1 == 2
+    assert mod_convention.c21 == 1
+    assert mod_convention.c22 == 1
+    assert mod_convention.c31 == 1
+    assert mod_convention.c32 == 1
+    assert mod_convention.c33 == 1
+    assert mod_convention.c41 == 1
+    assert mod_convention.c421 == 1
+    assert mod_convention.c422 == 1
+    assert mod_convention.c43 == 1
+    assert mod_convention.c44 == 1

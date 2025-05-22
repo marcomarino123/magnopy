@@ -811,7 +811,7 @@ def _verify_atoms(lines, line_indices):
 
 
 ################################################################################
-#                           Notation section checker                           #
+#                          Convention section checker                          #
 ################################################################################
 def _verify_notation(
     lines,

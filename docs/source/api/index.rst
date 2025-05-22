@@ -29,7 +29,7 @@ Classes
 .. autosummary::
     :toctree: generated/
 
-    Notation
+    Convention
     SpinHamiltonian
     Energy
     LSWT
@@ -52,5 +52,5 @@ Exceptions
 .. autosummary::
   :toctree: generated/
 
-  NotationError
+  ConventionError
   ColpaFailed

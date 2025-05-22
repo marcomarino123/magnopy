@@ -80,7 +80,7 @@ class _P32_iterator:
 
     def __init__(self, spinham) -> None:
         self.container = spinham._32
-        self.mc = spinham.notation.multiple_counting
+        self.mc = spinham.convention.multiple_counting
         self.length = len(self.container)
         self.index = 0
         self.spins = spinham.magnetic_atoms.spins
@@ -168,7 +168,7 @@ def _add_32(
     r"""
     Adds a (three spins & two sites) parameter to the Hamiltonian.
 
-    Doubles of the bonds are managed automatically (independently of the notation of the
+    Doubles of the bonds are managed automatically (independently of the convention of the
     Hamiltonian).
 
 
@@ -211,11 +211,11 @@ def _add_32(
 
     Notes
     -----
-    If ``spinham.notation.multiple_counting`` is ``True``, then this function adds both
+    If ``spinham.convention.multiple_counting`` is ``True``, then this function adds both
     the bond and its double to the Hamiltonian. It will cause an ``ValueError`` to
     add the double of the bond after the bond is added.
 
-    If ``spinham.notation.multiple_counting`` is ``False``, then only the primary
+    If ``spinham.convention.multiple_counting`` is ``False``, then only the primary
     version of the bond is added to the Hamiltonian.
 
     For the definition of the primary version see
@@ -270,7 +270,7 @@ def _remove_32(spinham, alpha: int, beta: int, nu: tuple) -> None:
     r"""
     Removes a (three spins & two sites) parameter from the Hamiltonian.
 
-    Doubles of the bonds are managed automatically (independently of the notation of the
+    Doubles of the bonds are managed automatically (independently of the convention of the
     Hamiltonian).
 
     Parameters
@@ -300,10 +300,10 @@ def _remove_32(spinham, alpha: int, beta: int, nu: tuple) -> None:
 
     Notes
     -----
-    If ``spinham.notation.multiple_counting`` is ``True``, then this function removes
+    If ``spinham.convention.multiple_counting`` is ``True``, then this function removes
     all versions of the bond from the Hamiltonian.
 
-    If ``spinham.notation.multiple_counting`` is ``False``, then this function removes
+    If ``spinham.convention.multiple_counting`` is ``False``, then this function removes
     the primary version of the given bond.
 
     For the definition of the primary version see
@@ -311,8 +311,8 @@ def _remove_32(spinham, alpha: int, beta: int, nu: tuple) -> None:
 
     For instance, if ``(1, 0, (0, 0, 0))`` is given, then this function attempts to
     remove either both ``(1, 0, (0, 0, 0))`` and ``(0, 1, (0, 0, 0))`` if
-    ``spinham.notation.multiple_counting == True`` or the primary version
-    ``(0, 1, (0, 0, 0))`` if ``spinham.notation.multiple_counting == False``.
+    ``spinham.convention.multiple_counting == True`` or the primary version
+    ``(0, 1, (0, 0, 0))`` if ``spinham.convention.multiple_counting == False``.
     """
 
     _validate_atom_index(index=alpha, atoms=spinham.atoms)

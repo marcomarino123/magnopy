@@ -9,7 +9,7 @@ For the theoretical background on the spin Hamiltonian see
 
 :py:class:`.SpinHamiltonian` class is at the heart of magnopy. Every calculation starts
 with the definition of some spin Hamiltonian. This class stores the crystal structure,
-notation and all parameters in it.
+convention and all parameters in it.
 
 Note, that it stores the values of spins, but not the spin direction. The motivation
 behind is that for any spin Hamiltonian the direction of spin vectors would be defined
@@ -20,7 +20,7 @@ not to include them in this class to avoid confusion and unnecessary bookkeeping
 
 
 To create spin Hamiltonian one need three objects :ref:`user-guide_usage_cell`,
-:ref:`user-guide_usage_atoms` and :ref:`user-guide_usage_notation`.
+:ref:`user-guide_usage_atoms` and :ref:`user-guide_usage_convention`.
 
 .. doctest::
 
@@ -34,10 +34,10 @@ To create spin Hamiltonian one need three objects :ref:`user-guide_usage_cell`,
     ...     "spins" : [5/2, 5/2],
     ...     "g_factors" : [2, 2]
     ... }
-    >>> notation = magnopy.Notation(
+    >>> convention = magnopy.Convention(
     ...     multiple_counting=True, spin_normalized=False, c1=1, c21=1, c22=1 / 2, c31=1, c41=1
     ... )
-    >>> spinham = magnopy.SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
+    >>> spinham = magnopy.SpinHamiltonian(cell=cell, atoms=atoms, convention=convention)
 
 
 Adding and removing parameters
@@ -148,15 +148,15 @@ Cell and atoms are not meant to be changed once the Hamiltonian is created
     AttributeError: Change of the atoms dictionary is not supported after the creation of SpinHamiltonian instance. If you need to modify atoms, then use pre-defined methods of SpinHamiltonian or create a new one.
 
 
-Notation
-========
+Convention
+==========
 
-Notation of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonian.notation`).
+Convention of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonian.convention`).
 
 .. doctest::
 
-    >>> spinham.notation.summary()
-    custom notation where
+    >>> spinham.convention.summary()
+    custom convention where
       * Bonds are counted multiple times in the sum;
       * Spin vectors are not normalized;
       * c1 = 1.0;
@@ -171,14 +171,14 @@ Notation of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonia
       * Undefined c43 factor;
       * Undefined c44 factor.
 
-The notation of the Hamiltonian can be changed. If the Notation is being changed, then
+The convention of the Hamiltonian can be changed. If the convention is being changed, then
 the parameters will be adjusted accordingly. For example if we change the numerical
 factor before the two spins & one site term or remove multiple counting
 
 .. doctest::
 
-    >>> new_notation = spinham.notation.get_modified(multiple_counting=False)
-    >>> spinham.notation = new_notation
+    >>> new_convention = spinham.convention.get_modified(multiple_counting=False)
+    >>> spinham.convention = new_convention
     >>> for alpha, parameter in spinham.p21:
     ...     print(spinham.atoms.names[alpha], parameter, sep="\n")
     ...
@@ -203,8 +203,8 @@ factor before the two spins & one site term or remove multiple counting
      [0. 2. 0.]
      [0. 0. 2.]]
 
-The main principle of changing notation can be formulated as "Energy of the Hamiltonian
-should not change with its notation".
+The main principle of changing convention can be formulated as "Energy of the Hamiltonian
+should not change with its convention".
 
 Magnetic vs non-magnetic atoms
 ==============================

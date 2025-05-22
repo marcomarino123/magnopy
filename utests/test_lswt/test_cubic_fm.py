@@ -25,7 +25,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy import LSWT, ColpaFailed, Notation, SpinHamiltonian
+from magnopy import LSWT, ColpaFailed, Convention, SpinHamiltonian
 
 
 @pytest.mark.parametrize(
@@ -52,7 +52,7 @@ def test_ferromagnet_one_spin_cubic(spin_direction, k):
     spinham = SpinHamiltonian(
         cell=[[a, 0, 0], [0, a, 0], [0, 0, a]],
         atoms=atoms,
-        notation=Notation(spin_normalized=False, multiple_counting=True, c22=1),
+        convention=Convention(spin_normalized=False, multiple_counting=True, c22=1),
     )
 
     spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=J * np.eye(3, dtype=float))

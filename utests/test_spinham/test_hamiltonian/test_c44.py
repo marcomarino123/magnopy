@@ -48,7 +48,7 @@ RANDOM_UC = harrays(int, (2, 3), elements=st.integers(min_value=-1000, max_value
 def test_add_44(alpha, beta, gamma, epsilon, nu, _lambda, rho, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     if (
         0 <= alpha < len(spinham.atoms.names)
@@ -126,7 +126,7 @@ def test_add_44_sorting(
 ):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     spinham.add_44(alpha1, beta1, gamma1, epsilon1, nu1, _lambda1, rho1, parameter)
 
@@ -174,7 +174,7 @@ def test_remove_44(
 ):
     atoms = {"names": ["Cr" for _ in range(4)], "spins": [1 for _ in range(4)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     for alpha in range(len(spinham.atoms.names)):
         for beta in range(alpha, len(spinham.atoms.names)):

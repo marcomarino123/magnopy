@@ -42,7 +42,7 @@ where we explain how different elements of magnopy python library can be used
     usage/data-structures
     usage/cell
     usage/atoms
-    usage/notation
+    usage/convention
     usage/spin-hamiltonian
     usage/energy
     usage/lswt
@@ -59,5 +59,5 @@ explain how the Hamiltonian is defined and stored within magnopy.
     :maxdepth: 1
 
     theory-behind/spin-hamiltonian
-    theory-behind/hamiltonian-notation
+    theory-behind/hamiltonian-convention
     theory-behind/multiple-counting

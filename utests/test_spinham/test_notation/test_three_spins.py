@@ -26,31 +26,31 @@ from magnopy import Convention
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c31(value, new_value):
-    notation = Convention(c31=value)
+    convention = Convention(c31=value)
 
-    assert notation.c31 == value
+    assert convention.c31 == value
 
     with pytest.raises(AttributeError):
-        notation.c31 = new_value
+        convention.c31 = new_value
 
 
 @given(st.floats(allow_nan=False))
 def test_eq_c31(c31):
-    notation1 = Convention(c31=c31)
-    notation2 = Convention(c31=c31)
-    notation3 = Convention(c31=3 if c31 != 3 else 4)
-    notation4 = Convention()
+    convention1 = Convention(c31=c31)
+    convention2 = Convention(c31=c31)
+    convention3 = Convention(c31=3 if c31 != 3 else 4)
+    convention4 = Convention()
 
-    assert notation1 == notation2
-    assert notation1 != notation3
-    assert notation1 != notation4
-    assert notation2 != notation3
-    assert notation2 != notation4
-    assert notation3 != notation4
+    assert convention1 == convention2
+    assert convention1 != convention3
+    assert convention1 != convention4
+    assert convention2 != convention3
+    assert convention2 != convention4
+    assert convention3 != convention4
 
 
 def test_get_modified_c31():
-    notation = Convention(
+    convention = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -66,50 +66,50 @@ def test_get_modified_c31():
         c44=1,
     )
 
-    mod_notation = notation.get_modified(c31=2)
+    mod_convention = convention.get_modified(c31=2)
 
-    assert mod_notation.spin_normalized == True
-    assert mod_notation.multiple_counting == True
-    assert mod_notation.c1 == 1
-    assert mod_notation.c21 == 1
-    assert mod_notation.c22 == 1
-    assert mod_notation.c31 == 2
-    assert mod_notation.c32 == 1
-    assert mod_notation.c33 == 1
-    assert mod_notation.c41 == 1
-    assert mod_notation.c421 == 1
-    assert mod_notation.c422 == 1
-    assert mod_notation.c43 == 1
-    assert mod_notation.c44 == 1
+    assert mod_convention.spin_normalized == True
+    assert mod_convention.multiple_counting == True
+    assert mod_convention.c1 == 1
+    assert mod_convention.c21 == 1
+    assert mod_convention.c22 == 1
+    assert mod_convention.c31 == 2
+    assert mod_convention.c32 == 1
+    assert mod_convention.c33 == 1
+    assert mod_convention.c41 == 1
+    assert mod_convention.c421 == 1
+    assert mod_convention.c422 == 1
+    assert mod_convention.c43 == 1
+    assert mod_convention.c44 == 1
 
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c32(value, new_value):
-    notation = Convention(c32=value)
+    convention = Convention(c32=value)
 
-    assert notation.c32 == value
+    assert convention.c32 == value
 
     with pytest.raises(AttributeError):
-        notation.c32 = new_value
+        convention.c32 = new_value
 
 
 @given(st.floats(allow_nan=False))
 def test_eq_c32(c32):
-    notation1 = Convention(c32=c32)
-    notation2 = Convention(c32=c32)
-    notation3 = Convention(c32=3 if c32 != 3 else 4)
-    notation4 = Convention()
+    convention1 = Convention(c32=c32)
+    convention2 = Convention(c32=c32)
+    convention3 = Convention(c32=3 if c32 != 3 else 4)
+    convention4 = Convention()
 
-    assert notation1 == notation2
-    assert notation1 != notation3
-    assert notation1 != notation4
-    assert notation2 != notation3
-    assert notation2 != notation4
-    assert notation3 != notation4
+    assert convention1 == convention2
+    assert convention1 != convention3
+    assert convention1 != convention4
+    assert convention2 != convention3
+    assert convention2 != convention4
+    assert convention3 != convention4
 
 
 def test_get_modified_c32():
-    notation = Convention(
+    convention = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -125,50 +125,50 @@ def test_get_modified_c32():
         c44=1,
     )
 
-    mod_notation = notation.get_modified(c32=2)
+    mod_convention = convention.get_modified(c32=2)
 
-    assert mod_notation.spin_normalized == True
-    assert mod_notation.multiple_counting == True
-    assert mod_notation.c1 == 1
-    assert mod_notation.c21 == 1
-    assert mod_notation.c22 == 1
-    assert mod_notation.c31 == 1
-    assert mod_notation.c32 == 2
-    assert mod_notation.c33 == 1
-    assert mod_notation.c41 == 1
-    assert mod_notation.c421 == 1
-    assert mod_notation.c422 == 1
-    assert mod_notation.c43 == 1
-    assert mod_notation.c44 == 1
+    assert mod_convention.spin_normalized == True
+    assert mod_convention.multiple_counting == True
+    assert mod_convention.c1 == 1
+    assert mod_convention.c21 == 1
+    assert mod_convention.c22 == 1
+    assert mod_convention.c31 == 1
+    assert mod_convention.c32 == 2
+    assert mod_convention.c33 == 1
+    assert mod_convention.c41 == 1
+    assert mod_convention.c421 == 1
+    assert mod_convention.c422 == 1
+    assert mod_convention.c43 == 1
+    assert mod_convention.c44 == 1
 
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c33(value, new_value):
-    notation = Convention(c33=value)
+    convention = Convention(c33=value)
 
-    assert notation.c33 == value
+    assert convention.c33 == value
 
     with pytest.raises(AttributeError):
-        notation.c33 = new_value
+        convention.c33 = new_value
 
 
 @given(st.floats(allow_nan=False))
 def test_eq_c33(c33):
-    notation1 = Convention(c33=c33)
-    notation2 = Convention(c33=c33)
-    notation3 = Convention(c33=3 if c33 != 3 else 4)
-    notation4 = Convention()
+    convention1 = Convention(c33=c33)
+    convention2 = Convention(c33=c33)
+    convention3 = Convention(c33=3 if c33 != 3 else 4)
+    convention4 = Convention()
 
-    assert notation1 == notation2
-    assert notation1 != notation3
-    assert notation1 != notation4
-    assert notation2 != notation3
-    assert notation2 != notation4
-    assert notation3 != notation4
+    assert convention1 == convention2
+    assert convention1 != convention3
+    assert convention1 != convention4
+    assert convention2 != convention3
+    assert convention2 != convention4
+    assert convention3 != convention4
 
 
 def test_get_modified_c33():
-    notation = Convention(
+    convention = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -184,18 +184,18 @@ def test_get_modified_c33():
         c44=1,
     )
 
-    mod_notation = notation.get_modified(c33=2)
+    mod_convention = convention.get_modified(c33=2)
 
-    assert mod_notation.spin_normalized == True
-    assert mod_notation.multiple_counting == True
-    assert mod_notation.c1 == 1
-    assert mod_notation.c21 == 1
-    assert mod_notation.c22 == 1
-    assert mod_notation.c31 == 1
-    assert mod_notation.c32 == 1
-    assert mod_notation.c33 == 2
-    assert mod_notation.c41 == 1
-    assert mod_notation.c421 == 1
-    assert mod_notation.c422 == 1
-    assert mod_notation.c43 == 1
-    assert mod_notation.c44 == 1
+    assert mod_convention.spin_normalized == True
+    assert mod_convention.multiple_counting == True
+    assert mod_convention.c1 == 1
+    assert mod_convention.c21 == 1
+    assert mod_convention.c22 == 1
+    assert mod_convention.c31 == 1
+    assert mod_convention.c32 == 1
+    assert mod_convention.c33 == 2
+    assert mod_convention.c41 == 1
+    assert mod_convention.c421 == 1
+    assert mod_convention.c422 == 1
+    assert mod_convention.c43 == 1
+    assert mod_convention.c44 == 1

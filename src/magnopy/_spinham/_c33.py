@@ -140,7 +140,7 @@ class _P33_iterator:
 
     def __init__(self, spinham) -> None:
         self.container = spinham._33
-        self.mc = spinham.notation.multiple_counting
+        self.mc = spinham.convention.multiple_counting
         self.length = len(self.container)
         self.index = 0
 
@@ -316,7 +316,7 @@ def _add_33(
     r"""
     Adds a (three spins & three sites) parameter to the Hamiltonian.
 
-    Doubles of the bonds are managed automatically (independently of the notation of the
+    Doubles of the bonds are managed automatically (independently of the convention of the
     Hamiltonian).
 
 
@@ -372,11 +372,11 @@ def _add_33(
 
     Notes
     -----
-    If ``spinham.notation.multiple_counting`` is ``True``, then this function adds
+    If ``spinham.convention.multiple_counting`` is ``True``, then this function adds
     the bond and all its duplicates to the Hamiltonian. It will cause an ``ValueError``
     to add the duplicate of the bond after the bond is added.
 
-    If ``spinham.notation.multiple_counting`` is ``False``, then only the primary
+    If ``spinham.convention.multiple_counting`` is ``False``, then only the primary
     version of the bond is added to the Hamiltonian.
 
     For the definition of the primary version see
@@ -430,7 +430,7 @@ def _remove_33(
     r"""
     Removes a (three spins & three sites) parameter from the Hamiltonian.
 
-    Duplicates of the bonds are managed automatically (independently of the notation of
+    Duplicates of the bonds are managed automatically (independently of the convention of
     the Hamiltonian).
 
     Parameters
@@ -473,10 +473,10 @@ def _remove_33(
 
     Notes
     -----
-    If ``spinham.notation.multiple_counting`` is ``True``, then this function removes
+    If ``spinham.convention.multiple_counting`` is ``True``, then this function removes
     all versions of the bond from the Hamiltonian.
 
-    If ``spinham.notation.multiple_counting`` is ``False``, then this function removes
+    If ``spinham.convention.multiple_counting`` is ``False``, then this function removes
     the primary version of the given bond.
 
     For the definition of the primary version see

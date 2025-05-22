@@ -52,7 +52,7 @@ def test_ferromagnet_one_spin_cubic(spin_direction, k):
     spinham = SpinHamiltonian(
         cell=[[a, 0, 0], [0, a, 0], [0, 0, a]],
         atoms=atoms,
-        notation=Convention(spin_normalized=False, multiple_counting=True, c22=1),
+        convention=Convention(spin_normalized=False, multiple_counting=True, c22=1),
     )
 
     spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=J * np.eye(3, dtype=float))

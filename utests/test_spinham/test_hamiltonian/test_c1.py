@@ -37,7 +37,7 @@ ARRAY_3 = harrays(
 def test_add_1(alpha, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     if 0 <= alpha < len(spinham.atoms.names):
         spinham.add_1(alpha, parameter)
@@ -56,7 +56,7 @@ def test_add_1(alpha, parameter):
 def test_add_1_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     spinham.add_1(alpha1, parameter)
 
@@ -77,7 +77,7 @@ def test_add_1_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
 def test_remove_1(r_alpha):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     for alpha in range(len(spinham.atoms.names)):
         spinham.add_1(alpha, np.eye(3))

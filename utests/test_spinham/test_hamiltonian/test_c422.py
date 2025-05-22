@@ -44,7 +44,7 @@ RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value
 def test_add_422(alpha, beta, nu, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     if 0 <= alpha < len(spinham.atoms.names) and 0 <= beta < len(spinham.atoms.names):
         spinham.add_422(alpha, beta, nu, parameter)
@@ -85,7 +85,7 @@ def test_add_422_sorting(
 ):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     spinham.add_422(alpha1, beta1, nu1, parameter)
 
@@ -111,7 +111,7 @@ def test_add_422_sorting(
 def test_remove_422(r_alpha, r_beta, r_nu, nus):
     atoms = {"names": ["Cr" for _ in range(4)], "spins": [1 for _ in range(4)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
 
     for alpha in range(len(spinham.atoms.names)):
         for beta in range(alpha, len(spinham.atoms.names)):

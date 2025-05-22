@@ -34,7 +34,7 @@ from magnopy._spinham._c43 import _add_43, _p43, _remove_43
 from magnopy._spinham._c44 import _add_44, _p44, _remove_44
 from magnopy._spinham._c421 import _add_421, _p421, _remove_421
 from magnopy._spinham._c422 import _add_422, _p422, _remove_422
-from magnopy._spinham._notation import Convention
+from magnopy._spinham._convention import Convention
 from magnopy._spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
 # Save local scope at this moment
@@ -48,8 +48,8 @@ class SpinHamiltonian:
 
     Parameters
     ----------
-    notation : :py:class:`.Convention` or str
-        A notation of the spin Hamiltonian.
+    convention : :py:class:`.Convention` or str
+        A convention of the spin Hamiltonian.
     cell : (3, 3) |array-like|_
         Matrix of a cell, rows are interpreted as vectors.
     atoms : dict
@@ -57,7 +57,7 @@ class SpinHamiltonian:
 
     """
 
-    def __init__(self, cell, atoms, notation) -> None:
+    def __init__(self, cell, atoms, convention) -> None:
         self._cell = np.array(cell)
 
         self._atoms = add_sugar(atoms)
@@ -66,7 +66,7 @@ class SpinHamiltonian:
         self._magnetic_atoms = None
         self._index_map = None
 
-        self._notation = notation
+        self._convention = convention
 
         # [[alpha, parameter], ...]
         self._1 = []
@@ -125,8 +125,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> convention = magnopy.Convention()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
             >>> spinham.cell = 2 * np.eye(3)
             Traceback (most recent call last):
             ...
@@ -141,8 +141,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> convention = magnopy.Convention()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
             >>> spinham.cell
             array([[1., 0., 0.],
                    [0., 1., 0.],
@@ -188,8 +188,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> convention = magnopy.Convention()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
             >>> spinham.atoms = {"names" : ["Cr"]}
             Traceback (most recent call last):
             ...
@@ -204,8 +204,8 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
+            >>> convention = magnopy.Convention()
+            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
             >>> spinham.atoms
             {}
             >>> spinham._atoms = {"names" : ["Cr"]}
@@ -356,7 +356,7 @@ class SpinHamiltonian:
     #                          Convention properties                           #
     ############################################################################
     @property
-    def notation(self) -> Convention:
+    def convention(self) -> Convention:
         r"""
         Convention of the spin Hamiltonian.
 
@@ -365,38 +365,38 @@ class SpinHamiltonian:
         Convention
         """
 
-        return self._notation
+        return self._convention
 
-    @notation.setter
-    def notation(self, new_notation: Convention):
-        self._set_multiple_counting(new_notation._multiple_counting)
+    @convention.setter
+    def convention(self, new_convention: Convention):
+        self._set_multiple_counting(new_convention._multiple_counting)
 
-        self._set_spin_normalization(new_notation._spin_normalized)
+        self._set_spin_normalization(new_convention._spin_normalized)
 
-        self._set_c1(new_notation._c1)
+        self._set_c1(new_convention._c1)
 
-        self._set_c21(new_notation._c21)
-        self._set_c22(new_notation._c22)
+        self._set_c21(new_convention._c21)
+        self._set_c22(new_convention._c22)
 
-        self._set_c31(new_notation._c31)
-        self._set_c32(new_notation._c32)
-        self._set_c33(new_notation._c33)
+        self._set_c31(new_convention._c31)
+        self._set_c32(new_convention._c32)
+        self._set_c33(new_convention._c33)
 
-        self._set_c41(new_notation._c41)
-        self._set_c421(new_notation._c421)
-        self._set_c422(new_notation._c422)
-        self._set_c43(new_notation._c43)
-        self._set_c44(new_notation._c44)
+        self._set_c41(new_convention._c41)
+        self._set_c421(new_convention._c421)
+        self._set_c422(new_convention._c422)
+        self._set_c43(new_convention._c43)
+        self._set_c44(new_convention._c44)
 
-        self._notation = new_notation
+        self._convention = new_convention
 
     def _set_multiple_counting(self, multiple_counting: bool) -> None:
-        if multiple_counting is None or self.notation._multiple_counting is None:
+        if multiple_counting is None or self.convention._multiple_counting is None:
             return
 
         multiple_counting = bool(multiple_counting)
 
-        if self.notation.multiple_counting == multiple_counting:
+        if self.convention.multiple_counting == multiple_counting:
             return
 
         # For (two spins & two sites)
@@ -484,12 +484,12 @@ class SpinHamiltonian:
             self._44[index][7] = self._44[index][7] * factor
 
     def _set_spin_normalization(self, spin_normalized: bool) -> None:
-        if spin_normalized is None or self.notation._spin_normalized is None:
+        if spin_normalized is None or self.convention._spin_normalized is None:
             return
 
         spin_normalized = bool(spin_normalized)
 
-        if self.notation.spin_normalized == spin_normalized:
+        if self.convention.spin_normalized == spin_normalized:
             return
 
         # Before it was not normalized
@@ -650,147 +650,147 @@ class SpinHamiltonian:
                 )
 
     def _set_c1(self, new_c1: float) -> None:
-        if new_c1 is None or self.notation._c1 is None:
+        if new_c1 is None or self.convention._c1 is None:
             return
 
         new_c1 = float(new_c1)
 
-        if self.notation.c1 == new_c1:
+        if self.convention.c1 == new_c1:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._1)):
-            self._1[index][1] = self._1[index][1] * self.notation.c1 / new_c1
+            self._1[index][1] = self._1[index][1] * self.convention.c1 / new_c1
 
     def _set_c21(self, new_c21: float) -> None:
-        if new_c21 is None or self.notation._c21 is None:
+        if new_c21 is None or self.convention._c21 is None:
             return
 
         new_c21 = float(new_c21)
 
-        if self.notation.c21 == new_c21:
+        if self.convention.c21 == new_c21:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._21)):
-            self._21[index][1] = self._21[index][1] * self.notation.c21 / new_c21
+            self._21[index][1] = self._21[index][1] * self.convention.c21 / new_c21
 
     def _set_c22(self, new_c22: float) -> None:
-        if new_c22 is None or self.notation._c22 is None:
+        if new_c22 is None or self.convention._c22 is None:
             return
 
         new_c22 = float(new_c22)
 
-        if self.notation.c22 == new_c22:
+        if self.convention.c22 == new_c22:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._22)):
-            self._22[index][3] = self._22[index][3] * self.notation.c22 / new_c22
+            self._22[index][3] = self._22[index][3] * self.convention.c22 / new_c22
 
     def _set_c31(self, new_c31: float) -> None:
-        if new_c31 is None or self.notation._c31 is None:
+        if new_c31 is None or self.convention._c31 is None:
             return
 
         new_c31 = float(new_c31)
 
-        if self.notation.c31 == new_c31:
+        if self.convention.c31 == new_c31:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._31)):
-            self._31[index][1] = self._31[index][1] * self.notation.c31 / new_c31
+            self._31[index][1] = self._31[index][1] * self.convention.c31 / new_c31
 
     def _set_c32(self, new_c32: float) -> None:
-        if new_c32 is None or self.notation._c32 is None:
+        if new_c32 is None or self.convention._c32 is None:
             return
 
         new_c32 = float(new_c32)
 
-        if self.notation.c32 == new_c32:
+        if self.convention.c32 == new_c32:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._32)):
-            self._32[index][3] = self._32[index][3] * self.notation.c32 / new_c32
+            self._32[index][3] = self._32[index][3] * self.convention.c32 / new_c32
 
     def _set_c33(self, new_c33: float) -> None:
-        if new_c33 is None or self.notation._c33 is None:
+        if new_c33 is None or self.convention._c33 is None:
             return
 
         new_c33 = float(new_c33)
 
-        if self.notation.c33 == new_c33:
+        if self.convention.c33 == new_c33:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._33)):
-            self._33[index][5] = self._33[index][5] * self.notation.c33 / new_c33
+            self._33[index][5] = self._33[index][5] * self.convention.c33 / new_c33
 
     def _set_c41(self, new_c41: float) -> None:
-        if new_c41 is None or self.notation._c41 is None:
+        if new_c41 is None or self.convention._c41 is None:
             return
 
         new_c41 = float(new_c41)
 
-        if self.notation.c41 == new_c41:
+        if self.convention.c41 == new_c41:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._41)):
-            self._41[index][1] = self._41[index][1] * self.notation.c41 / new_c41
+            self._41[index][1] = self._41[index][1] * self.convention.c41 / new_c41
 
     def _set_c421(self, new_c421: float) -> None:
-        if new_c421 is None or self.notation._c421 is None:
+        if new_c421 is None or self.convention._c421 is None:
             return
 
         new_c421 = float(new_c421)
 
-        if self.notation.c421 == new_c421:
+        if self.convention.c421 == new_c421:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._421)):
-            self._421[index][3] = self._421[index][3] * self.notation.c421 / new_c421
+            self._421[index][3] = self._421[index][3] * self.convention.c421 / new_c421
 
     def _set_c422(self, new_c422: float) -> None:
-        if new_c422 is None or self.notation._c422 is None:
+        if new_c422 is None or self.convention._c422 is None:
             return
 
         new_c422 = float(new_c422)
 
-        if self.notation.c422 == new_c422:
+        if self.convention.c422 == new_c422:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._422)):
-            self._422[index][3] = self._422[index][3] * self.notation.c422 / new_c422
+            self._422[index][3] = self._422[index][3] * self.convention.c422 / new_c422
 
     def _set_c43(self, new_c43: float) -> None:
-        if new_c43 is None or self.notation._c43 is None:
+        if new_c43 is None or self.convention._c43 is None:
             return
 
         new_c43 = float(new_c43)
 
-        if self.notation.c43 == new_c43:
+        if self.convention.c43 == new_c43:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._43)):
-            self._43[index][5] = self._43[index][5] * self.notation.c43 / new_c43
+            self._43[index][5] = self._43[index][5] * self.convention.c43 / new_c43
 
     def _set_c44(self, new_c44: float) -> None:
-        if new_c44 is None or self.notation._c44 is None:
+        if new_c44 is None or self.convention._c44 is None:
             return
 
         new_c44 = float(new_c44)
 
-        if self.notation.c44 == new_c44:
+        if self.convention.c44 == new_c44:
             return
 
         # If factor is changing one has to scale parameters.
         for index in range(len(self._44)):
-            self._44[index][7] = self._44[index][7] * self.notation.c44 / new_c44
+            self._44[index][7] = self._44[index][7] * self.convention.c44 / new_c44
 
     def add_magnetic_field(self, h) -> None:
         r"""
@@ -818,8 +818,8 @@ class SpinHamiltonian:
         associated with them.
         """
 
-        if self.notation._c1 is None:
-            self.notation._c1 = 1.0
+        if self.convention._c1 is None:
+            self.convention._c1 = 1.0
 
         h = np.array(h, dtype=float)
 
@@ -829,7 +829,10 @@ class SpinHamiltonian:
 
         for i in range(0, self.M):
             new_1.append(
-                BOHR_MAGNETON * self.magnetic_atoms.g_factors[i] * h / self.notation.c1
+                BOHR_MAGNETON
+                * self.magnetic_atoms.g_factors[i]
+                * h
+                / self.convention.c1
             )
 
         for alpha, parameter in self._1:

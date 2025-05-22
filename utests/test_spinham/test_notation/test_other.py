@@ -25,60 +25,60 @@ from magnopy import Convention, ConventionError
 
 
 def tes_raises():
-    notation = Convention()
+    convention = Convention()
 
     with pytest.raises(ConventionError):
-        notation.multiple_counting
+        convention.multiple_counting
 
     with pytest.raises(ConventionError):
-        notation.spin_normalized
+        convention.spin_normalized
 
     with pytest.raises(ConventionError):
-        notation.c1
+        convention.c1
 
     with pytest.raises(ConventionError):
-        notation.c21
+        convention.c21
 
     with pytest.raises(ConventionError):
-        notation.c22
+        convention.c22
 
     with pytest.raises(ConventionError):
-        notation.c31
+        convention.c31
 
     with pytest.raises(ConventionError):
-        notation.c32
+        convention.c32
 
     with pytest.raises(ConventionError):
-        notation.c33
+        convention.c33
 
     with pytest.raises(ConventionError):
-        notation.c41
+        convention.c41
 
     with pytest.raises(ConventionError):
-        notation.c421
+        convention.c421
 
     with pytest.raises(ConventionError):
-        notation.c422
+        convention.c422
 
     with pytest.raises(ConventionError):
-        notation.c43
+        convention.c43
 
     with pytest.raises(ConventionError):
-        notation.c44
+        convention.c44
 
 
 @given(st.text())
 def test_name(name):
-    notation = Convention()
+    convention = Convention()
 
-    assert notation.name == "custom"
+    assert convention.name == "custom"
 
-    notation.name = name
+    convention.name = name
 
-    assert notation.name == name.lower()
+    assert convention.name == name.lower()
 
 
 def test_get_predefined():
-    notation = Convention.get_predefined(name="tb2j")
-    notation = Convention.get_predefined(name="vampire")
-    notation = Convention.get_predefined(name="spinW")
+    convention = Convention.get_predefined(name="tb2j")
+    convention = Convention.get_predefined(name="vampire")
+    convention = Convention.get_predefined(name="spinW")

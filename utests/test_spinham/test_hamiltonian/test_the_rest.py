@@ -43,7 +43,7 @@ def test_multiple_counting():
     spinham = SpinHamiltonian(
         cell=np.eye(3),
         atoms={"names": ["Cr1", "Cr2"]},
-        notation=Convention(multiple_counting=True),
+        convention=Convention(multiple_counting=True),
     )
 
     spinham.add_21(0, np.eye(3))
@@ -63,7 +63,7 @@ def test_multiple_counting():
     assert (params[1][3] == params[4][3]).all()
     assert (params[2][3] == params[5][3]).all()
 
-    spinham.notation = Convention(multiple_counting=False)
+    spinham.convention = Convention(multiple_counting=False)
 
     assert len(spinham._22) == 3
     assert len(spinham.p22) == 3
@@ -76,7 +76,7 @@ def test_magnetic_atoms():
     spinham = SpinHamiltonian(
         cell=np.eye(3),
         atoms={"names": ["Cr1", "Cr2"]},
-        notation=Convention(multiple_counting=True),
+        convention=Convention(multiple_counting=True),
     )
 
     spinham.add_21(0, np.eye(3))
@@ -103,11 +103,11 @@ def test_magnetic_atoms():
     assert spinham.magnetic_atoms.names[1] == "Cr2"
 
 
-def test_notation_manipulation():
+def test_convention_manipulation():
     atoms = dict(names=["Cr"], postions=[[0, 0, 0]], spins=[3 / 2])
 
     spinham = SpinHamiltonian(
-        cell=np.eye(3), atoms=atoms, notation=Convention(True, False, c21=1, c22=0.5)
+        cell=np.eye(3), atoms=atoms, convention=Convention(True, False, c21=1, c22=0.5)
     )
     spinham.add_21(0, np.eye(3))
     spinham.add_22(0, 0, (1, 0, 0), np.eye(3))
@@ -116,82 +116,82 @@ def test_notation_manipulation():
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    assert spinham.notation.multiple_counting
+    assert spinham.convention.multiple_counting
 
-    spinham.notation = Convention(False, False, c21=1, c22=0.5)
+    spinham.convention = Convention(False, False, c21=1, c22=0.5)
     assert len(spinham.p22) == 1
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 2
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=0.5)
+    spinham.convention = Convention(True, False, c21=1, c22=0.5)
     assert len(spinham.p22) == 2
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    assert not spinham.notation.spin_normalized
+    assert not spinham.convention.spin_normalized
 
-    spinham.notation = Convention(True, True, c21=1, c22=0.5)
+    spinham.convention = Convention(True, True, c21=1, c22=0.5)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 9 / 4
     assert get_isotropic_parameter(spinham.p21[0][1]) == 9 / 4
 
-    spinham.notation = Convention(True, False, c21=1, c22=0.5)
+    spinham.convention = Convention(True, False, c21=1, c22=0.5)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    assert spinham.notation.c22 == 0.5
+    assert spinham.convention.c22 == 0.5
 
-    spinham.notation = Convention(True, False, c21=1, c22=-1 / 2)
+    spinham.convention = Convention(True, False, c21=1, c22=-1 / 2)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -1
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=-1)
+    spinham.convention = Convention(True, False, c21=1, c22=-1)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=-2)
+    spinham.convention = Convention(True, False, c21=1, c22=-2)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.25
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=-1 / 2)
+    spinham.convention = Convention(True, False, c21=1, c22=-1 / 2)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -1
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=-2)
+    spinham.convention = Convention(True, False, c21=1, c22=-2)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.25
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=-1)
+    spinham.convention = Convention(True, False, c21=1, c22=-1)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    assert spinham.notation.c22 == -1
+    assert spinham.convention.c22 == -1
 
-    spinham.notation = Convention(True, False, c21=1, c22=1)
+    spinham.convention = Convention(True, False, c21=1, c22=1)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=1, c22=-1)
+    spinham.convention = Convention(True, False, c21=1, c22=-1)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention(True, False, c21=-1, c22=-1)
+    spinham.convention = Convention(True, False, c21=-1, c22=-1)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == -1
 
-    spinham.notation = Convention(True, False, c21=0.5, c22=-1)
+    spinham.convention = Convention(True, False, c21=0.5, c22=-1)
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == 2
 
-    spinham.notation = Convention(True, False, c21=1, c22=-1)
+    spinham.convention = Convention(True, False, c21=1, c22=-1)
 
-    spinham.notation = Convention.get_predefined("spinw")
+    spinham.convention = Convention.get_predefined("spinw")
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 0.5
     assert get_isotropic_parameter(spinham.p21[0][1]) == 1
 
-    spinham.notation = Convention.get_predefined("tb2j")
+    spinham.convention = Convention.get_predefined("tb2j")
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -9 / 8
     assert get_isotropic_parameter(spinham.p21[0][1]) == -9 / 4
 
-    spinham.notation = Convention.get_predefined("vampire")
+    spinham.convention = Convention.get_predefined("vampire")
     assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -9 / 4
     assert get_isotropic_parameter(spinham.p21[0][1]) == -9 / 4

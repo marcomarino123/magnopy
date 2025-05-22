@@ -13,7 +13,7 @@ Classical energy
 ================
 
 The formulas for the classical energy are written for the case of non-normalized spins,
-all other notation properties being arbitrary.
+all other convention properties being arbitrary.
 
 .. math::
     E^{(0)}
@@ -123,7 +123,7 @@ Linear Spin-wave theory (LSWT)
 ==============================
 
 The formulas for the linear spin-wace theory are written for non-normalized spins,
-with multiple counting in mind and all other notation properties being arbitrary.
+with multiple counting in mind and all other convention properties being arbitrary.
 
 There are four parameters that are important for LSWT.
 

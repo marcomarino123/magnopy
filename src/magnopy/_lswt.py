@@ -24,7 +24,7 @@ import numpy as np
 from magnopy._diagonalization import solve_via_colpa
 from magnopy._exceptions import ColpaFailed
 from magnopy._local_rf import span_local_rfs
-from magnopy._spinham._notation import Convention
+from magnopy._spinham._convention import Convention
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -81,9 +81,9 @@ class LSWT:
 
         self.spins = np.array(spinham.magnetic_atoms.spins, dtype=float)
 
-        initial_notation = spinham.notation
+        initial_convention = spinham.convention
 
-        spinham.notation = initial_notation.get_modified(
+        spinham.convention = initial_convention.get_modified(
             spin_normalized=False, multiple_counting=True
         )
 
@@ -98,14 +98,14 @@ class LSWT:
         # One spin
         for alpha, parameter in spinham.p1:
             alpha = spinham.index_map[alpha]
-            self._J1[alpha] = self._J1[alpha] + spinham.notation.c1 * parameter
+            self._J1[alpha] = self._J1[alpha] + spinham.convention.c1 * parameter
 
         # Two spins & one site
         for alpha, parameter in spinham.p21:
             alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + (
                 2
-                * spinham.notation.c21
+                * spinham.convention.c21
                 * np.einsum("ij,j->i", parameter, self.z[alpha])
                 * self.spins[alpha]
             )
@@ -115,7 +115,10 @@ class LSWT:
             alpha = spinham.index_map[alpha]
             beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
-                2 * spinham.notation.c22 * (parameter @ self.z[beta]) * self.spins[beta]
+                2
+                * spinham.convention.c22
+                * (parameter @ self.z[beta])
+                * self.spins[beta]
             )
 
         # Three spins & one site
@@ -123,7 +126,7 @@ class LSWT:
             alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + (
                 3
-                * spinham.notation.c31
+                * spinham.convention.c31
                 * np.einsum("iju,j,u->i", parameter, self.z[alpha], self.z[alpha])
                 * self.spins[alpha] ** 2
             )
@@ -134,7 +137,7 @@ class LSWT:
             beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 3
-                * spinham.notation.c32
+                * spinham.convention.c32
                 * np.einsum("iju,j,u->i", parameter, self.z[alpha], self.z[beta])
                 * self.spins[alpha]
                 * self.spins[beta]
@@ -147,7 +150,7 @@ class LSWT:
             gamma = spinham.index_map[gamma]
             self._J1[alpha] = self._J1[alpha] + (
                 3
-                * spinham.notation.c33
+                * spinham.convention.c33
                 * np.einsum("iju,j,u->i", parameter, self.z[beta], self.z[gamma])
                 * self.spins[beta]
                 * self.spins[gamma]
@@ -158,7 +161,7 @@ class LSWT:
             alpha = spinham.index_map[alpha]
             self._J1[alpha] = self._J1[alpha] + (
                 4
-                * spinham.notation.c41
+                * spinham.convention.c41
                 * np.einsum(
                     "ijuv,j,u,v->i",
                     parameter,
@@ -175,7 +178,7 @@ class LSWT:
             beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 4
-                * spinham.notation.c421
+                * spinham.convention.c421
                 * np.einsum(
                     "ijuv,j,u,v->i",
                     parameter,
@@ -193,7 +196,7 @@ class LSWT:
             beta = spinham.index_map[beta]
             self._J1[alpha] = self._J1[alpha] + (
                 4
-                * spinham.notation.c422
+                * spinham.convention.c422
                 * np.einsum(
                     "ijuv,j,u,v->i",
                     parameter,
@@ -212,7 +215,7 @@ class LSWT:
             gamma = spinham.index_map[gamma]
             self._J1[alpha] = self._J1[alpha] + (
                 4
-                * spinham.notation.c43
+                * spinham.convention.c43
                 * np.einsum(
                     "ijuv,j,u,v->i",
                     parameter,
@@ -233,7 +236,7 @@ class LSWT:
             epsilon = spinham.index_map[epsilon]
             self._J1[alpha] = self._J1[alpha] + (
                 4
-                * spinham.notation.c44
+                * spinham.convention.c44
                 * np.einsum(
                     "ijuv,j,u,v->i",
                     parameter,
@@ -259,7 +262,7 @@ class LSWT:
             if (0, 0, 0) not in self._J2:
                 self._J2[(0, 0, 0)] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
-            self._J2[(0, 0, 0)][alpha, alpha] += 2 * spinham.notation.c21 * parameter
+            self._J2[(0, 0, 0)][alpha, alpha] += 2 * spinham.convention.c21 * parameter
 
         # Three spins & one site
         for alpha, parameter in spinham.p31:
@@ -269,7 +272,7 @@ class LSWT:
 
             self._J2[(0, 0, 0)][alpha, alpha] += (
                 3
-                * spinham.notation.c31
+                * spinham.convention.c31
                 * np.einsum("iju,u->ij", parameter, self.z[alpha])
                 * self.spins[alpha]
             )
@@ -282,7 +285,7 @@ class LSWT:
 
             self._J2[(0, 0, 0)][alpha, alpha] += (
                 6
-                * spinham.notation.c41
+                * spinham.convention.c41
                 * np.einsum("ijuv,u,v->ij", parameter, self.z[alpha], self.z[alpha])
                 * self.spins[alpha] ** 2
             )
@@ -296,7 +299,7 @@ class LSWT:
             if nu not in self._J2:
                 self._J2[nu] = np.zeros((self.M, self.M, 3, 3), dtype=float)
 
-            self._J2[nu][alpha, beta] += spinham.notation.c22 * parameter
+            self._J2[nu][alpha, beta] += spinham.convention.c22 * parameter
 
         # Three spins & two sites
         for alpha, beta, nu, parameter in spinham.p32:
@@ -307,7 +310,7 @@ class LSWT:
 
             self._J2[nu][alpha, beta] += (
                 3
-                * spinham.notation.c32
+                * spinham.convention.c32
                 * np.einsum("iuj,u->ij", parameter, self.z[alpha])
                 * self.spins[alpha]
             )
@@ -322,7 +325,7 @@ class LSWT:
 
             self._J2[nu][alpha, beta] += (
                 3
-                * spinham.notation.c33
+                * spinham.convention.c33
                 * np.einsum("iju,u->ij", parameter, self.z[gamma])
                 * self.spins[gamma]
             )
@@ -336,7 +339,7 @@ class LSWT:
 
             self._J2[nu][alpha, beta] += (
                 6
-                * spinham.notation.c421
+                * spinham.convention.c421
                 * np.einsum("iuvj,u,v->ij", parameter, self.z[alpha], self.z[alpha])
                 * self.spins[alpha] ** 2
             )
@@ -350,7 +353,7 @@ class LSWT:
 
             self._J2[nu][alpha, beta] += (
                 6
-                * spinham.notation.c422
+                * spinham.convention.c422
                 * np.einsum("iujv,u,v->ij", parameter, self.z[alpha], self.z[beta])
                 * self.spins[alpha]
                 * self.spins[beta]
@@ -366,7 +369,7 @@ class LSWT:
 
             self._J2[nu][alpha, beta] += (
                 6
-                * spinham.notation.c43
+                * spinham.convention.c43
                 * np.einsum("iujv,u->ij", parameter, self.z[alpha], self.z[gamma])
                 * self.spins[alpha]
                 * self.spins[gamma]
@@ -383,13 +386,13 @@ class LSWT:
 
             self._J2[nu][alpha, beta] += (
                 6
-                * spinham.notation.c44
+                * spinham.convention.c44
                 * np.einsum("ijuv,u->ij", parameter, self.z[gamma], self.z[epsilon])
                 * self.spins[gamma]
                 * self.spins[epsilon]
             )
 
-        spinham.notation = initial_notation
+        spinham.convention = initial_convention
 
         self.A1 = 0.5 * np.sum(self._J1 * self.z, axis=1)
 

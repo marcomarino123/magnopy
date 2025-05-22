@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-R"""Pre-defined notations of spin Hamiltonian"""
+R"""Pre-defined conventions of spin Hamiltonian"""
 
 # (multiple_counting, spin_normalized, c21, c22, c31, c32, c33, c41, c421, c422, c43, c44)
 _CONVENTIONS = {

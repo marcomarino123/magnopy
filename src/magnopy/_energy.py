@@ -19,7 +19,7 @@
 
 import numpy as np
 
-from magnopy._spinham._notation import Convention
+from magnopy._spinham._convention import Convention
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -43,13 +43,13 @@ class Energy:
     """
 
     def __init__(self, spinham):
-        initial_notation = spinham.notation
+        initial_convention = spinham.convention
 
-        magnopy_notation = initial_notation.get_modified(
+        magnopy_convention = initial_convention.get_modified(
             spin_normalized=False, multiple_counting=False
         )
 
-        spinham.notation = magnopy_notation
+        spinham.convention = magnopy_convention
 
         self.spins = np.array(spinham.magnetic_atoms.spins, dtype=float)
 
@@ -62,7 +62,7 @@ class Energy:
         for atom, parameter in spinham.p1:
             alpha = spinham.index_map[atom]
 
-            self.J_1[alpha] += spinham.notation.c1 * parameter
+            self.J_1[alpha] += spinham.convention.c1 * parameter
 
         ########################################################################
         #                               Two spins                              #
@@ -73,7 +73,7 @@ class Energy:
         for atom, parameter in spinham.p21:
             alpha = spinham.index_map[atom]
 
-            self.J_21[alpha] += spinham.notation.c21 * parameter
+            self.J_21[alpha] += spinham.convention.c21 * parameter
 
         self.J_22 = {}
 
@@ -84,7 +84,7 @@ class Energy:
             if (alpha, beta) not in self.J_22:
                 self.J_22[(alpha, beta)] = np.zeros((3, 3), dtype=float)
 
-            self.J_22[(alpha, beta)] += spinham.notation.c22 * parameter
+            self.J_22[(alpha, beta)] += spinham.convention.c22 * parameter
 
         ########################################################################
         #                              Three spins                             #
@@ -95,7 +95,7 @@ class Energy:
         for atom, parameter in spinham.p31:
             alpha = spinham.index_map[atom]
 
-            self.J_31[alpha] += spinham.notation.c31 * parameter
+            self.J_31[alpha] += spinham.convention.c31 * parameter
 
         self.J_32 = {}
 
@@ -106,7 +106,7 @@ class Energy:
             if (alpha, beta) not in self.J_32:
                 self.J_32[(alpha, beta)] = np.zeros((3, 3, 3), dtype=float)
 
-            self.J_32[(alpha, beta)] += spinham.notation.c32 * parameter
+            self.J_32[(alpha, beta)] += spinham.convention.c32 * parameter
 
         self.J_33 = {}
 
@@ -118,7 +118,7 @@ class Energy:
             if (alpha, beta, gamma) not in self.J_33:
                 self.J_33[(alpha, beta, gamma)] = np.zeros((3, 3, 3), dtype=float)
 
-            self.J_33[(alpha, beta, gamma)] += spinham.notation.c33 * parameter
+            self.J_33[(alpha, beta, gamma)] += spinham.convention.c33 * parameter
 
         ########################################################################
         #                              Four spins                              #
@@ -129,7 +129,7 @@ class Energy:
         for atom, parameter in spinham.p41:
             alpha = spinham.index_map[atom]
 
-            self.J_41[alpha] += spinham.notation.c41 * parameter
+            self.J_41[alpha] += spinham.convention.c41 * parameter
 
         self.J_421 = {}
 
@@ -140,7 +140,7 @@ class Energy:
             if (alpha, beta) not in self.J_421:
                 self.J_421[(alpha, beta)] = np.zeros((3, 3, 3, 3), dtype=float)
 
-            self.J_421[(alpha, beta)] += spinham.notation.c421 * parameter
+            self.J_421[(alpha, beta)] += spinham.convention.c421 * parameter
 
         self.J_422 = {}
 
@@ -151,7 +151,7 @@ class Energy:
             if (alpha, beta) not in self.J_422:
                 self.J_422[(alpha, beta)] = np.zeros((3, 3, 3, 3), dtype=float)
 
-            self.J_422[(alpha, beta)] += spinham.notation.c422 * parameter
+            self.J_422[(alpha, beta)] += spinham.convention.c422 * parameter
 
         self.J_43 = {}
 
@@ -163,7 +163,7 @@ class Energy:
             if (alpha, beta, gamma) not in self.J_43:
                 self.J_43[(alpha, beta, gamma)] = np.zeros((3, 3, 3, 3), dtype=float)
 
-            self.J_43[(alpha, beta, gamma)] += spinham.notation.c43 * parameter
+            self.J_43[(alpha, beta, gamma)] += spinham.convention.c43 * parameter
 
         self.J_44 = {}
 
@@ -178,9 +178,11 @@ class Energy:
                     (3, 3, 3, 3), dtype=float
                 )
 
-            self.J_44[(alpha, beta, gamma, epsilon)] += spinham.notation.c44 * parameter
+            self.J_44[(alpha, beta, gamma, epsilon)] += (
+                spinham.convention.c44 * parameter
+            )
 
-        spinham.notation = initial_notation
+        spinham.convention = initial_convention
 
     def E_0(self, spin_directions) -> float:
         r"""

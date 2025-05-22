@@ -21,7 +21,7 @@ R"""
 Notation of spin Hamiltonian
 """
 
-from magnopy._exceptions import NotationError
+from magnopy._exceptions import ConventionError
 from magnopy.constants._spinham_notations import _NOTATIONS
 
 # Save local scope at this moment
@@ -83,7 +83,7 @@ class Notation:
         >>> n3.c21
         Traceback (most recent call last):
         ...
-        magnopy._exceptions.NotationError: Notation of spin Hamiltonian has an undefined property 'c21':
+        magnopy._exceptions.ConventionError: Notation of spin Hamiltonian has an undefined property 'c21':
         custom notation where
           * Bonds are counted once in the sum;
           * Spin vectors are normalized to 1;
@@ -343,7 +343,7 @@ class Notation:
         If ``True``, then pairs are counted multiple times.
         """
         if self._multiple_counting is None:
-            raise NotationError(notation=self, property="multiple_counting")
+            raise ConventionError(notation=self, property="multiple_counting")
         return self._multiple_counting
 
     @multiple_counting.setter
@@ -364,7 +364,7 @@ class Notation:
         If ``True``, then spin vectors/operators are normalized.
         """
         if self._spin_normalized is None:
-            raise NotationError(notation=self, property="spin_normalized")
+            raise ConventionError(notation=self, property="spin_normalized")
         return self._spin_normalized
 
     @spin_normalized.setter
@@ -383,7 +383,7 @@ class Notation:
         Numerical factor before the (one spin & one site) sum of the Hamiltonian.
         """
         if self._c1 is None:
-            raise NotationError(notation=self, property="c1")
+            raise ConventionError(notation=self, property="c1")
         return self._c1
 
     @c1.setter
@@ -402,7 +402,7 @@ class Notation:
         Numerical factor before the (two spins & one site) sum of the Hamiltonian.
         """
         if self._c21 is None:
-            raise NotationError(notation=self, property="c21")
+            raise ConventionError(notation=self, property="c21")
         return self._c21
 
     @c21.setter
@@ -418,7 +418,7 @@ class Notation:
         Numerical factor before the (two spins & two sites) sum of the Hamiltonian.
         """
         if self._c22 is None:
-            raise NotationError(notation=self, property="c22")
+            raise ConventionError(notation=self, property="c22")
         return self._c22
 
     @c22.setter
@@ -437,7 +437,7 @@ class Notation:
         Numerical factor before the (three spins & one site) sum of the Hamiltonian.
         """
         if self._c31 is None:
-            raise NotationError(notation=self, property="c31")
+            raise ConventionError(notation=self, property="c31")
         return self._c31
 
     @c31.setter
@@ -453,7 +453,7 @@ class Notation:
         Numerical factor before the (three spins & two sites) sum of the Hamiltonian.
         """
         if self._c32 is None:
-            raise NotationError(notation=self, property="c32")
+            raise ConventionError(notation=self, property="c32")
         return self._c32
 
     @c32.setter
@@ -469,7 +469,7 @@ class Notation:
         Numerical factor before the (three spins & three sites) sum of the Hamiltonian.
         """
         if self._c33 is None:
-            raise NotationError(notation=self, property="c33")
+            raise ConventionError(notation=self, property="c33")
         return self._c33
 
     @c33.setter
@@ -488,7 +488,7 @@ class Notation:
         Numerical factor before the (four spins & one site) sum of the Hamiltonian.
         """
         if self._c41 is None:
-            raise NotationError(notation=self, property="c41")
+            raise ConventionError(notation=self, property="c41")
         return self._c41
 
     @c41.setter
@@ -504,7 +504,7 @@ class Notation:
         Numerical factor before the (four spins & two sites (1+3)) sum of the Hamiltonian.
         """
         if self._c421 is None:
-            raise NotationError(notation=self, property="c421")
+            raise ConventionError(notation=self, property="c421")
         return self._c421
 
     @c421.setter
@@ -520,7 +520,7 @@ class Notation:
         Numerical factor before the (four spins & two sites (2+2)) sum of the Hamiltonian.
         """
         if self._c422 is None:
-            raise NotationError(notation=self, property="c422")
+            raise ConventionError(notation=self, property="c422")
         return self._c422
 
     @c422.setter
@@ -536,7 +536,7 @@ class Notation:
         Numerical factor before the (four spins & three sites) sum of the Hamiltonian.
         """
         if self._c43 is None:
-            raise NotationError(notation=self, property="c43")
+            raise ConventionError(notation=self, property="c43")
         return self._c43
 
     @c43.setter
@@ -552,7 +552,7 @@ class Notation:
         Numerical factor before the (four spins & four sites) sum of the Hamiltonian.
         """
         if self._c44 is None:
-            raise NotationError(notation=self, property="c44")
+            raise ConventionError(notation=self, property="c44")
         return self._c44
 
     @c44.setter

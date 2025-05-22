@@ -52,5 +52,5 @@ Exceptions
 .. autosummary::
   :toctree: generated/
 
-  NotationError
+  ConventionError
   ColpaFailed

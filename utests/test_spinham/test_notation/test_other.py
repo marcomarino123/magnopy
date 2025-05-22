@@ -21,49 +21,49 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy import Notation, NotationError
+from magnopy import ConventionError, Notation
 
 
 def tes_raises():
     notation = Notation()
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.multiple_counting
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.spin_normalized
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c1
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c21
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c22
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c31
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c32
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c33
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c41
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c421
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c422
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c43
 
-    with pytest.raises(NotationError):
+    with pytest.raises(ConventionError):
         notation.c44
 
 

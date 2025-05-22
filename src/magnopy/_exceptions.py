@@ -33,7 +33,7 @@ class ColpaFailed(Exception):
         super().__init__(message)
 
 
-class NotationError(Exception):
+class ConventionError(Exception):
     r"""
     Raised if notation or part of the notation of spin Hamiltonian is not defined.
     """

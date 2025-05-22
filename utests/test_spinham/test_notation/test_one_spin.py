@@ -21,12 +21,12 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy import Notation
+from magnopy import Convention
 
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c1(value, new_value):
-    notation = Notation(c1=value)
+    notation = Convention(c1=value)
 
     assert notation.c1 == value
 
@@ -36,10 +36,10 @@ def test_c1(value, new_value):
 
 @given(st.floats(allow_nan=False))
 def test_eq_c1(c1):
-    notation1 = Notation(c1=c1)
-    notation2 = Notation(c1=c1)
-    notation3 = Notation(c1=3 if c1 != 3 else 4)
-    notation4 = Notation()
+    notation1 = Convention(c1=c1)
+    notation2 = Convention(c1=c1)
+    notation3 = Convention(c1=3 if c1 != 3 else 4)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -50,7 +50,7 @@ def test_eq_c1(c1):
 
 
 def test_get_modified_c1():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,

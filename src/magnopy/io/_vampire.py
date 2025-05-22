@@ -23,7 +23,7 @@ from wulfric.crystal import get_atom_species
 
 from magnopy._package_info import logo
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy._spinham._notation import Notation
+from magnopy._spinham._notation import Convention
 from magnopy._spinham._parameter import get_anisotropic_parameter, get_dmi
 from magnopy.constants._internal_units import ENERGY
 
@@ -239,7 +239,7 @@ def dump_vampire_ucf(
         materials = [i for i in range(len(spinham.magnetic_atoms))]
 
     original_notation = spinham.notation
-    spinham.notation = Notation.get_predefined(name="Vampire")
+    spinham.notation = Convention.get_predefined(name="Vampire")
 
     if nologo:
         text = []

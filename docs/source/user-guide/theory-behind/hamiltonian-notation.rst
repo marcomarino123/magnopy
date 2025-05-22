@@ -1,8 +1,8 @@
 .. _user-guide_theory-behind_notation:
 
-****************************
-Notation of spin Hamiltonian
-****************************
+******************************
+Convention of spin Hamiltonian
+******************************
 
 
 An illustration
@@ -71,7 +71,7 @@ have to specify the notation upon the creation of spin Hamiltonian. If the Hamil
 is read from the know source (i.e. |TB2J|_, GROGU), then the notation of this source is
 known and set automatically.
 
-The Notation in magnopy is implemented in the form of the small :py:class:`.Notation`
+The Convention in magnopy is implemented in the form of the small :py:class:`.Convention`
 class and is fully defined by the following
 
 *   ``c1``, ``c21``, ``c22``, ``c31``, ``c32``, ``c33``, ``c41``, ``c421``, ``c422``,

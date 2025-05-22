@@ -21,7 +21,7 @@ import numpy as np
 from wulfric.crystal import get_distance
 
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy._spinham._notation import Notation
+from magnopy._spinham._notation import Convention
 from magnopy._spinham._parameter import get_matrix_parameter
 
 # Save local scope at this moment
@@ -53,7 +53,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
     Returns
     -------
     spinham : :py:class:`.SpinHamiltonian`
-        Spin Hamiltonian build from |TB2J|_ file. Notation is set to the one of TB2J.
+        Spin Hamiltonian build from |TB2J|_ file. Convention is set to the one of TB2J.
 
     Notes
     -----
@@ -148,7 +148,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
 
     # Create a spin Hamiltonian
     spinham = SpinHamiltonian(
-        cell=cell, atoms=atoms, notation=Notation.get_predefined(name="tb2j")
+        cell=cell, atoms=atoms, notation=Convention.get_predefined(name="tb2j")
     )
 
     # Prepare index mapping for atom names

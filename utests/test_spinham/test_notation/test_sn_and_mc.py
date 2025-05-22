@@ -21,7 +21,7 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy import Notation
+from magnopy import Convention
 
 
 ################################################################################
@@ -29,7 +29,7 @@ from magnopy import Notation
 ################################################################################
 @given(st.booleans(), st.booleans())
 def test_spin_normalized(value, new_value):
-    notation = Notation(spin_normalized=value)
+    notation = Convention(spin_normalized=value)
 
     assert notation.spin_normalized == value
 
@@ -39,10 +39,10 @@ def test_spin_normalized(value, new_value):
 
 @given(st.booleans())
 def test_eq_spin_normalized(sn):
-    notation1 = Notation(spin_normalized=sn)
-    notation2 = Notation(spin_normalized=sn)
-    notation3 = Notation(spin_normalized=not sn)
-    notation4 = Notation()
+    notation1 = Convention(spin_normalized=sn)
+    notation2 = Convention(spin_normalized=sn)
+    notation3 = Convention(spin_normalized=not sn)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -53,7 +53,7 @@ def test_eq_spin_normalized(sn):
 
 
 def test_get_modified_spin_normalized():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -91,7 +91,7 @@ def test_get_modified_spin_normalized():
 ################################################################################
 @given(st.booleans(), st.booleans())
 def test_multiple_counting(value, new_value):
-    notation = Notation(multiple_counting=value)
+    notation = Convention(multiple_counting=value)
 
     assert notation.multiple_counting == value
 
@@ -101,10 +101,10 @@ def test_multiple_counting(value, new_value):
 
 @given(st.booleans())
 def test_eq_multiple_counting(mc):
-    notation1 = Notation(multiple_counting=mc)
-    notation2 = Notation(multiple_counting=mc)
-    notation3 = Notation(multiple_counting=not mc)
-    notation4 = Notation()
+    notation1 = Convention(multiple_counting=mc)
+    notation2 = Convention(multiple_counting=mc)
+    notation3 = Convention(multiple_counting=not mc)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -115,7 +115,7 @@ def test_eq_multiple_counting(mc):
 
 
 def test_get_modified_multiple_counting():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,

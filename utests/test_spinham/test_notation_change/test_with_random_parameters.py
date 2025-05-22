@@ -23,7 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy import Energy, Notation, SpinHamiltonian
+from magnopy import Convention, Energy, SpinHamiltonian
 
 MAX_MODULUS = 1e4
 ARRAY_3 = harrays(
@@ -49,7 +49,7 @@ ARRAY_3x3x3x3 = harrays(
 
 
 def _get_spinham(p1, p2, p3, p4):
-    basic_notation = Notation(
+    basic_notation = Convention(
         spin_normalized=False,
         multiple_counting=False,
         c1=1,

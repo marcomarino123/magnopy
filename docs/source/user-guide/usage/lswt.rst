@@ -22,7 +22,7 @@ class.
     ...     "spins" : [5/2],
     ...     "g_factors" : [2]
     ... }
-    >>> notation = magnopy.Notation(
+    >>> notation = magnopy.Convention(
     ...     multiple_counting=True, spin_normalized=False, c1=1, c21=1, c22=-1 / 2, c31=1, c41=1
     ... )
     >>> spinham = magnopy.SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)

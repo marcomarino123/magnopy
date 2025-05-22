@@ -1,19 +1,19 @@
 .. _user-guide_usage_notation:
 
-********
-Notation
-********
+**********
+Convention
+**********
 
 For the theoretical background of the notation problem and why it is important see
 :ref:`user-guide_theory-behind_notation`.
 
-Magnopy implements a compact :py:class:`.Notation` class to store the notation of the
+Magnopy implements a compact :py:class:`.Convention` class to store the notation of the
 spin Hamiltonian. It stores all parameters that define notation in one data structure.
 
 .. doctest::
 
-    >>> from magnopy import Notation
-    >>> notation = Notation(multiple_counting = True, spin_normalized = False, c1 = 1, c21 = 1)
+    >>> from magnopy import Convention
+    >>> notation = Convention(multiple_counting = True, spin_normalized = False, c1 = 1, c21 = 1)
     >>> notation.name
     'custom'
     >>> notation.multiple_counting
@@ -36,11 +36,11 @@ spin Hamiltonian. It stores all parameters that define notation in one data stru
       * Undefined c43 factor;
       * Undefined c44 factor.
 
-There are two boolean properties (:py:attr:`.Notation.multiple_counting` and
-:py:attr:`.Notation.spin_normalized`) and eleven constants that fully define the
+There are two boolean properties (:py:attr:`.Convention.multiple_counting` and
+:py:attr:`.Convention.spin_normalized`) and eleven constants that fully define the
 notation of the spin Hamiltonian.
 
-Notation is one of three objects that are required for the creation of the
+Convention is one of three objects that are required for the creation of the
 :py:class:`.SpinHamiltonian` class. It is stored as an its attribute
 :py:attr:`.SpinHamiltonian.notation`.
 
@@ -58,9 +58,9 @@ the notation can not be changed
     AttributeError: It is intentionally forbidden to set properties of notation. Use correct methods of SpinHamiltonian class to change notation.
 
 If you need to have a new notation, then create a new instance of the
-:py:class:`.Notation` class.
+:py:class:`.Convention` class.
 
-For that purpose notation class has a method :py:meth:`.Notation.get_modified` that
+For that purpose notation class has a method :py:meth:`.Convention.get_modified` that
 allows you to change several properties of notation while keeping the other ones intact
 
 .. doctest::
@@ -91,8 +91,8 @@ popular codes
 
 .. doctest::
 
-    >>> tb2j_notation = Notation.get_predefined("tb2j")
-    >>> vampire_notation = Notation.get_predefined("vampire")
+    >>> tb2j_notation = Convention.get_predefined("tb2j")
+    >>> vampire_notation = Convention.get_predefined("vampire")
     >>> tb2j_notation.summary()
     tb2j notation where
       * Bonds are counted multiple times in the sum;
@@ -124,4 +124,4 @@ popular codes
       * Undefined c43 factor;
       * Undefined c44 factor.
 
-To see all supported codes see :py:meth:`.Notation.get_predefined`.
+To see all supported codes see :py:meth:`.Convention.get_predefined`.

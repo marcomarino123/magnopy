@@ -34,7 +34,7 @@ To create spin Hamiltonian one need three objects :ref:`user-guide_usage_cell`,
     ...     "spins" : [5/2, 5/2],
     ...     "g_factors" : [2, 2]
     ... }
-    >>> notation = magnopy.Notation(
+    >>> notation = magnopy.Convention(
     ...     multiple_counting=True, spin_normalized=False, c1=1, c21=1, c22=1 / 2, c31=1, c41=1
     ... )
     >>> spinham = magnopy.SpinHamiltonian(cell=cell, atoms=atoms, notation=notation)
@@ -148,10 +148,10 @@ Cell and atoms are not meant to be changed once the Hamiltonian is created
     AttributeError: Change of the atoms dictionary is not supported after the creation of SpinHamiltonian instance. If you need to modify atoms, then use pre-defined methods of SpinHamiltonian or create a new one.
 
 
-Notation
-========
+Convention
+==========
 
-Notation of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonian.notation`).
+Convention of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonian.notation`).
 
 .. doctest::
 
@@ -171,7 +171,7 @@ Notation of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonia
       * Undefined c43 factor;
       * Undefined c44 factor.
 
-The notation of the Hamiltonian can be changed. If the Notation is being changed, then
+The notation of the Hamiltonian can be changed. If the convention is being changed, then
 the parameters will be adjusted accordingly. For example if we change the numerical
 factor before the two spins & one site term or remove multiple counting
 

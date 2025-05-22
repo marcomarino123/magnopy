@@ -29,7 +29,7 @@ Classes
 .. autosummary::
     :toctree: generated/
 
-    Notation
+    Convention
     SpinHamiltonian
     Energy
     LSWT

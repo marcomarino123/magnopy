@@ -19,7 +19,7 @@
 
 import numpy as np
 
-from magnopy._spinham._notation import Notation
+from magnopy._spinham._notation import Convention
 
 # Save local scope at this moment
 old_dir = set(dir())

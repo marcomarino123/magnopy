@@ -19,11 +19,11 @@
 
 import pytest
 
-from magnopy import Energy, Notation, SpinHamiltonian
+from magnopy import Convention, Energy, SpinHamiltonian
 
 
 def _get_spinham():
-    basic_notation = Notation(
+    basic_notation = Convention(
         spin_normalized=False,
         multiple_counting=False,
         c1=1,
@@ -399,7 +399,7 @@ def test_altogether():
                                             for c422 in [-1, 0.5]:
                                                 for c43 in [-1, 0.5]:
                                                     for c44 in [-1, 0.5]:
-                                                        spinham.notation = Notation(
+                                                        spinham.notation = Convention(
                                                             spin_normalized=spin_normalized,
                                                             multiple_counting=multiple_counting,
                                                             c1=c1,

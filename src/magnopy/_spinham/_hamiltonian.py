@@ -34,7 +34,7 @@ from magnopy._spinham._c43 import _add_43, _p43, _remove_43
 from magnopy._spinham._c44 import _add_44, _p44, _remove_44
 from magnopy._spinham._c421 import _add_421, _p421, _remove_421
 from magnopy._spinham._c422 import _add_422, _p422, _remove_422
-from magnopy._spinham._notation import Notation
+from magnopy._spinham._notation import Convention
 from magnopy._spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
 # Save local scope at this moment
@@ -48,7 +48,7 @@ class SpinHamiltonian:
 
     Parameters
     ----------
-    notation : :py:class:`.Notation` or str
+    notation : :py:class:`.Convention` or str
         A notation of the spin Hamiltonian.
     cell : (3, 3) |array-like|_
         Matrix of a cell, rows are interpreted as vectors.
@@ -125,7 +125,7 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Notation()
+            >>> notation = magnopy.Convention()
             >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.cell = 2 * np.eye(3)
             Traceback (most recent call last):
@@ -141,7 +141,7 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Notation()
+            >>> notation = magnopy.Convention()
             >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.cell
             array([[1., 0., 0.],
@@ -188,7 +188,7 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Notation()
+            >>> notation = magnopy.Convention()
             >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.atoms = {"names" : ["Cr"]}
             Traceback (most recent call last):
@@ -204,7 +204,7 @@ class SpinHamiltonian:
 
             >>> import numpy as np
             >>> import magnopy
-            >>> notation = magnopy.Notation()
+            >>> notation = magnopy.Convention()
             >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, notation=notation)
             >>> spinham.atoms
             {}
@@ -353,22 +353,22 @@ class SpinHamiltonian:
         return len(self.magnetic_atoms.names)
 
     ############################################################################
-    #                           Notation properties                            #
+    #                          Convention properties                           #
     ############################################################################
     @property
-    def notation(self) -> Notation:
+    def notation(self) -> Convention:
         r"""
-        Notation of the spin Hamiltonian.
+        Convention of the spin Hamiltonian.
 
         See Also
         --------
-        Notation
+        Convention
         """
 
         return self._notation
 
     @notation.setter
-    def notation(self, new_notation: Notation):
+    def notation(self, new_notation: Convention):
         self._set_multiple_counting(new_notation._multiple_counting)
 
         self._set_spin_normalization(new_notation._spin_normalized)

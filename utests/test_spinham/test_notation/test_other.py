@@ -21,11 +21,11 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy import ConventionError, Notation
+from magnopy import Convention, ConventionError
 
 
 def tes_raises():
-    notation = Notation()
+    notation = Convention()
 
     with pytest.raises(ConventionError):
         notation.multiple_counting
@@ -69,7 +69,7 @@ def tes_raises():
 
 @given(st.text())
 def test_name(name):
-    notation = Notation()
+    notation = Convention()
 
     assert notation.name == "custom"
 
@@ -79,6 +79,6 @@ def test_name(name):
 
 
 def test_get_predefined():
-    notation = Notation.get_predefined(name="tb2j")
-    notation = Notation.get_predefined(name="vampire")
-    notation = Notation.get_predefined(name="spinW")
+    notation = Convention.get_predefined(name="tb2j")
+    notation = Convention.get_predefined(name="vampire")
+    notation = Convention.get_predefined(name="spinW")

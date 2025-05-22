@@ -18,20 +18,20 @@
 
 
 R"""
-Notation of spin Hamiltonian
+Convention of spin Hamiltonian
 """
 
 from magnopy._exceptions import ConventionError
-from magnopy.constants._spinham_notations import _NOTATIONS
+from magnopy.constants._spinham_notations import _CONVENTIONS
 
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-class Notation:
+class Convention:
     R"""
-    Notation of the spin Hamiltonian.
+    Convention of the spin Hamiltonian.
 
     For the detailed description of the notation problem see :ref:`user-guide_theory-behind_notation`.
 
@@ -72,10 +72,10 @@ class Notation:
 
     .. doctest::
 
-        >>> from magnopy import Notation
-        >>> n1 = Notation(True, True, c21=1, c22=-0.5)
-        >>> n2 = Notation(False, True, c21=1, c22=-0.5)
-        >>> n3 = Notation(False, True, c22=-0.5)
+        >>> from magnopy import Convention
+        >>> n1 = Convention(True, True, c21=1, c22=-0.5)
+        >>> n2 = Convention(False, True, c21=1, c22=-0.5)
+        >>> n3 = Convention(False, True, c22=-0.5)
         >>> n1.multiple_counting
         True
         >>> n1 == n2
@@ -83,7 +83,7 @@ class Notation:
         >>> n3.c21
         Traceback (most recent call last):
         ...
-        magnopy._exceptions.ConventionError: Notation of spin Hamiltonian has an undefined property 'c21':
+        magnopy._exceptions.ConventionError: Convention of spin Hamiltonian has an undefined property 'c21':
         custom notation where
           * Bonds are counted once in the sum;
           * Spin vectors are normalized to 1;
@@ -219,8 +219,8 @@ class Notation:
 
         .. doctest::
 
-            >>> from magnopy import Notation
-            >>> n1 = Notation(True, True, c21=1, c22=-0.5)
+            >>> from magnopy import Convention
+            >>> n1 = Convention(True, True, c21=1, c22=-0.5)
             >>> n1.summary()
             custom notation where
               * Bonds are counted multiple times in the sum;
@@ -601,7 +601,7 @@ class Notation:
 
         Returns
         -------
-        notation : :py:class:`.Notation`
+        notation : :py:class:`.Convention`
 
         Examples
         --------
@@ -609,7 +609,7 @@ class Notation:
         .. doctest::
 
             >>> import magnopy
-            >>> tb2j = magnopy.Notation.get_predefined("TB2J")
+            >>> tb2j = magnopy.Convention.get_predefined("TB2J")
             >>> tb2j.summary()
             tb2j notation where
               * Bonds are counted multiple times in the sum;
@@ -625,7 +625,7 @@ class Notation:
               * Undefined c422 factor;
               * Undefined c43 factor;
               * Undefined c44 factor.
-            >>> spinW = magnopy.Notation.get_predefined("spinW")
+            >>> spinW = magnopy.Convention.get_predefined("spinW")
             >>> spinW.summary()
             spinw notation where
               * Bonds are counted multiple times in the sum;
@@ -641,7 +641,7 @@ class Notation:
               * Undefined c422 factor;
               * Undefined c43 factor;
               * Undefined c44 factor.
-            >>> vampire = magnopy.Notation.get_predefined("Vampire")
+            >>> vampire = magnopy.Convention.get_predefined("Vampire")
             >>> vampire.summary()
             vampire notation where
               * Bonds are counted multiple times in the sum;
@@ -661,23 +661,23 @@ class Notation:
 
         name = name.lower()
 
-        if name not in _NOTATIONS:
+        if name not in _CONVENTIONS:
             ValueError(f"'{name}' notation is undefined.")
 
-        return Notation(
+        return Convention(
             name=name,
-            multiple_counting=_NOTATIONS[name][0],
-            spin_normalized=_NOTATIONS[name][1],
-            c21=_NOTATIONS[name][2],
-            c22=_NOTATIONS[name][3],
-            c31=_NOTATIONS[name][4],
-            c32=_NOTATIONS[name][5],
-            c33=_NOTATIONS[name][6],
-            c41=_NOTATIONS[name][7],
-            c421=_NOTATIONS[name][8],
-            c422=_NOTATIONS[name][9],
-            c43=_NOTATIONS[name][10],
-            c44=_NOTATIONS[name][11],
+            multiple_counting=_CONVENTIONS[name][0],
+            spin_normalized=_CONVENTIONS[name][1],
+            c21=_CONVENTIONS[name][2],
+            c22=_CONVENTIONS[name][3],
+            c31=_CONVENTIONS[name][4],
+            c32=_CONVENTIONS[name][5],
+            c33=_CONVENTIONS[name][6],
+            c41=_CONVENTIONS[name][7],
+            c421=_CONVENTIONS[name][8],
+            c422=_CONVENTIONS[name][9],
+            c43=_CONVENTIONS[name][10],
+            c44=_CONVENTIONS[name][11],
         )
 
     def get_modified(
@@ -698,7 +698,7 @@ class Notation:
         name: str = None,
     ):
         r"""
-        Returns the new instance of the :py:class:`.Notation` class based on the called
+        Returns the new instance of the :py:class:`.Convention` class based on the called
         one with changed given properties.
 
         Parameters
@@ -787,7 +787,7 @@ class Notation:
         if c44 is None:
             c44 = self._c44
 
-        return Notation(
+        return Convention(
             spin_normalized=spin_normalized,
             multiple_counting=multiple_counting,
             c1=c1,

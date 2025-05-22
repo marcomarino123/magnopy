@@ -21,12 +21,12 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from magnopy import Notation
+from magnopy import Convention
 
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c41(value, new_value):
-    notation = Notation(c41=value)
+    notation = Convention(c41=value)
 
     assert notation.c41 == value
 
@@ -36,10 +36,10 @@ def test_c41(value, new_value):
 
 @given(st.floats(allow_nan=False))
 def test_eq_c41(c41):
-    notation1 = Notation(c41=c41)
-    notation2 = Notation(c41=c41)
-    notation3 = Notation(c41=3 if c41 != 3 else 4)
-    notation4 = Notation()
+    notation1 = Convention(c41=c41)
+    notation2 = Convention(c41=c41)
+    notation3 = Convention(c41=3 if c41 != 3 else 4)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -50,7 +50,7 @@ def test_eq_c41(c41):
 
 
 def test_get_modified_c41():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -85,7 +85,7 @@ def test_get_modified_c41():
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c421(value, new_value):
-    notation = Notation(c421=value)
+    notation = Convention(c421=value)
 
     assert notation.c421 == value
 
@@ -95,10 +95,10 @@ def test_c421(value, new_value):
 
 @given(st.floats(allow_nan=False))
 def test_eq_c421(c421):
-    notation1 = Notation(c421=c421)
-    notation2 = Notation(c421=c421)
-    notation3 = Notation(c421=3 if c421 != 3 else 4)
-    notation4 = Notation()
+    notation1 = Convention(c421=c421)
+    notation2 = Convention(c421=c421)
+    notation3 = Convention(c421=3 if c421 != 3 else 4)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -109,7 +109,7 @@ def test_eq_c421(c421):
 
 
 def test_get_modified_c421():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -144,7 +144,7 @@ def test_get_modified_c421():
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c422(value, new_value):
-    notation = Notation(c422=value)
+    notation = Convention(c422=value)
 
     assert notation.c422 == value
 
@@ -154,10 +154,10 @@ def test_c422(value, new_value):
 
 @given(st.floats(allow_nan=False))
 def test_eq_c422(c422):
-    notation1 = Notation(c422=c422)
-    notation2 = Notation(c422=c422)
-    notation3 = Notation(c422=3 if c422 != 3 else 4)
-    notation4 = Notation()
+    notation1 = Convention(c422=c422)
+    notation2 = Convention(c422=c422)
+    notation3 = Convention(c422=3 if c422 != 3 else 4)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -168,7 +168,7 @@ def test_eq_c422(c422):
 
 
 def test_get_modified_c422():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -203,7 +203,7 @@ def test_get_modified_c422():
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c43(value, new_value):
-    notation = Notation(c43=value)
+    notation = Convention(c43=value)
 
     assert notation.c43 == value
 
@@ -213,10 +213,10 @@ def test_c43(value, new_value):
 
 @given(st.floats(allow_nan=False))
 def test_eq_c43(c43):
-    notation1 = Notation(c43=c43)
-    notation2 = Notation(c43=c43)
-    notation3 = Notation(c43=3 if c43 != 3 else 4)
-    notation4 = Notation()
+    notation1 = Convention(c43=c43)
+    notation2 = Convention(c43=c43)
+    notation3 = Convention(c43=3 if c43 != 3 else 4)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -227,7 +227,7 @@ def test_eq_c43(c43):
 
 
 def test_get_modified_c43():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,
@@ -262,7 +262,7 @@ def test_get_modified_c43():
 
 @given(st.floats(allow_nan=False), st.floats(allow_nan=False))
 def test_c44(value, new_value):
-    notation = Notation(c44=value)
+    notation = Convention(c44=value)
 
     assert notation.c44 == value
 
@@ -272,10 +272,10 @@ def test_c44(value, new_value):
 
 @given(st.floats(allow_nan=False))
 def test_eq_c44(c44):
-    notation1 = Notation(c44=c44)
-    notation2 = Notation(c44=c44)
-    notation3 = Notation(c44=3 if c44 != 3 else 4)
-    notation4 = Notation()
+    notation1 = Convention(c44=c44)
+    notation2 = Convention(c44=c44)
+    notation3 = Convention(c44=3 if c44 != 3 else 4)
+    notation4 = Convention()
 
     assert notation1 == notation2
     assert notation1 != notation3
@@ -286,7 +286,7 @@ def test_eq_c44(c44):
 
 
 def test_get_modified_c44():
-    notation = Notation(
+    notation = Convention(
         spin_normalized=True,
         multiple_counting=True,
         c1=1,

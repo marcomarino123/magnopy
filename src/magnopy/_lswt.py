@@ -24,7 +24,7 @@ import numpy as np
 from magnopy._diagonalization import solve_via_colpa
 from magnopy._exceptions import ColpaFailed
 from magnopy._local_rf import span_local_rfs
-from magnopy._spinham._notation import Notation
+from magnopy._spinham._notation import Convention
 
 # Save local scope at this moment
 old_dir = set(dir())

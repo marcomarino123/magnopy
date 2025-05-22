@@ -20,7 +20,7 @@
 import numpy as np
 
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy._spinham._notation import Notation
+from magnopy._spinham._notation import Convention
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -79,7 +79,7 @@ def load_grogu(filename) -> SpinHamiltonian:
 
         i += 1
 
-    notation = Notation(multiple_counting=True, spin_normalized=True, c22=0.5, c21=1)
+    notation = Convention(multiple_counting=True, spin_normalized=True, c22=0.5, c21=1)
 
     # Construct spin Hamiltonian:
     spinham = SpinHamiltonian(notation=notation, cell=cell, atoms=atoms)

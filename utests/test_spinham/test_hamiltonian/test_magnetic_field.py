@@ -23,7 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy import Notation, SpinHamiltonian
+from magnopy import Convention, SpinHamiltonian
 
 MAX_MODULUS = 1e8
 ARRAY_3 = harrays(
@@ -41,7 +41,7 @@ def test_add_remove(alpha, h):
         "g_factors": [2 for _ in range(9)],
     }
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
 
     for i in range(9):
         spinham.add_21(alpha=i, parameter=np.eye(3))
@@ -63,7 +63,7 @@ def test_double_add(alpha, h):
         "g_factors": [2 for _ in range(9)],
     }
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Notation())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, notation=Convention())
 
     for i in range(9):
         spinham.add_21(alpha=i, parameter=np.eye(3))

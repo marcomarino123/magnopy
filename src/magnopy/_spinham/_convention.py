@@ -33,7 +33,7 @@ class Convention:
     R"""
     Convention of the spin Hamiltonian.
 
-    For the detailed description of the convention problem see :ref:`user-guide_theory-behind_convention`.
+    For the detailed description of the convention problem see :ref:`user-guide_theory-behind_convention-problem`.
 
     Parameters
     ----------

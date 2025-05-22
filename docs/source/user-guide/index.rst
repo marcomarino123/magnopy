@@ -59,5 +59,5 @@ explain how the Hamiltonian is defined and stored within magnopy.
     :maxdepth: 1
 
     theory-behind/spin-hamiltonian
-    theory-behind/hamiltonian-convention
+    theory-behind/convention-problem
     theory-behind/multiple-counting

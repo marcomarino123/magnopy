@@ -21,7 +21,7 @@ What is magnopy?
 ================
 
 Magnopy is a python code that, given :ref:`user-guide_theory-behind_spin-hamiltonian` in **any**
-:ref:`convention <user-guide_theory-behind_convention>`, computes bosonic Hamiltonian
+:ref:`convention <user-guide_theory-behind_convention-problem>`, computes bosonic Hamiltonian
 of the form
 
 .. include:: core-formulas/bosonic-hamiltonian.inc

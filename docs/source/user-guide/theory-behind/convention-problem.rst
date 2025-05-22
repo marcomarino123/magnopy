@@ -1,8 +1,8 @@
-.. _user-guide_theory-behind_convention:
+.. _user-guide_theory-behind_convention-problem:
 
-******************************
-Convention of spin Hamiltonian
-******************************
+******************
+Convention problem
+******************
 
 
 An illustration

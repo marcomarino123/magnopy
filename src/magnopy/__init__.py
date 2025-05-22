@@ -17,9 +17,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __doclink__ = "magnopy.org"
-__release_date__ = "20 May 2025"
+__release_date__ = "22 May 2025"
 
 from . import constants, io, scenarios
 from ._diagonalization import *

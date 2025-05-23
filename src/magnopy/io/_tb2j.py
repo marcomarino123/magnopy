@@ -19,6 +19,7 @@
 
 import numpy as np
 from wulfric.crystal import get_distance
+from wulfric.geometry import absolute_to_relative
 
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
@@ -118,8 +119,11 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
                 except IndexError:
                     charge = None
 
+                position = absolute_to_relative(
+                    basis=cell, vector=np.array(tuple(map(float, line[1:4])))
+                )
                 atoms["names"].append(line[0])
-                atoms["positions"].append(np.array(tuple(map(float, line[1:4]))))
+                atoms["positions"].append(position)
                 atoms["magnetic_moments"].append(magmom)
                 atoms["charges"].append(charge)
 

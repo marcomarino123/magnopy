@@ -17,6 +17,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import os
+
 import numpy as np
 from wulfric.cell import get_params
 from wulfric.crystal import get_atom_species
@@ -75,7 +77,12 @@ def dump_vampire(
         Content of the .UCF file if ``filename`` is not given.
     """
 
-    dump_ucf(
+    head, _ = os.path.split(seedname)
+
+    if head != "":
+        os.makedirs(head, exist_ok=True)
+
+    dump_vampire_ucf(
         spinham,
         filename=seedname + ".UCF",
         anisotropic=anisotropic,
@@ -85,13 +92,13 @@ def dump_vampire(
         materials=materials,
         nologo=nologo,
     )
-    dump_mat(
+    dump_vampire_mat(
         spinham,
         filename=seedname + ".mat",
         materials=materials,
         nologo=nologo,
     )
-    with open("input", "w", encoding="utf-8") as file:
+    with open(os.path.join(head, "input"), "w", encoding="utf-8") as file:
         if not nologo:
             file.write(logo(comment=True, date_time=True) + "\n")
 
@@ -142,11 +149,11 @@ def dump_vampire_mat(
     """
 
     if materials is None:
-        materials = [i for i in range(len(spinham.magnetic_atoms))]
+        materials = [i for i in range(len(spinham.magnetic_atoms.names))]
     else:
-        if len(materials) != len(spinham.magnetic_atoms):
+        if len(materials) != len(spinham.magnetic_atoms.names):
             raise ValueError(
-                f"Expected {len(spinham.magnetic_atoms)} materials, got "
+                f"Expected {len(spinham.magnetic_atoms.names)} materials, got "
                 f"{len(materials)}."
             )
         materials_pool = set(materials)
@@ -165,18 +172,20 @@ def dump_vampire_mat(
 
     text.append(f"material:num-materials = {max(materials)+1}")
 
-    for i, index in enumerate(spinham.magnetic_atoms):
+    for i in range(spinham.M):
         if materials[i] not in materials[:i]:
             m_i = materials[i] + 1
             text.append("#---------------------------------------------------")
             text.append(f"# Material {m_i} \n")
             text.append("#---------------------------------------------------")
-            text.append(f"material[{m_i}]:material-name = {spinham.atoms.names[index]}")
             text.append(
-                f"material[{m_i}]:material-element = {get_atom_species(spinham.atoms.names[index])}"
+                f"material[{m_i}]:material-name = {spinham.magnetic_atoms.names[i]}"
             )
             text.append(
-                f"material[{m_i}]:atomic-spin-moment={spinham.atoms.spins[index]} ! muB"
+                f"material[{m_i}]:material-element = {get_atom_species(spinham.magnetic_atoms.names[i])}"
+            )
+            text.append(
+                f"material[{m_i}]:atomic-spin-moment={spinham.magnetic_atoms.spins[i]*spinham.magnetic_atoms.g_factors[i]} ! muB"
             )
             text.append(f"material[{m_i}]:initial-spin-direction = random")
             text.append(f"material[{m_i}]:damping-constant = 0.1")
@@ -236,7 +245,7 @@ def dump_vampire_ucf(
         Content of the .UCF file if ``filename`` is not given.
     """
     if materials is None:
-        materials = [i for i in range(len(spinham.magnetic_atoms))]
+        materials = [i for i in range(len(spinham.magnetic_atoms.names))]
 
     original_convention = spinham.convention
     spinham.convention = Convention.get_predefined(name="Vampire")
@@ -260,25 +269,23 @@ def dump_vampire_ucf(
         f"{spinham.cell[2][0]:15.8f} {spinham.cell[2][1]:15.8f} {spinham.cell[2][2]:15.8f}"
     )
     text.append("# Atoms")
-    text.append(f"{len(spinham.magnetic_atoms)} {len(np.unique(materials))}")
+    text.append(f"{len(spinham.magnetic_atoms.names)} {len(np.unique(materials))}")
 
-    index_mapping = {}
-    i = 0
-    for index in spinham.magnetic_atoms:
-        position = spinham.atoms.positions[index]
+    for alpha in range(spinham.M):
+        position = spinham.magnetic_atoms.positions[alpha]
         text.append(
-            f"{index:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[0]:>5}"
+            f"{alpha:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[0]:>5}"
         )
-        index_mapping[atom] = i
-        i += 1
 
     text.append("# Interactions")
     text.append(f"{len(spinham.p22)} tensorial")
 
     IID = 0
+    fmt = f"{7+decimals}.{decimals}e"
 
     # Write (two spins & one site)
-    for atom1, J in spinham.p21:
+    for alpha, J in spinham.p21:
+        alpha = spinham.index_map[alpha]
         if custom_mask is not None:
             J = custom_mask(J)
         else:
@@ -287,9 +294,8 @@ def dump_vampire_ucf(
             if not anisotropic:
                 J -= get_anisotropic_parameter(J)
         J = J * ENERGY
-        fmt = f"{7+decimals}.{decimals}e"
         text.append(
-            f"{IID:<5} {index_mapping[atom1]:>3} {index_mapping[atom1]:>3}  {0:>2} {0:>2} {0:>2}  "
+            f"{IID:<5} {alpha:>3} {alpha:>3}  {0:>2} {0:>2} {0:>2}  "
             f"{J[0][0]:{fmt}} {J[0][1]:{fmt}} {J[0][2]:{fmt}} "
             f"{J[1][0]:{fmt}} {J[1][1]:{fmt}} {J[1][2]:{fmt}} "
             f"{J[2][0]:{fmt}} {J[2][1]:{fmt}} {J[2][2]:{fmt}}"
@@ -297,7 +303,10 @@ def dump_vampire_ucf(
         IID += 1
 
     # Write (two spins & two sites)
-    for atom1, atom2, (i, j, k), J in spinham.p22:
+    bonds = []
+    for alpha, beta, nu, J in spinham.p22:
+        alpha = spinham.index_map[alpha]
+        beta = spinham.index_map[beta]
         if custom_mask is not None:
             J = custom_mask(J)
         else:
@@ -305,10 +314,19 @@ def dump_vampire_ucf(
                 J -= get_dmi(J, matrix_form=True)
             if not anisotropic:
                 J -= get_anisotropic_parameter(J)
+        # print(alpha, beta, nu)
+        # print(J, end="\n\n")
         J = J * ENERGY
-        fmt = f"{7+decimals}.{decimals}e"
+        r_alpha = np.array(spinham.magnetic_atoms.positions[alpha])
+        r_beta = np.array(spinham.magnetic_atoms.positions[beta])
+
+        distance = np.linalg.norm((r_beta - r_alpha + nu) @ spinham.cell)
+        bonds.append([alpha, beta, nu, J, distance])
+
+    bonds = sorted(bonds, key=lambda x: x[4])
+    for alpha, beta, (i, j, k), J, _ in bonds:
         text.append(
-            f"{IID:<5} {index_mapping[atom1]:>3} {index_mapping[atom2]:>3}  {i:>2} {j:>2} {k:>2}  "
+            f"{IID:<5} {alpha:>3} {beta:>3}  {i:>2} {j:>2} {k:>2}  "
             f"{J[0][0]:{fmt}} {J[0][1]:{fmt}} {J[0][2]:{fmt}} "
             f"{J[1][0]:{fmt}} {J[1][1]:{fmt}} {J[1][2]:{fmt}} "
             f"{J[2][0]:{fmt}} {J[2][1]:{fmt}} {J[2][2]:{fmt}}"

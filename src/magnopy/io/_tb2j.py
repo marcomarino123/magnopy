@@ -19,6 +19,7 @@
 
 import numpy as np
 from wulfric.crystal import get_distance
+from wulfric.geometry import absolute_to_relative
 
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian

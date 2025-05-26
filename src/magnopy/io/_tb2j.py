@@ -185,6 +185,10 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
             if line and dmi_flag in line:
                 dmi = tuple(map(float, line.translate(garbage).split()[-3:]))
 
+        parameter = get_matrix_parameter(iso=iso, dmi=dmi)
+        if aniso is not None:
+            parameter = parameter + aniso
+
         # Adding info from the exchange block to the SpinHamiltonian structure
         spinham.add_22(
             alpha=atom1,
@@ -193,7 +197,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
             # Avoid passing aniso to the function as then the function make it traceless
             # and symmetric, potentially loosing part of the matrix.
             # Due to the TB2J problem: aniso not always traceless.
-            parameter=get_matrix_parameter(iso=iso, dmi=dmi) + aniso,
+            parameter=parameter,
             replace=True,
         )
 
@@ -205,7 +209,6 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
                 + f"Read: {distance:.4f}\n"
             )
 
-    print(len(spinham.p22))
     # Populate spins of atoms
     if spins is not None:
         if len(spins) != spinham.M:

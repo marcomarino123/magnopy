@@ -98,7 +98,7 @@ def dump_vampire(
         materials=materials,
         nologo=nologo,
     )
-    with open(os.path.join(head, "input"), "w", encoding="utf-8") as file:
+    with open(os.path.join(head, "input-template"), "w", encoding="utf-8") as file:
         if not nologo:
             file.write(logo(comment=True, date_time=True) + "\n")
 

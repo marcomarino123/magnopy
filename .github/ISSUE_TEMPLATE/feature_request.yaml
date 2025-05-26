@@ -40,6 +40,7 @@ body:
         - MacOS
         - Linux
         - Windows
+        - OS-independent
     validations:
       required: false
   - type: input
@@ -62,21 +63,3 @@ body:
         magnopy --version
         ```
         in your terminal to check the version of Magnopy.
-  - type: input
-    id: commit
-    attributes:
-      label: Hash of the commit
-      description: What commit is the base for the release?
-      placeholder: ex. 060e69cd7e87c299c26f50f0a926667825681759
-    validations:
-      required: false
-  - type: markdown
-    attributes:
-      value: |
-        Use command
-        ```bash
-        magnopy --git-commit
-        or
-        magnopy -gc
-        ```
-        in your terminal to check the hash of the commit.

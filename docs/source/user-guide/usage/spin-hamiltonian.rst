@@ -220,10 +220,10 @@ magnetic atoms. The order of atoms is the same in both.
 
 The indices in the specification of parameters correspond to the
 :py:attr:`.SpinHamiltonian.atoms`. If you need to convert an index of
-:py:attr:`.SpinHamiltonian.magnetic_atoms` to an index of
-:py:attr:`.SpinHamiltonian.atoms` use the property :py:attr:`.SpinHamiltonian.index_map`
+:py:attr:`.SpinHamiltonian.atoms` to an index of
+:py:attr:`.SpinHamiltonian.magnetic_atoms` use the property :py:attr:`.SpinHamiltonian.map_to_magnetic`
 
 .. doctest::
 
     >>> index_in_atoms = 0
-    >>> index_in_magnetic_atoms = spinham.index_map[index_in_atoms]
+    >>> index_in_magnetic_atoms = spinham.map_to_magnetic[index_in_atoms]

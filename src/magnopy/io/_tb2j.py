@@ -140,16 +140,6 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
 
     atoms["g_factors"] = g_factors
 
-    # Populate spins of atoms
-    if spins is None:
-        spins = [
-            float(np.linalg.norm(atoms["magnetic_moments"][alpha]))
-            / atoms["g_factors"][alpha]
-            for alpha in range(len(atoms["names"]))
-        ]
-
-    atoms["spins"] = spins
-
     # Create a spin Hamiltonian
     spinham = SpinHamiltonian(
         cell=cell, atoms=atoms, convention=Convention.get_predefined(name="tb2j")
@@ -214,6 +204,32 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
                 + f"  Computed: {computed_distance:.4f}\n  "
                 + f"Read: {distance:.4f}\n"
             )
+
+    print(len(spinham.p22))
+    # Populate spins of atoms
+    if spins is not None:
+        if len(spins) != spinham.M:
+            raise ValueError(f"Expected {spinha.M} spin values, got {len(spins)}")
+        true_spins = [0.0 for _ in spinham.atoms.names]
+
+        for i in range(len(spins)):
+            print(i)
+            true_spins[spinham.map_to_all[i]] = spins[i]
+    else:
+        if atoms["magnetic_moments"][0] is None:
+            raise ValueError(
+                r"There is no magnetic moments in the TB2J file and no spin values "
+                "provided by the user. Either provide spin values or use another TB2J "
+                "file."
+            )
+        true_spins = [
+            float(np.linalg.norm(atoms["magnetic_moments"][alpha]))
+            / atoms["g_factors"][alpha]
+            for alpha in range(len(atoms["names"]))
+        ]
+
+    spinham.atoms["spins"] = true_spins
+    spinham._reset_internals()
 
     return spinham
 

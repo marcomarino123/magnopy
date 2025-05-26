@@ -11,15 +11,25 @@ Whats new?
 
 First release of magnopy.
 
+0.1.5
+-----
+
+**Date**: 26 May 2025
+
+*   Fix :issue:`23`.
+
 0.1.4
 -----
+.. warning::
+    We recommend not to use this version with the hamiltonian from the collinear TB2J
+    calculations.
 
 **Date**: 23 May 2025
 
 *   Fix a bug in the TB2J reader. Atom's positions were read as absolute instead of relative.
     Now they are read as relative, as it should be.
 
-* Fix various bugs in the vampire output.
+*   Fix various bugs in the vampire output.
 
 0.1.3
 -----

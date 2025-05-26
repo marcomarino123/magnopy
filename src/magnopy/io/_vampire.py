@@ -285,7 +285,7 @@ def dump_vampire_ucf(
 
     # Write (two spins & one site)
     for alpha, J in spinham.p21:
-        alpha = spinham.index_map[alpha]
+        alpha = spinham.map_to_magnetic[alpha]
         if custom_mask is not None:
             J = custom_mask(J)
         else:
@@ -305,8 +305,8 @@ def dump_vampire_ucf(
     # Write (two spins & two sites)
     bonds = []
     for alpha, beta, nu, J in spinham.p22:
-        alpha = spinham.index_map[alpha]
-        beta = spinham.index_map[beta]
+        alpha = spinham.map_to_magnetic[alpha]
+        beta = spinham.map_to_magnetic[beta]
         if custom_mask is not None:
             J = custom_mask(J)
         else:

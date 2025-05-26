@@ -64,7 +64,8 @@ class SpinHamiltonian:
 
         # Only the magnetic sites
         self._magnetic_atoms = None
-        self._index_map = None
+        self._map_to_magnetic = None
+        self._map_to_all = None
 
         self._convention = convention
 
@@ -227,7 +228,8 @@ class SpinHamiltonian:
         )
 
     def _reset_internals(self):
-        self._index_map = None
+        self._map_to_magnetic = None
+        self._map_to_all = None
         self._magnetic_atoms = None
 
     def _update_internals(self):
@@ -280,14 +282,16 @@ class SpinHamiltonian:
 
         indices = sorted(list(indices))
 
-        # Create index map
-        self._index_map = [None for _ in range(len(self.atoms.names))]
+        # Create index map from all to magnetic
+        self._map_to_magnetic = [None for _ in range(len(self.atoms.names))]
         for i in range(len(indices)):
-            self._index_map[indices[i]] = i
+            self._map_to_magnetic[indices[i]] = i
+
+        # Create index map from magnetic to all
+        self._map_to_all = indices
 
         # Create magnetic atoms dictionary
         self._magnetic_atoms = add_sugar({})
-
         for key in self.atoms:
             self._magnetic_atoms[key] = []
 
@@ -295,20 +299,36 @@ class SpinHamiltonian:
                 self._magnetic_atoms[key].append(self.atoms[key][full_index])
 
     @property
-    def index_map(self):
+    def map_to_magnetic(self):
         r"""
         Index map from all atoms to the magnetic ones.
 
         Returns
         -------
-        index_map (L, ) list of int
+        map_to_magnetic (L, ) list of int
             Index map. Integers. ``L = len(spinham.atoms.names)``
         """
 
-        if self._index_map is None:
+        if self._map_to_magnetic is None:
             self._update_internals()
 
-        return self._index_map
+        return self._map_to_magnetic
+
+    @property
+    def map_to_all(self):
+        r"""
+        Index map from magnetic atoms to all atoms.
+
+        Returns
+        -------
+        map_to_all (M, ) list of int
+            Index map. Integers. ``M = len(spinham.magnetic_atoms.names)``
+        """
+
+        if self._map_to_all is None:
+            self._update_internals()
+
+        return self._map_to_all
 
     @property
     def magnetic_atoms(self):
@@ -836,7 +856,9 @@ class SpinHamiltonian:
             )
 
         for alpha, parameter in self._1:
-            new_1[self.index_map[alpha]] = new_1[self.index_map[alpha]] + parameter
+            new_1[self.map_to_magnetic[alpha]] = (
+                new_1[self.map_to_magnetic[alpha]] + parameter
+            )
 
         self._1 = list(map(list, zip(range(self.M), new_1)))
 

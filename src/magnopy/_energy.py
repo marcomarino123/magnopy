@@ -60,7 +60,7 @@ class Energy:
         self.J_1 = np.zeros((spinham.M, 3), dtype=float)
 
         for atom, parameter in spinham.p1:
-            alpha = spinham.index_map[atom]
+            alpha = spinham.map_to_magnetic[atom]
 
             self.J_1[alpha] += spinham.convention.c1 * parameter
 
@@ -71,15 +71,15 @@ class Energy:
         self.J_21 = np.zeros((spinham.M, 3, 3), dtype=float)
 
         for atom, parameter in spinham.p21:
-            alpha = spinham.index_map[atom]
+            alpha = spinham.map_to_magnetic[atom]
 
             self.J_21[alpha] += spinham.convention.c21 * parameter
 
         self.J_22 = {}
 
         for atom1, atom2, _, parameter in spinham.p22:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
 
             if (alpha, beta) not in self.J_22:
                 self.J_22[(alpha, beta)] = np.zeros((3, 3), dtype=float)
@@ -93,15 +93,15 @@ class Energy:
         self.J_31 = np.zeros((spinham.M, 3, 3, 3), dtype=float)
 
         for atom, parameter in spinham.p31:
-            alpha = spinham.index_map[atom]
+            alpha = spinham.map_to_magnetic[atom]
 
             self.J_31[alpha] += spinham.convention.c31 * parameter
 
         self.J_32 = {}
 
         for atom1, atom2, _, parameter in spinham.p32:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
 
             if (alpha, beta) not in self.J_32:
                 self.J_32[(alpha, beta)] = np.zeros((3, 3, 3), dtype=float)
@@ -111,9 +111,9 @@ class Energy:
         self.J_33 = {}
 
         for atom1, atom2, atom3, _, _, parameter in spinham.p33:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
-            gamma = spinham.index_map[atom3]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
+            gamma = spinham.map_to_magnetic[atom3]
 
             if (alpha, beta, gamma) not in self.J_33:
                 self.J_33[(alpha, beta, gamma)] = np.zeros((3, 3, 3), dtype=float)
@@ -127,15 +127,15 @@ class Energy:
         self.J_41 = np.zeros((spinham.M, 3, 3, 3, 3), dtype=float)
 
         for atom, parameter in spinham.p41:
-            alpha = spinham.index_map[atom]
+            alpha = spinham.map_to_magnetic[atom]
 
             self.J_41[alpha] += spinham.convention.c41 * parameter
 
         self.J_421 = {}
 
         for atom1, atom2, _, parameter in spinham.p421:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
 
             if (alpha, beta) not in self.J_421:
                 self.J_421[(alpha, beta)] = np.zeros((3, 3, 3, 3), dtype=float)
@@ -145,8 +145,8 @@ class Energy:
         self.J_422 = {}
 
         for atom1, atom2, _, parameter in spinham.p422:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
 
             if (alpha, beta) not in self.J_422:
                 self.J_422[(alpha, beta)] = np.zeros((3, 3, 3, 3), dtype=float)
@@ -156,9 +156,9 @@ class Energy:
         self.J_43 = {}
 
         for atom1, atom2, atom3, _, _, parameter in spinham.p43:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
-            gamma = spinham.index_map[atom3]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
+            gamma = spinham.map_to_magnetic[atom3]
 
             if (alpha, beta, gamma) not in self.J_43:
                 self.J_43[(alpha, beta, gamma)] = np.zeros((3, 3, 3, 3), dtype=float)
@@ -168,10 +168,10 @@ class Energy:
         self.J_44 = {}
 
         for atom1, atom2, atom3, atom4, _, _, _, parameter in spinham.p44:
-            alpha = spinham.index_map[atom1]
-            beta = spinham.index_map[atom2]
-            gamma = spinham.index_map[atom3]
-            epsilon = spinham.index_map[atom4]
+            alpha = spinham.map_to_magnetic[atom1]
+            beta = spinham.map_to_magnetic[atom2]
+            gamma = spinham.map_to_magnetic[atom3]
+            epsilon = spinham.map_to_magnetic[atom4]
 
             if (alpha, beta, gamma, epsilon) not in self.J_44:
                 self.J_44[(alpha, beta, gamma, epsilon)] = np.zeros(

@@ -209,7 +209,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
     # Populate spins of atoms
     if spins is not None:
         if len(spins) != spinham.M:
-            raise ValueError(f"Expected {spinha.M} spin values, got {len(spins)}")
+            raise ValueError(f"Expected {spinham.M} spin values, got {len(spins)}")
         true_spins = [0.0 for _ in spinham.atoms.names]
 
         for i in range(len(spins)):

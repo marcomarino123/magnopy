@@ -45,8 +45,8 @@ def manager():
             (len(args.spin_directions) // 3, 3)
         )
 
-    if args.spins is not None:
-        args.spins = [float(tmp) for tmp in args.spins]
+    if args.spin_values is not None:
+        args.spin_values = [float(tmp) for tmp in args.spin_values]
 
     kpoints = []
     if args.kpoints is not None:
@@ -116,15 +116,17 @@ def get_parser():
         " * Give a sequence of 3*M numbers directly to this parameter.",
     )
     parser.add_argument(
-        "-s",
-        "--spins",
+        "-sv",
+        "--spin-values",
         nargs="*",
         type=str,
         metavar="S1 S2 S3 ...",
         help="In the case when the parameters of spin Hamiltonian comes from TB2J, one "
         "might want to change the values of spins to be closer to half-integers. This "
         "option allows that. Order of the M numbers should match the order of magnetic "
-        "atoms in the spin Hamiltonian.",
+        "atoms in the spin Hamiltonian. Note that those numbers are alvaus positive. To "
+        "specify AFM order use opposite spin directions and not spin values of the "
+        "opposite sign.",
     )
     parser.add_argument(
         "-kp",

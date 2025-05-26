@@ -41,7 +41,7 @@ def solve_lswt(
     spinham_filename: str,
     spinham_source: str,
     spin_directions,
-    spins=None,
+    spin_values=None,
     k_path=None,
     kpoints=None,
     relative=False,
@@ -64,7 +64,7 @@ def solve_lswt(
     spin_directions : (M, 3) |array-like|_
         Directions of the local quantization axis for each spin. Magnitude of the vector
         is ignored, only the direction is considered.
-    spins : (M, ) |array-like|_, optional
+    spin_values : (M, ) |array-like|_, optional
         Spin values. Optional if the spin Hamiltonian is loaded from |TB2J|_. Ignored if
         spin Hamiltonian is loaded from GROGU.
     k_path : str, optional
@@ -103,7 +103,7 @@ def solve_lswt(
 
     # Load spin Hamiltonian
     if spinham_source.lower() == "tb2j":
-        spinham = load_tb2j(filename=spinham_filename, spins=spins)
+        spinham = load_tb2j(filename=spinham_filename, spin_values=spin_values)
     elif spinham_source.lower() == "grogu":
         spinham = load_grogu(filename=spinham_filename)
     else:

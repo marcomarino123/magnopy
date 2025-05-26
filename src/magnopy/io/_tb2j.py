@@ -30,7 +30,9 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltonian:
+def load_tb2j(
+    filename, spin_values=None, g_factors=None, quiet=True
+) -> SpinHamiltonian:
     r"""
     Read spin Hamiltonian from |TB2J|_ output file.
 
@@ -38,7 +40,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
     ----------
     filename : str
         Path to the |TB2J|_ output file.
-    spins : (M, ) iterable of floats, optional
+    spin_values : (M, ) iterable of floats, optional
         Spin Values for each atom. In the same order as in TB2J file. TB2J outputs
         magnetic moments and not spin values, therefore the spin values for each atom
         are subject to user definition. If user does not define the spin values, then
@@ -113,7 +115,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
                     # Slicing is not used intentionally.
                     magmom = tuple(map(float, [line[5], line[6], line[7]]))
                 except IndexError:
-                    magmom = None
+                    magmom = float(line[5])
                 try:
                     charge = float(line[4])
                 except IndexError:
@@ -185,6 +187,10 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
             if line and dmi_flag in line:
                 dmi = tuple(map(float, line.translate(garbage).split()[-3:]))
 
+        parameter = get_matrix_parameter(iso=iso, dmi=dmi)
+        if aniso is not None:
+            parameter = parameter + aniso
+
         # Adding info from the exchange block to the SpinHamiltonian structure
         spinham.add_22(
             alpha=atom1,
@@ -193,7 +199,7 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
             # Avoid passing aniso to the function as then the function make it traceless
             # and symmetric, potentially loosing part of the matrix.
             # Due to the TB2J problem: aniso not always traceless.
-            parameter=get_matrix_parameter(iso=iso, dmi=dmi) + aniso,
+            parameter=parameter,
             replace=True,
         )
 
@@ -205,30 +211,24 @@ def load_tb2j(filename, spins=None, g_factors=None, quiet=True) -> SpinHamiltoni
                 + f"Read: {distance:.4f}\n"
             )
 
-    print(len(spinham.p22))
-    # Populate spins of atoms
-    if spins is not None:
-        if len(spins) != spinham.M:
-            raise ValueError(f"Expected {spinha.M} spin values, got {len(spins)}")
-        true_spins = [0.0 for _ in spinham.atoms.names]
-
-        for i in range(len(spins)):
-            print(i)
-            true_spins[spinham.map_to_all[i]] = spins[i]
-    else:
-        if atoms["magnetic_moments"][0] is None:
+    # Populate spin_values of atoms
+    if spin_values is not None:
+        if len(spin_values) != spinham.M:
             raise ValueError(
-                r"There is no magnetic moments in the TB2J file and no spin values "
-                "provided by the user. Either provide spin values or use another TB2J "
-                "file."
+                f"Expected {spinham.M} spin values, got {len(spin_values)}"
             )
-        true_spins = [
+        true_spin_values = [0.0 for _ in spinham.atoms.names]
+
+        for i in range(len(spin_values)):
+            true_spin_values[spinham.map_to_all[i]] = spin_values[i]
+    else:
+        true_spin_values = [
             float(np.linalg.norm(atoms["magnetic_moments"][alpha]))
             / atoms["g_factors"][alpha]
             for alpha in range(len(atoms["names"]))
         ]
 
-    spinham.atoms["spins"] = true_spins
+    spinham.atoms["spins"] = true_spin_values
     spinham._reset_internals()
 
     return spinham

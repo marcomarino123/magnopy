@@ -11,8 +11,21 @@ Whats new?
 
 First release of magnopy.
 
+0.1.6
+-----
+
+**Data**: 16 May
+
+*   Fix a typo in ``load_tb2j()``
+*   Fix a bug with reading of TB2J (when no anisotropy is present)
+*   Add reading of magnetic moment from TB2J when no-SOC case is used.
+*   Rename ``-s/--spins`` to ``-sv/--spin-values`` in ``magnopy-lswt``.
+
 0.1.5
 -----
+
+.. warning::
+    We recommend not to use this version with TB2J files.
 
 **Date**: 26 May 2025
 
@@ -21,9 +34,9 @@ First release of magnopy.
 
 0.1.4
 -----
+
 .. warning::
-    We recommend not to use this version with the hamiltonian from the collinear TB2J
-    calculations.
+    We recommend not to use this version with TB2J files.
 
 **Date**: 23 May 2025
 

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 __doclink__ = "magnopy.org"
 __release_date__ = "26 May 2025"
 

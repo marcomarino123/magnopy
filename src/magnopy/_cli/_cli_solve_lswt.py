@@ -45,8 +45,8 @@ def manager():
             (len(args.spin_directions) // 3, 3)
         )
 
-    if args.spins is not None:
-        args.spins = [float(tmp) for tmp in args.spins]
+    if args.spin_values is not None:
+        args.spin_values = [float(tmp) for tmp in args.spin_values]
 
     kpoints = []
     if args.kpoints is not None:
@@ -116,8 +116,8 @@ def get_parser():
         " * Give a sequence of 3*M numbers directly to this parameter.",
     )
     parser.add_argument(
-        "-s",
-        "--spins",
+        "-sv",
+        "--spin-values",
         nargs="*",
         type=str,
         metavar="S1 S2 S3 ...",

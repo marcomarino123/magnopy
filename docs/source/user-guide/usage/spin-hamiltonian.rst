@@ -227,3 +227,11 @@ The indices in the specification of parameters correspond to the
 
     >>> index_in_atoms = 0
     >>> index_in_magnetic_atoms = spinham.map_to_magnetic[index_in_atoms]
+
+To convert from an index of :py:attr:`.SpinHamiltonian.magnetic_atoms` to the index of
+:py:attr:`.SpinHamiltonian.atoms` use
+
+.. doctest::
+
+    >>> index_in_magnetic_atoms = 0
+    >>> index_in_atoms = spinham.map_to_all[index_in_magnetic_atoms]

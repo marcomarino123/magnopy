@@ -17,6 +17,7 @@ First release of magnopy.
 **Date**: 26 May 2025
 
 *   Fix :issue:`23`.
+*   Rename output file for vampire from "input" to "input-template" to avoid frustrating overwrites.
 
 0.1.4
 -----

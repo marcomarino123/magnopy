@@ -69,16 +69,3 @@ doctest:
 
 test:
 	@pytest -s utests #-o log_cli=true -o log_cli_level=DEBUG
-
-
-.ONESHELL:
-pip:
-	@read -p "Press Enter to publish to PyPI"
-	-@rm -r dist
-	-@rm -r build
-	-@rm -r magnopy.egg-info
-	-@rm -r src/dist
-	-@rm -r src/build
-	-@rm -r src/magnopy.egg-info
-	@python3 -m build
-	@python3 -m twine upload --repository pypi dist/* --verbose

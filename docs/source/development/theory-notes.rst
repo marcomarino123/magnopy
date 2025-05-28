@@ -119,78 +119,11 @@ all other convention properties being arbitrary.
         S_{\varepsilon}
 
 
-Linear Spin-wave theory (LSWT)
-==============================
-
-The formulas for the linear spin-wace theory are written for non-normalized spins,
-with multiple counting in mind and all other convention properties being arbitrary.
-
-There are four parameters that are important for LSWT.
+Renormalized parameters
+=======================
 
 .. math::
-
-    E^{(2)}
-    =
-    \dfrac{1}{2}
-    \sum_{\alpha, i}
-    z^i_{\alpha}
-    \tilde{J}^i(\boldsymbol{r}_{\alpha})
-
-.. math::
-
-    O_{\alpha}
-    =
-    \sqrt{\dfrac{S_{\alpha}}{2}}
-    \sum_{i}
-    \overline{p^i_{\alpha}}
-    \tilde{J}^i(\boldsymbol{r}_{\alpha})
-
-.. math::
-
-    A_{\alpha\beta}(\boldsymbol{k})
-    &=
-    \sum_{\nu, i, j}
-    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
-    \dfrac{\sqrt{S_{\alpha}S_{\beta}}}{2}
-    p^i_{\alpha}
-    \overline{p^j_{\beta}}
-    \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
-    -
-    \delta_{\alpha,\beta}
-    \dfrac{1}{2}
-    \sum_{i}
-    z^i_{\alpha}
-    \tilde{J}^i(\boldsymbol{r}_{\alpha})
-    =\\&=
-    \sum_{\nu, i, j}
-    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
-    A_{\nu,\alpha\beta}
-    -
-    \delta_{\alpha,\beta}
-    A_{\alpha}
-
-
-.. math::
-
-    B_{\alpha\beta}(\boldsymbol{k})
-    &=
-    \sum_{\nu, i, j}
-    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
-    \dfrac{\sqrt{S_{\alpha}S_{\beta}}}{2}
-    \overline{p^i_{\alpha}}
-    \overline{p^j_{\beta}}
-    \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
-    =\\&=
-    \sum_{\nu, i, j}
-    e^{i\boldsymbol{k}\cdot\boldsymbol{r}_{\nu}}
-    B_{\nu,\alpha\beta}
-
-Where :math:`\tilde{J}^i(\boldsymbol{r}_{\alpha})` and
-:math:`\tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})` are the one-spin and two-spin
-& two-site parameters that are renormalized by the higher order parameters.
-
-.. math::
-    \tilde{J}^i(\boldsymbol{r}_{\alpha})
+    J^{\prime, i}(\boldsymbol{r}_{\alpha})
     =&
     C_1
     J^i_1(\boldsymbol{r}_{\alpha})
@@ -281,7 +214,7 @@ Where :math:`\tilde{J}^i(\boldsymbol{r}_{\alpha})` and
 
 
 .. math::
-    \tilde{J}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
+    J^{\prime, ij}(\boldsymbol{r}_{\nu,\alpha\beta})
     =&
     C_{2, 2}
     J^{ij}_{2,2}(\boldsymbol{r}_{\nu,\alpha\beta})+\\&+

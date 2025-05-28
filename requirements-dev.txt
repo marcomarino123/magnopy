@@ -9,4 +9,5 @@ black
 isort
 
 # dev-tools
+gitpython
 pre-commit

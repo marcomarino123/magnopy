@@ -18,6 +18,7 @@
 
 
 import numpy as np
+from wulfric.geometry import absolute_to_relative
 
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
@@ -71,7 +72,9 @@ def load_grogu(filename) -> SpinHamiltonian:
         line = lines[i].split()
 
         atoms["names"].append(line[0])
-        atoms["positions"].append(list(map(float, line[1:4])))
+        atoms["positions"].append(
+            absolute_to_relative(vector=list(map(float, line[1:4])), basis=cell)
+        )
         atoms["spins"].append(np.linalg.norm(list(map(float, line[5:8]))))
         atoms["g_factors"].append(2)
         index_map[line[0]] = atom_index

@@ -45,6 +45,20 @@ you may need to use ``python3`` instead (and ``pip3`` instead of ``pip``).
 
 .. _user-guide_installation_pip:
 
+.. hint::
+    On linux and OSX systems one can create a virtual environment for the magnopy's installation with 
+    (use your version of python instead of ``python3.13`` if needed)
+
+    .. code-block:: bash
+
+        python3.13 -m venv .venv
+
+    And activate it with 
+
+    .. code-block:: bash
+
+        source .venv/bin/activate
+
 Installation with pip
 =====================
 

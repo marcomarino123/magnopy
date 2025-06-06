@@ -11,7 +11,7 @@ documentations should be doctests.
 Unit tests
 ==========
 
-All unit tests are located in the "utests/" directory. To run the tests, you can use the
+All unit tests are located in the "tests/" directory. To run the tests, you can use the
 following command (provided that the |GNU-make|_ command is available)
 
 .. code-block:: bash
@@ -24,12 +24,12 @@ Alternatively, you can run
 
   pytest -s
 
-Structure of the "utest/" directory loosely follows the structure of the "src/magnopy/"
+Structure of the "test/" directory loosely follows the structure of the "src/magnopy/"
 directory.
 
 For example if you've added a new function named "rotate()" to the
 "src/magnopy/magnons/_dispersion.py" file, then you should add a new test function
-named "test_rotate()" to the file "utest/test_magnons/test_dispersion.py".
+named "test_rotate()" to the file "test/test_magnons/test_dispersion.py".
 
 Documentation tests
 ===================

@@ -28,7 +28,7 @@ requirements:
 	@pip install -r requirements.txt --no-cache
 	@pip install -r requirements-dev.txt --no-cache
 	@pip install -r docs/requirements.txt --no-cache
-	@pip install -r utests/requirements.txt --no-cache
+	@pip install -r tests/requirements.txt --no-cache
 
 install:
 	@python3 -m pip install .
@@ -68,4 +68,4 @@ doctest:
 	@$(SPHINXBUILD) -b doctest "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)
 
 test:
-	@pytest -s utests #-o log_cli=true -o log_cli_level=DEBUG
+	@pytest -s tests #-o log_cli=true -o log_cli_level=DEBUG

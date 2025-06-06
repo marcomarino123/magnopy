@@ -96,7 +96,7 @@ environment is created and activated, you can install the requirements
 
   .. code-block:: bash
 
-    pip install -r utest/requirements.txt
+    pip install -r tests/requirements.txt
 
 .. note::
   For the linux and OSX systems there is a scenario defined. It installs all

@@ -53,6 +53,7 @@ Parameter converters
   :toctree: generated/
 
   converter22
+  converter422
 
 Exceptions
 ==========

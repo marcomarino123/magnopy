@@ -19,9 +19,6 @@
 
 import numpy as np
 
-from magnopy._spinham._convention import Convention
-from magnopy._spinham._hamiltonian import SpinHamiltonian
-
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")

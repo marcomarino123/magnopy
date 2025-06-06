@@ -11,6 +11,11 @@ Whats new?
 
 First release of magnopy.
 
+0.1.7
+-----
+
+* Fix bugs
+
 0.1.6
 -----
 

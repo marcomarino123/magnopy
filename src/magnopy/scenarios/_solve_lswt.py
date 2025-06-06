@@ -51,7 +51,7 @@ def solve_lswt(
 ) -> None:
     r"""
     Solves the spin Hamiltonian at the level of Linear Spin Wave theory.
-    Outputs progress in the standart output (``print()``) and saves some data to
+    Outputs progress in the standard output (``print()``) and saves some data to
     the files on the disk.
 
     Parameters
@@ -108,7 +108,7 @@ def solve_lswt(
         spinham = load_grogu(filename=spinham_filename)
     else:
         raise ValueError(
-            'Supported sources of spin Hamiltonians are "GROGU" and "TB2J", '
+            'Supported sources of spin Hamiltonian are "GROGU" and "TB2J", '
             f'got "{spinham_source}".'
         )
 

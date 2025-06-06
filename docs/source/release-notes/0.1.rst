@@ -14,7 +14,7 @@ First release of magnopy.
 0.1.6
 -----
 
-**Data**: 16 May
+**Date**: 16 May
 
 *   Fix a typo in ``load_tb2j()``
 *   Fix a bug with reading of TB2J (when no anisotropy is present)

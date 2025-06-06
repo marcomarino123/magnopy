@@ -18,7 +18,7 @@ calculation with magnopy and can be executed as any other command line tool.
 
 
 .. toctree::
-    :caption: Magnopy as a blackbox
+    :caption: Magnopy as a black box
     :maxdepth: 1
 
     cli/how-to-execute

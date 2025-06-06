@@ -53,8 +53,8 @@ First release of magnopy.
 .. warning::
     We recommend not to use this version.
 
-*   Start to use the term "convention" istead of "notation" both in documentation and in
-    the code.
+*   Start to use the term "convention" instead of "notation" both in documentation and
+    in the code.
 
 *   Add ax.set_xlabel() for the plot with the custom list of kpoints.
 

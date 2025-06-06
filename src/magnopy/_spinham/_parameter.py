@@ -40,7 +40,7 @@ def get_matrix_parameter(iso=None, aniso=None, dmi=None) -> np.ndarray:
         Traceless, symmetric 3 x 3 matrix of exchange anisotropy.
         Note: Input matrix is symmetrized and made traceless.
     dmi : (3,) |array-like|_, optional
-        Dzyaroshinsky-Moria interaction vector :math:`(D_x, D_y, D_z)`.
+        Dzyaloshinsky-Moriya interaction vector :math:`(D_x, D_y, D_z)`.
 
     Returns
     -------

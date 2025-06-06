@@ -96,7 +96,7 @@ Parameters of the bilinear exchange part of the Hamiltonian:
 
             Values of isotropic exchange
 
-  6       Dzyaroshinsky-Moria interaction vector, optional.
+  6       Dzyaloshinsky-Moriya interaction vector, optional.
           Four blocks, separated by spaces, the order is fixed:
 
           * ``DMI`` keyword

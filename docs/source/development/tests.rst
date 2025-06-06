@@ -6,7 +6,7 @@ Testing
 
 In magnopy we rely on |pytest|_, |hypothesis|_ and |doctest|_ for testing. Ideally, all
 functions in magnopy should be covered by unit tests and all code snippets in the
-documentations should be doctests.
+documentations should be doctest.
 
 Unit tests
 ==========
@@ -37,8 +37,8 @@ Documentation tests
 Across the documentation there are many examples of how to use magnopy with code
 snippets. These code snippets are tested using |doctest|_, which ensure that the
 documentation correctly reflects an actual behavior of the code. In order to run
-doctests you need to build the :ref:`documentation <development_documentation>` and then
-run the doctests using the following command (provided that the |GNU-make|_ command is
+doctest you need to build the :ref:`documentation <development_documentation>` and then
+run the doctest using the following command (provided that the |GNU-make|_ command is
 available)
 
 .. code-block:: bash

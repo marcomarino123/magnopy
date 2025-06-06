@@ -194,3 +194,41 @@ def test_convention_manipulation():
     spinham.convention = Convention.get_predefined("vampire")
     assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -9 / 4
     assert converter22.to_iso(matrix=spinham.p21[0][1]) == -9 / 4
+
+
+def get_empty():
+    cell = 4.2 * np.eye(3)
+    atoms = dict(
+        names=[f"Cr{i+1}" for i in range(9)],
+        g_factors=[2 for _ in range(9)],
+        positions=[[i, i / 2, 0] for i in range(9)],
+        spins=[3 / 2 for _ in range(9)],
+    )
+    convention = Convention(
+        multiple_counting=True, spin_normalized=False, c1=1, c22=0.5, c21=1
+    )
+
+    spinham = SpinHamiltonian(cell=cell, atoms=atoms, convention=convention)
+
+    spinham.add_21(alpha=3, parameter=np.eye(3))
+    spinham.add_22(alpha=3, beta=5, nu=[1, 0, 0], parameter=np.eye(3))
+    spinham.add_22(alpha=0, beta=1, nu=[0, 0, 0], parameter=np.eye(3))
+
+    assert spinham.M == 4
+    assert len(spinham.p21) == 1
+    assert len(spinham.p22) == 4
+
+    empty_spinham = spinham.get_empty()
+
+    assert empty_spinham.M == 0
+    assert len(empty_spinham.p1) == 0
+    assert len(empty_spinham.p21) == 0
+    assert len(empty_spinham.p22) == 0
+    assert len(empty_spinham.p31) == 0
+    assert len(empty_spinham.p32) == 0
+    assert len(empty_spinham.p33) == 0
+    assert len(empty_spinham.p41) == 0
+    assert len(empty_spinham.p421) == 0
+    assert len(empty_spinham.p422) == 0
+    assert len(empty_spinham.p43) == 0
+    assert len(empty_spinham.p44) == 0

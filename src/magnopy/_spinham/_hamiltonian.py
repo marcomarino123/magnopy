@@ -908,6 +908,26 @@ class SpinHamiltonian:
 
         return deepcopy(self)
 
+    def get_empty(self):
+        r"""
+        Returns the Hamiltonian with the same cell, atoms and convention, but with no
+        parameters present.
+
+        Returns
+        -------
+        spinham : py:class:`.SpinHamiltonian`
+            New instance of the spin Hamiltonian.
+
+        Notes
+        -----
+        Note that in the new Hamiltonian ``spinham.M == 0`` - as there is no parameters
+        present, then no atoms are considered to be magnetic.
+        """
+
+        return SpinHamiltonian(
+            cell=self.cell, atoms=self.atoms, convention=self.convention
+        )
+
     ############################################################################
     #                            One spin & one site                           #
     ############################################################################

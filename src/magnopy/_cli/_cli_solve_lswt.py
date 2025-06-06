@@ -51,7 +51,7 @@ def manager():
     kpoints = []
     if args.kpoints is not None:
         with open(args.kpoints, "r") as f:
-            for line in f:
+            for i, line in enumerate(f):
                 # Remove comment lines
                 if line.startswith("#"):
                     continue

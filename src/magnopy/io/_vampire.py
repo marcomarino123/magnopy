@@ -24,9 +24,9 @@ from wulfric.cell import get_params
 from wulfric.crystal import get_atom_species
 
 from magnopy._package_info import logo
+from magnopy._parameters._p22 import to_dmi, to_symm_anisotropy
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy._spinham._parameter import get_anisotropic_parameter, get_dmi
 from magnopy.constants._internal_units import ENERGY
 
 # Save local scope at this moment
@@ -290,9 +290,9 @@ def dump_vampire_ucf(
             J = custom_mask(J)
         else:
             if not dmi:
-                J -= get_dmi(J, matrix_form=True)
+                J -= to_dmi(J, matrix_form=True)
             if not anisotropic:
-                J -= get_anisotropic_parameter(J)
+                J -= to_symm_anisotropy(J)
         J = J * ENERGY
         text.append(
             f"{IID:<5} {alpha:>3} {alpha:>3}  {0:>2} {0:>2} {0:>2}  "
@@ -311,9 +311,9 @@ def dump_vampire_ucf(
             J = custom_mask(J)
         else:
             if not dmi:
-                J -= get_dmi(J, matrix_form=True)
+                J -= to_dmi(J, matrix_form=True)
             if not anisotropic:
-                J -= get_anisotropic_parameter(J)
+                J -= to_symm_anisotropy(J)
         # print(alpha, beta, nu)
         # print(J, end="\n\n")
         J = J * ENERGY

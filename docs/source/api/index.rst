@@ -46,6 +46,14 @@ Functions
   logo
   multiprocess_over_k
 
+Parameter converters
+====================
+
+.. autosummary::
+  :toctree: generated/
+
+  converter22
+
 Exceptions
 ==========
 

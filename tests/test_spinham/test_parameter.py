@@ -22,12 +22,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy._spinham._parameter import (
-    get_anisotropic_parameter,
-    get_dmi,
-    get_isotropic_parameter,
-    get_matrix_parameter,
-)
+from magnopy import converter22
 
 MAX_MODULUS = 1e8
 ARRAY_3X3 = harrays(
@@ -47,25 +42,14 @@ ARRAY_3 = harrays(
 
 
 @given(st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS))
-def test_get_matrix_parameter_from_iso(iso):
-    matrix = get_matrix_parameter(iso=iso)
+def test_from_iso(iso):
+    matrix = converter22.from_iso(iso=iso)
     assert np.allclose(matrix, iso * np.eye(3))
 
 
-@given(
-    st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
-    st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
-    st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
-)
-def test_get_matrix_parameter_from_aniso(a, b, c):
-    aniso = np.array([[0, a, b], [a, 0, c], [b, c, 0]])
-    matrix = get_matrix_parameter(aniso=aniso)
-    assert np.allclose(matrix, aniso)
-
-
 @given(ARRAY_3)
-def test_get_matrix_parameter_from_dmi(dmi):
-    matrix = get_matrix_parameter(dmi=dmi)
+def test_from_dmi(dmi):
+    matrix = converter22.from_dmi(dmi=dmi)
     assert np.allclose(
         matrix,
         [
@@ -77,60 +61,31 @@ def test_get_matrix_parameter_from_dmi(dmi):
 
 
 @given(ARRAY_3X3)
-def test_get_isotropic_parameter(matrix):
-    iso = get_isotropic_parameter(matrix)
+def test_to_iso(matrix):
+    iso = converter22.to_iso(matrix=matrix)
     assert np.allclose(iso, np.trace(matrix) / 3.0)
 
-    iso_matrix = get_isotropic_parameter(matrix, matrix_form=True)
+    iso_matrix = converter22.to_iso(matrix=matrix, matrix_form=True)
     assert np.allclose(iso_matrix, np.trace(matrix) / 3.0 * np.eye(3))
 
 
 @given(ARRAY_3X3)
-def test_get_anisotropic_parameter(matrix):
-    aniso = get_anisotropic_parameter(matrix)
+def test_to_symm_anisotropy(matrix):
+    aniso = converter22.to_symm_anisotropy(matrix=matrix)
     assert np.allclose(
         aniso, (matrix + matrix.T) / 2.0 - np.trace(matrix) / 3.0 * np.eye(3)
     )
 
 
 @given(ARRAY_3X3)
-def test_get_dmi(matrix):
+def test_to_dmi(matrix):
     asymm = (matrix - matrix.T) / 2.0
 
-    dmi = get_dmi(matrix)
+    dmi = converter22.to_dmi(matrix=matrix)
     assert np.allclose(dmi, [asymm[1][2], asymm[2][0], asymm[0][1]])
 
-    dmi_matrix = get_dmi(matrix, matrix_form=True)
+    dmi_matrix = converter22.to_dmi(matrix=matrix, matrix_form=True)
     assert np.allclose(dmi_matrix, asymm)
-
-
-################################################################################
-#                           Tests that captured a bug                          #
-################################################################################
-
-
-def test_get_anisotropic_parameter_wrong_trace():
-    r"""
-    Bug when the input matrix was not made traceless, but rather all elements were
-    decreased by a matrix trace.
-    """
-
-    # Intentionally not traceless
-    aniso = [[3, 0, 0], [0, 0, 0], [0, 0, 0]]
-
-    matrix = get_matrix_parameter(aniso=aniso)
-
-    assert matrix[0][0] == 2
-    assert matrix[0][1] == 0
-    assert matrix[0][2] == 0
-
-    assert matrix[1][0] == 0
-    assert matrix[1][1] == -1
-    assert matrix[1][2] == 0
-
-    assert matrix[2][0] == 0
-    assert matrix[2][1] == 0
-    assert matrix[2][2] == -1
 
 
 ################################################################################
@@ -139,33 +94,38 @@ def test_get_anisotropic_parameter_wrong_trace():
 
 
 def test_legacy_test_1():
-    full_matrix = get_matrix_parameter(iso=23)
-    assert get_isotropic_parameter(full_matrix) == 23
+    full_matrix = converter22.from_iso(iso=23)
+    assert converter22.to_iso(matrix=full_matrix) == 23
     assert (
-        get_anisotropic_parameter(full_matrix) == np.zeros((3, 3), dtype=float)
+        converter22.to_symm_anisotropy(matrix=full_matrix)
+        == np.zeros((3, 3), dtype=float)
     ).all()
-    assert (get_dmi(full_matrix) == np.zeros(3, dtype=float)).all()
+    assert (converter22.to_dmi(matrix=full_matrix) == np.zeros(3, dtype=float)).all()
 
 
 def test_legacy_test_2():
-    full_matrix = get_matrix_parameter(iso=23, dmi=(1, 1, 1))
-    assert get_isotropic_parameter(full_matrix) == 23
+    full_matrix = converter22.from_iso(iso=23) + converter22.from_dmi(dmi=(1, 1, 1))
+    assert converter22.to_iso(matrix=full_matrix) == 23
     assert (
-        get_anisotropic_parameter(full_matrix) == np.zeros((3, 3), dtype=float)
+        converter22.to_symm_anisotropy(matrix=full_matrix)
+        == np.zeros((3, 3), dtype=float)
     ).all()
-    assert (get_dmi(full_matrix) == np.ones(3, dtype=float)).all()
+    assert (converter22.to_dmi(matrix=full_matrix) == np.ones(3, dtype=float)).all()
 
 
 def test_legacy_test_3():
-    full_matrix = get_matrix_parameter(
-        iso=23, dmi=(1, 1, 1), aniso=[[1, 1, 0], [1, -0.5, 0], [0, 0, -0.5]]
+    full_matrix = (
+        converter22.from_iso(iso=23)
+        + converter22.from_dmi(dmi=(1, 1, 1))
+        + [[1, 1, 0], [1, -0.5, 0], [0, 0, -0.5]]
     )
-    assert get_isotropic_parameter(full_matrix) == 23
+
+    assert converter22.to_iso(matrix=full_matrix) == 23
     assert (
-        get_anisotropic_parameter(full_matrix)
+        converter22.to_symm_anisotropy(matrix=full_matrix)
         == np.array([[1, 1, 0], [1, -0.5, 0], [0, 0, -0.5]])
     ).all()
-    assert (get_dmi(full_matrix) == np.ones(3, dtype=float)).all()
+    assert (converter22.to_dmi(matrix=full_matrix) == np.ones(3, dtype=float)).all()
 
 
 def test_legacy_test_4():
@@ -173,33 +133,33 @@ def test_legacy_test_4():
     matrix2 = np.array([[1, 2, 0], [1, 1, 0], [0, 0, 1]])
 
     assert (
-        get_dmi(matrix1, matrix_form=True)
+        converter22.to_dmi(matrix=matrix1, matrix_form=True)
         == np.array([[0, 0, 0], [0, 0, -1], [0, 1, 0]])
     ).all()
 
     assert (
-        get_dmi(matrix2, matrix_form=True)
+        converter22.to_dmi(matrix=matrix2, matrix_form=True)
         == np.array([[0, 0.5, 0], [-0.5, 0, 0], [0, 0, 0]])
     ).all()
 
 
 def test_legacy_test_5():
     matrix = np.array([[1, 5, 2], [5, 8, 4], [2, 6, 3]])
-    assert get_isotropic_parameter(matrix) == 4
+    assert converter22.to_iso(matrix=matrix) == 4
 
     assert (
-        get_isotropic_parameter(matrix, matrix_form=True)
+        converter22.to_iso(matrix=matrix, matrix_form=True)
         == np.array([[4, 0, 0], [0, 4, 0], [0, 0, 4]])
     ).all()
 
     assert (
-        get_anisotropic_parameter(matrix)
+        converter22.to_symm_anisotropy(matrix=matrix)
         == np.array([[-3, 5, 2], [5, 4, 5], [2, 5, -1]])
     ).all()
 
-    assert (get_dmi(matrix) == np.array([-1, 0, 0])).all()
+    assert (converter22.to_dmi(matrix=matrix) == np.array([-1, 0, 0])).all()
 
     assert (
-        get_dmi(matrix, matrix_form=True)
+        converter22.to_dmi(matrix=matrix, matrix_form=True)
         == np.array([[0, 0, 0], [0, 0, -1], [0, 1, 0]])
     ).all()

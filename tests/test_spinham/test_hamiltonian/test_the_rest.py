@@ -22,8 +22,7 @@ import pytest
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy import Convention, SpinHamiltonian
-from magnopy._spinham._parameter import get_isotropic_parameter
+from magnopy import Convention, SpinHamiltonian, converter22
 
 MAX_MODULUS = 1e8
 ARRAY_3X3 = harrays(
@@ -113,85 +112,85 @@ def test_convention_manipulation():
     spinham.add_22(0, 0, (1, 0, 0), np.eye(3))
 
     assert len(spinham.p22) == 2
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 1
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     assert spinham.convention.multiple_counting
 
     spinham.convention = Convention(False, False, c21=1, c22=0.5)
     assert len(spinham.p22) == 1
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 2
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 2
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=0.5)
     assert len(spinham.p22) == 2
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 1
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     assert not spinham.convention.spin_normalized
 
     spinham.convention = Convention(True, True, c21=1, c22=0.5)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 9 / 4
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 9 / 4
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 9 / 4
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 9 / 4
 
     spinham.convention = Convention(True, False, c21=1, c22=0.5)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 1
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 1
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     assert spinham.convention.c22 == 0.5
 
     spinham.convention = Convention(True, False, c21=1, c22=-1 / 2)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -1
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -1
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=-1)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=-2)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.25
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.25
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=-1 / 2)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -1
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -1
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=-2)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.25
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.25
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=-1)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     assert spinham.convention.c22 == -1
 
     spinham.convention = Convention(True, False, c21=1, c22=1)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=1, c22=-1)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention(True, False, c21=-1, c22=-1)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == -1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == -1
 
     spinham.convention = Convention(True, False, c21=0.5, c22=-1)
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 2
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 2
 
     spinham.convention = Convention(True, False, c21=1, c22=-1)
 
     spinham.convention = Convention.get_predefined("spinw")
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == 0.5
-    assert get_isotropic_parameter(spinham.p21[0][1]) == 1
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == 0.5
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == 1
 
     spinham.convention = Convention.get_predefined("tb2j")
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -9 / 8
-    assert get_isotropic_parameter(spinham.p21[0][1]) == -9 / 4
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -9 / 8
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == -9 / 4
 
     spinham.convention = Convention.get_predefined("vampire")
-    assert get_isotropic_parameter(list(spinham.p22)[0][3]) == -9 / 4
-    assert get_isotropic_parameter(spinham.p21[0][1]) == -9 / 4
+    assert converter22.to_iso(matrix=list(spinham.p22)[0][3]) == -9 / 4
+    assert converter22.to_iso(matrix=spinham.p21[0][1]) == -9 / 4

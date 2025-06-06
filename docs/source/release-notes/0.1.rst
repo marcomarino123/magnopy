@@ -17,6 +17,8 @@ First release of magnopy.
 *   Fix bugs
 *   Add parameter converters for ``22`` (``converter22``) and ``422`` (converter422)
     terms.
+*   Add ``alphas`` parameter to the magnetic field addition.
+*   Add multiplication of the Hamiltonian by a number.
 
 0.1.6
 -----

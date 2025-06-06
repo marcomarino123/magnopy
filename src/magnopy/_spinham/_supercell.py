@@ -30,7 +30,7 @@ old_dir.add("old_dir")
 
 def make_supercell(spinham: SpinHamiltonian, supercell):
     r"""
-    Creartes a Hamiltonian on the supersccell of the given one.
+    Creates a Hamiltonian on the supercell of the given one.
 
     Parameters
     ----------

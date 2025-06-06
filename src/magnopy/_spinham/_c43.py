@@ -159,7 +159,7 @@ class _P43_iterator:
         self.mc = spinham.convention.multiple_counting
         self.length = len(self.container)
         self.index = 0
-        self.spins = spinham.magnetic_atoms.spins
+        self.spins = spinham.atoms.spins
 
     def __next__(self):
         # Case 1

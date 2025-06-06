@@ -141,3 +141,78 @@ def test_remove_32(r_alpha, r_beta, r_nu, nus):
     else:
         with pytest.raises(ValueError):
             spinham.remove_32(*bond)
+
+
+@given(ARRAY_3x3x3)
+def test_iterator_index_bug(parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_32(alpha=8, beta=7, nu=(0, 3, -4), parameter=parameter)
+
+    list(spinham.p32)
+
+
+@given(ARRAY_3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_mul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_32(alpha=0, beta=1, nu=(0, 3, -4), parameter=parameter)
+    spinham.add_32(alpha=4, beta=2, nu=(1, 0, 0), parameter=parameter * 1.32)
+    spinham.add_32(alpha=7, beta=5, nu=(0, 0, 0), parameter=parameter / 3)
+
+    m_spinham = spinham * number
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p32) == len(m_spinham.p32)
+
+    params = list(spinham.p32)
+    m_params = list(m_spinham.p32)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+        assert params[i][1] == m_params[i][1]
+        assert params[i][2] == m_params[i][2]
+
+        assert np.allclose(number * params[i][3], m_params[i][3])
+
+
+@given(ARRAY_3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_rmul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_32(alpha=0, beta=1, nu=(0, 3, -4), parameter=parameter)
+    spinham.add_32(alpha=4, beta=2, nu=(1, 0, 0), parameter=parameter * 1.32)
+    spinham.add_32(alpha=7, beta=5, nu=(0, 0, 0), parameter=parameter / 3)
+
+    m_spinham = number * spinham
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p32) == len(m_spinham.p32)
+
+    params = list(spinham.p32)
+    m_params = list(m_spinham.p32)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+        assert params[i][1] == m_params[i][1]
+        assert params[i][2] == m_params[i][2]
+
+        assert np.allclose(number * params[i][3], m_params[i][3])

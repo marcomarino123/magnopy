@@ -26,14 +26,14 @@ from hypothesis.extra.numpy import arrays as harrays
 from magnopy import Convention, SpinHamiltonian
 
 MAX_MODULUS = 1e8
-ARRAY_3x3x3 = harrays(
+ARRAY_3x3x3x3 = harrays(
     np.float64,
-    (3, 3, 3),
+    (3, 3, 3, 3),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 
 
-@given(st.integers(), ARRAY_3x3x3)
+@given(st.integers(), ARRAY_3x3x3x3)
 def test_add_41(alpha, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -51,7 +51,7 @@ def test_add_41(alpha, parameter):
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
-    ARRAY_3x3x3,
+    ARRAY_3x3x3x3,
 )
 def test_add_41_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
@@ -99,3 +99,51 @@ def test_remove_41(r_alpha):
     else:
         with pytest.raises(ValueError):
             spinham.remove_41(*bond)
+
+
+@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_mul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_21(alpha=4, parameter=parameter * 1.32)
+    spinham.add_21(alpha=7, parameter=parameter / 3)
+
+    m_spinham = spinham * number
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p41) == len(m_spinham.p41)
+
+    params = list(spinham.p41)
+    m_params = list(m_spinham.p41)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+
+        assert np.allclose(number * params[i][1], m_params[i][1])
+
+
+@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_rmul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    spinham.add_21(alpha=0, parameter=parameter)
+    spinham.add_21(alpha=4, parameter=parameter * 1.32)
+    spinham.add_21(alpha=7, parameter=parameter / 3)
+
+    m_spinham = number * spinham
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p41) == len(m_spinham.p41)
+
+    params = list(spinham.p41)
+    m_params = list(m_spinham.p41)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+
+        assert np.allclose(number * params[i][1], m_params[i][1])

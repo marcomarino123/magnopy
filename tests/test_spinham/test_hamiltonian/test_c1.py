@@ -99,3 +99,47 @@ def test_remove_1(r_alpha):
     else:
         with pytest.raises(ValueError):
             spinham.remove_1(*bond)
+
+
+@given(ARRAY_3, st.floats(min_value=0.1, max_value=1e4))
+def test_mul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    spinham.add_1(alpha=0, parameter=parameter)
+    spinham.add_1(alpha=4, parameter=parameter * 1.32)
+    spinham.add_1(alpha=7, parameter=parameter / 3)
+
+    m_spinham = spinham * number
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p1) == len(m_spinham.p1)
+
+    for i in range(len(spinham.p1)):
+        assert spinham.p1[i][0] == m_spinham.p1[i][0]
+
+        assert np.allclose(number * spinham.p1[i][1], m_spinham.p1[i][1])
+
+
+@given(ARRAY_3, st.floats(min_value=0.1, max_value=1e4))
+def test_rmul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    spinham.add_1(alpha=0, parameter=parameter)
+    spinham.add_1(alpha=4, parameter=parameter * 1.32)
+    spinham.add_1(alpha=7, parameter=parameter / 3)
+
+    m_spinham = number * spinham
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p1) == len(m_spinham.p1)
+
+    for i in range(len(spinham.p1)):
+        assert spinham.p1[i][0] == m_spinham.p1[i][0]
+
+        assert np.allclose(number * spinham.p1[i][1], m_spinham.p1[i][1])

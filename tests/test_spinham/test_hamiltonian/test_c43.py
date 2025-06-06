@@ -179,3 +179,116 @@ def test_remove_43(r_alpha, r_beta, r_gamma, r_nu, r_lambda, nus, lambdas):
     else:
         with pytest.raises(ValueError):
             spinham.remove_43(*bond)
+
+
+@given(ARRAY_3x3x3x3)
+def test_iterator_index_bug(parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_43(
+        alpha=7, beta=8, gamma=4, nu=(0, 3, -4), _lambda=(1, 3, 6), parameter=parameter
+    )
+
+    list(spinham.p43)
+
+
+@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_mul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_43(
+        alpha=0, beta=1, gamma=4, nu=(0, 3, -4), _lambda=(1, 3, 6), parameter=parameter
+    )
+    spinham.add_43(
+        alpha=4,
+        beta=2,
+        gamma=3,
+        nu=(1, 0, 0),
+        _lambda=(0, 0, 5),
+        parameter=parameter * 1.43,
+    )
+    spinham.add_43(
+        alpha=7,
+        beta=5,
+        gamma=2,
+        nu=(0, 0, 0),
+        _lambda=(-1, 2, 3),
+        parameter=parameter / 3,
+    )
+
+    m_spinham = spinham * number
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p43) == len(m_spinham.p43)
+
+    params = list(spinham.p43)
+    m_params = list(m_spinham.p43)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+        assert params[i][1] == m_params[i][1]
+        assert params[i][2] == m_params[i][2]
+        assert params[i][3] == m_params[i][3]
+        assert params[i][4] == m_params[i][4]
+
+        assert np.allclose(number * params[i][5], m_params[i][5])
+
+
+@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_rmul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_43(
+        alpha=0, beta=1, gamma=4, nu=(0, 3, -4), _lambda=(1, 3, 6), parameter=parameter
+    )
+    spinham.add_43(
+        alpha=4,
+        beta=2,
+        gamma=3,
+        nu=(1, 0, 0),
+        _lambda=(0, 0, 5),
+        parameter=parameter * 1.43,
+    )
+    spinham.add_43(
+        alpha=7,
+        beta=5,
+        gamma=2,
+        nu=(0, 0, 0),
+        _lambda=(-1, 2, 3),
+        parameter=parameter / 3,
+    )
+
+    m_spinham = number * spinham
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p43) == len(m_spinham.p43)
+
+    params = list(spinham.p43)
+    m_params = list(m_spinham.p43)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+        assert params[i][1] == m_params[i][1]
+        assert params[i][2] == m_params[i][2]
+        assert params[i][3] == m_params[i][3]
+        assert params[i][4] == m_params[i][4]
+
+        assert np.allclose(number * params[i][5], m_params[i][5])

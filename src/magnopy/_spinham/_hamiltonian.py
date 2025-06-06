@@ -929,6 +929,59 @@ class SpinHamiltonian:
         )
 
     ############################################################################
+    #                           Arithmetic operations                          #
+    ############################################################################
+    def __mul__(self, number):
+        if not isinstance(number, int) and not isinstance(number, float):
+            raise TypeError(
+                f"unsupported operand type(s) for *: '{type(number)}' and 'SpinHamiltonian'"
+            )
+
+        spinham = self.copy()
+
+        # One spin
+        for i in range(len(spinham._1)):
+            spinham._1[i][1] *= number
+
+        # Two spins
+        for i in range(len(spinham._21)):
+            spinham._21[i][1] *= number
+
+        for i in range(len(spinham._22)):
+            spinham._22[i][3] *= number
+
+        # Three spins
+        for i in range(len(spinham._31)):
+            spinham._31[i][1] *= number
+
+        for i in range(len(spinham._32)):
+            spinham._32[i][3] *= number
+
+        for i in range(len(spinham._33)):
+            spinham._33[i][5] *= number
+
+        # Four spins
+        for i in range(len(spinham._41)):
+            spinham._41[i][1] *= number
+
+        for i in range(len(spinham._421)):
+            spinham._421[i][3] *= number
+
+        for i in range(len(spinham._422)):
+            spinham._422[i][3] *= number
+
+        for i in range(len(spinham._43)):
+            spinham._43[i][5] *= number
+
+        for i in range(len(spinham._44)):
+            spinham._44[i][7] *= number
+
+        return spinham
+
+    def __rmul__(self, number):
+        return self.__mul__(number=number)
+
+    ############################################################################
     #                            One spin & one site                           #
     ############################################################################
     p1 = _p1

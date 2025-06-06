@@ -141,3 +141,77 @@ def test_remove_421(r_alpha, r_beta, r_nu, nus):
     else:
         with pytest.raises(ValueError):
             spinham.remove_421(*bond)
+
+
+@given(ARRAY_3x3x3x3)
+def test_iterator_index_bug(parameter):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_421(alpha=8, beta=7, nu=(0, 3, -4), parameter=parameter)
+    list(spinham.p421)
+
+
+@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_mul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_421(alpha=0, beta=1, nu=(0, 3, -4), parameter=parameter)
+    spinham.add_421(alpha=4, beta=2, nu=(1, 0, 0), parameter=parameter * 1.421)
+    spinham.add_421(alpha=7, beta=5, nu=(0, 0, 0), parameter=parameter / 3)
+
+    m_spinham = spinham * number
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p421) == len(m_spinham.p421)
+
+    params = list(spinham.p421)
+    m_params = list(m_spinham.p421)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+        assert params[i][1] == m_params[i][1]
+        assert params[i][2] == m_params[i][2]
+
+        assert np.allclose(number * params[i][3], m_params[i][3])
+
+
+@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+def test_rmul(parameter, number):
+    atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
+
+    spinham = SpinHamiltonian(
+        cell=np.eye(3),
+        atoms=atoms,
+        convention=Convention(multiple_counting=True, spin_normalized=False),
+    )
+
+    spinham.add_421(alpha=0, beta=1, nu=(0, 3, -4), parameter=parameter)
+    spinham.add_421(alpha=4, beta=2, nu=(1, 0, 0), parameter=parameter * 1.421)
+    spinham.add_421(alpha=7, beta=5, nu=(0, 0, 0), parameter=parameter / 3)
+
+    m_spinham = number * spinham
+
+    assert spinham.M == m_spinham.M
+
+    assert len(spinham.p421) == len(m_spinham.p421)
+
+    params = list(spinham.p421)
+    m_params = list(m_spinham.p421)
+    for i in range(len(params)):
+        assert params[i][0] == m_params[i][0]
+        assert params[i][1] == m_params[i][1]
+        assert params[i][2] == m_params[i][2]
+
+        assert np.allclose(number * params[i][3], m_params[i][3])

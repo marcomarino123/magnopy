@@ -87,17 +87,14 @@ class _P32_iterator:
 
     def __next__(self):
         if self.index < self.length:
-            print("first:", self.index, self.length)
             self.index += 1
             return self.container[self.index - 1]
 
         elif self.mc and self.index < 2 * self.length:
-            print("second:", self.index - 1 - self.length, self.length)
             self.index += 1
             alpha, beta, (i, j, k), parameter = self.container[
                 self.index - 1 - self.length
             ]
-            print(alpha, beta, len(self.spins))
             return [
                 beta,
                 alpha,

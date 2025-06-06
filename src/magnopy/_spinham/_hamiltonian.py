@@ -891,6 +891,7 @@ class SpinHamiltonian:
                 j += 1
 
         self._1 = new_p1
+        self._reset_internals()
 
     ############################################################################
     #                                Copy getter                               #

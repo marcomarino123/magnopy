@@ -65,7 +65,7 @@ def read_spin_directions(filename: str):
 
     spin_directions = []
     with open(spin_directions, "r") as f:
-        for line in f:
+        for i, line in enumerate(f):
             # Remove comment lines
             if line.startswith("#"):
                 continue

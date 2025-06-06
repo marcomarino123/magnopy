@@ -9,8 +9,7 @@ not in each one of them). Magnopy does not re-implement them, but rather use the
 data structure as in another python package called |wulfric|_.
 
 Here we briefly describe how the unit cell is stored, if you want to read the original
-description of |wulfric|_ we refer you
-`here <https://docs.wulfric.org/en/latest/user-guide/usage/key-concepts.html>`_.
+description of |wulfric|_ we refer you to |wulfric-key-concepts|_.
 
 ``cell`` is a two-dimensional :math:`3\times3` matrix (|array-like|_), that defines
 three lattice vectors. The rows of the ``cell`` are vectors, while the columns are

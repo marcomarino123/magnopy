@@ -9,8 +9,7 @@ not in each one of them). Magnopy does not re-implement them, but rather use the
 data structure as in another python package called |wulfric|_.
 
 Here we briefly describe how the unit cell is stored, if you want to read the original
-description of |wulfric|_ we refer you
-`here <https://docs.wulfric.org/en/latest/user-guide/usage/key-concepts.html>`_.
+description of |wulfric|_ we refer you to |wulfric-key-concepts|_.
 
 Atoms are stored as a plain python dictionary. Keys of the ``atoms`` are
 properties of atoms. Values are the lists of :math:`M^{\prime}` elements each,

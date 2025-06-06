@@ -69,8 +69,8 @@ def solve_lswt(
         spin Hamiltonian is loaded from GROGU.
     k_path : str, optional
         Specification of the k-path. The format is "G-X-Y|G-Z" For more details
-        on the format see documentation of |Wulfric|_. If nothing given, then the
-        k-path is computed by |Wulfric|_ automatically based on the lattice type.
+        on the format see documentation of |wulfric|_. If nothing given, then the
+        k-path is computed by |wulfric|_ automatically based on the lattice type.
         Ignored if ``kpoints`` are given.
     kpoints : (N, 3) |array-like|_, optional
         Explicit list of k-points to be used instead of automatically generated.

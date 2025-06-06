@@ -50,7 +50,7 @@ extensions = [
     "sphinx.ext.viewcode",  # Add links to highlighted source code
     "sphinx.ext.extlinks",  # Markup to shorten external links
     "sphinx.ext.mathjax",  # For latex-style math
-    "sphinx.ext.doctest",  # For the doctests
+    "sphinx.ext.doctest",  # For the doctest
     "sphinx_copybutton",  # Copybutton for the blocks
     "numpydoc",  # For the numpy-style docstrings
     "sphinx_design",  # For the design elements on the from page
@@ -168,46 +168,37 @@ extlinks = {
 # Usage: |Python|_
 custom_links = {
     "Python": ("Python", "https://python.org"),
-    "NumPy": ("NumPy", "https://numpy.org/"),
-    "SciPy": ("SciPy", "https://scipy.org/"),
-    "matplotlib": ("matplotlib", "https://matplotlib.org/"),
-    "tqdm": ("tqdm", "https://tqdm.github.io/"),
-    "termcolor": ("termcolor", "https://pypi.org/project/termcolor/"),
-    "array-like": (
-        "array-like",
-        "https://numpy.org/doc/stable/glossary.html#term-array_like",
-    ),
     "Python-installation": (
         "Python installation",
         "https://wiki.python.org/moin/BeginnersGuide/Download",
     ),
-    "NO_COLOR": ("NO_COLOR", "https://no-color.org/"),
-    "GitHub": ("GitHub", "https://github.com"),
-    "Git": ("Git", "https://git-scm.com/"),
-    "Git-remote": (
-        "remote",
-        "https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes",
+    "array-like": (
+        "array-like",
+        "https://numpy.org/doc/stable/glossary.html#term-array_like",
     ),
-    "Git-repository": (
-        "repository",
-        "https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository",
+    "Git": ("Git", "https://git-scm.com/"),
+    "git-add": ("git add", "https://git-scm.com/docs/git-add"),
+    "git-commit": ("git commit", "https://git-scm.com/docs/git-commit"),
+    "good-commit-messages": ("good commit messages", "https://cbea.ms/git-commit/"),
+    "GitHub-discussions": (
+        "Github discussions",
+        "https://github.com/magnopy/magnopy/discussions",
     ),
     "repository": ("Magnopy repository", "https://github.com/magnopy/magnopy"),
-    "HP-ref": (
-        "DOI: 10.1103/PhysRev.58.1098",
-        "https://doi.org/10.1103/PhysRev.58.1098",
+    "issue-tracker": ("Issue Tracker", "https://github.com/magnopy/magnopy/issues"),
+    "Forum-google-groups": (
+        "Forum at google groups",
+        "https://groups.google.com/g/magnopy",
     ),
-    "UTF-8": ("utf-8", "https://en.wikipedia.org/wiki/UTF-8"),
-    "PearsonSymbol": ("Pearson symbol", "https://en.wikipedia.org/wiki/Pearson_symbol"),
+    "pre-commit": ("pre-commit", "https://pre-commit.com"),
     "TB2J": ("TB2J", "https://tb2j.readthedocs.io/en/latest/"),
     "Vampire": ("Vampire", "https://vampire.york.ac.uk/"),
-    "Wulfric": ("wulfric", "https://docs.wulfric.org/en/latest/"),
-    "Wulfric-Bravais-lattices": (
-        "Bravais lattices",
-        "https://docs.wulfric.org/en/latest/user-guide/conventions/bravais-lattices/index.html",
+    "wulfric": ("wulfric", "https://docs.wulfric.org/en/latest/"),
+    "wulfric-key-concepts": (
+        "key concepts of wulfric",
+        "https://docs.wulfric.org/en/latest/user-guide/usage/key-concepts.html",
     ),
     "myHDF5": ("myHDF5", "https://myhdf5.hdfgroup.org/"),
-    "POSCAR": ("POSCAR", "https://www.vasp.at/wiki/index.php/POSCAR"),
     "h5py": ("h5py", "https://www.h5py.org/"),
     "sphinx": ("Sphinx", "https://www.sphinx-doc.org/en/master/"),
     "sphinx-autodoc": (
@@ -218,25 +209,24 @@ custom_links = {
         "sphinx.ext.autosummary",
         "https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html",
     ),
-    "numpydoc": ("numpydoc", "https://numpydoc.readthedocs.io/en/latest/format.html"),
-    "pytest": ("pytest", "https://docs.pytest.org/en/7.3.x/"),
-    "hypothesis": ("hypothesis", "https://hypothesis.readthedocs.io/en/latest/"),
     "doctest": (
         "sphinx.ext.doctest",
         "https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html",
     ),
-    "good-commit-messages": ("good commit messages", "https://cbea.ms/git-commit/"),
+    "numpydoc": ("numpydoc", "https://numpydoc.readthedocs.io/en/latest/format.html"),
+    "pytest": ("pytest", "https://docs.pytest.org/en/7.3.x/"),
+    "hypothesis": ("hypothesis", "https://hypothesis.readthedocs.io/en/latest/"),
     "reStructuredText": (
         "reStructuredText",
         "https://docutils.sourceforge.io/rst.html",
     ),
     "GNU-make": ("GNU make", "https://www.gnu.org/software/make/manual/make.html"),
-    "Fork-and-pull": (
-        "Fork and pull",
-        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models#fork-and-pull-model",
-    ),
     "venv": ("venv", "https://docs.python.org/3/library/venv.html"),
     "PYPI": ("Python package index", "https://pypi.org/"),
+    "GROGU-FF": (
+        "GROGU file format",
+        "https://grogupy.readthedocs.io/en/latest/output-format/index.html",
+    ),
 }
 rst_epilog += "\n".join(
     map(
@@ -244,11 +234,3 @@ rst_epilog += "\n".join(
         [i for i in custom_links],
     )
 )
-
-###########
-## Jaime ##
-###########
-mathjax3_config = {
-    "loader": {"load": ["[tex]/physics"]},
-    "tex": {"packages": {"[+]": ["physics"]}},
-}

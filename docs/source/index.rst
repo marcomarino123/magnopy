@@ -13,7 +13,7 @@
 :Date: |release_date|
 
 **Useful links**:
-`Issue Tracker <https://github.com/magnopy/magnopy/issues>`_ |
+|issue-tracker|_ |
 :ref:`Cite <cite>` |
 :ref:`support`
 

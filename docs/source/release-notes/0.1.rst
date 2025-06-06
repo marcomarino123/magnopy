@@ -14,7 +14,9 @@ First release of magnopy.
 0.1.7
 -----
 
-* Fix bugs
+*   Fix bugs
+*   Add parameter converters for ``22`` (``converter22``) and ``422`` (converter422)
+    terms.
 
 0.1.6
 -----

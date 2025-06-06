@@ -14,7 +14,7 @@ It is not necessary to be a programmer to contribute. You can help us with the
 
 
 Contribution process is summarized below. We assume that you have an account on
-`<https://github.com>`_ and familiar with `Git <https://git-scm.com/>`_.
+`<https://github.com>`_, and familiar with |Git|_.
 
 Development process
 ===================
@@ -109,7 +109,7 @@ environment is created and activated, you can install the requirements
 Enable pre-commit
 -----------------
 
-We use `pre-commit <https://pre-commit.com/>`_ to enforce some rules on the code style.
+We use |pre-commit|_ to enforce some rules on the code style.
 To enable it, run the following command
 
 .. code-block:: bash
@@ -138,9 +138,8 @@ Develop your contribution
     git checkout -b feature-name
 
 * Develop your contribution. Commit your progress locally
-  (`git-add <https://git-scm.com/docs/git-add>`_ and
-  `git-commit <https://git-scm.com/docs/git-commit>`_). Use |good-commit-messages|_.
-  Write :ref:`tests <development_tests>`. Write
+  (|git-add|_ and |git-commit|_). Use |good-commit-messages|_. Write
+  :ref:`tests <development_tests>`. Write
   :ref:`documentation <development_documentation>`.
 
 Submit your contribution
@@ -164,7 +163,7 @@ Review and merge
   the same branch of :ref:`origin <development_origin-upstream_origin>` repository and
   they will be added to the pull request automatically.
 * Once the pull request is approved, it will be merged to the
-  `main <https://github.com/magnopy/magnopy>`_ branch.
+  main branch of the |repository|_.
 
 
 Development process in details

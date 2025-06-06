@@ -119,3 +119,25 @@ def test_add_with_indices(alpha, h):
     BOHR_MAGNETON = 0.057883818060  # meV / Tesla
     assert spinham.p1[0][0] == alpha
     assert np.allclose(spinham.p1[0][1], BOHR_MAGNETON * 2 * h)
+
+
+@given(st.integers(min_value=0, max_value=8), ARRAY_3)
+def test_check_update_of_magnetic_atoms(alpha, h):
+    atoms = {
+        "names": ["Cr" for _ in range(9)],
+        "spins": [1 for _ in range(9)],
+        "g_factors": [2 for _ in range(9)],
+    }
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    assert len(spinham.p1) == 0
+    assert spinham.M == 0
+
+    spinham.add_magnetic_field(h=h, alphas=[alpha])
+    assert len(spinham.p1) == 1
+    assert spinham.M == 1
+
+    BOHR_MAGNETON = 0.057883818060  # meV / Tesla
+    assert spinham.p1[0][0] == alpha
+    assert np.allclose(spinham.p1[0][1], BOHR_MAGNETON * 2 * h)

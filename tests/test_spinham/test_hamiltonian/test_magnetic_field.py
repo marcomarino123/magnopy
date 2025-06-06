@@ -33,8 +33,8 @@ ARRAY_3 = harrays(
 )
 
 
-@given(st.integers(), ARRAY_3)
-def test_add_remove(alpha, h):
+@given(ARRAY_3)
+def test_add_remove(h):
     atoms = {
         "names": ["Cr" for _ in range(9)],
         "spins": [1 for _ in range(9)],
@@ -51,12 +51,16 @@ def test_add_remove(alpha, h):
     spinham.add_magnetic_field(h=h)
     assert len(spinham.p1) == 9
 
+    BOHR_MAGNETON = 0.057883818060  # meV / Tesla
+    zeeman_parameters = [BOHR_MAGNETON * 2 * h for _ in range(9)]
+    assert np.allclose(zeeman_parameters, [parameter for _, parameter in spinham.p1])
+
     spinham.add_magnetic_field(h=-h)
     assert np.allclose(np.zeros((9, 3)), [parameter for _, parameter in spinham.p1])
 
 
-@given(st.integers(), ARRAY_3)
-def test_double_add(alpha, h):
+@given(ARRAY_3)
+def test_double_add(h):
     atoms = {
         "names": ["Cr" for _ in range(9)],
         "spins": [1 for _ in range(9)],
@@ -79,3 +83,39 @@ def test_double_add(alpha, h):
     double_params = np.array([parameter for _, parameter in spinham.p1])
 
     assert np.allclose(2 * params, double_params)
+
+
+@given(ARRAY_3)
+def test_add_nothing(h):
+    atoms = {
+        "names": ["Cr" for _ in range(9)],
+        "spins": [1 for _ in range(9)],
+        "g_factors": [2 for _ in range(9)],
+    }
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    assert len(spinham.p1) == 0
+
+    spinham.add_magnetic_field(h=h)
+    assert len(spinham.p1) == 0
+
+
+@given(st.integers(min_value=0, max_value=8), ARRAY_3)
+def test_add_with_indices(alpha, h):
+    atoms = {
+        "names": ["Cr" for _ in range(9)],
+        "spins": [1 for _ in range(9)],
+        "g_factors": [2 for _ in range(9)],
+    }
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+
+    assert len(spinham.p1) == 0
+
+    spinham.add_magnetic_field(h=h, alphas=[alpha])
+    assert len(spinham.p1) == 1
+
+    BOHR_MAGNETON = 0.057883818060  # meV / Tesla
+    assert spinham.p1[0][0] == alpha
+    assert np.allclose(spinham.p1[0][1], BOHR_MAGNETON * 2 * h)

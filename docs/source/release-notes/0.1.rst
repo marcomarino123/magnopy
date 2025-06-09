@@ -19,6 +19,7 @@ First release of magnopy.
     terms.
 *   Add ``alphas`` parameter to the magnetic field addition.
 *   Add multiplication of the Hamiltonian by a number.
+* Implement reading of the new public file format of |GROGU|_.
 
 0.1.6
 -----

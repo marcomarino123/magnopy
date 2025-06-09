@@ -223,6 +223,10 @@ custom_links = {
     "GNU-make": ("GNU make", "https://www.gnu.org/software/make/manual/make.html"),
     "venv": ("venv", "https://docs.python.org/3/library/venv.html"),
     "PYPI": ("Python package index", "https://pypi.org/"),
+    "GROGU": (
+        "GROGU",
+        "https://grogupy.readthedocs.io",
+    ),
     "GROGU-FF": (
         "GROGU file format",
         "https://grogupy.readthedocs.io/en/latest/output-format/index.html",

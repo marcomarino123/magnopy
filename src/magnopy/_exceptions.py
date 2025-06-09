@@ -25,7 +25,7 @@ old_dir.add("old_dir")
 
 class ColpaFailed(Exception):
     r"""
-    Raised when Diagonalization via Colpa fails.
+    Raised when diagonalization via Colpa fails.
     """
 
     def __init__(self):

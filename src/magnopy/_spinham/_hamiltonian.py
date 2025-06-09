@@ -981,6 +981,12 @@ class SpinHamiltonian:
     def __rmul__(self, number):
         return self.__mul__(number=number)
 
+    def __add__(self, other):
+        return NotImplementedError
+
+    def __radd__(self, other):
+        return NotImplementedError
+
     ############################################################################
     #                            One spin & one site                           #
     ############################################################################

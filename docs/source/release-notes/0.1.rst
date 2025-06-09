@@ -21,6 +21,7 @@ First release of magnopy.
 *   Add multiplication of the Hamiltonian by a number.
 *   Implement reading of the new public file format of |GROGU|_.
 *   Implement summation (and subtraction) of spin Hamiltonians.
+*   Add submodule with examples.
 
 0.1.6
 -----

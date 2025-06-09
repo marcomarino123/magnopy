@@ -17,17 +17,5 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__version__ = "0.1.7"
-__doclink__ = "magnopy.org"
-__release_date__ = "undefined"
-
-from . import constants, examples, io, scenarios
-from ._diagonalization import *
-from ._energy import *
-from ._exceptions import *
-from ._local_rf import *
-from ._lswt import *
-from ._package_info import *
-from ._parallelization import *
-from ._parameters import *
-from ._spinham import *
+from ._ferro import *
+from ._other import *

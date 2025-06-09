@@ -216,3 +216,42 @@ def test_rmul(parameter, number):
         assert params[i][2] == m_params[i][2]
 
         assert np.allclose(number * params[i][3], m_params[i][3])
+
+
+@given(ARRAY_3x3x3, ARRAY_3x3x3)
+def test_add(parameter1, parameter2):
+    atoms = dict(
+        names=["Cr" for _ in range(9)],
+        spins=[1 for _ in range(9)],
+        positions=[[0.1 * i, 0, 0] for i in range(9)],
+        g_factors=[2 for _ in range(9)],
+    )
+
+    spinham1 = SpinHamiltonian(
+        cell=np.eye(3), atoms=atoms, convention=Convention(multiple_counting=True)
+    )
+    spinham2 = SpinHamiltonian(
+        cell=np.eye(3), atoms=atoms, convention=Convention(multiple_counting=True)
+    )
+
+    spinham1.add_32(alpha=0, beta=1, nu=(0, 3, -4), parameter=parameter1)
+    spinham1.add_32(alpha=4, beta=2, nu=(1, 0, 0), parameter=parameter1 * 1.32)
+    spinham1.add_32(alpha=7, beta=5, nu=(0, 0, 0), parameter=parameter1 / 3)
+
+    spinham2.add_32(alpha=0, beta=1, nu=(0, 3, -4), parameter=parameter2)
+    spinham2.add_32(alpha=4, beta=2, nu=(1, 0, 0), parameter=parameter2 * 1.32)
+    spinham2.add_32(alpha=8, beta=5, nu=(0, 0, 0), parameter=parameter2 / 3)
+
+    m_spinham = spinham1 + spinham2
+
+    assert m_spinham.M == 7
+
+    assert len(m_spinham.p32) == 8
+
+    for i in range(2):
+        assert np.allclose(
+            m_spinham._32[i][-1], spinham1._32[i][-1] + spinham2._32[i][-1]
+        )
+
+    assert np.allclose(m_spinham._32[2][-1], spinham1._32[2][-1])
+    assert np.allclose(m_spinham._32[3][-1], spinham2._32[2][-1])

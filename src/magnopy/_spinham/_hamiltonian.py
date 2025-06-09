@@ -21,7 +21,6 @@ from copy import deepcopy
 
 import numpy as np
 from wulfric import add_sugar
-from wulfric.crystal import get_distance
 
 from magnopy._spinham._c1 import _add_1, _p1, _remove_1
 from magnopy._spinham._c21 import _add_21, _p21, _remove_21
@@ -35,11 +34,65 @@ from magnopy._spinham._c44 import _add_44, _p44, _remove_44
 from magnopy._spinham._c421 import _add_421, _p421, _remove_421
 from magnopy._spinham._c422 import _add_422, _p422, _remove_422
 from magnopy._spinham._convention import Convention
-from magnopy._spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
+
+
+def _merge(list1: list, list2: list) -> list:
+    r"""
+    Merge two sorted parameter lists for any term.
+
+    Lists of parameters have the form
+
+    .. code-block:: python
+
+        list = [[specs, parameter], ...]
+
+    Comparison is based on specs.
+
+    Parameter
+    ---------
+    list1 : list
+        First list of parameters.
+    list2 : list
+        Second list of parameters.
+
+    Returns
+    -------
+    merged_list : list
+        Merged list of parameters.
+    """
+
+    list1 = deepcopy(list1)
+    list2 = deepcopy(list2)
+
+    merged_list = []
+
+    i1 = 0
+    i2 = 0
+
+    while i1 < len(list1) or i2 < len(list2):
+        if i1 >= len(list1):
+            merged_list.append(list2[i2])
+            i2 += 1
+        elif i2 >= len(list2):
+            merged_list.append(list1[i1])
+            i1 += 1
+        elif list1[i1][:-1] == list2[i2][:-1]:
+            merged_list.append(list1[i1])
+            merged_list[-1][-1] = merged_list[-1][-1] + list2[i2][-1]
+            i1 += 1
+            i2 += 1
+        elif list1[i1][:-1] < list2[i2][:-1]:
+            merged_list.append(list1[i1])
+            i1 += 1
+        else:
+            merged_list.append(list2[i2])
+            i2 += 1
+
+    return merged_list
 
 
 class SpinHamiltonian:
@@ -982,10 +1035,70 @@ class SpinHamiltonian:
         return self.__mul__(number=number)
 
     def __add__(self, other):
-        return NotImplementedError
+        if not isinstance(other, SpinHamiltonian):
+            raise NotImplementedError
 
-    def __radd__(self, other):
-        return NotImplementedError
+        # Check that unit cells are the same
+        if not np.allclose(self.cell, other.cell):
+            raise ValueError(
+                "Unit cells of two Hamiltonians are different, "
+                "summation is not supported"
+            )
+
+        # Check that atoms are the same
+        same_atoms = True
+        if len(self.atoms.names) != len(other.atoms.names):
+            same_atoms = False
+        else:
+            for i in range(len(self.atoms.names)):
+                if (
+                    self.atoms.names[i] != other.atoms.names[i]
+                    or not np.allclose(
+                        self.atoms.positions[i], other.atoms.positions[i]
+                    )
+                    or abs(self.atoms.spins[i] - other.atoms.spins[i]) > 1e-8
+                    or abs(self.atoms.g_factors[i] - other.atoms.g_factors[i]) > 1e-8
+                ):
+                    same_atoms = False
+
+        if not same_atoms:
+            raise ValueError(
+                "Atoms of two spin Hamiltonians are different, "
+                "summation is not supported."
+            )
+
+        # Make sure that conventions are the same
+        other_convention = other.convention
+        other.convention = self.convention
+
+        result = self.get_empty()
+
+        # One spin terms
+        result._1 = _merge(list1=self._1, list2=other._1)
+
+        # Two spin terms
+        result._21 = _merge(list1=self._21, list2=other._21)
+        result._22 = _merge(list1=self._22, list2=other._22)
+
+        # Three spin terms
+        result._31 = _merge(list1=self._31, list2=other._31)
+        result._32 = _merge(list1=self._32, list2=other._32)
+        result._33 = _merge(list1=self._33, list2=other._33)
+
+        # Four spin terms
+        result._41 = _merge(list1=self._41, list2=other._41)
+        result._421 = _merge(list1=self._421, list2=other._421)
+        result._422 = _merge(list1=self._422, list2=other._422)
+        result._43 = _merge(list1=self._43, list2=other._43)
+        result._44 = _merge(list1=self._44, list2=other._44)
+
+        # Restore convention of other Hamiltonian
+        other.convention = other_convention
+
+        return result
+
+    def __sub__(self, other):
+        return self + (-1) * other
 
     ############################################################################
     #                            One spin & one site                           #

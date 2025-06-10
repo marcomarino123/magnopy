@@ -163,105 +163,107 @@ Gradient of the function F(x)
 
 As we choose to update the direction vectors at each step of the BFGS algorithm, then
 the gradient with respect to these variables can be computed as
-:math:`a_{\alpha}^i = t_{\alpha}^i`, where :math:`\boldsymbol{t}_{\alpha}` is a torque
-vector and :math:`i = x, y, z`.
 
 .. math::
-
-	\boldsymbol{t}_{\xi}
+    \dfrac{\partial F}{\partial\boldsymbol{a}_{\alpha}}
+    =
+	\boldsymbol{t}_{\alpha}
 	=
-	\boldsymbol{e}_{\xi} \times \dfrac{\partial E^{(0)}}{\partial\boldsymbol{z}_{\xi}}
+	\boldsymbol{z}_{\alpha} \times \dfrac{\partial E^{(0)}}{\partial\boldsymbol{z}_{\alpha}}
+
+where :math:`\boldsymbol{t}_{\alpha}` is a torque vector and
+:math:`\boldsymbol{a}_{\alpha} = (a_{\alpha}^x, a_{\alpha}^y, a_{\alpha}^z)`.
 
 The gradient of the energy is computed analytically
 
 .. math::
 
-	\dfrac{\partial E^{(0)}}{\partial\boldsymbol{z}^t_{\xi}}
+	\dfrac{\partial E^{(0)}}{\partial z^t_{\alpha}}
 	=&
     \,C_1
-    J_1^t(\boldsymbol{r}_{\xi})
-    	S_{\xi}
+    J_1^t(\boldsymbol{r}_{\alpha})
+    	S_{\alpha}
     +\\&+
     C_{2,1}
     \sum_{j}
-    J_{2,1}^{tj}(\boldsymbol{r}_{\xi})
-        z^j_{\xi}
-        (S_{\xi})^2
+    J_{2,1}^{tj}(\boldsymbol{r}_{\alpha})
+        z^j_{\alpha}
+        (S_{\alpha})^2
     +\\&+
     C_{2,2}
     \sum_{\beta, \nu, j}
-    J_{2,2}^{tj}(\boldsymbol{r}_{\nu,\xi\beta})
+    J_{2,2}^{tj}(\boldsymbol{r}_{\nu,\alpha\beta})
         z^j_{\beta}
-        S_{\xi}
+        S_{\alpha}
         S_{\beta}
     +\\&+
     C_{3, 1}
     \sum_{j, u}
-    J^{tju}_{3, 1}(\boldsymbol{r}_{\xi})
-        z^j_{\xi}
-        z^u_{\xi}
-        (S_{\xi})^3
+    J^{tju}_{3, 1}(\boldsymbol{r}_{\alpha})
+        z^j_{\alpha}
+        z^u_{\alpha}
+        (S_{\alpha})^3
     +\\&+
     C_{3, 2}
     \sum_{\beta, \nu, j, u}
-    J^{tju}_{3, 2}(\boldsymbol{r}_{\nu,\xi\beta})
-        z^j_{\xi}
+    J^{tju}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\alpha}
         z^u_{\beta}
-        (S_{\xi})^2
+        (S_{\alpha})^2
         S_{\beta}
     +\\&+
     C_{3, 3}
     \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, j, u}}
-    J^{tju}_{3, 3}(\boldsymbol{r}_{\nu,\xi\beta}, \boldsymbol{r}_{\lambda,\xi\gamma})
+    J^{tju}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
         z^j_{\beta}
         z^u_{\gamma}
-        S_{\xi}
+        S_{\alpha}
         S_{\beta}
         S_{\gamma}
     +\\&+
     C_{4, 1}
-    \sum_{\xi, j, u, v}
-    J_{4, 1}^{tjuv}(\boldsymbol{r}_{\xi})
-        z^j_{\xi}
-        z^u_{\xi}
-        z^v_{\xi}
-        (S_{\xi})^4
+    \sum_{\alpha, j, u, v}
+    J_{4, 1}^{tjuv}(\boldsymbol{r}_{\alpha})
+        z^j_{\alpha}
+        z^u_{\alpha}
+        z^v_{\alpha}
+        (S_{\alpha})^4
     +\\&+
     C_{4, 2, 1}
     \sum_{\substack{\beta, \nu, \\ j, u, v}}
-    J_{4, 2, 1}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta})
-        z^j_{\xi}
-        z^u_{\xi}
+    J_{4, 2, 1}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\alpha}
+        z^u_{\alpha}
         z^v_{\beta}
-        (S_{\xi})^3
+        (S_{\alpha})^3
         S_{\beta}
     +\\&+
     C_{4, 2, 2}
     \sum_{\substack{\beta, \nu, \\ j, u, v}}
-    J_{4, 2, 2}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta})
-        z^j_{\xi}
+    J_{4, 2, 2}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta})
+        z^j_{\alpha}
         z^u_{\beta}
         z^v_{\beta}
-        (S_{\xi})^2
+        (S_{\alpha})^2
         (S_{\beta})^2
     +\\&+
     C_{4, 3}
     \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, \\ j, u, v}}
-    J_{4, 3}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta}, \boldsymbol{r}_{\lambda,\xi\gamma})
-        z^j_{\xi}
+    J_{4, 3}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
+        z^j_{\alpha}
         z^u_{\beta}
         z^v_{\gamma}
-        (S_{\xi})^2
+        (S_{\alpha})^2
         S_{\beta}
         S_{\gamma}
     +\\&+
     C_{4, 4}
     \sum_{\substack{\beta, \gamma, \varepsilon, \nu, \lambda, \rho, \\ \\ j, u, v}}
-    J_{4, 4}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta}, \boldsymbol{r}_{\lambda,\xi\gamma}, \boldsymbol{r}_{\rho,\xi\varepsilon})
+    J_{4, 4}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
         z^j_{\beta}
         z^u_{\gamma}
         z^v_{\varepsilon}
-        S_{\xi}
+        S_{\alpha}
         S_{\beta}
         S_{\gamma}
         S_{\varepsilon}
@@ -329,9 +331,7 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
         then :math:`\alpha_{hi} \gets \alpha_j`
     #)  Else
 
-        i)  Evaluate
-            :math:`f^{\prime}(\alpha_j) = \boldsymbol{\nabla} F(\boldsymbol{x}_k + \alpha_j \boldsymbol{p}_k) \boldsymbol{p}_k`;
-        #)  If :math:`\vert f^{\prime}(\alpha_j)\vert \le -c_2 f^{\prime}(0)`,
+        i)  If :math:`\vert f^{\prime}(\alpha_j)\vert \le -c_2 f^{\prime}(0)`,
             then return :math:`\alpha_j`;
         #)  If :math:`f^{\prime}(\alpha_j)(\alpha_{hi} - \alpha_{lo}) \ge 0`,
             then :math:`\alpha_{hi} \gets \alpha_{lo}`;

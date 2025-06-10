@@ -17,13 +17,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from .checkers import *
-from .line_search import *
-from .optimize import *
-from .sub_types import *
-
-__all__ = []
-__all__.extend(checkers.__all__)
-__all__.extend(line_search.__all__)
-__all__.extend(optimize.__all__)
-__all__.extend(sub_types.__all__)
+from ._t_invariant import *

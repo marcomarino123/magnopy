@@ -22,7 +22,7 @@ import os
 import numpy as np
 import wulfric
 
-from magnopy._energy import Energy
+from magnopy._energy._t_invariant import Energy
 from magnopy._lswt import LSWT
 from magnopy._package_info import logo
 from magnopy._parallelization import multiprocess_over_k

@@ -231,6 +231,10 @@ custom_links = {
         "GROGU file format",
         "https://grogupy.readthedocs.io/en/latest/output-format/index.html",
     ),
+    "BFGS": (
+        "BFGS",
+        "https://en.wikipedia.org/wiki/Broyden-Fletcher-Goldfarb-Shanno_algorithm",
+    ),
 }
 rst_epilog += "\n".join(
     map(

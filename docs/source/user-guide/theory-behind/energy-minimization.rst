@@ -1,27 +1,46 @@
+.. _user-guide_theory-behind_energy-minimization:
+
+**********************
+Minimization of energy
+**********************
 
 
-***********************************
-Minimization of the energy function
-***********************************
+References
+==========
 
-As per the formula FIXME of the paper FIXME. Minimization of the energy function can be
-formulated as a problem of minimizing the function over the :math:`I` vectors of the
-spin directions :math:`\boldsymbol{e}_{\alpha}, \alpha = 1, ..., I`
+.. [1] Nocedal, J. and Wright, S.J.
+       Numerical optimization. New York, NY: Springer New York.
+       eds., 1999.
+.. [2] Ivanov, A.V., Uzdin, V.M. and Jónsson, H., 2021.
+	Fast and robust algorithm for energy minimization of spin systems applied
+	in an analysis of high temperature spin configurations in terms of skyrmion
+	density.
+	Computer Physics Communications, 260, p.107749.
+
+
+On this page we recall the approach and main formulas from [1]_ and [2]_. The
+minimization of the magnetic ground state in magnopy is implemented with the
+method described in [2]_.
+
+Minimization of the energy function can be formulated as a problem of minimizing the
+function over the :math:`M` vectors of the spin directions
+:math:`\boldsymbol{z}_{\alpha}, \alpha = 1, ..., M`
 
 .. math::
 
-	E = F(\boldsymbol{e}_{1}, ..., \boldsymbol{e}_{I})
+	E = F(\boldsymbol{z}_{1}, ..., \boldsymbol{z}_{M})
 
-Direction vectors are unitary vectors and should vary on the sphere. This fact
-introduces complications in the minimization procedure as the optimization space is not
-a vector space. This problem is elegantly solved via parametrization of those vectors
-with the exponents of skew-symmetric matrices. Given an initial guess
-:math:`\boldsymbol{e}_{\alpha, 0}`, any other cone axis and set of direction vectors
+Directional vectors are unitary vectors and vary on the sphere. This fact introduces
+complications in the minimization procedure as the optimization space is not a vector
+space and the typical (|BFGS|_, for instance) algorithms for linear optimizations can
+not be applied directly. This problem is elegantly solved via parametrization of those
+vectors with the exponents of skew-symmetric matrices [2]_. Given an initial guess
+:math:`\boldsymbol{z}_{\alpha}^{(0)}`, any other set of directional vectors
 can be obtained by the following formulae:
 
 .. math::
 
-	\boldsymbol{e}_{\alpha} = e^{\boldsymbol{A}_{\alpha}} \boldsymbol{e}_{\alpha, 0}
+	\boldsymbol{z}_{\alpha} = e^{\boldsymbol{A}_{\alpha}} \boldsymbol{z}_{\alpha}^{(0)}
 
 where :math:`\boldsymbol{E}_{\alpha}` are skew-symmetric
 matrices. The energy function can be rewritten as:
@@ -31,9 +50,9 @@ matrices. The energy function can be rewritten as:
 	E
 	=
 	F(
-		e^{\boldsymbol{A}_1} \boldsymbol{e}_{1, 0},
+		e^{\boldsymbol{A}_1} \boldsymbol{z}_{1}^{(0)},
 		...,
-		e^{\boldsymbol{A}_I} \boldsymbol{e}_{I, 0}
+		e^{\boldsymbol{A}_I} \boldsymbol{z}_{I}^{(0)}
 	)
 
 Skew-symmetric matrices are parametrized by three numbers as
@@ -80,20 +99,20 @@ Formula for the inverse Hessian update:
 	\qquad
 	\rho_k = \dfrac{1}{\sum_i y^i_k s^i_k}
 
-Given :ref:`user-guide_theory-behind_energy_minimization_initial-guess`
-:math:`\boldsymbol{x}_0` and :ref:`user-guide_theory-behind_energy_minimization_initial-hessian`
+Given :ref:`user-guide_theory-behind_energy-minimization_initial-guess`
+:math:`\boldsymbol{x}_0` and :ref:`user-guide_theory-behind_energy-minimization_initial-hessian`
 :math:`\boldsymbol{H}_0`,
 
 
 1.  :math:`k \gets 0`
 #.  While convergence is not achieved:
 
-    a)  :ref:`Compute the gradient <user-guide_theory-behind_energy_minimization_gradient>`
+    a)  :ref:`Compute the gradient <user-guide_theory-behind_energy-minimization_gradient>`
         of the function :math:`\boldsymbol{\nabla} F(\boldsymbol{x}_k)`;
     #)  Compute the search direction
         :math:`\boldsymbol{p}_k = -\boldsymbol{H}_k \boldsymbol{\nabla} F(\boldsymbol{x}_k)`;
     #)  Compute length of the step :math:`\alpha_k` via
-        :ref:`user-guide_theory-behind_energy_minimization_line-search`;
+        :ref:`user-guide_theory-behind_energy-minimization_line-search`;
     #)  Set :math:`\boldsymbol{x}_{k+1} = \boldsymbol{x}_k + \alpha_k \boldsymbol{p}_k`
         and compute gradient :math:`\boldsymbol{\nabla} F(\boldsymbol{x}_{k+1})`;
     #)  Set :math:`\boldsymbol{s}_k = \boldsymbol{x}_{k+1} - \boldsymbol{x}_k` and
@@ -104,19 +123,19 @@ Given :ref:`user-guide_theory-behind_energy_minimization_initial-guess`
 
 .. note::
 	In our implementation we update the direction vectors at the end of each iteration
-	(i.e. at step 2.7). Therefore, the vector :math:`\boldsymbol{x}_k` if equal to
+	(i.e. at step 2.g). Therefore, the vector :math:`\boldsymbol{x}_k` is equal to
 	:math:`( 0, 0, 0, 0, 0, 0, ..., 0, 0, 0)` at the beginning of each iteration.
 
 
 
-.. _user-guide_theory-behind_energy_minimization_initial-guess:
+.. _user-guide_theory-behind_energy-minimization_initial-guess:
 
 Initial guess
 =============
 
 Initial guess is provided by the user  or randomly generated.
 User provides three components for each direction vector
-:math:`(e_{\alpha}^x, e_{\alpha}^y, e_{\alpha}^z)`. The initial guess of the vector
+:math:`(z_{\alpha}^x, z_{\alpha}^y, z_{\alpha}^z)`. The initial guess of the vector
 parameter :math:`\boldsymbol{x}_0` is then constructed as:
 
 .. math::
@@ -129,7 +148,7 @@ parameter :math:`\boldsymbol{x}_0` is then constructed as:
 		0, 0, 0
 	)
 
-.. _user-guide_theory-behind_energy_minimization_initial-hessian:
+.. _user-guide_theory-behind_energy-minimization_initial-hessian:
 
 Initial approximation of the inverse hessian matrix
 ===================================================
@@ -137,25 +156,119 @@ Initial approximation of the inverse hessian matrix
 We take an identity matrix as an initial approximation of the hessian matrix.
 
 
-.. _user-guide_theory-behind_energy_minimization_gradient:
+.. _user-guide_theory-behind_energy-minimization_gradient:
 
 Gradient of the function F(x)
 =============================
 
-Gradient of the function :math:`F(\boldsymbol{x})` is computed analytically and written
-in formulas FIXME of the paper FIXME. As we choose to update the direction vectors and
-cone axis at each step of the BFGS algorithm, then the gradient with respect to these
-variables can be computed as :math:`a_{\alpha}^i = t_{\alpha}^i`, where
-:math:`\boldsymbol{t}_{\alpha}` is a torque vector and :math:`i = x, y, z`.
+As we choose to update the direction vectors at each step of the BFGS algorithm, then
+the gradient with respect to these variables can be computed as
+:math:`a_{\alpha}^i = t_{\alpha}^i`, where :math:`\boldsymbol{t}_{\alpha}` is a torque
+vector and :math:`i = x, y, z`.
 
 .. math::
 
-	\boldsymbol{t}_{\alpha}
+	\boldsymbol{t}_{\xi}
 	=
-	\boldsymbol{e}_{\alpha} \times \dfrac{\partial E}{\partial\boldsymbol{e}_{\alpha}}
+	\boldsymbol{e}_{\xi} \times \dfrac{\partial E^{(0)}}{\partial\boldsymbol{z}_{\xi}}
+
+The gradient of the energy is computed analytically
+
+.. math::
+
+	\dfrac{\partial E^{(0)}}{\partial\boldsymbol{z}^t_{\xi}}
+	=&
+    \,C_1
+    J_1^t(\boldsymbol{r}_{\xi})
+    	S_{\xi}
+    +\\&+
+    C_{2,1}
+    \sum_{j}
+    J_{2,1}^{tj}(\boldsymbol{r}_{\xi})
+        z^j_{\xi}
+        (S_{\xi})^2
+    +\\&+
+    C_{2,2}
+    \sum_{\beta, \nu, j}
+    J_{2,2}^{tj}(\boldsymbol{r}_{\nu,\xi\beta})
+        z^j_{\beta}
+        S_{\xi}
+        S_{\beta}
+    +\\&+
+    C_{3, 1}
+    \sum_{j, u}
+    J^{tju}_{3, 1}(\boldsymbol{r}_{\xi})
+        z^j_{\xi}
+        z^u_{\xi}
+        (S_{\xi})^3
+    +\\&+
+    C_{3, 2}
+    \sum_{\beta, \nu, j, u}
+    J^{tju}_{3, 2}(\boldsymbol{r}_{\nu,\xi\beta})
+        z^j_{\xi}
+        z^u_{\beta}
+        (S_{\xi})^2
+        S_{\beta}
+    +\\&+
+    C_{3, 3}
+    \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, j, u}}
+    J^{tju}_{3, 3}(\boldsymbol{r}_{\nu,\xi\beta}, \boldsymbol{r}_{\lambda,\xi\gamma})
+        z^j_{\beta}
+        z^u_{\gamma}
+        S_{\xi}
+        S_{\beta}
+        S_{\gamma}
+    +\\&+
+    C_{4, 1}
+    \sum_{\xi, j, u, v}
+    J_{4, 1}^{tjuv}(\boldsymbol{r}_{\xi})
+        z^j_{\xi}
+        z^u_{\xi}
+        z^v_{\xi}
+        (S_{\xi})^4
+    +\\&+
+    C_{4, 2, 1}
+    \sum_{\substack{\beta, \nu, \\ j, u, v}}
+    J_{4, 2, 1}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta})
+        z^j_{\xi}
+        z^u_{\xi}
+        z^v_{\beta}
+        (S_{\xi})^3
+        S_{\beta}
+    +\\&+
+    C_{4, 2, 2}
+    \sum_{\substack{\beta, \nu, \\ j, u, v}}
+    J_{4, 2, 2}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta})
+        z^j_{\xi}
+        z^u_{\beta}
+        z^v_{\beta}
+        (S_{\xi})^2
+        (S_{\beta})^2
+    +\\&+
+    C_{4, 3}
+    \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, \\ j, u, v}}
+    J_{4, 3}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta}, \boldsymbol{r}_{\lambda,\xi\gamma})
+        z^j_{\xi}
+        z^u_{\beta}
+        z^v_{\gamma}
+        (S_{\xi})^2
+        S_{\beta}
+        S_{\gamma}
+    +\\&+
+    C_{4, 4}
+    \sum_{\substack{\beta, \gamma, \varepsilon, \nu, \lambda, \rho, \\ \\ j, u, v}}
+    J_{4, 4}^{tjuv}(\boldsymbol{r}_{\nu,\xi\beta}, \boldsymbol{r}_{\lambda,\xi\gamma}, \boldsymbol{r}_{\rho,\xi\varepsilon})
+        z^j_{\beta}
+        z^u_{\gamma}
+        z^v_{\varepsilon}
+        S_{\xi}
+        S_{\beta}
+        S_{\gamma}
+        S_{\varepsilon}
 
 
-.. _user-guide_theory-behind_energy_minimization_line-search:
+
+.. _user-guide_theory-behind_energy-minimization_line-search:
 
 Line search
 ===========
@@ -199,7 +312,7 @@ Given :math:`\boldsymbol{x}_k` and :math:`\boldsymbol{p}_k`
         then return :math:`\alpha_i`;
     #)  If :math:`f^{\prime}(\alpha_i) \ge 0`,
         then return :math:`zoom(\alpha_i, \alpha_{i-1})`;
-    #)  Choose :math:`\alpha_{i+1}` via :ref:`user-guide_theory-behind_energy_minimization_cubic-interpolation`;
+    #)  Choose :math:`\alpha_{i+1}` via :ref:`user-guide_theory-behind_energy-minimization_cubic-interpolation`;
     #)  :math:`i \gets i + 1`.
 
 
@@ -209,7 +322,7 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
 
 1.  Repeat
 
-    a)  Interpolate :math:`\alpha_j` via :ref:`user-guide_theory-behind_energy_minimization_cubic-interpolation`;
+    a)  Interpolate :math:`\alpha_j` via :ref:`user-guide_theory-behind_energy-minimization_cubic-interpolation`;
     #)  Compute :math:`f(\alpha_j) = F(\boldsymbol{x}_k + \alpha_j \boldsymbol{p}_k)`;
     #)  If :math:`f(\alpha_j) > f(0) + c_1 \alpha_j f^{\prime}(0)`
         or :math:`f(\alpha_j) \ge f(\alpha_{lo})`,
@@ -225,7 +338,7 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
         #) :math:`\alpha_{lo} \gets \alpha_j`.
 
 
-.. _user-guide_theory-behind_energy_minimization_cubic-interpolation:
+.. _user-guide_theory-behind_energy-minimization_cubic-interpolation:
 
 Cubic interpolation method
 --------------------------
@@ -241,13 +354,3 @@ as
 	d_1 &= f^{\prime}(\alpha_l) + f^{\prime}(\alpha_h) - 3 \dfrac{f(\alpha_l) - f(\alpha_h)}{\alpha_l - \alpha_h}
 	\\
 	d_2 &= \text{sign}(\alpha_h - \alpha_l) \sqrt{d_1^2 - f^{\prime}(\alpha_l)f^{\prime}(\alpha_h)}
-
-
-
-
-References
-==========
-
-.. [1] Nocedal, J. and Wright, S.J.
-       Numerical optimization. New York, NY: Springer New York.
-       eds., 1999.

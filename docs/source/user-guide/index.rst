@@ -61,3 +61,4 @@ explain how the Hamiltonian is defined and stored within magnopy.
     theory-behind/spin-hamiltonian
     theory-behind/convention-problem
     theory-behind/multiple-counting
+    theory-behind/energy-minimization

@@ -225,6 +225,9 @@ class Energy:
 
         spinham.convention = initial_convention
 
+    def __call__(self, spin_directions) -> float:
+        return self.E_0(spin_directions=spin_directions)
+
     def E_0(self, spin_directions) -> float:
         r"""
 
@@ -325,6 +328,8 @@ class Energy:
 
     def gradient(self, spin_directions):
         r"""
+        Computes first derivatives of energy (:math:`E^{(0)}`) with respect to the
+        components of the spin directional vectors.
 
         Parameters
         ----------
@@ -358,11 +363,11 @@ class Energy:
 
         gradient += self.J_1 * self.spins[:, np.newaxis]
 
-        gradient += np.einsum(
+        gradient += 2 * np.einsum(
             "mtj,mj,m->mt", self.J_21, spin_directions, self.spins**2
         )
 
-        gradient += np.einsum(
+        gradient += 3 * np.einsum(
             "mtju,mj,mu,m->mt",
             self.J_31,
             spin_directions,
@@ -370,7 +375,7 @@ class Energy:
             self.spins**3,
         )
 
-        gradient += np.einsum(
+        gradient += 4 * np.einsum(
             "mtjuv,mj,mu,mv,m->mt",
             self.J_41,
             spin_directions,
@@ -380,7 +385,7 @@ class Energy:
         )
 
         for alpha, beta in self.J_22:
-            gradient[alpha] += (
+            gradient[alpha] += 2 * (
                 self.J_22[(alpha, beta)]
                 @ spin_directions[beta]
                 * self.spins[alpha]
@@ -388,7 +393,7 @@ class Energy:
             )
 
         for alpha, beta in self.J_32:
-            gradient[alpha] += (
+            gradient[alpha] += 3 * (
                 np.einsum(
                     "tju,j,u->t",
                     self.J_32[(alpha, beta)],
@@ -400,7 +405,7 @@ class Energy:
             )
 
         for alpha, beta in self.J_421:
-            gradient[alpha] += (
+            gradient[alpha] += 4 * (
                 np.einsum(
                     "tjuv,j,u,v->t",
                     self.J_421[(alpha, beta)],
@@ -413,7 +418,7 @@ class Energy:
             )
 
         for alpha, beta in self.J_422:
-            gradient[alpha] += (
+            gradient[alpha] += 4 * (
                 np.einsum(
                     "tjuv,j,u,v->t",
                     self.J_422[(alpha, beta)],
@@ -426,7 +431,7 @@ class Energy:
             )
 
         for alpha, beta, gamma in self.J_33:
-            gradient[alpha] += (
+            gradient[alpha] += 3 * (
                 np.einsum(
                     "tju,j,u->t",
                     self.J_33[(alpha, beta, gamma)],
@@ -439,7 +444,7 @@ class Energy:
             )
 
         for alpha, beta, gamma in self.J_43:
-            gradient[alpha] += (
+            gradient[alpha] += 4 * (
                 np.einsum(
                     "tjuv,j,u,v->t",
                     self.J_43[(alpha, beta, gamma)],
@@ -452,7 +457,7 @@ class Energy:
             )
 
         for alpha, beta, gamma, epsilon in self.J_44:
-            gradient[alpha] += (
+            gradient[alpha] += 4 * (
                 np.einsum(
                     "tjuv,j,u,v->t",
                     self.J_44[(alpha, beta, gamma, epsilon)],
@@ -515,6 +520,17 @@ class Energy:
         optimized_directions : (M, 3) :numpy:`ndarray`
             Optimized direction of the spin vectors.
         """
+
+        if initial_guess is None:
+            initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
+
+        spin_directions = (
+            initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
+        )
+
+        tolerance = np.array([energy_tolerance, torque_tolerance], dtype=float)
+
+        delta = 2 * tolerance
 
 
 # Populate __all__ with objects defined in this file

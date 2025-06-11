@@ -27,7 +27,7 @@ from magnopy import Convention, SpinHamiltonian
 from magnopy._spinham._c43 import _get_primary_p43
 
 MAX_MODULUS = 1e8
-ARRAY_3x3x3x3 = harrays(
+ARRAY = harrays(
     np.float64,
     (3, 3, 3, 3),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
@@ -41,7 +41,7 @@ RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value
     st.integers(),
     st.tuples(st.integers(), st.integers(), st.integers()),
     st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3x3x3x3,
+    ARRAY,
 )
 def test_add_43(alpha, beta, gamma, nu, _lambda, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
@@ -80,7 +80,7 @@ def test_add_43(alpha, beta, gamma, nu, _lambda, parameter):
     st.integers(min_value=0, max_value=8),
     st.tuples(st.integers(), st.integers(), st.integers()),
     st.tuples(st.integers(), st.integers(), st.integers()),
-    ARRAY_3x3x3x3,
+    ARRAY,
 )
 def test_add_43_sorting(
     alpha1,
@@ -181,7 +181,7 @@ def test_remove_43(r_alpha, r_beta, r_gamma, r_nu, r_lambda, nus, lambdas):
             spinham.remove_43(*bond)
 
 
-@given(ARRAY_3x3x3x3)
+@given(ARRAY)
 def test_iterator_index_bug(parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -198,7 +198,7 @@ def test_iterator_index_bug(parameter):
     list(spinham.p43)
 
 
-@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+@given(ARRAY, st.floats(min_value=0.1, max_value=1e4))
 def test_mul(parameter, number):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -246,7 +246,7 @@ def test_mul(parameter, number):
         assert np.allclose(number * params[i][5], m_params[i][5])
 
 
-@given(ARRAY_3x3x3x3, st.floats(min_value=0.1, max_value=1e4))
+@given(ARRAY, st.floats(min_value=0.1, max_value=1e4))
 def test_rmul(parameter, number):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -294,7 +294,7 @@ def test_rmul(parameter, number):
         assert np.allclose(number * params[i][5], m_params[i][5])
 
 
-@given(ARRAY_3x3x3x3, ARRAY_3x3x3x3)
+@given(ARRAY, ARRAY)
 def test_add(parameter1, parameter2):
     atoms = dict(
         names=["Cr" for _ in range(9)],

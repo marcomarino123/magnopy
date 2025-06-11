@@ -26,14 +26,14 @@ from hypothesis.extra.numpy import arrays as harrays
 from magnopy import Convention, SpinHamiltonian
 
 MAX_MODULUS = 1e8
-ARRAY_3 = harrays(
+ARRAY = harrays(
     np.float64,
     (3,),
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 
 
-@given(st.integers(), ARRAY_3)
+@given(st.integers(), ARRAY)
 def test_add_1(alpha, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -51,7 +51,7 @@ def test_add_1(alpha, parameter):
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
     st.integers(min_value=0, max_value=8),
-    ARRAY_3,
+    ARRAY,
 )
 def test_add_1_sorting(alpha1, alpha2, alpha3, alpha4, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
@@ -101,7 +101,7 @@ def test_remove_1(r_alpha):
             spinham.remove_1(*bond)
 
 
-@given(ARRAY_3, st.floats(min_value=0.1, max_value=1e4))
+@given(ARRAY, st.floats(min_value=0.1, max_value=1e4))
 def test_mul(parameter, number):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -123,7 +123,7 @@ def test_mul(parameter, number):
         assert np.allclose(number * spinham.p1[i][1], m_spinham.p1[i][1])
 
 
-@given(ARRAY_3, st.floats(min_value=0.1, max_value=1e4))
+@given(ARRAY, st.floats(min_value=0.1, max_value=1e4))
 def test_rmul(parameter, number):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
@@ -145,7 +145,7 @@ def test_rmul(parameter, number):
         assert np.allclose(number * spinham.p1[i][1], m_spinham.p1[i][1])
 
 
-@given(ARRAY_3, ARRAY_3)
+@given(ARRAY, ARRAY)
 def test_add(parameter1, parameter2):
     atoms = dict(
         names=["Cr" for _ in range(9)],

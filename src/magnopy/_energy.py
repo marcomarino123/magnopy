@@ -86,7 +86,7 @@ class Energy:
         initial_convention = spinham.convention
 
         magnopy_convention = initial_convention.get_modified(
-            spin_normalized=False, multiple_counting=False
+            spin_normalized=False, multiple_counting=True
         )
 
         spinham.convention = magnopy_convention

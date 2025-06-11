@@ -228,7 +228,7 @@ class Energy:
     def __call__(self, spin_directions) -> float:
         return self.E_0(spin_directions=spin_directions)
 
-    def E_0(self, spin_directions) -> float:
+    def E_0(self, spin_directions, _normalize=True) -> float:
         r"""
 
         Parameters
@@ -238,6 +238,9 @@ class Energy:
             modulus is ignored. ``M`` is the amount of magnetic atoms in the
             Hamiltonian. The order of spin directions is the same as the order
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
+        _normalize : bool, default True
+            Whether to normalize the spin_directions or use the provided vectors as is.
+
 
         Returns
         -------
@@ -246,9 +249,11 @@ class Energy:
         """
 
         spin_directions = np.array(spin_directions, dtype=float)
-        spin_directions = (
-            spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
-        )
+
+        if _normalize:
+            spin_directions = (
+                spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
+            )
         spins = spin_directions * self.spins[:, np.newaxis]
 
         energy = 0
@@ -532,6 +537,8 @@ class Energy:
 
         delta = 2 * tolerance
 
+        # TODO
+
 
 # Populate __all__ with objects defined in this file
 __all__ = list(set(dir()) - old_dir)
@@ -548,3 +555,5 @@ if __name__ == "__main__":
     energy = Energy(spinham=spinham)
 
     optimized_sd = energy.optimize()
+
+    print(optimized_sd)

@@ -331,7 +331,7 @@ class Energy:
 
         return float(energy)
 
-    def gradient(self, spin_directions):
+    def gradient(self, spin_directions, _normalize=True):
         r"""
         Computes first derivatives of energy (:math:`E^{(0)}`) with respect to the
         components of the spin directional vectors.
@@ -343,6 +343,8 @@ class Energy:
             modulus is ignored. ``M`` is the amount of magnetic atoms in the
             Hamiltonian. The order of spin directions is the same as the order
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
+        _normalize : bool, default True
+            Whether to normalize the spin_directions or use the provided vectors as is.
 
         Returns
         -------
@@ -360,9 +362,11 @@ class Energy:
         """
 
         spin_directions = np.array(spin_directions, dtype=float)
-        spin_directions = (
-            spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
-        )
+
+        if _normalize:
+            spin_directions = (
+                spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
+            )
 
         gradient = np.zeros((self.M, 3), dtype=float)
 
@@ -478,7 +482,7 @@ class Energy:
 
         return gradient
 
-    def torque(self, spin_directions):
+    def torque(self, spin_directions, _normalize=True):
         r"""
         Computes torque on each spin.
 
@@ -489,6 +493,8 @@ class Energy:
             modulus is ignored. ``M`` is the amount of magnetic atoms in the
             Hamiltonian. The order of spin directions is the same as the order
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
+        _normalize : bool, default True
+            Whether to normalize the spin_directions or use the provided vectors as is.
 
         Returns
         -------
@@ -503,7 +509,10 @@ class Energy:
                     [ tMx, tMy, tMz ]
                 ]
         """
-        return np.cross(spin_directions, self.gradient(spin_directions=spin_directions))
+        return np.cross(
+            spin_directions,
+            self.gradient(spin_directions=spin_directions, _normalize=_normalize),
+        )
 
     def optimize(
         self, initial_guess=None, energy_tolerance=1e-5, torque_tolerance=1e-5

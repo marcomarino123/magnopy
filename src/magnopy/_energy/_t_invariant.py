@@ -230,6 +230,7 @@ class Energy:
 
     def E_0(self, spin_directions, _normalize=True) -> float:
         r"""
+        Classical energy of the spin Hamiltonian.
 
         Parameters
         ----------
@@ -240,7 +241,6 @@ class Energy:
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
         _normalize : bool, default True
             Whether to normalize the spin_directions or use the provided vectors as is.
-
 
         Returns
         -------

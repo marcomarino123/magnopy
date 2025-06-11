@@ -17,19 +17,68 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from re import search
+
 import numpy as np
 
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
 
+_C1 = 1e-4
+_C2 = 0.9
 
-def _rotate_sd(reference_directions, rotation):
+
+def _cubic_interpolation(alpha_l, alpha_h, phi_l, phi_h, der_l, der_h):
+    r"""
+    Computes the minimum of a cubic interpolation for the function f(alpha) with
+    values f_l, f_h and derivatives fp_l, fp_h at the points alpha_l, alpha_h.
+
+    Parameters
+    ----------
+    alpha_l : float
+        Lower bound of the interval.
+    alpha_h : float
+        Upper bound of the interval.
+    phi_l : float
+        Value of the function at alpha_l.
+    phi_h : float
+        Value of the function at alpha_h.
+    der_l : float
+        Derivative of the function at alpha_l.
+    der_h : float
+        Derivative of the function at alpha_h.
+
+    Returns
+    -------
+    alpha_min : float
+        Position of the minimum of the cubic interpolation for the function f(alpha).
+    """
+
+    if abs(alpha_l - alpha_h) < np.finfo(float).eps:
+        return alpha_l
+
+    d_1 = der_l + der_h - 3 * (phi_l - phi_h) / (alpha_l - alpha_h)
+
+    if d_1**2 - phi_l * phi_h < 0:
+        if phi_l <= phi_h:
+            return alpha_l
+        else:
+            return alpha_h
+
+    d_2 = np.sign(alpha_h - alpha_l) * np.sqrt(d_1**2 - der_l * der_h)
+
+    return alpha_h - (alpha_h - alpha_l) * (der_h + d_2 - d_1) / (
+        der_h - der_l + 2 * d_2
+    )
+
+
+def _rotate_sd(reference_sd, rotation):
     r"""
 
     Parameters
     ----------
-    reference_directions : (M, 3) :numpy:`ndarray`
+    reference_sd : (M, 3) :numpy:`ndarray`
         Reference direction of the spin vectors.
     rotation : (M*3,) :numpy:`ndarray`
         Rotation of the spin vectors parameterized with the skew-symmetric matrix.
@@ -40,7 +89,7 @@ def _rotate_sd(reference_directions, rotation):
         Rotated set of direction vectors.
     """
 
-    directions = reference_directions.copy()
+    directions = reference_sd.copy()
 
     ax = rotation[::3]
     ay = rotation[1::3]
@@ -514,6 +563,173 @@ class Energy:
             self.gradient(spin_directions=spin_directions, _normalize=_normalize),
         )
 
+    def _zoom(
+        self,
+        reference_sd,
+        search_direction,
+        phi_0,
+        der_0,
+        alpha_lo,
+        alpha_hi,
+        c1=_C1,
+        c2=_C2,
+    ):
+        sd_lo = _rotate_sd(
+            reference_sd=reference_sd, rotation=alpha_lo * search_direction
+        )
+        sd_hi = _rotate_sd(
+            reference_sd=reference_sd, rotation=alpha_hi * search_direction
+        )
+
+        phi_lo = self.E_0(spin_directions=sd_lo)
+        phi_hi = self.E_0(spin_directions=sd_hi)
+
+        der_lo = self.torque(spin_directions=sd_lo).flatten() @ search_direction
+        der_hi = self.torque(spin_directions=sd_hi).flatten() @ search_direction
+
+        trial_steps = 0
+        phi_min = None
+        while True:
+            # Interpolate
+            alpha_j = _cubic_interpolation(
+                alpha_l=alpha_lo,
+                alpha_h=alpha_hi,
+                phi_l=phi_lo,
+                phi_h=phi_hi,
+                der_l=der_lo,
+                der_h=der_hi,
+            )
+            # Evaluate \phi(\alpha_i)
+            sd_j = _rotate_sd(
+                reference_sd=reference_sd, rotation=alpha_j * search_direction
+            )
+            phi_j = self.E_0(spin_directions=sd_j)
+
+            # Safeguard
+            if phi_min is None:
+                phi_min = phi_j
+                alpha_min = alpha_j
+            else:
+                if phi_j < phi_min:
+                    phi_min = phi_j
+                    alpha_min = alpha_j
+                    trial_steps = 0
+            trial_steps += 1
+            if trial_steps > 10:
+                return alpha_j
+
+            # Evaluate \phi^{\prime}(\alpha_i)
+            der_j = self.torque(spin_directions=sd_j).flatten() @ search_direction
+
+            if phi_j > phi_0 + c1 * alpha_j * der_0 or phi_j >= phi_lo:
+                alpha_hi = alpha_j
+                phi_hi = phi_j
+                der_hi = der_j
+            else:
+                if abs(der_j) <= -c2 * der_0:
+                    return alpha_j
+                if der_j * (alpha_hi - alpha_lo) >= 0:
+                    alpha_hi = alpha_lo
+                    phi_hi = phi_lo
+                    der_hi = der_lo
+                alpha_lo = alpha_j
+                phi_lo = phi_j
+                der_lo = der_j
+
+    def _line_search(
+        self,
+        reference_sd,
+        search_direction,
+        phi_0,
+        der_0,
+        c1=_C1,
+        c2=_C2,
+        alpha_max=2.0,
+        max_iterations=1000,
+    ):
+        # First check if step alpha=1 is good to go:
+        sd_1 = _rotate_sd(reference_sd=reference_sd, rotation=search_direction)
+        phi_1 = self.E_0(spin_directions=sd_1)
+        der_1 = self.torque(spin_directions=sd_1).flatten() @ search_direction
+
+        if phi_1 <= phi_0 + c1 * der_0 and abs(der_1) <= c2 * abs(der_0):
+            return 1.0
+
+        # If not, then proceed to the algorithm
+
+        alpha_prev = 0
+        phi_prev = phi_0
+        der_prev = der_0
+
+        sd_max = _rotate_sd(
+            reference_sd=reference_sd, rotation=alpha_max * search_direction
+        )
+        phi_max = self.E_0(spin_directions=sd_max)
+        der_max = self.torque(spin_directions=sd_max).flatten() @ search_direction
+
+        alpha_i = _cubic_interpolation(
+            alpha_l=alpha_prev,
+            alpha_h=alpha_max,
+            phi_l=phi_prev,
+            phi_h=phi_max,
+            der_l=der_prev,
+            der_h=der_max,
+        )
+
+        for i in range(1, max_iterations):
+            # Evaluate \phi(\alpha_i)
+            sd_i = _rotate_sd(
+                reference_sd=reference_sd, rotation=alpha_i * search_direction
+            )
+            phi_i = self.E_0(spin_directions=sd_i)
+
+            if phi_i > phi_0 + c1 * alpha_i * der_0 or (i > 1 and phi_i >= phi_prev):
+                return self._zoom(
+                    reference_sd=reference_sd,
+                    search_direction=search_direction,
+                    phi_0=phi_0,
+                    der_0=der_0,
+                    alpha_lo=alpha_prev,
+                    alpha_hi=alpha_i,
+                )
+
+            # Evaluate \phi^{\prime}(\alpha_i)
+            der_i = self.torque(spin_directions=sd_i).flatten() @ search_direction
+
+            if abs(der_i) <= -c2 * der_0:
+                return alpha_i
+
+            if der_i >= 0:
+                return self._zoom(
+                    reference_sd=reference_sd,
+                    search_direction=search_direction,
+                    phi_0=phi_0,
+                    der_0=der_0,
+                    alpha_lo=alpha_i,
+                    alpha_hi=alpha_prev,
+                )
+
+            # Choose alpha_{i+1}
+            alpha_next = _cubic_interpolation(
+                alpha_l=alpha_i,
+                alpha_h=alpha_max,
+                phi_l=phi_i,
+                phi_h=phi_max,
+                der_l=der_i,
+                der_h=der_max,
+            )
+
+            # Set i <- i+1
+            alpha_prev = alpha_i
+            phi_prev = phi_i
+            der_prev = der_i
+
+            alpha_i = alpha_next
+
+        raise ValueError(
+            f"Line search did not converge in {max_iterations} iterations."
+        )
+
     def optimize(
         self, initial_guess=None, energy_tolerance=1e-5, torque_tolerance=1e-5
     ):
@@ -538,15 +754,74 @@ class Energy:
         if initial_guess is None:
             initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
 
-        spin_directions = (
-            initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
-        )
+        sd_k = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
 
         tolerance = np.array([energy_tolerance, torque_tolerance], dtype=float)
 
         delta = 2 * tolerance
 
-        # TODO
+        hessinv_k = np.eye(3 * self.M, dtype=float)
+
+        energy_k = self.E_0(spin_directions=sd_k)
+        gradient_k = self.torque(spin_directions=sd_k).flatten()
+
+        first_iteration = True
+        while (delta >= tolerance).any():
+            search_direction = -hessinv_k @ gradient_k
+            print(f"search = {search_direction}")
+
+            alpha_k = self._line_search(
+                reference_sd=sd_k,
+                search_direction=search_direction,
+                phi_0=energy_k,
+                der_0=gradient_k @ search_direction,
+            )
+
+            # alpha_k = max(alpha_k, 1e-3)
+            print(f"alpha_k = {alpha_k}")
+
+            s_k = alpha_k * search_direction
+            # print(f"s_k = {s_k}")
+
+            sd_next = _rotate_sd(reference_sd=sd_k, rotation=s_k)
+            # print(f"sd_next = {sd_next}")
+            energy_next = self.E_0(spin_directions=sd_next)
+            gradient_next = self.torque(spin_directions=sd_next).flatten()
+
+            delta = np.array(
+                [
+                    abs(energy_next - energy_k),
+                    np.linalg.norm(np.reshape(gradient_next, shape=(self.M, 3))).max(),
+                ]
+            )
+            print(f"deltas: {delta[0]:11.7f} {delta[1]:11.7f}")
+            if (delta < tolerance).all():
+                break
+
+            y_k = gradient_next - gradient_k
+            # print(f"y_k = {y_k}")
+
+            rho_k = 1 / (y_k @ s_k)
+            # print(f"rho = {rho_k}")
+
+            EYE = np.eye(3 * self.M)
+            OUTER = np.outer(y_k, s_k)
+
+            if first_iteration:
+                first_iteration = False
+                hessinv_k = (y_k @ s_k) / (y_k @ y_k) * hessinv_k
+
+            hessinv_k = (EYE - rho_k * OUTER.T) @ hessinv_k @ (
+                EYE - rho_k * OUTER
+            ) + rho_k * s_k @ s_k
+
+            sd_k = sd_next
+            energy_k = energy_next
+            gradient_k = gradient_next
+
+            print("=" * 40)
+
+        return sd_next
 
 
 # Populate __all__ with objects defined in this file
@@ -557,9 +832,15 @@ del old_dir
 
 
 if __name__ == "__main__":
-    from magnopy.examples import ivuzjo
+    from magnopy.examples import cubic_ferro_nn, ivuzjo
 
-    spinham = ivuzjo(N=10)
+    spinham = cubic_ferro_nn(
+        a=1,
+        J_iso=1,
+        J_21=(-1, 0, 0),
+        S=0.5,
+        dimensions=3,
+    )
 
     energy = Energy(spinham=spinham)
 

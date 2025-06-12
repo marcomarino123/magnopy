@@ -27,6 +27,8 @@ First release of magnopy.
 *   Implement energy minimization algorithm.
 *   Implement creation of the supercell (warning: not tested)
 *   Implement ``__call__`` (equivalent to ``Energy.E_0``) for ``Energy`` class.
+*   Update LSWT scenario for the convenience of usage within python.
+*   Add spin direction's optimization to the LSWT scenario.
 
 0.1.6
 -----

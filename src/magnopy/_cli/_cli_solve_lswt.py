@@ -24,7 +24,9 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 import numpy as np
 
 from magnopy._package_info import logo
+from magnopy.io._grogu import load_grogu
 from magnopy.io._spin_directions import read_spin_directions
+from magnopy.io._tb2j import load_tb2j
 from magnopy.scenarios._solve_lswt import solve_lswt
 
 
@@ -37,7 +39,10 @@ def manager():
         parser.print_help()
         sys.exit(1)
 
-    if len(args.spin_directions) == 1:
+    # Load spin directions
+    if args.spin_directions is None:
+        pass
+    elif len(args.spin_directions) == 1:
         args.spin_directions = read_spin_directions(filename=args.spin_directions)
     else:
         args.spin_directions = np.array(args.spin_directions)
@@ -45,9 +50,11 @@ def manager():
             (len(args.spin_directions) // 3, 3)
         )
 
+    # Process spin values
     if args.spin_values is not None:
         args.spin_values = [float(tmp) for tmp in args.spin_values]
 
+    # Load kpoints
     kpoints = []
     if args.kpoints is not None:
         with open(args.kpoints, "r") as f:
@@ -70,7 +77,36 @@ def manager():
 
         args.kpoints = kpoints
 
-    solve_lswt(**vars(args))
+    # Load spin Hamiltonian
+    if args.spinham_source.lower() == "tb2j":
+        spinham = load_tb2j(
+            filename=args.spinham_filename, spin_values=args.spin_values
+        )
+    elif args.spinham_source.lower() == "grogu":
+        spinham = load_grogu(filename=args.spinham_filename)
+    else:
+        raise ValueError(
+            'Supported sources of spin Hamiltonian are "GROGU" and "TB2J", '
+            f'got "{args.spinham_source}".'
+        )
+
+    comment = (
+        f'Source of the parameters is "{args.spinham_source}".\n'
+        f"Loaded parameters of the spin Hamiltonian from the file\n  "
+        f"{os.path.abspath(args.spinham_filename)}."
+    )
+
+    solve_lswt(
+        spinham=spinham,
+        spin_directions=args.spin_directions,
+        k_path=args.k_path,
+        kpoints=args.kpoints,
+        relative=args.relative,
+        magnetic_field=args.magnetic_field,
+        output_folder=args.output_folder,
+        number_processors=args.number_processors,
+        comment=comment,
+    )
 
 
 def get_parser():
@@ -105,7 +141,7 @@ def get_parser():
         "--spin-directions",
         nargs="*",
         type=str,
-        required=True,
+        default=None,
         metavar="S1_x S2_y S3_z ...",
         help="To fully define the system for the calculations of magnons one need the "
         "information about the ground state in addition to the parameters of the "
@@ -113,7 +149,9 @@ def get_parser():
         " * Give a path to the file. In the file there should be M lines with three "
         "numbers in each. The order of the lines would match the order of magnetic "
         "atoms in the spin Hamiltonian."
-        " * Give a sequence of 3*M numbers directly to this parameter.",
+        " * Give a sequence of 3*M numbers directly to this parameter.\n"
+        "If none provided, then magnopy attempts to optimize the spin directions prior "
+        "to the LSWT calculations.",
     )
     parser.add_argument(
         "-sv",

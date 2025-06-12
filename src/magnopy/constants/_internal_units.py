@@ -47,7 +47,7 @@ TEMPERATURE = si.KELVIN
 #                                Unit's names                                  #
 ################################################################################
 LENGTH_NAME = "Angstrom"
-ENERGY_NAME = "milli-electron-Volt"
+ENERGY_NAME = "millielectronVolt"
 TIME_NAME = "Second"
 MAGNETIC_FIELD_NAME = "Tesla"
 TEMPERATURE_NAME = "Kelvin"

@@ -33,7 +33,7 @@ def multiprocess_over_k(kpoints, function, relative=False, number_processors=Non
     kpoints : (N, 3) |array-like|_
         List of the kpoints.
     function : callable
-        Function that prcess one kpoint and will be called as call signature
+        Function that process one kpoint and will be called as call signature
         ``function(kpoints[i], relative)``.
     relative : bool, default False
         If ``relative=True``, then ``k`` is interpreted as given relative to the

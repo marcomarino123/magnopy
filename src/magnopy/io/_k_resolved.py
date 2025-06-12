@@ -58,7 +58,7 @@ def output_k_resolved(
         If ``relative == True``, then given ``kpoints`` are interpreted as relative to
         the reciprocal unit cell. Otherwise they are interpreted as absolute coordinates.
     rcell : (3, 3) |array-like|_, optional
-        Reiprocal unit cell. Rows are interpreted as vectors, columns as Cartesian
+        Reciprocal unit cell. Rows are interpreted as vectors, columns as Cartesian
         coordinates.
     flat_indices : (N, 3) |array-like|_, optional
         kpoints converted to the list of floats according to some rule. Typically used

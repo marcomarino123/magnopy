@@ -168,7 +168,7 @@ six cases are possible
       J_{3, 3}^{iuj}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
 
 #.  If :math:`\boldsymbol{S}_{\mu+\nu,\beta} < \boldsymbol{S}_{\mu,\alpha} < \boldsymbol{S}_{\mu+\lambda,\gamma}` then
-    :math:`(\beta, \alpha, \gamma, -\nu, \lambda - \nu)` is a primary version with the paramete  r
+    :math:`(\beta, \alpha, \gamma, -\nu, \lambda - \nu)` is a primary version with the parameter
 
     .. math::
       J_{3, 3}^{iju}(\boldsymbol{r}_{-\nu,\beta\alpha}, \boldsymbol{r}_{\lambda - \nu,\beta\gamma})

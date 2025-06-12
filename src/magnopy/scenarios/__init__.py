@@ -17,4 +17,5 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from ._optimize_sd import *
 from ._solve_lswt import *

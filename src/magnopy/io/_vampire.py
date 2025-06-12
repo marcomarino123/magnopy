@@ -24,9 +24,9 @@ from wulfric.cell import get_params
 from wulfric.crystal import get_atom_species
 
 from magnopy._package_info import logo
+from magnopy._parameters._p22 import to_dmi, to_symm_anisotropy
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy._spinham._parameter import get_anisotropic_parameter, get_dmi
 from magnopy.constants._internal_units import ENERGY
 
 # Save local scope at this moment
@@ -42,7 +42,7 @@ def dump_vampire(
     custom_mask=None,
     decimals=5,
     materials=None,
-    nologo=False,
+    no_logo=False,
 ):
     """
     Save the Hamiltonian in a Human-readable format.
@@ -68,7 +68,7 @@ def dump_vampire(
         List of materials for the atoms. Has to have the same length as the number of
         magnetic atoms in the ``spinham``. Order is the same as in :py:attr:`.SpinHamiltonian.magnetic_atoms`.
         If not given, each atom will be considered as a separate material. Starting from 0.
-    nologo : bool, default False
+    no_logo : bool, default False
         Whether to print the logo in the output files.
 
     Returns
@@ -90,16 +90,16 @@ def dump_vampire(
         custom_mask=custom_mask,
         decimals=decimals,
         materials=materials,
-        nologo=nologo,
+        no_logo=no_logo,
     )
     dump_vampire_mat(
         spinham,
         filename=seedname + ".mat",
         materials=materials,
-        nologo=nologo,
+        no_logo=no_logo,
     )
     with open(os.path.join(head, "input-template"), "w", encoding="utf-8") as file:
-        if not nologo:
+        if not no_logo:
             file.write(logo(comment=True, date_time=True) + "\n")
 
         file.write(
@@ -116,7 +116,7 @@ def dump_vampire(
 
 
 def dump_vampire_mat(
-    spinham: SpinHamiltonian, filename=None, materials=None, nologo=False
+    spinham: SpinHamiltonian, filename=None, materials=None, no_logo=False
 ):
     """
     Write .mat file for |Vampire|_.
@@ -134,7 +134,7 @@ def dump_vampire_mat(
         as a separate material. Material index starts from 0 and should contain all
         consecutive integers between 0 and number of materials. Number of materials
         cannot be higher than number of magnetic atoms.
-    nologo : bool, default False
+    no_logo : bool, default False
         Whether to print the logo in the output files.
 
     Notes
@@ -165,7 +165,7 @@ def dump_vampire_mat(
                     f"{higher_material}. Missing {i}."
                 )
 
-    if nologo:
+    if no_logo:
         text = []
     else:
         text = [logo(comment=True, date_time=True)]
@@ -210,7 +210,7 @@ def dump_vampire_ucf(
     custom_mask=None,
     decimals=5,
     materials=None,
-    nologo=False,
+    no_logo=False,
 ):
     """
     Save the Hamiltonian in a Human-readable format.
@@ -236,7 +236,7 @@ def dump_vampire_ucf(
         List of materials for the atoms. Has to have the same length as the number of
         magnetic atoms in the ``spinham``. Order is the same as in :py:attr:`.SpinHamiltonian.magnetic_atoms`.
         If not given, each atom will be considered as a separate material.
-    nologo : bool, default False
+    no_logo : bool, default False
         Whether to print the logo in the output files.
 
     Returns
@@ -250,7 +250,7 @@ def dump_vampire_ucf(
     original_convention = spinham.convention
     spinham.convention = Convention.get_predefined(name="Vampire")
 
-    if nologo:
+    if no_logo:
         text = []
     else:
         text = [logo(comment=True, date_time=True)]
@@ -290,9 +290,9 @@ def dump_vampire_ucf(
             J = custom_mask(J)
         else:
             if not dmi:
-                J -= get_dmi(J, matrix_form=True)
+                J -= to_dmi(J, matrix_form=True)
             if not anisotropic:
-                J -= get_anisotropic_parameter(J)
+                J -= to_symm_anisotropy(J)
         J = J * ENERGY
         text.append(
             f"{IID:<5} {alpha:>3} {alpha:>3}  {0:>2} {0:>2} {0:>2}  "
@@ -311,9 +311,9 @@ def dump_vampire_ucf(
             J = custom_mask(J)
         else:
             if not dmi:
-                J -= get_dmi(J, matrix_form=True)
+                J -= to_dmi(J, matrix_form=True)
             if not anisotropic:
-                J -= get_anisotropic_parameter(J)
+                J -= to_symm_anisotropy(J)
         # print(alpha, beta, nu)
         # print(J, end="\n\n")
         J = J * ENERGY

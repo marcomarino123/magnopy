@@ -110,7 +110,7 @@ def _add_31(self, alpha: int, parameter, replace=False) -> None:
                 return
             # Or raise an error
             raise ValueError(
-                f"On-site qubic anisotropy already set "
+                f"On-site cubic anisotropy already set "
                 f"for atom {alpha} ('{self.atoms.names[alpha]}')"
             )
 

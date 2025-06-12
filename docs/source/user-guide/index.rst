@@ -18,11 +18,12 @@ calculation with magnopy and can be executed as any other command line tool.
 
 
 .. toctree::
-    :caption: Magnopy as a blackbox
+    :caption: Magnopy as a black box
     :maxdepth: 1
 
     cli/how-to-execute
     cli/magnopy-lswt
+    cli/magnopy-optimize-sd
 
 The rest of the user guide describe how to use magnopy within python.
 
@@ -61,3 +62,4 @@ explain how the Hamiltonian is defined and stored within magnopy.
     theory-behind/spin-hamiltonian
     theory-behind/convention-problem
     theory-behind/multiple-counting
+    theory-behind/energy-minimization

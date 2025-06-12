@@ -26,11 +26,7 @@ from magnopy._energy import Energy
 from magnopy._lswt import LSWT
 from magnopy._package_info import logo
 from magnopy._parallelization import multiprocess_over_k
-from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy.io._grogu import load_grogu
 from magnopy.io._k_resolved import output_k_resolved, plot_k_resolved
-from magnopy.io._spin_directions import read_spin_directions
-from magnopy.io._tb2j import load_tb2j
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -38,39 +34,33 @@ old_dir.add("old_dir")
 
 
 def solve_lswt(
-    spinham_filename: str,
-    spinham_source: str,
-    spin_directions,
-    spin_values=None,
+    spinham,
+    spin_directions=None,
     k_path=None,
     kpoints=None,
     relative=False,
     magnetic_field=None,
     output_folder="magnopy-results",
     number_processors=None,
+    comment=None,
 ) -> None:
     r"""
     Solves the spin Hamiltonian at the level of Linear Spin Wave theory.
-    Outputs progress in the standart output (``print()``) and saves some data to
+    Outputs progress in the standard output (``print()``) and saves some data to
     the files on the disk.
 
     Parameters
     ----------
-    spinham_filename : str
-        File with the parameters of spin Hamiltonian.
-    spinham_source : str
-        Source of the parameters of the spin Hamiltonian.
-        One of the "TB2J" or "GROGU". Case-insensitive.
-    spin_directions : (M, 3) |array-like|_
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian.
+    spin_directions : (M, 3) |array-like|_, optional.
         Directions of the local quantization axis for each spin. Magnitude of the vector
-        is ignored, only the direction is considered.
-    spin_values : (M, ) |array-like|_, optional
-        Spin values. Optional if the spin Hamiltonian is loaded from |TB2J|_. Ignored if
-        spin Hamiltonian is loaded from GROGU.
+        is ignored, only the direction is considered. If ``None``, then magnopy attempts
+        to optimize classical energy of spin Hamiltonian to determine spin directions.
     k_path : str, optional
         Specification of the k-path. The format is "G-X-Y|G-Z" For more details
-        on the format see documentation of |Wulfric|_. If nothing given, then the
-        k-path is computed by |Wulfric|_ automatically based on the lattice type.
+        on the format see documentation of |wulfric|_. If nothing given, then the
+        k-path is computed by |wulfric|_ automatically based on the lattice type.
         Ignored if ``kpoints`` are given.
     kpoints : (N, 3) |array-like|_, optional
         Explicit list of k-points to be used instead of automatically generated.
@@ -86,6 +76,8 @@ def solve_lswt(
     number_processors : int, optional
         Number of processors to be used in computation. By default magnopy uses all
         available processes. Use ``number_processors=1`` to run in serial mode.
+    comment : str, optional
+        Any comment to output right after the logo.
 
     Raises
     ------
@@ -96,30 +88,51 @@ def solve_lswt(
     all_good = True
 
     print(logo())
+    print(f"\n{' Comment ':=^90}\n")
+    if comment is not None:
+        print(comment)
+
+    if magnetic_field is not None:
+        spinham.add_magnetic_field(h=magnetic_field)
+
+    print(f"\n{' Ground state ':=^90}\n")
+    energy = Energy(spinham=spinham)
+
+    if spin_directions is None:
+        print("Spin directions are not given, start to optimize ...")
+
+        spin_directions = energy.optimize(
+            energy_tolerance=1e-5, torque_tolerance=1e-5, quiet=False
+        )
+        print(f"Optimization is done.")
+    else:
+        print("Spin directions of the ground state are provided by the user.")
+
+        spin_directions = np.array(spin_directions, dtype=float)
+        spin_directions = (
+            spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
+        )
+
+    E_0 = energy.E_0(spin_directions=spin_directions)
+    print(f"\n{'Classic ground state energy (E_0)':<51} : " f"{E_0:>15.6f} meV\n")
+
+    print("Directions of spin vectors of the ground state and spin values are")
+
+    print(f"{'Name':<6} {'S':>7} {'Sx':>12} {'Sy':>12} {'Sz':>12}")
+
+    for i in range(spinham.M):
+        print(
+            f"{spinham.magnetic_atoms.names[i]:<6} "
+            f"{spinham.magnetic_atoms.spins[i]:7.4f} "
+            f"{spin_directions[i][0]:12.8f} "
+            f"{spin_directions[i][1]:12.8f} "
+            f"{spin_directions[i][2]:12.8f}"
+        )
+
     print(f"\n{' Start LSWT ':=^90}\n")
 
     # Create the output directory if it does not exist
     os.makedirs(output_folder, exist_ok=True)
-
-    # Load spin Hamiltonian
-    if spinham_source.lower() == "tb2j":
-        spinham = load_tb2j(filename=spinham_filename, spin_values=spin_values)
-    elif spinham_source.lower() == "grogu":
-        spinham = load_grogu(filename=spinham_filename)
-    else:
-        raise ValueError(
-            'Supported sources of spin Hamiltonians are "GROGU" and "TB2J", '
-            f'got "{spinham_source}".'
-        )
-
-    print(f'Source of the parameters is "{spinham_source.upper()}".')
-    print(
-        f"Loaded parameters of the spin Hamiltonian from the file\n  "
-        f"{os.path.abspath(spinham_filename)}."
-    )
-
-    if magnetic_field is not None:
-        spinham.add_magnetic_field(h=magnetic_field)
 
     # Treat kpoints
     if kpoints is not None:
@@ -167,18 +180,9 @@ def solve_lswt(
             )
         )
 
-    # Treat spin directions
-    spin_directions = np.array(spin_directions, dtype=float)
-    spin_directions = (
-        spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
-    )
-
-    E_0 = Energy(spinham=spinham).E_0(spin_directions=spin_directions)
     lswt = LSWT(spinham=spinham, spin_directions=spin_directions)
 
     print(
-        f"\n{'Classic ground state energy (E_0)':<51} : "
-        f"{E_0:>15.6f} meV\n"
         f"{'Correction to the classic ground state energy (E_2)':<50} : "
         f"{lswt.E_2:>15.6f} meV\n"
     )
@@ -195,7 +199,8 @@ def solve_lswt(
         print(
             "Coefficients before the one-operator terms are not zero. It might indicate  that\n"
             "the ground state (spin directions) is not a ground state of the considered spin\n"
-            "Hamiltonian. The results might not be meaningful."
+            "Hamiltonian. The results might not be meaningful. If coefficients are << 1, that might\n"
+            "be an artifact of the finite point arithmetic and the results might be just fine."
         )
         print(f"{'  END OF WARNING  ':!^90}\n")
 

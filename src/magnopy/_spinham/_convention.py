@@ -662,23 +662,12 @@ class Convention:
         name = name.lower()
 
         if name not in _CONVENTIONS:
-            ValueError(f"'{name}' convention is undefined.")
+            raise ValueError(
+                f'"{name}" convention is undefined. Supported are\n - '
+                + "\n - ".join([f'"{key}"' for key in _CONVENTIONS])
+            )
 
-        return Convention(
-            name=name,
-            multiple_counting=_CONVENTIONS[name][0],
-            spin_normalized=_CONVENTIONS[name][1],
-            c21=_CONVENTIONS[name][2],
-            c22=_CONVENTIONS[name][3],
-            c31=_CONVENTIONS[name][4],
-            c32=_CONVENTIONS[name][5],
-            c33=_CONVENTIONS[name][6],
-            c41=_CONVENTIONS[name][7],
-            c421=_CONVENTIONS[name][8],
-            c422=_CONVENTIONS[name][9],
-            c43=_CONVENTIONS[name][10],
-            c44=_CONVENTIONS[name][11],
-        )
+        return Convention(name=name, **_CONVENTIONS[name])
 
     def get_modified(
         self,

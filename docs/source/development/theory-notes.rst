@@ -21,20 +21,20 @@ all other convention properties being arbitrary.
     \,C_1
     \sum_{\alpha, i}
     J_1^i(\boldsymbol{r}_{\alpha})
-        z^u_{\alpha}
+        z^i_{\alpha}
     S_{\alpha}
     +\\&+
     C_{2,1}
     \sum_{\alpha, i,j}
     J_{2,1}^{ij}(\boldsymbol{r}_{\alpha})
-        z^u_{\alpha}
-        z^v_{\alpha}
+        z^i_{\alpha}
+        z^j_{\alpha}
         (S_{\alpha})^2
     +\\&+
     C_{2,2}
     \sum_{\substack{\alpha, \beta, \nu, \\ i,j}}
     J_{2,2}^{ij}(\boldsymbol{r}_{\nu,\alpha\beta})
-        z^u_{\alpha}
+        z^i_{\alpha}
         z^j_{\beta}
         S_{\alpha}
         S_{\beta}

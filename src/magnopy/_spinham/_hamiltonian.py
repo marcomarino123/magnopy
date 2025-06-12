@@ -21,7 +21,6 @@ from copy import deepcopy
 
 import numpy as np
 from wulfric import add_sugar
-from wulfric.crystal import get_distance
 
 from magnopy._spinham._c1 import _add_1, _p1, _remove_1
 from magnopy._spinham._c21 import _add_21, _p21, _remove_21
@@ -35,11 +34,65 @@ from magnopy._spinham._c44 import _add_44, _p44, _remove_44
 from magnopy._spinham._c421 import _add_421, _p421, _remove_421
 from magnopy._spinham._c422 import _add_422, _p422, _remove_422
 from magnopy._spinham._convention import Convention
-from magnopy._spinham._validators import _validate_atom_index, _validate_unit_cell_index
 
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
+
+
+def _merge(list1: list, list2: list) -> list:
+    r"""
+    Merge two sorted parameter lists for any term.
+
+    Lists of parameters have the form
+
+    .. code-block:: python
+
+        list = [[specs, parameter], ...]
+
+    Comparison is based on specs.
+
+    Parameter
+    ---------
+    list1 : list
+        First list of parameters.
+    list2 : list
+        Second list of parameters.
+
+    Returns
+    -------
+    merged_list : list
+        Merged list of parameters.
+    """
+
+    list1 = deepcopy(list1)
+    list2 = deepcopy(list2)
+
+    merged_list = []
+
+    i1 = 0
+    i2 = 0
+
+    while i1 < len(list1) or i2 < len(list2):
+        if i1 >= len(list1):
+            merged_list.append(list2[i2])
+            i2 += 1
+        elif i2 >= len(list2):
+            merged_list.append(list1[i1])
+            i1 += 1
+        elif list1[i1][:-1] == list2[i2][:-1]:
+            merged_list.append(list1[i1])
+            merged_list[-1][-1] = merged_list[-1][-1] + list2[i2][-1]
+            i1 += 1
+            i2 += 1
+        elif list1[i1][:-1] < list2[i2][:-1]:
+            merged_list.append(list1[i1])
+            i1 += 1
+        else:
+            merged_list.append(list2[i2])
+            i2 += 1
+
+    return merged_list
 
 
 class SpinHamiltonian:
@@ -812,30 +865,47 @@ class SpinHamiltonian:
         for index in range(len(self._44)):
             self._44[index][7] = self._44[index][7] * self.convention.c44 / new_c44
 
-    def add_magnetic_field(self, h) -> None:
+    def add_magnetic_field(self, h, alphas=None) -> None:
         r"""
         Adds external magnetic field to the Hamiltonian in the form of one spin
         parameters.
 
         .. math::
 
-            \mu_B \boldsymbol{h}\cdot\sum_{\mu,\alpha} g_{\alpha} \boldsymbol{S}_{\mu,\alpha}
+            \mu_B  g_{\alpha} \boldsymbol{h}\cdot\boldsymbol{S}_{\mu,\alpha}
+            =
+            C_1
+            \boldsymbol{S}_{\mu,\alpha}
+            \cdot
+            \boldsymbol{J}_{Zeeman}(\boldsymbol{r}_{\alpha})
+
+        where :math:`\boldsymbol{J}_{Zeeman}(\boldsymbol{r}_{\alpha})` is defined as
+
+        .. math::
+
+            \boldsymbol{J}_{Zeeman}(\boldsymbol{r}_{\alpha})
+            =
+            \dfrac{\mu_B g_{\alpha}}{C_1}\boldsymbol{h}
 
         Parameters
         ----------
         h : (3, ) |array-like|_
             Vector of magnetic field given in the units of Tesla.
+        alphas : list of int, optional
+            Indices of atoms, to which the magnetic field effect should be added.
 
         Notes
         -----
-        If Hamiltonian read from TB2J or GROGU, then by default g factors are positive (=2).
-        Therefore, to minimize the energy the magnetic moment will be aligned with the
-        direction of the external field. But pin vector will be directed opposite to the
+        To minimize the energy the magnetic moment will be aligned with the
+        direction of the external field. But spin vector will be directed opposite to the
         direction of the magnetic field.
 
-        Magnetic field is added *only* to the magnetic atoms. In other words, magnetic
-        field is added only to the atoms that have at least one other parameter
-        associated with them.
+        * If ``alphas is None``, then parameters of the magnetic field added
+          only to the magnetic atoms. In other words only to atoms that already has
+          at least one other parameter (any) associated with it.
+        * If ``alpha is not None``, then parameters of magnetic field are added
+          to the atoms with the provided indices (based on the order in
+          :py:attr:`.SpinHamiltonian.atoms`)
         """
 
         if self.convention._c1 is None:
@@ -845,22 +915,36 @@ class SpinHamiltonian:
 
         BOHR_MAGNETON = 0.057883818060  # meV / Tesla
 
-        new_1 = []
+        if alphas is None:
+            alphas = self.map_to_all
 
-        for i in range(0, self.M):
-            new_1.append(
-                BOHR_MAGNETON
-                * self.magnetic_atoms.g_factors[i]
-                * h
-                / self.convention.c1
-            )
+        zeeman_parameters = [
+            BOHR_MAGNETON * self.atoms.g_factors[alpha] * h / self.convention.c1
+            for alpha in alphas
+        ]
 
-        for alpha, parameter in self._1:
-            new_1[self.map_to_magnetic[alpha]] = (
-                new_1[self.map_to_magnetic[alpha]] + parameter
-            )
+        i = 0
+        j = 0
+        new_p1 = []
+        while i < len(alphas) or j < len(self._1):
+            if i >= len(alphas) or (j < len(self._1) and alphas[i] > self._1[j][0]):
+                new_p1.append(self._1[j])
+                j += 1
+            elif j >= len(self._1) or (i < len(alphas) and alphas[i] < self._1[j][0]):
+                new_p1.append([alphas[i], zeeman_parameters[i]])
+                i += 1
+            elif alphas[i] == self._1[j][0]:
+                new_p1.append(
+                    [
+                        alphas[i],
+                        zeeman_parameters[i] + self._1[j][1],
+                    ]
+                )
+                i += 1
+                j += 1
 
-        self._1 = list(map(list, zip(range(self.M), new_1)))
+        self._1 = new_p1
+        self._reset_internals()
 
     ############################################################################
     #                                Copy getter                               #
@@ -876,6 +960,145 @@ class SpinHamiltonian:
         """
 
         return deepcopy(self)
+
+    def get_empty(self):
+        r"""
+        Returns the Hamiltonian with the same cell, atoms and convention, but with no
+        parameters present.
+
+        Returns
+        -------
+        spinham : py:class:`.SpinHamiltonian`
+            New instance of the spin Hamiltonian.
+
+        Notes
+        -----
+        Note that in the new Hamiltonian ``spinham.M == 0`` - as there is no parameters
+        present, then no atoms are considered to be magnetic.
+        """
+
+        return SpinHamiltonian(
+            cell=self.cell, atoms=self.atoms, convention=self.convention
+        )
+
+    ############################################################################
+    #                           Arithmetic operations                          #
+    ############################################################################
+    def __mul__(self, number):
+        if not isinstance(number, int) and not isinstance(number, float):
+            raise TypeError(
+                f"unsupported operand type(s) for *: '{type(number)}' and 'SpinHamiltonian'"
+            )
+
+        spinham = self.copy()
+
+        # One spin
+        for i in range(len(spinham._1)):
+            spinham._1[i][1] *= number
+
+        # Two spins
+        for i in range(len(spinham._21)):
+            spinham._21[i][1] *= number
+
+        for i in range(len(spinham._22)):
+            spinham._22[i][3] *= number
+
+        # Three spins
+        for i in range(len(spinham._31)):
+            spinham._31[i][1] *= number
+
+        for i in range(len(spinham._32)):
+            spinham._32[i][3] *= number
+
+        for i in range(len(spinham._33)):
+            spinham._33[i][5] *= number
+
+        # Four spins
+        for i in range(len(spinham._41)):
+            spinham._41[i][1] *= number
+
+        for i in range(len(spinham._421)):
+            spinham._421[i][3] *= number
+
+        for i in range(len(spinham._422)):
+            spinham._422[i][3] *= number
+
+        for i in range(len(spinham._43)):
+            spinham._43[i][5] *= number
+
+        for i in range(len(spinham._44)):
+            spinham._44[i][7] *= number
+
+        return spinham
+
+    def __rmul__(self, number):
+        return self.__mul__(number=number)
+
+    def __add__(self, other):
+        if not isinstance(other, SpinHamiltonian):
+            raise NotImplementedError
+
+        # Check that unit cells are the same
+        if not np.allclose(self.cell, other.cell):
+            raise ValueError(
+                "Unit cells of two Hamiltonians are different, "
+                "summation is not supported"
+            )
+
+        # Check that atoms are the same
+        same_atoms = True
+        if len(self.atoms.names) != len(other.atoms.names):
+            same_atoms = False
+        else:
+            for i in range(len(self.atoms.names)):
+                if (
+                    self.atoms.names[i] != other.atoms.names[i]
+                    or not np.allclose(
+                        self.atoms.positions[i], other.atoms.positions[i]
+                    )
+                    or abs(self.atoms.spins[i] - other.atoms.spins[i]) > 1e-8
+                    or abs(self.atoms.g_factors[i] - other.atoms.g_factors[i]) > 1e-8
+                ):
+                    same_atoms = False
+
+        if not same_atoms:
+            raise ValueError(
+                "Atoms of two spin Hamiltonians are different, "
+                "summation is not supported."
+            )
+
+        # Make sure that conventions are the same
+        other_convention = other.convention
+        other.convention = self.convention
+
+        result = self.get_empty()
+
+        # One spin terms
+        result._1 = _merge(list1=self._1, list2=other._1)
+
+        # Two spin terms
+        result._21 = _merge(list1=self._21, list2=other._21)
+        result._22 = _merge(list1=self._22, list2=other._22)
+
+        # Three spin terms
+        result._31 = _merge(list1=self._31, list2=other._31)
+        result._32 = _merge(list1=self._32, list2=other._32)
+        result._33 = _merge(list1=self._33, list2=other._33)
+
+        # Four spin terms
+        result._41 = _merge(list1=self._41, list2=other._41)
+        result._421 = _merge(list1=self._421, list2=other._421)
+        result._422 = _merge(list1=self._422, list2=other._422)
+        result._43 = _merge(list1=self._43, list2=other._43)
+        result._44 = _merge(list1=self._44, list2=other._44)
+
+        # Restore convention of other Hamiltonian
+        other.convention = other_convention
+
+        return result
+
+    def __sub__(self, other):
+        return self + (-1) * other
 
     ############################################################################
     #                            One spin & one site                           #

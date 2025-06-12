@@ -59,3 +59,29 @@ For the numerical diagonalization of the bosonic Hamiltonian please cite
         month = sep,
         pages = {327-353}
     }
+
+For the energy minimization method please cite
+
+
+.. code-block:: text
+
+    Ivanov,  A.V. and Uzdin,  V.M. and Jónsson,  H., 2021.
+    Fast and robust algorithm for energy minimization of spin systems applied in an
+    analysis of high temperature spin configurations in terms of skyrmion density.
+    Computer Physics Communications, 260, pp.107749.
+
+.. code-block:: LaTeX
+
+    @article{Ivanov2021,
+        title = {Fast and robust algorithm for energy minimization of spin systems applied in an analysis of high temperature spin configurations in terms of skyrmion density},
+        volume = {260},
+        ISSN = {0010-4655},
+        url = {http://dx.doi.org/10.1016/j.cpc.2020.107749},
+        DOI = {10.1016/j.cpc.2020.107749},
+        journal = {Computer Physics Communications},
+        publisher = {Elsevier BV},
+        author = {Ivanov,  A.V. and Uzdin,  V.M. and Jónsson,  H.},
+        year = {2021},
+        month = mar,
+        pages = {107749}
+    }

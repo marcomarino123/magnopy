@@ -1,5 +1,5 @@
-usage: magnopy-lswt [-h] -sf filename -ss name -sd [S1_x S2_y S3_z ... ...]
-                    [-s [S1 S2 S3 ... ...]] [-kp G-X-S|G-Y] [-kps KPOINTS]
+usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
+                    [-sv [S1 S2 S3 ... ...]] [-kp G-X-S|G-Y] [-kps KPOINTS]
                     [-r] [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
                     [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS]
 
@@ -10,9 +10,9 @@ usage: magnopy-lswt [-h] -sf filename -ss name -sd [S1_x S2_y S3_z ... ...]
 ██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
 ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
                                                            ▄   ▄
-                      Version: 0.1.0                       █▀█▀█
+                      Version: 0.1.7                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-                 Release date: undefined                    ███   ▄▄
+                Release date: 12 June 2025                  ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
@@ -36,13 +36,18 @@ options:
                         the file there should be M lines with three numbers in
                         each. The order of the lines would match the order of
                         magnetic atoms in the spin Hamiltonian. * Give a
-                        sequence of 3*M numbers directly to this parameter.
-  -s, --spins [S1 S2 S3 ... ...]
+                        sequence of 3*M numbers directly to this parameter. If
+                        none provided, then magnopy attempts to optimize the
+                        spin directions prior to the LSWT calculations.
+  -sv, --spin-values [S1 S2 S3 ... ...]
                         In the case when the parameters of spin Hamiltonian
                         comes from TB2J, one might want to change the values
                         of spins to be closer to half-integers. This option
                         allows that. Order of the M numbers should match the
-                        order of magnetic atoms in the spin Hamiltonian.
+                        order of magnetic atoms in the spin Hamiltonian. Note
+                        that those numbers are always positive. To specify AFM
+                        order use opposite spin directions and not spin values
+                        of the opposite sign.
   -kp, --k-path G-X-S|G-Y
                         Path of high symmetry k-points for the plots of
                         dispersion and other quantities.

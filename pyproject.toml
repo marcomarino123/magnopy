@@ -11,6 +11,8 @@ authors = [{ name = "Andrey Rybakov", email = "rybakov.ad@icloud.com" }]
 dependencies = ["numpy", "matplotlib", "wulfric>=0.5.4"]
 requires-python = ">=3.9"
 readme = "README.rst"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 classifiers = [
     'Development Status :: 4 - Beta',
     'Intended Audience :: Science/Research',
@@ -33,6 +35,7 @@ classifiers = [
 [project.scripts]
 magnopy = "magnopy.__main__:main"
 magnopy-lswt = "magnopy._cli._cli_solve_lswt:manager"
+magnopy-optimize-sd = "magnopy._cli._cli_optimize_sd:manager"
 
 [project.urls]
 Homepage = "https://magnopy.org"

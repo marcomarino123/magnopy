@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import numpy as np
+from wulfric.geometry import absolute_to_relative
 
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
@@ -29,12 +29,14 @@ old_dir.add("old_dir")
 
 def load_grogu(filename) -> SpinHamiltonian:
     r"""
-    Load a SpinHamiltonian object from a .txt file produced by GROGU.
+    Load a SpinHamiltonian object from a .txt file produced by |GROGU|_.
+
+    For more information on GROGU's file format see |GROGU-FF|_.
 
     Parameters
     ----------
     filename : str
-        Filename to load SpinHamiltonian object from.
+        File with the parameters and crystal structure of the spin Hamiltonian.
 
     Returns
     -------
@@ -42,12 +44,15 @@ def load_grogu(filename) -> SpinHamiltonian:
         SpinHamiltonian object loaded from file.
     """
 
+    convention = Convention.get_predefined("grogu")
+
     # Read the content of the file
     with open(filename, "r", encoding="utf-8") as f:
         lines = f.readlines()
 
+    # Read the cell
     i = 0
-    while "Cell Angstrom" not in lines[i]:
+    while "cell" not in lines[i].lower() or "(ang)" not in lines[i].lower():
         i += 1
 
     i += 1
@@ -57,46 +62,76 @@ def load_grogu(filename) -> SpinHamiltonian:
         list(map(float, lines[i + 1].split())),
         list(map(float, lines[i + 2].split())),
     ]
-    i += 2
 
-    while "Atoms Angstrom" not in lines[i]:
+    # Read the atoms
+    while "magnetic" not in lines[i].lower() or "sites" not in lines[i].lower():
         i += 1
 
-    i += 2
-    line = lines[i]
-    atoms = dict(names=[], positions=[], spins=[], g_factors=[])
-    index_map = {}
-    atom_index = 0
-    while len(lines[i].split()) > 0:
-        line = lines[i].split()
+    i += 1
+    M = int(lines[i].split()[3])
+    i += 1
 
-        atoms["names"].append(line[0])
-        atoms["positions"].append(list(map(float, line[1:4])))
-        atoms["spins"].append(np.linalg.norm(list(map(float, line[5:8]))))
-        atoms["g_factors"].append(2)
-        index_map[line[0]] = atom_index
-        atom_index += 1
+    name_to_index = {}
+    atoms = dict(names=[], positions=[], spins=[], g_factors=[2 for _ in range(M)])
 
+    for atom_index in range(M):
         i += 1
+        words = lines[i].split()
 
-    convention = Convention(
-        multiple_counting=True, spin_normalized=True, c22=0.5, c21=1
-    )
+        name = words[0]
+        name_to_index[name] = atom_index
+
+        positions = list(map(float, words[1:4]))
+        positions = absolute_to_relative(vector=positions, basis=cell)
+
+        spin = float(words[4])
+
+        atoms["names"].append(name)
+        atoms["positions"].append(positions)
+        atoms["spins"].append(spin)
 
     # Construct spin Hamiltonian:
     spinham = SpinHamiltonian(convention=convention, cell=cell, atoms=atoms)
 
-    while "Exchange tensor meV" not in lines[i]:
+    while (
+        "intra-atomic" not in lines[i].lower()
+        or "anisotropy" not in lines[i].lower()
+        or "tensor" not in lines[i].lower()
+        or "(mev)" not in lines[i].lower()
+    ):
         i += 1
 
-    i += 4
-    while len(lines[i].split()) > 0:
-        line = lines[i].split()
+    for _ in range(M):
+        i += 2
+        name = lines[i].split()[0]
+        alpha = name_to_index[name]
+        i += 2
+        parameter = [
+            list(map(float, lines[i].split())),
+            list(map(float, lines[i + 1].split())),
+            list(map(float, lines[i + 2].split())),
+        ]
+        i += 2
+        spinham.add_21(alpha=alpha, parameter=parameter)
 
-        alpha = index_map[line[0]]
-        beta = index_map[line[1]]
+    while (
+        "exchange" not in lines[i].lower()
+        or "tensor" not in lines[i].lower()
+        or "(mev)" not in lines[i].lower()
+    ):
+        i += 1
 
-        nu = tuple(list(map(int, line[2:5])))
+    i += 1
+    N = int(lines[i].split()[3])
+    i += 2
+
+    for _ in range(N):
+        i += 2
+
+        words = lines[i].split()
+        alpha = name_to_index[words[0]]
+        beta = name_to_index[words[1]]
+        nu = tuple(list(map(int, words[2:5])))
 
         i += 2
 
@@ -106,30 +141,9 @@ def load_grogu(filename) -> SpinHamiltonian:
             list(map(float, lines[i + 2].split())),
         ]
 
-        i += 4
+        i += 2
 
         spinham.add_22(alpha=alpha, beta=beta, nu=nu, parameter=parameter, replace=True)
-
-    while "Intra-atomic anisotropy tensor meV" not in lines[i]:
-        i += 1
-
-    i += 2
-    while i < len(lines) and len(lines[i].split()) > 0:
-        line = lines[i].split()
-
-        alpha = index_map[line[0]]
-
-        i += 2
-
-        parameter = [
-            list(map(float, lines[i].split())),
-            list(map(float, lines[i + 1].split())),
-            list(map(float, lines[i + 2].split())),
-        ]
-
-        i += 4
-
-        spinham.add_21(alpha=alpha, parameter=parameter)
 
     return spinham
 

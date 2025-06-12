@@ -11,10 +11,33 @@ Whats new?
 
 First release of magnopy.
 
+0.1.7
+-----
+
+**Date**: 12 June 2025
+
+*   Fix bugs
+*   Add parameter converters for ``22`` (``converter22``) and ``422`` (converter422)
+    terms.
+*   Add ``alphas`` parameter to the magnetic field addition.
+*   Add multiplication of the Hamiltonian by a number.
+*   Implement reading of the new public file format of |GROGU|_.
+*   Implement summation (and subtraction) of spin Hamiltonians.
+*   Implement submodule with examples.
+*   Implement energy minimization algorithm.
+*   Implement creation of the supercell (warning: not tested)
+*   Implement ``__call__`` (equivalent to ``Energy.E_0``) for ``Energy`` class.
+*   Update LSWT scenario for the convenience of usage within python.
+*   Add spin direction's optimization to the LSWT scenario.
+*   Implement new scenario and command line interface for energy optimization.
+
 0.1.6
 -----
 
-**Data**: 16 May
+.. warning::
+    We recommend not to use this version with GROGU files.
+
+**Date**: 16 May 2025
 
 *   Fix a typo in ``load_tb2j()``
 *   Fix a bug with reading of TB2J (when no anisotropy is present)
@@ -25,7 +48,7 @@ First release of magnopy.
 -----
 
 .. warning::
-    We recommend not to use this version with TB2J files.
+    We recommend not to use this version.
 
 **Date**: 26 May 2025
 
@@ -36,7 +59,7 @@ First release of magnopy.
 -----
 
 .. warning::
-    We recommend not to use this version with TB2J files.
+    We recommend not to use this version.
 
 **Date**: 23 May 2025
 
@@ -53,8 +76,8 @@ First release of magnopy.
 .. warning::
     We recommend not to use this version.
 
-*   Start to use the term "convention" istead of "notation" both in documentation and in
-    the code.
+*   Start to use the term "convention" instead of "notation" both in documentation and
+    in the code.
 
 *   Add ax.set_xlabel() for the plot with the custom list of kpoints.
 

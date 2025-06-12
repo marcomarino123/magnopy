@@ -21,9 +21,9 @@ import numpy as np
 from wulfric.crystal import get_distance
 from wulfric.geometry import absolute_to_relative
 
+from magnopy._parameters._p22 import from_dmi, from_iso
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy._spinham._parameter import get_matrix_parameter
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -187,7 +187,11 @@ def load_tb2j(
             if line and dmi_flag in line:
                 dmi = tuple(map(float, line.translate(garbage).split()[-3:]))
 
-        parameter = get_matrix_parameter(iso=iso, dmi=dmi)
+        parameter = np.zeros((3, 3), dtype=float)
+        if iso is not None:
+            parameter = parameter + from_iso(iso=iso)
+        if dmi is not None:
+            parameter = parameter + from_dmi(dmi=dmi)
         if aniso is not None:
             parameter = parameter + aniso
 

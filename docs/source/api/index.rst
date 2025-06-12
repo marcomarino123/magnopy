@@ -22,6 +22,7 @@ Sub-modules
   io
   scenarios
   constants
+  examples
 
 Classes
 =======
@@ -45,6 +46,16 @@ Functions
   span_local_rfs
   logo
   multiprocess_over_k
+  make_supercell
+
+Parameter converters
+====================
+
+.. autosummary::
+  :toctree: generated/
+
+  converter22
+  converter422
 
 Exceptions
 ==========

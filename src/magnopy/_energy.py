@@ -127,7 +127,7 @@ class Energy:
 
     Parameters
     ----------
-    spinham : py:class:.SpinHamiltonian`
+    spinham : py:class:`.SpinHamiltonian`
         Spin Hamiltonian for the calculation of energy.
     """
 
@@ -274,8 +274,8 @@ class Energy:
 
         spinham.convention = initial_convention
 
-    def __call__(self, spin_directions) -> float:
-        return self.E_0(spin_directions=spin_directions)
+    def __call__(self, spin_directions, _normalize=True) -> float:
+        return self.E_0(spin_directions=spin_directions, _normalize=_normalize)
 
     def E_0(self, spin_directions, _normalize=True) -> float:
         r"""
@@ -738,7 +738,7 @@ class Energy:
         quiet=False,
     ):
         r"""
-        Optimize the energy with respect to the directions of spins in the unit cell.
+        Optimize classical energy by varying the directions of spins in the unit cell.
 
         Parameters
         ----------

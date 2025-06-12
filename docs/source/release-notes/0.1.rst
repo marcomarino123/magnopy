@@ -26,6 +26,7 @@ First release of magnopy.
 *   Implement submodule with examples.
 *   Implement energy minimization algorithm.
 *   Implement creation of the supercell (warning: not tested)
+*   Implement ``__call__`` (equivalent to ``Energy.E_0``) for ``Energy`` class.
 
 0.1.6
 -----

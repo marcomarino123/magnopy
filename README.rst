@@ -5,6 +5,7 @@ Magnopy
 Magnopy is a Python package for the magnon-related properties:
 
 * Ground state energy
+* Energy minimization
 * Linear Spin Wave theory and what comes from it
 
 Please visit an extensive documentation on `magnopy.org <https://magnopy.org>`_ to find

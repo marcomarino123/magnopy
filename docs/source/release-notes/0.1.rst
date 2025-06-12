@@ -25,6 +25,7 @@ First release of magnopy.
 *   Implement summation (and subtraction) of spin Hamiltonians.
 *   Implement submodule with examples.
 *   Implement energy minimization algorithm.
+*   Implement creation of the supercell (warning: not tested)
 
 0.1.6
 -----

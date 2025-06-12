@@ -60,7 +60,7 @@ def _cubic_interpolation(alpha_l, alpha_h, phi_l, phi_h, der_l, der_h):
 
     d_1 = der_l + der_h - 3 * (phi_l - phi_h) / (alpha_l - alpha_h)
 
-    if d_1**2 - phi_l * phi_h < 0:
+    if d_1**2 - der_l * der_h < 0:
         if phi_l <= phi_h:
             return alpha_l
         else:
@@ -645,7 +645,7 @@ class Energy:
         c1=_C1,
         c2=_C2,
         alpha_max=2.0,
-        max_iterations=1000,
+        max_iterations=10000,
     ):
         # First check if step alpha=1 is good to go:
         sd_1 = _rotate_sd(reference_sd=reference_sd, rotation=search_direction)
@@ -731,7 +731,11 @@ class Energy:
         )
 
     def optimize(
-        self, initial_guess=None, energy_tolerance=1e-5, torque_tolerance=1e-5
+        self,
+        initial_guess=None,
+        energy_tolerance=1e-5,
+        torque_tolerance=1e-5,
+        quiet=False,
     ):
         r"""
         Optimize the energy with respect to the directions of spins in the unit cell.
@@ -744,6 +748,8 @@ class Energy:
             Energy tolerance for the two consecutive steps of the optimization.
         torque_tolerance : float, default 1e-5
             Torque tolerance for the two consecutive steps of the optimization.
+        quiet : bool, default False
+            Whether to suppress the output of the progress.
 
         Returns
         -------
@@ -766,9 +772,10 @@ class Energy:
         gradient_k = self.torque(spin_directions=sd_k).flatten()
 
         first_iteration = True
+        step_counter = 1
         while (delta >= tolerance).any():
             search_direction = -hessinv_k @ gradient_k
-            print(f"search = {search_direction}")
+            # print(f"search = {search_direction}")
 
             alpha_k = self._line_search(
                 reference_sd=sd_k,
@@ -778,7 +785,7 @@ class Energy:
             )
 
             # alpha_k = max(alpha_k, 1e-3)
-            print(f"alpha_k = {alpha_k}")
+            # print(f"alpha_k = {alpha_k}")
 
             s_k = alpha_k * search_direction
             # print(f"s_k = {s_k}")
@@ -794,7 +801,20 @@ class Energy:
                     np.linalg.norm(np.reshape(gradient_next, shape=(self.M, 3))).max(),
                 ]
             )
-            print(f"deltas: {delta[0]:11.7f} {delta[1]:11.7f}")
+            # print(f"deltas: {delta[0]:11.7f} {delta[1]:11.7f}")
+            if not quiet:
+                from math import log10
+
+                n_energy = max(-(int(log10(energy_tolerance)) - 2), 0)
+                n_torque = max(-(int(log10(torque_tolerance)) - 2), 0)
+                print(
+                    f"step {step_counter:<4} | "
+                    f"energy = {energy_next:11.7f} | "
+                    f"deltas: {delta[0]:{n_energy+4}.{n_energy}f} "
+                    f"{delta[1]:{n_torque+4}.{n_torque}f} | "
+                    f"alpha_k = {alpha_k}"
+                )
+
             if (delta < tolerance).all():
                 break
 
@@ -819,7 +839,8 @@ class Energy:
             energy_k = energy_next
             gradient_k = gradient_next
 
-            print("=" * 40)
+            step_counter += 1
+            # print("=" * 40)
 
         return sd_next
 
@@ -832,18 +853,70 @@ del old_dir
 
 
 if __name__ == "__main__":
+    import magnopy.io as mio
     from magnopy.examples import cubic_ferro_nn, ivuzjo
 
-    spinham = cubic_ferro_nn(
-        a=1,
-        J_iso=1,
-        J_21=(-1, 0, 0),
-        S=0.5,
-        dimensions=3,
-    )
+    # spinham = cubic_ferro_nn(
+    #     a=1,
+    #     J_iso=1,
+    #     J_21=(-1, 0, 0),
+    #     S=0.5,
+    #     dimensions=3,
+    # )
+    # spinham.add_magnetic_field(h=[0, 1, 0])
+
+    spinham = ivuzjo(N=20)
 
     energy = Energy(spinham=spinham)
 
-    optimized_sd = energy.optimize()
+    optimized_sd = energy.optimize(torque_tolerance=1e-3)
 
     print(optimized_sd)
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+fig, axs = plt.subplots(2, 2, figsize=(9, 9))
+fig.subplots_adjust(hspace=0.25, wspace=0.5)
+
+axs = axs.flatten()
+
+positions = np.array(spinham.atoms.positions)
+for i in range(3):
+    im = axs[i].scatter(
+        positions[:, 0],
+        positions[:, 1],
+        c=optimized_sd[:, i],
+        vmin=-1,
+        vmax=1,
+        cmap="bwr",
+    )
+    divider = make_axes_locatable(axs[i])
+    cax = divider.append_axes("right", size="5%", pad=0.05)
+    axs[i].set_aspect(1)
+    axs[i].set_title(f"$S_{'xyz'[i]}$")
+    plt.colorbar(im, cax=cax)
+
+im = axs[3].quiver(
+    positions[:, 0],
+    positions[:, 1],
+    0.5 * optimized_sd[:, 0] / np.linalg.norm(optimized_sd[:, :2], axis=1),
+    0.5 * optimized_sd[:, 1] / np.linalg.norm(optimized_sd[:, :2], axis=1),
+    optimized_sd[:, 2],
+    angles="xy",
+    scale_units="xy",
+    scale=1,
+    cmap="bwr",
+    headlength=8,
+    headaxislength=7,
+    headwidth=5,
+    vmin=-1,
+    vmax=1,
+)
+divider = make_axes_locatable(axs[3])
+cax = divider.append_axes("right", size="5%", pad=0.05)
+axs[3].set_aspect(1)
+axs[3].set_title(f"Vectors")
+plt.colorbar(im, cax=cax)
+
+plt.savefig("test.png", dpi=400, bbox_inches="tight")

@@ -35,6 +35,7 @@ classifiers = [
 [project.scripts]
 magnopy = "magnopy.__main__:main"
 magnopy-lswt = "magnopy._cli._cli_solve_lswt:manager"
+magnopy-optimize-sd = "magnopy._cli._cli_optimize_sd:manager"
 
 [project.urls]
 Homepage = "https://magnopy.org"

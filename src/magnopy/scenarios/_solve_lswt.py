@@ -26,11 +26,7 @@ from magnopy._energy import Energy
 from magnopy._lswt import LSWT
 from magnopy._package_info import logo
 from magnopy._parallelization import multiprocess_over_k
-from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy.io._grogu import load_grogu
 from magnopy.io._k_resolved import output_k_resolved, plot_k_resolved
-from magnopy.io._spin_directions import read_spin_directions
-from magnopy.io._tb2j import load_tb2j
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -96,6 +92,9 @@ def solve_lswt(
     if comment is not None:
         print(comment)
 
+    if magnetic_field is not None:
+        spinham.add_magnetic_field(h=magnetic_field)
+
     print(f"\n{' Ground state ':=^90}\n")
     energy = Energy(spinham=spinham)
 
@@ -134,9 +133,6 @@ def solve_lswt(
 
     # Create the output directory if it does not exist
     os.makedirs(output_folder, exist_ok=True)
-
-    if magnetic_field is not None:
-        spinham.add_magnetic_field(h=magnetic_field)
 
     # Treat kpoints
     if kpoints is not None:

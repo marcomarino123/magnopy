@@ -46,6 +46,7 @@ Functions
   span_local_rfs
   logo
   multiprocess_over_k
+  make_supercell
 
 Parameter converters
 ====================

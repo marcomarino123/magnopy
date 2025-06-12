@@ -17,8 +17,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import numpy as np
-import sphinx
 from wulfric.geometry import absolute_to_relative
 
 from magnopy._spinham._convention import Convention

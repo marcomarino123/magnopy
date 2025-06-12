@@ -19,3 +19,4 @@
 
 from ._convention import *
 from ._hamiltonian import *
+from ._supercell import *

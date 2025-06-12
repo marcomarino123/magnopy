@@ -30,13 +30,14 @@ old_dir.add("old_dir")
 def optimize_sd(
     spinham,
     magnetic_field=None,
+    energy_tolerance=1e-5,
+    torque_tolerance=1e-5,
     output_folder="magnopy-results",
     comment=None,
 ) -> None:
     r"""
-    Solves the spin Hamiltonian at the level of Linear Spin Wave theory.
-    Outputs progress in the standard output (``print()``) and saves some data to
-    the files on the disk.
+    Optimizes classical energy of spin Hamiltonian and finds a set of spin directions
+    that describe local minima of energy landscape.
 
     Parameters
     ----------
@@ -44,6 +45,11 @@ def optimize_sd(
         Spin Hamiltonian.
     magnetic_field : (3, ) |array-like|_
         Vector of external magnetic field, given in Tesla.
+    energy_tolerance : float, default 1e-5
+        Tolerance parameter. Difference between classical energies of two consecutive
+        optimization steps.
+    torque_tolerance : float, default 1e-5
+        Tolerance parameter. Maximum torque among all spins.
     output_folder : str, default "magnopy-results"
         Name for the folder where to save the output files. If the folder does not exist
         then it will be created.
@@ -67,10 +73,15 @@ def optimize_sd(
         spinham.add_magnetic_field(h=magnetic_field)
 
     print(f"\n{' Start optimization ':=^90}\n")
+
+    print(f"Energy tolerance : {energy_tolerance:.5e}")
+    print(f"Torque tolerance : {torque_tolerance:.5e}")
     energy = Energy(spinham=spinham)
 
     spin_directions = energy.optimize(
-        energy_tolerance=1e-5, torque_tolerance=1e-5, quiet=False
+        energy_tolerance=energy_tolerance,
+        torque_tolerance=torque_tolerance,
+        quiet=False,
     )
     print(f"Optimization is done.")
 

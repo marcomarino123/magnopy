@@ -23,6 +23,7 @@ calculation with magnopy and can be executed as any other command line tool.
 
     cli/how-to-execute
     cli/magnopy-lswt
+    cli/magnopy-optimize-sd
 
 The rest of the user guide describe how to use magnopy within python.
 

@@ -62,6 +62,8 @@ def manager():
     optimize_sd(
         spinham=spinham,
         magnetic_field=args.magnetic_field,
+        energy_tolerance=args.energy_tolerance,
+        torque_tolerance=args.torque_tolerance,
         output_folder=args.output_folder,
         comment=comment,
     )
@@ -106,6 +108,21 @@ def get_parser():
         "atoms in the spin Hamiltonian. Note that those numbers are always positive. To "
         "specify AFM order use opposite spin directions and not spin values of the "
         "opposite sign.",
+    )
+    parser.add_argument(
+        "-et",
+        "--energy-tolerance",
+        default=1e-5,
+        type=float,
+        help="Tolerance parameter. Difference between classical energies of two "
+        "consecutive optimization steps.",
+    )
+    parser.add_argument(
+        "-tt",
+        "--torque-tolerance",
+        default=1e-5,
+        type=float,
+        help="Maximum torque among all spins.",
     )
     parser.add_argument(
         "-mf",

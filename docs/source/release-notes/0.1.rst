@@ -29,6 +29,7 @@ First release of magnopy.
 *   Implement ``__call__`` (equivalent to ``Energy.E_0``) for ``Energy`` class.
 *   Update LSWT scenario for the convenience of usage within python.
 *   Add spin direction's optimization to the LSWT scenario.
+*   Implement new scenario and command line interface for energy optimization.
 
 0.1.6
 -----

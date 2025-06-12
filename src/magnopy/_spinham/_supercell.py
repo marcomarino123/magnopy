@@ -21,6 +21,8 @@ R"""
 Convention of spin Hamiltonian
 """
 
+import warnings
+
 from magnopy._spinham._hamiltonian import SpinHamiltonian
 
 # Save local scope at this moment
@@ -51,6 +53,10 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         Spin Hamiltonian that is defined on a ``supercell`` and has the same parameters
         as the given ``spinham``.
     """
+
+    warnings.warn(
+        "Creation of supercell is untested, use at your own risk.", UserWarning
+    )
 
     if supercell[0] < 1 or supercell[1] < 1 or supercell[2] < 1:
         raise ValueError(

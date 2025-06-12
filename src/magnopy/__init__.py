@@ -19,7 +19,7 @@
 
 __version__ = "0.1.7"
 __doclink__ = "magnopy.org"
-__release_date__ = "undefined"
+__release_date__ = "12 June 2025"
 
 from . import constants, examples, io, scenarios
 from ._diagonalization import *

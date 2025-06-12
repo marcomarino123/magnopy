@@ -873,50 +873,50 @@ if __name__ == "__main__":
 
     print(optimized_sd)
 
-import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1 import make_axes_locatable
+    import matplotlib.pyplot as plt
+    from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-fig, axs = plt.subplots(2, 2, figsize=(9, 9))
-fig.subplots_adjust(hspace=0.25, wspace=0.5)
+    fig, axs = plt.subplots(2, 2, figsize=(9, 9))
+    fig.subplots_adjust(hspace=0.25, wspace=0.5)
 
-axs = axs.flatten()
+    axs = axs.flatten()
 
-positions = np.array(spinham.atoms.positions)
-for i in range(3):
-    im = axs[i].scatter(
+    positions = np.array(spinham.atoms.positions)
+    for i in range(3):
+        im = axs[i].scatter(
+            positions[:, 0],
+            positions[:, 1],
+            c=optimized_sd[:, i],
+            vmin=-1,
+            vmax=1,
+            cmap="bwr",
+        )
+        divider = make_axes_locatable(axs[i])
+        cax = divider.append_axes("right", size="5%", pad=0.05)
+        axs[i].set_aspect(1)
+        axs[i].set_title(f"$S_{'xyz'[i]}$")
+        plt.colorbar(im, cax=cax)
+
+    im = axs[3].quiver(
         positions[:, 0],
         positions[:, 1],
-        c=optimized_sd[:, i],
+        0.5 * optimized_sd[:, 0] / np.linalg.norm(optimized_sd[:, :2], axis=1),
+        0.5 * optimized_sd[:, 1] / np.linalg.norm(optimized_sd[:, :2], axis=1),
+        optimized_sd[:, 2],
+        angles="xy",
+        scale_units="xy",
+        scale=1,
+        cmap="bwr",
+        headlength=8,
+        headaxislength=7,
+        headwidth=5,
         vmin=-1,
         vmax=1,
-        cmap="bwr",
     )
-    divider = make_axes_locatable(axs[i])
+    divider = make_axes_locatable(axs[3])
     cax = divider.append_axes("right", size="5%", pad=0.05)
-    axs[i].set_aspect(1)
-    axs[i].set_title(f"$S_{'xyz'[i]}$")
+    axs[3].set_aspect(1)
+    axs[3].set_title(f"Vectors")
     plt.colorbar(im, cax=cax)
 
-im = axs[3].quiver(
-    positions[:, 0],
-    positions[:, 1],
-    0.5 * optimized_sd[:, 0] / np.linalg.norm(optimized_sd[:, :2], axis=1),
-    0.5 * optimized_sd[:, 1] / np.linalg.norm(optimized_sd[:, :2], axis=1),
-    optimized_sd[:, 2],
-    angles="xy",
-    scale_units="xy",
-    scale=1,
-    cmap="bwr",
-    headlength=8,
-    headaxislength=7,
-    headwidth=5,
-    vmin=-1,
-    vmax=1,
-)
-divider = make_axes_locatable(axs[3])
-cax = divider.append_axes("right", size="5%", pad=0.05)
-axs[3].set_aspect(1)
-axs[3].set_title(f"Vectors")
-plt.colorbar(im, cax=cax)
-
-plt.savefig("test.png", dpi=400, bbox_inches="tight")
+    plt.savefig("test.png", dpi=400, bbox_inches="tight")

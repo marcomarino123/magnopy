@@ -40,10 +40,40 @@ can be obtained by the following formulae:
 
 .. math::
 
-	\boldsymbol{z}_{\alpha} = e^{\boldsymbol{A}_{\alpha}} \boldsymbol{z}_{\alpha}^{(0)}
+	\boldsymbol{z}_{\alpha}
+    =
+    e^{\boldsymbol{A}_{\alpha}} \boldsymbol{z}_{\alpha}^{(0)}
+    =
+    \cos(\theta) \boldsymbol{z}_{\alpha}^{(0)}
+    +
+    \sin(\theta) (\boldsymbol{r}\times\boldsymbol{z}_{\alpha}^{(0)})
+    +
+    (1 - \cos(\theta))\boldsymbol{r} (\boldsymbol{r}\cdot\boldsymbol{z}_{\alpha}^{(0)})
 
 where :math:`\boldsymbol{E}_{\alpha}` are skew-symmetric
-matrices. The energy function can be rewritten as:
+matrices and
+
+.. math::
+
+    \theta
+    =
+    \sqrt{\left(a_{\alpha}^x\right)^2
+    +
+    \left(a_{\alpha}^y\right)^2
+    +
+    \left(a_{\alpha}^z\right)^2}
+
+.. math::
+
+    \boldsymbol{r}
+    =
+    \dfrac{(a_{\alpha}^x,
+    a_{\alpha}^y,
+    a_{\alpha}^z)}{\theta}
+
+
+
+The energy function can be rewritten as:
 
 .. math::
 
@@ -123,8 +153,8 @@ Given :ref:`user-guide_theory-behind_energy-minimization_initial-guess`
 
 .. note::
 	In our implementation we update the direction vectors at the end of each iteration
-	(i.e. at step 2.g). Therefore, the vector :math:`\boldsymbol{x}_k` is equal to
-	:math:`( 0, 0, 0, 0, 0, 0, ..., 0, 0, 0)` at the beginning of each iteration.
+	(i.e. at step 2.g). Therefore, the vector :math:`\boldsymbol{x}_k` is always equal to
+	:math:`( 0, 0, 0, 0, 0, 0, ..., 0, 0, 0)`.
 
 
 
@@ -135,25 +165,22 @@ Initial guess
 
 Initial guess is provided by the user  or randomly generated.
 User provides three components for each direction vector
-:math:`(z_{\alpha}^x, z_{\alpha}^y, z_{\alpha}^z)`. The initial guess of the vector
-parameter :math:`\boldsymbol{x}_0` is then constructed as:
-
-.. math::
-
-	\boldsymbol{x}_0
-	=(
-		0, 0, 0,
-		0, 0, 0,
-		...,
-		0, 0, 0
-	)
+:math:`(z_{\alpha}^x, z_{\alpha}^y, z_{\alpha}^z)`.
 
 .. _user-guide_theory-behind_energy-minimization_initial-hessian:
 
 Initial approximation of the inverse hessian matrix
 ===================================================
 
-We take an identity matrix as an initial approximation of the hessian matrix.
+We take an identity matrix as an initial approximation of the hessian matrix and
+scale it as
+
+.. math::
+    \boldsymbol{H}_0
+    =
+    \dfrac{\boldsymbol{y}^T_k\boldsymbol{s}_k}{\boldsymbol{y}^T_k\boldsymbol{y}_k} \boldsymbol{I}
+
+before the first update [1]_.
 
 
 .. _user-guide_theory-behind_energy-minimization_gradient:
@@ -300,8 +327,9 @@ Line search algorithm:
 
 Given :math:`\boldsymbol{x}_k` and :math:`\boldsymbol{p}_k`
 
-
-1.  Set :math:`\alpha_0 = 0`, :math:`\alpha_{\text{max}} = 1.1` and :math:`\alpha_1 = 1`;
+1.  If :math:`\alpha = 1` satisfies strong Wolfe condition, then return :math:`1`.
+#.  Set :math:`\alpha_0 = 0`, :math:`\alpha_{\text{max}} = 2` and chose :math:`\alpha_1`
+    via :ref:`user-guide_theory-behind_energy-minimization_cubic-interpolation`;
 #.  :math:`i \gets 1`;
 #.  While maximum number of iterations is not achieved:
 
@@ -326,6 +354,7 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
 
     a)  Interpolate :math:`\alpha_j` via :ref:`user-guide_theory-behind_energy-minimization_cubic-interpolation`;
     #)  Compute :math:`f(\alpha_j) = F(\boldsymbol{x}_k + \alpha_j \boldsymbol{p}_k)`;
+    #)  Check that value of the function sufficiently decreases.
     #)  If :math:`f(\alpha_j) > f(0) + c_1 \alpha_j f^{\prime}(0)`
         or :math:`f(\alpha_j) \ge f(\alpha_{lo})`,
         then :math:`\alpha_{hi} \gets \alpha_j`
@@ -340,8 +369,8 @@ Given :math:`\alpha_{lo}`, :math:`\alpha_{hi}`
 
 .. _user-guide_theory-behind_energy-minimization_cubic-interpolation:
 
-Cubic interpolation method
---------------------------
+Cubic interpolation
+-------------------
 
 Given :math:`\alpha_l`, :math:`\alpha_h` and :math:`f(\alpha_l)`, :math:`f(\alpha_h)`
 and :math:`f^{\prime}(\alpha_l)`, :math:`f^{\prime}(\alpha_h)` compute new :math:`\alpha_m`
@@ -349,8 +378,12 @@ as
 
 .. math::
 
-	\alpha_m &= \alpha_h - (\alpha_h - \alpha_l) \dfrac{f^{\prime}(\alpha_h) + d_2 - d_1}{f^{\prime}(\alpha_h) - f^{\prime}(\alpha_l) + 2d_2}
+	\alpha_{min} &= \alpha_h - (\alpha_h - \alpha_l) \dfrac{f^{\prime}(\alpha_h) + d_2 - d_1}{f^{\prime}(\alpha_h) - f^{\prime}(\alpha_l) + 2d_2}
 	\\
 	d_1 &= f^{\prime}(\alpha_l) + f^{\prime}(\alpha_h) - 3 \dfrac{f(\alpha_l) - f(\alpha_h)}{\alpha_l - \alpha_h}
 	\\
 	d_2 &= \text{sign}(\alpha_h - \alpha_l) \sqrt{d_1^2 - f^{\prime}(\alpha_l)f^{\prime}(\alpha_h)}
+
+If :math:`d_1^2 - f^{\prime}(\alpha_l)f^{\prime}(\alpha_h) < 0`, then
+:math:`\alpha_{min} = \alpha_l` if :math:`f(\alpha_l) \le f(\alpha_h)`, otherwise
+:math:`\alpha_{min} = \alpha_h`.

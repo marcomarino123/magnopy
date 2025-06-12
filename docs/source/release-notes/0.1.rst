@@ -14,6 +14,8 @@ First release of magnopy.
 0.1.7
 -----
 
+**Date**: 12 June 2025
+
 *   Fix bugs
 *   Add parameter converters for ``22`` (``converter22``) and ``422`` (converter422)
     terms.
@@ -21,12 +23,16 @@ First release of magnopy.
 *   Add multiplication of the Hamiltonian by a number.
 *   Implement reading of the new public file format of |GROGU|_.
 *   Implement summation (and subtraction) of spin Hamiltonians.
-*   Add submodule with examples.
+*   Implement submodule with examples.
+*   Implement energy minimization algorithm.
 
 0.1.6
 -----
 
-**Date**: 16 May
+.. warning::
+    We recommend not to use this version with GROGU files.
+
+**Date**: 16 May 2025
 
 *   Fix a typo in ``load_tb2j()``
 *   Fix a bug with reading of TB2J (when no anisotropy is present)
@@ -37,7 +43,7 @@ First release of magnopy.
 -----
 
 .. warning::
-    We recommend not to use this version with TB2J files.
+    We recommend not to use this version.
 
 **Date**: 26 May 2025
 
@@ -48,7 +54,7 @@ First release of magnopy.
 -----
 
 .. warning::
-    We recommend not to use this version with TB2J files.
+    We recommend not to use this version.
 
 **Date**: 23 May 2025
 

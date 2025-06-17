@@ -67,16 +67,12 @@ at most four linearly coupled spins
         We hope that three images below will help to understand the Greek indices better
         (click to enlarge)
 
-        .. figure:: ../../../images/positions_unit-cells.png
-            :target: ../../_images/positions_unit-cells.png
+        .. figure:: ../../../images/positions_cells.png
+            :target: ../../_images/positions_cells.png
             :align: center
 
         .. figure:: ../../../images/positions_sites.png
             :target: ../../_images/positions_sites.png
-            :align: center
-
-        .. figure:: ../../../images/positions_between-sites.png
-            :target: ../../_images/positions_between-sites.png
             :align: center
 
 The parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})`,

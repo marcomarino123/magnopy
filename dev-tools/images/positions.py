@@ -25,204 +25,220 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def arrow_with_text(ax, origin, target, text, shift=(0, 0), color="black"):
+def get_ax_size(ax, fig):
+    bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+    width, height = bbox.width, bbox.height
+    width *= fig.dpi
+    height *= fig.dpi
+    return width, height
+
+
+def arrow_with_text(
+    ax, origin, target, text, shift=(0, 0), color="black", arrow_style=None
+):
     shift = np.array(shift)
     origin = np.array(origin)
     target = np.array(target)
-    arrow_style = dict(
-        angles="xy",
-        scale_units="xy",
-        scale=1,
-        width=0.003,
-        headlength=8,
-        headwidth=3,
-        headaxislength=7,
-    )
-    ax.quiver(*origin, *(target - origin), **arrow_style, color=color, zorder=3)
+    if arrow_style is None:
+        arrow_style = dict(
+            angles="xy",
+            scale_units="xy",
+            scale=1,
+            width=0.003,
+            headlength=8,
+            headwidth=3,
+            headaxislength=7,
+        )
+    ax.quiver(*origin, *(target - origin), **arrow_style, color=color)
     ax.text(
         *((origin + target) / 2 + shift),
         text,
         ha="center",
         va="center",
-        fontsize=13,
+        fontsize=20,
         color=color,
     )
 
 
 def plot_origin_point(ax, x, y):
-    ax.scatter(x, y, color="black", s=40)
+    ax.scatter(x, y, color="black", s=40, zorder=10)
     ax.text(
         x,
         y,
-        "\nReference\npoint",
+        "\nReference point",
         color="black",
         zorder=1,
         ha="center",
         va="top",
-        fontsize=13,
+        fontsize=20,
     )
 
 
-def prepare_fig_ax():
+def prepare_fig_ax(sites=False):
     fig, ax = plt.subplots(figsize=(18, 5))
 
-    # ax.vlines([i for i in range(18)], 0, 5, lw=1, color="Grey", alpha=0.7, zorder=0)
-    # ax.hlines([i for i in range(5)], 0, 18, lw=1, color="Grey", alpha=0.7, zorder=0)
+    # Cell's borders
 
-    # Unit cell borders
-    ax.vlines([0, 6, 12, 18], 0, 5, lw=2, color="Grey", alpha=0.7, zorder=0)
-    ax.hlines([0, 5], 0, 18, lw=2, color="Grey", alpha=0.7, zorder=0)
-    ax.text(0.1, 4.9, R"Unit cell index $\mu-\nu$", ha="left", va="top")
-    ax.text(6.1, 4.9, R"Unit cell index $\mu$", ha="left", va="top")
-    ax.text(12.1, 4.9, R"Unit cell index $\mu+\nu$", ha="left", va="top")
+    ax_width, _ = get_ax_size(ax=ax, fig=fig)
+    linewidth = 2
+    lw_in_pixels = linewidth * fig.dpi / 72.0
+    lw_relative = lw_in_pixels / ax_width
+
+    xlim = (-0.1, 18.1)
+    offset = lw_relative * (xlim[1] - xlim[0])
+    ax.plot(
+        [offset, 6 - offset, 6 - offset, offset, offset],
+        [0, 0, 5, 5, 0],
+        lw=linewidth,
+        color="tab:red",
+        zorder=0,
+    )
+    ax.plot(
+        [6 + offset, 12 - offset, 12 - offset, 6 + offset, 6 + offset],
+        [0, 0, 5, 5, 0],
+        lw=linewidth,
+        color="tab:green",
+        zorder=0,
+    )
+    ax.plot(
+        [12 + offset, 18 - offset, 18 - offset, 12 + offset, 12 + offset],
+        [0, 0, 5, 5, 0],
+        lw=linewidth,
+        color="tab:blue",
+        zorder=0,
+    )
+
+    ax.text(
+        3,
+        5.5,
+        R"Cell index: $\mu-\nu$",
+        ha="center",
+        va="bottom",
+        fontsize=20,
+        color="tab:red",
+    )
+    ax.text(
+        9,
+        5.5,
+        R"Cell index: $\mu$",
+        ha="center",
+        va="bottom",
+        fontsize=20,
+        color="tab:green",
+    )
+    ax.text(
+        15,
+        5.5,
+        R"Cell index: $\mu+\nu$",
+        ha="center",
+        va="bottom",
+        fontsize=20,
+        color="tab:blue",
+    )
 
     # Reference frame
-    origin = np.array((8, -2))
+    origin = np.array((6, -2))
     plot_origin_point(ax, *origin)
+
+    if sites:
+        # Magnetic sites
+        site_1 = [1.5, 4]
+        site_2 = [4.5, 2]
+        sites = []
+
+        for i in range(3):
+            for j in range(1):
+                sites.append(np.array((site_1[0] + i * 6, site_1[1] + j * 5)))
+
+                ax.scatter(
+                    sites[-1][0],
+                    sites[-1][1],
+                    s=400,
+                    color="tab:orange",
+                    zorder=4,
+                )
+
+                sites.append(np.array((site_2[0] + i * 6, site_2[1] + j * 5)))
+
+                ax.scatter(
+                    sites[-1][0],
+                    sites[-1][1],
+                    s=400,
+                    color="tab:olive",
+                    zorder=4,
+                )
+
+    return origin, sites, offset, fig, ax
+
+
+def plot_unit_cells(root_directory):
+    origin, _, offset, fig, ax = prepare_fig_ax()
 
     arrow_style = dict(
         angles="xy",
         scale_units="xy",
         scale=1,
         width=0.004,
-        headlength=4,
-        headaxislength=3.7,
+        headlength=5,
+        headaxislength=4,
+        headwidth=4,
     )
 
-    # Magnetic sites legend
-    x = 15
-    y = -3
-    ax.quiver(
-        x,
-        y + 1,
-        0,
-        0.5,
-        **arrow_style,
-        color="tab:blue",
-        zorder=4,
-    )
-    ax.text(
-        x + 0.2,
-        y + 1.25,
-        R"- site index $\alpha$",
-        color="black",
-        zorder=4,
-        ha="left",
-        va="center",
-    )
-    ax.quiver(
-        x,
-        y,
-        0,
-        0.5,
-        **arrow_style,
-        color="tab:orange",
-        zorder=4,
-    )
-    ax.text(
-        x + 0.2,
-        y + 0.25,
-        R"- site index $\beta$",
-        color="black",
-        zorder=4,
-        ha="left",
-        va="center",
-    )
-
-    # Magnetic sites
-    site_1 = [1, 4]
-    site_2 = [5, 1]
-    sites = []
-
-    for i in range(3):
-        for j in range(1):
-            sites.append(np.array((site_1[0] + i * 6, site_1[1] + j * 5)))
-            ax.quiver(
-                sites[-1][0],
-                sites[-1][1] - 0.15,
-                0,
-                0.5,
-                **arrow_style,
-                color="tab:blue",
-                zorder=4,
-            )
-
-            sites.append(np.array((site_2[0] + i * 6, site_2[1] + j * 5)))
-            ax.quiver(
-                sites[-1][0],
-                sites[-1][1] - 0.15,
-                0,
-                0.5,
-                **arrow_style,
-                color="tab:orange",
-                zorder=4,
-            )
-
-    return origin, sites, fig, ax
-
-
-def plot_unit_cells(root_directory):
-    origin, sites, fig, ax = prepare_fig_ax()
-
-    # Unit cells
     arrow_with_text(
         ax,
         origin,
-        (0, 0),
+        (offset, 0),
         R"$\boldsymbol{r}_{\mu - \nu}$",
-        shift=(-0.3, -0.3),
-        color="black",
+        shift=(-0.35, -0.35),
+        color="tab:red",
+        arrow_style=arrow_style,
     )
     arrow_with_text(
         ax,
         origin,
-        (6, 0),
+        (6 + offset, 0),
         R"$\boldsymbol{r}_{\mu}$",
-        shift=(0.4, 0),
-        color="black",
+        shift=(-0.45, 0),
+        color="tab:green",
+        arrow_style=arrow_style,
     )
     arrow_with_text(
         ax,
         origin,
-        (12, 0),
+        (12 + offset, 0),
         R"$\boldsymbol{r}_{\mu+\nu}$",
-        shift=(-0.4, 0.3),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        origin,
-        (18, 0),
-        R"$\boldsymbol{r}_{\mu+2\nu}$",
-        shift=(0.4, -0.3),
-        color="black",
+        shift=(-0.45, 0.35),
+        color="tab:blue",
+        arrow_style=arrow_style,
     )
 
     # Between unit cells
     arrow_with_text(
         ax,
-        (6, 0.5),
-        (12, 0.5),
+        (6 + offset, 0.5),
+        (12 - offset, 0.5),
         R"$\boldsymbol{r}_{\nu}$",
-        shift=(0, 0.3),
+        shift=(0, 0.5),
         color="black",
+        arrow_style=arrow_style,
     )
     arrow_with_text(
         ax,
-        (6, 1.5),
-        (0, 1.5),
+        (6 - offset, 1),
+        (offset, 1),
         R"$\boldsymbol{r}_{-\nu}$",
-        shift=(0, 0.3),
+        shift=(0, 0.5),
         color="black",
+        arrow_style=arrow_style,
     )
-    arrow_with_text(
-        ax,
-        (6, 2.5),
-        (18, 2.5),
-        R"$\boldsymbol{r}_{2\nu}$",
-        shift=(-0.5, 0.3),
-        color="black",
-    )
+    # arrow_with_text(
+    #     ax,
+    #     (6, 2.5),
+    #     (18, 2.5),
+    #     R"$\boldsymbol{r}_{2\nu}$",
+    #     shift=(-0.5, 0.3),
+    #     color="black",
+    # )
 
     ax.axis("off")
     ax.set_aspect(1)
@@ -230,117 +246,107 @@ def plot_unit_cells(root_directory):
         root_directory,
         "docs",
         "images",
-        "positions_unit-cells.png",
+        "positions_cells.png",
     )
-    fig.savefig(filename, dpi=600, bbox_inches="tight")
+    fig.savefig(filename, dpi=400, bbox_inches="tight")
     print(f"File is saved in {os.path.abspath(filename)}")
     plt.close()
 
 
 def plot_sites(root_directory):
-    origin, sites, fig, ax = prepare_fig_ax()
+    origin, sites, offset, fig, ax = prepare_fig_ax(sites=True)
 
-    # Sites from origin
-    arrow_with_text(
-        ax,
-        origin,
-        sites[0],
-        R"$\boldsymbol{r}_{\mu - \nu, \alpha}$",
-        shift=(-0.9, 1.5),
-        color="black",
+    arrow_style = dict(
+        angles="xy",
+        scale_units="xy",
+        scale=1,
+        width=0.004,
+        headlength=5,
+        headaxislength=4,
+        headwidth=4,
+        zorder=5,
     )
-    arrow_with_text(
-        ax,
-        origin,
-        sites[1],
-        R"$\boldsymbol{r}_{\mu - \nu, \beta}$",
-        shift=(0.6, 0.2),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        origin,
-        sites[2],
-        R"$\boldsymbol{r}_{\mu, \alpha}$",
-        shift=(0.3, 1),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        origin,
-        sites[3],
-        R"$\boldsymbol{r}_{\mu, \beta}$",
-        shift=(0.5, -0.1),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        origin,
-        sites[4],
-        R"$\boldsymbol{r}_{\mu+\nu, \alpha}$",
-        shift=(0.3, 1.5),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        origin,
-        sites[5],
-        R"$\boldsymbol{r}_{\mu+\nu, \beta}$",
-        shift=(0, -0.5),
-        color="black",
-    )
+
+    scale = 0.045
 
     # Sites from unit cells
     arrow_with_text(
         ax,
-        (0, 0),
-        sites[0],
+        (offset, 0),
+        (sites[0][0] * (1 - scale), sites[0][1] * (1 - scale)),
         R"$\boldsymbol{r}_{\alpha}$",
         shift=(-0.2, 0.5),
-        color="black",
+        color="tab:orange",
+        arrow_style=arrow_style,
     )
     arrow_with_text(
         ax,
-        (6, 0),
-        sites[2],
-        R"$\boldsymbol{r}_{\alpha}$",
+        (offset, 0),
+        (sites[1][0] * (1 - scale), sites[1][1] * (1 - scale)),
+        R"$\boldsymbol{r}_{\beta}$",
         shift=(-0.2, 0.5),
-        color="black",
+        color="tab:olive",
+        arrow_style=arrow_style,
     )
-    arrow_with_text(
-        ax,
-        (12, 0),
-        sites[4],
-        R"$\boldsymbol{r}_{\alpha}$",
-        shift=(0.4, 0.5),
-        color="black",
+    ax.text(
+        sites[0][0] - 0.7,
+        sites[0][1] + 0.3,
+        R"Atom index: $\alpha$",
+        color="tab:orange",
+        va="bottom",
+        ha="left",
+        fontsize=20,
     )
-    arrow_with_text(
-        ax,
-        (0, 0),
-        sites[1],
-        R"$\boldsymbol{r}_{\beta}$",
-        shift=(0, 0.3),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        (6, 0),
-        sites[3],
-        R"$\boldsymbol{r}_{\beta}$",
-        shift=(0, 0.3),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        (12, 0),
-        sites[5],
-        R"$\boldsymbol{r}_{\beta}$",
-        shift=(0, 0.3),
-        color="black",
+    ax.text(
+        sites[1][0] - 3,
+        sites[1][1] + 0.3,
+        R"Atom index: $\beta$",
+        color="tab:olive",
+        va="bottom",
+        ha="left",
+        fontsize=20,
     )
 
-    # Between sites
+    # More vectors
+    arrow_with_text(
+        ax,
+        origin,
+        (
+            sites[2][0] - 0.04 * (sites[2][0] - origin[0]),
+            sites[2][1] - 0.04 * (sites[2][1] - origin[1]),
+        ),
+        R"$\boldsymbol{r}_{\mu,\alpha}$",
+        shift=(-1.3, -1.8),
+        color="black",
+        arrow_style=arrow_style,
+    )
+    arrow_with_text(
+        ax,
+        origin,
+        (
+            sites[5][0] - 0.03 * (sites[5][0] - origin[0]),
+            sites[5][1] - 0.03 * (sites[5][1] - origin[1]),
+        ),
+        R"$\boldsymbol{r}_{\mu+\nu,\beta}$",
+        shift=(-1.5, -1.5),
+        color="black",
+        arrow_style=arrow_style,
+    )
+    arrow_with_text(
+        ax,
+        (
+            sites[2][0] + 0.03 * (sites[5][0] - sites[2][0]),
+            sites[2][1] + 0.03 * (sites[5][1] - sites[2][1]),
+        ),
+        (
+            sites[5][0] - 0.03 * (sites[5][0] - sites[2][0]),
+            sites[5][1] - 0.03 * (sites[5][1] - sites[2][1]),
+        ),
+        R"$\boldsymbol{r}_{\nu,\alpha\beta}$",
+        shift=(-1, 0.8),
+        color="black",
+        arrow_style=arrow_style,
+    )
 
     ax.axis("off")
     ax.set_aspect(1)
@@ -350,108 +356,7 @@ def plot_sites(root_directory):
         "images",
         "positions_sites.png",
     )
-    fig.savefig(filename, dpi=600, bbox_inches="tight")
-    print(f"File is saved in {os.path.abspath(filename)}")
-    plt.close()
-
-
-def plot_between_sites(root_directory):
-    origin, sites, fig, ax = prepare_fig_ax()
-
-    # From alpha
-    arrow_with_text(
-        ax,
-        sites[2],
-        sites[3],
-        R"$\boldsymbol{r}_{0, \alpha\beta}$",
-        shift=(1, -0.2),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[2],
-        sites[5],
-        R"$\boldsymbol{r}_{\nu, \alpha\beta}$",
-        shift=(3, -0.5),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[2],
-        sites[1],
-        R"$\boldsymbol{r}_{-\nu, \alpha\beta}$",
-        shift=(-1.2, -0.7),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[2],
-        sites[4],
-        R"$\boldsymbol{r}_{\nu, \alpha\alpha}$",
-        shift=(0, 0.3),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[2],
-        sites[0],
-        R"$\boldsymbol{r}_{-\nu, \alpha\alpha}$",
-        shift=(0, 0.3),
-        color="black",
-    )
-
-    # From beta
-
-    arrow_with_text(
-        ax,
-        sites[3],
-        sites[2],
-        R"$\boldsymbol{r}_{0, \beta\alpha}$",
-        shift=(-1, 0.2),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[3],
-        sites[4],
-        R"$\boldsymbol{r}_{\nu, \beta\alpha}$",
-        shift=(1.2, 0.7),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[3],
-        sites[0],
-        R"$\boldsymbol{r}_{-\nu, \beta\alpha}$",
-        shift=(-3, 0.5),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[3],
-        sites[5],
-        R"$\boldsymbol{r}_{\nu, \beta\beta}$",
-        shift=(0, -0.3),
-        color="black",
-    )
-    arrow_with_text(
-        ax,
-        sites[3],
-        sites[1],
-        R"$\boldsymbol{r}_{-\nu, \beta\beta}$",
-        shift=(0, -0.3),
-        color="black",
-    )
-
-    ax.axis("off")
-    ax.set_aspect(1)
-    filename = os.path.join(
-        root_directory,
-        "docs",
-        "images",
-        "positions_between-sites.png",
-    )
-    fig.savefig(filename, dpi=600, bbox_inches="tight")
+    fig.savefig(filename, dpi=400, bbox_inches="tight")
     print(f"File is saved in {os.path.abspath(filename)}")
     plt.close()
 
@@ -459,7 +364,6 @@ def plot_between_sites(root_directory):
 def main(root_directory):
     plot_unit_cells(root_directory)
     plot_sites(root_directory)
-    plot_between_sites(root_directory)
 
 
 if __name__ == "__main__":

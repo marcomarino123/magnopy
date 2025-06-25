@@ -36,21 +36,18 @@ def logo(info=None, line_length=None, flat=False, date_time=False, comment=None)
     Parameters
     ----------
     info : list of str, optional
-        Information about the package.
-        will be displayed below the logo.
-        Each element should not exceed 58 characters.
-        by default it displays the version, release date,
-        and documentation link. You can pass th empty list
-        to display the logo only.
+        Information about the package, that is displayed below the logo. Each element
+        should not exceed 58 characters. By default it displays the version, link to the
+        documentation, release date and license. Pass an empty list to display the logo
+        only.
     line_length : int, optional
-        Length of the lines to be returned.
-        Minimum value is 70.
+        Length of the lines to be returned. Minimum value is 70.
     flat : bool
         Whether to return a flat logo or not.
     date_time : bool, default False
-        Whether to include the date and time to the standard info or not.
+        Whether to include the date and time to the info or not.
     comment : str or bool, optional
-        Whether to use some character at the end of each string. If bool and
+        Whether to use some character at the beginning of each string. If bool and
         True, then "# " is used. If str, then this string is used. If None, then
         no character is used.
 
@@ -58,6 +55,7 @@ def logo(info=None, line_length=None, flat=False, date_time=False, comment=None)
     -------
     logo_info : str
         Logo and information about the package.
+
     """
     if info is None:
         info = [
@@ -67,13 +65,13 @@ def logo(info=None, line_length=None, flat=False, date_time=False, comment=None)
             f"License: GNU GPLv3",
             f"Copyright (C) 2023-{datetime.now().year}  Magnopy Team",
         ]
-        if date_time:
-            cd = datetime.now()
-            info.append("")
-            info.append(
-                f"Generated on {cd.day} {month_name[cd.month]} {cd.year}"
-                + f" at {cd.hour}:{cd.minute}:{cd.second} "
-            )
+    if date_time:
+        cd = datetime.now()
+        info.append("")
+        info.append(
+            f"Generated on {cd.day} {month_name[cd.month]} {cd.year}"
+            + f" at {cd.hour}:{cd.minute}:{cd.second} "
+        )
     logo = [
         "███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗",
         "████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝",

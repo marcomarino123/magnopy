@@ -131,6 +131,10 @@ def plot_spin_directions(
 
     # Update for unit cell repetitions if any
     if unit_cell is not None:
+        if repeat[0] < 1 or repeat[1] < 1 or repeat[2] < 1:
+            raise ValueError(
+                f"Supercell repetitions should be larger or equal to 1, got {repeat}"
+            )
         unit_cell = np.array(unit_cell, dtype=float)
 
         tmp_sd = []

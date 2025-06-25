@@ -58,7 +58,7 @@ def show_spin_directions(
 
     all_good = True
 
-    print(logo())
+    print(logo(date_time=True))
 
     if comment is not None:
         print(f"\n{' Comment ':=^90}\n")

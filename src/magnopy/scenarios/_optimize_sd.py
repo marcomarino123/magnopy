@@ -60,7 +60,7 @@ def optimize_sd(
 
     all_good = True
 
-    print(logo())
+    print(logo(date_time=True))
     print(f"\n{' Comment ':=^90}\n")
     if comment is not None:
         print(comment)

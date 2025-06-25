@@ -66,8 +66,11 @@ def _validate_unit_cell_index(ijk) -> None:
         If either ``i``, ``j`` or ``k`` is not an ``int``.
     """
 
-    if not isinstance(ijk, tuple):
-        raise TypeError(f"Unit cell index has to be a tuple, got '{type(ijk)}'")
+    if not len(ijk) == 3:
+        raise TypeError(
+            f"Unit cell index has to be a tuple or a list of the length 3, "
+            f"got '{len(ijk)}'"
+        )
 
     if not isinstance(ijk[0], int):
         raise TypeError(

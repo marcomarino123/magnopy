@@ -26,21 +26,85 @@ old_dir.add("old_dir")
 
 def span_local_rf(direction_vector, hybridize=False):
     r"""
-    Span local  right-handed reference frame from the direction vector.
+    Span local right-handed reference frame based on the direction vector.
 
     Parameters
     ----------
     direction_vector : (3, ) |array-like|_
         Direction of the z axis of the local reference frame.
     hybridize : bool, default False
-        Whether to return x_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
+
+        * If ``hybridize == True``, then returns ``p_alpha, z_alpha``.
+        * If ``hybridize == False``, then returns ``x_alpha, y_alpha, z_alpha``.
 
     Returns
     -------
     x_alpha : (3, ) :numpy:`ndarray`
     y_alpha : (3, ) :numpy:`ndarray`
-    p_alpha : (3, ) : numpy:`ndarray`
+    p_alpha : (3, ) :numpy:`ndarray`
+        ``p_alpha = x_alpha + 1j * y_alpha``.
     z_alpha : (3, ) :numpy:`ndarray`
+
+    See Also
+    --------
+    span_local_rfs
+
+    Examples
+    --------
+
+    Two special cases are handled as
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> x, y, z = magnopy.span_local_rf([0, 0, 1])
+        >>> x
+        array([1., 0., 0.])
+        >>> y
+        array([0., 1., 0.])
+        >>> z
+        array([0., 0., 1.])
+        >>> p, z = magnopy.span_local_rf([0, 0, 1], hybridize=True)
+        >>> p
+        array([1.+0.j, 0.+1.j, 0.+0.j])
+        >>> z
+        array([0., 0., 1.])
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> x, y, z = magnopy.span_local_rf([0, 0, -1])
+        >>> x
+        array([ 0., -1.,  0.])
+        >>> y
+        array([-1.,  0.,  0.])
+        >>> z
+        array([ 0.,  0., -1.])
+        >>> p, z = magnopy.span_local_rf([0, 0, -1], hybridize=True)
+        >>> p
+        array([ 0.-1.j, -1.+0.j,  0.+0.j])
+        >>> z
+        array([ 0.,  0., -1.])
+
+    For the arbitrary direction the global reference frame is rotated as a whole
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> x, y, z = magnopy.span_local_rf([1, 1, 1])
+        >>> x
+        array([ 0.78867513, -0.21132487, -0.57735027])
+        >>> y
+        array([-0.21132487,  0.78867513, -0.57735027])
+        >>> z
+        array([0.57735027, 0.57735027, 0.57735027])
+        >>> p,z = magnopy.span_local_rf([1, 1, 1], hybridize=True)
+        >>> p
+        array([ 0.78867513-0.21132487j, -0.21132487+0.78867513j,
+               -0.57735027-0.57735027j])
+        >>> z
+        array([0.57735027, 0.57735027, 0.57735027])
+
     """
 
     direction_vector = np.array(direction_vector, dtype=float)
@@ -89,21 +153,50 @@ def span_local_rf(direction_vector, hybridize=False):
 
 def span_local_rfs(directional_vectors, hybridize=False):
     r"""
-    Span local  right-handed reference frames from the direction vectors.
+    Span a series of local right-handed reference frames based on a series of the
+    direction vectors.
 
     Parameters
     ----------
     direction_vectors : (M, 3) |array-like|_
         Direction of the z axis of the local reference frames.
     hybridize : bool, default False
-        Whether to return x_alpha, y_alpha, z_alpha or p_alpha, z_alpha.
+
+        * If ``hybridize == True``, then returns ``p_alphas, z_alphas``.
+        * If ``hybridize == False``, then returns ``x_alphas, y_alphas, z_alphas``.
 
     Returns
     -------
     x_alphas : (M, 3) :numpy:`ndarray`
     y_alphas : (M, 3) :numpy:`ndarray`
-    p_alphas : (M, 3) : numpy:`ndarray`
+    p_alphas : (M, 3) :numpy:`ndarray`
+        ``p_alpha = x_alpha + 1j * y_alpha``.
     z_alphas : (M, 3) :numpy:`ndarray`
+
+    See Also
+    --------
+    span_local_rf
+
+    Examples
+    --------
+
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> x, y, z = magnopy.span_local_rfs([[0, 0, 1], [0, 0, -1], [1, 1, 1]])
+        >>> x
+        array([[ 1.        ,  0.        ,  0.        ],
+               [ 0.        , -1.        ,  0.        ],
+               [ 0.78867513, -0.21132487, -0.57735027]])
+        >>> y
+        array([[ 0.        ,  1.        ,  0.        ],
+               [-1.        ,  0.        ,  0.        ],
+               [-0.21132487,  0.78867513, -0.57735027]])
+        >>> z
+        array([[ 0.        ,  0.        ,  1.        ],
+               [ 0.        ,  0.        , -1.        ],
+               [ 0.57735027,  0.57735027,  0.57735027]])
     """
 
     results = []

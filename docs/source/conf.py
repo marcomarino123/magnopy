@@ -235,6 +235,10 @@ custom_links = {
         "BFGS",
         "https://en.wikipedia.org/wiki/Broyden-Fletcher-Goldfarb-Shanno_algorithm",
     ),
+    "multiprocessing": (
+        "multiprocessing",
+        "https://docs.python.org/3/library/multiprocessing.html",
+    ),
 }
 rst_epilog += "\n".join(
     map(

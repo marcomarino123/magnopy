@@ -79,6 +79,27 @@ def solve_lswt(
     comment : str, optional
         Any comment to output right after the logo.
 
+    Notes
+    -----
+
+    When using this function of magnopy in your Python scripts make sure to safeguard
+    your script with the
+
+    .. code-block:: python
+
+        import magnopy
+
+        # Import more stuff
+        # or
+        # Define your functions, classes
+
+        if __name__ == "__main__":
+
+            # Write your executable code here
+
+    For more information refer to the  "Safe importing of main module" section in
+    |multiprocessing|_ docs.
+
     """
 
     all_good = True

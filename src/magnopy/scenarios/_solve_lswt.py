@@ -79,10 +79,6 @@ def solve_lswt(
     comment : str, optional
         Any comment to output right after the logo.
 
-    Raises
-    ------
-    ValueError
-        If ``spinham_source`` is not supported.
     """
 
     all_good = True

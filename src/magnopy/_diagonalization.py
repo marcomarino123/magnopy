@@ -77,11 +77,10 @@ def _inverse_by_colpa(matrix):
 
 def solve_via_colpa(D, return_inverse=False):
     r"""
-    Diagonalize grand-dynamical matrix following the method of Colpa [1]_.
+    Diagonalize grand-dynamical matrix following the method of Colpa (section 3, remark
+    1 of [1]_).
 
-    Algorithm is described in section 3, remark 1 of [1]_.
-
-    Solves the Bogoliubov Hamiltonian of the form:
+    Solves the Bogoliubov Hamiltonian of the form
 
     .. math::
 
@@ -91,7 +90,9 @@ def solve_via_colpa(D, return_inverse=False):
         a_{m+r^{\prime}}^{\dagger}\boldsymbol{\Delta}_3^{r^{\prime}r}a_r +
         a_{m+r^{\prime}}^{\dagger}\boldsymbol{\Delta}_4^{r^{\prime}r}a_{m+r}^{\dagger}
 
-    In a matrix form the Hamiltonian is:
+    ensuring the bosonic commutation relations.
+
+    In a matrix form the Hamiltonian can be written as
 
     .. math::
 
@@ -111,13 +112,27 @@ def solve_via_colpa(D, return_inverse=False):
             a_{2m} \\
         \end{pmatrix}
 
-    After diagonalization the Hamiltonian is:
+    After diagonalization the Hamiltonian has the form
 
     .. math::
 
         \hat{H}
         =
         \boldsymbol{\cal B}^{\dagger} \boldsymbol{\mathcal{E}} \boldsymbol{\cal B}
+
+    where
+
+    .. math::
+
+        \boldsymbol{\cal B} =
+        \begin{pmatrix}
+            b_1 \\
+            \cdots \\
+            b_m \\
+            b_{m+1} \\
+            \cdots \\
+            b_{2m} \\
+        \end{pmatrix}
 
     Parameters
     ----------
@@ -138,17 +153,13 @@ def solve_via_colpa(D, return_inverse=False):
     Returns
     -------
     E : (2N,) :numpy:`ndarray`
-        The eigenvalues.
-        It is an array of the diagonal elements of the
-        diagonal matrix :math:`\boldsymbol{\mathcal{E}}` of the diagonalized Hamiltonian.
-        First N elements correspond to the
-        :math:`b^{\dagger}(\boldsymbol{k})b(\boldsymbol{k})` and last N elements - to
-        the :math:`b(-\boldsymbol{k})b^{\dagger}(-\boldsymbol{k})`.
+        The eigenvalues. It is an array of the diagonal elements of the diagonal matrix
+        :math:`\boldsymbol{\mathcal{E}}`. First N elements correspond to the
+        :math:`b^{\dagger}_1b_1, \dots, b^{\dagger}_mb_m` and last N elements - to
+        the :math:`b^{\dagger}_{m+1}b_{m+1}, \dots, b^{\dagger}_{2m}b_{2m}`.
 
         Eigenvalues are sorted individually for the first N and the last N elements,
         based on the transformation matrix and not on the values of E itself.
-
-        It is a diagonal of the matrix
 
         .. math::
 
@@ -157,7 +168,7 @@ def solve_via_colpa(D, return_inverse=False):
             (\boldsymbol{G}^{\dagger})^{-1} \boldsymbol{D} \boldsymbol{G}^{-1}
 
     G : (2N, 2N) :numpy:`ndarray`
-        Transformation matrix, which changes the basis from the original set of bosonic
+        Transformation matrix, that changes the basis from the original set of bosonic
         operators :math:`\boldsymbol{a}` to the set of new bosonic operators
         :math:`\boldsymbol{b}` which diagonalize the Hamiltonian:
 
@@ -189,6 +200,39 @@ def solve_via_colpa(D, return_inverse=False):
         Diagonalization of the quadratic boson hamiltonian.
         Physica A: Statistical Mechanics and its Applications,
         93(3-4), pp.327-353.
+
+    Examples
+    --------
+
+    For already diagonal matrix this function does not do much
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> D = [[1, 0], [0, 2]]
+        >>> E, G = magnopy.solve_via_colpa(D)
+        >>> E
+        array([1., 2.])
+        >>> G
+        array([[ 1., -0.],
+               [-0.,  1.]])
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> D = [[1, 1j], [-1j, 2]]
+        >>> E, G = magnopy.solve_via_colpa(D)
+        >>> E
+        array([0.61803399+0.j, 1.61803399+0.j])
+        >>> G
+        array([[ 1.08204454-0.j        ,  0.        +0.41330424j],
+               [-0.        -0.41330424j,  1.08204454-0.j        ]])
+        >>> E, G_inv = magnopy.solve_via_colpa(D, return_inverse=True)
+        >>> E
+        array([0.61803399+0.j, 1.61803399+0.j])
+        >>> G_inv
+        array([[1.08204454+0.j        , 0.        -0.41330424j],
+               [0.        +0.41330424j, 1.08204454+0.j        ]])
     """
 
     D, N = _check_grand_dynamical_matrix(D)

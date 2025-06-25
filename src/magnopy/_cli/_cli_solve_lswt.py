@@ -43,7 +43,7 @@ def manager():
     if args.spin_directions is None:
         pass
     elif len(args.spin_directions) == 1:
-        args.spin_directions = read_spin_directions(filename=args.spin_directions)
+        args.spin_directions = read_spin_directions(filename=args.spin_directions[0])
     else:
         args.spin_directions = np.array(args.spin_directions)
         args.spin_directions = args.spin_directions.reshape(

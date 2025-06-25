@@ -11,6 +11,16 @@ Whats new?
 
 First release of magnopy.
 
+
+0.1.8
+-----
+
+**Date**: Undefined
+
+* Fix bugs
+* Fix a bug with spin directions provided in a file (for the scripts that accept that).
+* Add new script with primitive plotter for the spin directions.
+
 0.1.7
 -----
 

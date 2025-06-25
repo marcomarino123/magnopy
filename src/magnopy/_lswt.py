@@ -761,7 +761,7 @@ class LSWT:
                     )
 
         return (
-            E_plus[: self.M].real + E_minus[self.M :],
+            E_plus[: self.M] + E_minus[self.M :],
             0.5 * (np.sum(E_plus[self.M :]) - np.sum(E_plus[: self.M])),
             G_plus[: self.M],
         )

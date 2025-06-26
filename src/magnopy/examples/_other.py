@@ -78,6 +78,16 @@ def ivuzjo(N=10, J=10):
         density.
         Computer Physics Communications, 260, p.107749.
 
+    Examples
+    --------
+
+    To create an example Hamiltonian use
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> spinham = magnopy.examples.ivuzjo()
+
     """
 
     J = 10
@@ -145,6 +155,16 @@ def full_ham():
     -------
     spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian.
+
+    Examples
+    --------
+
+    To create an example Hamiltonian use
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> spinham = magnopy.examples.full_ham()
     """
 
     cell = np.eye(3, dtype=float)

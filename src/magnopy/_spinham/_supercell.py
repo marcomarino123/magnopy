@@ -21,7 +21,6 @@ R"""
 Convention of spin Hamiltonian
 """
 
-import warnings
 
 from magnopy._spinham._hamiltonian import SpinHamiltonian
 
@@ -32,7 +31,7 @@ old_dir.add("old_dir")
 
 def make_supercell(spinham: SpinHamiltonian, supercell):
     r"""
-    Creates a Hamiltonian on the supercell of the given one.
+    Creates a spin Hamiltonian on the supercell of the given one.
 
     Parameters
     ----------
@@ -41,7 +40,7 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         unit cell.
     supercell : (3, ) tuple or list of int
         Repetitions of the unit cell (``spinham.cell``) along each lattice
-        vector that defined the unit cell. If :math:`(i, j, k)` is given, then the
+        vector that define the unit cell. If :math:`(i, j, k)` is given, then the
         supercell is formally defined as
         :math:`(i\cdot\boldsymbol{a}_1, j\cdot\boldsymbol{a}_2, k\cdot\boldsymbol{a}_3)`,
         where :math:`(\boldsymbol{a}_1, \boldsymbol{a}_2, \boldsymbol{a}_3)` is the
@@ -49,14 +48,178 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
 
     Returns
     -------
-    spinham : :py:class:`.SpinHamiltonian`
+    new_spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian that is defined on a ``supercell`` and has the same parameters
-        as the given ``spinham``.
-    """
+        as the given ``spinham`` propagated over the whole supercell.
 
-    warnings.warn(
-        "Creation of supercell is untested, use at your own risk.", UserWarning
-    )
+    Examples
+    --------
+
+    First a simple example with only on-site parameters present in the Hamiltonian (i.e
+    ``p21``) and two atoms per unit cell.
+
+    .. doctest::
+
+        >>> import numpy as np
+        >>> import magnopy
+        >>> # First create the original spin Hamiltonian
+        >>> cell = np.eye(3)
+        >>> atoms = dict(
+        ... names=["Fe1", "Fe2"],
+        ... positions=[[0, 0, 0], [0.5, 0.5, 0.5]],
+        ... spins=[1, 1],
+        ... g_factors=[2, 2])
+        >>> convention=magnopy.Convention(
+        ... spin_normalized=False,
+        ... multiple_counting=True,
+        ... c21=1)
+        >>> spinham = magnopy.SpinHamiltonian(
+        ... cell=cell,
+        ... atoms=atoms,
+        ... convention=convention)
+        >>> # Add an on-site parameter for both atoms
+        >>> spinham.add_21(alpha=0, parameter=np.eye(3))
+        >>> spinham.add_21(alpha=1, parameter=np.eye(3))
+        >>> # Now create a spin Hamiltonian on the (2, 2, 2) supercell
+        >>> new_spinham = magnopy.make_supercell(spinham=spinham, supercell=(2, 2, 2))
+        >>> # Note that the unit cell of the new Hamiltonian is the supercell of the original one
+        >>> new_spinham.cell
+        array([[2., 0., 0.],
+               [0., 2., 0.],
+               [0., 0., 2.]])
+        >>> # All the atoms of the supercell are now contained in the unit cell of the
+        >>> # new Hamiltonian
+        >>> len(spinham.atoms.names)
+        2
+        >>> len(new_spinham.atoms.names)
+        16
+        >>> for i in range(2):
+        ...     print(spinham.atoms.names[i],
+        ...           spinham.atoms.positions[i],
+        ...           spinham.atoms.spins[i])
+        ...
+        Fe1 [0, 0, 0] 1
+        Fe2 [0.5, 0.5, 0.5] 1
+        >>> for i in range(16):
+        ...     print(new_spinham.atoms.names[i],
+        ...           new_spinham.atoms.positions[i],
+        ...           new_spinham.atoms.spins[i])
+        ...
+        Fe1_0_0_0 [0.0, 0.0, 0.0] 1
+        Fe2_0_0_0 [0.25, 0.25, 0.25] 1
+        Fe1_1_0_0 [0.5, 0.0, 0.0] 1
+        Fe2_1_0_0 [0.75, 0.25, 0.25] 1
+        Fe1_0_1_0 [0.0, 0.5, 0.0] 1
+        Fe2_0_1_0 [0.25, 0.75, 0.25] 1
+        Fe1_1_1_0 [0.5, 0.5, 0.0] 1
+        Fe2_1_1_0 [0.75, 0.75, 0.25] 1
+        Fe1_0_0_1 [0.0, 0.0, 0.5] 1
+        Fe2_0_0_1 [0.25, 0.25, 0.75] 1
+        Fe1_1_0_1 [0.5, 0.0, 0.5] 1
+        Fe2_1_0_1 [0.75, 0.25, 0.75] 1
+        Fe1_0_1_1 [0.0, 0.5, 0.5] 1
+        Fe2_0_1_1 [0.25, 0.75, 0.75] 1
+        Fe1_1_1_1 [0.5, 0.5, 0.5] 1
+        Fe2_1_1_1 [0.75, 0.75, 0.75] 1
+        >>> # The parameters are updated as well
+        >>> len(spinham.p21)
+        2
+        >>> for alpha, _ in spinham.p21:
+        ...         print(alpha)
+        ...
+        0
+        1
+        >>> len(new_spinham.p21)
+        16
+        >>> for alpha, _ in new_spinham.p21:
+        ...         print(alpha)
+        ...
+        0
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+        11
+        12
+        13
+        14
+        15
+
+    Second example with one atom per unit cell, but with the bilinear interaction that
+    connects two different atoms (``p22``).
+
+    .. doctest::
+
+        >>> import numpy as np
+        >>> import magnopy
+        >>> # First create the original spin Hamiltonian
+        >>> cell = np.eye(3)
+        >>> atoms = dict(
+        ... names=["Fe"],
+        ... positions=[[0, 0, 0]],
+        ... spins=[1],
+        ... g_factors=[2])
+        >>> convention=magnopy.Convention(
+        ... spin_normalized=False,
+        ... multiple_counting=True,
+        ... c22=1)
+        >>> spinham = magnopy.SpinHamiltonian(
+        ... cell=cell,
+        ... atoms=atoms,
+        ... convention=convention)
+        >>> # Add an on-site parameter for both atoms
+        >>> spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=np.eye(3))
+        >>> # Now create a spin Hamiltonian on the (2, 2, 2) supercell
+        >>> new_spinham = magnopy.make_supercell(spinham=spinham, supercell=(2, 2, 2))
+        >>> len(new_spinham.atoms.names)
+        8
+        >>> for i in range(8):
+        ...     print(new_spinham.atoms.names[i],
+        ...           new_spinham.atoms.positions[i],
+        ...           new_spinham.atoms.spins[i])
+        ...
+        Fe_0_0_0 [0.0, 0.0, 0.0] 1
+        Fe_1_0_0 [0.5, 0.0, 0.0] 1
+        Fe_0_1_0 [0.0, 0.5, 0.0] 1
+        Fe_1_1_0 [0.5, 0.5, 0.0] 1
+        Fe_0_0_1 [0.0, 0.0, 0.5] 1
+        Fe_1_0_1 [0.5, 0.0, 0.5] 1
+        Fe_0_1_1 [0.0, 0.5, 0.5] 1
+        Fe_1_1_1 [0.5, 0.5, 0.5] 1
+        >>> # The bonds were recalculated automatically
+        >>> for alpha, beta, nu, _ in spinham.p22:
+        ...         print(alpha, beta, nu)
+        ...
+        0 0 (1, 0, 0)
+        0 0 (-1, 0, 0)
+        >>> for alpha, beta, nu, _ in new_spinham.p22:
+        ...         print(alpha, beta, nu)
+        ...
+        0 1 (0, 0, 0)
+        1 0 (1, 0, 0)
+        2 3 (0, 0, 0)
+        3 2 (1, 0, 0)
+        4 5 (0, 0, 0)
+        5 4 (1, 0, 0)
+        6 7 (0, 0, 0)
+        7 6 (1, 0, 0)
+        1 0 (0, 0, 0)
+        0 1 (-1, 0, 0)
+        3 2 (0, 0, 0)
+        2 3 (-1, 0, 0)
+        5 4 (0, 0, 0)
+        4 5 (-1, 0, 0)
+        7 6 (0, 0, 0)
+        6 7 (-1, 0, 0)
+
+
+    """
 
     if supercell[0] < 1 or supercell[1] < 1 or supercell[2] < 1:
         raise ValueError(

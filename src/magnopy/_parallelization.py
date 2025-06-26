@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -26,27 +26,52 @@ old_dir.add("old_dir")
 
 def multiprocess_over_k(kpoints, function, relative=False, number_processors=None):
     r"""
-    Parallelize calculation over the kpoints using multiprocessing.
+    Parallelize calculation over the kpoints using |multiprocessing|_ module.
 
     Parameters
     ----------
     kpoints : (N, 3) |array-like|_
         List of the kpoints.
     function : callable
-        Function that process one kpoint and will be called as call signature
-        ``function(kpoints[i], relative)``.
+        Function that process one kpoint and will be called as
+
+        .. code-block:: python
+
+            result = function(kpoints[i], relative)
+
     relative : bool, default False
         If ``relative=True``, then ``k`` is interpreted as given relative to the
         reciprocal unit cell. Otherwise it is interpreted as given in absolute
         coordinates.
     number_processors : int, optional
-        By default use all available processes. Pass ``number_processors=1`` to run in
-        serial.
+        By default magnopy uses all available processes. Pass ``number_processors=1`` to
+        run in serial.
 
     Returns
     -------
     results : (N, ) list
         List of objects that are returned by the ``function``.
+
+    Notes
+    -----
+
+    When using this function of magnopy in your Python scripts make sure to safeguard
+    your script with the
+
+    .. code-block:: python
+
+        import magnopy
+
+        # Import more stuff
+        # or
+        # Define your functions, classes
+
+        if __name__ == "__main__":
+
+            # Write your executable code here
+
+    For more information refer to the  "Safe importing of main module" section in
+    |multiprocessing|_ docs.
     """
 
     relative = [relative for _ in kpoints]

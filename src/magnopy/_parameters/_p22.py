@@ -24,9 +24,9 @@ old_dir = set(dir())
 old_dir.add("old_dir")
 
 
-def to_iso(matrix, matrix_form=False):
+def to_iso(parameter, matrix_form=False):
     r"""
-    Computes isotropic parameter from full matrix parameter.
+    Extracts isotropic part of the full matrix parameter.
 
     .. math::
 
@@ -60,7 +60,7 @@ def to_iso(matrix, matrix_form=False):
     .. math::
         J_{iso} = \dfrac{tr(\boldsymbol{J})}{3}
 
-    This term can be written in the matrix form as well
+    This term can be written in the matrix form as
 
     .. math::
 
@@ -85,8 +85,8 @@ def to_iso(matrix, matrix_form=False):
 
     Parameters
     ----------
-    matrix : (3, 3) |array-like|_
-        Full matrix parameter.
+    parameter : (3, 3) |array-like|_
+        Full matrix of the exchange parameter (:math:`\boldsymbol{J}`).
     matrix_form : bool, default False
         Whether to return isotropic part of the matrix instead of isotropic parameter.
 
@@ -109,17 +109,17 @@ def to_iso(matrix, matrix_form=False):
 
     .. doctest::
 
-        >>> import magnopy
+        >>> from magnopy import converter22
         >>> matrix = [[1, 3, 4], [-1, -2, 3], [4, 0, 10]]
-        >>> magnopy.converter22.to_iso(matrix)
+        >>> converter22.to_iso(matrix)
         3.0
-        >>> magnopy.converter22.to_iso(matrix, matrix_form=True)
+        >>> converter22.to_iso(matrix, matrix_form=True)
         array([[3., 0., 0.],
                [0., 3., 0.],
                [0., 0., 3.]])
     """
 
-    iso = np.linalg.trace(matrix) / 3
+    iso = np.linalg.trace(parameter) / 3
 
     if matrix_form:
         return iso * np.eye(3, dtype=float)
@@ -127,9 +127,9 @@ def to_iso(matrix, matrix_form=False):
     return float(iso)
 
 
-def to_symm_anisotropy(matrix):
+def to_symm_anisotropy(parameter):
     r"""
-    Computes traceless, symmetric anisotropy from full matrix parameter.
+    Extracts traceless, symmetric anisotropic part of the full matrix parameter.
 
     .. math::
 
@@ -170,8 +170,8 @@ def to_symm_anisotropy(matrix):
 
     Parameters
     ----------
-    matrix : (3, 3) |array-like|_
-        Full matrix parameter.
+    parameter : (3, 3) |array-like|_
+        Full matrix of the exchange parameter (:math:`\boldsymbol{J}`).
 
     Returns
     -------
@@ -196,14 +196,14 @@ def to_symm_anisotropy(matrix):
                [ 4.,  0.,  7.]])
     """
 
-    matrix = np.array(matrix)
+    parameter = np.array(parameter)
 
-    return (matrix + matrix.T) / 2 - to_iso(matrix=matrix, matrix_form=True)
+    return (parameter + parameter.T) / 2 - to_iso(parameter=parameter, matrix_form=True)
 
 
-def to_dmi(matrix, matrix_form=False):
+def to_dmi(parameter, matrix_form=False):
     r"""
-    Computes DMI vector from full matrix parameter.
+    Extracts antisymmetric part (DMI) of the full matrix parameter.
 
 
     .. math::
@@ -252,10 +252,10 @@ def to_dmi(matrix, matrix_form=False):
 
     Parameters
     ----------
-    matrix : (3, 3) |array-like|_
-        Full matrix parameter (:math:`\boldsymbol{J}`).
+    parameter : (3, 3) |array-like|_
+        Full matrix of the exchange parameter (:math:`\boldsymbol{J}`).
     matrix_form : bool, default False
-        Whether to return dmi as a matrix instead of a vector.
+        Whether to return dmi in a matrix form instead of a vector.
 
     Returns
     -------
@@ -276,19 +276,19 @@ def to_dmi(matrix, matrix_form=False):
 
     .. doctest::
 
-        >>> import magnopy
-        >>> matrix = [[1, 3, 0], [-1, -2, 3], [0, 3, 9]]
-        >>> magnopy.converter22.to_dmi(matrix)
+        >>> from magnopy import converter22
+        >>> parameter = [[1, 3, 0], [-1, -2, 3], [0, 3, 9]]
+        >>> converter22.to_dmi(parameter)
         array([0., 0., 2.])
-        >>> magnopy.converter22.to_dmi(matrix, matrix_form = True)
+        >>> converter22.to_dmi(parameter, matrix_form = True)
         array([[ 0.,  2.,  0.],
                [-2.,  0.,  0.],
                [ 0.,  0.,  0.]])
     """
 
-    matrix = np.array(matrix)
+    parameter = np.array(parameter)
 
-    asymm_matrix = (matrix - matrix.T) / 2
+    asymm_matrix = (parameter - parameter.T) / 2
 
     if matrix_form:
         return asymm_matrix
@@ -301,7 +301,7 @@ def to_dmi(matrix, matrix_form=False):
 
 def from_iso(iso):
     r"""
-    Computes isotropic parameter from full matrix parameter.
+    Computes matrix form of the isotropic exchange parameter.
 
     .. math::
 
@@ -330,13 +330,13 @@ def from_iso(iso):
 
     Parameters
     ----------
-    iso : int or float, optional
-        Value of isotropic exchange parameter.
+    iso : int or float
+        Isotropic exchange parameter.
 
     Returns
     -------
-    matrix : (3, 3) :numpy:`ndarray`
-        Isotropic part of the full matrix parameter.
+    parameter : (3, 3) :numpy:`ndarray`
+        Matrix form of the isotropic exchange parameter (:math:`\boldsymbol{J}_{iso}`).
 
     See Also
     --------
@@ -348,8 +348,8 @@ def from_iso(iso):
 
     .. doctest::
 
-        >>> import magnopy
-        >>> magnopy.converter22.from_iso(iso=1)
+        >>> from magnopy import converter22
+        >>> converter22.from_iso(iso=1)
         array([[1., 0., 0.],
                [0., 1., 0.],
                [0., 0., 1.]])
@@ -360,7 +360,7 @@ def from_iso(iso):
 
 def from_dmi(dmi):
     r"""
-    Computes full matrix parameter from the DMI vector.
+    Computes matrix form of the Dzyaloshinsky-Moriya interaction parameter.
 
     .. math::
 
@@ -395,12 +395,13 @@ def from_dmi(dmi):
     Parameters
     ----------
     dmi : (3,) |array-like|_
-            Dzyaloshinsky-Moriya interaction vector :math:`(D_x, D_y, D_z)`.
+        Vector of Dzyaloshinsky-Moriya interaction parameter :math:`(D_x, D_y, D_z)`.
 
     Returns
     -------
-    matrix : (3, 3) :numpy:`ndarray`
-        Antisymmetric part of the full matrix parameter.
+    parameter : (3, 3) :numpy:`ndarray`
+        Matrix form of the Dzyaloshinsky-Moriya interaction parameter
+        (:math:`\boldsymbol{J}_A`).
 
     See Also
     --------
@@ -413,8 +414,8 @@ def from_dmi(dmi):
 
     .. doctest::
 
-        >>> import magnopy
-        >>> magnopy.converter22.from_dmi(dmi = (1, 2, 0))
+        >>> from magnopy import converter22
+        >>> converter22.from_dmi(dmi = (1, 2, 0))
         array([[ 0.,  0., -2.],
                [ 0.,  0.,  1.],
                [ 2., -1.,  0.]])

@@ -17,14 +17,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from math import sqrt
-
 import numpy as np
 
 from magnopy._diagonalization import solve_via_colpa
 from magnopy._exceptions import ColpaFailed
 from magnopy._local_rf import span_local_rfs
-from magnopy._spinham._convention import Convention
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -68,6 +65,15 @@ class LSWT:
     atoms are magnetic (Cr1 and Cr2), one atom is not (Br). Then ``spin_directions`` is
     a (2, 3) array with ``spin_directions[0]`` being the direction for spin of Cr1 and
     ``spin_directions[1]`` being the direction of spin for Cr2.
+
+    Examples
+    --------
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> spinham = magnopy.examples.cubic_ferro_nn()
+        >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
     """
 
     def __init__(self, spinham, spin_directions):
@@ -425,6 +431,17 @@ class LSWT:
         Returns
         -------
         E_2 : float
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.E_2
+            -1.5
         """
 
         return float(0.5 * np.sum(self._J1 * self.z))
@@ -437,7 +454,7 @@ class LSWT:
         Returns
         -------
         O : (M, ) :numpy:`ndarray`
-            ``complex``.
+            Elements are complex numbers.
 
         Notes
         -----
@@ -463,6 +480,17 @@ class LSWT:
 
         where overline denotes complex conjugation. This function computes the
         coefficients :math:`O_{\alpha}`.
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.O
+            array([0.+0.j])
         """
 
         return np.einsum(
@@ -523,6 +551,22 @@ class LSWT:
             \end{pmatrix}
 
         This function computes the matrix :math:`\boldsymbol{A}(\boldsymbol{k})`.
+
+        See Also
+        --------
+        LSWT.B
+        LSWT.GDM
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.A(k=[0, 0, 0.5], relative=True)
+            array([[1.+0.j]])
         """
 
         k = np.array(k)
@@ -591,6 +635,22 @@ class LSWT:
             \end{pmatrix}
 
         This function computes the matrix :math:`\boldsymbol{B}(\boldsymbol{k})`.
+
+        See Also
+        --------
+        LSWT.A
+        LSWT.GDM
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.B(k=[0, 0, 0.5], relative=True)
+            array([[0.+0.j]])
         """
 
         k = np.array(k)
@@ -669,6 +729,23 @@ class LSWT:
             \boldsymbol{A}(\boldsymbol{k}) & \boldsymbol{B}^{\dagger}(\boldsymbol{k}) \\
             \boldsymbol{B}(\boldsymbol{k}) & \overline{\boldsymbol{A}(-\boldsymbol{k})}
             \end{pmatrix}
+
+        See Also
+        --------
+        LSWT.A
+        LSWT.B
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.GDM(k=[0,0,0.5], relative=True)
+            array([[1.+0.j, 0.-0.j],
+                   [0.+0.j, 1.-0.j]])
         """
 
         k = np.array(k, dtype=float)
@@ -687,7 +764,7 @@ class LSWT:
     def diagonalize(self, k, relative=False):
         r"""
         Diagonalize the Hamiltonian for the given ``k`` point and return all possible
-        quantity at once.
+        quantities at once.
 
         Parameters
         ----------
@@ -706,7 +783,7 @@ class LSWT:
         delta : float
             Constant energy term that results from diagonalization. Note, that data type is complex. If the ground state is correct,
             then the complex part should be zero.
-        G_minus_one : (M, 2M) :numpy:`ndarray`
+        G_inv : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
             Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
 
@@ -728,6 +805,23 @@ class LSWT:
                     \dots,
                     a^{\dagger}_M(-\boldsymbol{k}),
                 \end{pmatrix}
+
+        See Also
+        --------
+        LSWT.omega
+        LSWT.delta
+        LSWT.G_inv
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.diagonalize(k=[0,0,0.5], relative=True)
+            (array([2.+0.j]), 0j, array([[1.+0.j, 0.+0.j]]))
         """
 
         k_plus = np.array(k)
@@ -761,8 +855,8 @@ class LSWT:
                     )
 
         return (
-            E_plus[: self.M].real + E_minus[self.M :],
-            0.5 * (np.sum(E_plus[self.M :]) - np.sum(E_plus[: self.M])),
+            E_plus[: self.M] + E_minus[self.M :],
+            complex(0.5 * (np.sum(E_plus[self.M :]) - np.sum(E_plus[: self.M]))),
             G_plus[: self.M],
         )
 
@@ -782,6 +876,23 @@ class LSWT:
         omegas : (M, ) :numpy:`ndarray`
             Array of omegas. Note, that data type is complex. If the ground state is correct,
             then the complex part should be zero.
+
+        See Also
+        --------
+        LSWT.diagonalize
+        LSWT.delta
+        LSWT.G_inv
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.omega(k=[0,0,0.5], relative=True)
+            array([2.+0.j])
         """
 
         return self.diagonalize(k=k, relative=relative)[0]
@@ -808,10 +919,27 @@ class LSWT:
         delta : float
             Constant energy term that results from diagonalization. Note, that data type is complex. If the ground state is correct,
             then the complex part should be zero.
+
+        See Also
+        --------
+        LSWT.diagonalize
+        LSWT.omega
+        LSWT.G_inv
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.delta(k=[0,0,0.5], relative=True)
+            0j
         """
         return self.diagonalize(k=k, relative=relative)[1]
 
-    def G_minus_one(self, k, relative=False):
+    def G_inv(self, k, relative=False):
         r"""
         Inverse of the transformation matrix to the new bosonic operators.
 
@@ -834,9 +962,26 @@ class LSWT:
 
         Returns
         -------
-        G_minus_one : (M, 2M) :numpy:`ndarray`
+        G_inv : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
             Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
+
+        See Also
+        --------
+        LSWT.diagonalize
+        LSWT.omega
+        LSWT.delta
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn()
+            >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
+            >>> lswt.G_inv(k=[0,0,0.5], relative=True)
+            array([[1.+0.j, 0.+0.j]])
         """
         return self.diagonalize(k=k, relative=relative)[2]
 

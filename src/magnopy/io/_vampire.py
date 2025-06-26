@@ -23,11 +23,11 @@ import numpy as np
 from wulfric.cell import get_params
 from wulfric.crystal import get_atom_species
 
+from magnopy._constants._internal_units import ENERGY
 from magnopy._package_info import logo
 from magnopy._parameters._p22 import to_dmi, to_symm_anisotropy
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
-from magnopy.constants._internal_units import ENERGY
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -45,7 +45,7 @@ def dump_vampire(
     no_logo=False,
 ):
     """
-    Save the Hamiltonian in a Human-readable format.
+    Save the Hamiltonian in the format suitable for |Vampire|_.
 
     Parameters
     ----------
@@ -213,7 +213,7 @@ def dump_vampire_ucf(
     no_logo=False,
 ):
     """
-    Save the Hamiltonian in a Human-readable format.
+    Write .UCF file for |Vampire|_.
 
     Parameters
     ----------

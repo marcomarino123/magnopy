@@ -23,7 +23,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.extra.numpy import arrays as harrays
 
-from magnopy import Convention, SpinHamiltonian
+from magnopy import Convention, SpinHamiltonian, make_supercell
 from magnopy._spinham._c33 import _get_primary_p33
 
 MAX_MODULUS = 1e8
@@ -33,6 +33,22 @@ ARRAY = harrays(
     elements=st.floats(min_value=-MAX_MODULUS, max_value=MAX_MODULUS),
 )
 RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value=1000))
+
+CONVENTION = Convention(
+    spin_normalized=False,
+    multiple_counting=True,
+    c1=1,
+    c21=1,
+    c22=1,
+    c31=1,
+    c32=1,
+    c33=1,
+    c41=1,
+    c421=1,
+    c422=1,
+    c43=1,
+    c44=1,
+)
 
 
 @given(
@@ -46,7 +62,7 @@ RANDOM_UC = harrays(int, (4, 3), elements=st.integers(min_value=-1000, max_value
 def test_add_33(alpha, beta, gamma, nu, _lambda, parameter):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=CONVENTION)
 
     if (
         0 <= alpha < len(spinham.atoms.names)
@@ -107,7 +123,7 @@ def test_add_33_sorting(
 ):
     atoms = {"names": ["Cr" for _ in range(9)], "spins": [1 for _ in range(9)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=CONVENTION)
 
     spinham.add_33(alpha1, beta1, gamma1, nu1, _lambda1, parameter)
 
@@ -136,7 +152,7 @@ def test_add_33_sorting(
 def test_remove_33(r_alpha, r_beta, r_gamma, r_nu, r_lambda, nus, lambdas):
     atoms = {"names": ["Cr" for _ in range(4)], "spins": [1 for _ in range(4)]}
 
-    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=Convention())
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=CONVENTION)
 
     for alpha in range(len(spinham.atoms.names)):
         for beta in range(alpha, len(spinham.atoms.names)):
@@ -346,3 +362,36 @@ def test_add(parameter1, parameter2):
 
     assert np.allclose(m_spinham._33[2][-1], spinham1._33[2][-1])
     assert np.allclose(m_spinham._33[3][-1], spinham2._33[2][-1])
+
+
+@given(
+    ARRAY,
+    st.integers(min_value=1, max_value=5),
+    st.integers(min_value=1, max_value=5),
+    st.integers(min_value=1, max_value=5),
+)
+def test_make_supercell(parameter1, i, j, k):
+    atoms = dict(
+        names=["Cr1", "Cr2", "Cr3"],
+        spins=[1, 2, 3],
+        positions=[[0, 0, 0], [0.33, 0.33, 0.33], [0.66, 0.66, 0.66]],
+        g_factors=[2, 2, 2],
+    )
+
+    spinham = SpinHamiltonian(cell=np.eye(3), atoms=atoms, convention=CONVENTION)
+
+    spinham.add_33(
+        alpha=0, beta=1, gamma=2, nu=(0, 0, 0), _lambda=(0, 0, 0), parameter=parameter1
+    )
+    spinham.add_33(
+        alpha=0,
+        beta=1,
+        gamma=2,
+        nu=(1, 0, 0),
+        _lambda=(0, 1, 0),
+        parameter=parameter1 * 1.42,
+    )
+
+    new_spinham = make_supercell(spinham=spinham, supercell=(i, j, k))
+
+    assert len(new_spinham.p33) == i * j * k * len(spinham.p33)

@@ -78,6 +78,16 @@ def ivuzjo(N=10, J=10):
         density.
         Computer Physics Communications, 260, p.107749.
 
+    Examples
+    --------
+
+    To create an example Hamiltonian use
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> spinham = magnopy.examples.ivuzjo()
+
     """
 
     J = 10
@@ -133,6 +143,132 @@ def ivuzjo(N=10, J=10):
             spinham.add_22(alpha=alpha, beta=beta, nu=nu, parameter=parameter)
 
     spinham.add_magnetic_field(h=[0, 0, J / 5 / BOHR_MAGNETON / 2])
+
+    return spinham
+
+
+def full_ham():
+    r"""
+    Prepare a Hamiltonian with all parameters present.
+
+    Returns
+    -------
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian.
+
+    Examples
+    --------
+
+    To create an example Hamiltonian use
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> spinham = magnopy.examples.full_ham()
+    """
+
+    cell = np.eye(3, dtype=float)
+    atoms = dict(
+        names=["Cr1", "Cr2", "Cr3", "Cr4"],
+        g_factors=[2, 2, 2, 2],
+        spins=[3 / 2, 3 / 2, 3 / 2, 3 / 2],
+        positions=[
+            [0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.5],
+            [0.0, 0.5, 0.0],
+            [0.0, 0.0, 0.5],
+        ],
+    )
+    convention = Convention(
+        spin_normalized=False,
+        multiple_counting=True,
+        c1=1,
+        c21=1,
+        c22=1,
+        c31=1,
+        c32=1,
+        c33=1,
+        c41=1,
+        c421=1,
+        c422=1,
+        c43=1,
+        c44=1,
+    )
+
+    spinham = SpinHamiltonian(cell=cell, atoms=atoms, convention=convention)
+
+    ############################################################################
+    #                                 One site                                 #
+    ############################################################################
+    for alpha in range(4):
+        spinham.add_1(alpha=alpha, parameter=[0, 0, 1])
+        spinham.add_21(alpha=alpha, parameter=[0.5, 1, 1.5])
+        spinham.add_31(alpha=alpha, parameter=[-0.4, 0.1, 1])
+        spinham.add_41(alpha=alpha, parameter=[0.1, 0.2, 1])
+
+    ############################################################################
+    #                                Two sites                                 #
+    ############################################################################
+
+    for alpha, beta, nu in [
+        [0, 0, (1, 0, 0)],
+        [1, 1, (1, 0, 0)],
+        [2, 2, (1, 0, 0)],
+        [3, 3, (1, 0, 0)],
+    ]:
+        spinham.add_22(alpha=alpha, beta=beta, nu=nu, parameter=-np.eye(3))
+        spinham.add_32(alpha=alpha, beta=beta, nu=nu, parameter=-np.ones((3, 3, 3)))
+        spinham.add_421(alpha=alpha, beta=beta, nu=nu, parameter=-np.ones((3, 3, 3, 3)))
+        spinham.add_422(alpha=alpha, beta=beta, nu=nu, parameter=-np.ones((3, 3, 3, 3)))
+
+    for alpha, beta in [[0, 1], [1, 2], [2, 3], [3, 1]]:
+        spinham.add_22(alpha=alpha, beta=beta, nu=nu, parameter=0.5 * np.eye(3))
+        spinham.add_32(
+            alpha=alpha, beta=beta, nu=nu, parameter=0.5 * np.ones((3, 3, 3))
+        )
+        spinham.add_421(
+            alpha=alpha, beta=beta, nu=nu, parameter=0.5 * np.ones((3, 3, 3, 3))
+        )
+        spinham.add_422(
+            alpha=alpha, beta=beta, nu=nu, parameter=0.5 * np.ones((3, 3, 3, 3))
+        )
+
+    ############################################################################
+    #                                Three sites                               #
+    ############################################################################
+    for alpha, beta, gamma, nu, _lambda in [[0, 1, 2, (0, 0, 0), (0, 0, 0)]]:
+        spinham.add_33(
+            alpha=alpha,
+            beta=beta,
+            gamma=gamma,
+            nu=nu,
+            _lambda=_lambda,
+            parameter=0.3 * np.ones((3, 3, 3)),
+        )
+        spinham.add_43(
+            alpha=alpha,
+            beta=beta,
+            gamma=gamma,
+            nu=nu,
+            _lambda=_lambda,
+            parameter=0.3 * np.ones((3, 3, 3, 3)),
+        )
+    ############################################################################
+    #                                Four sites                                #
+    ############################################################################
+    for alpha, beta, gamma, epsilon, nu, _lambda, rho in [
+        [0, 1, 2, 3, (0, 0, 0), (0, 0, 0), (0, 0, 0)]
+    ]:
+        spinham.add_44(
+            alpha=alpha,
+            beta=beta,
+            gamma=gamma,
+            epsilon=epsilon,
+            nu=nu,
+            _lambda=_lambda,
+            rho=rho,
+            parameter=-0.1 * np.ones((3, 3, 3, 3)),
+        )
 
     return spinham
 

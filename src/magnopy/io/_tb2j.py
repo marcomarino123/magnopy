@@ -34,17 +34,17 @@ def load_tb2j(
     filename, spin_values=None, g_factors=None, quiet=True
 ) -> SpinHamiltonian:
     r"""
-    Read spin Hamiltonian from |TB2J|_ output file.
+    Read spin Hamiltonian from the output of |TB2J|_.
 
     Parameters
     ----------
     filename : str
         Path to the |TB2J|_ output file.
     spin_values : (M, ) iterable of floats, optional
-        Spin Values for each atom. In the same order as in TB2J file. TB2J outputs
+        Spin values for each atom. In the same order as in TB2J file. TB2J outputs
         magnetic moments and not spin values, therefore the spin values for each atom
         are subject to user definition. If user does not define the spin values, then
-        magnopy set spin value as :math:`|\boldsymbol{m} / g_factor|` for each spin.
+        magnopy set spin value as :math:`|\boldsymbol{m} / g_{factor}|` for each spin.
     g_factors : (M, ) iterable of floats, optional
         g-factors for each atom. In the same order as in TB2J file. TB2J does not
         provide g-factors, therefore g-factor for each atom is subject to user

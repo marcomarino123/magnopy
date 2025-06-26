@@ -27,6 +27,7 @@ from magnopy._lswt import LSWT
 from magnopy._package_info import logo
 from magnopy._parallelization import multiprocess_over_k
 from magnopy.io._k_resolved import output_k_resolved, plot_k_resolved
+from magnopy.io._spin_directions import plot_spin_directions
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -43,6 +44,7 @@ def solve_lswt(
     output_folder="magnopy-results",
     number_processors=None,
     comment=None,
+    make_sd_image=None,
 ) -> None:
     r"""
     Solves the spin Hamiltonian at the level of Linear Spin Wave theory.
@@ -78,16 +80,36 @@ def solve_lswt(
         available processes. Use ``number_processors=1`` to run in serial mode.
     comment : str, optional
         Any comment to output right after the logo.
+    make_sd_image : (3, ) tuple of int
+        Whether to produce an html file that displays the spin directions. Three numbers
+        are the repetitions of the unit cell along the three lattice vectors.
 
-    Raises
-    ------
-    ValueError
-        If ``spinham_source`` is not supported.
+    Notes
+    -----
+
+    When using this function of magnopy in your Python scripts make sure to safeguard
+    your script with the
+
+    .. code-block:: python
+
+        import magnopy
+
+        # Import more stuff
+        # or
+        # Define your functions, classes
+
+        if __name__ == "__main__":
+
+            # Write your executable code here
+
+    For more information refer to the  "Safe importing of main module" section in
+    |multiprocessing|_ docs.
+
     """
 
     all_good = True
 
-    print(logo())
+    print(logo(date_time=True))
     print(f"\n{' Comment ':=^90}\n")
     if comment is not None:
         print(comment)
@@ -300,6 +322,22 @@ def solve_lswt(
         ylabel=R"$\Delta(\boldsymbol{k})$, meV",
     )
     print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
+
+    if make_sd_image is not None:
+        positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
+        filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
+
+        plot_spin_directions(
+            output_name=filename,
+            positions=positions,
+            spin_directions=spin_directions,
+            unit_cell=spinham.cell,
+            repeat=make_sd_image,
+        )
+
+        print(
+            f"\nImage of used spin directions is saved in file\n  {os.path.abspath(filename)}.html"
+        )
 
     if all_good:
         print(f"\n{' Finished OK ':=^90}")

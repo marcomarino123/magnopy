@@ -17,11 +17,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-__version__ = "0.1.7"
+__version__ = "0.1.8"
 __doclink__ = "magnopy.org"
-__release_date__ = "12 June 2025"
+__release_date__ = "26 June 2025"
 
-from . import constants, examples, io, scenarios
+from . import _constants, examples, io, scenarios
 from ._diagonalization import *
 from ._energy import *
 from ._exceptions import *

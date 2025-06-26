@@ -40,8 +40,8 @@ def load_grogu(filename) -> SpinHamiltonian:
 
     Returns
     -------
-    spinham :py:class:`.SpinHamiltonian`
-        SpinHamiltonian object loaded from file.
+    spinham : :py:class:`.SpinHamiltonian`
+        Spin Hamiltonian loaded from file.
     """
 
     convention = Convention.get_predefined("grogu")

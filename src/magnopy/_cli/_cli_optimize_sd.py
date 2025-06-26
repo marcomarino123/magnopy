@@ -21,6 +21,8 @@ import os
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
+from matplotlib.mlab import magnitude_spectrum
+
 from magnopy._package_info import logo
 from magnopy.io._grogu import load_grogu
 from magnopy.io._tb2j import load_tb2j
@@ -66,6 +68,7 @@ def manager():
         torque_tolerance=args.torque_tolerance,
         output_folder=args.output_folder,
         comment=comment,
+        make_sd_image=args.make_sd_image,
     )
 
 
@@ -138,6 +141,17 @@ def get_parser():
         type=str,
         default="magnopy-results",
         help="Folder where all output files of magnopy wil be saved.",
+    )
+    parser.add_argument(
+        "-msdi",
+        "--make-sd-image",
+        nargs=3,
+        type=int,
+        default=None,
+        metavar="xa_1 xa_2 xa_3",
+        help="Plots optimized spin directions and saves it in .html file, that can be "
+        "viewed within any modern browser. Expects three integers as an input - the "
+        "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",
     )
 
     return parser

@@ -17,8 +17,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from re import search
-
 import numpy as np
 
 # Save local scope at this moment
@@ -127,8 +125,61 @@ class Energy:
 
     Parameters
     ----------
-    spinham : py:class:`.SpinHamiltonian`
+    spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian for the calculation of energy.
+
+    Examples
+    --------
+
+    First, one need to create some spin Hamiltonian
+
+    .. doctest::
+
+        >>> import numpy as np
+        >>> import magnopy
+        >>> cell = np.eye(3)
+        >>> atoms = dict(
+        ... names = ["Fe"],
+        ... spins = [1.5],
+        ... g_factors = [2],
+        ... positions = [[0, 0, 0]])
+        >>> convention = magnopy.Convention(
+        ... multiple_counting=True,
+        ... spin_normalized=False,
+        ... c21=1,
+        ... c22=-1)
+        >>> spinham = magnopy.SpinHamiltonian(
+        ... cell=cell,
+        ... atoms=atoms,
+        ... convention=convention)
+
+    Then, add some parameters to the Hamiltonian
+
+    .. doctest::
+
+        >>> spinham.add_21(alpha=0, parameter = np.diag([0, 0, -1]))
+        >>> spinham.add_22(
+        ... alpha=0,
+        ... beta=0,
+        ... nu=(1,0,0),
+        ... parameter = magnopy.converter22.from_iso(iso=1))
+
+    Now everything is ready to create an instance of the Energy class
+
+    .. doctest::
+
+        >>> energy = magnopy.Energy(spinham)
+
+    Finally, ``energy`` an be used to compute classical energy of the Hamiltonian,
+    its gradient, torque or search for the local minima.
+
+    .. doctest::
+
+        >>> sd1 = [[1,0,0]]
+        >>> sd2 = [[0,1,0]]
+        >>> sd3 = [[0,0,1]]
+        >>> energy(sd1), energy(sd2), energy(sd3)
+        (-4.5, -4.5, -6.75)
     """
 
     def __init__(self, spinham):
@@ -279,7 +330,7 @@ class Energy:
 
     def E_0(self, spin_directions, _normalize=True) -> float:
         r"""
-        Classical energy of the spin Hamiltonian.
+        Computes classical energy of the spin Hamiltonian.
 
         Parameters
         ----------
@@ -290,11 +341,69 @@ class Energy:
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
         _normalize : bool, default True
             Whether to normalize the spin_directions or use the provided vectors as is.
+            This parameter is technical and we do not recommend to use it at all.
 
         Returns
         -------
         E_0 : float
             Classic energy of state with ``spin_directions``.
+
+
+        Examples
+        --------
+
+        First, one need to create some spin Hamiltonian
+
+        .. doctest::
+
+            >>> import numpy as np
+            >>> import magnopy
+            >>> cell = np.eye(3)
+            >>> atoms = dict(
+            ... names = ["Fe"],
+            ... spins = [1.5],
+            ... g_factors = [2],
+            ... positions = [[0, 0, 0]])
+            >>> convention = magnopy.Convention(
+            ... multiple_counting=True,
+            ... spin_normalized=False,
+            ... c21=1,
+            ... c22=-1)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ... cell=cell,
+            ... atoms=atoms,
+            ... convention=convention)
+
+        Then, add some parameters to the Hamiltonian
+
+        .. doctest::
+
+            >>> spinham.add_21(alpha=0, parameter = np.diag([0, 0, -1]))
+            >>> spinham.add_22(
+            ... alpha=0,
+            ... beta=0,
+            ... nu=(1,0,0),
+            ... parameter = magnopy.converter22.from_iso(iso=1))
+
+        Now everything is ready to create an instance of the Energy class
+
+        .. doctest::
+
+            >>> energy = magnopy.Energy(spinham)
+
+        Finally, ``energy`` an be used to compute classical energy of the Hamiltonian
+        for arbitrary spin configuration.
+
+        .. doctest::
+
+            >>> sd1 = [[1,0,0]]
+            >>> sd2 = [[0,1,0]]
+            >>> sd3 = [[0,0,1]]
+            >>> energy.E_0(sd1), energy.E_0(sd2), energy.E_0(sd3)
+            (-4.5, -4.5, -6.75)
+            >>> # The command above is equivalent to
+            >>> energy(sd1), energy(sd2), energy(sd3)
+            (-4.5, -4.5, -6.75)
         """
 
         spin_directions = np.array(spin_directions, dtype=float)
@@ -394,6 +503,7 @@ class Energy:
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
         _normalize : bool, default True
             Whether to normalize the spin_directions or use the provided vectors as is.
+            This parameter is technical and we do not recommend to use it at all.
 
         Returns
         -------
@@ -506,6 +616,7 @@ class Energy:
                 np.einsum(
                     "tjuv,j,u,v->t",
                     self.J_43[(alpha, beta, gamma)],
+                    spin_directions[alpha],
                     spin_directions[beta],
                     spin_directions[gamma],
                 )
@@ -544,6 +655,7 @@ class Energy:
             of magnetic atoms in ``spinham.magnetic_atoms.spins``.
         _normalize : bool, default True
             Whether to normalize the spin_directions or use the provided vectors as is.
+            This parameter is technical and we do not recommend to use it at all.
 
         Returns
         -------

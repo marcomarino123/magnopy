@@ -229,11 +229,15 @@ custom_links = {
     ),
     "GROGU-FF": (
         "GROGU file format",
-        "https://grogupy.readthedocs.io/en/latest/output-format/index.html",
+        "https://grogupy.readthedocs.io/en/latest/tutorials/magnopy_input.html",
     ),
     "BFGS": (
         "BFGS",
         "https://en.wikipedia.org/wiki/Broyden-Fletcher-Goldfarb-Shanno_algorithm",
+    ),
+    "multiprocessing": (
+        "multiprocessing",
+        "https://docs.python.org/3/library/multiprocessing.html",
     ),
 }
 rst_epilog += "\n".join(

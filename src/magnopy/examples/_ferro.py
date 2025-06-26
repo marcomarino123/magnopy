@@ -87,6 +87,173 @@ def cubic_ferro_nn(
     -------
     spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian.
+
+    Examples
+    --------
+    To get an example with the default values use
+
+    .. doctest::
+
+        >>> import magnopy
+        >>> spinham = magnopy.examples.cubic_ferro_nn()
+        >>> spinham.cell
+        array([[1., 0., 0.],
+               [0., 1., 0.],
+               [0., 0., 1.]])
+        >>> spinham.atoms.names
+        ['X']
+        >>> spinham.atoms.spins
+        [0.5]
+        >>> spinham.atoms.positions
+        [[0, 0, 0]]
+        >>> for alpha, parameter in spinham.p21:
+        ...     print(alpha, parameter, sep="\n")
+        ...
+        0
+        [[0. 0. 0.]
+         [0. 0. 0.]
+         [0. 0. 0.]]
+        >>> for alpha, beta, nu, parameter in spinham.p22:
+        ...     print(alpha, beta, nu)
+        ...     print(parameter)
+        ...
+        0 0 (0, 0, 1)
+        [[-1. -0. -0.]
+         [-0. -1. -0.]
+         [-0. -0. -1.]]
+        0 0 (0, 1, 0)
+        [[-1. -0. -0.]
+         [-0. -1. -0.]
+         [-0. -0. -1.]]
+        0 0 (1, 0, 0)
+        [[-1. -0. -0.]
+         [-0. -1. -0.]
+         [-0. -0. -1.]]
+        0 0 (0, 0, -1)
+        [[-1. -0. -0.]
+         [-0. -1. -0.]
+         [-0. -0. -1.]]
+        0 0 (0, -1, 0)
+        [[-1. -0. -0.]
+         [-0. -1. -0.]
+         [-0. -0. -1.]]
+        0 0 (-1, 0, 0)
+        [[-1. -0. -0.]
+         [-0. -1. -0.]
+         [-0. -0. -1.]]
+
+    With this function one can customize a few things of the Hamiltonian:
+
+    * Lattice parameter
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn(a=2)
+            >>> spinham.cell
+            array([[2., 0., 0.],
+                   [0., 2., 0.],
+                   [0., 0., 2.]])
+
+    * Spin values
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn(S = 1.5)
+            >>> spinham.atoms.spins
+            [1.5]
+
+
+    * Value of the isotropic exchange
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn(J_iso = 2)
+            >>> for alpha, beta, nu, parameter in spinham.p22:
+            ...     print(alpha, beta, nu)
+            ...     print(parameter)
+            ...
+            0 0 (0, 0, 1)
+            [[-2. -0. -0.]
+             [-0. -2. -0.]
+             [-0. -0. -2.]]
+            0 0 (0, 1, 0)
+            [[-2. -0. -0.]
+             [-0. -2. -0.]
+             [-0. -0. -2.]]
+            0 0 (1, 0, 0)
+            [[-2. -0. -0.]
+             [-0. -2. -0.]
+             [-0. -0. -2.]]
+            0 0 (0, 0, -1)
+            [[-2. -0. -0.]
+             [-0. -2. -0.]
+             [-0. -0. -2.]]
+            0 0 (0, -1, 0)
+            [[-2. -0. -0.]
+             [-0. -2. -0.]
+             [-0. -0. -2.]]
+            0 0 (-1, 0, 0)
+            [[-2. -0. -0.]
+             [-0. -2. -0.]
+             [-0. -0. -2.]]
+
+    * Diagonal of the on-site quadratic anisotropy
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn(J_21 = (1,2,-1))
+            >>> for alpha, parameter in spinham.p21:
+            ...     print(alpha, parameter, sep="\n")
+            ...
+            0
+            [[ 1.  0.  0.]
+             [ 0.  2.  0.]
+             [ 0.  0. -1.]]
+
+    * Dimensionality of the nearest neighbors
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> spinham = magnopy.examples.cubic_ferro_nn(dimensions=1)
+            >>> for alpha, beta, nu, parameter in spinham.p22:
+            ...     print(alpha, beta, nu)
+            ...     print(parameter)
+            ...
+            0 0 (1, 0, 0)
+            [[-1. -0. -0.]
+             [-0. -1. -0.]
+             [-0. -0. -1.]]
+            0 0 (-1, 0, 0)
+            [[-1. -0. -0.]
+             [-0. -1. -0.]
+             [-0. -0. -1.]]
+            >>> spinham = magnopy.examples.cubic_ferro_nn(dimensions=2)
+            >>> for alpha, beta, nu, parameter in spinham.p22:
+            ...     print(alpha, beta, nu)
+            ...     print(parameter)
+            ...
+            0 0 (0, 1, 0)
+            [[-1. -0. -0.]
+             [-0. -1. -0.]
+             [-0. -0. -1.]]
+            0 0 (1, 0, 0)
+            [[-1. -0. -0.]
+             [-0. -1. -0.]
+             [-0. -0. -1.]]
+            0 0 (0, -1, 0)
+            [[-1. -0. -0.]
+             [-0. -1. -0.]
+             [-0. -0. -1.]]
+            0 0 (-1, 0, 0)
+            [[-1. -0. -0.]
+             [-0. -1. -0.]
+             [-0. -0. -1.]]
+
     """
 
     cell = a * np.eye(3, dtype=float)

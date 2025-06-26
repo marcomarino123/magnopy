@@ -21,8 +21,9 @@ R"""
 Convention of spin Hamiltonian
 """
 
+
+from magnopy._constants._spinham_conventions import _CONVENTIONS
 from magnopy._exceptions import ConventionError
-from magnopy.constants._spinham_conventions import _CONVENTIONS
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -594,8 +595,9 @@ class Convention:
             Name of the desired pre-defined convention. Supported are
 
             * "tb2j"
-            * "spinw"
+            * "grogu"
             * vampire"
+            * "spinw"
 
             Case-insensitive.
 
@@ -625,14 +627,14 @@ class Convention:
               * Undefined c422 factor;
               * Undefined c43 factor;
               * Undefined c44 factor.
-            >>> spinW = magnopy.Convention.get_predefined("spinW")
-            >>> spinW.summary()
-            spinw convention where
+            >>> grogu = magnopy.Convention.get_predefined("GROGU")
+            >>> grogu.summary()
+            grogu convention where
               * Bonds are counted multiple times in the sum;
-              * Spin vectors are not normalized;
+              * Spin vectors are normalized to 1;
               * Undefined c1 factor;
               * c21 = 1.0;
-              * c22 = 1.0;
+              * c22 = 0.5;
               * Undefined c31 factor;
               * Undefined c32 factor;
               * Undefined c33 factor;
@@ -649,6 +651,22 @@ class Convention:
               * Undefined c1 factor;
               * c21 = -1.0;
               * c22 = -0.5;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * Undefined c33 factor;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
+            >>> spinW = magnopy.Convention.get_predefined("spinW")
+            >>> spinW.summary()
+            spinw convention where
+              * Bonds are counted multiple times in the sum;
+              * Spin vectors are not normalized;
+              * Undefined c1 factor;
+              * c21 = 1.0;
+              * c22 = 1.0;
               * Undefined c31 factor;
               * Undefined c32 factor;
               * Undefined c33 factor;
@@ -735,6 +753,54 @@ class Convention:
         name : str, optional
             A label for the convention. Any string, case-insensitive.
             Modified to the given value, if None, then kept the same as in the original convention.
+
+        Examples
+        --------
+
+        .. doctest::
+
+            >>> import magnopy
+            >>> conv = magnopy.Convention(
+            ... name="original",
+            ... multiple_counting = True,
+            ... spin_normalized = False,
+            ... c1 = 1,
+            ... c21 = 1,
+            ... c22 = -1)
+            >>> conv.summary()
+            original convention where
+              * Bonds are counted multiple times in the sum;
+              * Spin vectors are not normalized;
+              * c1 = 1.0;
+              * c21 = 1.0;
+              * c22 = -1.0;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * Undefined c33 factor;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
+            >>> mod_conv = conv.get_modified(
+            ... name="modified",
+            ... c22 = 1,
+            ... c33 = -3)
+            >>> mod_conv.summary()
+            modified convention where
+              * Bonds are counted multiple times in the sum;
+              * Spin vectors are not normalized;
+              * c1 = 1.0;
+              * c21 = 1.0;
+              * c22 = 1.0;
+              * Undefined c31 factor;
+              * Undefined c32 factor;
+              * c33 = -3.0;
+              * Undefined c41 factor;
+              * Undefined c421 factor;
+              * Undefined c422 factor;
+              * Undefined c43 factor;
+              * Undefined c44 factor.
         """
 
         if multiple_counting is None:
@@ -776,6 +842,9 @@ class Convention:
         if c44 is None:
             c44 = self._c44
 
+        if name is None:
+            name = self.name
+
         return Convention(
             spin_normalized=spin_normalized,
             multiple_counting=multiple_counting,
@@ -790,6 +859,7 @@ class Convention:
             c422=c422,
             c43=c43,
             c44=c44,
+            name=name,
         )
 
 

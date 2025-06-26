@@ -11,13 +11,27 @@ Whats new?
 
 First release of magnopy.
 
+
+0.1.8
+-----
+
+**Date**: Undefined
+
+* Fix bugs
+* Fix a bug with spin directions provided in a file (for the scripts that accept that).
+* Fix a bug in Energy with 43 parameters.
+* Add new script with primitive plotter for the spin directions.
+* Add ``full_ham()`` example.
+* Add date and time to the script's output.
+* Add primitive plotter for spin directions to both scripts.
+
 0.1.7
 -----
 
 **Date**: 12 June 2025
 
 *   Fix bugs
-*   Add parameter converters for ``22`` (``converter22``) and ``422`` (converter422)
+*   Add parameter converters for ``22`` (``converter22``) and ``422`` (``converter422``)
     terms.
 *   Add ``alphas`` parameter to the magnetic field addition.
 *   Add multiplication of the Hamiltonian by a number.

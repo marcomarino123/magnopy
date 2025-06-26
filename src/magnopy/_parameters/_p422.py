@@ -74,19 +74,71 @@ def to_biquadratic(parameter, tensor_form=False):
     parameter : (3, 3, 3, 3) |array-like|_
         Full tensor parameter (:math:`\boldsymbol{J}`).
     tensor_form : bool, default False
-        Whether to return dmi as a tensor instead of a number.
+        Whether to return tensor form of biquadratic exchange parameter instead of the scalar.
 
     Returns
     -------
     B : float or (3, 3, 3, 3) :numpy:`ndarray`
-        parameter of the biquadratic exchange.
+        Biquadratic exchange parameter.
 
         * If ``tensor_form == False``, then returns a number :math:`B`.
-        * If ``tensor_form == True``, then returns an array :math:`\boldsymbol{J}`.
+        * If ``tensor_form == True``, then returns an array :math:`\boldsymbol{J}_B`.
 
     See Also
     --------
     from_biquadratic
+
+    Examples
+    --------
+
+    .. doctest::
+
+        >>> import numpy as np
+        >>> from magnopy import converter422
+        >>> parameter = np.ones((3,3,3,3))
+        >>> B = converter422.to_biquadratic(parameter=parameter)
+        >>> B
+        1.0
+        >>> J_B = converter422.to_biquadratic(parameter=parameter, tensor_form=True)
+        >>> J_B
+        array([[[[1., 0., 0.],
+                 [0., 0., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 1., 0.],
+                 [0., 0., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 1.],
+                 [0., 0., 0.],
+                 [0., 0., 0.]]],
+        <BLANKLINE>
+        <BLANKLINE>
+               [[[0., 0., 0.],
+                 [1., 0., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 1., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 0., 1.],
+                 [0., 0., 0.]]],
+        <BLANKLINE>
+        <BLANKLINE>
+               [[[0., 0., 0.],
+                 [0., 0., 0.],
+                 [1., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 0., 0.],
+                 [0., 1., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 0., 0.],
+                 [0., 0., 1.]]]])
+
     """
 
     parameter = np.array(parameter)
@@ -104,7 +156,7 @@ def to_biquadratic(parameter, tensor_form=False):
     if tensor_form:
         return from_biquadratic(B=B)
 
-    return B
+    return float(B)
 
 
 def from_biquadratic(B):
@@ -148,7 +200,7 @@ def from_biquadratic(B):
     Parameters
     ----------
     B : float
-        parameter of the biquadratic exchange.
+        Biquadratic exchange parameter.
 
     Returns
     -------
@@ -158,6 +210,55 @@ def from_biquadratic(B):
     See Also
     --------
     to_biquadratic
+
+    Examples
+    --------
+
+    .. doctest::
+
+        >>> from magnopy import converter422
+        >>> parameter = converter422.from_biquadratic(B=1)
+        >>> parameter.shape
+        (3, 3, 3, 3)
+        >>> parameter
+        array([[[[1., 0., 0.],
+                 [0., 0., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 1., 0.],
+                 [0., 0., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 1.],
+                 [0., 0., 0.],
+                 [0., 0., 0.]]],
+        <BLANKLINE>
+        <BLANKLINE>
+               [[[0., 0., 0.],
+                 [1., 0., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 1., 0.],
+                 [0., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 0., 1.],
+                 [0., 0., 0.]]],
+        <BLANKLINE>
+        <BLANKLINE>
+               [[[0., 0., 0.],
+                 [0., 0., 0.],
+                 [1., 0., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 0., 0.],
+                 [0., 1., 0.]],
+        <BLANKLINE>
+                [[0., 0., 0.],
+                 [0., 0., 0.],
+                 [0., 0., 1.]]]])
+
     """
 
     parameter = np.zeros((3, 3, 3, 3), dtype=float)

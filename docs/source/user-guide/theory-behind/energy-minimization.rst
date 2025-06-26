@@ -211,27 +211,27 @@ The gradient of the energy is computed analytically
     J_1^t(\boldsymbol{r}_{\alpha})
     	S_{\alpha}
     +\\&+
-    C_{2,1}
+    2C_{2,1}
     \sum_{j}
     J_{2,1}^{tj}(\boldsymbol{r}_{\alpha})
         z^j_{\alpha}
         (S_{\alpha})^2
     +\\&+
-    C_{2,2}
+    2C_{2,2}
     \sum_{\beta, \nu, j}
     J_{2,2}^{tj}(\boldsymbol{r}_{\nu,\alpha\beta})
         z^j_{\beta}
         S_{\alpha}
         S_{\beta}
     +\\&+
-    C_{3, 1}
+    3C_{3, 1}
     \sum_{j, u}
     J^{tju}_{3, 1}(\boldsymbol{r}_{\alpha})
         z^j_{\alpha}
         z^u_{\alpha}
         (S_{\alpha})^3
     +\\&+
-    C_{3, 2}
+    3C_{3, 2}
     \sum_{\beta, \nu, j, u}
     J^{tju}_{3, 2}(\boldsymbol{r}_{\nu,\alpha\beta})
         z^j_{\alpha}
@@ -239,7 +239,7 @@ The gradient of the energy is computed analytically
         (S_{\alpha})^2
         S_{\beta}
     +\\&+
-    C_{3, 3}
+    3C_{3, 3}
     \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, j, u}}
     J^{tju}_{3, 3}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
         z^j_{\beta}
@@ -248,7 +248,7 @@ The gradient of the energy is computed analytically
         S_{\beta}
         S_{\gamma}
     +\\&+
-    C_{4, 1}
+    4C_{4, 1}
     \sum_{\alpha, j, u, v}
     J_{4, 1}^{tjuv}(\boldsymbol{r}_{\alpha})
         z^j_{\alpha}
@@ -256,7 +256,7 @@ The gradient of the energy is computed analytically
         z^v_{\alpha}
         (S_{\alpha})^4
     +\\&+
-    C_{4, 2, 1}
+    4C_{4, 2, 1}
     \sum_{\substack{\beta, \nu, \\ j, u, v}}
     J_{4, 2, 1}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta})
         z^j_{\alpha}
@@ -265,7 +265,7 @@ The gradient of the energy is computed analytically
         (S_{\alpha})^3
         S_{\beta}
     +\\&+
-    C_{4, 2, 2}
+    4C_{4, 2, 2}
     \sum_{\substack{\beta, \nu, \\ j, u, v}}
     J_{4, 2, 2}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta})
         z^j_{\alpha}
@@ -274,7 +274,7 @@ The gradient of the energy is computed analytically
         (S_{\alpha})^2
         (S_{\beta})^2
     +\\&+
-    C_{4, 3}
+    4C_{4, 3}
     \sum_{\substack{\beta, \gamma, \\ \nu, \lambda, \\ j, u, v}}
     J_{4, 3}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma})
         z^j_{\alpha}
@@ -284,7 +284,7 @@ The gradient of the energy is computed analytically
         S_{\beta}
         S_{\gamma}
     +\\&+
-    C_{4, 4}
+    4C_{4, 4}
     \sum_{\substack{\beta, \gamma, \varepsilon, \nu, \lambda, \rho, \\ \\ j, u, v}}
     J_{4, 4}^{tjuv}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})
         z^j_{\beta}

@@ -18,5 +18,4 @@
 
 
 from ._optimize_sd import *
-from ._show_spin_directions import *
 from ._solve_lswt import *

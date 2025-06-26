@@ -148,6 +148,7 @@ def get_parser():
         nargs=3,
         type=int,
         default=None,
+        metavar="xa_1 xa_2 xa_3",
         help="Plots optimized spin directions and saves it in .html file, that can be "
         "viewed within any modern browser. Expects three integers as an input - the "
         "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",

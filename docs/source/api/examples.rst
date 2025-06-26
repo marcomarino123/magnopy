@@ -14,3 +14,4 @@ This module contains a collection of example Hamiltonian.
 
     cubic_ferro_nn
     ivuzjo
+    full_ham

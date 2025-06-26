@@ -19,8 +19,11 @@
 
 import os
 
+import numpy as np
+
 from magnopy._energy import Energy
 from magnopy._package_info import logo
+from magnopy.io._spin_directions import plot_spin_directions
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -34,6 +37,7 @@ def optimize_sd(
     torque_tolerance=1e-5,
     output_folder="magnopy-results",
     comment=None,
+    make_sd_image=None,
 ) -> None:
     r"""
     Optimizes classical energy of spin Hamiltonian and finds a set of spin directions
@@ -55,6 +59,9 @@ def optimize_sd(
         then it will be created.
     comment : str, optional
         Any comment to output right after the logo.
+    make_sd_image : (3, ) tuple of int
+        Whether to produce an html file that displays the spin directions. Three numbers
+        are the repetitions of the unit cell along the three lattice vectors.
 
     """
 
@@ -110,6 +117,22 @@ def optimize_sd(
             )
 
     print(f"\nSpin directions are saved in file\n  {os.path.abspath(filename)}")
+
+    if make_sd_image is not None:
+        positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
+        filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
+
+        plot_spin_directions(
+            output_name=filename,
+            positions=positions,
+            spin_directions=spin_directions,
+            unit_cell=spinham.cell,
+            repeat=make_sd_image,
+        )
+
+        print(
+            f"\nImage of spin directions is saved in file\n  {os.path.abspath(filename)}.html"
+        )
 
     print(f"\n{' Finished ':=^90}")
 

@@ -19,6 +19,13 @@
 
 import numpy as np
 
+try:
+    import plotly.graph_objects as go
+
+    PLOTLY_AVAILABLE = True
+except ImportError:
+    PLOTLY_AVAILABLE = False
+
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
@@ -95,6 +102,70 @@ def read_spin_directions(filename: str):
     return spin_directions
 
 
+def _plot_cones(fig, positions, spin_directions, color, name=None):
+    scale = 0.5
+
+    if not PLOTLY_AVAILABLE:
+        print(
+            "In order to use spin projection plotter an installation of Plotly is \n"
+            "required, please try to install it with the command\n\n  "
+            "pip install plotly\n\nor\n\n  pip3 install plotly\n"
+        )
+
+    # Prepare data
+    x, y, z = np.transpose(positions, axes=(1, 0))
+    u, v, w = np.transpose(spin_directions, axes=(1, 0))
+
+    fig.add_traces(
+        data=go.Cone(
+            x=x + u * scale,
+            y=y + v * scale,
+            z=z + w * scale,
+            u=u * (1 - scale),
+            v=v * (1 - scale),
+            w=w * (1 - scale),
+            sizemode="raw",
+            anchor="tail",
+            legendgroup=name,
+            name=name,
+            showlegend=name is not None,
+            showscale=False,
+            colorscale=[color, color],
+            hoverinfo="none",
+        )
+    )
+
+    # fig.add_traces(
+    #     data=go.Scatter3d(
+    #         mode="markers",
+    #         x=x,
+    #         y=y,
+    #         z=z,
+    #         marker=dict(size=10, color=color),
+    #         hoverinfo="none",
+    #         showlegend=False,
+    #         legendgroup=name,
+    #     )
+    # )
+
+    for i in range(0, len(x)):
+        fig.add_traces(
+            dict(
+                x=[x[i], x[i] + u[i] * scale],
+                y=[y[i], y[i] + v[i] * scale],
+                z=[z[i], z[i] + w[i] * scale],
+                mode="lines",
+                type="scatter3d",
+                hoverinfo="none",
+                line={"color": color, "width": 10},
+                legendgroup=name,
+                showlegend=False,
+            )
+        )
+
+    return fig
+
+
 def plot_spin_directions(
     output_name: str, positions, spin_directions, unit_cell=None, repeat=(1, 1, 1)
 ):
@@ -116,18 +187,15 @@ def plot_spin_directions(
         Repetitions of the unit cell along each three of the lattice vectors. Requires
         ``unit_cell`` to be provided. Each number should be ``>= 1``.
     """
-
-    try:
-        import plotly.graph_objects as go
-    except ImportError:
+    if not PLOTLY_AVAILABLE:
         print(
             "In order to use spin projection plotter an installation of Plotly is \n"
             "required, please try to install it with the command\n\n  "
             "pip install plotly\n\nor\n\n  pip3 install plotly\n"
         )
 
-    positions = np.array(positions, dtype=float)
-    spin_directions = np.array(spin_directions, dtype=float)
+    pos = np.array(positions, dtype=float)
+    sd = np.array(spin_directions, dtype=float)
 
     # Update for unit cell repetitions if any
     if unit_cell is not None:
@@ -137,64 +205,50 @@ def plot_spin_directions(
             )
         unit_cell = np.array(unit_cell, dtype=float)
 
-        tmp_sd = []
-        tmp_pos = []
+        other_sd = []
+        other_pos = []
         for k in range(0, repeat[2]):
             for j in range(0, repeat[1]):
                 for i in range(0, repeat[0]):
-                    tmp_sd.extend(spin_directions)
+                    if (i, j, k) != (0, 0, 0):
+                        other_sd.extend(sd)
 
-                    shift = i * unit_cell[0] + j * unit_cell[1] + k * unit_cell[2]
+                        shift = i * unit_cell[0] + j * unit_cell[1] + k * unit_cell[2]
 
-                    tmp_pos.extend(positions + shift[np.newaxis, :])
+                        other_pos.extend(pos + shift[np.newaxis, :])
 
-        positions = np.array(tmp_pos, dtype=float)
-        spin_directions = np.array(tmp_sd, dtype=float)
+        other_pos = np.array(other_pos, dtype=float)
+        other_sd = np.array(other_sd, dtype=float)
 
     # Get normalization length
-    tmp = positions[:, np.newaxis] - positions[np.newaxis, :]
+    tmp = np.concatenate((pos, other_pos), axis=0)
+    tmp = tmp[:, np.newaxis] - tmp[np.newaxis, :]
     tmp = np.linalg.norm(tmp, axis=2)
     norm_length = (tmp + np.eye(tmp.shape[0]) * tmp.max()).min()
 
-    spin_directions = (
-        spin_directions
-        / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
-        * norm_length
-    )
+    sd = sd / np.linalg.norm(sd, axis=1)[:, np.newaxis] * norm_length
 
-    # Prepare data
-    x, y, z = np.transpose(positions, axes=(1, 0))
-    u, v, w = np.transpose(spin_directions, axes=(1, 0))
+    fig = go.Figure()
 
-    fig = go.Figure(
-        data=go.Cone(
-            x=x + u * 0.3,
-            y=y + v * 0.3,
-            z=z + w * 0.3,
-            u=u * 0.7,
-            v=v * 0.7,
-            w=w * 0.7,
-            sizemode="raw",
-            anchor="tail",
-            showscale=False,
-            colorscale=["#A47864", "#A47864"],
-            hoverinfo="none",
+    if len(other_sd) > 0:
+        other_sd = (
+            other_sd / np.linalg.norm(other_sd, axis=1)[:, np.newaxis] * norm_length
         )
-    )
-
-    for i in range(0, len(x)):
-        fig.add_traces(
-            {
-                "x": [x[i], x[i] + u[i] * 0.3],
-                "y": [y[i], y[i] + v[i] * 0.3],
-                "z": [z[i], z[i] + w[i] * 0.3],
-                "mode": "lines",
-                "type": "scatter3d",
-                "hoverinfo": "none",
-                "line": {"color": "#A47864", "width": 10},
-                "showlegend": False,
-            }
+        _plot_cones(
+            fig=fig,
+            positions=other_pos,
+            spin_directions=other_sd,
+            color="#A47864",
+            name="Other unit cells",
         )
+
+    _plot_cones(
+        fig=fig,
+        positions=pos,
+        spin_directions=sd,
+        color="#535FCF",
+        name="(0, 0, 0) unit cell",
+    )
 
     # Plot the unit cell
     if unit_cell is not None:
@@ -210,19 +264,18 @@ def plot_spin_directions(
         for i, pset in enumerate([bottom, top, leg1, leg2, leg3, leg4]):
             x, y, z = pset.T
             fig.add_traces(
-                {
-                    "x": x,
-                    "y": y,
-                    "z": z,
-                    "mode": "lines",
-                    "type": "scatter3d",
-                    "hoverinfo": "none",
-                    "line": {"color": "#000000", "width": 1},
-                    "showlegend": False,
-                    "legendgroup": "Unit cell",
-                    "showlegend": i == 0,
-                    "name": "Unit cell",
-                }
+                dict(
+                    x=x,
+                    y=y,
+                    z=z,
+                    mode="lines",
+                    type="scatter3d",
+                    hoverinfo="none",
+                    line={"color": "#000000", "width": 1},
+                    showlegend=(i == 0),
+                    legendgroup="Unit cell",
+                    name="Unit cell",
+                )
             )
 
         for i, vector in enumerate(unit_cell):
@@ -258,32 +311,31 @@ def plot_spin_directions(
                 )
             )
             fig.add_traces(
-                {
-                    "x": [0, vector[0]],
-                    "y": [0, vector[1]],
-                    "z": [0, vector[2]],
-                    "mode": "lines",
-                    "type": "scatter3d",
-                    "hoverinfo": "none",
-                    "line": {"color": "#535FCF", "width": 4},
-                    "showlegend": False,
-                    "legendgroup": f"a_{i+1}",
-                    "showlegend": True,
-                    "name": f"a_{i+1}",
-                }
+                dict(
+                    x=[0, vector[0]],
+                    y=[0, vector[1]],
+                    z=[0, vector[2]],
+                    mode="lines",
+                    type="scatter3d",
+                    hoverinfo="none",
+                    line={"color": "#535FCF", "width": 4},
+                    legendgroup=f"a_{i+1}",
+                    showlegend=True,
+                    name=f"a_{i+1}",
+                )
             )
 
+    fig.update_layout(legend_title_text="Click to hide")
     fig.update_scenes(
-        aspectmode="data"
-    )  # , xaxis_visible=False, yaxis_visible=False, zaxis_visible=False
-    # )
+        aspectmode="data", xaxis_visible=False, yaxis_visible=False, zaxis_visible=False
+    )
 
     fig.write_html(
         file=f"{output_name}.html",
         include_plotlyjs=True,
         full_html=True,
-        default_width="1920px",
-        default_height="1080px",
+        # default_width="1920px",
+        # default_height="1080px",
     )
 
 

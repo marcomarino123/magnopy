@@ -2,6 +2,7 @@ usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
                     [-sv [S1 S2 S3 ... ...]] [-kp G-X-S|G-Y] [-kps KPOINTS]
                     [-r] [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
                     [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS]
+                    [-msdi MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -10,9 +11,9 @@ usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
 ██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
 ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
                                                            ▄   ▄
-                      Version: 0.1.7                       █▀█▀█
+                      Version: 0.1.8                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-                Release date: 12 June 2025                  ███   ▄▄
+                 Release date: undefined                    ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
@@ -68,3 +69,9 @@ options:
                         Number of processes for multithreading. Uses all
                         available processors by default. Pass 1 to run in
                         serial.
+  -msdi, --make-sd-image MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE
+                        Plots optimized spin directions and saves it in .html
+                        file, that can be viewed within any modern browser.
+                        Expects three integers as an input - the supercell
+                        that will be plotted. Pass 1 1 1 to plot only the unit
+                        cell.

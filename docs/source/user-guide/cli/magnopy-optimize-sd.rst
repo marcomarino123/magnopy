@@ -47,3 +47,8 @@ to save it to a file
 
 Some of the data and pictures will be saved in the folder with the name defined by the
 value of ``-of, --output-folder`` argument.
+
+
+.. .. raw:: html
+
+..     <iframe src="../../_static/magnopy-sd.html" height="540px" width="100%"></iframe>

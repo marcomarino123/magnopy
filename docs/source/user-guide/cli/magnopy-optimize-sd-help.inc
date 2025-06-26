@@ -2,6 +2,7 @@ usage: magnopy-optimize-sd [-h] -sf filename -ss name [-sv [S1 S2 S3 ... ...]]
                            [-et ENERGY_TOLERANCE] [-tt TORQUE_TOLERANCE]
                            [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
                            [-of OUTPUT_FOLDER]
+                           [-msdi MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -10,15 +11,14 @@ usage: magnopy-optimize-sd [-h] -sf filename -ss name [-sv [S1 S2 S3 ... ...]]
 ██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
 ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
                                                            ▄   ▄
-                      Version: 0.1.7                       █▀█▀█
+                      Version: 0.1.8                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-                Release date: 12 June 2025                  ███   ▄▄
+                 Release date: undefined                    ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
 
-This script optimizes classical energy of the spin Hamiltonian and finds the spin
-directions that describe a local minima of the energy landscape.
+This script optimizes classical energy of the spin Hamiltonian and finds the spin directions that describe a local minima of the energy landscape.
 
 options:
   -h, --help            show this help message and exit
@@ -47,3 +47,9 @@ options:
                         of Tesla.
   -of, --output-folder OUTPUT_FOLDER
                         Folder where all output files of magnopy wil be saved.
+  -msdi, --make-sd-image MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE
+                        Plots optimized spin directions and saves it in .html
+                        file, that can be viewed within any modern browser.
+                        Expects three integers as an input - the supercell
+                        that will be plotted. Pass 1 1 1 to plot only the unit
+                        cell.

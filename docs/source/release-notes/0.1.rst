@@ -23,6 +23,7 @@ First release of magnopy.
 * Add new script with primitive plotter for the spin directions.
 * Add ``full_ham()`` example.
 * Add date and time to the script's output.
+* Add primitive plotter for spin directions to both scripts.
 
 0.1.7
 -----

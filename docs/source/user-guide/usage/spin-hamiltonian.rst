@@ -48,8 +48,8 @@ Spin Hamiltonian stores parameters of the
 of parameters. For each type there is a property that starts with ``p`` (i.e.
 :py:attr:`.SpinHamiltonian.p1`), that provides access to the parameters of the
 Hamiltonian and two functions that start with ``add_`` (i.e.
-:py:attr:`.SpinHamiltonian.add_1`) or ``remove_`` (i.e.
-:py:attr:`.SpinHamiltonian.remove_1`), that add or remove a parameter from the
+:py:meth:`.SpinHamiltonian.add_1`) or ``remove_`` (i.e.
+:py:meth:`.SpinHamiltonian.remove_1`), that add or remove a parameter from the
 Hamiltonian.
 
 .. doctest::
@@ -151,7 +151,7 @@ Cell and atoms are not meant to be changed once the Hamiltonian is created
 Convention
 ==========
 
-Convention of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamiltonian.convention`).
+Convention of the Hamiltonian is stored as its attribute (:py:attr:`.SpinHamiltonian.convention`).
 
 .. doctest::
 
@@ -172,7 +172,7 @@ Convention of the Hamiltonian is store as its attribute (:py:attr:`.SpinHamilton
       * Undefined c44 factor.
 
 The convention of the Hamiltonian can be changed. If the convention is being changed, then
-the parameters will be adjusted accordingly. For example if we change the numerical
+the parameters will be adjusted accordingly. For example, if we change the numerical
 factor before the two spins & one site term or remove multiple counting
 
 .. doctest::
@@ -235,3 +235,74 @@ To convert from an index of :py:attr:`.SpinHamiltonian.magnetic_atoms` to the in
 
     >>> index_in_magnetic_atoms = 0
     >>> index_in_atoms = spinham.map_to_all[index_in_magnetic_atoms]
+
+
+Now look at the example
+
+.. doctest::
+
+    >>> # Create a Hamiltonian with three atoms
+    >>> atoms = dict(
+    ... names=["Cr1", "Cr2", "Cr3"],
+    ... spins = [3/2, 3/2, 3/2],
+    ... g_factors=[2, 2, 2],
+    ... positions=[[0, 0, 0],[0.5, 0, 0],[0, 0.5, 0]])
+    >>> conv = magnopy.Convention(
+    ... multiple_counting=True,
+    ... spin_normalized=False,
+    ... c21=1)
+    >>> spinham = magnopy.SpinHamiltonian(
+    ... cell=np.eye(3),
+    ... atoms=atoms,
+    ... convention=conv)
+
+At this moment there is no magnetic atoms in the Hamiltonian (in the magnopy's context),
+even though all atoms of the crystal have non-zero spin value.
+
+.. doctest::
+
+    >>> spinham.M
+    0
+    >>> spinham.magnetic_atoms
+    {'names': [], 'spins': [], 'g_factors': [], 'positions': []}
+    >>> spinham.map_to_magnetic
+    [None, None, None]
+    >>> spinham.map_to_all
+    []
+
+Lets add an on-site quadratic anisotropy to the second atom
+
+.. doctest::
+
+    >>> spinham.add_21(alpha=1, parameter = np.diag([1, 2, 3]))
+    >>> spinham.M
+    1
+    >>> spinham.magnetic_atoms
+    {'names': ['Cr2'], 'spins': [1.5], 'g_factors': [2], 'positions': [[0.5, 0, 0]]}
+    >>> spinham.map_to_magnetic
+    [None, 0, None]
+    >>> spinham.map_to_all
+    [1]
+    >>> # Note that in the specification of the parameter the index
+    >>> # of spinham.atoms is used
+    >>> print(spinham.p21[0][0])
+    1
+
+Now second atom has a parameter associated with it, hence it is considered magnetic.
+Two mapping lists can be used to safely convert from one to another
+
+.. doctest::
+
+    >>> # From index of magnetic atom to the index of non-magnetic atom
+    >>> for i in range(spinham.M):
+    ...     print(spinham.magnetic_atoms.names[i],
+    ...     spinham.atoms.names[spinham.map_to_all[i]])
+    ...
+    Cr2 Cr2
+    >>> # From index of non-magnetic atom to the index of magnetic atom
+    >>> for i in range(len(spinham.atoms.names)):
+    ...     if spinham.map_to_magnetic[i] is not None:
+    ...         print(spinham.magnetic_atoms.names[spinham.map_to_magnetic[i]],
+    ...               spinham.atoms.names[i])
+    ...
+    Cr2 Cr2

@@ -222,10 +222,6 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
 
     """
 
-    warnings.warn(
-        "Creation of supercell is untested, use at your own risk.", UserWarning
-    )
-
     if supercell[0] < 1 or supercell[1] < 1 or supercell[2] < 1:
         raise ValueError(
             f"Supercell repetitions should be larger or equal to 1, got {supercell}"

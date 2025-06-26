@@ -21,7 +21,6 @@ R"""
 Convention of spin Hamiltonian
 """
 
-import warnings
 
 from magnopy._spinham._hamiltonian import SpinHamiltonian
 

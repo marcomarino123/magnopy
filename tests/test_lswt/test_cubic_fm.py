@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from math import cos, sqrt
+from math import cos
 
 import numpy as np
 import pytest

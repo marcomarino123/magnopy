@@ -18,13 +18,9 @@
 
 
 import os
-from turtle import pos
 
 import numpy as np
-import wulfric
 
-from magnopy._energy import Energy
-from magnopy._lswt import LSWT
 from magnopy._package_info import logo
 from magnopy.io._spin_directions import plot_spin_directions
 

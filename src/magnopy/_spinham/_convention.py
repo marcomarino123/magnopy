@@ -21,7 +21,6 @@ R"""
 Convention of spin Hamiltonian
 """
 
-from html.entities import name2codepoint
 
 from magnopy._constants._spinham_conventions import _CONVENTIONS
 from magnopy._exceptions import ConventionError

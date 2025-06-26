@@ -18,8 +18,6 @@
 
 
 import numpy as np
-from hypothesis import strategies as st
-from hypothesis.extra.numpy import arrays as harrays
 
 from magnopy import converter22
 

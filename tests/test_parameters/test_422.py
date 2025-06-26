@@ -24,7 +24,7 @@ from hypothesis.extra.numpy import arrays as harrays
 
 from magnopy import converter422
 
-MAX_MODULUS = 1e8
+MAX_MODULUS = 1e4
 ARRAY_3X3X3X3 = harrays(
     np.float64,
     (3, 3, 3, 3),

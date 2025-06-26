@@ -618,6 +618,7 @@ class Energy:
                 np.einsum(
                     "tjuv,j,u,v->t",
                     self.J_43[(alpha, beta, gamma)],
+                    spin_directions[alpha],
                     spin_directions[beta],
                     spin_directions[gamma],
                 )

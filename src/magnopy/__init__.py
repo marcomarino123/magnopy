@@ -21,7 +21,7 @@ __version__ = "0.1.8"
 __doclink__ = "magnopy.org"
 __release_date__ = "undefined"
 
-from . import constants, examples, io, scenarios
+from . import _constants, examples, io, scenarios
 from ._diagonalization import *
 from ._energy import *
 from ._exceptions import *

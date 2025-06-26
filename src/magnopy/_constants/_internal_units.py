@@ -26,7 +26,7 @@ If you are using the constants inside magnopy, then import them from here and no
 magnopy.units.si
 """
 
-from magnopy.constants import si
+from magnopy._constants import si
 
 # Save local scope at this moment
 old_dir = set(dir())

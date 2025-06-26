@@ -108,6 +108,12 @@ class SpinHamiltonian:
     atoms : dict
         Dictionary with atoms.
 
+    Examples
+    --------
+
+    For example of usage see the page in the user guide -
+    :ref:`user-guide_usage_spin-hamiltonian`.
+
     """
 
     def __init__(self, cell, atoms, convention) -> None:
@@ -901,7 +907,7 @@ class SpinHamiltonian:
         direction of the magnetic field.
 
         * If ``alphas is None``, then parameters of the magnetic field added
-          only to the magnetic atoms. In other words only to atoms that already has
+          only to the magnetic atoms. In other words only to atoms that already have
           at least one other parameter (any) associated with it.
         * If ``alpha is not None``, then parameters of magnetic field are added
           to the atoms with the provided indices (based on the order in

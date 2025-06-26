@@ -255,10 +255,10 @@ def solve_via_colpa(D, return_inverse=False):
     U = U[1:, ::-1]
     E = g @ L
 
-    G_minus_one = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
+    G_inv = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
 
     # Sort first N and second N individually based on the transformation matrix
-    tmp = np.concatenate((E[:, np.newaxis], G_minus_one), axis=1)
+    tmp = np.concatenate((E[:, np.newaxis], G_inv), axis=1)
 
     def compare(array1, array2):
         difference = np.round(array1 - array2, decimals=15)
@@ -271,12 +271,12 @@ def solve_via_colpa(D, return_inverse=False):
     lower_part = np.array(sorted(tmp[N:], key=cmp_to_key(compare)))
 
     E = np.concatenate((upper_part[:, 0], lower_part[:, 0]))
-    G_minus_one = np.concatenate((upper_part[:, 1:], lower_part[:, 1:]), axis=0)
+    G_inv = np.concatenate((upper_part[:, 1:], lower_part[:, 1:]), axis=0)
 
     if return_inverse:
-        return E, G_minus_one
+        return E, G_inv
 
-    return E, _inverse_by_colpa(G_minus_one)
+    return E, _inverse_by_colpa(G_inv)
 
 
 # Populate __all__ with objects defined in this file

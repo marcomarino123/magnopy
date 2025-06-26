@@ -45,7 +45,7 @@ def dump_vampire(
     no_logo=False,
 ):
     """
-    Save the Hamiltonian in a Human-readable format.
+    Save the Hamiltonian in the format suitable for |Vampire|_.
 
     Parameters
     ----------
@@ -213,7 +213,7 @@ def dump_vampire_ucf(
     no_logo=False,
 ):
     """
-    Save the Hamiltonian in a Human-readable format.
+    Write .UCF file for |Vampire|_.
 
     Parameters
     ----------

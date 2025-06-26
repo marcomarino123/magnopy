@@ -229,7 +229,7 @@ custom_links = {
     ),
     "GROGU-FF": (
         "GROGU file format",
-        "https://grogupy.readthedocs.io/en/latest/output-format/index.html",
+        "https://grogupy.readthedocs.io/en/latest/tutorials/magnopy_input.html",
     ),
     "BFGS": (
         "BFGS",

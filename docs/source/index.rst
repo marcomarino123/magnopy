@@ -44,8 +44,6 @@ Planned to be implemented
 (Please indicate to the developers if you would like to use those features or if you
 would like to participate in their implementation)
 
-* Energy minimization
 * Renormalized Spin Wave theory (RSWT)
 * Magnon decay rate
-* Use lazy imports
 * ...

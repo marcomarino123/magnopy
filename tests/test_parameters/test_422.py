@@ -62,6 +62,6 @@ def test_from_biquadratic(B):
 def test_to_biquadratic(parameter):
     B = converter422.to_biquadratic(parameter=parameter)
 
-    real_B = np.sum([parameter[*i] for i in INDICES]) / 9
+    real_B = np.sum([parameter[i, j, u, v] for (i, j, u, v) in INDICES]) / 9
 
     assert abs(B - real_B) < 1e-8

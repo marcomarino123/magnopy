@@ -127,7 +127,7 @@ class Energy:
 
     Parameters
     ----------
-    spinham : py:class:`.SpinHamiltonian`
+    spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian for the calculation of energy.
     """
 

@@ -68,7 +68,7 @@ Magnopy does not give preference to any convention, supports each one of them an
 implements conversion between any pair of conventions. Magnopy was written to
 automatically handle everything that concerns convention of the Hamiltonian. User only
 have to specify the convention upon the creation of spin Hamiltonian. If the Hamiltonian
-is read from the know source (i.e. |TB2J|_, GROGU), then the convention of this source is
+is read from the know source (i.e. |TB2J|_, |GROGU|_), then the convention of this source is
 known and set automatically.
 
 The Convention in magnopy is implemented in the form of the small :py:class:`.Convention`

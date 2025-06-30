@@ -910,7 +910,10 @@ class Energy:
             delta = np.array(
                 [
                     abs(energy_next - energy_k),
-                    np.linalg.norm(np.reshape(gradient_next, shape=(self.M, 3))).max(),
+                    # Pay attention to the np.reshape keywords
+                    np.linalg.norm(
+                        np.reshape(gradient_next, (self.M, 3)), axis=1
+                    ).max(),
                 ]
             )
             # print(f"deltas: {delta[0]:11.7f} {delta[1]:11.7f}")

@@ -95,7 +95,8 @@ def read_spin_directions(filename: str):
         )
 
     spin_directions = np.array(spin_directions, dtype=float)
-    spin_directions = np.reshape(spin_directions, shape=(len(spin_directions) // 3, 3))
+    # Pay attention to the np.reshape keywords
+    spin_directions = np.reshape(spin_directions, (len(spin_directions) // 3, 3))
     spin_directions = (
         spin_directions / np.linalg.norm(spin_directions, axis=1)[:, np.newaxis]
     )

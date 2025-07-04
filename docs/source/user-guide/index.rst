@@ -22,8 +22,8 @@ calculation with magnopy and can be executed as any other command line tool.
     :maxdepth: 1
 
     cli/how-to-execute
-    cli/magnopy-lswt
-    cli/magnopy-optimize-sd
+    cli/magnopy-lswt/index
+    cli/magnopy-optimize-sd/index
 
 The rest of the user guide describe how to use magnopy within python.
 

@@ -239,6 +239,7 @@ custom_links = {
         "multiprocessing",
         "https://docs.python.org/3/library/multiprocessing.html",
     ),
+    "plotly": ("Plotly", "https://plotly.com/python/"),
 }
 rst_epilog += "\n".join(
     map(

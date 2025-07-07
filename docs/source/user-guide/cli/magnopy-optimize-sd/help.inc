@@ -1,7 +1,7 @@
 usage: magnopy-optimize-sd [-h] -sf FILENAME -ss KEYWORD [-sv [S1 [S2 ...]]]
                            [-s xa_1 xa_2 xa_3] [-et ENERGY_TOLERANCE]
                            [-tt TORQUE_TOLERANCE] [-mf h_x h_y h_z]
-                           [-of OUTPUT_FOLDER] [-no-sdi]
+                           [-of OUTPUT_FOLDER] [-no-sdi] [-hpd]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -55,3 +55,6 @@ options:
                         .html format. html files are generally heavy (~> 5
                         Mb). This option allows to disable their production to
                         save disk space.
+  -hpd, --hide-personal-data
+                        Whether to strip the parts of the paths as to hide the
+                        file structure of you personal computer.

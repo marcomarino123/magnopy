@@ -53,10 +53,14 @@ def manager():
             f'got "{args.spinham_source}".'
         )
 
+    if args.hide_personal_data:
+        spinham_filename = args.spinham_filename
+    else:
+        spinham_filename = os.path.abspath(args.spinham_filename)
     comment = (
         f'Source of the parameters is "{args.spinham_source}".\n'
         f"Loaded parameters of the spin Hamiltonian from the file\n  "
-        f"{os.path.abspath(args.spinham_filename)}."
+        f"{spinham_filename}."
     )
 
     optimize_sd(
@@ -68,6 +72,7 @@ def manager():
         output_folder=args.output_folder,
         comment=comment,
         no_sd_image=args.no_sd_image,
+        hide_personal_data=args.hide_personal_data,
     )
 
 
@@ -160,6 +165,14 @@ def get_parser():
         help="Disable plotting of the spin direction image in the .html format. html "
         "files are generally heavy (~> 5 Mb). This option allows to disable their "
         "production to save disk space.",
+    )
+    parser.add_argument(
+        "-hpd",
+        "--hide-personal-data",
+        action="store_true",
+        default=False,
+        help="Whether to strip the parts of the paths as to hide the file structure of "
+        "you personal computer.",
     )
 
     return parser

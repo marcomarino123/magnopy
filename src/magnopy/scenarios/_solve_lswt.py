@@ -45,6 +45,7 @@ def solve_lswt(
     number_processors=None,
     comment=None,
     make_sd_image=None,
+    hide_personal_data=False,
 ) -> None:
     r"""
     Solves the spin Hamiltonian at the level of Linear Spin Wave theory.
@@ -83,6 +84,9 @@ def solve_lswt(
     make_sd_image : (3, ) tuple of int
         Whether to produce an html file that displays the spin directions. Three numbers
         are the repetitions of the unit cell along the three lattice vectors.
+    hide_personal_data : bool, default False
+        Whether to use ``os.path.abspath()`` when printing the paths to the output and
+        input files.
 
     Notes
     -----
@@ -106,6 +110,12 @@ def solve_lswt(
     |multiprocessing|_ docs.
 
     """
+
+    def envelope_path(pathname):
+        if hide_personal_data:
+            return pathname
+        else:
+            return os.path.abspath(pathname)
 
     all_good = True
 
@@ -254,7 +264,7 @@ def solve_lswt(
         digits=6,
         scientific_notation=True,
     )
-    print(f"\nOmegas are saved in file\n  {os.path.abspath(filename)}")
+    print(f"\nOmegas are saved in file\n  {envelope_path(filename)}")
 
     filename = filename[:-4] + ".png"
     plot_k_resolved(
@@ -263,7 +273,7 @@ def solve_lswt(
         output_filename=filename,
         ylabel=R"$\omega_{\alpha}(\boldsymbol{k})$, meV",
     )
-    print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
+    print(f"Plot is saved in file\n  {envelope_path(filename)}")
 
     if not np.allclose(omegas.imag, np.zeros(omegas.imag.shape)):
         all_good = False
@@ -286,8 +296,7 @@ def solve_lswt(
             scientific_notation=True,
         )
         print(
-            "Imaginary part of omegas is saved in file\n  "
-            f"{os.path.abspath(filename)}"
+            "Imaginary part of omegas is saved in file\n  " f"{envelope_path(filename)}"
         )
 
         filename = filename[:-4] + ".png"
@@ -297,7 +306,7 @@ def solve_lswt(
             output_filename=filename,
             ylabel=R"$\mathcal{Im}(\omega_{\alpha}(\boldsymbol{k}))$, meV",
         )
-        print(f"Plot of imaginary part is saved in file\n  {os.path.abspath(filename)}")
+        print(f"Plot of imaginary part is saved in file\n  {envelope_path(filename)}")
         print(f"{'  END OF WARNING  ':!^90}\n")
 
     filename = os.path.join(output_folder, "DELTAS.txt")
@@ -312,7 +321,7 @@ def solve_lswt(
         digits=6,
         scientific_notation=True,
     )
-    print(f"Deltas are saved in file\n  {os.path.abspath(filename)}")
+    print(f"Deltas are saved in file\n  {envelope_path(filename)}")
 
     filename = filename[:-4] + ".png"
     plot_k_resolved(
@@ -321,7 +330,7 @@ def solve_lswt(
         output_filename=filename,
         ylabel=R"$\Delta(\boldsymbol{k})$, meV",
     )
-    print(f"Plot is saved in file\n  {os.path.abspath(filename)}")
+    print(f"Plot is saved in file\n  {envelope_path(filename)}")
 
     if make_sd_image is not None:
         positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
@@ -336,7 +345,7 @@ def solve_lswt(
         )
 
         print(
-            f"\nImage of used spin directions is saved in file\n  {os.path.abspath(filename)}.html"
+            f"\nImage of used spin directions is saved in file\n  {envelope_path(filename)}.html"
         )
 
     if all_good:

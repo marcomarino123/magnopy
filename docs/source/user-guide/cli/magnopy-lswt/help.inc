@@ -3,6 +3,7 @@ usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
                     [-r] [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
                     [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS]
                     [-msdi xa_1 xa_2 xa_3 xa_1 xa_2 xa_3 xa_1 xa_2 xa_3]
+                    [-hpd]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -75,3 +76,6 @@ options:
                         Expects three integers as an input - the supercell
                         that will be plotted. Pass 1 1 1 to plot only the unit
                         cell.
+  -hpd, --hide-personal-data
+                        Whether to strip the parts of the paths as to hide the
+                        file structure of you personal computer.

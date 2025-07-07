@@ -89,11 +89,14 @@ def manager():
             'Supported sources of spin Hamiltonian are "GROGU" and "TB2J", '
             f'got "{args.spinham_source}".'
         )
-
+    if args.hide_personal_data:
+        spinham_filename = args.spinham_filename
+    else:
+        spinham_filename = os.path.abspath(args.spinham_filename)
     comment = (
         f'Source of the parameters is "{args.spinham_source}".\n'
         f"Loaded parameters of the spin Hamiltonian from the file\n  "
-        f"{os.path.abspath(args.spinham_filename)}."
+        f"{spinham_filename}."
     )
 
     solve_lswt(
@@ -107,6 +110,7 @@ def manager():
         number_processors=args.number_processors,
         comment=comment,
         make_sd_image=args.make_sd_image,
+        hide_personal_data=args.hide_personal_data,
     )
 
 
@@ -226,6 +230,14 @@ def get_parser():
         help="Plots optimized spin directions and saves it in .html file, that can be "
         "viewed within any modern browser. Expects three integers as an input - the "
         "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",
+    )
+    parser.add_argument(
+        "-hpd",
+        "--hide-personal-data",
+        action="store_true",
+        default=False,
+        help="Whether to strip the parts of the paths as to hide the file structure of "
+        "you personal computer.",
     )
 
     return parser

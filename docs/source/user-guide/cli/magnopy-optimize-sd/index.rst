@@ -24,7 +24,7 @@ The command that is executed is
 
 .. code-block:: bash
 
-    magnopy-optimize-sd -ss GROGU -sf GROGU.txt -tt 0.0001 -msdi 5 5 2 -mf 5 0 0
+    magnopy-optimize-sd -ss GROGU -sf GROGU.txt -tt 0.0001 -s 2 2 1 -mf 2 0 0 -hpd
 
 The parameters that are passed to the script mean the following
 
@@ -34,13 +34,14 @@ The parameters that are passed to the script mean the following
     See :ref:`user-guide_cli_optimize-sd_spinham` for more details.
 *   ``-tt 0.0001`` - tells the desired tolerance for the maximum value of torque.
     See :ref:`user-guide_cli_optimize-sd_tolerance` for more details.
-*   ``-msdi 5 5 2`` - tells to save the obtained spin configuration in an interactive
-    .html file, where the unit cell is repeated five times along the first and second
-    lattice vector and two times along the third one. See
-    :ref:`user-guide_cli_optimize-sd_output` for more details.
-*   ``-mf 5 0 0`` - tells to add an external magnetic field directed along the :math:`x`
+*   ``-s 2 2 1`` - tells to optimize classical energy varying all spins on the supercell
+    individually. The unit cell is repeated two times along the first and second
+    lattice vector and one time along the third one. See
+    :ref:`user-guide_cli_optimize-sd_supercell` for more details.
+*   ``-mf 2 0 0`` - tells to add an external magnetic field directed along the :math:`x`
     axis with the magnitude of :math:`5` Tesla. See
     :ref:`user-guide_cli_optimize-sd_magnetic-field` for more details.
+*   ``-hpd`` - tells to output the filenames using relative paths and not absolute.
 
 This script outputs the following (or similar to it, as every execution starts with
 different random initial guess) to the console
@@ -49,7 +50,15 @@ different random initial guess) to the console
     :language: text
     :caption: Output to the console.
 
-and produce two files inside the "magnopy-results" folder
+and produce a number of files inside the "magnopy-results" folder
+
+*   :download:`"INITIAL_GUESS.txt" <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-ferro-nn-easy-axis/optimize-sd/INITIAL_GUESS.txt>`
+    with the positions of the spin vectors (one vector per line) given in absolute coordinates.
+
+
+.. literalinclude:: INITIAL_GUESS.txt
+    :language: text
+    :caption: Content of the "INITIAL_GUESS.txt" file.
 
 *   :download:`"SPIN_POSITIONS.txt" <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_POSITIONS.txt>`
     with the positions of the spin vectors (one vector per line) given in absolute coordinates.
@@ -145,6 +154,41 @@ or in the long form
     The dots ``...`` are not a part of the syntax. They are used only to highlight the
     parameters that are described in the particular chapter of the documentation and
     hide all other parameters that might or might not be passed to the script.
+
+
+.. _user-guide_cli_optimize-sd_supercell:
+
+Minimization domain
+===================
+
+By default magnopy vary only the spins within the original unit cell of the Hamiltonian.
+In that way it can miss the true ground state if it spans over several unit cells that
+can not be transformed into one another by a simple translation. To address this issue,
+we offer an option of minimization on the supercell. The supercell is produced by a number of
+translations of the original unit cell (``-s`` or ``--superell``). For example, to ask
+for a minimization of the :math:`3\times7\times2` supercell one can use the command, in
+the short form
+
+.. code-block:: bash
+
+    magnopy-optimize-sd ... -s 3 7 2 ...
+
+or in the long form
+
+.. code-block:: bash
+
+    magnopy-optimize-sd ... --supercell 3 7 2 ...
+
+In that case every spin in the :math:`3\times7\times2` supercell is treated as an
+individual variable. Note, that the computational cost of minimization will grow with
+the size of the supercell.
+
+
+.. note::
+    The dots ``...`` are not a part of the syntax. They are used only to highlight the
+    parameters that are described in the particular chapter of the documentation and
+    hide all other parameters that might or might not be passed to the script.
+
 
 .. _user-guide_cli_optimize-sd_tolerance:
 
@@ -254,36 +298,12 @@ The script have two types of the output:
 
         magnopy-optimize-sd ... --output-folder magnopy-SO-trial-1 ...
 
-    By default magnopy saves only text files in this folder. If you would like
-    to have an interactive picture that depicts the spin directions obtained by magnopy,
-    then provide a command ``-msdi`` or ``--make-sd-image``. In the short form
-
-    .. code-block:: bash
-
-        magnopy-optimize-sd ... -msdi 5 5 1 ...
-
-    or in the long form
-
-    .. code-block:: bash
-
-        magnopy-optimize-sd ... --make-sd-image 5 5 1 ...
-
-    This parameter expects three integers, that specify the repetition of the unit
-    cell along the three lattice vectors. Each unit cell is a translational image
-    of one another, those repetitions are only used for plotting and do not affect the
-    minimization. It tell magnopy to save an html file with the interactive picture,
-    that can be viewed in any relatively modern web-browser. The direction of the
-    spins in the unit cell will be depicted and then the unit cell will be repeated
-    5 times along the first, five times along the second and one time along the third
-    lattice vector.
-
     .. note::
 
-        The visual capabilities of magnopy (and consecutively, the use of ``-msdi`` or
-        ``--make-sd-image``) require a third-party plotting library |plotly|_. It is
-        not included as a default dependency of magnopy and therefore, have to be
-        installed manually. It can be installed with ``pip``, in the same way as
-        magnopy:
+        The visual capabilities of magnopy require a third-party plotting library
+        |plotly|_. It is not included as a default dependency of magnopy and therefore,
+        have to be installed manually. It can be installed with ``pip``, in the same
+        way as magnopy:
 
         .. code-block:: bash
 

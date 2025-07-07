@@ -17,6 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import os
 from math import log10
 
 import numpy as np
@@ -871,6 +872,11 @@ class Energy:
             Optimized direction of the spin vectors.
         """
 
+        if initial_guess is None:
+            initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
+
+        sd_k = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
+
         if not quiet:
             n_energy = max(-(int(log10(energy_tolerance)) - 2), 6)
             n_torque = max(-(int(log10(torque_tolerance)) - 2), 6)
@@ -898,11 +904,6 @@ class Energy:
                 + "┴"
                 + "─" * (6 + n_torque)
             )
-
-        if initial_guess is None:
-            initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
-
-        sd_k = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
 
         tolerance = np.array([energy_tolerance, torque_tolerance], dtype=float)
 

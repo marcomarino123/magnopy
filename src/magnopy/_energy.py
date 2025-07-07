@@ -17,6 +17,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from math import log10
+
 import numpy as np
 
 # Save local scope at this moment
@@ -869,6 +871,34 @@ class Energy:
             Optimized direction of the spin vectors.
         """
 
+        if not quiet:
+            n_energy = max(-(int(log10(energy_tolerance)) - 2), 6)
+            n_torque = max(-(int(log10(torque_tolerance)) - 2), 6)
+            print(
+                "─" * 5
+                + "┬"
+                + "─" * 13
+                + "┬"
+                + "─" * (6 + n_energy)
+                + "┬"
+                + "─" * (6 + n_torque)
+            )
+            print(
+                f"{'step':^4} │ "
+                f"{'E_0':^11} │ "
+                f"{'delta E_0':^{n_energy+4}} │ "
+                f"{'max torque':^{n_torque+4}}"
+            )
+            print(
+                "─" * 5
+                + "┴"
+                + "─" * 13
+                + "┴"
+                + "─" * (6 + n_energy)
+                + "┴"
+                + "─" * (6 + n_torque)
+            )
+
         if initial_guess is None:
             initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
 
@@ -918,16 +948,11 @@ class Energy:
             )
             # print(f"deltas: {delta[0]:11.7f} {delta[1]:11.7f}")
             if not quiet:
-                from math import log10
-
-                n_energy = max(-(int(log10(energy_tolerance)) - 2), 0)
-                n_torque = max(-(int(log10(torque_tolerance)) - 2), 0)
                 print(
-                    f"step {step_counter:<4} | "
-                    f"energy = {energy_next:11.7f} | "
-                    f"deltas: {delta[0]:{n_energy+4}.{n_energy}f} "
-                    f"{delta[1]:{n_torque+4}.{n_torque}f} | "
-                    f"alpha_k = {alpha_k}"
+                    f"{step_counter:<4}   "
+                    f"{energy_next:>11.7f}   "
+                    f"{delta[0]:>{n_energy+4}.{n_energy}f}   "
+                    f"{delta[1]:>{n_torque+4}.{n_torque}f}"
                 )
 
             if (delta < tolerance).all():
@@ -957,6 +982,8 @@ class Energy:
             step_counter += 1
             # print("=" * 40)
 
+        if not quiet:
+            print("─" * (33 + n_energy + n_torque))
         return sd_next
 
 

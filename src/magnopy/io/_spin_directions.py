@@ -23,8 +23,16 @@ try:
     import plotly.graph_objects as go
 
     PLOTLY_AVAILABLE = True
+    PLOTLY_ERROR_MESSAGE = (
+        "If you see this message, please contact developers of the code."
+    )
 except ImportError:
     PLOTLY_AVAILABLE = False
+    PLOTLY_ERROR_MESSAGE = (
+        "In order to use spin projection plotter an installation of Plotly is \n"
+        "required, please try to install it with the command\n\n  "
+        "pip install plotly\n\nor\n\n  pip3 install plotly\n"
+    )
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -107,11 +115,8 @@ def _plot_cones(fig, positions, spin_directions, color, name=None):
     scale = 0.5
 
     if not PLOTLY_AVAILABLE:
-        print(
-            "In order to use spin projection plotter an installation of Plotly is \n"
-            "required, please try to install it with the command\n\n  "
-            "pip install plotly\n\nor\n\n  pip3 install plotly\n"
-        )
+        print(PLOTLY_ERROR_MESSAGE)
+        raise ImportError(PLOTLY_ERROR_MESSAGE)
 
     # Prepare data
     x, y, z = np.transpose(positions, axes=(1, 0))
@@ -202,11 +207,8 @@ def plot_spin_directions(
           ``full_html=True`` to ``fig.write_html()``.
     """
     if not PLOTLY_AVAILABLE:
-        print(
-            "In order to use spin projection plotter an installation of Plotly is \n"
-            "required, please try to install it with the command\n\n  "
-            "pip install plotly\n\nor\n\n  pip3 install plotly\n"
-        )
+        print(PLOTLY_ERROR_MESSAGE)
+        raise ImportError(PLOTLY_ERROR_MESSAGE)
 
     pos = np.array(positions, dtype=float)
     sd = np.array(spin_directions, dtype=float)

@@ -11,6 +11,15 @@ Whats new?
 
 First release of magnopy.
 
+0.1.10
+------
+
+**Date**: undefined
+
+*   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
+    energy cut-off)
+*   Improve error messages when plotly is not installed.
+
 0.1.9
 -----
 

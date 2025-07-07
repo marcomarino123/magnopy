@@ -13,6 +13,7 @@ Other
     :toctree: generated/
 
     read_spin_directions
+    plot_spin_directions
     output_k_resolved
     plot_k_resolved
 

@@ -21,8 +21,6 @@ import os
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
-from matplotlib.mlab import magnitude_spectrum
-
 from magnopy._package_info import logo
 from magnopy.io._grogu import load_grogu
 from magnopy.io._tb2j import load_tb2j

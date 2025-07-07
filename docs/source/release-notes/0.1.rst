@@ -19,6 +19,7 @@ First release of magnopy.
 *   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
     energy cut-off)
 *   Improve error messages when plotly is not installed.
+*   Add output of "SPIN_POSITIONS.txt" to the ``magnopy-optimize-sd``
 
 0.1.9
 -----

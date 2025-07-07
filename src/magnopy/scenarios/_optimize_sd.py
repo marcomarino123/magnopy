@@ -118,6 +118,14 @@ def optimize_sd(
 
     print(f"\nSpin directions are saved in file\n  {os.path.abspath(filename)}")
 
+    filename = os.path.join(output_folder, "SPIN_POSITIONS.txt")
+    with open(filename, "w") as f:
+        for i in range(spinham.M):
+            tmp = spinham.magnetic_atoms.positions[i] @ spinham.cell
+            f.write(f"{tmp[0]:12.8f} " f"{tmp[1]:12.8f} " f"{tmp[2]:12.8f}\n")
+
+    print(f"\nSpin positions are saved in file\n  {os.path.abspath(filename)}")
+
     if make_sd_image is not None:
         positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
         filename = os.path.join(output_folder, "SPIN_DIRECTIONS")

@@ -51,6 +51,14 @@ different random initial guess) to the console
 
 and produce two files inside the "magnopy-results" folder
 
+*   :download:`"SPIN_POSITIONS.txt" <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_POSITIONS.txt>`
+    with the positions of the spin vectors (one vector per line) given in absolute coordinates.
+
+
+.. literalinclude:: SPIN_POSITIONS.txt
+    :language: text
+    :caption: Content of the "SPIN_POSITIONS.txt" file.
+
 *   :download:`"SPIN_DIRECTIONS.txt" <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_DIRECTIONS.txt>`
     with the directions of the spin vectors (one vector per line)
 

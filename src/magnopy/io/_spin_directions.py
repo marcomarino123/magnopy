@@ -168,7 +168,12 @@ def _plot_cones(fig, positions, spin_directions, color, name=None):
 
 
 def plot_spin_directions(
-    output_name: str, positions, spin_directions, unit_cell=None, repeat=(1, 1, 1)
+    output_name: str,
+    positions,
+    spin_directions,
+    unit_cell=None,
+    repeat=(1, 1, 1),
+    _full_plotly=True,
 ):
     r"""
     Plot a simple plot of spin directions in three projections.
@@ -187,6 +192,14 @@ def plot_spin_directions(
     repeat : (3, ) tuple of int, default (1, 1, 1)
         Repetitions of the unit cell along each three of the lattice vectors. Requires
         ``unit_cell`` to be provided. Each number should be ``>= 1``.
+    _full_plotly : bool, default True
+        Whether to produce full .html file that includes plotly.js. This argument is
+        rather technical.
+
+        * If `` _full_plotly == True``, then it passes ``include_plotlyjs=False`` and
+          ``full_html=False`` to ``fig.write_html()``.
+        * If `` _full_plotly == False``, then it passes ``include_plotlyjs=True`` and
+          ``full_html=True`` to ``fig.write_html()``.
     """
     if not PLOTLY_AVAILABLE:
         print(
@@ -331,13 +344,18 @@ def plot_spin_directions(
         aspectmode="data", xaxis_visible=False, yaxis_visible=False, zaxis_visible=False
     )
 
-    fig.write_html(
-        file=f"{output_name}.html",
-        include_plotlyjs=True,
-        full_html=True,
-        # default_width="1920px",
-        # default_height="1080px",
-    )
+    if _full_plotly:
+        fig.write_html(
+            file=f"{output_name}.html",
+            include_plotlyjs=True,
+            full_html=True,
+        )
+    else:
+        fig.write_html(
+            file=f"{output_name}.html",
+            include_plotlyjs=False,
+            full_html=False,
+        )
 
 
 # Populate __all__ with objects defined in this file

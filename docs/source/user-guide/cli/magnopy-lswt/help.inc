@@ -11,9 +11,9 @@ usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
 ██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
 ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
                                                            ▄   ▄
-                      Version: 0.1.8                       █▀█▀█
+                     Version: 0.1.10                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-                Release date: 26 June 2025                  ███   ▄▄
+                 Release date: undefined                    ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀

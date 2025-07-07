@@ -61,12 +61,13 @@ def manager():
 
     optimize_sd(
         spinham=spinham,
+        supercell=args.supercell,
         magnetic_field=args.magnetic_field,
         energy_tolerance=args.energy_tolerance,
         torque_tolerance=args.torque_tolerance,
         output_folder=args.output_folder,
         comment=comment,
-        make_sd_image=args.make_sd_image,
+        no_sd_image=args.no_sd_image,
     )
 
 
@@ -82,7 +83,7 @@ def get_parser():
         "-sf",
         "--spinham-filename",
         type=str,
-        metavar="filename",
+        metavar="FILENAME",
         default=None,
         required=True,
         help="Path to the spin Hamiltonian file, from where the parameters would be read.",
@@ -91,7 +92,7 @@ def get_parser():
         "-ss",
         "--spinham-source",
         type=str,
-        metavar="name",
+        metavar="KEYWORD",
         default=None,
         required=True,
         choices=["GROGU", "TB2J"],
@@ -102,13 +103,23 @@ def get_parser():
         "--spin-values",
         nargs="*",
         type=str,
-        metavar="S1 S2 S3 ...",
+        metavar=("S1", "S2"),
         help="In the case when the parameters of spin Hamiltonian comes from TB2J, one "
         "might want to change the values of spins to be closer to half-integers. This "
         "option allows that. Order of the M numbers should match the order of magnetic "
         "atoms in the spin Hamiltonian. Note that those numbers are always positive. To "
         "specify AFM order use opposite spin directions and not spin values of the "
         "opposite sign.",
+    )
+    parser.add_argument(
+        "-s",
+        "--supercell",
+        nargs=3,
+        type=int,
+        default=(1, 1, 1),
+        metavar=("xa_1", "xa_2", "xa_3"),
+        help="Specification of the supercell for the spin optimization. Expects three "
+        "integers as an input. Pass 1 1 1 to optimize within the original unit cell.",
     )
     parser.add_argument(
         "-et",
@@ -130,6 +141,7 @@ def get_parser():
         "--magnetic-field",
         default=None,
         nargs=3,
+        metavar=("h_x", "h_y", "h_z"),
         type=float,
         help="Vector of external magnetic field, given in the units of Tesla.",
     )
@@ -141,15 +153,13 @@ def get_parser():
         help="Folder where all output files of magnopy wil be saved.",
     )
     parser.add_argument(
-        "-msdi",
-        "--make-sd-image",
-        nargs=3,
-        type=int,
-        default=None,
-        metavar="xa_1 xa_2 xa_3",
-        help="Plots optimized spin directions and saves it in .html file, that can be "
-        "viewed within any modern browser. Expects three integers as an input - the "
-        "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",
+        "-no-sdi",
+        "--no-sd-image",
+        action="store_true",
+        default=False,
+        help="Disable plotting of the spin direction image in the .html format. html "
+        "files are generally heavy (~> 5 Mb). This option allows to disable their "
+        "production to save disk space.",
     )
 
     return parser

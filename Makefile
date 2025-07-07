@@ -51,7 +51,8 @@ pictures-for-docs:
 	@python3 dev-tools/images/positions.py -rd .
 
 files-for-docs:
-	-@rm docs/source/user-guide/cli/magnopy-lswt-help.inc
+	-@rm docs/source/user-guide/cli/magnopy-lswt/help.inc
+	-@rm docs/source/user-guide/cli/magnopy-optimize-sd/help.inc
 	@magnopy-lswt --help > docs/source/user-guide/cli/magnopy-lswt/help.inc
 	@magnopy-optimize-sd --help > docs/source/user-guide/cli/magnopy-optimize-sd/help.inc
 

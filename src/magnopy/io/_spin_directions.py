@@ -176,8 +176,10 @@ def plot_spin_directions(
     output_name: str,
     positions,
     spin_directions,
-    unit_cell=None,
-    repeat=(1, 1, 1),
+    cell=None,
+    highlight=None,
+    name_highlighted="Group 1",
+    name_other="Group 2",
     _full_plotly=True,
 ):
     r"""
@@ -192,11 +194,16 @@ def plot_spin_directions(
     spin_directions : (M, 3) |array-like|_
         Directions of spin vectors. Only directions of vectors are used, modulus is
         ignored. The order should match the order in ``positions``.
-    unit_cell : (3, 3) |array-like|_, optional
+    cell : (3, 3) |array-like|_, optional
         Three vectors of the unit cell. Rows are vectors, columns are coordinates.
-    repeat : (3, ) tuple of int, default (1, 1, 1)
-        Repetitions of the unit cell along each three of the lattice vectors. Requires
-        ``unit_cell`` to be provided. Each number should be ``>= 1``.
+        The provided cell do not affect the plotting procedure for the spins.
+    highlight : list of int, optional
+        List of indices for the ``spin_directions``. The spins with those indices will be
+        plotted in different color.
+    name_highlighted : str, default "Group 1"
+        How to mark the highlighted spin on the legend.
+    name_other : str, default "Group 2"
+        How to mark the non-highlighted spin on the legend.
     _full_plotly : bool, default True
         Whether to produce full .html file that includes plotly.js. This argument is
         rather technical.
@@ -213,63 +220,65 @@ def plot_spin_directions(
     pos = np.array(positions, dtype=float)
     sd = np.array(spin_directions, dtype=float)
 
-    # Update for unit cell repetitions if any
-    if unit_cell is not None:
-        if repeat[0] < 1 or repeat[1] < 1 or repeat[2] < 1:
-            raise ValueError(
-                f"Supercell repetitions should be larger or equal to 1, got {repeat}"
-            )
-        unit_cell = np.array(unit_cell, dtype=float)
-
-        other_sd = []
-        other_pos = []
-        for k in range(0, repeat[2]):
-            for j in range(0, repeat[1]):
-                for i in range(0, repeat[0]):
-                    if (i, j, k) != (0, 0, 0):
-                        other_sd.extend(sd)
-
-                        shift = i * unit_cell[0] + j * unit_cell[1] + k * unit_cell[2]
-
-                        other_pos.extend(pos + shift[np.newaxis, :])
-
-        other_pos = np.array(other_pos, dtype=float)
-        other_sd = np.array(other_sd, dtype=float)
-
     # Get normalization length
-    tmp = np.concatenate((pos, other_pos), axis=0)
-    tmp = tmp[:, np.newaxis] - tmp[np.newaxis, :]
+    tmp = pos[:, np.newaxis] - pos[np.newaxis, :]
     tmp = np.linalg.norm(tmp, axis=2)
     norm_length = (tmp + np.eye(tmp.shape[0]) * tmp.max()).min()
 
     sd = sd / np.linalg.norm(sd, axis=1)[:, np.newaxis] * norm_length
 
+    # Separate highlighted spins (pos2 and sd2)
+    if highlight is None:
+        pos1 = pos
+        sd1 = sd
+        pos2 = np.array([], dtype=float)
+        sd2 = np.array([], dtype=float)
+    else:
+        highlight.sort()
+        pos1 = []
+        pos2 = []
+        sd1 = []
+        sd2 = []
+
+        j = 0
+        for i in range(len(sd)):
+            if j >= len(highlight) or i != highlight[j]:
+                pos2.append(pos[i])
+                sd2.append(sd[i])
+            else:
+                pos1.append(pos[i])
+                sd1.append(sd[i])
+                j += 1
+
+        pos1 = np.array(pos1)
+        pos2 = np.array(pos2)
+        sd1 = np.array(sd1)
+        sd2 = np.array(sd2)
+
     fig = go.Figure()
 
-    if len(other_sd) > 0:
-        other_sd = (
-            other_sd / np.linalg.norm(other_sd, axis=1)[:, np.newaxis] * norm_length
-        )
+    if len(pos1) > 0:
         _plot_cones(
             fig=fig,
-            positions=other_pos,
-            spin_directions=other_sd,
+            positions=pos1,
+            spin_directions=sd1,
             color="#A47864",
-            name="Other unit cells",
+            name=name_highlighted,
         )
 
-    _plot_cones(
-        fig=fig,
-        positions=pos,
-        spin_directions=sd,
-        color="#535FCF",
-        name="(0, 0, 0) unit cell",
-    )
+    if len(pos2) > 0:
+        _plot_cones(
+            fig=fig,
+            positions=pos2,
+            spin_directions=sd2,
+            color="#535FCF",
+            name=name_other,
+        )
 
     # Plot the unit cell
-    if unit_cell is not None:
+    if cell is not None:
         origin = np.array([0, 0, 0])
-        a1, a2, a3 = unit_cell
+        a1, a2, a3 = cell
         bottom = np.array([origin, a1, a1 + a2, a2, origin])
         top = np.array([a3, a3 + a1, a3 + a1 + a2, a3 + a2, a3])
         leg1 = np.array([origin, a3])
@@ -294,7 +303,7 @@ def plot_spin_directions(
                 )
             )
 
-        for i, vector in enumerate(unit_cell):
+        for i, vector in enumerate(cell):
             fig.add_traces(
                 data=go.Cone(
                     x=[vector[0]],

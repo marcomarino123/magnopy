@@ -23,6 +23,7 @@ import numpy as np
 
 from magnopy._energy import Energy
 from magnopy._package_info import logo
+from magnopy._spinham._supercell import make_supercell
 from magnopy.io._spin_directions import plot_spin_directions
 
 # Save local scope at this moment
@@ -32,12 +33,13 @@ old_dir.add("old_dir")
 
 def optimize_sd(
     spinham,
+    supercell=(1, 1, 1),
     magnetic_field=None,
     energy_tolerance=1e-5,
     torque_tolerance=1e-5,
     output_folder="magnopy-results",
     comment=None,
-    make_sd_image=None,
+    no_sd_image=False,
 ) -> None:
     r"""
     Optimizes classical energy of spin Hamiltonian and finds a set of spin directions
@@ -47,6 +49,9 @@ def optimize_sd(
     ----------
     spinham : :py:class:`.SpinHamiltonian`
         Spin Hamiltonian.
+    supercell : (3, ) tuple of int
+        If different from ``(1, 1, 1)``, then a supercell Hamiltonian is constructed and
+        spins are varied within the supercell and not a unit cell.
     magnetic_field : (3, ) |array-like|_
         Vector of external magnetic field, given in Tesla.
     energy_tolerance : float, default 1e-5
@@ -59,11 +64,25 @@ def optimize_sd(
         then it will be created.
     comment : str, optional
         Any comment to output right after the logo.
-    make_sd_image : (3, ) tuple of int
-        Whether to produce an html file that displays the spin directions. Three numbers
-        are the repetitions of the unit cell along the three lattice vectors.
+    no_sd_image : bool, default False
+        Whether to disable plotting of spin directions into an .html file.
 
+    Raises
+    ------
+    ValueError
+        If ``len(supercell) != 3``.
+    ValueError
+        If ``supercell[0] < 1`` or ``supercell[1] < 1`` or ``supercell[2] < 1``.
     """
+
+    # Check input for the supercell
+    supercell = tuple(supercell)
+    if len(supercell) != 3:
+        raise ValueError(
+            f"Expected a tuple of three int, got {len(supercell)} elements."
+        )
+    if supercell[0] < 1 or supercell[1] < 1 or supercell[2] < 1:
+        raise ValueError(f"Supercell repetitions must be >=1, got {supercell}.")
 
     all_good = True
 
@@ -79,6 +98,16 @@ def optimize_sd(
 
     print(f"Energy tolerance : {energy_tolerance:.5e}")
     print(f"Torque tolerance : {torque_tolerance:.5e}")
+
+    original_spinham = spinham
+    if supercell != (1, 1, 1):
+        spinham = make_supercell(spinham=spinham, supercell=supercell)
+        print(
+            f"Minimizing on the supercell of {supercell[0]} x {supercell[1]} x {supercell[2]} unit cells."
+        )
+    else:
+        print(f"Minimizing on the original unit cell of the Hamiltonian.")
+
     energy = Energy(spinham=spinham)
 
     spin_directions = energy.optimize(
@@ -89,20 +118,7 @@ def optimize_sd(
     print(f"Optimization is done.")
 
     E_0 = energy.E_0(spin_directions=spin_directions)
-    print(f"\n{'Classic ground state energy (E_0)':<51} : " f"{E_0:>15.6f} meV\n")
-
-    print("Directions of spin vectors of the ground state and spin values are")
-
-    print(f"{'Name':<6} {'S':>7} {'Sx':>12} {'Sy':>12} {'Sz':>12}")
-
-    for i in range(spinham.M):
-        print(
-            f"{spinham.magnetic_atoms.names[i]:<6} "
-            f"{spinham.magnetic_atoms.spins[i]:7.4f} "
-            f"{spin_directions[i][0]:12.8f} "
-            f"{spin_directions[i][1]:12.8f} "
-            f"{spin_directions[i][2]:12.8f}"
-        )
+    print(f"\nClassic ground state energy (E_0) : " f"{E_0:>15.6f} meV\n")
 
     # Create the output directory if it does not exist
     os.makedirs(output_folder, exist_ok=True)
@@ -126,7 +142,7 @@ def optimize_sd(
 
     print(f"\nSpin positions are saved in file\n  {os.path.abspath(filename)}")
 
-    if make_sd_image is not None:
+    if not no_sd_image:
         positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
         filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
 
@@ -134,8 +150,11 @@ def optimize_sd(
             output_name=filename,
             positions=positions,
             spin_directions=spin_directions,
-            unit_cell=spinham.cell,
-            repeat=make_sd_image,
+            cell=original_spinham.cell,
+            highlight=[i for i in range(original_spinham.M)],
+            name_highlighted="Original unit cell",
+            name_other="Other unit cells",
+            _full_plotly=True,
         )
 
         print(

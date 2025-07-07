@@ -141,18 +141,18 @@ def _plot_cones(fig, positions, spin_directions, color, name=None):
         )
     )
 
-    # fig.add_traces(
-    #     data=go.Scatter3d(
-    #         mode="markers",
-    #         x=x,
-    #         y=y,
-    #         z=z,
-    #         marker=dict(size=10, color=color),
-    #         hoverinfo="none",
-    #         showlegend=False,
-    #         legendgroup=name,
-    #     )
-    # )
+    fig.add_traces(
+        data=go.Scatter3d(
+            mode="markers",
+            x=x,
+            y=y,
+            z=z,
+            marker=dict(size=10, color=color),
+            hoverinfo="none",
+            showlegend=False,
+            legendgroup=name,
+        )
+    )
 
     for i in range(0, len(x)):
         fig.add_traces(
@@ -306,7 +306,7 @@ def plot_spin_directions(
                     sizemode="absolute",
                     anchor="tip",
                     showscale=False,
-                    colorscale=["#535FCF", "#535FCF"],
+                    colorscale=["#000000", "#000000"],
                     legendgroup=f"a_{i+1}",
                     showlegend=False,
                 )
@@ -317,7 +317,7 @@ def plot_spin_directions(
                     x=[1.2 * vector[0]],
                     y=[1.2 * vector[1]],
                     z=[1.2 * vector[2]],
-                    marker=dict(size=0, color="#535FCF"),
+                    marker=dict(size=0, color="#000000"),
                     text=f"a_{i+1}",
                     hoverinfo="none",
                     textposition="top center",
@@ -334,7 +334,7 @@ def plot_spin_directions(
                     mode="lines",
                     type="scatter3d",
                     hoverinfo="none",
-                    line={"color": "#535FCF", "width": 4},
+                    line={"color": "#000000", "width": 4},
                     legendgroup=f"a_{i+1}",
                     showlegend=True,
                     name=f"a_{i+1}",

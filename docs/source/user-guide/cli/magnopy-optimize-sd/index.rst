@@ -7,6 +7,69 @@ magnopy-optimize-sd
 This scenario optimizes classical energy of the spin Hamiltonian and finds the spin
 directions that describe a local minima of the energy landscape.
 
+First we give an example of what this script can compute and then go through its usage
+and parameters in details.
+
+
+.. _user-guide_cli_optimize-sd_example:
+
+Example
+=======
+
+For this example we will use the spin Hamiltonian file of the easy-axis ferromagnetic
+cubic system. You can download the file with the Hamiltonian in the |GROGU-FF|_
+:download:`here <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-fero-nn-easy-axis/GROGU.txt>`.
+
+The command that is executed is
+
+.. code-block:: bash
+
+    magnopy-optimize-sd -ss GROGU -sf GROGU.txt -tt 0.0001 -msdi 5 5 2 -mf 5 0 0
+
+The parameters that are passed to the script mean the following
+
+*   ``-ss GROGU`` - tells that the file with the spin Hamiltonian has the format of
+    |GROGU|_. See :ref:`user-guide_cli_optimize-sd_spinham` for more details.
+*   ``-sf GROGU.txt`` - tells the filename with the parameters of the spin Hamiltonian.
+    See :ref:`user-guide_cli_optimize-sd_spinham` for more details.
+*   ``-tt 0.0001`` - tells the desired tolerance for the maximum value of torque.
+    See :ref:`user-guide_cli_optimize-sd_tolerance` for more details.
+*   ``-msdi 5 5 2`` - tells to save the obtained spin configuration in an interactive
+    .html file, where the unit cell is repeated five times along the first and second
+    lattice vector and two times along the third one. See
+    :ref:`user-guide_cli_optimize-sd_output` for more details.
+*   ``-mf 5 0 0`` - tells to add an external magnetic field directed along the :math:`x`
+    axis with the magnitude of :math:`5` Tesla. See
+    :ref:`user-guide_cli_optimize-sd_magnetic-field` for more details.
+
+This script outputs the following (or similar to it, as every execution starts with
+different random initial guess) to the console
+
+.. literalinclude:: console-output.txt
+    :language: text
+    :caption: Output to the console.
+
+and produce two files inside the "magnopy-results" folder
+
+*   :download:`"SPIN_DIRECTIONS.txt" <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_DIRECTIONS.txt>`
+    with the directions of the spin vectors (one vector per line)
+
+
+.. literalinclude:: SPIN_DIRECTIONS.txt
+    :language: text
+    :caption: Content of the "SPIN_DIRECTIONS.txt" file.
+
+*   :download:`"SPIN_DIRECTIONS.html" <https://github.com/magnopy/magnopy-tutorials/blob/main/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_DIRECTIONS.html>`
+    with the interactive 3D depiction of the minimized spin configuration.
+
+
+.. raw:: html
+    :file: SPIN_DIRECTIONS_LIGHT.html
+
+
+
+.. _user-guide_cli_optimize-sd_help:
+
 Help message
 ============
 This page of documentation is written by hand and might become outdated due to the
@@ -35,6 +98,7 @@ short and long names and explanation of what they represent.
     Feel free to use either of them. The long name is usually self-explanatory and
     the short one is added purely for the convenience of the user.
 
+.. _user-guide_cli_optimize-sd_spinham:
 
 Spin Hamiltonian and its source
 ===============================
@@ -61,30 +125,180 @@ then pass to the script two parameters either in the short form
 
 .. code-block:: bash
 
-    magnopy-optimize-sd -ss TB2J -sf data/hamiltonians/trial1/TB2J/exchange.out
+    magnopy-optimize-sd -ss TB2J -sf data/hamiltonians/trial1/TB2J/exchange.out ...
 
 or in the long form
 
 .. code-block:: bash
 
-    magnopy-optimize-sd -spinham-source TB2J -spinham-filename data/hamiltonians/trial1/TB2J/exchange.out
+    magnopy-optimize-sd -spinham-source TB2J -spinham-filename data/hamiltonians/trial1/TB2J/exchange.out ...
 
+.. note::
+    The dots ``...`` are not a part of the syntax. They are used only to highlight the
+    parameters that are described in the particular chapter of the documentation and
+    hide all other parameters that might or might not be passed to the script.
 
+.. _user-guide_cli_optimize-sd_tolerance:
 
-Interpretation of the output
-============================
+Accuracy or tolerance conditions
+================================
 
-The script print in the console the progress of the calculation. Use the stream redirect
-to save it to a file
+In theory numerical optimization can continues indefinitely, improving accuracy of
+some target value with each step. In reality an algorithm should reach some values of the
+tolerance after the finite amount of steps.
+
+The minimization algorithm implemented in magnopy [1]_ traces two values:
+
+* Absolute value of the difference in total energy between two consecutive steps
+  of the minimization (``-et`` or ``--energy-tolerance``).
+* Maximum (among all spins of the unit cell) value of the torque vector (``-tt`` or
+  ``--torque-tolerance``).
+
+An algorithm stops and output the obtained spin directions when both tolerance parameters
+are reached. The default values, that magnopy uses should lead to the reasonable results
+in most of the cases.
+
+However, if you want to increase accuracy of one of the parameters or both, then try to
+pass the corresponding parameters to the script. In the short form
 
 .. code-block:: bash
 
-    magnopy-optimize-sd ... > output.txt
+    magnopy-optimize-sd ... -et 0.000001 -tt 0.001 ...
 
-Some of the data and pictures will be saved in the folder with the name defined by the
-value of ``-of, --output-folder`` argument.
+or in the long form
+
+.. code-block:: bash
+
+    magnopy-optimize-sd ... --energy-tolerance 0.000001 --torque-tolerance 0.001 ...
 
 
-.. .. raw:: html
+.. note::
+    The dots ``...`` are not a part of the syntax. They are used only to highlight the
+    parameters that are described in the particular chapter of the documentation and
+    hide all other parameters that might or might not be passed to the script.
 
-..     <iframe src="../../_static/magnopy-sd.html" height="540px" width="100%"></iframe>
+.. _user-guide_cli_optimize-sd_magnetic-field:
+
+External magnetic field
+=======================
+
+The file with the :ref:`spin Hamiltonian <user-guide_cli_optimize-sd_spinham>`
+specifies the interaction parameters that are intrinsic to the material.
+
+In order to add additional effects, for instance an external magnetic field one
+can use the ``-mf`` or ``--magnetic-field`` parameter.
+
+This parameter expects three numbers, that specify three Cartesian components of the
+external magnetic field. The value of the provided vector is interpreted in Tesla.
+
+For example to add magnetic field of 2.42 Tesla along the direction :math:`(1, 1, 0)`
+(i.e. in the :math:`xy` plane, right in between the :math:`x` and :math:`y` axis) pass
+to the script the parameter, in the short form
+
+.. code-block:: bash
+
+    magnopy-optimize-sd ... -mf 1.7112 1.7112 0 ...
+
+or in the long form
+
+.. code-block:: bash
+
+    magnopy-optimize-sd ... --magnetic-field 1.7112 1.7112 0 ...
+
+
+.. note::
+    The dots ``...`` are not a part of the syntax. They are used only to highlight the
+    parameters that are described in the particular chapter of the documentation and
+    hide all other parameters that might or might not be passed to the script.
+
+.. _user-guide_cli_optimize-sd_output:
+
+Output of the script
+====================
+The script have two types of the output:
+
+*   Text output to the console
+
+    Magnopy outputs the progress of the calculation in the standard output stream, that is
+    typically printed directly to the terminal. If you would like to save this text in a
+    file, we recommend to use stream redirect ``>`` operator as
+
+    .. code-block:: bash
+
+        magnopy-optimize-sd ... > output.txt
+
+    In that way there will be no output to the console, but all the information will be
+    saved in the file "output.txt".
+
+*   Output that is saved in the separated files.
+
+    A number of the files will be saved in the folder that is named "magnopy-results"
+    by default. If you would like to change its name, for instance to "magnopy-SO-trial-1",
+    then you can use the parameter ``-of`` or ``--output-folder``. In the short form
+
+    .. code-block:: bash
+
+        magnopy-optimize-sd ... -of magnopy-SO-trial-1 ...
+
+    or in the long form
+
+    .. code-block:: bash
+
+        magnopy-optimize-sd ... --output-folder magnopy-SO-trial-1 ...
+
+    By default magnopy saves only text files in this folder. If you would like
+    to have an interactive picture that depicts the spin directions obtained by magnopy,
+    then provide a command ``-msdi`` or ``--make-sd-image``. In the short form
+
+    .. code-block:: bash
+
+        magnopy-optimize-sd ... -msdi 5 5 1 ...
+
+    or in the long form
+
+    .. code-block:: bash
+
+        magnopy-optimize-sd ... --make-sd-image 5 5 1 ...
+
+    This parameter expects three integers, that specify the repetition of the unit
+    cell along the three lattice vectors. Each unit cell is a translational image
+    of one another, those repetitions are only used for plotting and do not affect the
+    minimization. It tell magnopy to save an html file with the interactive picture,
+    that can be viewed in any relatively modern web-browser. The direction of the
+    spins in the unit cell will be depicted and then the unit cell will be repeated
+    5 times along the first, five times along the second and one time along the third
+    lattice vector.
+
+    .. note::
+
+        The visual capabilities of magnopy (and consecutively, the use of ``-msdi`` or
+        ``--make-sd-image``) require a third-party plotting library |plotly|_. It is
+        not included as a default dependency of magnopy and therefore, have to be
+        installed manually. It can be installed with ``pip``, in the same way as
+        magnopy:
+
+        .. code-block:: bash
+
+            pip install plotly
+
+        or
+
+        .. code-block:: bash
+
+            pip3 install plotly
+
+
+.. note::
+    The dots ``...`` are not a part of the syntax. They are used only to highlight the
+    parameters that are described in the particular chapter of the documentation and
+    hide all other parameters that might or might not be passed to the script.
+
+
+References
+==========
+
+.. [1] Ivanov, A.V., Uzdin, V.M. and Jónsson, H., 2021.
+    Fast and robust algorithm for energy minimization of spin systems applied
+    in an analysis of high temperature spin configurations in terms of skyrmion
+    density.
+    Computer Physics Communications, 260, p.107749.

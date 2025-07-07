@@ -1,0 +1,55 @@
+███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
+████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
+██╔████╔██║ ███████║ ██║  ███╗ ██╔██╗ ██║ ██║   ██║ ██████╔╝  ╚████╔╝
+██║╚██╔╝██║ ██╔══██║ ██║  ╚██║ ██║╚██╗██║ ██║   ██║ ██╔═══╝    ╚██╔╝
+██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
+╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
+                     Version: 0.1.10                       ▄   ▄
+                Documentation: magnopy.org                 █▀█▀█
+                 Release date: undefined                   █▄█▄█
+                    License: GNU GPLv3                      ███   ▄▄
+          Copyright (C) 2023-2025  Magnopy Team             ████ █  █
+                                                            ████    █
+          Generated on 7 July 2025 at 15:15:34              ▀▀▀▀▀▀▀▀
+
+======================================== Comment =========================================
+
+Source of the parameters is "GROGU".
+Loaded parameters of the spin Hamiltonian from the file
+  /Users/rybakov.ad/Codes/magnopy-tutorials/documentation/cubic-ferro-nn-easy-axis/GROGU.txt.
+
+=================================== Start optimization ===================================
+
+Energy tolerance : 1.00000e-05
+Torque tolerance : 1.00000e-04
+step 1    | energy =  -3.1760195 | deltas:   0.2900668   0.084521 | alpha_k = 5.565297536323346
+step 2    | energy =  -3.1878106 | deltas:   0.0117911   0.022704 | alpha_k = 0.17527075303542694
+step 3    | energy =  -3.1881089 | deltas:   0.0002984   0.022538 | alpha_k = 0.3677710571504498
+step 4    | energy =  -3.1884515 | deltas:   0.0003425   0.016688 | alpha_k = 1.0
+step 5    | energy =  -3.1887827 | deltas:   0.0003312   0.015354 | alpha_k = 0.17619937204560965
+step 6    | energy =  -3.1890434 | deltas:   0.0002608   0.009326 | alpha_k = 0.48476016214608264
+step 7    | energy =  -3.1891856 | deltas:   0.0001422   0.008074 | alpha_k = 0.11372798278667773
+step 8    | energy =  -3.1892862 | deltas:   0.0001006   0.004152 | alpha_k = 0.44268138451437244
+step 9    | energy =  -3.1893196 | deltas:   0.0000334   0.003195 | alpha_k = 0.06627745170402921
+step 10   | energy =  -3.1893327 | deltas:   0.0000131   0.002996 | alpha_k = 1.0
+step 11   | energy =  -3.1893453 | deltas:   0.0000127   0.000848 | alpha_k = 0.033933342710224634
+step 12   | energy =  -3.1893475 | deltas:   0.0000022   0.000171 | alpha_k = 1.0
+step 13   | energy =  -3.1893476 | deltas:   0.0000000   0.000164 | alpha_k = 0.023521594480010455
+step 14   | energy =  -3.1893476 | deltas:   0.0000000   0.000142 | alpha_k = 1.0
+step 15   | energy =  -3.1893476 | deltas:   0.0000000   0.000154 | alpha_k = 0.09849362374692427
+step 16   | energy =  -3.1893476 | deltas:   0.0000000   0.000067 | alpha_k = 0.42605695830081225
+Optimization is done.
+
+Classic ground state energy (E_0)                   :       -3.189348 meV
+
+Directions of spin vectors of the ground state and spin values are
+Name         S           Sx           Sy           Sz
+Fe      2.5000  -0.77206906   0.00013277   0.63553862
+
+Spin directions are saved in file
+  /Users/rybakov.ad/Codes/magnopy-tutorials/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_DIRECTIONS.txt
+
+Image of spin directions is saved in file
+  /Users/rybakov.ad/Codes/magnopy-tutorials/documentation/cubic-ferro-nn-easy-axis/optimize-sd/SPIN_DIRECTIONS.html
+
+======================================== Finished ========================================

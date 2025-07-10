@@ -75,7 +75,7 @@ def _inverse_by_colpa(matrix):
     return matrix
 
 
-def solve_via_colpa(D, return_inverse=False):
+def solve_via_colpa(D):
     r"""
     Diagonalize grand-dynamical matrix following the method of Colpa (section 3, remark
     1 of [1]_).
@@ -146,9 +146,6 @@ def solve_via_colpa(D, return_inverse=False):
                 \boldsymbol{\Delta_1} & \boldsymbol{\Delta_2} \\
                 \boldsymbol{\Delta_3} & \boldsymbol{\Delta_4}
             \end{pmatrix}
-    return_inverse : bool, default False
-        Whether to return :math:`(\boldsymbol{G}^{\dagger})^{-1}` instead of
-        :math:`\boldsymbol{G}^{\dagger}`.
 
     Returns
     -------
@@ -173,18 +170,9 @@ def solve_via_colpa(D, return_inverse=False):
         :math:`\boldsymbol{b}` which diagonalize the Hamiltonian:
 
         .. math::
-
-            \boldsymbol{\cal A} = \boldsymbol{G} \boldsymbol{\cal B}
-
-            \boldsymbol{\cal B} = \boldsymbol{G}^{-1} \boldsymbol{\cal A}
+            \boldsymbol{\cal B} = \boldsymbol{G} \boldsymbol{\cal A}
 
         The rows are ordered in the same way as the eigenvalues.
-
-        If ``return_inverse == False``, then :math:`\boldsymbol{G}^{\dagger}` is
-        returned.
-
-        If ``return_inverse == True``, then :math:`(\boldsymbol{G}^{\dagger})^{-1}` is
-        returned.
 
     Raises
     ------
@@ -227,7 +215,7 @@ def solve_via_colpa(D, return_inverse=False):
         >>> G
         array([[ 1.08204454-0.j        ,  0.        +0.41330424j],
                [-0.        -0.41330424j,  1.08204454-0.j        ]])
-        >>> E, G_inv = magnopy.solve_via_colpa(D, return_inverse=True)
+        >>> E, G_inv = magnopy.solve_via_colpa(D)
         >>> E
         array([0.61803399+0.j, 1.61803399+0.j])
         >>> G_inv
@@ -256,9 +244,10 @@ def solve_via_colpa(D, return_inverse=False):
     E = g @ L
 
     G_inv = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
+    G = _inverse_by_colpa(G_inv)
 
     # Sort first N and second N individually based on the transformation matrix
-    tmp = np.concatenate((E[:, np.newaxis], G_inv), axis=1)
+    tmp = np.concatenate((E[:, np.newaxis], G), axis=1)
 
     def compare(array1, array2):
         difference = np.round(array1 - array2, decimals=15)
@@ -271,12 +260,9 @@ def solve_via_colpa(D, return_inverse=False):
     lower_part = np.array(sorted(tmp[N:], key=cmp_to_key(compare)))
 
     E = np.concatenate((upper_part[:, 0], lower_part[:, 0]))
-    G_inv = np.concatenate((upper_part[:, 1:], lower_part[:, 1:]), axis=0)
+    G = np.concatenate((upper_part[:, 1:], lower_part[:, 1:]), axis=0)
 
-    if return_inverse:
-        return E, G_inv
-
-    return E, _inverse_by_colpa(G_inv)
+    return E, G
 
 
 # Populate __all__ with objects defined in this file

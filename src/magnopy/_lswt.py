@@ -831,21 +831,19 @@ class LSWT:
         GDM_minus = self.GDM(k_minus, relative=relative)
 
         try:
-            E_plus, G_plus = solve_via_colpa(GDM_plus, return_inverse=True)
-            E_minus, _G_minus = solve_via_colpa(GDM_minus, return_inverse=True)
+            E_plus, G_plus = solve_via_colpa(GDM_plus)
+            E_minus, G_minus = solve_via_colpa(GDM_minus)
         except ColpaFailed:
             try:
-                E_plus, G_plus = solve_via_colpa(-GDM_plus, return_inverse=True)
-                E_minus, G_minus = solve_via_colpa(-GDM_minus, return_inverse=True)
+                E_plus, G_plus = solve_via_colpa(-GDM_plus)
+                E_minus, G_minus = solve_via_colpa(-GDM_minus)
             except ColpaFailed:
                 try:
                     E_plus, G_plus = solve_via_colpa(
-                        GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float),
-                        return_inverse=True,
+                        GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float)
                     )
                     E_minus, G_minus = solve_via_colpa(
-                        GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float),
-                        return_inverse=True,
+                        GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float)
                     )
                 except ColpaFailed:
                     return (

@@ -65,7 +65,7 @@ def _check_grand_dynamical_matrix(D):
 
 
 def _inverse_by_colpa(matrix):
-    # Compute G from G^-1 following Colpa, see equation (3.7) for details
+    # Compute G from G^-1 (or vise versa) following Colpa, see equation (3.7) for details
 
     N = matrix.shape[0] // 2
     matrix = np.conjugate(matrix).T

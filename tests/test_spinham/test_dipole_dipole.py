@@ -98,9 +98,13 @@ def test_R_cut(lattice_variation, R_cut):
 
     spinham_double = spinham.copy()
 
-    spinham.add_dipole_dipole(R_cut=R_cut)
+    spinham.add_dipole_dipole(
+        R_cut=R_cut, alphas=[i for i in range(len(spinham.atoms.names))]
+    )
 
-    spinham_double.add_dipole_dipole(R_cut=2 * R_cut)
+    spinham_double.add_dipole_dipole(
+        R_cut=2 * R_cut, alphas=[i for i in range(len(spinham_double.atoms.names))]
+    )
 
     if len(spinham.p22) > 0:
         assert len(spinham.p22) < len(spinham_double.p22)
@@ -122,4 +126,6 @@ def test_E_cut(lattice_variation, E_cut):
 
     spinham = SpinHamiltonian(cell=cell, atoms=atoms, convention=convention)
 
-    spinham.add_dipole_dipole(E_cut=E_cut)
+    spinham.add_dipole_dipole(
+        E_cut=E_cut, alphas=[i for i in range(len(spinham.atoms.names))]
+    )

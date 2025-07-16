@@ -960,7 +960,7 @@ class SpinHamiltonian:
     #                    Magnetic dipole-dipole interaction                    #
     ############################################################################
 
-    def add_dipole_dipole(self, R_cut=None, E_cut=None, alpha=None):
+    def add_dipole_dipole(self, R_cut=None, E_cut=None, alphas=None):
         r"""
         Add magnetic dipole dipole interaction to the Hamiltonian.
 
@@ -1119,7 +1119,7 @@ class SpinHamiltonian:
         tmp_parameters = []
 
         if alphas is None:
-            alphas = self.map_to_all()
+            alphas = self.map_to_all
 
         for alpha in alphas:
             for k in range(-m_3_max, m_3_max + 1):

@@ -960,7 +960,7 @@ class SpinHamiltonian:
     #                    Magnetic dipole-dipole interaction                    #
     ############################################################################
 
-    def add_dipole_dipole(self, R_cut=None, E_cut=None):
+    def add_dipole_dipole(self, R_cut=None, E_cut=None, alpha=None):
         r"""
         Add magnetic dipole dipole interaction to the Hamiltonian.
 
@@ -1008,6 +1008,8 @@ class SpinHamiltonian:
         E_cut : float, optional
             Cut off value for the maximum value of the parameter.
             :math:`E_{cut} > 0`.
+        alphas : list of int, optional
+            Indices of atoms, to which the magnetic field effect should be added.
 
         Raises
         ------
@@ -1059,6 +1061,16 @@ class SpinHamiltonian:
             :math:`\vert\boldsymbol{r}_{\nu,\alpha\beta}\vert \le R_{cut}` and
             :math:`\vert J_{dd}(\boldsymbol{r}_{\nu,\alpha\beta})^{ij}\vert \ge E_{cut}`
             for some :math:`i, j`.
+
+        Magnetic dipole-dipole interaction is added either to magnetic atoms or
+        to the list of the atoms provided by user.
+
+        * If ``alphas is None``, then parameters of the magnetic field added
+          only to the magnetic atoms. In other words only to atoms that already have
+          at least one other parameter (any) associated with it.
+        * If ``alpha is not None``, then parameters of magnetic field are added
+          to the atoms with the provided indices (based on the order in
+          :py:attr:`.SpinHamiltonian.atoms`)
         """
         # Constants
         MU_0_MU_B = (
@@ -1106,11 +1118,14 @@ class SpinHamiltonian:
         # interest
         tmp_parameters = []
 
-        for alpha in range(len(self.atoms.names)):
+        if alphas is None:
+            alphas = self.map_to_all()
+
+        for alpha in alphas:
             for k in range(-m_3_max, m_3_max + 1):
                 for j in range(-m_2_max, m_2_max + 1):
                     for i in range(-m_1_max, m_1_max + 1):
-                        for beta in range(len(self.atoms.names)):
+                        for beta in alphas:
                             if k == 0 and j == 0 and i == 0 and alpha == beta:
                                 continue
 

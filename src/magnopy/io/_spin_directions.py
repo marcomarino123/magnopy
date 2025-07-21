@@ -225,6 +225,9 @@ def plot_spin_directions(
     tmp = np.linalg.norm(tmp, axis=2)
     norm_length = (tmp + np.eye(tmp.shape[0]) * tmp.max()).min()
 
+    if norm_length == 0:
+        norm_length = 1
+
     sd = sd / np.linalg.norm(sd, axis=1)[:, np.newaxis] * norm_length
 
     # Separate highlighted spins (pos2 and sd2)

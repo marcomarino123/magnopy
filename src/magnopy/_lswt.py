@@ -755,8 +755,8 @@ class LSWT:
 
         B = self.B(k=k, relative=relative)
 
-        left = np.concatenate((A, B), axis=0)
-        right = np.concatenate((np.conjugate(B).T, np.conjugate(A_m)), axis=0)
+        left = np.concatenate((A, np.conjugate(B).T), axis=0)
+        right = np.concatenate((B, np.conjugate(A_m)), axis=0)
         gdm = np.concatenate((left, right), axis=1)
 
         return gdm
@@ -831,19 +831,21 @@ class LSWT:
         GDM_minus = self.GDM(k_minus, relative=relative)
 
         try:
-            E_plus, G_plus = solve_via_colpa(GDM_plus)
-            E_minus, G_minus = solve_via_colpa(GDM_minus)
+            E_plus, G_plus = solve_via_colpa(GDM_plus, sort_by_first_N=True)
+            E_minus, G_minus = solve_via_colpa(GDM_minus, sort_by_first_N=False)
         except ColpaFailed:
             try:
-                E_plus, G_plus = solve_via_colpa(-GDM_plus)
-                E_minus, G_minus = solve_via_colpa(-GDM_minus)
+                E_plus, G_plus = solve_via_colpa(-GDM_plus, sort_by_first_N=True)
+                E_minus, G_minus = solve_via_colpa(-GDM_minus, sort_by_first_N=False)
             except ColpaFailed:
                 try:
                     E_plus, G_plus = solve_via_colpa(
-                        GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float)
+                        GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float),
+                        sort_by_first_N=True,
                     )
                     E_minus, G_minus = solve_via_colpa(
-                        GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float)
+                        GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float),
+                        sort_by_first_N=False,
                     )
                 except ColpaFailed:
                     return (
@@ -851,6 +853,56 @@ class LSWT:
                         np.nan,
                         [[np.nan for _ in range(2 * self.M)] for _ in range(self.M)],
                     )
+
+        import os
+
+        tmp_N = 8
+        with open(
+            os.path.join(f"lswt/TM/{k[0]:.4f}_{k[1]:.4f}_{k[2]:.4f}.txt"), "w"
+        ) as f:
+            f.write("-" * 80 + "\n")
+            for i in range(tmp_N):
+                if i == tmp_N / 2:
+                    f.write("\n")
+                for j in range(tmp_N):
+                    if j == tmp_N / 2:
+                        f.write("  ")
+                    f.write(f"{G_plus[i,j].real:>11.8f} {G_plus[i,j].imag:>11.8f}   ")
+                f.write("\n")
+            f.write("-" * 80 + "\n")
+            for i in range(tmp_N):
+                if i == tmp_N / 2:
+                    f.write("\n")
+                for j in range(tmp_N):
+                    if j == tmp_N / 2:
+                        f.write("  ")
+                    f.write(f"{G_minus[i,j].real:>11.8f} {G_minus[i,j].imag:>11.8f}   ")
+                f.write("\n")
+            f.write("-" * 80 + "\n")
+
+            f.write("-" * 80 + "\n")
+            for i in range(tmp_N):
+                if i == tmp_N / 2:
+                    f.write("\n")
+                for j in range(tmp_N):
+                    if j == tmp_N / 2:
+                        f.write("  ")
+                    f.write(
+                        f"{GDM_plus[i,j].real:>11.8f} {GDM_plus[i,j].imag:>11.8f}   "
+                    )
+                f.write("\n")
+            f.write("-" * 80 + "\n")
+            for i in range(tmp_N):
+                if i == tmp_N / 2:
+                    f.write("\n")
+                for j in range(tmp_N):
+                    if j == tmp_N / 2:
+                        f.write("  ")
+                    f.write(
+                        f"{GDM_minus[i,j].real:>11.8f} {GDM_minus[i,j].imag:>11.8f}   "
+                    )
+                f.write("\n")
+            f.write("-" * 80 + "\n")
 
         return (
             E_plus[: self.M] + E_minus[self.M :],
@@ -937,16 +989,16 @@ class LSWT:
         """
         return self.diagonalize(k=k, relative=relative)[1]
 
-    def G_inv(self, k, relative=False):
+    def G(self, k, relative=False):
         r"""
-        Inverse of the transformation matrix to the new bosonic operators.
+        Transformation matrix to the new bosonic operators.
 
         .. math::
 
             b_{\alpha}(\boldsymbol{k})
             =
             \sum_{\beta}
-            (\mathcal{G}^{-1})_{\alpha, \beta}(\boldsymbol{k})
+            (\mathcal{G})_{\alpha, \beta}(\boldsymbol{k})
             \mathcal{A}_{\beta}(\boldsymbol{k})
 
         Parameters
@@ -960,9 +1012,8 @@ class LSWT:
 
         Returns
         -------
-        G_inv : (M, 2M) :numpy:`ndarray`
+        G : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
-            Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
 
         See Also
         --------
@@ -978,7 +1029,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.G_inv(k=[0,0,0.5], relative=True)
+            >>> lswt.G(k=[0,0,0.5], relative=True)
             array([[1.+0.j, 0.+0.j]])
         """
         return self.diagonalize(k=k, relative=relative)[2]
@@ -989,3 +1040,22 @@ __all__ = list(set(dir()) - old_dir)
 # Remove all semi-private objects
 __all__ = [i for i in __all__ if not i.startswith("_")]
 del old_dir
+
+
+if __name__ == "__main__":
+    import magnopy
+
+    spinham = magnopy.io.load_grogu(
+        "/Users/rybakov.ad/Codes/magnopy/tmp-09.06.25/Ni-U4/converted_NiPS3.txt"
+    )
+    sd = np.loadtxt(
+        "/Users/rybakov.ad/Codes/magnopy/tmp-09.06.25/Ni-U4/optimize/SPIN_DIRECTIONS.txt"
+    )
+    lswt = LSWT(spinham, sd)
+    k = np.array([0, 0, 0], dtype=float)
+
+    D = lswt.GDM(k)
+
+    E, G = magnopy.solve_via_colpa(D)
+
+    print(np.linalg.inv(np.conjugate(G).T) @ D @ np.linalg.inv(G) == E)

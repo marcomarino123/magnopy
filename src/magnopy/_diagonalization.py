@@ -75,7 +75,7 @@ def _inverse_by_colpa(matrix):
     return matrix
 
 
-def solve_via_colpa(D):
+def solve_via_colpa(D, sort_by_first_N=True):
     r"""
     Diagonalize grand-dynamical matrix following the method of Colpa (section 3, remark
     1 of [1]_).
@@ -223,9 +223,49 @@ def solve_via_colpa(D):
                [0.        +0.41330424j, 1.08204454+0.j        ]])
     """
 
+    def print_matrix(matrix, name):
+        print(f"{f' {name} ':=^184}")
+
+        for i in range(matrix.shape[0]):
+            if i == matrix.shape[0] / 2:
+                print()
+            for j in range(matrix.shape[1]):
+                if j == matrix.shape[1] / 2:
+                    print("  ", end="")
+                print(
+                    f"{matrix[i][j].real:>10.6f} {matrix[i][j].imag:>10.6f}  ", end=""
+                )
+            print()
+
+        print("=" * 184)
+
+    def print_matrix_simple(matrix, name):
+        print(f"{f' {name} ':=^184}")
+
+        for i in range(matrix.shape[0]):
+            for j in range(matrix.shape[1]):
+                print(
+                    f"{matrix[i][j].real:>10.6f} {matrix[i][j].imag:>10.6f}  ", end=""
+                )
+            print()
+
+        print("=" * 184)
+
+    def print_array(matrix, name):
+        print(f"{f' {name} ':=^184}")
+
+        for i in range(matrix.shape[0]):
+            print(f"{matrix[i].real:>10.6f} {matrix[i].imag:>10.6f}  ", end="")
+
+        print("\n" + "=" * 184)
+
     D, N = _check_grand_dynamical_matrix(D)
 
+    print_matrix(D, "D")
+
     g = np.diag(np.concatenate((np.ones(N), -np.ones(N))))
+
+    print_matrix(g, "g")
 
     try:
         # In Colpa article decomposition is K^{\dag}K, while numpy gives KK^{\dag}
@@ -233,7 +273,17 @@ def solve_via_colpa(D):
     except LinAlgError:
         raise ColpaFailed
 
+    print_matrix(K, "K")
+
+    print("K^dagger @ K == D: ", np.allclose(np.conjugate(K).T @ K, D))
+
     L, U = np.linalg.eig(K @ g @ np.conjugate(K).T)
+
+    print_matrix(K @ g @ np.conjugate(K).T, "KgK^")
+
+    print_matrix(U, "U")
+    print_array(L, "L")
+    print_matrix(np.conjugate(U).T @ (K @ g @ np.conjugate(K).T) @ U, "U^(KgK^)U)")
 
     # Sort with respect to L, in descending order
     U = np.concatenate((L[:, None], U.T), axis=1).T
@@ -241,16 +291,42 @@ def solve_via_colpa(D):
     U = U[:, np.argsort(U[0])]
     L = U[0, ::-1]
     U = U[1:, ::-1]
+
+    print("After sorting")
+
+    print_matrix(U, "U")
+    print_array(L, "L")
+    print_matrix(np.conjugate(U).T @ (K @ g @ np.conjugate(K).T) @ U, "U^(KgK^)U)")
+
     E = g @ L
 
+    print_array(E, "E")
+
     G_inv = np.linalg.inv(K) @ U @ np.sqrt(np.diag(E))
+
+    print_matrix(np.linalg.inv(K), "K inv")
+    print_matrix(np.linalg.inv(K) @ U, "G_inv (part)")
+    print_matrix(G_inv, "G_inv")
+
     G = _inverse_by_colpa(G_inv)
+
+    print_matrix(G, "G")
+
+    print("G @ G_inv = I: ", np.allclose(G @ G_inv, np.eye(2 * N)))
 
     # Sort first N and second N individually based on the transformation matrix
     tmp = np.concatenate((E[:, np.newaxis], G), axis=1)
 
     def compare(array1, array2):
-        difference = np.round(array1 - array2, decimals=15)
+        if sort_by_first_N:
+            difference = np.round(
+                array1[1 : N + 1].real - array2[1 : N + 1].real, decimals=15
+            )
+        else:
+            difference = np.round(
+                array1[N + 1 :].real - array2[N + 1 :].real, decimals=15
+            )
+
         if np.allclose(difference, np.zeros(difference.shape)):
             return 0.0
 
@@ -270,3 +346,21 @@ __all__ = list(set(dir()) - old_dir)
 # Remove all semi-private objects
 __all__ = [i for i in __all__ if not i.startswith("_")]
 del old_dir
+
+if __name__ == "__main__":
+    import magnopy
+
+    spinham = magnopy.io.load_grogu(
+        "/Users/rybakov.ad/Codes/magnopy/tmp-09.06.25/Ni-U4/converted_NiPS3.txt"
+    )
+    sd = np.loadtxt(
+        "/Users/rybakov.ad/Codes/magnopy/tmp-09.06.25/Ni-U4/optimize/SPIN_DIRECTIONS.txt"
+    )
+    lswt = magnopy.LSWT(spinham, sd)
+    k = np.array([0, 0, 0], dtype=float)
+
+    D = lswt.GDM(k)
+
+    E, G = solve_via_colpa(D)
+
+    print()

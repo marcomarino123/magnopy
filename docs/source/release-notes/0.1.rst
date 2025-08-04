@@ -25,6 +25,7 @@ First release of magnopy.
 *   Change interface of the optimization functions.
 *   Improve output of the optimization's progress.
 *   Add an option to hide absolute paths to cli scripts
+*   Fix a bug in the plot of spin directions.
 
 0.1.9
 -----

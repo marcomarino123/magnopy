@@ -32,6 +32,22 @@ from magnopy._parallelization import multiprocess_over_k
 from magnopy.io._k_resolved import output_k_resolved, plot_k_resolved
 from magnopy.io._spin_directions import plot_spin_directions
 
+try:
+    import plotly.graph_objects as go  # noqa F401
+
+    PLOTLY_AVAILABLE = True
+    PLOTLY_ERROR_MESSAGE = (
+        "If you see this message, please contact developers of the code."
+    )
+except ImportError:
+    PLOTLY_AVAILABLE = False
+    PLOTLY_ERROR_MESSAGE = (
+        "\nCannot produce an .html picture with spin directions. In order to use spin "
+        "directions\nplotter an installation of Plotly is required, please try to "
+        "install it with the command\n\n  pip install plotly\n\nor\n\n  pip3 install "
+        "plotly"
+    )
+
 # Save local scope at this moment
 old_dir = set(dir())
 old_dir.add("old_dir")
@@ -47,8 +63,9 @@ def solve_lswt(
     output_folder="magnopy-results",
     number_processors=None,
     comment=None,
-    make_sd_image=None,
+    no_html=False,
     hide_personal_data=False,
+    spglib_symprec=1e-5,
 ) -> None:
     r"""
     Solves the spin Hamiltonian at the level of Linear Spin Wave theory.
@@ -84,12 +101,16 @@ def solve_lswt(
         available processes. Use ``number_processors=1`` to run in serial mode.
     comment : str, optional
         Any comment to output right after the logo.
-    make_sd_image : (3, ) tuple of int
-        Whether to produce an html file that displays the spin directions. Three numbers
-        are the repetitions of the unit cell along the three lattice vectors.
+    no_html : bool, default False
+        Whether to produce a series with html files with visual representation of
+        spin directions or high symmetry points and k-path. The latter is only plotted
+        when ``kpoints`` is not used.
     hide_personal_data : bool, default False
         Whether to use ``os.path.abspath()`` when printing the paths to the output and
         input files.
+    spglib_symprec : float, default 1e-5
+        Tolerance parameter for the space group symmetry search by |spglib|_. Reduce it
+        if the space group is not what you expect.
 
     Notes
     -----
@@ -123,8 +144,8 @@ def solve_lswt(
     all_good = True
 
     print(logo(date_time=True))
-    print(f"\n{' Comment ':=^90}\n")
     if comment is not None:
+        print(f"\n{' Comment ':=^90}\n")
         print(comment)
 
     if magnetic_field is not None:
@@ -177,13 +198,24 @@ def solve_lswt(
         kp = None
         flat_indices = None
     else:
-        kp = wulfric.Kpoints.from_cell(cell=spinham.cell)
+        spglib_data = wulfric.get_spglib_data(
+            cell=spinham.cell, atoms=spinham.atoms, spglib_symprec=spglib_symprec
+        )
+        print(f"Space group {spglib_data.space_group_number} detected.")
+        print(
+            f"Bravais lattice is {spglib_data.crystal_family + spglib_data.centring_type}."
+        )
+        kp = wulfric.Kpoints.from_crystal(
+            cell=spinham.cell,
+            atoms=spinham.atoms,
+            convention="HPKOT",
+            spglib_data=spglib_data,
+        )
         # Set custom k path
         if k_path is not None:
             kp.path = k_path
-        print(f"\n{wulfric.cell.get_variation(spinham.cell)} crystal detected.")
         kpoints = kp.points(relative=False)
-        flat_indices = kp.flatten_points(relative=False)
+        flat_indices = kp.flat_points(relative=False)
 
         print("\nList of high symmetry k points")
 
@@ -214,6 +246,34 @@ def solve_lswt(
                 ]
             )
         )
+
+        if not no_html:
+            filename = os.path.join(output_folder, "K-POINTS.html")
+            pe = wulfric.PlotlyEngine()
+
+            prim_cell, _ = wulfric.crystal.get_primitive(
+                cell=spinham.cell,
+                atoms=spinham.atoms,
+                convention="SC",
+                spglib_data=spglib_data,
+            )
+            pe.plot_brillouin_zone(
+                cell=prim_cell,
+                color="red",
+                legend_label="Brillouin zone of the primitive cell",
+            )
+            pe.plot_brillouin_zone(
+                cell=spinham.cell,
+                color="chocolate",
+                legend_label="Brillouin zone of the spinham.cell",
+            )
+            pe.plot_kpath(kp=kp)
+            pe.plot_kpoints(kp=kp, only_from_kpath=True)
+
+            pe.save(output_name=filename)
+            print(
+                f"\nHigh-symmetry points and chosen k-path are plotted in\n  {envelope_path(filename)}"
+            )
 
     lswt = LSWT(spinham=spinham, spin_directions=spin_directions)
 
@@ -330,21 +390,24 @@ def solve_lswt(
     )
     print(f"Plot is saved in file\n  {envelope_path(filename)}")
 
-    if make_sd_image is not None:
-        positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
-        filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
+    if not no_html:
+        if PLOTLY_AVAILABLE:
+            positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
+            filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
 
-        plot_spin_directions(
-            output_name=filename,
-            positions=positions,
-            spin_directions=spin_directions,
-            unit_cell=spinham.cell,
-            repeat=make_sd_image,
-        )
+            plot_spin_directions(
+                output_name=filename,
+                positions=positions,
+                spin_directions=spin_directions,
+                cell=spinham.cell,
+                _full_plotly=True,
+            )
 
-        print(
-            f"\nImage of used spin directions is saved in file\n  {envelope_path(filename)}.html"
-        )
+            print(
+                f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}.html"
+            )
+        else:
+            print(PLOTLY_ERROR_MESSAGE)
 
     if all_good:
         print(f"\n{' Finished OK ':=^90}")

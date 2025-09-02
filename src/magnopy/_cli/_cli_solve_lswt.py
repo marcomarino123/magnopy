@@ -112,8 +112,9 @@ def manager():
         output_folder=args.output_folder,
         number_processors=args.number_processors,
         comment=comment,
-        make_sd_image=args.make_sd_image,
+        no_html=args.no_html,
         hide_personal_data=args.hide_personal_data,
+        spglib_symprec=args.spglib_symprec,
     )
 
 
@@ -224,15 +225,12 @@ def get_parser():
         "default. Pass 1 to run in serial.",
     )
     parser.add_argument(
-        "-msdi",
-        "--make-sd-image",
-        nargs=3,
-        type=int,
-        default=None,
-        metavar="xa_1 xa_2 xa_3",
-        help="Plots optimized spin directions and saves it in .html file, that can be "
-        "viewed within any modern browser. Expects three integers as an input - the "
-        "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",
+        "-no-html",
+        "--no-html",
+        action="store_true",
+        default=False,
+        help="html files are generally heavy (~> 5 Mb). This option allows to disable "
+        "their production to save disk space.",
     )
     parser.add_argument(
         "-hpd",
@@ -241,6 +239,13 @@ def get_parser():
         default=False,
         help="Whether to strip the parts of the paths as to hide the file structure of "
         "you personal computer.",
+    )
+    parser.add_argument(
+        "-spg-s",
+        "--spglib-symprec",
+        type=float,
+        default=1e-5,
+        help="Tolerance parameter for the space group symmetry search by spglib.",
     )
 
     return parser

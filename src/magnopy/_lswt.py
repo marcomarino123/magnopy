@@ -857,62 +857,17 @@ class LSWT:
                         [[np.nan for _ in range(2 * self.M)] for _ in range(self.M)],
                     )
 
-        import os
+        # Sort by energy values
 
-        tmp_N = 8
-        with open(
-            os.path.join(f"lswt/TM/{k[0]:.4f}_{k[1]:.4f}_{k[2]:.4f}.txt"), "w"
-        ) as f:
-            f.write("-" * 80 + "\n")
-            for i in range(tmp_N):
-                if i == tmp_N / 2:
-                    f.write("\n")
-                for j in range(tmp_N):
-                    if j == tmp_N / 2:
-                        f.write("  ")
-                    f.write(f"{G_plus[i, j].real:>11.8f} {G_plus[i, j].imag:>11.8f}   ")
-                f.write("\n")
-            f.write("-" * 80 + "\n")
-            for i in range(tmp_N):
-                if i == tmp_N / 2:
-                    f.write("\n")
-                for j in range(tmp_N):
-                    if j == tmp_N / 2:
-                        f.write("  ")
-                    f.write(
-                        f"{G_minus[i, j].real:>11.8f} {G_minus[i, j].imag:>11.8f}   "
-                    )
-                f.write("\n")
-            f.write("-" * 80 + "\n")
+        energies = E_plus[: self.M] + E_minus[self.M :]
+        transformation_matrices = G_plus[: self.M]
 
-            f.write("-" * 80 + "\n")
-            for i in range(tmp_N):
-                if i == tmp_N / 2:
-                    f.write("\n")
-                for j in range(tmp_N):
-                    if j == tmp_N / 2:
-                        f.write("  ")
-                    f.write(
-                        f"{GDM_plus[i, j].real:>11.8f} {GDM_plus[i, j].imag:>11.8f}   "
-                    )
-                f.write("\n")
-            f.write("-" * 80 + "\n")
-            for i in range(tmp_N):
-                if i == tmp_N / 2:
-                    f.write("\n")
-                for j in range(tmp_N):
-                    if j == tmp_N / 2:
-                        f.write("  ")
-                    f.write(
-                        f"{GDM_minus[i, j].real:>11.8f} {GDM_minus[i, j].imag:>11.8f}   "
-                    )
-                f.write("\n")
-            f.write("-" * 80 + "\n")
+        sorting_indices = np.argsort(energies)
 
         return (
-            E_plus[: self.M] + E_minus[self.M :],
+            energies[sorting_indices],
             complex(0.5 * (np.sum(E_plus[self.M :]) - np.sum(E_plus[: self.M]))),
-            G_plus[: self.M],
+            transformation_matrices[sorting_indices],
         )
 
     def omega(self, k, relative=False):

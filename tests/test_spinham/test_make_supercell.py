@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -61,7 +64,7 @@ def test_cell(cell, i, j, k):
 )
 def test_atoms(i, j, k, N):
     atoms = dict(
-        names=[f"Cr{alpha+1}" for alpha in range(N)],
+        names=[f"Cr{alpha + 1}" for alpha in range(N)],
         spins=[(1 + alpha) / 2 for alpha in range(N)],
         positions=[[alpha / N, 0, 0] for alpha in range(N)],
         g_factors=[alpha + 1 for alpha in range(N)],
@@ -82,7 +85,7 @@ def test_atoms(i, j, k, N):
                 for alpha in range(N):
                     assert (
                         new_spinham.atoms.names[alpha + N * (ii + jj * i + kk * j * i)]
-                        == f"Cr{alpha+1}_{ii}_{jj}_{kk}"
+                        == f"Cr{alpha + 1}_{ii}_{jj}_{kk}"
                     )
 
                     assert (

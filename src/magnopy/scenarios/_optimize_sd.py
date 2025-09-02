@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
@@ -27,7 +30,7 @@ from magnopy._spinham._supercell import make_supercell
 from magnopy.io._spin_directions import plot_spin_directions
 
 try:
-    import plotly.graph_objects as go
+    import plotly.graph_objects as go  # noqa F401
 
     PLOTLY_AVAILABLE = True
     PLOTLY_ERROR_MESSAGE = (
@@ -110,8 +113,6 @@ def optimize_sd(
     if supercell[0] < 1 or supercell[1] < 1 or supercell[2] < 1:
         raise ValueError(f"Supercell repetitions must be >=1, got {supercell}.")
 
-    all_good = True
-
     print(logo(date_time=True))
     print(f"\n{' Comment ':=^90}\n")
     if comment is not None:
@@ -132,7 +133,7 @@ def optimize_sd(
             f"Minimizing on the supercell of {supercell[0]} x {supercell[1]} x {supercell[2]} unit cells."
         )
     else:
-        print(f"Minimizing on the original unit cell of the Hamiltonian.")
+        print("Minimizing on the original unit cell of the Hamiltonian.")
 
     energy = Energy(spinham=spinham)
 
@@ -158,10 +159,10 @@ def optimize_sd(
         torque_tolerance=torque_tolerance,
         quiet=False,
     )
-    print(f"Optimization is done.")
+    print("Optimization is done.")
 
     E_0 = energy.E_0(spin_directions=spin_directions)
-    print(f"\nClassic ground state energy (E_0) : " f"{E_0:>15.6f} meV")
+    print(f"\nClassic ground state energy (E_0) : {E_0:>15.6f} meV")
 
     # Create the output directory if it does not exist
     os.makedirs(output_folder, exist_ok=True)
@@ -181,7 +182,7 @@ def optimize_sd(
     with open(filename, "w") as f:
         for i in range(spinham.M):
             tmp = spinham.magnetic_atoms.positions[i] @ spinham.cell
-            f.write(f"{tmp[0]:12.8f} " f"{tmp[1]:12.8f} " f"{tmp[2]:12.8f}\n")
+            f.write(f"{tmp[0]:12.8f} {tmp[1]:12.8f} {tmp[2]:12.8f}\n")
 
     print(f"\nSpin positions are saved in file\n  {envelope_path(filename)}")
 

@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -198,7 +201,7 @@ def test_convention_manipulation():
 def get_empty():
     cell = 4.2 * np.eye(3)
     atoms = dict(
-        names=[f"Cr{i+1}" for i in range(9)],
+        names=[f"Cr{i + 1}" for i in range(9)],
         g_factors=[2 for _ in range(9)],
         positions=[[i, i / 2, 0] for i in range(9)],
         spins=[3 / 2 for _ in range(9)],

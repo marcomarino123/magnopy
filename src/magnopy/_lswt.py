@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -447,7 +450,7 @@ class LSWT:
         return float(0.5 * np.sum(self._J1 * self.z))
 
     @property
-    def O(self):
+    def O(self):  # noqa E743
         r"""
         Coefficient before the one-operator terms.
 
@@ -820,7 +823,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.diagonalize(k=[0,0,0.5], relative=True)
+            >>> lswt.diagonalize(k=[0, 0, 0.5], relative=True)
             (array([2.+0.j]), 0j, array([[1.+0.j, 0.+0.j]]))
         """
 
@@ -867,7 +870,7 @@ class LSWT:
                 for j in range(tmp_N):
                     if j == tmp_N / 2:
                         f.write("  ")
-                    f.write(f"{G_plus[i,j].real:>11.8f} {G_plus[i,j].imag:>11.8f}   ")
+                    f.write(f"{G_plus[i, j].real:>11.8f} {G_plus[i, j].imag:>11.8f}   ")
                 f.write("\n")
             f.write("-" * 80 + "\n")
             for i in range(tmp_N):
@@ -876,7 +879,9 @@ class LSWT:
                 for j in range(tmp_N):
                     if j == tmp_N / 2:
                         f.write("  ")
-                    f.write(f"{G_minus[i,j].real:>11.8f} {G_minus[i,j].imag:>11.8f}   ")
+                    f.write(
+                        f"{G_minus[i, j].real:>11.8f} {G_minus[i, j].imag:>11.8f}   "
+                    )
                 f.write("\n")
             f.write("-" * 80 + "\n")
 
@@ -888,7 +893,7 @@ class LSWT:
                     if j == tmp_N / 2:
                         f.write("  ")
                     f.write(
-                        f"{GDM_plus[i,j].real:>11.8f} {GDM_plus[i,j].imag:>11.8f}   "
+                        f"{GDM_plus[i, j].real:>11.8f} {GDM_plus[i, j].imag:>11.8f}   "
                     )
                 f.write("\n")
             f.write("-" * 80 + "\n")
@@ -899,7 +904,7 @@ class LSWT:
                     if j == tmp_N / 2:
                         f.write("  ")
                     f.write(
-                        f"{GDM_minus[i,j].real:>11.8f} {GDM_minus[i,j].imag:>11.8f}   "
+                        f"{GDM_minus[i, j].real:>11.8f} {GDM_minus[i, j].imag:>11.8f}   "
                     )
                 f.write("\n")
             f.write("-" * 80 + "\n")
@@ -941,7 +946,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.omega(k=[0,0,0.5], relative=True)
+            >>> lswt.omega(k=[0, 0, 0.5], relative=True)
             array([2.+0.j])
         """
 
@@ -984,7 +989,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.delta(k=[0,0,0.5], relative=True)
+            >>> lswt.delta(k=[0, 0, 0.5], relative=True)
             0j
         """
         return self.diagonalize(k=k, relative=relative)[1]
@@ -1029,7 +1034,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.G(k=[0,0,0.5], relative=True)
+            >>> lswt.G(k=[0, 0, 0.5], relative=True)
             array([[1.+0.j, 0.+0.j]])
         """
         return self.diagonalize(k=k, relative=relative)[2]

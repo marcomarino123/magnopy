@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
@@ -23,7 +26,6 @@ import sys
 from argparse import ArgumentParser
 from calendar import month_name
 from datetime import datetime
-from random import randint
 
 import git
 from termcolor import colored
@@ -149,7 +151,7 @@ def check_release_notes(version: str, root_dir: str):
                 "Please add the file\n\n",
                 f"    {major}.{minor}.rst\n\n",
                 "to the directory\n\n",
-                f"    docs/source/release-notes/\n",
+                "    docs/source/release-notes/\n",
             ]
         )
 
@@ -161,7 +163,7 @@ def check_release_notes(version: str, root_dir: str):
     for line in index_file:
         untouched_line = line
         line = line.translate(str.maketrans("", "", " \n"))
-        if re.fullmatch(f":maxdepth:1", line):
+        if re.fullmatch(":maxdepth:1", line):
             lines.append(untouched_line + "\n")
             skip_empty = True
             lines.extend([f"  {major}.{i}\n" for i in range(minor, 0, -1)])
@@ -194,10 +196,10 @@ def check_release_notes(version: str, root_dir: str):
                         f"\n'Whats new?' section for the {major}.{minor}.{rest} version is not available\n",
                         "red",
                     ),
-                    f"Please add it to the file\n\n",
+                    "Please add it to the file\n\n",
                     f"    docs/source/release-notes/{major}.{minor}.rst\n\n",
                     "Follow the style:\n\n",
-                    f"    Whats new?\n",
+                    "    Whats new?\n",
                     f"    {'':-^10}\n",
                     "    Text\n",
                 ]

@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 from typing import Iterable
@@ -86,7 +89,9 @@ def output_k_resolved(
         >>> omegas = [[1, 2], [1.2, 2.3]]
         >>> headers = ["mode 1", "mode 2"]
         >>> kpoints = [[0, 0, 0], [0.1, 0.2, 0.3]]
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints)
+        >>> lines = mio.output_k_resolved(
+        ...     data=omegas, data_headers=headers, kpoints=kpoints
+        ... )
         >>> print("\n".join(lines))
         #   flat index         mode 1         mode 2          k_x          k_y          k_z
             0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000
@@ -97,7 +102,9 @@ def output_k_resolved(
 
     .. doctest::
 
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, relative=True)
+        >>> lines = mio.output_k_resolved(
+        ...     data=omegas, data_headers=headers, kpoints=kpoints, relative=True
+        ... )
         >>> print("\n".join(lines))
         #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3
             0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000
@@ -108,12 +115,24 @@ def output_k_resolved(
 
     .. doctest::
 
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, relative=True, rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]])
+        >>> lines = mio.output_k_resolved(
+        ...     data=omegas,
+        ...     data_headers=headers,
+        ...     kpoints=kpoints,
+        ...     relative=True,
+        ...     rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]],
+        ... )
         >>> print("\n".join(lines))
         #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3          k_x          k_y          k_z
             0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000
             0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000   0.10000000   0.40000000   0.90000000
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, relative=False, rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]])
+        >>> lines = mio.output_k_resolved(
+        ...     data=omegas,
+        ...     data_headers=headers,
+        ...     kpoints=kpoints,
+        ...     relative=False,
+        ...     rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]],
+        ... )
         >>> print("\n".join(lines))
         #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3          k_x          k_y          k_z
             0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000
@@ -123,7 +142,9 @@ def output_k_resolved(
 
     .. doctest::
 
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, digits=6)
+        >>> lines = mio.output_k_resolved(
+        ...     data=omegas, data_headers=headers, kpoints=kpoints, digits=6
+        ... )
         >>> print("\n".join(lines))
         #   flat index           mode 1           mode 2          k_x          k_y          k_z
             0.00000000     1.000000e+00     2.000000e+00   0.00000000   0.00000000   0.00000000
@@ -133,7 +154,12 @@ def output_k_resolved(
 
     .. doctest::
 
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, scientific_notation=False)
+        >>> lines = mio.output_k_resolved(
+        ...     data=omegas,
+        ...     data_headers=headers,
+        ...     kpoints=kpoints,
+        ...     scientific_notation=False,
+        ... )
         >>> print("\n".join(lines))
         #   flat index    mode 1    mode 2          k_x          k_y          k_z
             0.00000000    1.0000    2.0000   0.00000000   0.00000000   0.00000000
@@ -195,7 +221,7 @@ def output_k_resolved(
                 line.append(f"{0.0:{kp_fmt}}")
             else:
                 line.append(
-                    f"{np.linalg.norm(np.array(kpoints[i], dtype=float) - kpoints[i-1]):{kp_fmt}}"
+                    f"{np.linalg.norm(np.array(kpoints[i], dtype=float) - kpoints[i - 1]):{kp_fmt}}"
                 )
 
         if isinstance(data[i], Iterable):

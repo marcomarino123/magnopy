@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 from copy import deepcopy
@@ -187,7 +190,9 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
             >>> spinham.cell = 2 * np.eye(3)
             Traceback (most recent call last):
             ...
@@ -203,7 +208,9 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
             >>> spinham.cell
             array([[1., 0., 0.],
                    [0., 1., 0.],
@@ -224,7 +231,7 @@ class SpinHamiltonian:
     @cell.setter
     def cell(self, new_value):
         raise AttributeError(
-            f"Change of the cell attribute is not supported after "
+            "Change of the cell attribute is not supported after "
             "the creation of SpinHamiltonian instance. If you need to modify cell, "
             "then use pre-defined methods of SpinHamiltonian or create a new one."
         )
@@ -250,8 +257,10 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
-            >>> spinham.atoms = {"names" : ["Cr"]}
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
+            >>> spinham.atoms = {"names": ["Cr"]}
             Traceback (most recent call last):
             ...
             AttributeError: Change of the atoms dictionary is not supported after the creation of SpinHamiltonian instance. If you need to modify atoms, then use pre-defined methods of SpinHamiltonian or create a new one.
@@ -266,10 +275,12 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
             >>> spinham.atoms
             {}
-            >>> spinham._atoms = {"names" : ["Cr"]}
+            >>> spinham._atoms = {"names": ["Cr"]}
             >>> spinham.atoms
             {'names': ['Cr']}
 
@@ -282,7 +293,7 @@ class SpinHamiltonian:
     @atoms.setter
     def atoms(self, new_value):
         raise AttributeError(
-            f"Change of the atoms dictionary is not supported after "
+            "Change of the atoms dictionary is not supported after "
             "the creation of SpinHamiltonian instance. If you need to modify atoms, "
             "then use pre-defined methods of SpinHamiltonian or create a new one."
         )

@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
@@ -170,7 +173,7 @@ def dump_vampire_mat(
     else:
         text = [logo(comment=True, date_time=True)]
 
-    text.append(f"material:num-materials = {max(materials)+1}")
+    text.append(f"material:num-materials = {max(materials) + 1}")
 
     for i in range(spinham.M):
         if materials[i] not in materials[:i]:
@@ -185,7 +188,7 @@ def dump_vampire_mat(
                 f"material[{m_i}]:material-element = {get_atom_species(spinham.magnetic_atoms.names[i])}"
             )
             text.append(
-                f"material[{m_i}]:atomic-spin-moment={spinham.magnetic_atoms.spins[i]*spinham.magnetic_atoms.g_factors[i]} ! muB"
+                f"material[{m_i}]:atomic-spin-moment={spinham.magnetic_atoms.spins[i] * spinham.magnetic_atoms.g_factors[i]} ! muB"
             )
             text.append(f"material[{m_i}]:initial-spin-direction = random")
             text.append(f"material[{m_i}]:damping-constant = 0.1")
@@ -281,7 +284,7 @@ def dump_vampire_ucf(
     text.append(f"{len(spinham.p22)} tensorial")
 
     IID = 0
-    fmt = f"{7+decimals}.{decimals}e"
+    fmt = f"{7 + decimals}.{decimals}e"
 
     # Write (two spins & one site)
     for alpha, J in spinham.p21:

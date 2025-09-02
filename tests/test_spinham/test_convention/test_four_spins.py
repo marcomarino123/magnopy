@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import pytest
@@ -68,8 +71,8 @@ def test_get_modified_c41():
 
     mod_convention = convention.get_modified(c41=2)
 
-    assert mod_convention.spin_normalized == True
-    assert mod_convention.multiple_counting == True
+    assert mod_convention.spin_normalized
+    assert mod_convention.multiple_counting
     assert mod_convention.c1 == 1
     assert mod_convention.c21 == 1
     assert mod_convention.c22 == 1
@@ -127,8 +130,8 @@ def test_get_modified_c421():
 
     mod_convention = convention.get_modified(c421=2)
 
-    assert mod_convention.spin_normalized == True
-    assert mod_convention.multiple_counting == True
+    assert mod_convention.spin_normalized
+    assert mod_convention.multiple_counting
     assert mod_convention.c1 == 1
     assert mod_convention.c21 == 1
     assert mod_convention.c22 == 1
@@ -186,8 +189,8 @@ def test_get_modified_c422():
 
     mod_convention = convention.get_modified(c422=2)
 
-    assert mod_convention.spin_normalized == True
-    assert mod_convention.multiple_counting == True
+    assert mod_convention.spin_normalized
+    assert mod_convention.multiple_counting
     assert mod_convention.c1 == 1
     assert mod_convention.c21 == 1
     assert mod_convention.c22 == 1
@@ -245,8 +248,8 @@ def test_get_modified_c43():
 
     mod_convention = convention.get_modified(c43=2)
 
-    assert mod_convention.spin_normalized == True
-    assert mod_convention.multiple_counting == True
+    assert mod_convention.spin_normalized
+    assert mod_convention.multiple_counting
     assert mod_convention.c1 == 1
     assert mod_convention.c21 == 1
     assert mod_convention.c22 == 1
@@ -304,8 +307,8 @@ def test_get_modified_c44():
 
     mod_convention = convention.get_modified(c44=2)
 
-    assert mod_convention.spin_normalized == True
-    assert mod_convention.multiple_counting == True
+    assert mod_convention.spin_normalized
+    assert mod_convention.multiple_counting
     assert mod_convention.c1 == 1
     assert mod_convention.c21 == 1
     assert mod_convention.c22 == 1

@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -98,7 +101,7 @@ def span_local_rf(direction_vector, hybridize=False):
         array([-0.21132487,  0.78867513, -0.57735027])
         >>> z
         array([0.57735027, 0.57735027, 0.57735027])
-        >>> p,z = magnopy.span_local_rf([1, 1, 1], hybridize=True)
+        >>> p, z = magnopy.span_local_rf([1, 1, 1], hybridize=True)
         >>> p
         array([ 0.78867513-0.21132487j, -0.21132487+0.78867513j,
                -0.57735027-0.57735027j])
@@ -117,11 +120,9 @@ def span_local_rf(direction_vector, hybridize=False):
     if np.allclose(direction_vector, [0, 0, 1]):
         x_alpha = np.array([1, 0, 0], dtype=float)
         y_alpha = np.array([0, 1, 0], dtype=float)
-        z_alpha = np.array([0, 0, 1], dtype=float)
     elif np.allclose(direction_vector, [0, 0, -1]):
         x_alpha = np.array([0, -1, 0], dtype=float)
         y_alpha = np.array([-1, 0, 0], dtype=float)
-        z_alpha = np.array([0, 0, -1], dtype=float)
     else:
         z_dir = [0, 0, 1]
 

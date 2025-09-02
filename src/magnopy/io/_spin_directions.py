@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -319,7 +322,7 @@ def plot_spin_directions(
                     anchor="tip",
                     showscale=False,
                     colorscale=["#000000", "#000000"],
-                    legendgroup=f"a_{i+1}",
+                    legendgroup=f"a_{i + 1}",
                     showlegend=False,
                 )
             )
@@ -330,12 +333,12 @@ def plot_spin_directions(
                     y=[1.2 * vector[1]],
                     z=[1.2 * vector[2]],
                     marker=dict(size=0, color="#000000"),
-                    text=f"a_{i+1}",
+                    text=f"a_{i + 1}",
                     hoverinfo="none",
                     textposition="top center",
                     textfont=dict(size=12),
                     showlegend=False,
-                    legendgroup=f"a_{i+1}",
+                    legendgroup=f"a_{i + 1}",
                 )
             )
             fig.add_traces(
@@ -347,9 +350,9 @@ def plot_spin_directions(
                     type="scatter3d",
                     hoverinfo="none",
                     line={"color": "#000000", "width": 4},
-                    legendgroup=f"a_{i+1}",
+                    legendgroup=f"a_{i + 1}",
                     showlegend=True,
-                    name=f"a_{i+1}",
+                    name=f"a_{i + 1}",
                 )
             )
 

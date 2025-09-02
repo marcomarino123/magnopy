@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,9 +16,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
-import os
 from math import log10
 
 import numpy as np
@@ -142,30 +144,26 @@ class Energy:
         >>> import magnopy
         >>> cell = np.eye(3)
         >>> atoms = dict(
-        ... names = ["Fe"],
-        ... spins = [1.5],
-        ... g_factors = [2],
-        ... positions = [[0, 0, 0]])
+        ...     names=["Fe"], spins=[1.5], g_factors=[2], positions=[[0, 0, 0]]
+        ... )
         >>> convention = magnopy.Convention(
-        ... multiple_counting=True,
-        ... spin_normalized=False,
-        ... c21=1,
-        ... c22=-1)
+        ...     multiple_counting=True, spin_normalized=False, c21=1, c22=-1
+        ... )
         >>> spinham = magnopy.SpinHamiltonian(
-        ... cell=cell,
-        ... atoms=atoms,
-        ... convention=convention)
+        ...     cell=cell, atoms=atoms, convention=convention
+        ... )
 
     Then, add some parameters to the Hamiltonian
 
     .. doctest::
 
-        >>> spinham.add_21(alpha=0, parameter = np.diag([0, 0, -1]))
+        >>> spinham.add_21(alpha=0, parameter=np.diag([0, 0, -1]))
         >>> spinham.add_22(
-        ... alpha=0,
-        ... beta=0,
-        ... nu=(1,0,0),
-        ... parameter = magnopy.converter22.from_iso(iso=1))
+        ...     alpha=0,
+        ...     beta=0,
+        ...     nu=(1, 0, 0),
+        ...     parameter=magnopy.converter22.from_iso(iso=1),
+        ... )
 
     Now everything is ready to create an instance of the Energy class
 
@@ -178,9 +176,9 @@ class Energy:
 
     .. doctest::
 
-        >>> sd1 = [[1,0,0]]
-        >>> sd2 = [[0,1,0]]
-        >>> sd3 = [[0,0,1]]
+        >>> sd1 = [[1, 0, 0]]
+        >>> sd2 = [[0, 1, 0]]
+        >>> sd3 = [[0, 0, 1]]
         >>> energy(sd1), energy(sd2), energy(sd3)
         (-4.5, -4.5, -6.75)
     """
@@ -363,30 +361,26 @@ class Energy:
             >>> import magnopy
             >>> cell = np.eye(3)
             >>> atoms = dict(
-            ... names = ["Fe"],
-            ... spins = [1.5],
-            ... g_factors = [2],
-            ... positions = [[0, 0, 0]])
+            ...     names=["Fe"], spins=[1.5], g_factors=[2], positions=[[0, 0, 0]]
+            ... )
             >>> convention = magnopy.Convention(
-            ... multiple_counting=True,
-            ... spin_normalized=False,
-            ... c21=1,
-            ... c22=-1)
+            ...     multiple_counting=True, spin_normalized=False, c21=1, c22=-1
+            ... )
             >>> spinham = magnopy.SpinHamiltonian(
-            ... cell=cell,
-            ... atoms=atoms,
-            ... convention=convention)
+            ...     cell=cell, atoms=atoms, convention=convention
+            ... )
 
         Then, add some parameters to the Hamiltonian
 
         .. doctest::
 
-            >>> spinham.add_21(alpha=0, parameter = np.diag([0, 0, -1]))
+            >>> spinham.add_21(alpha=0, parameter=np.diag([0, 0, -1]))
             >>> spinham.add_22(
-            ... alpha=0,
-            ... beta=0,
-            ... nu=(1,0,0),
-            ... parameter = magnopy.converter22.from_iso(iso=1))
+            ...     alpha=0,
+            ...     beta=0,
+            ...     nu=(1, 0, 0),
+            ...     parameter=magnopy.converter22.from_iso(iso=1),
+            ... )
 
         Now everything is ready to create an instance of the Energy class
 
@@ -399,9 +393,9 @@ class Energy:
 
         .. doctest::
 
-            >>> sd1 = [[1,0,0]]
-            >>> sd2 = [[0,1,0]]
-            >>> sd3 = [[0,0,1]]
+            >>> sd1 = [[1, 0, 0]]
+            >>> sd2 = [[0, 1, 0]]
+            >>> sd3 = [[0, 0, 1]]
             >>> energy.E_0(sd1), energy.E_0(sd2), energy.E_0(sd3)
             (-4.5, -4.5, -6.75)
             >>> # The command above is equivalent to
@@ -516,10 +510,9 @@ class Energy:
             .. code-block:: python
 
                 [
-                    [ dE/dz1x, dE/dz1y, dE/dz1z ],
-                    [ dE/dz2x, dE/dz2y, dE/dz2z ],
-                    ...
-                    [ dE/dzMx, dE/dzMy, dE/dzMz ]
+                    [dE / dz1x, dE / dz1y, dE / dz1z],
+                    [dE / dz2x, dE / dz2y, dE / dz2z],
+                    ...[dE / dzMx, dE / dzMy, dE / dzMz],
                 ]
         """
 
@@ -666,12 +659,7 @@ class Energy:
 
             .. code-block:: python
 
-                [
-                    [ t1x, t1y, t1z ],
-                    [ t2x, t2y, t2z ],
-                    ...
-                    [ tMx, tMy, tMz ]
-                ]
+                [[t1x, t1y, t1z], [t2x, t2y, t2z], ...[tMx, tMy, tMz]]
         """
         return np.cross(
             spin_directions,
@@ -723,11 +711,9 @@ class Energy:
             # Safeguard
             if phi_min is None:
                 phi_min = phi_j
-                alpha_min = alpha_j
             else:
                 if phi_j < phi_min:
                     phi_min = phi_j
-                    alpha_min = alpha_j
                     trial_steps = 0
             trial_steps += 1
             if trial_steps > 10:
@@ -892,8 +878,8 @@ class Energy:
             print(
                 f"{'step':^4} │ "
                 f"{'E_0':^11} │ "
-                f"{'delta E_0':^{n_energy+4}} │ "
-                f"{'max torque':^{n_torque+4}}"
+                f"{'delta E_0':^{n_energy + 4}} │ "
+                f"{'max torque':^{n_torque + 4}}"
             )
             print(
                 "─" * 5
@@ -952,8 +938,8 @@ class Energy:
                 print(
                     f"{step_counter:<4}   "
                     f"{energy_next:>11.7f}   "
-                    f"{delta[0]:>{n_energy+4}.{n_energy}f}   "
-                    f"{delta[1]:>{n_torque+4}.{n_torque}f}"
+                    f"{delta[0]:>{n_energy + 4}.{n_energy}f}   "
+                    f"{delta[1]:>{n_torque + 4}.{n_torque}f}"
                 )
 
             if (delta < tolerance).all():
@@ -993,73 +979,3 @@ __all__ = list(set(dir()) - old_dir)
 # Remove all semi-private objects
 __all__ = [i for i in __all__ if not i.startswith("_")]
 del old_dir
-
-
-if __name__ == "__main__":
-    import magnopy.io as mio
-    from magnopy.examples import cubic_ferro_nn, ivuzjo
-
-    # spinham = cubic_ferro_nn(
-    #     a=1,
-    #     J_iso=1,
-    #     J_21=(-1, 0, 0),
-    #     S=0.5,
-    #     dimensions=3,
-    # )
-    # spinham.add_magnetic_field(h=[0, 1, 0])
-
-    spinham = ivuzjo(N=20)
-
-    energy = Energy(spinham=spinham)
-
-    optimized_sd = energy.optimize(torque_tolerance=1e-3)
-
-    print(optimized_sd)
-
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.axes_grid1 import make_axes_locatable
-
-    fig, axs = plt.subplots(2, 2, figsize=(9, 9))
-    fig.subplots_adjust(hspace=0.25, wspace=0.5)
-
-    axs = axs.flatten()
-
-    positions = np.array(spinham.atoms.positions)
-    for i in range(3):
-        im = axs[i].scatter(
-            positions[:, 0],
-            positions[:, 1],
-            c=optimized_sd[:, i],
-            vmin=-1,
-            vmax=1,
-            cmap="bwr",
-        )
-        divider = make_axes_locatable(axs[i])
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        axs[i].set_aspect(1)
-        axs[i].set_title(f"$S_{'xyz'[i]}$")
-        plt.colorbar(im, cax=cax)
-
-    im = axs[3].quiver(
-        positions[:, 0],
-        positions[:, 1],
-        0.5 * optimized_sd[:, 0] / np.linalg.norm(optimized_sd[:, :2], axis=1),
-        0.5 * optimized_sd[:, 1] / np.linalg.norm(optimized_sd[:, :2], axis=1),
-        optimized_sd[:, 2],
-        angles="xy",
-        scale_units="xy",
-        scale=1,
-        cmap="bwr",
-        headlength=8,
-        headaxislength=7,
-        headwidth=5,
-        vmin=-1,
-        vmax=1,
-    )
-    divider = make_axes_locatable(axs[3])
-    cax = divider.append_axes("right", size="5%", pad=0.05)
-    axs[3].set_aspect(1)
-    axs[3].set_title(f"Vectors")
-    plt.colorbar(im, cax=cax)
-
-    plt.savefig("test.png", dpi=400, bbox_inches="tight")

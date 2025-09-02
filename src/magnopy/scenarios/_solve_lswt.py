@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
@@ -136,7 +139,7 @@ def solve_lswt(
         spin_directions = energy.optimize(
             energy_tolerance=1e-5, torque_tolerance=1e-5, quiet=False
         )
-        print(f"Optimization is done.")
+        print("Optimization is done.")
     else:
         print("Spin directions of the ground state are provided by the user.")
 
@@ -146,7 +149,7 @@ def solve_lswt(
         )
 
     E_0 = energy.E_0(spin_directions=spin_directions)
-    print(f"\n{'Classic ground state energy (E_0)':<51} : " f"{E_0:>15.6f} meV\n")
+    print(f"\n{'Classic ground state energy (E_0)':<51} : {E_0:>15.6f} meV\n")
 
     print("Directions of spin vectors of the ground state and spin values are")
 
@@ -236,9 +239,7 @@ def solve_lswt(
         )
         print(f"{'  END OF WARNING  ':!^90}\n")
 
-    print(f"\nStart calculations over k ... ", end="")
-    # Shape (N, M)
-    kwargs = dict(relative=relative)
+    print("\nStart calculations over k ... ", end="")
 
     results = multiprocess_over_k(
         kpoints,
@@ -249,13 +250,12 @@ def solve_lswt(
 
     omegas = np.array([i[0] for i in results])
     deltas = np.array([i[1] for i in results])
-    transformation_matrices = np.array([i[2] for i in results])
     print("Done")
 
     filename = os.path.join(output_folder, "OMEGAS.txt")
     output_k_resolved(
         data=omegas.real,
-        data_headers=[f"mode {i+1}" for i in range(len(omegas[0]))],
+        data_headers=[f"mode {i + 1}" for i in range(len(omegas[0]))],
         output_filename=filename,
         kpoints=kpoints,
         relative=False,
@@ -286,7 +286,7 @@ def solve_lswt(
         filename = os.path.join(output_folder, "OMEGAS-IMAG.txt")
         output_k_resolved(
             data=omegas.imag,
-            data_headers=[f"mode {i+1}" for i in range(len(omegas[0]))],
+            data_headers=[f"mode {i + 1}" for i in range(len(omegas[0]))],
             output_filename=filename,
             kpoints=kpoints,
             relative=False,
@@ -295,9 +295,7 @@ def solve_lswt(
             digits=6,
             scientific_notation=True,
         )
-        print(
-            "Imaginary part of omegas is saved in file\n  " f"{envelope_path(filename)}"
-        )
+        print(f"Imaginary part of omegas is saved in file\n  {envelope_path(filename)}")
 
         filename = filename[:-4] + ".png"
         plot_k_resolved(

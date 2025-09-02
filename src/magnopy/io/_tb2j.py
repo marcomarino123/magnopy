@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -67,7 +70,6 @@ def load_tb2j(
     provided with the same precision as the distance in |TB2J|_ output file.
     """
 
-    major_sep = "=" * 90
     minor_sep = "-" * 88
     garbage = str.maketrans(
         {"(": None, ")": None, "[": None, "]": None, ",": None, "'": None}
@@ -210,7 +212,7 @@ def load_tb2j(
         computed_distance = get_distance(spinham.cell, spinham.atoms, atom1, atom2, ijk)
         if abs(computed_distance - distance) > 0.001 and not quiet:
             print(
-                f"\nComputed distance is a different from the read one:\n"
+                "\nComputed distance is a different from the read one:\n"
                 + f"  Computed: {computed_distance:.4f}\n  "
                 + f"Read: {distance:.4f}\n"
             )

@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 from calendar import month_name
@@ -62,7 +65,7 @@ def logo(info=None, line_length=None, flat=False, date_time=False, comment=None)
             f"Version: {__version__}",
             f"Documentation: {__doclink__}",
             f"Release date: {__release_date__}",
-            f"License: GNU GPLv3",
+            "License: GNU GPLv3",
             f"Copyright (C) 2023-{datetime.now().year}  Magnopy Team",
         ]
     if date_time:
@@ -118,17 +121,19 @@ def logo(info=None, line_length=None, flat=False, date_time=False, comment=None)
             after = len(cat) - len(info) - before
             for i in range(len(cat)):
                 if i < before or i >= len(cat) - after:
-                    logo_info.append(f"{' ':{N-n}}{cat[i]:^{n}}")
+                    logo_info.append(f"{' ':{N - n}}{cat[i]:^{n}}")
                 else:
-                    logo_info.append(f"{info[i-before]:^{N-n}}{cat[i]:^{n}}")
+                    logo_info.append(f"{info[i - before]:^{N - n}}{cat[i]:^{n}}")
         else:
             before = (len(info) - len(cat)) // 2
             after = len(info) - len(cat) - before
             for i in range(len(info)):
                 if i < before or i >= len(info) - after:
-                    logo_info.append(f"{info[i-before]:^{N-n}}")
+                    logo_info.append(f"{info[i - before]:^{N - n}}")
                 else:
-                    logo_info.append(f"{info[i-before]:^{N-n}}{cat[i-before]:^{n}}")
+                    logo_info.append(
+                        f"{info[i - before]:^{N - n}}{cat[i - before]:^{n}}"
+                    )
 
     logo_info = [f"{comment}{x:^{line_length}}\n" for x in logo_info]
     return "".join(logo_info)[:-1]
@@ -139,7 +144,7 @@ def _warranty():
     Outputs short warranty summary for terminal interactions
     """
 
-    return f"""THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+    return """THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
 APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
 HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
 OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,

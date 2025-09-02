@@ -1,7 +1,8 @@
+# ================================== LICENSE ===================================
 # MAGNOPY - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -108,7 +111,6 @@ def cubic_ferro_nn(
         [[0, 0, 0]]
         >>> for alpha, parameter in spinham.p21:
         ...     print(alpha, parameter, sep="\n")
-        ...
         0
         [[0. 0. 0.]
          [0. 0. 0.]
@@ -116,7 +118,6 @@ def cubic_ferro_nn(
         >>> for alpha, beta, nu, parameter in spinham.p22:
         ...     print(alpha, beta, nu)
         ...     print(parameter)
-        ...
         0 0 (0, 0, 1)
         [[-1. -0. -0.]
          [-0. -1. -0.]
@@ -160,7 +161,7 @@ def cubic_ferro_nn(
         .. doctest::
 
             >>> import magnopy
-            >>> spinham = magnopy.examples.cubic_ferro_nn(S = 1.5)
+            >>> spinham = magnopy.examples.cubic_ferro_nn(S=1.5)
             >>> spinham.atoms.spins
             [1.5]
 
@@ -170,11 +171,10 @@ def cubic_ferro_nn(
         .. doctest::
 
             >>> import magnopy
-            >>> spinham = magnopy.examples.cubic_ferro_nn(J_iso = 2)
+            >>> spinham = magnopy.examples.cubic_ferro_nn(J_iso=2)
             >>> for alpha, beta, nu, parameter in spinham.p22:
             ...     print(alpha, beta, nu)
             ...     print(parameter)
-            ...
             0 0 (0, 0, 1)
             [[-2. -0. -0.]
              [-0. -2. -0.]
@@ -205,10 +205,9 @@ def cubic_ferro_nn(
         .. doctest::
 
             >>> import magnopy
-            >>> spinham = magnopy.examples.cubic_ferro_nn(J_21 = (1,2,-1))
+            >>> spinham = magnopy.examples.cubic_ferro_nn(J_21=(1, 2, -1))
             >>> for alpha, parameter in spinham.p21:
             ...     print(alpha, parameter, sep="\n")
-            ...
             0
             [[ 1.  0.  0.]
              [ 0.  2.  0.]
@@ -223,7 +222,6 @@ def cubic_ferro_nn(
             >>> for alpha, beta, nu, parameter in spinham.p22:
             ...     print(alpha, beta, nu)
             ...     print(parameter)
-            ...
             0 0 (1, 0, 0)
             [[-1. -0. -0.]
              [-0. -1. -0.]
@@ -236,7 +234,6 @@ def cubic_ferro_nn(
             >>> for alpha, beta, nu, parameter in spinham.p22:
             ...     print(alpha, beta, nu)
             ...     print(parameter)
-            ...
             0 0 (0, 1, 0)
             [[-1. -0. -0.]
              [-0. -1. -0.]

@@ -8,7 +8,7 @@ BUILDDIR      = _build
 
 help:
 	@echo "\x1b[31m"
-	@echo "Please specify what do you want to do!"
+	@echo "Please specify what do you want to do."
 	@echo "\x1b[0m"
 	@echo "Available options are:\n"
 	@echo "    help - show this message"
@@ -41,7 +41,6 @@ clean:
 	-@rm -r magnopy/magnopy.egg-info
 	-@rm -r build
 	-@rm -r dist
-	-@rm -r .venv/lib/python*/site-packages/magnopy*
 	-@rm -r .venv/lib/python*/site-packages/magnopy*
 	-@rm -r .venv/bin/magnopy*
 

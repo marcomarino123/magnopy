@@ -22,7 +22,6 @@
 
 import numpy as np
 from wulfric.crystal import get_distance
-from wulfric.geometry import absolute_to_relative
 
 from magnopy._parameters._p22 import from_dmi, from_iso
 from magnopy._spinham._convention import Convention
@@ -123,9 +122,7 @@ def load_tb2j(
                 except IndexError:
                     charge = None
 
-                position = absolute_to_relative(
-                    basis=cell, vector=np.array(tuple(map(float, line[1:4])))
-                )
+                position = np.array(tuple(map(float, line[1:4]))) @ np.linalg.inv(cell)
                 atoms["names"].append(line[0])
                 atoms["positions"].append(position)
                 atoms["magnetic_moments"].append(magmom)

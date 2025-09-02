@@ -24,7 +24,6 @@ from typing import Iterable
 
 import matplotlib.pyplot as plt
 import numpy as np
-from wulfric.geometry import absolute_to_relative
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -241,7 +240,7 @@ def output_k_resolved(
                         " ".join([f"{k_vec[comp]:{kp_fmt}}" for comp in range(3)])
                     )
                 else:
-                    k_vec_rel = absolute_to_relative(vector=kpoints[i], basis=rcell)
+                    k_vec_rel = kpoints[i] @ np.linalg.inv(rcell)
                     line.append(
                         " ".join([f"{k_vec_rel[comp]:{kp_fmt}}" for comp in range(3)])
                     )

@@ -203,7 +203,7 @@ The minimization algorithm implemented in magnopy [1]_ traces two values:
 
 * Absolute value of the difference in total energy between two consecutive steps
   of the minimization (``-et`` or ``--energy-tolerance``).
-* Maximum (among all spins of the unit cell) value of the torque vector (``-tt`` or
+* Maximum (among all spins of the unit cell or supercell) value of the torque vector (``-tt`` or
   ``--torque-tolerance``).
 
 An algorithm stops and output the obtained spin directions when both tolerance parameters

@@ -20,7 +20,7 @@
 # ================================ END LICENSE =================================
 
 
-from wulfric.geometry import absolute_to_relative
+import numpy as np
 
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
@@ -85,7 +85,7 @@ def load_grogu(filename) -> SpinHamiltonian:
         name_to_index[name] = atom_index
 
         positions = list(map(float, words[1:4]))
-        positions = absolute_to_relative(vector=positions, basis=cell)
+        positions = positions @ np.linalg.inv(cell)
 
         spin = float(words[4])
 

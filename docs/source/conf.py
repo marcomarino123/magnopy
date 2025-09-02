@@ -243,6 +243,7 @@ custom_links = {
         "https://docs.python.org/3/library/multiprocessing.html",
     ),
     "plotly": ("Plotly", "https://plotly.com/python/"),
+    "spglib": ("spglib", "https://spglib.readthedocs.io/en/stable/index.html"),
 }
 rst_epilog += "\n".join(
     map(

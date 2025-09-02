@@ -105,12 +105,16 @@ def solve_lswt(
         Whether to produce a series with html files with visual representation of
         spin directions or high symmetry points and k-path. The latter is only plotted
         when ``kpoints`` is not used.
+
+        .. versionadded:: 0.1.10
     hide_personal_data : bool, default False
         Whether to use ``os.path.abspath()`` when printing the paths to the output and
         input files.
     spglib_symprec : float, default 1e-5
         Tolerance parameter for the space group symmetry search by |spglib|_. Reduce it
-        if the space group is not what you expect.
+        if the space group is not the one you expected.
+
+        .. versionadded:: 0.1.10
 
     Notes
     -----

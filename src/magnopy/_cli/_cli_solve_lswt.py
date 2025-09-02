@@ -38,6 +38,10 @@ def manager():
 
     args = parser.parse_args()
 
+    # Handle deprecations
+    if args.make_sd_image is not None:
+        raise DeprecationWarning("make-sd-image is deprecated, use --no-html instead.")
+
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -246,6 +250,16 @@ def get_parser():
         type=float,
         default=1e-5,
         help="Tolerance parameter for the space group symmetry search by spglib.",
+    )
+
+    # Deprecated arguments
+    parser.add_argument(
+        "-msdi",
+        "--make-sd-image",
+        nargs=3,
+        type=int,
+        default=None,
+        help="make_sd_image is deprecated, use --no-html instead.",
     )
 
     return parser

@@ -12,6 +12,8 @@ Version 0.1
 Deprecations
 ------------
 
+* ``magnopy.io.plot_spin_directions``
+
 New features
 ------------
 

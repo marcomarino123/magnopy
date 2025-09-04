@@ -219,7 +219,7 @@ def check_release_notes(version: str, root_dir: str):
                     "Follow the style:",
                     "",
                     f"    {version}",
-                    f"    {'':-^{len(version)}}",
+                    f"    {'':=^{len(version)}}",
                     "    # Note text",
                     "",
                 ]

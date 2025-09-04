@@ -8,7 +8,7 @@ Version 0.1
 
 
 0.1.9
------
+=====
 
 **Date**: 30 June 2025
 
@@ -17,7 +17,7 @@ Version 0.1
 
 
 0.1.8
------
+=====
 
 .. warning::
     We recommend not to use energy optimization of this version.
@@ -33,7 +33,7 @@ Version 0.1
 * Add primitive plotter for spin directions to both scripts.
 
 0.1.7
------
+=====
 
 .. warning::
     We recommend not to use energy optimization of this version.
@@ -56,7 +56,7 @@ Version 0.1
 *   Implement new scenario and command line interface for energy optimization.
 
 0.1.6
------
+=====
 
 .. warning::
     We recommend not to use this version with GROGU files.
@@ -69,7 +69,7 @@ Version 0.1
 *   Rename ``-s/--spins`` to ``-sv/--spin-values`` in ``magnopy-lswt``.
 
 0.1.5
------
+=====
 
 .. warning::
     We recommend not to use this version.
@@ -80,7 +80,7 @@ Version 0.1
 *   Rename output file for vampire from "input" to "input-template" to avoid frustrating overwrites.
 
 0.1.4
------
+=====
 
 .. warning::
     We recommend not to use this version.
@@ -93,7 +93,7 @@ Version 0.1
 *   Fix various bugs in the vampire output.
 
 0.1.3
------
+=====
 
 **Date**: 22 May 2025
 
@@ -112,7 +112,7 @@ Version 0.1
     number was incorrect to be outputted from the very beginning.
 
 0.1.2
------
+=====
 
 **Date**: 20 May 2025
 
@@ -122,7 +122,7 @@ Version 0.1
 Change colors in the plots.
 
 0.1.1
------
+=====
 
 **Date**: 20 May 2025
 
@@ -135,7 +135,7 @@ Change colors in the plots.
 *   Replace GROGU interface for the temporary simpler one.
 
 0.1.0
------
+=====
 
 **Date**: 19 May 2025
 

@@ -5,9 +5,11 @@ Version 0.1
 ***********
 
 0.2.0
------
+=====
 
 **Date**: Undefined September 2025
+
+
 
 *   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
     energy cut-off)

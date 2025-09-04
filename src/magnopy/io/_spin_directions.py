@@ -21,21 +21,30 @@
 
 
 import numpy as np
+import warnings
 
 try:
     import plotly.graph_objects as go
 
     PLOTLY_AVAILABLE = True
-    PLOTLY_ERROR_MESSAGE = (
-        "If you see this message, please contact developers of the code."
-    )
+    PLOTLY_ERROR_MESSAGE = "If you see this message, please contact developers of the code (see magnopy.org)."
 except ImportError:
     PLOTLY_AVAILABLE = False
-    PLOTLY_ERROR_MESSAGE = (
-        "In order to use spin projection plotter an installation of Plotly is \n"
-        "required, please try to install it with the command\n\n  "
-        "pip install plotly\n\nor\n\n  pip3 install plotly\n"
+    PLOTLY_ERROR_MESSAGE = "\n".join(
+        [
+            "Installation of plotly is not found, can not produce .html pictures.",
+            "Either install plotly with",
+            "",
+            "    pip install plotly",
+            "",
+            "Or disable html output with",
+            "",
+            "    no_html=True (when using magnopy as Python library)",
+            "    --no-html (when using magnopy through command line interface)",
+            "",
+        ]
     )
+
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -118,7 +127,6 @@ def _plot_cones(fig, positions, spin_directions, color, name=None):
     scale = 0.5
 
     if not PLOTLY_AVAILABLE:
-        print(PLOTLY_ERROR_MESSAGE)
         raise ImportError(PLOTLY_ERROR_MESSAGE)
 
     # Prepare data
@@ -175,6 +183,9 @@ def _plot_cones(fig, positions, spin_directions, color, name=None):
     return fig
 
 
+# Deprecated in the version v0.2.0
+# Shall be removed in the version v0.4.0
+# But not earlier than 07 March 2026
 def plot_spin_directions(
     output_name: str,
     positions,
@@ -186,6 +197,11 @@ def plot_spin_directions(
     _full_plotly=True,
 ):
     r"""
+
+    .. deprecated:: 0.2.0
+        Use ``magnopy.PlotlyEngine.plot_spin_directions`` instead. This function will be
+        removed in March of 2026
+
     Plot a simple plot of spin directions in three projections.
 
     output_name : str
@@ -216,9 +232,14 @@ def plot_spin_directions(
         * If `` _full_plotly == False``, then it passes ``include_plotlyjs=True`` and
           ``full_html=True`` to ``fig.write_html()``.
     """
+
+    warnings.warn(
+        "This function was deprecated in the release v0.2.0. Please use magnopy.PlotlyEngine.plot_spin_directions() instead. This function will be removed from magnopy in March of 2026"
+    )
+
     if not PLOTLY_AVAILABLE:
-        print(PLOTLY_ERROR_MESSAGE)
-        raise ImportError(PLOTLY_ERROR_MESSAGE)
+        warnings.warn(PLOTLY_ERROR_MESSAGE, RuntimeWarning)
+        return
 
     pos = np.array(positions, dtype=float)
     sd = np.array(spin_directions, dtype=float)

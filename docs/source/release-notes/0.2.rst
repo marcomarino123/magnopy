@@ -1,0 +1,21 @@
+.. _release-notes_0.1:
+
+***********
+Version 0.1
+***********
+
+0.2.0
+-----
+
+**Date**: Undefined September 2025
+
+*   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
+    energy cut-off)
+*   Improve error messages when plotly is not installed.
+*   Add output of "SPIN_POSITIONS.txt" to the ``magnopy-optimize-sd``
+*   Add output of "INITIAL_GUESS.txt" to the ``magnopy-optimize-sd``
+*   Add option for optimization on the supercell.
+*   Change interface of the optimization functions.
+*   Improve output of the optimization's progress.
+*   Add an option to hide absolute paths to cli scripts
+*   Fix a bug in the plot of spin directions.

@@ -4,28 +4,8 @@
 Version 0.1
 ***********
 
-**Date**: 19 May 2025
 
-Whats new?
-----------
 
-First release of magnopy.
-
-0.1.10
-------
-
-**Date**: undefined
-
-*   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
-    energy cut-off)
-*   Improve error messages when plotly is not installed.
-*   Add output of "SPIN_POSITIONS.txt" to the ``magnopy-optimize-sd``
-*   Add output of "INITIAL_GUESS.txt" to the ``magnopy-optimize-sd``
-*   Add option for optimization on the supercell.
-*   Change interface of the optimization functions.
-*   Improve output of the optimization's progress.
-*   Add an option to hide absolute paths to cli scripts
-*   Fix a bug in the plot of spin directions.
 
 0.1.9
 -----
@@ -153,3 +133,10 @@ Change colors in the plots.
     Now it is written "meV". The values were always outputted in meV.
 
 *   Replace GROGU interface for the temporary simpler one.
+
+0.1.0
+-----
+
+**Date**: 19 May 2025
+
+First release of magnopy.

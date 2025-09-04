@@ -13,6 +13,7 @@ Deprecations
 ------------
 
 * ``magnopy.io.plot_spin_directions``
+* ``magnopy.io.output_k_resolved``
 
 New features
 ------------

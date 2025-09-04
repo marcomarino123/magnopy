@@ -13,7 +13,6 @@ Other
     :toctree: generated/
 
     read_spin_directions
-    output_k_resolved
     plot_k_resolved
 
 TB2J
@@ -49,3 +48,4 @@ Deprecated
     :toctree: generated/
 
     plot_spin_directions
+    output_k_resolved

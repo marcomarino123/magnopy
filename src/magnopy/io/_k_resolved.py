@@ -21,6 +21,7 @@
 
 
 from typing import Iterable
+import warnings
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -42,6 +43,10 @@ def output_k_resolved(
     scientific_notation=True,
 ):
     r"""
+
+    .. deprecated:: 0.2.0
+        Always meant to be a temporary solution. This function will be removed in March of 2026
+
     Outputs any k-resolved data.
 
     Parameters
@@ -76,95 +81,11 @@ def output_k_resolved(
     lines : str
         Only returned if ``output_filename is None``. Use ``print("\n".join(lines))``
         to output the results to the standard output stream.
-
-    Notes
-    -----
-    By default kpoints are interpreted as given in absolute coordinates in the
-    reciprocal space.
-
-    .. doctest::
-
-        >>> import magnopy.io as mio
-        >>> omegas = [[1, 2], [1.2, 2.3]]
-        >>> headers = ["mode 1", "mode 2"]
-        >>> kpoints = [[0, 0, 0], [0.1, 0.2, 0.3]]
-        >>> lines = mio.output_k_resolved(
-        ...     data=omegas, data_headers=headers, kpoints=kpoints
-        ... )
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2          k_x          k_y          k_z
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000
-
-    One can tell it to interpret the kpoints as given in relative coordinates to some
-    reciprocal cell
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(
-        ...     data=omegas, data_headers=headers, kpoints=kpoints, relative=True
-        ... )
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000
-
-    If the reciprocal cell is provided, then the kpoints are converter either way and
-    both are printed
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(
-        ...     data=omegas,
-        ...     data_headers=headers,
-        ...     kpoints=kpoints,
-        ...     relative=True,
-        ...     rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]],
-        ... )
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3          k_x          k_y          k_z
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000   0.10000000   0.40000000   0.90000000
-        >>> lines = mio.output_k_resolved(
-        ...     data=omegas,
-        ...     data_headers=headers,
-        ...     kpoints=kpoints,
-        ...     relative=False,
-        ...     rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]],
-        ... )
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3          k_x          k_y          k_z
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.10000000   0.10000000   0.10000000   0.20000000   0.30000000
-
-    One can control the number of digits in data
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(
-        ...     data=omegas, data_headers=headers, kpoints=kpoints, digits=6
-        ... )
-        >>> print("\n".join(lines))
-        #   flat index           mode 1           mode 2          k_x          k_y          k_z
-            0.00000000     1.000000e+00     2.000000e+00   0.00000000   0.00000000   0.00000000
-            0.37416574     1.200000e+00     2.300000e+00   0.10000000   0.20000000   0.30000000
-
-    and whether the scientific notation should be used
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(
-        ...     data=omegas,
-        ...     data_headers=headers,
-        ...     kpoints=kpoints,
-        ...     scientific_notation=False,
-        ... )
-        >>> print("\n".join(lines))
-        #   flat index    mode 1    mode 2          k_x          k_y          k_z
-            0.00000000    1.0000    2.0000   0.00000000   0.00000000   0.00000000
-            0.37416574    1.2000    2.3000   0.10000000   0.20000000   0.30000000
-
     """
+
+    warnings.warn(
+        "This function was deprecated in the release v0.2.0. This function will be removed from magnopy in March of 2026"
+    )
 
     # Prepare format for the data elements
     chars = digits + 1 + 1 + 3

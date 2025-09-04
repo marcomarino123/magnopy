@@ -9,6 +9,17 @@ Version 0.1
 
 **Date**: Undefined September 2025
 
+Deprecations
+------------
+
+New features
+------------
+
+* ``Energy.optimize_generator``
+
+Removed
+-------
+
 
 
 *   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or

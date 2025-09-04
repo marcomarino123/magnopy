@@ -27,23 +27,7 @@ import numpy as np
 from magnopy._energy import Energy
 from magnopy._package_info import logo
 from magnopy._spinham._supercell import make_supercell
-from magnopy.io._spin_directions import plot_spin_directions
 
-try:
-    import plotly.graph_objects as go  # noqa F401
-
-    PLOTLY_AVAILABLE = True
-    PLOTLY_ERROR_MESSAGE = (
-        "If you see this message, please contact developers of the code."
-    )
-except ImportError:
-    PLOTLY_AVAILABLE = False
-    PLOTLY_ERROR_MESSAGE = (
-        "\nCannot produce an .html picture with spin directions. In order to use spin "
-        "projection\nplotter an installation of Plotly is required, please try to "
-        "install it with the command\n\n  pip install plotly\n\nor\n\n  pip3 install "
-        "plotly"
-    )
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -58,12 +42,12 @@ def optimize_sd(
     torque_tolerance=1e-5,
     output_folder="magnopy-results",
     comment=None,
-    no_sd_image=False,
+    no_html=False,
     hide_personal_data=False,
 ) -> None:
     r"""
     Optimizes classical energy of spin Hamiltonian and finds a set of spin directions
-    that describe local minima of energy landscape.
+    that describe local minima on the energy landscape.
 
     Parameters
     ----------
@@ -71,7 +55,7 @@ def optimize_sd(
         Spin Hamiltonian.
     supercell : (3, ) tuple of int
         If different from ``(1, 1, 1)``, then a supercell Hamiltonian is constructed and
-        spins are varied within the supercell and not a unit cell.
+        spins are varied within the supercell and not within a unit cell.
     magnetic_field : (3, ) |array-like|_
         Vector of external magnetic field, given in Tesla.
     energy_tolerance : float, default 1e-5
@@ -84,8 +68,9 @@ def optimize_sd(
         then it will be created.
     comment : str, optional
         Any comment to output right after the logo.
-    no_sd_image : bool, default False
-        Whether to disable plotting of spin directions into an .html file.
+    no_html : bool, default False
+        Whether to produce .html files with interactive representation of the data.
+        If ``no_html=False``, then requires |plotly|_ to be installed.
     hide_personal_data : bool, default False
         Whether to use ``os.path.abspath()`` when printing the paths to the output and
         input files.
@@ -104,7 +89,10 @@ def optimize_sd(
         else:
             return os.path.abspath(pathname)
 
-    # Check input for the supercell
+    # Create the output directory if it does not exist
+    os.makedirs(output_folder, exist_ok=True)
+
+    # Validate supercell
     supercell = tuple(supercell)
     if len(supercell) != 3:
         raise ValueError(
@@ -113,20 +101,23 @@ def optimize_sd(
     if supercell[0] < 1 or supercell[1] < 1 or supercell[2] < 1:
         raise ValueError(f"Supercell repetitions must be >=1, got {supercell}.")
 
+    # Print logo and a comment
     print(logo(date_time=True))
-    print(f"\n{' Comment ':=^90}\n")
     if comment is not None:
+        print(f"\n{' Comment ':=^90}\n")
         print(comment)
 
-    if magnetic_field is not None:
-        spinham.add_magnetic_field(h=magnetic_field)
-
+    # Output optimization parameters
     print(f"\n{' Start optimization ':=^90}\n")
-
     print(f"Energy tolerance : {energy_tolerance:.5e}")
     print(f"Torque tolerance : {torque_tolerance:.5e}")
 
-    original_spinham = spinham
+    # Add magnetic field if any
+    if magnetic_field is not None:
+        spinham.add_magnetic_field(h=magnetic_field)
+
+    # Make a supercell if needed
+    # original_spinham = spinham
     if supercell != (1, 1, 1):
         spinham = make_supercell(spinham=spinham, supercell=supercell)
         print(
@@ -135,24 +126,24 @@ def optimize_sd(
     else:
         print("Minimizing on the original unit cell of the Hamiltonian.")
 
-    energy = Energy(spinham=spinham)
-
+    # Make an initial guess
     initial_guess = np.random.uniform(low=-1, high=1, size=(spinham.M, 3))
-
     initial_guess = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
-
+    # Save an initial guess to the .txt file
     filename = os.path.join(output_folder, "INITIAL_GUESS.TXT")
-    with open(filename, "w") as f:
-        for i in range(spinham.M):
-            f.write(
-                f"{initial_guess[i][0]:12.8f} "
-                f"{initial_guess[i][1]:12.8f} "
-                f"{initial_guess[i][2]:12.8f}\n"
-            )
+    np.savetxt(
+        filename,
+        initial_guess,
+        fmt="%12.8f %12.8f %12.8f",
+        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}",
+        comments="",
+    )
     print(
         f"\nSpin directions of the initial guess are saved in file\n  {envelope_path(filename)}"
     )
 
+    # Optimize spin directions
+    energy = Energy(spinham=spinham)
     spin_directions = energy.optimize(
         initial_guess=initial_guess,
         energy_tolerance=energy_tolerance,
@@ -161,52 +152,52 @@ def optimize_sd(
     )
     print("Optimization is done.")
 
+    # Output classical energy
     E_0 = energy.E_0(spin_directions=spin_directions)
     print(f"\nClassic ground state energy (E_0) : {E_0:>15.6f} meV")
 
-    # Create the output directory if it does not exist
-    os.makedirs(output_folder, exist_ok=True)
-
+    # Save spin directions to a .txt file
     filename = os.path.join(output_folder, "SPIN_DIRECTIONS.txt")
-    with open(filename, "w") as f:
-        for i in range(spinham.M):
-            f.write(
-                f"{spin_directions[i][0]:12.8f} "
-                f"{spin_directions[i][1]:12.8f} "
-                f"{spin_directions[i][2]:12.8f}\n"
-            )
+    np.savetxt(
+        filename,
+        spin_directions,
+        fmt="%12.8f %12.8f %12.8f",
+        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}",
+        comments="",
+    )
+    print(f"\nOptimized spin directions are saved in file\n  {envelope_path(filename)}")
 
-    print(f"\nSpin directions are saved in file\n  {envelope_path(filename)}")
-
+    # Compute spin's positions
+    positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
+    # Save spin positions to a .txt file
     filename = os.path.join(output_folder, "SPIN_POSITIONS.txt")
-    with open(filename, "w") as f:
-        for i in range(spinham.M):
-            tmp = spinham.magnetic_atoms.positions[i] @ spinham.cell
-            f.write(f"{tmp[0]:12.8f} {tmp[1]:12.8f} {tmp[2]:12.8f}\n")
-
+    np.savetxt(
+        filename,
+        positions,
+        fmt="%12.8f %12.8f %12.8f",
+        header=f"{'x':>12} {'y':>12} {'z':>12}",
+        comments="",
+    )
     print(f"\nSpin positions are saved in file\n  {envelope_path(filename)}")
 
-    if not no_sd_image:
-        if PLOTLY_AVAILABLE:
-            positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
-            filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
+    if not no_html:
+        filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
+        raise NotImplementedError
 
-            plot_spin_directions(
-                output_name=filename,
-                positions=positions,
-                spin_directions=spin_directions,
-                cell=original_spinham.cell,
-                highlight=[i for i in range(original_spinham.M)],
-                name_highlighted="Original unit cell",
-                name_other="Other unit cells",
-                _full_plotly=True,
-            )
+        # plot_spin_directions(
+        #     output_name=filename,
+        #     positions=positions,
+        #     spin_directions=spin_directions,
+        #     cell=original_spinham.cell,
+        #     highlight=[i for i in range(original_spinham.M)],
+        #     name_highlighted="Original unit cell",
+        #     name_other="Other unit cells",
+        #     _full_plotly=True,
+        # )
 
-            print(
-                f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}.html"
-            )
-        else:
-            print(PLOTLY_ERROR_MESSAGE)
+        print(
+            f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}.html"
+        )
 
     print(f"\n{' Finished ':=^90}")
 

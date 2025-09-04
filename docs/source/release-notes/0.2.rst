@@ -1,7 +1,7 @@
-.. _release-notes_0.1:
+.. _release-notes_0.2:
 
 ***********
-Version 0.1
+Version 0.2
 ***********
 
 0.2.0

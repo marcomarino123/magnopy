@@ -154,7 +154,7 @@ def optimize_sd(
 
     # Output classical energy
     E_0 = energy.E_0(spin_directions=spin_directions)
-    print(f"\nClassic ground state energy (E_0) : {E_0:>15.6f} meV")
+    print(f"\nClassic ground state energy (E_0) is {E_0:>15.6f} meV")
 
     # Save spin directions to a .txt file
     filename = os.path.join(output_folder, "SPIN_DIRECTIONS.txt")

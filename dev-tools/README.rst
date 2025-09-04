@@ -16,5 +16,5 @@ All scripts are intended to be run within the root directory of the project.
 Scripts
 =======
 
-*   prepare-release.py
+*   check-release-metadata.py
     Performs several check of the source code metadata before each release.

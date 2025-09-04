@@ -18,7 +18,7 @@ To install magnopy run (you may need to use ``pip3``):
 
 .. code-block:: console
 
-  pip install magnopy
+    pip install magnopy
 
 Usage
 =====
@@ -28,15 +28,17 @@ There are two ways to use magnopy:
 * As a blackbox via `command line interface <https://docs.magnopy.org/en/latest/user-guide/index.html>`_
 * As a `Python library <https://docs.magnopy.org/en/latest/user-guide/index.html>`_
 
-Support
-=======
+User support
+============
 
 There are two ways to ask for help or give feedback
 
-* `Forum at google groups <https://groups.google.com/g/magnopy>`_
+*   `Forum at google groups <https://groups.google.com/g/magnopy>`_
+
     You may send email directly to magnopy@googlegroups.com
 
-* `Github discussions <https://github.com/magnopy/magnopy/discussions>`_
+*   `Github discussions <https://github.com/magnopy/magnopy/discussions>`_
+
     You may need to create an account at github to post a question.
 
 Both are monitored by the authors, choose the one you prefer.

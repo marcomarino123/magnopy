@@ -44,8 +44,8 @@ Stage 2: Removal
 ----------------
 
 *   Shall be mentioned in the release notes of the version where the removal was done.
-*   Shall be done after two consecutive minor releases, but at least after six months
-    since deprecation.
+*   Shall be done after six months since the release of the version in which deprecation
+    was introduced.
 *   Shall be done only in the major or minor release. Shall not be done in the micro
     release.
 

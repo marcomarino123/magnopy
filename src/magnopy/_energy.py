@@ -856,6 +856,10 @@ class Energy:
         -------
         optimized_directions : (M, 3) :numpy:`ndarray`
             Optimized direction of the spin vectors.
+
+        See Also
+        --------
+        optimize_generator
         """
 
         if initial_guess is None:
@@ -971,6 +975,114 @@ class Energy:
 
         if not quiet:
             print("─" * (33 + n_energy + n_torque))
+        return sd_next
+
+    def optimize_generator(
+        self,
+        initial_guess=None,
+        energy_tolerance=1e-5,
+        torque_tolerance=1e-5,
+    ):
+        r"""
+        Optimize classical energy by varying the directions of spins in the unit cell.
+
+        .. versionadded:: 0.2.0
+
+        Parameters
+        ----------
+        initial_guess : (M, 3) or (3,) |array-like|_, optional
+            Initial guess for the direction of the spin vectors.
+        energy_tolerance : float, default 1e-5
+            Energy tolerance for the two consecutive steps of the optimization.
+        torque_tolerance : float, default 1e-5
+            Torque tolerance for the two consecutive steps of the optimization.
+
+        Yields
+        ------
+        energy : float
+            Classical energy of the iteration step
+        gradient : (M, 3) :numpy:`ndarray`
+            Gradient vectors for each spin of the iteration step.
+        spin_directions : (M, 3) :numpy:`ndarray`
+            Directions of the spin vectors of the iteration step.
+
+        See Also
+        --------
+        optimize
+        """
+
+        if initial_guess is None:
+            initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
+
+        sd_k = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
+
+        tolerance = np.array([energy_tolerance, torque_tolerance], dtype=float)
+
+        delta = 2 * tolerance
+
+        hessinv_k = np.eye(3 * self.M, dtype=float)
+
+        energy_k = self.E_0(spin_directions=sd_k)
+        gradient_k = self.torque(spin_directions=sd_k).flatten()
+
+        first_iteration = True
+        step_counter = 1
+
+        yield (energy_k, gradient_k, sd_k)
+
+        while (delta >= tolerance).any():
+            search_direction = -hessinv_k @ gradient_k
+
+            alpha_k = self._line_search(
+                reference_sd=sd_k,
+                search_direction=search_direction,
+                phi_0=energy_k,
+                der_0=gradient_k @ search_direction,
+            )
+
+            s_k = alpha_k * search_direction
+
+            sd_next = _rotate_sd(reference_sd=sd_k, rotation=s_k)
+
+            energy_next = self.E_0(spin_directions=sd_next)
+            gradient_next = self.torque(spin_directions=sd_next).flatten()
+
+            yield (energy_next, gradient_next, sd_next)
+
+            delta = np.array(
+                [
+                    abs(energy_next - energy_k),
+                    # Pay attention to the np.reshape keywords
+                    np.linalg.norm(
+                        np.reshape(gradient_next, (self.M, 3)), axis=1
+                    ).max(),
+                ]
+            )
+
+            if (delta < tolerance).all():
+                break
+
+            y_k = gradient_next - gradient_k
+
+            rho_k = 1 / (y_k @ s_k)
+
+            EYE = np.eye(3 * self.M)
+            OUTER = np.outer(y_k, s_k)
+
+            if first_iteration:
+                first_iteration = False
+                hessinv_k = (y_k @ s_k) / (y_k @ y_k) * hessinv_k
+
+            hessinv_k = (EYE - rho_k * OUTER.T) @ hessinv_k @ (
+                EYE - rho_k * OUTER
+            ) + rho_k * s_k @ s_k
+
+            sd_k = sd_next
+            energy_k = energy_next
+            gradient_k = gradient_next
+
+            step_counter += 1
+
         return sd_next
 
 

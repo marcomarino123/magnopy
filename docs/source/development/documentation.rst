@@ -54,7 +54,7 @@ among other things
   The main page of the documentation. It includes the table of contents and the
   introduction to the magnopy.
 
-* "docs/source/support.rst" file
+* "docs/source/user-support/" directory
 
   The page with the information about how to get support for the users of magnopy.
 

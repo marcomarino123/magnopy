@@ -10,15 +10,25 @@ Branches of the upstream repository
 In the upstream repository the releases are made from the ``main`` branch. The
 ``main`` branch is the default branch in the upstream repository.
 
-For each release we create a tag named ``vMajor.Minor.Patch`` in the upstream
+For each release we create a tag named ``vMajor.Minor.Micro`` in the upstream
 repository.
 
 Once new ``Minor`` release is made, the ``Major.Minor`` branch is created for the latest
-``Patch`` release of the previous ``Minor`` version. For example, when the ``v0.3.0`` is
-released, the ``0.2`` branch is created from the ``v0.2.1`` tag. (Provided that the
-latest previous release was ``v0.2.1``.)
+``vMajor.Minor.Micro`` tag. For example, if the release history looks like
 
-The ``Major.Minor`` branches are used for bug fixes in the older versions.
+* 0.1.0
+* 0.1.1
+* 0.1.2
+* 0.1.3
+* 0.1.4
+* 0.1.5
+* 0.1.6
+* 0.1.7
+* 0.1.8
+* 0.1.9
+
+then  at the time of the ``v0.2.0`` release the ``0.1`` branch is created from the
+``v0.1.9`` tag.
 
 Branches of your local repository
 =================================
@@ -34,7 +44,7 @@ Branches of origin repository
 =============================
 
 At any moment of your work on the feature or bugfix, you can push changes to your forked
-repository. For the first push, you should create a new branch in your forked
+repository. With the first push, you should create a new branch in your forked
 repository. For example, if you named your local branch as ``new-cool-feature``, type
 
 .. code-block:: bash
@@ -42,4 +52,4 @@ repository. For example, if you named your local branch as ``new-cool-feature``,
   git push -u origin new-cool-feature
 
 It will create a new branch in your forked repository and link your local branch to it.
-For the following pushes you can simply type ``git push``.
+For all next pushes you can simply type ``git push``.

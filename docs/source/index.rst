@@ -3,11 +3,11 @@
     :hidden:
 
     User Guide <user-guide/index>
+    user-support/index
     api/index
-    support
-    development/index
     release-notes/index
     cite
+    development/index
 
 :Release: |version|
 :Date: |release_date|

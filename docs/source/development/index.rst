@@ -10,7 +10,7 @@ and look forward to see your name on that list.
 
 It is not necessary to be a programmer to contribute. You can help us with the
 :ref:`documentation <development_documentation>`,
-:ref:`new features <development_feature>` and :ref:`finding bugs <development_bug>`.
+:ref:`new features <user-support_feature>` and :ref:`finding bugs <user-support_bug>`.
 
 
 Contribution process is summarized below. We assume that you have an account on
@@ -177,8 +177,6 @@ Development process in details
 .. toctree::
   :maxdepth: 2
 
-  features
-  bugs
   documentation
   tests
   origin-upstream

@@ -187,6 +187,10 @@ custom_links = {
         "Github discussions",
         "https://github.com/magnopy/magnopy/discussions",
     ),
+    "GitHub-issues": (
+        "Github issues",
+        "https://github.com/magnopy/magnopy/issues",
+    ),
     "repository": ("Magnopy repository", "https://github.com/magnopy/magnopy"),
     "issue-tracker": ("Issue Tracker", "https://github.com/magnopy/magnopy/issues"),
     "Forum-google-groups": (

@@ -1,4 +1,4 @@
-.. _development_bug:
+.. _user-support_bug:
 
 **********
 Bug report

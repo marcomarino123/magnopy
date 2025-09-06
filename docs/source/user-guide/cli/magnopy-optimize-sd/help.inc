@@ -1,7 +1,7 @@
 usage: magnopy-optimize-sd [-h] -sf FILENAME -ss KEYWORD [-sv [S1 [S2 ...]]]
                            [-s xa_1 xa_2 xa_3] [-et ENERGY_TOLERANCE]
                            [-tt TORQUE_TOLERANCE] [-mf h_x h_y h_z]
-                           [-of OUTPUT_FOLDER] [-no-sdi] [-hpd]
+                           [-of OUTPUT_FOLDER] [-no-html] [-hpd] [-no-sdi]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -10,9 +10,9 @@ usage: magnopy-optimize-sd [-h] -sf FILENAME -ss KEYWORD [-sv [S1 [S2 ...]]]
 ██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
 ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
                                                            ▄   ▄
-                     Version: 0.1.10                       █▀█▀█
+                      Version: 0.2.0                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-                 Release date: undefined                    ███   ▄▄
+          Release date: Undefined September 2025            ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
@@ -50,11 +50,13 @@ options:
                         of Tesla.
   -of, --output-folder OUTPUT_FOLDER
                         Folder where all output files of magnopy wil be saved.
-  -no-sdi, --no-sd-image
-                        Disable plotting of the spin direction image in the
+  -no-html, --no-html   Disable plotting of the spin direction image in the
                         .html format. html files are generally heavy (~> 5
                         Mb). This option allows to disable their production to
                         save disk space.
   -hpd, --hide-personal-data
                         Whether to strip the parts of the paths as to hide the
                         file structure of you personal computer.
+  -no-sdi, --no-sd-image
+                        This option is deprecated and will be remove in March
+                        of 2026, use -no-html instead

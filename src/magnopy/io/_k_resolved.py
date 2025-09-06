@@ -23,7 +23,22 @@
 from typing import Iterable
 import warnings
 
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt
+
+    MATPLOTLIB_AVAILABLE = True
+    MATPLOTLIB_ERROR_MESSAGE = "If you see this message, please contact developers of the code (see magnopy.org)."
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    MATPLOTLIB_ERROR_MESSAGE = "\n".join(
+        [
+            "Installation of matplotlib is not found, can not produce .png files",
+            "Please install matplotlib with",
+            "",
+            "    pip install matplotlib",
+            "",
+        ]
+    )
 import numpy as np
 
 # Save local scope at this moment
@@ -206,6 +221,13 @@ def plot_k_resolved(data, kp=None, output_filename=None, ylabel=None):
     ylabel : str, optional
         Label for the ordinate (y axis).
     """
+
+    if not MATPLOTLIB_AVAILABLE:
+        import warnings
+
+        warnings.warn(MATPLOTLIB_ERROR_MESSAGE, RuntimeWarning)
+
+        return
 
     data = np.array(data).T
 

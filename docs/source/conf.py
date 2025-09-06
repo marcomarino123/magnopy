@@ -256,6 +256,8 @@ custom_links = {
         ".write_html()",
         "https://plotly.com/python-api-reference/generated/plotly.io.to_html.html",
     ),
+    "jupyter": ("jupyter lab or notebook", "https://jupyter.org/"),
+    "matplotlib": ("matplotlib", "https://matplotlib.org/"),
 }
 rst_epilog += "\n".join(
     map(

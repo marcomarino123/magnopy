@@ -17,6 +17,15 @@
 :ref:`Cite <cite>` |
 :ref:`support`
 
+.. hint::
+
+  Install magnopy with optional dependencies (|plotly|_ and |matplotlib|_) to get magnopy
+  to produce graphics
+
+  .. code-block:: bash
+
+    pip install "magnopy[visual]"
+
 What is magnopy?
 ================
 

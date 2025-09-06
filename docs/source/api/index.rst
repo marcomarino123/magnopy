@@ -33,6 +33,7 @@ Classes
     SpinHamiltonian
     Energy
     LSWT
+    PlotlyEngine
 
 Functions
 =========

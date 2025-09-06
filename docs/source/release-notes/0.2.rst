@@ -22,7 +22,8 @@ Deprecations
 New features
 ------------
 
-* ``Energy.optimize_generator``
+* ``magnopy.Energy.optimize_generator``
+* ``magnopy.PlotlyEngine``
 
 Removed
 -------

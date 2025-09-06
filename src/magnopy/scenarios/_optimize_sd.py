@@ -27,6 +27,7 @@ import numpy as np
 from magnopy._energy import Energy
 from magnopy._package_info import logo
 from magnopy._spinham._supercell import make_supercell
+from magnopy._plotly_engine import PlotlyEngine
 
 
 # Save local scope at this moment
@@ -117,7 +118,7 @@ def optimize_sd(
         spinham.add_magnetic_field(h=magnetic_field)
 
     # Make a supercell if needed
-    # original_spinham = spinham
+    original_spinham = spinham
     if supercell != (1, 1, 1):
         spinham = make_supercell(spinham=spinham, supercell=supercell)
         print(
@@ -181,22 +182,50 @@ def optimize_sd(
     print(f"\nSpin positions are saved in file\n  {envelope_path(filename)}")
 
     if not no_html:
-        filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
-        raise NotImplementedError
+        filename = os.path.join(output_folder, "SPIN_DIRECTIONS.html")
 
-        # plot_spin_directions(
-        #     output_name=filename,
-        #     positions=positions,
-        #     spin_directions=spin_directions,
-        #     cell=original_spinham.cell,
-        #     highlight=[i for i in range(original_spinham.M)],
-        #     name_highlighted="Original unit cell",
-        #     name_other="Other unit cells",
-        #     _full_plotly=True,
-        # )
+        pe = PlotlyEngine()
+
+        pe.plot_cell(
+            original_spinham.cell,
+            color="Black",
+            legend_label="Unit cell",
+        )
+
+        original_uc_spins_indices = [i for i in range(original_spinham.M)]
+
+        pe.plot_spin_directions(
+            positions=positions[original_uc_spins_indices],
+            spin_directions=spin_directions[original_uc_spins_indices],
+            colors="#A47864",
+            legend_label="Spins of the unit cell",
+        )
+
+        if supercell != (1, 1, 1):
+            other_uc_spins_indices = [i for i in range(original_spinham.M, spinham.M)]
+            pe.plot_spin_directions(
+                positions=positions[other_uc_spins_indices],
+                spin_directions=spin_directions[other_uc_spins_indices],
+                colors="#535FCF",
+                legend_label="Spins of other unit cells",
+            )
+
+        pe.plot_spin_directions(
+            positions=positions,
+            spin_directions=initial_guess,
+            colors="#0DB00D",
+            legend_label="Initial guess",
+        )
+
+        pe.save(
+            output_name=filename,
+            axes_visible=True,
+            legend_position="top",
+            kwargs_write_html=dict(include_plotlyjs=True, full_html=True),
+        )
 
         print(
-            f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}.html"
+            f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}"
         )
 
     print(f"\n{' Finished ':=^90}")

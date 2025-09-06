@@ -21,6 +21,7 @@
 
 
 import os
+import warnings
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
@@ -40,7 +41,9 @@ def manager():
 
     # Handle deprecations
     if args.make_sd_image is not None:
-        raise DeprecationWarning("make-sd-image is deprecated, use --no-html instead.")
+        warnings.warn(
+            "This argument was deprecated in the release v0.2.0. The spin direction image is now plotted by default, please use -no-html if you want to disable it. This argument will be removed from magnopy in March of 2026"
+        )
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -259,7 +262,7 @@ def get_parser():
         nargs=3,
         type=int,
         default=None,
-        help="make_sd_image is deprecated, use --no-html instead.",
+        help="make_sd_image is deprecated, use --no-html instead. This arguments will be removed from magnopy in March of 2026",
     )
 
     return parser

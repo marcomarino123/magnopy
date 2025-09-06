@@ -23,6 +23,7 @@
 import os
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
+import warnings
 
 from magnopy._package_info import logo
 from magnopy.io._grogu import load_grogu
@@ -38,6 +39,14 @@ def manager():
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
+
+    if args.no_sd_image is not None:
+        warnings.warn(
+            "This argument was deprecated in the release v0.2.0. Please use -no-html instead. This argument will be removed from magnopy in March of 2026"
+        )
+
+        if args.no_sd_image and not args.no_html:
+            args.no_html = True
 
     # Process spin values
     if args.spin_values is not None:
@@ -74,7 +83,7 @@ def manager():
         torque_tolerance=args.torque_tolerance,
         output_folder=args.output_folder,
         comment=comment,
-        no_sd_image=args.no_sd_image,
+        no_html=args.no_html,
         hide_personal_data=args.hide_personal_data,
     )
 
@@ -161,8 +170,8 @@ def get_parser():
         help="Folder where all output files of magnopy wil be saved.",
     )
     parser.add_argument(
-        "-no-sdi",
-        "--no-sd-image",
+        "-no-html",
+        "--no-html",
         action="store_true",
         default=False,
         help="Disable plotting of the spin direction image in the .html format. html "
@@ -176,6 +185,17 @@ def get_parser():
         default=False,
         help="Whether to strip the parts of the paths as to hide the file structure of "
         "you personal computer.",
+    )
+
+    # Deprecated in the version v0.2.0
+    # Shall be removed in the version v0.4.0
+    # But not earlier than 07 March 2026
+    parser.add_argument(
+        "-no-sdi",
+        "--no-sd-image",
+        action="store_true",
+        default=None,
+        help="This option is deprecated and will be remove in March of 2026, use -no-html instead",
     )
 
     return parser

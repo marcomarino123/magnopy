@@ -30,6 +30,7 @@ from magnopy._lswt import LSWT
 from magnopy._package_info import logo
 from magnopy._parallelization import multiprocess_over_k
 from magnopy.io._k_resolved import plot_k_resolved
+from magnopy._plotly_engine import PlotlyEngine
 
 
 # Save local scope at this moment
@@ -181,11 +182,11 @@ def solve_lswt(
     np.savetxt(
         filename,
         np.concatenate(
-            (spin_directions, np.array(spinham.magnetic_atoms["spins"])[np.newaxis, :]),
+            (spin_directions, np.array(spinham.magnetic_atoms["spins"])[:, np.newaxis]),
             axis=1,
         ),
         fmt="%12.8f %12.8f %12.8f   %12.8f",
-        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}    {'S':>12}",
+        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}   {'S':>12}",
         comments="",
     )
     print(
@@ -193,19 +194,32 @@ def solve_lswt(
     )
     # Save spin directions as a .html file
     if not no_html:
-        raise NotImplementedError
-        filename = os.path.join(output_folder, "SPIN_DIRECTIONS")
-        # positions = np.array(spinham.magnetic_atoms.positions) @ spinham.cell
-        # plot_spin_directions(
-        #     output_name=filename,
-        #     positions=positions,
-        #     spin_directions=spin_directions,
-        #     cell=spinham.cell,
-        #     _full_plotly=True,
-        # )
+        filename = os.path.join(output_folder, "SPIN_DIRECTIONS.html")
+
+        pe = PlotlyEngine()
+
+        pe.plot_cell(
+            spinham.cell,
+            color="Black",
+            legend_label="Unit cell",
+        )
+
+        pe.plot_spin_directions(
+            positions=np.array(spinham.magnetic_atoms.positions) @ spinham.cell,
+            spin_directions=spin_directions,
+            colors="#A47864",
+            legend_label="Spins of the unit cell",
+        )
+
+        pe.save(
+            output_name=filename,
+            axes_visible=True,
+            legend_position="top",
+            kwargs_write_html=dict(include_plotlyjs=True, full_html=True),
+        )
 
         print(
-            f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}.html"
+            f"\nImage of spin directions is saved in file\n  {envelope_path(filename)}.html\n"
         )
 
     # Output order of atoms and their spglib types as understood by wulfric
@@ -253,10 +267,11 @@ def solve_lswt(
         )
         print(
             "Deducing k-points based on the crystal symmetry.",
-            f"spglib_symprec is {spglib_symprec:.5e}.",
-            f"Space group {spglib_data.space_group_number} detected.",
-            f"Bravais lattice is {spglib_data.crystal_family + spglib_data.centring_type}.",
+            f"spglib_symprec is  {spglib_symprec:.5e}.",
+            f"Space group is     {spglib_data.space_group_number}",
+            f"Bravais lattice is {spglib_data.crystal_family + spglib_data.centring_type}",
             "Using convention of HPKOT paper. See docs of wulfric for details (wulfric.org).",
+            sep="\n",
         )
         kp = wulfric.Kpoints.from_crystal(
             cell=spinham.cell,
@@ -270,16 +285,16 @@ def solve_lswt(
         label_n = max([5] + [len(label) for label in kp.hs_names])
         with open(filename, "w") as f:
             f.write(
-                f"{'Label':{label_n}}{'k_x':>12} {'k_y':>12} {'k_z':>12}    {'r_b1':>12} {'r_b2':>12} {'r_b3':>12}\n"
+                f"{'Label':{label_n}} {'k_x':>12} {'k_y':>12} {'k_z':>12}    {'r_b1':>12} {'r_b2':>12} {'r_b3':>12}\n"
             )
             for label in kp.hs_names:
                 k_rel = kp.hs_coordinates[label]
                 k_abs = k_rel @ kp.rcell
                 f.write(
-                    f"{label:<{label_n}} {k_abs[0]:12.8f} {k_abs[1]:12.8f} {k_abs[2]:12.8f}    {k_rel[0]:12.8f} {k_rel[1]:12.8f} {k_rel[2]:12.8f}"
+                    f"{label:<{label_n}} {k_abs[0]:12.8f} {k_abs[1]:12.8f} {k_abs[2]:12.8f}    {k_rel[0]:12.8f} {k_rel[1]:12.8f} {k_rel[2]:12.8f}\n"
                 )
         print(
-            f"\nFull list of pre-defined high-symmetry points is saved in file\n  {envelope_path(filename)}"
+            f"\nFull list of pre-defined high-symmetry points is saved in file\n  {envelope_path(filename)}\n"
         )
 
         # Try to set custom k path
@@ -297,6 +312,7 @@ def solve_lswt(
                     "for the list of pre-defined high-symmetry points.",
                     "Using recommended k-path instead:",
                     f"  {kp.path_string}",
+                    sep="\n",
                 )
                 print(f"{'  END OF WARNING  ':!^90}\n")
         else:
@@ -342,12 +358,12 @@ def solve_lswt(
             (
                 kpoints_absolute,
                 kpoints_relative,
-                flat_indices[np.newaxis, :],
+                flat_indices[:, np.newaxis],
             ),
             axis=1,
         ),
         fmt="%12.8f %12.8f %12.8f   %12.8f %12.8f %12.8f   %12.8f",
-        header=f"{'k_x':>12} {'k_y':>12} {'k_z':>12}    {'r_b1':>12} {'r_b2':>12} {'r_b3':>12}   {'flat index':>12}",
+        header=f"{'k_x':>12} {'k_y':>12} {'k_z':>12}   {'r_b1':>12} {'r_b2':>12} {'r_b3':>12}   {'flat index':>12}",
         comments="",
     )
     print(f"\nExplicit list of k-points is saved in file\n  {envelope_path(filename)}")
@@ -376,6 +392,7 @@ def solve_lswt(
             "the ground state (spin directions) is not a ground state of the considered spin",
             "Hamiltonian. The results might not be meaningful. If coefficients are << 1, that might",
             "be an artifact of the finite point arithmetic and the results might be just fine.",
+            sep="\n",
         )
         print(f"{'  END OF WARNING  ':!^90}\n")
 
@@ -397,8 +414,8 @@ def solve_lswt(
     np.savetxt(
         filename,
         omegas.real,
-        fmt=("%10.6e " * n_modes)[:-1],
-        header=" ".join([f"mode {i + 1}" for i in range(n_modes)]),
+        fmt=("%15.6e " * n_modes)[:-1],
+        header=" ".join([f"{f'mode {i + 1}':>15}" for i in range(n_modes)]),
         comments="",
     )
     print(f"\nOmegas are saved in file\n  {envelope_path(filename)}")
@@ -427,8 +444,8 @@ def solve_lswt(
         np.savetxt(
             filename,
             omegas.imag,
-            fmt=("%10.6e " * n_modes)[:-1],
-            header=" ".join([f"mode {i + 1}" for i in range(n_modes)]),
+            fmt=("%15.6e " * n_modes)[:-1],
+            header=" ".join([f"{f'mode {i + 1}':>15}" for i in range(n_modes)]),
             comments="",
         )
         print(f"Imaginary part of omegas is saved in file\n  {envelope_path(filename)}")

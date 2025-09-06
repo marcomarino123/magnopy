@@ -9,6 +9,10 @@ Version 0.2
 
 **Date**: Undefined September 2025
 
+New features
+------------
+#TODO
+
 Deprecations
 ------------
 
@@ -23,7 +27,7 @@ New features
 Removed
 -------
 
-
+#TODO
 
 *   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
     energy cut-off)

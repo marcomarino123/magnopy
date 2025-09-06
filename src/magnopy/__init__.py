@@ -34,3 +34,4 @@ from ._package_info import *
 from ._parallelization import *
 from ._parameters import *
 from ._spinham import *
+from ._plotly_engine import *

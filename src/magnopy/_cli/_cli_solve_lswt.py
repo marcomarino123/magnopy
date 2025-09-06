@@ -186,7 +186,7 @@ def get_parser():
         "-kp",
         "--k-path",
         default=None,
-        metavar="G-X-S|G-Y",
+        metavar="GAMMA-X-S|GAMMA-Y",
         type=str,
         help="Path of high symmetry k-points for the plots of dispersion and other "
         "quantities.",

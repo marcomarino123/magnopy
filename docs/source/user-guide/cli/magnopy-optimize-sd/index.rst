@@ -67,13 +67,13 @@ then pass to the script two parameters either in the short form
 
 .. code-block:: bash
 
-    magnopy-optimize-sd -ss TB2J -sf data/hamiltonians/trial1/TB2J/exchange.out ...
+    magnopy-optimize-sd  -ss TB2J -sf data/hamiltonians/trial1/TB2J/exchange.out ...
 
 or in the long form
 
 .. code-block:: bash
 
-    magnopy-optimize-sd -spinham-source TB2J -spinham-filename data/hamiltonians/trial1/TB2J/exchange.out ...
+    magnopy-optimize-sd  -spinham-source TB2J -spinham-filename data/hamiltonians/trial1/TB2J/exchange.out ...
 
 .. note::
     The dots ``...`` are not a part of the syntax. They are used only to highlight the

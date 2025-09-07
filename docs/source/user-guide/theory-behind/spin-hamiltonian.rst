@@ -81,7 +81,7 @@ The parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})`,
 and
 :math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})`
 can describe either some external effect or internal interactions between spins. The
-Hamiltonian above is discussed and solved  in the (TODO) research paper about magnopy.
+Hamiltonian above is discussed and solved in the (TODO) research paper about magnopy.
 
 
 .. _user-guide_theory-behind_spin-hamiltonian_expanded-form:

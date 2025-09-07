@@ -786,34 +786,31 @@ class LSWT:
         delta : float
             Constant energy term that results from diagonalization. Note, that data type is complex. If the ground state is correct,
             then the complex part should be zero.
-        G_inv : (M, 2M) :numpy:`ndarray`
+        G : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
-            Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
 
             .. math::
 
                 \begin{pmatrix}
-                    b_1(\boldsymbol{k}),
-                    \dots,
-                    b_M(\boldsymbol{k}),
+                    b_1(\boldsymbol{k}) \\
+                    \dots \\
+                    b_M(\boldsymbol{k}) \\
                 \end{pmatrix}
                 =
-                (\mathcal{G})^{-1}
-
+                \mathcal{G}
                 \begin{pmatrix}
-                    a_1(\boldsymbol{k}),
-                    \dots,
-                    a_M(\boldsymbol{k}),
-                    a^{\dagger}_1(-\boldsymbol{k}),
-                    \dots,
-                    a^{\dagger}_M(-\boldsymbol{k}),
+                    a_1(\boldsymbol{k}) \\
+                    \dots \\
+                    a_M(\boldsymbol{k}) \\
+                    a^{\dagger}_1(-\boldsymbol{k}) \\
+                    \dots \\
+                    a^{\dagger}_M(-\boldsymbol{k}) \\
                 \end{pmatrix}
 
         See Also
         --------
         LSWT.omega
         LSWT.delta
-        LSWT.G_inv
 
         Examples
         --------
@@ -891,7 +888,6 @@ class LSWT:
         --------
         LSWT.diagonalize
         LSWT.delta
-        LSWT.G_inv
 
         Examples
         --------
@@ -934,7 +930,6 @@ class LSWT:
         --------
         LSWT.diagonalize
         LSWT.omega
-        LSWT.G_inv
 
         Examples
         --------

@@ -218,10 +218,10 @@ def solve_via_colpa(D, sort_by_first_N=True):
         >>> G
         array([[ 1.08204454-0.j        ,  0.        +0.41330424j],
                [-0.        -0.41330424j,  1.08204454-0.j        ]])
-        >>> E, G_inv = magnopy.solve_via_colpa(D)
+        >>> E, G = magnopy.solve_via_colpa(D)
         >>> E
         array([0.61803399+0.j, 1.61803399+0.j])
-        >>> G_inv
+        >>> G
         array([[1.08204454+0.j        , 0.        -0.41330424j],
                [0.        +0.41330424j, 1.08204454+0.j        ]])
     """

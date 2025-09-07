@@ -14,5 +14,5 @@ script as well. Roughly, every function correspond to one command line script.
 .. autosummary::
     :toctree: generated/
 
-    solve_lswt
     optimize_sd
+    solve_lswt

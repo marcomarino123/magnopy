@@ -14,7 +14,20 @@ Version 0.2
 
 New features
 ------------
-#TODO
+
+* ``magnopy.Energy.optimize_generator``
+* ``magnopy.PlotlyEngine``
+* ``magnopy.LSWT.G``
+* ``magnopy.SpinHamiltonian.add_dipole_dipole``
+* ``no_html``, ``hide_personal_data``, ``spglib_symprec`` arguments in
+  ``magnopy.scenarios.solve_lswt``.
+* ``no_html``, ``hide_personal_data``, ``supercell`` arguments in
+  ``magnopy.scenarios.optimize_sd``.
+* ``-s, --supercell``, ``-no-html, --no-html``, ``-hpd, --hide-personal-data``
+  in ``magnopy-optimize-sd``.
+* ``-no-html, --no-html``, ``-hpd, --hide-personal-data``,
+  ``-spg-s, --spglib-symprec``, ``-msdi, --make-sd-image`` in ``magnopy-lswt``.
+
 
 Bug fixes
 ---------
@@ -24,27 +37,19 @@ Bug fixes
 Deprecations
 ------------
 
-* ``magnopy.io.plot_spin_directions``
 * ``magnopy.io.output_k_resolved``
-
-New features
-------------
-
-* ``magnopy.Energy.optimize_generator``
-* ``magnopy.PlotlyEngine``
 
 Removed
 -------
 
-#TODO
+* ``magnopy.LSWT.G_inv``
+* ``make_sd_image`` argument in ``magnopy.scenarios.solve_lswt`` and
+  ``magnopy.scenarios.optimize_sd``.
 
-*   Add magnetic dipole-dipole interaction to the Hamiltonian (base on the radius or
-    energy cut-off)
-*   Improve error messages when plotly is not installed.
+
+
+
+
+
 *   Add output of "SPIN_POSITIONS.txt" to the ``magnopy-optimize-sd``
 *   Add output of "INITIAL_GUESS.txt" to the ``magnopy-optimize-sd``
-*   Add option for optimization on the supercell.
-*   Change interface of the optimization functions.
-*   Improve output of the optimization's progress.
-*   Add an option to hide absolute paths to cli scripts
-*   Fix a bug in the plot of spin directions.

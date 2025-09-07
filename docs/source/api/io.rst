@@ -47,5 +47,4 @@ Deprecated
 .. autosummary::
     :toctree: generated/
 
-    plot_spin_directions
     output_k_resolved

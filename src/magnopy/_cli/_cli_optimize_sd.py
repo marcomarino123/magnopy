@@ -40,13 +40,11 @@ def manager():
         parser.print_help()
         sys.exit(1)
 
-    if args.no_sd_image is not None:
+    # Handle deprecations
+    if args.make_sd_image is not None:
         warnings.warn(
-            "This argument was deprecated in the release v0.2.0. Please use -no-html instead. This argument will be removed from magnopy in March of 2026"
+            "This argument was deprecated in the release v0.2.0. The spin direction image is now plotted by default, please use --no-html if you want to disable it. This argument will be removed from magnopy in March of 2026"
         )
-
-        if args.no_sd_image and not args.no_html:
-            args.no_html = True
 
     # Process spin values
     if args.spin_values is not None:
@@ -188,14 +186,14 @@ def get_parser():
     )
 
     # Deprecated in the version v0.2.0
-    # Shall be removed in the version v0.4.0
-    # But not earlier than 07 March 2026
+    # Will be removed in March 2026
     parser.add_argument(
-        "-no-sdi",
-        "--no-sd-image",
-        action="store_true",
+        "-msdi",
+        "--make-sd-image",
+        nargs=3,
+        type=int,
         default=None,
-        help="This option is deprecated and will be remove in March of 2026, use -no-html instead",
+        help="make_sd_image is deprecated, image is made by default, use --no-html to suppress. This arguments will be removed from magnopy in March of 2026",
     )
 
     return parser

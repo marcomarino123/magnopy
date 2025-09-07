@@ -57,6 +57,8 @@ def optimize_sd(
     supercell : (3, ) tuple of int
         If different from ``(1, 1, 1)``, then a supercell Hamiltonian is constructed and
         spins are varied within the supercell and not within a unit cell.
+
+        .. versionadded:: 0.2.0
     magnetic_field : (3, ) |array-like|_
         Vector of external magnetic field, given in Tesla.
     energy_tolerance : float, default 1e-5
@@ -72,9 +74,13 @@ def optimize_sd(
     no_html : bool, default False
         Whether to produce .html files with interactive representation of the data.
         If ``no_html=False``, then requires |plotly|_ to be installed.
+
+        .. versionadded:: 0.2.0
     hide_personal_data : bool, default False
         Whether to use ``os.path.abspath()`` when printing the paths to the output and
         input files.
+
+        .. versionadded:: 0.2.0
 
     Raises
     ------

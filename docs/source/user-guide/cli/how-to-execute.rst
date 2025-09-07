@@ -1,8 +1,8 @@
 .. _user-guide_cli_common-notes:
 
-*************************
-How to execute the script
-*************************
+**************************
+How to execute the script?
+**************************
 
 On this page we explain how the command-line interface of magnopy works.
 

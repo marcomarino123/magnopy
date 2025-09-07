@@ -989,6 +989,10 @@ class LSWT:
         """
         return self.diagonalize(k=k, relative=relative)[2]
 
+    # Removed in v0.2.0. Warning will be removed in March of 2026
+    def G_inv(self, *args, **kwargs):
+        raise DeprecationWarning("This method was removed in v0.2.0 in favor of LSWT.G")
+
 
 # Populate __all__ with objects defined in this file
 __all__ = list(set(dir()) - old_dir)

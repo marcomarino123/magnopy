@@ -94,6 +94,8 @@ def solve_lswt(
     hide_personal_data : bool, default False
         Whether to use ``os.path.abspath()`` when printing the paths to the output and
         input files.
+
+        .. versionadded:: 0.2.0
     spglib_symprec : float, default 1e-5
         Tolerance parameter for the space group symmetry search by |spglib|_. Reduce it
         if the space group is not the one you expected.

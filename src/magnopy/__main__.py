@@ -29,6 +29,7 @@ from magnopy._package_info import _warranty, logo
 def main():
     parser = ArgumentParser(
         description=logo() + "\n\nAvailable scripts are:\n\n"
+        "* magnopy-optimize-sd\n\n"
         "* magnopy-lswt\n\n"
         "To call for help for each script type <script name> --help\n"
         "Information below is relevant only to 'magnopy' command.",

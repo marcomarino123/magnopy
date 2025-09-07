@@ -8,5 +8,6 @@ build
 black
 isort
 
-# dev-tools
+# code quality
+ruff
 pre-commit

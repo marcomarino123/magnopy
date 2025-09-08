@@ -7,7 +7,7 @@ Version 0.2
 0.2.0
 =====
 
-**Date**: Undefined September 2025
+**Date**: 10 September 2025
 
 *   Make matplotlib and plotly optional dependencies. Use ``pip install "magnopy[visual]"``
     to be able to use plotting functions.

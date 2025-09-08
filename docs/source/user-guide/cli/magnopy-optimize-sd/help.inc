@@ -1,7 +1,8 @@
 usage: magnopy-optimize-sd [-h] -sf FILENAME -ss KEYWORD [-sv [S1 [S2 ...]]]
                            [-s xa_1 xa_2 xa_3] [-et ENERGY_TOLERANCE]
                            [-tt TORQUE_TOLERANCE] [-mf h_x h_y h_z]
-                           [-of OUTPUT_FOLDER] [-no-html] [-hpd] [-no-sdi]
+                           [-of OUTPUT_FOLDER] [-no-html] [-hpd]
+                           [-msdi MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -12,7 +13,7 @@ usage: magnopy-optimize-sd [-h] -sf FILENAME -ss KEYWORD [-sv [S1 [S2 ...]]]
                                                            ▄   ▄
                       Version: 0.2.0                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-          Release date: Undefined September 2025            ███   ▄▄
+             Release date: 10 September 2025                ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
@@ -57,6 +58,7 @@ options:
   -hpd, --hide-personal-data
                         Whether to strip the parts of the paths as to hide the
                         file structure of you personal computer.
-  -no-sdi, --no-sd-image
-                        This option is deprecated and will be remove in March
-                        of 2026, use -no-html instead
+  -msdi, --make-sd-image MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE
+                        make_sd_image is deprecated, image is made by default,
+                        use --no-html to suppress. This arguments will be
+                        removed from magnopy in March of 2026

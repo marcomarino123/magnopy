@@ -1,6 +1,7 @@
 usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
-                    [-sv [S1 S2 S3 ... ...]] [-kp G-X-S|G-Y] [-kps KPOINTS]
-                    [-r] [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
+                    [-sv [S1 S2 S3 ... ...]] [-kp GAMMA-X-S|GAMMA-Y]
+                    [-kps KPOINTS] [-r]
+                    [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
                     [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS] [-no-html]
                     [-hpd] [-spg-s SPGLIB_SYMPREC]
                     [-msdi MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE]
@@ -14,7 +15,7 @@ usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
                                                            ▄   ▄
                       Version: 0.2.0                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-          Release date: Undefined September 2025            ███   ▄▄
+             Release date: 10 September 2025                ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
@@ -50,7 +51,7 @@ options:
                         that those numbers are always positive. To specify AFM
                         order use opposite spin directions and not spin values
                         of the opposite sign.
-  -kp, --k-path G-X-S|G-Y
+  -kp, --k-path GAMMA-X-S|GAMMA-Y
                         Path of high symmetry k-points for the plots of
                         dispersion and other quantities.
   -kps, --kpoints KPOINTS

@@ -20,7 +20,7 @@ help:
 	@echo "    install - install the package"
 	@echo "    test - execute unit tests"
 	@echo "    pictures-for-docs - plot all pictures for the documentation"
-	@echo "    model-input-examples-run - run the model input examples"
+	@echo "    files-for-docs - prepare some generated files for the documentation"
 	@echo "    requirements - install all requirements"
 
 # Development environment

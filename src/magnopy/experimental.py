@@ -25,7 +25,13 @@ from wulfric.crystal import get_vector
 from magnopy._parameters._p22 import to_dmi, to_iso
 
 
-def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1):
+def plot_spinham(
+    spinham,
+    distance_digits=5,
+    plot_dmi=True,
+    dmi_vectors_scale=1,
+    _sphinx_gallery_fix=False,
+):
     r"""
     Visualize spin Hamiltonian.
 
@@ -56,8 +62,7 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
         saved or showed. Only two-spins/two-sites parameters are plotted.
     """
 
-    pe1 = PlotlyEngine()
-    pe2 = PlotlyEngine()
+    pe1 = PlotlyEngine(_sphinx_gallery_fix=_sphinx_gallery_fix)
 
     pe1.plot_cell(
         cell=spinham.cell,
@@ -74,20 +79,12 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
         alpha = spinham.map_to_magnetic[alpha]
 
         hoverinfo[alpha] += "<br>".join(
-            "",
-            "One-spin parameter:",
-            f"  {parameter[0]:10.5f} {parameter[0]:10.5f} {parameter[0]:10.5f}",
-            "",
-        )
-
-    for alpha, parameter in spinham.p1:
-        alpha = spinham.map_to_magnetic[alpha]
-
-        hoverinfo[alpha] += "<br>".join(
-            "",
-            "One-spin parameter:",
-            f"  {parameter[0]:10.5f} {parameter[1]:10.5f} {parameter[1]:10.5f}",
-            "",
+            [
+                "",
+                "One-spin parameter:",
+                f"  {parameter[0]:10.5f} {parameter[0]:10.5f} {parameter[0]:10.5f}",
+                "",
+            ]
         )
 
     for alpha, parameter in spinham.p21:
@@ -158,12 +155,7 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
         z_max=points[2].max(),
     )
 
-    pe2 = PlotlyEngine()
-    range_min = [0, 0, 0]
-    range_max = [0, 0, 0]
-    for _, _, nu, _ in spinham.p22:
-        range_min = np.min([range_min, nu], axis=0)
-        range_max = np.max([range_max, nu], axis=0)
+    pe2 = PlotlyEngine(_sphinx_gallery_fix=_sphinx_gallery_fix)
 
     start_points = []
     end_points = []
@@ -172,6 +164,7 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
     dmi_vectors = []
     dmi_positions = []
 
+    cells_to_plot = []
     for alpha, beta, nu, parameter in spinham.p22:
         vector = get_vector(
             cell=spinham.cell, atoms=spinham.atoms, atom1=alpha, atom2=beta, R=nu
@@ -184,6 +177,9 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
         dmi_vectors.append(to_dmi(parameter=parameter))
         dmi_positions.append(start_points[-1] + vector / 2)
 
+        if nu != (0, 0, 0):
+            cells_to_plot.append(nu)
+
     indices = np.argsort(distances)
 
     start_points = np.array(start_points)[indices]
@@ -193,9 +189,10 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
     dmi_positions = np.array(dmi_positions)[indices]
     dmi_vectors = np.array(dmi_vectors)[indices]
 
-    dmi_vectors_scale = np.linalg.norm(dmi_vectors, axis=1).max() / dmi_vectors_scale
+    dmi_max_length = np.linalg.norm(dmi_vectors, axis=1).max()
 
-    dmi_vectors = dmi_vectors / dmi_vectors_scale
+    if dmi_max_length != 0:
+        dmi_vectors = dmi_vectors / dmi_max_length * dmi_vectors_scale
 
     unique_distances = np.unique(distances)
 
@@ -223,7 +220,7 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
                 "",
                 f"Isotropic: {to_iso(_)}",
                 "",
-                f"DMI: {dmi_vectors[i][0]:10.5f} {dmi_vectors[i][1]:10.5f} {dmi_vectors[i][2]:10.5f}",
+                f"DMI: {to_dmi(_)[0]:10.5f} {to_dmi(_)[1]:10.5f} {to_dmi(_)[2]:10.5f}",
             ]
         )
         for _ in parameters
@@ -231,26 +228,22 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
 
     legend_label = "Other_cells"
     magnetic_sites = []
-    for i in range(range_min[0], range_max[0] + 1):
-        for j in range(range_min[1], range_max[1] + 1):
-            for k in range(range_min[2], range_max[2] + 1):
-                if not i == j == j == k == 0:
-                    shift = [i, j, k] @ spinham.cell
-                    pe2.plot_cell(
-                        cell=spinham.cell,
-                        legend_group="other cells",
-                        legend_label=legend_label,
-                        color="LightGrey",
-                        shift=shift,
-                        plot_vectors=False,
-                    )
-                    if legend_label is not None:
-                        legend_label = None
+    for i, j, k in cells_to_plot:
+        shift = [i, j, k] @ spinham.cell
+        pe2.plot_cell(
+            cell=spinham.cell,
+            legend_group="other cells",
+            legend_label=legend_label,
+            color="LightGrey",
+            shift=shift,
+            plot_vectors=False,
+        )
+        if legend_label is not None:
+            legend_label = None
 
-                    magnetic_sites.extend(
-                        spinham.magnetic_atoms.positions @ spinham.cell
-                        + shift[np.newaxis, :]
-                    )
+        magnetic_sites.extend(
+            spinham.magnetic_atoms.positions @ spinham.cell + shift[np.newaxis, :]
+        )
     pe2.plot_cell(
         cell=spinham.cell,
         legend_label="(0, 0, 0) unit cell",
@@ -284,7 +277,7 @@ def plot_spinham(spinham, distance_digits=5, plot_dmi=True, dmi_vectors_scale=1)
                 x=x,
                 y=y,
                 z=z,
-                line=dict(color=colors[i]),
+                line=dict(color=colors[i], width=4),
                 hoverinfo="text",
                 text=hoverinfo[i],
             ),

@@ -22,6 +22,7 @@ Sub-modules
   io
   scenarios
   examples
+  experimental
 
 Classes
 =======

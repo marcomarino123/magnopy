@@ -50,10 +50,10 @@ Removed
 * ``make_sd_image`` argument in ``magnopy.scenarios.solve_lswt`` and
   ``magnopy.scenarios.optimize_sd``.
 
+Experimental
+------------
 
+Add ``magnopy.experimental`` submodule, where experimental features of magnopy are located.
+Those features might migrate to the core package in the future versions or removed from it.
 
-
-
-
-*   Add output of "SPIN_POSITIONS.txt" to the ``magnopy-optimize-sd``
-*   Add output of "INITIAL_GUESS.txt" to the ``magnopy-optimize-sd``
+* ``magnopy.experimental.plot_spinham``

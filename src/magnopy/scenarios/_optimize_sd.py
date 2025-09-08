@@ -169,8 +169,6 @@ def optimize_sd(
         filename,
         spin_directions,
         fmt="%12.8f %12.8f %12.8f",
-        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}",
-        comments="",
     )
     print(f"\nOptimized spin directions are saved in file\n  {envelope_path(filename)}")
 
@@ -182,8 +180,6 @@ def optimize_sd(
         filename,
         positions,
         fmt="%12.8f %12.8f %12.8f",
-        header=f"{'x':>12} {'y':>12} {'z':>12}",
-        comments="",
     )
     print(f"\nSpin positions are saved in file\n  {envelope_path(filename)}")
 

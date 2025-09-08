@@ -32,6 +32,13 @@ from magnopy._parallelization import multiprocess_over_k
 from magnopy.io._k_resolved import plot_k_resolved
 from magnopy._plotly_engine import PlotlyEngine
 
+try:
+    import scipy  # noqa F401
+
+    SCIPY_AVAILABLE = True
+except ImportError:
+    SCIPY_AVAILABLE = False
+
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -179,7 +186,6 @@ def solve_lswt(
         )
 
     # Save spin directions and spin values to the .txt file
-    print("Directions of spin vectors of the ground state and spin values are")
     filename = os.path.join(output_folder, "SPIN_VECTORS.txt")
     np.savetxt(
         filename,
@@ -188,8 +194,6 @@ def solve_lswt(
             axis=1,
         ),
         fmt="%12.8f %12.8f %12.8f   %12.8f",
-        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}   {'S':>12}",
-        comments="",
     )
     print(
         f"\nDirections of spin vectors of the ground state and spin values are saved in file\n  {envelope_path(filename)}"
@@ -325,32 +329,37 @@ def solve_lswt(
 
         # Produce .html file with the hs points, k-path and brillouin zones
         if not no_html:
-            filename = os.path.join(output_folder, "K-POINTS.html")
-            pe = wulfric.PlotlyEngine()
+            if SCIPY_AVAILABLE:
+                filename = os.path.join(output_folder, "K-POINTS.html")
+                pe = wulfric.PlotlyEngine()
 
-            prim_cell, _ = wulfric.crystal.get_primitive(
-                cell=spinham.cell,
-                atoms=spinham.atoms,
-                convention="SC",
-                spglib_data=spglib_data,
-            )
-            pe.plot_brillouin_zone(
-                cell=prim_cell,
-                color="red",
-                legend_label="Brillouin zone of the primitive cell",
-            )
-            pe.plot_brillouin_zone(
-                cell=spinham.cell,
-                color="chocolate",
-                legend_label="Brillouin zone of the spinham.cell",
-            )
-            pe.plot_kpath(kp=kp)
-            pe.plot_kpoints(kp=kp, only_from_kpath=True)
+                prim_cell, _ = wulfric.crystal.get_primitive(
+                    cell=spinham.cell,
+                    atoms=spinham.atoms,
+                    convention="SC",
+                    spglib_data=spglib_data,
+                )
+                pe.plot_brillouin_zone(
+                    cell=prim_cell,
+                    color="red",
+                    legend_label="Brillouin zone of the primitive cell",
+                )
+                pe.plot_brillouin_zone(
+                    cell=spinham.cell,
+                    color="chocolate",
+                    legend_label="Brillouin zone of the spinham.cell",
+                )
+                pe.plot_kpath(kp=kp)
+                pe.plot_kpoints(kp=kp, only_from_kpath=True)
 
-            pe.save(output_name=filename)
-            print(
-                f"\nHigh-symmetry points and chosen k-path are plotted in\n  {envelope_path(filename)}"
-            )
+                pe.save(output_name=filename)
+                print(
+                    f"\nHigh-symmetry points and chosen k-path are plotted in\n  {envelope_path(filename)}"
+                )
+            else:
+                print(
+                    "\nCan not plot Brillouin zone without scipy. Please install it with\n  pip install scipy"
+                )
 
     # Save k-points info to the .txt file
     filename = os.path.join(output_folder, "K-POINTS.txt")

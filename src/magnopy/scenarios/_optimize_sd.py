@@ -142,8 +142,6 @@ def optimize_sd(
         filename,
         initial_guess,
         fmt="%12.8f %12.8f %12.8f",
-        header=f"{'e_x':>12} {'e_y':>12} {'e_z':>12}",
-        comments="",
     )
     print(
         f"\nSpin directions of the initial guess are saved in file\n  {envelope_path(filename)}"

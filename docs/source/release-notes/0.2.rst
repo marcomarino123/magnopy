@@ -57,3 +57,4 @@ Add ``magnopy.experimental`` submodule, where experimental features of magnopy a
 Those features might migrate to the core package in the future versions or removed from it.
 
 * ``magnopy.experimental.plot_spinham``
+* ``magnopy.experimental.change_unit_cell``

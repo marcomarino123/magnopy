@@ -16,3 +16,4 @@ authors if you use any of those features (see :ref:`support`).
     :toctree: generated/
 
     plot_spinham
+    change_cell

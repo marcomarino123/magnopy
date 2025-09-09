@@ -20,9 +20,11 @@
 # ================================ END LICENSE =================================
 import random
 import numpy as np
+import wulfric
 from magnopy._plotly_engine import PlotlyEngine
 from wulfric.crystal import get_vector
 from magnopy._parameters._p22 import to_dmi, to_iso
+from magnopy._spinham._hamiltonian import SpinHamiltonian
 
 
 def plot_spinham(
@@ -296,20 +298,190 @@ def plot_spinham(
     return pe1, pe2
 
 
-if __name__ == "__main__":
-    import magnopy.io as io
+def change_cell(spinham, new_cell, new_atoms):
+    r"""
 
-    spinham = io.load_grogu("tmp/tmp-CrI3/CrI3.txt")
+    Parameters
+    ==========
+    spinham : :py:class:`.SpinHamiltonian`
+    new_cell : (3, 3) |array-like|_
+    new_atoms : list of tuple
 
-    spinham.convention = spinham.convention.get_modified(multiple_counting=False)
+        ..code-block:: python
 
-    pe1, pe2 = plot_spinham(spinham=spinham, distance_digits=3, dmi_vectors_scale=1)
+            new_atoms = [(index, nu), ]
 
-    pe1.save(output_name="tmp1.html", width=1000, height=1000, axes_visible=False)
-    pe2.save(
-        output_name="tmp2.html",
-        width=1000,
-        height=1000,
-        legend_position="right",
-        axes_visible=False,
+        where ``index`` is an index of an atom in ``spinham.atoms`` and ``nu = (i,j,k)``
+        is the unit cell to which an atom belongs.
+    """
+
+    new_cell = np.array(new_cell)
+
+    new_atoms = {}
+
+    for key in spinham.atoms:
+        new_atoms[key] = []
+
+    for atom_index, (i, j, k) in new_atoms:
+        for key in spinham.atoms:
+            if key == "positions":
+                position = spinham.atoms.positions[atom_index]
+                new_position = (
+                    np.array([(position[0] + i), (position[1] + j), (position[2] + k)])
+                    @ spinham.cell
+                    @ np.linalg.inv(new_cell)
+                )
+                new_atoms["positions"].append(new_position)
+            else:
+                new_atoms[key].append(spinham.atoms[key][atom_index])
+
+    wulfric.crystal.ensure_000(new_atoms)
+
+    map_to_indices = {
+        np.around(new_atoms["positions"][i], digits=5): i
+        for i in range(len(new_atoms["positions"]))
+    }
+
+    new_spinham = SpinHamiltonian(
+        cell=new_cell, atoms=new_atoms, convention=spinham.convention
     )
+
+    def get_new_indices(atom_index, ijk):
+        i, j, k = ijk
+        position = spinham.atoms.positions[atom_index]
+        new_position = (
+            np.array([(position[0] + i), (position[1] + j), (position[2] + k)])
+            @ spinham.cell
+            @ np.linalg.inv(new_cell)
+        )
+
+        new_ijk = new_position // 1
+
+        new_index = map_to_indices[np.around(new_position // 1, digits=5)]
+
+        return new_index, new_ijk
+
+    # Re-populate parameters
+    for new_alpha, (atom_index, (i, j, k)) in enumerate(new_atoms):
+        # One spin
+        for alpha, parameter in spinham._1:
+            if alpha == atom_index:
+                new_spinham.add_1(alpha=new_alpha, parameter=parameter)
+
+        # Two spins
+        for alpha, parameter in spinham._21:
+            if alpha == atom_index:
+                new_spinham.add_21(alpha=new_alpha, parameter=parameter)
+
+        for alpha, beta, nu, parameter in spinham._22:
+            if alpha == atom_index:
+                new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+
+                new_spinham.add_22(
+                    alpha=new_alpha,
+                    beta=new_beta,
+                    nu=new_nu,
+                    parameter=parameter,
+                    replace=True,
+                )
+
+        # Three spins
+        for alpha, parameter in spinham._31:
+            if alpha == atom_index:
+                new_spinham.add_31(alpha=new_alpha, parameter=parameter)
+
+        for alpha, beta, nu, parameter in spinham._32:
+            if alpha == atom_index:
+                new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+
+                new_spinham.add_32(
+                    alpha=new_alpha,
+                    beta=new_beta,
+                    nu=new_nu,
+                    parameter=parameter,
+                    replace=True,
+                )
+
+        for alpha, beta, gamma, nu, _lambda, parameter in spinham._33:
+            if alpha == atom_index:
+                new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+                new_gamma, new_lambda = get_new_indices(atom_index=gamma, ijk=_lambda)
+
+                new_spinham.add_33(
+                    alpha=new_alpha,
+                    beta=new_beta,
+                    gamma=new_gamma,
+                    nu=new_nu,
+                    _lambda=new_lambda,
+                    parameter=parameter,
+                    replace=True,
+                )
+
+        # Four spins
+        for alpha, parameter in spinham._41:
+            if alpha == atom_index:
+                new_spinham.add_41(alpha=new_alpha, parameter=parameter)
+
+        for alpha, beta, nu, parameter in spinham._421:
+            if alpha == atom_index:
+                new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+
+                new_spinham.add_421(
+                    alpha=new_alpha,
+                    beta=new_beta,
+                    nu=new_nu,
+                    parameter=parameter,
+                    replace=True,
+                )
+
+        for alpha, beta, nu, parameter in spinham._422:
+            if alpha == atom_index:
+                new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+
+                new_spinham.add_422(
+                    alpha=new_alpha,
+                    beta=new_beta,
+                    nu=new_nu,
+                    parameter=parameter,
+                    replace=True,
+                )
+
+        for alpha, beta, gamma, nu, _lambda, parameter in spinham._43:
+            new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+            new_gamma, new_lambda = get_new_indices(atom_index=gamma, ijk=_lambda)
+
+            new_spinham.add_43(
+                alpha=new_alpha,
+                beta=new_beta,
+                gamma=new_gamma,
+                nu=new_nu,
+                _lambda=new_lambda,
+                parameter=parameter,
+                replace=True,
+            )
+
+        for (
+            alpha,
+            beta,
+            gamma,
+            epsilon,
+            nu,
+            _lambda,
+            rho,
+            parameter,
+        ) in spinham._44:
+            new_beta, new_nu = get_new_indices(atom_index=beta, ijk=nu)
+            new_gamma, new_lambda = get_new_indices(atom_index=gamma, ijk=_lambda)
+            new_epsilon, new_rho = get_new_indices(atom_index=epsilon, ijk=rho)
+
+            new_spinham.add_44(
+                alpha=new_alpha,
+                beta=new_beta,
+                gamma=new_gamma,
+                epsilon=new_epsilon,
+                nu=new_nu,
+                _lambda=new_lambda,
+                rho=new_rho,
+                parameter=parameter,
+                replace=True,
+            )

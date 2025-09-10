@@ -37,6 +37,8 @@ Bug fixes
 ---------
 
 * Fix :issue:`40`
+* Fix a bug in ``magnopy.io.dump_vampire`` - material index in .UCF file was always 0,
+  now it varies when it should.
 
 Deprecations
 ------------

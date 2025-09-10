@@ -179,7 +179,7 @@ def dump_vampire_mat(
         if materials[i] not in materials[:i]:
             m_i = materials[i] + 1
             text.append("#---------------------------------------------------")
-            text.append(f"# Material {m_i} \n")
+            text.append(f"# Material {m_i}")
             text.append("#---------------------------------------------------")
             text.append(
                 f"material[{m_i}]:material-name = {spinham.magnetic_atoms.names[i]}"
@@ -277,7 +277,7 @@ def dump_vampire_ucf(
     for alpha in range(spinham.M):
         position = spinham.magnetic_atoms.positions[alpha]
         text.append(
-            f"{alpha:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[0]:>5}"
+            f"{alpha:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[alpha]:>5}"
         )
 
     text.append("# Interactions")

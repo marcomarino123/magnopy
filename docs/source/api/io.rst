@@ -13,7 +13,6 @@ Other
     :toctree: generated/
 
     read_spin_directions
-    output_k_resolved
     plot_k_resolved
 
 TB2J
@@ -41,3 +40,11 @@ Vampire
     dump_vampire
     dump_vampire_mat
     dump_vampire_ucf
+
+Deprecated
+==========
+
+.. autosummary::
+    :toctree: generated/
+
+    output_k_resolved

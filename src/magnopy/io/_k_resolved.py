@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +16,30 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 from typing import Iterable
+import warnings
 
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt
+
+    MATPLOTLIB_AVAILABLE = True
+    MATPLOTLIB_ERROR_MESSAGE = "If you see this message, please contact developers of the code (see magnopy.org)."
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    MATPLOTLIB_ERROR_MESSAGE = "\n".join(
+        [
+            "Installation of matplotlib is not found, can not produce .png files",
+            "Please install matplotlib with",
+            "",
+            "    pip install matplotlib",
+            "",
+        ]
+    )
 import numpy as np
-from wulfric.geometry import absolute_to_relative
 
 # Save local scope at this moment
 old_dir = set(dir())
@@ -40,6 +58,10 @@ def output_k_resolved(
     scientific_notation=True,
 ):
     r"""
+
+    .. deprecated:: 0.2.0
+        Always meant to be a temporary solution. This function will be removed in March of 2026
+
     Outputs any k-resolved data.
 
     Parameters
@@ -74,72 +96,11 @@ def output_k_resolved(
     lines : str
         Only returned if ``output_filename is None``. Use ``print("\n".join(lines))``
         to output the results to the standard output stream.
-
-    Notes
-    -----
-    By default kpoints are interpreted as given in absolute coordinates in the
-    reciprocal space.
-
-    .. doctest::
-
-        >>> import magnopy.io as mio
-        >>> omegas = [[1, 2], [1.2, 2.3]]
-        >>> headers = ["mode 1", "mode 2"]
-        >>> kpoints = [[0, 0, 0], [0.1, 0.2, 0.3]]
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints)
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2          k_x          k_y          k_z
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000
-
-    One can tell it to interpret the kpoints as given in relative coordinates to some
-    reciprocal cell
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, relative=True)
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000
-
-    If the reciprocal cell is provided, then the kpoints are converter either way and
-    both are printed
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, relative=True, rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]])
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3          k_x          k_y          k_z
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.20000000   0.30000000   0.10000000   0.40000000   0.90000000
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, relative=False, rcell=[[1, 0, 0], [0, 2, 0], [0, 0, 3]])
-        >>> print("\n".join(lines))
-        #   flat index         mode 1         mode 2         k_b1         k_b2         k_b3          k_x          k_y          k_z
-            0.00000000     1.0000e+00     2.0000e+00   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000
-            0.37416574     1.2000e+00     2.3000e+00   0.10000000   0.10000000   0.10000000   0.10000000   0.20000000   0.30000000
-
-    One can control the number of digits in data
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, digits=6)
-        >>> print("\n".join(lines))
-        #   flat index           mode 1           mode 2          k_x          k_y          k_z
-            0.00000000     1.000000e+00     2.000000e+00   0.00000000   0.00000000   0.00000000
-            0.37416574     1.200000e+00     2.300000e+00   0.10000000   0.20000000   0.30000000
-
-    and whether the scientific notation should be used
-
-    .. doctest::
-
-        >>> lines = mio.output_k_resolved(data=omegas, data_headers=headers, kpoints=kpoints, scientific_notation=False)
-        >>> print("\n".join(lines))
-        #   flat index    mode 1    mode 2          k_x          k_y          k_z
-            0.00000000    1.0000    2.0000   0.00000000   0.00000000   0.00000000
-            0.37416574    1.2000    2.3000   0.10000000   0.20000000   0.30000000
-
     """
+
+    warnings.warn(
+        "This function was deprecated in the release v0.2.0. This function will be removed from magnopy in March of 2026"
+    )
 
     # Prepare format for the data elements
     chars = digits + 1 + 1 + 3
@@ -195,7 +156,7 @@ def output_k_resolved(
                 line.append(f"{0.0:{kp_fmt}}")
             else:
                 line.append(
-                    f"{np.linalg.norm(np.array(kpoints[i], dtype=float) - kpoints[i-1]):{kp_fmt}}"
+                    f"{np.linalg.norm(np.array(kpoints[i], dtype=float) - kpoints[i - 1]):{kp_fmt}}"
                 )
 
         if isinstance(data[i], Iterable):
@@ -215,7 +176,7 @@ def output_k_resolved(
                         " ".join([f"{k_vec[comp]:{kp_fmt}}" for comp in range(3)])
                     )
                 else:
-                    k_vec_rel = absolute_to_relative(vector=kpoints[i], basis=rcell)
+                    k_vec_rel = kpoints[i] @ np.linalg.inv(rcell)
                     line.append(
                         " ".join([f"{k_vec_rel[comp]:{kp_fmt}}" for comp in range(3)])
                     )
@@ -261,6 +222,13 @@ def plot_k_resolved(data, kp=None, output_filename=None, ylabel=None):
         Label for the ordinate (y axis).
     """
 
+    if not MATPLOTLIB_AVAILABLE:
+        import warnings
+
+        warnings.warn(MATPLOTLIB_ERROR_MESSAGE, RuntimeWarning)
+
+        return
+
     data = np.array(data).T
 
     fig, ax = plt.subplots()
@@ -268,13 +236,13 @@ def plot_k_resolved(data, kp=None, output_filename=None, ylabel=None):
     if len(data.shape) == 2:
         for entry in data:
             if kp is not None:
-                ax.plot(kp.flatten_points(), entry, lw=1, color="#A47864")
+                ax.plot(kp.flat_points(), entry, lw=1, color="#A47864")
             else:
                 ax.plot(entry, lw=1, color="#A47864")
                 ax.set_xlim(0, len(entry))
     else:
         if kp is not None:
-            ax.plot(kp.flatten_points(), data, lw=1, color="#A47864")
+            ax.plot(kp.flat_points(), data, lw=1, color="#A47864")
         else:
             ax.plot(data, lw=1, color="#A47864")
             ax.set_xlim(0, len(data))

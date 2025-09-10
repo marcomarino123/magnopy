@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
@@ -78,10 +81,6 @@ def main(root_directory):
     arrow_style = dict(
         angles="xy", scale_units="xy", scale=1, headlength=3, headaxislength=2.7
     )
-
-    parent_color = "#EBAE29"
-    used_in_color = "#728EFC"
-    base_for_color = "#BD2A7B"
 
     ax.text(25, 10, "Local repository", **text_style)
 

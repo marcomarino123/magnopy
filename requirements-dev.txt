@@ -8,6 +8,6 @@ build
 black
 isort
 
-# dev-tools
-gitpython
+# code quality
+ruff
 pre-commit

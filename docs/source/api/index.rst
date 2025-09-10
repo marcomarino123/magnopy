@@ -22,6 +22,7 @@ Sub-modules
   io
   scenarios
   examples
+  experimental
 
 Classes
 =======
@@ -33,6 +34,7 @@ Classes
     SpinHamiltonian
     Energy
     LSWT
+    PlotlyEngine
 
 Functions
 =========

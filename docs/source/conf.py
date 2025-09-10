@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import sys
@@ -89,7 +92,7 @@ html_theme = "pydata_sphinx_theme"
 html_static_path = ["_static"]
 html_css_files = ["magnopy.css"]
 
-html_title = f"magnopy"
+html_title = "magnopy"
 # html_favicon = "img/favicon.png"
 
 # Theme-specific options
@@ -147,7 +150,7 @@ variables_to_export = [
 
 frozen_locals = dict(locals())
 rst_epilog = "\n".join(
-    map(lambda x: f".. |{x}| replace:: {frozen_locals[x]}", variables_to_export)
+    map(lambda x: f".. |{x}| replace:: {frozen_locals[x]}", variables_to_export)  # noqa F821
 )
 del frozen_locals
 
@@ -183,6 +186,10 @@ custom_links = {
     "GitHub-discussions": (
         "Github discussions",
         "https://github.com/magnopy/magnopy/discussions",
+    ),
+    "GitHub-issues": (
+        "Github issues",
+        "https://github.com/magnopy/magnopy/issues",
     ),
     "repository": ("Magnopy repository", "https://github.com/magnopy/magnopy"),
     "issue-tracker": ("Issue Tracker", "https://github.com/magnopy/magnopy/issues"),
@@ -239,6 +246,18 @@ custom_links = {
         "multiprocessing",
         "https://docs.python.org/3/library/multiprocessing.html",
     ),
+    "plotly": ("Plotly", "https://plotly.com/python/"),
+    "spglib": ("spglib", "https://spglib.readthedocs.io/en/stable/index.html"),
+    "plotly-update-layout": (
+        ".update_layout()",
+        "https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html?highlight=update_layout#plotly.graph_objects.Figure.update_layout",
+    ),
+    "plotly-write-html": (
+        ".write_html()",
+        "https://plotly.com/python-api-reference/generated/plotly.io.to_html.html",
+    ),
+    "jupyter": ("jupyter lab or notebook", "https://jupyter.org/"),
+    "matplotlib": ("matplotlib", "https://matplotlib.org/"),
 }
 rst_epilog += "\n".join(
     map(

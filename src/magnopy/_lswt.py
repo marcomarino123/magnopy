@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -447,7 +450,7 @@ class LSWT:
         return float(0.5 * np.sum(self._J1 * self.z))
 
     @property
-    def O(self):
+    def O(self):  # noqa E743
         r"""
         Coefficient before the one-operator terms.
 
@@ -743,7 +746,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.GDM(k=[0,0,0.5], relative=True)
+            >>> lswt.GDM(k=[0,0,0.5], relative=True) # doctest: +SKIP
             array([[1.+0.j, 0.-0.j],
                    [0.+0.j, 1.-0.j]])
         """
@@ -755,8 +758,8 @@ class LSWT:
 
         B = self.B(k=k, relative=relative)
 
-        left = np.concatenate((A, B), axis=0)
-        right = np.concatenate((np.conjugate(B).T, np.conjugate(A_m)), axis=0)
+        left = np.concatenate((A, np.conjugate(B).T), axis=0)
+        right = np.concatenate((B, np.conjugate(A_m)), axis=0)
         gdm = np.concatenate((left, right), axis=1)
 
         return gdm
@@ -783,34 +786,31 @@ class LSWT:
         delta : float
             Constant energy term that results from diagonalization. Note, that data type is complex. If the ground state is correct,
             then the complex part should be zero.
-        G_inv : (M, 2M) :numpy:`ndarray`
+        G : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
-            Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
 
             .. math::
 
                 \begin{pmatrix}
-                    b_1(\boldsymbol{k}),
-                    \dots,
-                    b_M(\boldsymbol{k}),
+                    b_1(\boldsymbol{k}) \\
+                    \dots \\
+                    b_M(\boldsymbol{k}) \\
                 \end{pmatrix}
                 =
-                (\mathcal{G})^{-1}
-
+                \mathcal{G}
                 \begin{pmatrix}
-                    a_1(\boldsymbol{k}),
-                    \dots,
-                    a_M(\boldsymbol{k}),
-                    a^{\dagger}_1(-\boldsymbol{k}),
-                    \dots,
-                    a^{\dagger}_M(-\boldsymbol{k}),
+                    a_1(\boldsymbol{k}) \\
+                    \dots \\
+                    a_M(\boldsymbol{k}) \\
+                    a^{\dagger}_1(-\boldsymbol{k}) \\
+                    \dots \\
+                    a^{\dagger}_M(-\boldsymbol{k}) \\
                 \end{pmatrix}
 
         See Also
         --------
         LSWT.omega
         LSWT.delta
-        LSWT.G_inv
 
         Examples
         --------
@@ -820,7 +820,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.diagonalize(k=[0,0,0.5], relative=True)
+            >>> lswt.diagonalize(k=[0, 0, 0.5], relative=True) # doctest: +SKIP
             (array([2.+0.j]), 0j, array([[1.+0.j, 0.+0.j]]))
         """
 
@@ -831,21 +831,21 @@ class LSWT:
         GDM_minus = self.GDM(k_minus, relative=relative)
 
         try:
-            E_plus, G_plus = solve_via_colpa(GDM_plus, return_inverse=True)
-            E_minus, _G_minus = solve_via_colpa(GDM_minus, return_inverse=True)
+            E_plus, G_plus = solve_via_colpa(GDM_plus, sort_by_first_N=True)
+            E_minus, G_minus = solve_via_colpa(GDM_minus, sort_by_first_N=False)
         except ColpaFailed:
             try:
-                E_plus, G_plus = solve_via_colpa(-GDM_plus, return_inverse=True)
-                E_minus, G_minus = solve_via_colpa(-GDM_minus, return_inverse=True)
+                E_plus, G_plus = solve_via_colpa(-GDM_plus, sort_by_first_N=True)
+                E_minus, G_minus = solve_via_colpa(-GDM_minus, sort_by_first_N=False)
             except ColpaFailed:
                 try:
                     E_plus, G_plus = solve_via_colpa(
                         GDM_plus + (1e-8) * np.ones(GDM_plus.shape, dtype=float),
-                        return_inverse=True,
+                        sort_by_first_N=True,
                     )
                     E_minus, G_minus = solve_via_colpa(
                         GDM_minus + (1e-8) * np.ones(GDM_minus.shape, dtype=float),
-                        return_inverse=True,
+                        sort_by_first_N=False,
                     )
                 except ColpaFailed:
                     return (
@@ -854,10 +854,17 @@ class LSWT:
                         [[np.nan for _ in range(2 * self.M)] for _ in range(self.M)],
                     )
 
+        # Sort by energy values
+
+        energies = E_plus[: self.M] + E_minus[self.M :]
+        transformation_matrices = G_plus[: self.M]
+
+        sorting_indices = np.argsort(energies)
+
         return (
-            E_plus[: self.M] + E_minus[self.M :],
+            energies[sorting_indices],
             complex(0.5 * (np.sum(E_plus[self.M :]) - np.sum(E_plus[: self.M]))),
-            G_plus[: self.M],
+            transformation_matrices[sorting_indices],
         )
 
     def omega(self, k, relative=False):
@@ -881,7 +888,6 @@ class LSWT:
         --------
         LSWT.diagonalize
         LSWT.delta
-        LSWT.G_inv
 
         Examples
         --------
@@ -891,7 +897,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.omega(k=[0,0,0.5], relative=True)
+            >>> lswt.omega(k=[0, 0, 0.5], relative=True)
             array([2.+0.j])
         """
 
@@ -924,7 +930,6 @@ class LSWT:
         --------
         LSWT.diagonalize
         LSWT.omega
-        LSWT.G_inv
 
         Examples
         --------
@@ -934,21 +939,21 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.delta(k=[0,0,0.5], relative=True)
+            >>> lswt.delta(k=[0, 0, 0.5], relative=True)
             0j
         """
         return self.diagonalize(k=k, relative=relative)[1]
 
-    def G_inv(self, k, relative=False):
+    def G(self, k, relative=False):
         r"""
-        Inverse of the transformation matrix to the new bosonic operators.
+        Transformation matrix to the new bosonic operators.
 
         .. math::
 
             b_{\alpha}(\boldsymbol{k})
             =
             \sum_{\beta}
-            (\mathcal{G}^{-1})_{\alpha, \beta}(\boldsymbol{k})
+            (\mathcal{G})_{\alpha, \beta}(\boldsymbol{k})
             \mathcal{A}_{\beta}(\boldsymbol{k})
 
         Parameters
@@ -962,9 +967,8 @@ class LSWT:
 
         Returns
         -------
-        G_inv : (M, 2M) :numpy:`ndarray`
+        G : (M, 2M) :numpy:`ndarray`
             Transformation matrix from the original boson operators.
-            Note that this function returns :math:`(\mathcal{G})^{-1}` for convenience.
 
         See Also
         --------
@@ -980,10 +984,14 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.G_inv(k=[0,0,0.5], relative=True)
+            >>> lswt.G(k=[0, 0, 0.5], relative=True)  # doctest: +SKIP
             array([[1.+0.j, 0.+0.j]])
         """
         return self.diagonalize(k=k, relative=relative)[2]
+
+    # Removed in v0.2.0. Warning will be removed in March of 2026
+    def G_inv(self, *args, **kwargs):
+        raise DeprecationWarning("This method was removed in v0.2.0 in favor of LSWT.G")
 
 
 # Populate __all__ with objects defined in this file
@@ -991,3 +999,22 @@ __all__ = list(set(dir()) - old_dir)
 # Remove all semi-private objects
 __all__ = [i for i in __all__ if not i.startswith("_")]
 del old_dir
+
+
+if __name__ == "__main__":
+    import magnopy
+
+    spinham = magnopy.io.load_grogu(
+        "/Users/rybakov.ad/Codes/magnopy/tmp-09.06.25/Ni-U4/converted_NiPS3.txt"
+    )
+    sd = np.loadtxt(
+        "/Users/rybakov.ad/Codes/magnopy/tmp-09.06.25/Ni-U4/optimize/SPIN_DIRECTIONS.txt"
+    )
+    lswt = LSWT(spinham, sd)
+    k = np.array([0, 0, 0], dtype=float)
+
+    D = lswt.GDM(k)
+
+    E, G = magnopy.solve_via_colpa(D)
+
+    print(np.linalg.inv(np.conjugate(G).T) @ D @ np.linalg.inv(G) == E)

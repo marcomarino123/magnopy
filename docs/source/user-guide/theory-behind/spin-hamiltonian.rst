@@ -81,7 +81,7 @@ The parameters :math:`\boldsymbol{J}(\boldsymbol{r}_{\alpha})`,
 and
 :math:`\boldsymbol{J}(\boldsymbol{r}_{\nu,\alpha\beta}, \boldsymbol{r}_{\lambda,\alpha\gamma}, \boldsymbol{r}_{\rho,\alpha\varepsilon})`
 can describe either some external effect or internal interactions between spins. The
-Hamiltonian above is discussed and solved  in the (TODO) research paper about magnopy.
+Hamiltonian above is discussed and solved in the (TODO) research paper about magnopy.
 
 
 .. _user-guide_theory-behind_spin-hamiltonian_expanded-form:
@@ -103,7 +103,7 @@ written with :math:`C_{2,1} = \pm1` and bilinear exchange interaction with
 is impossible to write them in the same form with one constant :math:`C_2` without
 modification of the parameters themselves.
 
-Magnopy can read this spin Hamiltonian from (TODO supported sources) automatically,
+Magnopy can read this spin Hamiltonian from |TB2J|_ or |GROGU|_ automatically,
 taking into account the convention of the Hamiltonian of each source. Real constants
 :math:`C_1`, :math:`C_{2,1}`, :math:`C_{2,2}`, :math:`C_{3,1}`, :math:`C_{3,2}`,
 :math:`C_{3,3}`, :math:`C_{4,1}`, :math:`C_{4,2,1}`, :math:`C_{4,2,2}`, :math:`C_{4,3}`,

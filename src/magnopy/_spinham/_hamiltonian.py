@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,16 +16,19 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 from copy import deepcopy
+from math import ceil
 
 import numpy as np
 from wulfric import add_sugar
 
 from magnopy._spinham._c1 import _add_1, _p1, _remove_1
 from magnopy._spinham._c21 import _add_21, _p21, _remove_21
-from magnopy._spinham._c22 import _add_22, _p22, _remove_22
+from magnopy._spinham._c22 import _add_22, _get_primary_p22, _p22, _remove_22
 from magnopy._spinham._c31 import _add_31, _p31, _remove_31
 from magnopy._spinham._c32 import _add_32, _p32, _remove_32
 from magnopy._spinham._c33 import _add_33, _p33, _remove_33
@@ -186,7 +190,9 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
             >>> spinham.cell = 2 * np.eye(3)
             Traceback (most recent call last):
             ...
@@ -202,7 +208,9 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
             >>> spinham.cell
             array([[1., 0., 0.],
                    [0., 1., 0.],
@@ -223,7 +231,7 @@ class SpinHamiltonian:
     @cell.setter
     def cell(self, new_value):
         raise AttributeError(
-            f"Change of the cell attribute is not supported after "
+            "Change of the cell attribute is not supported after "
             "the creation of SpinHamiltonian instance. If you need to modify cell, "
             "then use pre-defined methods of SpinHamiltonian or create a new one."
         )
@@ -249,8 +257,10 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
-            >>> spinham.atoms = {"names" : ["Cr"]}
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
+            >>> spinham.atoms = {"names": ["Cr"]}
             Traceback (most recent call last):
             ...
             AttributeError: Change of the atoms dictionary is not supported after the creation of SpinHamiltonian instance. If you need to modify atoms, then use pre-defined methods of SpinHamiltonian or create a new one.
@@ -265,10 +275,12 @@ class SpinHamiltonian:
             >>> import numpy as np
             >>> import magnopy
             >>> convention = magnopy.Convention()
-            >>> spinham = magnopy.SpinHamiltonian(cell = np.eye(3), atoms={}, convention=convention)
+            >>> spinham = magnopy.SpinHamiltonian(
+            ...     cell=np.eye(3), atoms={}, convention=convention
+            ... )
             >>> spinham.atoms
             {}
-            >>> spinham._atoms = {"names" : ["Cr"]}
+            >>> spinham._atoms = {"names": ["Cr"]}
             >>> spinham.atoms
             {'names': ['Cr']}
 
@@ -281,7 +293,7 @@ class SpinHamiltonian:
     @atoms.setter
     def atoms(self, new_value):
         raise AttributeError(
-            f"Change of the atoms dictionary is not supported after "
+            "Change of the atoms dictionary is not supported after "
             "the creation of SpinHamiltonian instance. If you need to modify atoms, "
             "then use pre-defined methods of SpinHamiltonian or create a new one."
         )
@@ -871,6 +883,9 @@ class SpinHamiltonian:
         for index in range(len(self._44)):
             self._44[index][7] = self._44[index][7] * self.convention.c44 / new_c44
 
+    ############################################################################
+    #                          External magnetic field                         #
+    ############################################################################
     def add_magnetic_field(self, h, alphas=None) -> None:
         r"""
         Adds external magnetic field to the Hamiltonian in the form of one spin
@@ -951,6 +966,217 @@ class SpinHamiltonian:
 
         self._1 = new_p1
         self._reset_internals()
+
+    ############################################################################
+    #                    Magnetic dipole-dipole interaction                    #
+    ############################################################################
+
+    def add_dipole_dipole(self, R_cut=None, E_cut=None, alphas=None):
+        r"""
+        Add magnetic dipole dipole interaction to the Hamiltonian.
+
+        Magnetic dipole dipole interaction is added in the form of two-spin & two-sites
+        parameter
+
+        .. math::
+
+            C_{2,2}
+            \sum_{\mu,\nu,\alpha,\beta,i,j}
+            J_{dd}(\boldsymbol{r}_{\nu,\alpha\beta})^{ij}
+            S_{\mu,\alpha}^i
+            S_{\mu+\nu,\beta}^j
+
+        where the parameter is defined as
+
+        .. math::
+
+            J_{dd}(\boldsymbol{r}_{\nu,\alpha\beta})^{ij}
+            =
+            \dfrac{\mu_0\mu_B^2}{8\pi C_{2,2}}
+            \dfrac{g_{\alpha}g_{\beta}}{\vert\boldsymbol{r}_{\nu,\alpha\beta}\vert^3}
+            (\delta_{k,l} - 3\hat{r}_{\nu,\alpha\beta}^i\hat{r}_{\nu,\alpha\beta}^j)
+
+        if :py:attr:`.SpinHamiltonian.convention.multiple_counting` is ``True`` and as
+
+        .. math::
+
+            J_{dd}(\boldsymbol{r}_{\nu,\alpha\beta})^{ij}
+            =
+            \dfrac{\mu_0\mu_B^2}{4\pi C_{2,2}}
+            \dfrac{g_{\alpha}g_{\beta}}{\vert\boldsymbol{r}_{\nu,\alpha\beta}\vert^3}
+            (\delta_{k,l} - 3\hat{r}_{\nu,\alpha\beta}^i\hat{r}_{\nu,\alpha\beta}^j)
+
+        if :py:attr:`.SpinHamiltonian.convention.multiple_counting` is ``False``.
+
+        where :math:`g_{\alpha}` is a g-factor, :math:`\boldsymbol{\hat{r}}_{\nu,\alpha\beta}`
+        is a unit vector.
+
+        Parameters
+        ----------
+        R_cut : float, optional
+            Cut off radius for the distance between a pair of atoms.
+            :math:`R_{cut} \ge 0`.
+        E_cut : float, optional
+            Cut off value for the maximum value of the parameter.
+            :math:`E_{cut} > 0`.
+        alphas : list of int, optional
+            Indices of atoms, to which the magnetic field effect should be added.
+
+        Raises
+        ------
+        ValueError
+            * If none of the  ``R_cut`` or ``E_cut`` are provided.
+            * If ``R_cut < 0``
+            * If ``E_cut <= 0``
+
+        Notes
+        -----
+
+        *   If only ``R_cut`` is given, then the dipole dipole term between the pair of
+            spins :math:`S_{\mu,\alpha}^i` and :math:`S_{\mu+\nu,\beta}^j` is added if
+            :math:`\vert\boldsymbol{r}_{\nu,\alpha\beta}\vert <= R_{cut}`.
+
+        *   If only ``E_cut`` is given, then the ``R_cut`` is estimated as
+
+            .. math::
+
+                R_{cut}
+                =
+                \left(
+                3\sqrt{2}
+                \dfrac{\mu_0\mu_B^2g_{max}^2}{8\pi C_{2,2}E_{cut}}
+                \right)^{\dfrac{1}{3}}
+
+            if :py:attr:`.SpinHamiltonian.convention.multiple_counting` is ``True`` and as
+
+            .. math::
+
+                R_{cut}
+                =
+                \left(
+                3\sqrt{2}
+                \dfrac{\mu_0\mu_B^2g_{max}^2}{4\pi C_{2,2}E_{cut}}
+                \right)^{\dfrac{1}{3}}
+
+            if :py:attr:`.SpinHamiltonian.convention.multiple_counting` is ``False``.
+
+            The dipole dipole term between the pair of spins :math:`S_{\mu,\alpha}^i` and
+            :math:`S_{\mu+\nu,\beta}^j` is added if
+            :math:`\vert\boldsymbol{r}_{\nu,\alpha\beta}\vert \le R_{cut}` and
+            :math:`\vert J_{dd}(\boldsymbol{r}_{\nu,\alpha\beta})^{ij}\vert\ge E_{cut}`
+            for some :math:`i, j`.
+
+        *   If both ``R_cut`` and ``E_cut`` are provided, then the dipole dipole term
+            between the pair of spins :math:`S_{\mu,\alpha}^i` and
+            :math:`S_{\mu+\nu,\beta}^j` is added if
+            :math:`\vert\boldsymbol{r}_{\nu,\alpha\beta}\vert \le R_{cut}` and
+            :math:`\vert J_{dd}(\boldsymbol{r}_{\nu,\alpha\beta})^{ij}\vert \ge E_{cut}`
+            for some :math:`i, j`.
+
+        Magnetic dipole-dipole interaction is added either to magnetic atoms or
+        to the list of the atoms provided by user.
+
+        * If ``alphas is None``, then parameters of the magnetic field added
+          only to the magnetic atoms. In other words only to atoms that already have
+          at least one other parameter (any) associated with it.
+        * If ``alpha is not None``, then parameters of magnetic field are added
+          to the atoms with the provided indices (based on the order in
+          :py:attr:`.SpinHamiltonian.atoms`)
+        """
+        # Constants
+        MU_0_MU_B = (
+            1.256637061 * 9.2740100657**2 * 6.241509074 / 1000
+        )  # meV * Angstrom^3
+
+        if E_cut is None and R_cut is None:
+            raise ValueError("Expected either E_cut or R_cut, got neither.")
+
+        if E_cut is not None:
+            if E_cut <= 0:
+                raise ValueError(f"Expected positive cut-off energy, got {E_cut}.")
+
+            R_cut = (
+                3
+                * np.sqrt(2)
+                * MU_0_MU_B
+                * max(self.atoms.g_factors) ** 2
+                / 4
+                / np.pi
+                / self.convention.c22
+                / E_cut
+            )
+
+            if self.convention.multiple_counting:
+                R_cut = R_cut / 2
+
+            R_cut = R_cut ** (1 / 3)
+        else:
+            R_cut = float(R_cut)
+
+        if R_cut < 0:
+            raise ValueError(f"Expected positive cut-off radius, got {R_cut}.")
+
+        # Get indices for unit cells of interest
+        a1, a2, a3 = self.cell
+        a_3_perp = abs(np.cross(a1, a2) @ a3 / np.linalg.norm(np.cross(a1, a2)))
+        m_3_max = ceil(R_cut / a_3_perp)
+        a_2_perp = np.cross(a2, a3) @ a1 / np.linalg.norm(np.cross(a2, a3))
+        m_2_max = ceil(R_cut / a_2_perp)
+
+        m_1_max = ceil(R_cut / np.linalg.norm(a1))
+
+        # Run over all pairs of atoms between (0, 0, 0) and all unit cells of
+        # interest
+        tmp_parameters = []
+
+        if alphas is None:
+            alphas = self.map_to_all
+
+        for alpha in alphas:
+            for k in range(-m_3_max, m_3_max + 1):
+                for j in range(-m_2_max, m_2_max + 1):
+                    for i in range(-m_1_max, m_1_max + 1):
+                        for beta in alphas:
+                            if k == 0 and j == 0 and i == 0 and alpha == beta:
+                                continue
+
+                            if _get_primary_p22(
+                                alpha=alpha, beta=beta, nu=(i, j, k)
+                            ) != (alpha, beta, (i, j, k)):
+                                continue
+
+                            vector = (
+                                np.array([i, j, k])
+                                + self.atoms.positions[beta]
+                                - self.atoms.positions[alpha]
+                            ) @ self.cell
+                            distance = np.linalg.norm(vector)
+
+                            if distance <= R_cut:
+                                parameter = (
+                                    MU_0_MU_B
+                                    / 4
+                                    / np.pi
+                                    / self.convention.c22
+                                    * self.atoms.g_factors[alpha]
+                                    * self.atoms.g_factors[beta]
+                                    / distance**3
+                                ) * (
+                                    np.eye(3, dtype=float)
+                                    - 3 * np.outer(vector, vector) / distance**2
+                                )
+                                if self.convention.multiple_counting:
+                                    parameter = parameter / 2
+
+                                if E_cut is None or (np.abs(parameter) >= E_cut).any():
+                                    tmp_parameters.append(
+                                        [alpha, beta, (i, j, k), parameter]
+                                    )
+
+        if len(tmp_parameters) > 0:
+            tmp_parameters.sort(key=lambda x: x[:-1])
+
+            self._22 = _merge(list1=self._22, list2=tmp_parameters)
 
     ############################################################################
     #                                Copy getter                               #

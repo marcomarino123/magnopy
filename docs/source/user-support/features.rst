@@ -1,4 +1,4 @@
-.. _development_feature:
+.. _user-support_feature:
 
 ***************
 Feature request

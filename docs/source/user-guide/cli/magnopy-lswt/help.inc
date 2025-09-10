@@ -1,8 +1,10 @@
 usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
-                    [-sv [S1 S2 S3 ... ...]] [-kp G-X-S|G-Y] [-kps KPOINTS]
-                    [-r] [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
-                    [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS]
-                    [-msdi xa_1 xa_2 xa_3 xa_1 xa_2 xa_3 xa_1 xa_2 xa_3]
+                    [-sv [S1 S2 S3 ... ...]] [-kp GAMMA-X-S|GAMMA-Y]
+                    [-kps KPOINTS] [-r]
+                    [-mf MAGNETIC_FIELD MAGNETIC_FIELD MAGNETIC_FIELD]
+                    [-of OUTPUT_FOLDER] [-np NUMBER_PROCESSORS] [-no-html]
+                    [-hpd] [-spg-s SPGLIB_SYMPREC]
+                    [-msdi MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE]
 
 ███╗   ███╗  █████╗   ██████╗  ███╗   ██╗  ██████╗  ██████╗  ██╗   ██╗
 ████╗ ████║ ██╔══██╗ ██╔════╝  ████╗  ██║ ██╔═══██╗ ██╔══██╗ ╚██╗ ██╔╝
@@ -11,9 +13,9 @@ usage: magnopy-lswt [-h] -sf filename -ss name [-sd [S1_x S2_y S3_z ... ...]]
 ██║ ╚═╝ ██║ ██║  ██║ ╚██████╔╝ ██║ ╚████║ ╚██████╔╝ ██║         ██║
 ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝  ╚═════╝  ╚═╝         ╚═╝
                                                            ▄   ▄
-                      Version: 0.1.8                       █▀█▀█
+                      Version: 0.2.0                       █▀█▀█
                 Documentation: magnopy.org                 █▄█▄█
-                Release date: 26 June 2025                  ███   ▄▄
+             Release date: 10 September 2025                ███   ▄▄
                     License: GNU GPLv3                      ████ █  █
           Copyright (C) 2023-2025  Magnopy Team             ████    █
                                                             ▀▀▀▀▀▀▀▀
@@ -49,7 +51,7 @@ options:
                         that those numbers are always positive. To specify AFM
                         order use opposite spin directions and not spin values
                         of the opposite sign.
-  -kp, --k-path G-X-S|G-Y
+  -kp, --k-path GAMMA-X-S|GAMMA-Y
                         Path of high symmetry k-points for the plots of
                         dispersion and other quantities.
   -kps, --kpoints KPOINTS
@@ -69,9 +71,15 @@ options:
                         Number of processes for multithreading. Uses all
                         available processors by default. Pass 1 to run in
                         serial.
-  -msdi, --make-sd-image xa_1 xa_2 xa_3 xa_1 xa_2 xa_3 xa_1 xa_2 xa_3
-                        Plots optimized spin directions and saves it in .html
-                        file, that can be viewed within any modern browser.
-                        Expects three integers as an input - the supercell
-                        that will be plotted. Pass 1 1 1 to plot only the unit
-                        cell.
+  -no-html, --no-html   html files are generally heavy (~> 5 Mb). This option
+                        allows to disable their production to save disk space.
+  -hpd, --hide-personal-data
+                        Whether to strip the parts of the paths as to hide the
+                        file structure of you personal computer.
+  -spg-s, --spglib-symprec SPGLIB_SYMPREC
+                        Tolerance parameter for the space group symmetry
+                        search by spglib.
+  -msdi, --make-sd-image MAKE_SD_IMAGE MAKE_SD_IMAGE MAKE_SD_IMAGE
+                        make_sd_image is deprecated, use --no-html instead.
+                        This arguments will be removed from magnopy in March
+                        of 2026

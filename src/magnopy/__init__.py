@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +16,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
-__version__ = "0.1.9"
+__version__ = "0.2.0"
 __doclink__ = "magnopy.org"
-__release_date__ = "30 June 2025"
+__release_date__ = "10 September 2025"
 
-from . import _constants, examples, io, scenarios
+from . import _constants, examples, io, scenarios, experimental
 from ._diagonalization import *
 from ._energy import *
 from ._exceptions import *
@@ -31,3 +34,4 @@ from ._package_info import *
 from ._parallelization import *
 from ._parameters import *
 from ._spinham import *
+from ._plotly_engine import *

@@ -1,7 +1,7 @@
-MAGNOPY - Python package for magnons.
-Copyright (C) 2023-2025 Magnopy Team
+Magnopy - Python package for magnons.
+Copyright (C) 2023-{{current-year}} Magnopy Team
 
-e-mail: anry@uv.es, web: magnopy.com
+e-mail: anry@uv.es, web: magnopy.org
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

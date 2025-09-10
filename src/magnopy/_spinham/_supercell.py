@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,12 +16,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 R"""
 Convention of spin Hamiltonian
 """
-
 
 from magnopy._spinham._hamiltonian import SpinHamiltonian
 
@@ -65,18 +67,17 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         >>> # First create the original spin Hamiltonian
         >>> cell = np.eye(3)
         >>> atoms = dict(
-        ... names=["Fe1", "Fe2"],
-        ... positions=[[0, 0, 0], [0.5, 0.5, 0.5]],
-        ... spins=[1, 1],
-        ... g_factors=[2, 2])
-        >>> convention=magnopy.Convention(
-        ... spin_normalized=False,
-        ... multiple_counting=True,
-        ... c21=1)
+        ...     names=["Fe1", "Fe2"],
+        ...     positions=[[0, 0, 0], [0.5, 0.5, 0.5]],
+        ...     spins=[1, 1],
+        ...     g_factors=[2, 2],
+        ... )
+        >>> convention = magnopy.Convention(
+        ...     spin_normalized=False, multiple_counting=True, c21=1
+        ... )
         >>> spinham = magnopy.SpinHamiltonian(
-        ... cell=cell,
-        ... atoms=atoms,
-        ... convention=convention)
+        ...     cell=cell, atoms=atoms, convention=convention
+        ... )
         >>> # Add an on-site parameter for both atoms
         >>> spinham.add_21(alpha=0, parameter=np.eye(3))
         >>> spinham.add_21(alpha=1, parameter=np.eye(3))
@@ -94,17 +95,19 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         >>> len(new_spinham.atoms.names)
         16
         >>> for i in range(2):
-        ...     print(spinham.atoms.names[i],
-        ...           spinham.atoms.positions[i],
-        ...           spinham.atoms.spins[i])
-        ...
+        ...     print(
+        ...         spinham.atoms.names[i],
+        ...         spinham.atoms.positions[i],
+        ...         spinham.atoms.spins[i],
+        ...     )
         Fe1 [0, 0, 0] 1
         Fe2 [0.5, 0.5, 0.5] 1
         >>> for i in range(16):
-        ...     print(new_spinham.atoms.names[i],
-        ...           new_spinham.atoms.positions[i],
-        ...           new_spinham.atoms.spins[i])
-        ...
+        ...     print(
+        ...         new_spinham.atoms.names[i],
+        ...         new_spinham.atoms.positions[i],
+        ...         new_spinham.atoms.spins[i],
+        ...     )
         Fe1_0_0_0 [0.0, 0.0, 0.0] 1
         Fe2_0_0_0 [0.25, 0.25, 0.25] 1
         Fe1_1_0_0 [0.5, 0.0, 0.0] 1
@@ -125,15 +128,13 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         >>> len(spinham.p21)
         2
         >>> for alpha, _ in spinham.p21:
-        ...         print(alpha)
-        ...
+        ...     print(alpha)
         0
         1
         >>> len(new_spinham.p21)
         16
         >>> for alpha, _ in new_spinham.p21:
-        ...         print(alpha)
-        ...
+        ...     print(alpha)
         0
         1
         2
@@ -160,19 +161,13 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         >>> import magnopy
         >>> # First create the original spin Hamiltonian
         >>> cell = np.eye(3)
-        >>> atoms = dict(
-        ... names=["Fe"],
-        ... positions=[[0, 0, 0]],
-        ... spins=[1],
-        ... g_factors=[2])
-        >>> convention=magnopy.Convention(
-        ... spin_normalized=False,
-        ... multiple_counting=True,
-        ... c22=1)
+        >>> atoms = dict(names=["Fe"], positions=[[0, 0, 0]], spins=[1], g_factors=[2])
+        >>> convention = magnopy.Convention(
+        ...     spin_normalized=False, multiple_counting=True, c22=1
+        ... )
         >>> spinham = magnopy.SpinHamiltonian(
-        ... cell=cell,
-        ... atoms=atoms,
-        ... convention=convention)
+        ...     cell=cell, atoms=atoms, convention=convention
+        ... )
         >>> # Add an on-site parameter for both atoms
         >>> spinham.add_22(alpha=0, beta=0, nu=(1, 0, 0), parameter=np.eye(3))
         >>> # Now create a spin Hamiltonian on the (2, 2, 2) supercell
@@ -180,10 +175,11 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         >>> len(new_spinham.atoms.names)
         8
         >>> for i in range(8):
-        ...     print(new_spinham.atoms.names[i],
-        ...           new_spinham.atoms.positions[i],
-        ...           new_spinham.atoms.spins[i])
-        ...
+        ...     print(
+        ...         new_spinham.atoms.names[i],
+        ...         new_spinham.atoms.positions[i],
+        ...         new_spinham.atoms.spins[i],
+        ...     )
         Fe_0_0_0 [0.0, 0.0, 0.0] 1
         Fe_1_0_0 [0.5, 0.0, 0.0] 1
         Fe_0_1_0 [0.0, 0.5, 0.0] 1
@@ -194,13 +190,11 @@ def make_supercell(spinham: SpinHamiltonian, supercell):
         Fe_1_1_1 [0.5, 0.5, 0.5] 1
         >>> # The bonds were recalculated automatically
         >>> for alpha, beta, nu, _ in spinham.p22:
-        ...         print(alpha, beta, nu)
-        ...
+        ...     print(alpha, beta, nu)
         0 0 (1, 0, 0)
         0 0 (-1, 0, 0)
         >>> for alpha, beta, nu, _ in new_spinham.p22:
-        ...         print(alpha, beta, nu)
-        ...
+        ...     print(alpha, beta, nu)
         0 1 (0, 0, 0)
         1 0 (1, 0, 0)
         2 3 (0, 0, 0)

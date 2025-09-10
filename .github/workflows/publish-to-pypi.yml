@@ -13,10 +13,8 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: "3.x"
-    - name: Install dev tools
-      run: pip install gitpython termcolor
     - name: Inspect metadata
-      run: python3 -u dev-tools/prepare-release.py -v ${{  github.ref_name }} -rd .
+      run: python3 -u dev-tools/check-release-metadata.py -v ${{  github.ref_name }} -rd .
 
   test:
     name: Test

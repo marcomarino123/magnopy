@@ -46,14 +46,14 @@ you may need to use ``python3`` instead (and ``pip3`` instead of ``pip``).
 .. _user-guide_installation_pip:
 
 .. hint::
-    On linux and OSX systems one can create a virtual environment for the magnopy's installation with 
+    On linux and OSX systems one can create a virtual environment for the magnopy's installation with
     (use your version of python instead of ``python3.13`` if needed)
 
     .. code-block:: bash
 
         python3.13 -m venv .venv
 
-    And activate it with 
+    And activate it with
 
     .. code-block:: bash
 
@@ -80,6 +80,42 @@ Magnopy is published and distributed from the |PYPI|_. To install it use the com
 
 If there are any bugs with the installation, please drop a message to the developers
 through one of our :ref:`support` channels and we would be happy to help.
+
+Optionally, if you want magnopy to produce .png and .html files with graphics you can
+install |plotly|_ and |matplotlib|_ manually or install them with magnopy as
+
+.. code-block:: bash
+
+    pip install magnopy[visual]
+
+.. note::
+    You may need to escape the ``[`` and ``]`` characters, because they are special
+    characters in most shells. For example, in bash you can use backslash to escape them
+
+    .. code-block:: bash
+
+        pip install magnopy\[visual\]
+
+    Or enclose full name in quotes
+
+    .. code-block:: bash
+
+        pip install "magnopy[visual]"
+
+.. hint::
+    If you are using |jupyter|_, then magnopy can be installed with
+
+    .. code-block::
+
+        %pip install magnopy
+
+    or
+
+    .. code-block::
+
+        %pip install "magnopy[visual]"
+
+    within it.
 
 .. _user-guide_installation_source:
 

@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,12 +16,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 R"""
 Convention of spin Hamiltonian
 """
-
 
 from magnopy._constants._spinham_conventions import _CONVENTIONS
 from magnopy._exceptions import ConventionError
@@ -761,12 +763,13 @@ class Convention:
 
             >>> import magnopy
             >>> conv = magnopy.Convention(
-            ... name="original",
-            ... multiple_counting = True,
-            ... spin_normalized = False,
-            ... c1 = 1,
-            ... c21 = 1,
-            ... c22 = -1)
+            ...     name="original",
+            ...     multiple_counting=True,
+            ...     spin_normalized=False,
+            ...     c1=1,
+            ...     c21=1,
+            ...     c22=-1,
+            ... )
             >>> conv.summary()
             original convention where
               * Bonds are counted multiple times in the sum;
@@ -782,10 +785,7 @@ class Convention:
               * Undefined c422 factor;
               * Undefined c43 factor;
               * Undefined c44 factor.
-            >>> mod_conv = conv.get_modified(
-            ... name="modified",
-            ... c22 = 1,
-            ... c33 = -3)
+            >>> mod_conv = conv.get_modified(name="modified", c22=1, c33=-3)
             >>> mod_conv.summary()
             modified convention where
               * Bonds are counted multiple times in the sum;

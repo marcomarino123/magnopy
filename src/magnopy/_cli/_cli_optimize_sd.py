@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +16,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
-
-from matplotlib.mlab import magnitude_spectrum
+import warnings
 
 from magnopy._package_info import logo
 from magnopy.io._grogu import load_grogu
@@ -37,6 +39,12 @@ def manager():
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
+
+    # Handle deprecations
+    if args.make_sd_image is not None:
+        warnings.warn(
+            "This argument was deprecated in the release v0.2.0. The spin direction image is now plotted by default, please use --no-html if you want to disable it. This argument will be removed from magnopy in March of 2026"
+        )
 
     # Process spin values
     if args.spin_values is not None:
@@ -55,20 +63,26 @@ def manager():
             f'got "{args.spinham_source}".'
         )
 
+    if args.hide_personal_data:
+        spinham_filename = args.spinham_filename
+    else:
+        spinham_filename = os.path.abspath(args.spinham_filename)
     comment = (
         f'Source of the parameters is "{args.spinham_source}".\n'
         f"Loaded parameters of the spin Hamiltonian from the file\n  "
-        f"{os.path.abspath(args.spinham_filename)}."
+        f"{spinham_filename}."
     )
 
     optimize_sd(
         spinham=spinham,
+        supercell=args.supercell,
         magnetic_field=args.magnetic_field,
         energy_tolerance=args.energy_tolerance,
         torque_tolerance=args.torque_tolerance,
         output_folder=args.output_folder,
         comment=comment,
-        make_sd_image=args.make_sd_image,
+        no_html=args.no_html,
+        hide_personal_data=args.hide_personal_data,
     )
 
 
@@ -84,7 +98,7 @@ def get_parser():
         "-sf",
         "--spinham-filename",
         type=str,
-        metavar="filename",
+        metavar="FILENAME",
         default=None,
         required=True,
         help="Path to the spin Hamiltonian file, from where the parameters would be read.",
@@ -93,7 +107,7 @@ def get_parser():
         "-ss",
         "--spinham-source",
         type=str,
-        metavar="name",
+        metavar="KEYWORD",
         default=None,
         required=True,
         choices=["GROGU", "TB2J"],
@@ -104,13 +118,23 @@ def get_parser():
         "--spin-values",
         nargs="*",
         type=str,
-        metavar="S1 S2 S3 ...",
+        metavar=("S1", "S2"),
         help="In the case when the parameters of spin Hamiltonian comes from TB2J, one "
         "might want to change the values of spins to be closer to half-integers. This "
         "option allows that. Order of the M numbers should match the order of magnetic "
         "atoms in the spin Hamiltonian. Note that those numbers are always positive. To "
         "specify AFM order use opposite spin directions and not spin values of the "
         "opposite sign.",
+    )
+    parser.add_argument(
+        "-s",
+        "--supercell",
+        nargs=3,
+        type=int,
+        default=(1, 1, 1),
+        metavar=("xa_1", "xa_2", "xa_3"),
+        help="Specification of the supercell for the spin optimization. Expects three "
+        "integers as an input. Pass 1 1 1 to optimize within the original unit cell.",
     )
     parser.add_argument(
         "-et",
@@ -132,6 +156,7 @@ def get_parser():
         "--magnetic-field",
         default=None,
         nargs=3,
+        metavar=("h_x", "h_y", "h_z"),
         type=float,
         help="Vector of external magnetic field, given in the units of Tesla.",
     )
@@ -143,15 +168,32 @@ def get_parser():
         help="Folder where all output files of magnopy wil be saved.",
     )
     parser.add_argument(
+        "-no-html",
+        "--no-html",
+        action="store_true",
+        default=False,
+        help="Disable plotting of the spin direction image in the .html format. html "
+        "files are generally heavy (~> 5 Mb). This option allows to disable their "
+        "production to save disk space.",
+    )
+    parser.add_argument(
+        "-hpd",
+        "--hide-personal-data",
+        action="store_true",
+        default=False,
+        help="Whether to strip the parts of the paths as to hide the file structure of "
+        "you personal computer.",
+    )
+
+    # Deprecated in the version v0.2.0
+    # Will be removed in March 2026
+    parser.add_argument(
         "-msdi",
         "--make-sd-image",
         nargs=3,
         type=int,
         default=None,
-        metavar="xa_1 xa_2 xa_3",
-        help="Plots optimized spin directions and saves it in .html file, that can be "
-        "viewed within any modern browser. Expects three integers as an input - the "
-        "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",
+        help="make_sd_image is deprecated, image is made by default, use --no-html to suppress. This arguments will be removed from magnopy in March of 2026",
     )
 
     return parser

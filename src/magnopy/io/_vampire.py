@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
@@ -170,13 +173,13 @@ def dump_vampire_mat(
     else:
         text = [logo(comment=True, date_time=True)]
 
-    text.append(f"material:num-materials = {max(materials)+1}")
+    text.append(f"material:num-materials = {max(materials) + 1}")
 
     for i in range(spinham.M):
         if materials[i] not in materials[:i]:
             m_i = materials[i] + 1
             text.append("#---------------------------------------------------")
-            text.append(f"# Material {m_i} \n")
+            text.append(f"# Material {m_i}")
             text.append("#---------------------------------------------------")
             text.append(
                 f"material[{m_i}]:material-name = {spinham.magnetic_atoms.names[i]}"
@@ -185,7 +188,7 @@ def dump_vampire_mat(
                 f"material[{m_i}]:material-element = {get_atom_species(spinham.magnetic_atoms.names[i])}"
             )
             text.append(
-                f"material[{m_i}]:atomic-spin-moment={spinham.magnetic_atoms.spins[i]*spinham.magnetic_atoms.g_factors[i]} ! muB"
+                f"material[{m_i}]:atomic-spin-moment={spinham.magnetic_atoms.spins[i] * spinham.magnetic_atoms.g_factors[i]} ! muB"
             )
             text.append(f"material[{m_i}]:initial-spin-direction = random")
             text.append(f"material[{m_i}]:damping-constant = 0.1")
@@ -274,14 +277,14 @@ def dump_vampire_ucf(
     for alpha in range(spinham.M):
         position = spinham.magnetic_atoms.positions[alpha]
         text.append(
-            f"{alpha:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[0]:>5}"
+            f"{alpha:<5} {position[0]:15.8f} {position[1]:15.8f} {position[2]:15.8f} {materials[alpha]:>5}"
         )
 
     text.append("# Interactions")
     text.append(f"{len(spinham.p22)} tensorial")
 
     IID = 0
-    fmt = f"{7+decimals}.{decimals}e"
+    fmt = f"{7 + decimals}.{decimals}e"
 
     # Write (two spins & one site)
     for alpha, J in spinham.p21:

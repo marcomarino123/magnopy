@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
@@ -25,7 +28,8 @@ from magnopy._package_info import _warranty, logo
 
 def main():
     parser = ArgumentParser(
-        description=logo() + f"\n\nAvailable scripts are:\n\n"
+        description=logo() + "\n\nAvailable scripts are:\n\n"
+        "* magnopy-optimize-sd\n\n"
         "* magnopy-lswt\n\n"
         "To call for help for each script type <script name> --help\n"
         "Information below is relevant only to 'magnopy' command.",

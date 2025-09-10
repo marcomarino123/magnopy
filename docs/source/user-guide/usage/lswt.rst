@@ -76,14 +76,13 @@ They can be computed one by one
 
     >>> omega = lswt.omega(k = [0.5, 0, 0])
     >>> delta = lswt.delta(k = [0.5, 0, 0])
-    >>> G_inv = lswt.G_inv(k = [0.5, 0, 0])
 
 or all at once
 
 .. doctest::
 
-    >>> omega, delta, G_inv = lswt.diagonalize(k = [0.5, 0, 0])
+    >>> omega, delta, G = lswt.diagonalize(k = [0.5, 0, 0])
 
-Note that call of :py:meth:`.LSWT.omega`, :py:meth:`.LSWT.delta` or :py:meth:`.LSWT.G_inv`
+Note that call of :py:meth:`.LSWT.omega`, :py:meth:`.LSWT.delta` or :py:meth:`.LSWT.G`
 invokes the call of :py:meth:`.LSWT.diagonalize`. Therefore, we recommend to use
 :py:meth:`.LSWT.diagonalize` to avoid duplicate calculations.

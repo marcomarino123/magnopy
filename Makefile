@@ -8,7 +8,7 @@ BUILDDIR      = _build
 
 help:
 	@echo "\x1b[31m"
-	@echo "Please specify what do you want to do!"
+	@echo "Please specify what do you want to do."
 	@echo "\x1b[0m"
 	@echo "Available options are:\n"
 	@echo "    help - show this message"
@@ -20,7 +20,7 @@ help:
 	@echo "    install - install the package"
 	@echo "    test - execute unit tests"
 	@echo "    pictures-for-docs - plot all pictures for the documentation"
-	@echo "    model-input-examples-run - run the model input examples"
+	@echo "    files-for-docs - prepare some generated files for the documentation"
 	@echo "    requirements - install all requirements"
 
 # Development environment
@@ -42,7 +42,6 @@ clean:
 	-@rm -r build
 	-@rm -r dist
 	-@rm -r .venv/lib/python*/site-packages/magnopy*
-	-@rm -r .venv/lib/python*/site-packages/magnopy*
 	-@rm -r .venv/bin/magnopy*
 
 # Documentation and doctests
@@ -51,8 +50,10 @@ pictures-for-docs:
 	@python3 dev-tools/images/positions.py -rd .
 
 files-for-docs:
-	-@rm docs/source/user-guide/cli/magnopy-lswt-help.inc
-	@magnopy-lswt --help > docs/source/user-guide/cli/magnopy-lswt-help.inc
+	-@rm docs/source/user-guide/cli/magnopy-lswt/help.inc
+	-@rm docs/source/user-guide/cli/magnopy-optimize-sd/help.inc
+	@magnopy-lswt --help > docs/source/user-guide/cli/magnopy-lswt/help.inc
+	@magnopy-optimize-sd --help > docs/source/user-guide/cli/magnopy-optimize-sd/help.inc
 
 html:
 	@$(SPHINXBUILD) -M html "docs/$(SOURCEDIR)" "docs/$(BUILDDIR)" $(SPHINXOPTS)

@@ -3,11 +3,11 @@
     :hidden:
 
     User Guide <user-guide/index>
+    user-support/index
     api/index
-    support
-    development/index
     release-notes/index
     cite
+    development/index
 
 :Release: |version|
 :Date: |release_date|
@@ -16,6 +16,15 @@
 |issue-tracker|_ |
 :ref:`Cite <cite>` |
 :ref:`support`
+
+.. hint::
+
+  Install magnopy with optional dependencies (|plotly|_ and |matplotlib|_) to get magnopy
+  to produce graphics
+
+  .. code-block:: bash
+
+    pip install "magnopy[visual]"
 
 What is magnopy?
 ================

@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,9 +16,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
-from wulfric.geometry import absolute_to_relative
+import numpy as np
 
 from magnopy._spinham._convention import Convention
 from magnopy._spinham._hamiltonian import SpinHamiltonian
@@ -82,7 +85,7 @@ def load_grogu(filename) -> SpinHamiltonian:
         name_to_index[name] = atom_index
 
         positions = list(map(float, words[1:4]))
-        positions = absolute_to_relative(vector=positions, basis=cell)
+        positions = positions @ np.linalg.inv(cell)
 
         spin = float(words[4])
 

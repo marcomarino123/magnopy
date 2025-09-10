@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +16,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
+
+from math import log10
 
 import numpy as np
 
@@ -139,30 +144,26 @@ class Energy:
         >>> import magnopy
         >>> cell = np.eye(3)
         >>> atoms = dict(
-        ... names = ["Fe"],
-        ... spins = [1.5],
-        ... g_factors = [2],
-        ... positions = [[0, 0, 0]])
+        ...     names=["Fe"], spins=[1.5], g_factors=[2], positions=[[0, 0, 0]]
+        ... )
         >>> convention = magnopy.Convention(
-        ... multiple_counting=True,
-        ... spin_normalized=False,
-        ... c21=1,
-        ... c22=-1)
+        ...     multiple_counting=True, spin_normalized=False, c21=1, c22=-1
+        ... )
         >>> spinham = magnopy.SpinHamiltonian(
-        ... cell=cell,
-        ... atoms=atoms,
-        ... convention=convention)
+        ...     cell=cell, atoms=atoms, convention=convention
+        ... )
 
     Then, add some parameters to the Hamiltonian
 
     .. doctest::
 
-        >>> spinham.add_21(alpha=0, parameter = np.diag([0, 0, -1]))
+        >>> spinham.add_21(alpha=0, parameter=np.diag([0, 0, -1]))
         >>> spinham.add_22(
-        ... alpha=0,
-        ... beta=0,
-        ... nu=(1,0,0),
-        ... parameter = magnopy.converter22.from_iso(iso=1))
+        ...     alpha=0,
+        ...     beta=0,
+        ...     nu=(1, 0, 0),
+        ...     parameter=magnopy.converter22.from_iso(iso=1),
+        ... )
 
     Now everything is ready to create an instance of the Energy class
 
@@ -175,9 +176,9 @@ class Energy:
 
     .. doctest::
 
-        >>> sd1 = [[1,0,0]]
-        >>> sd2 = [[0,1,0]]
-        >>> sd3 = [[0,0,1]]
+        >>> sd1 = [[1, 0, 0]]
+        >>> sd2 = [[0, 1, 0]]
+        >>> sd3 = [[0, 0, 1]]
         >>> energy(sd1), energy(sd2), energy(sd3)
         (-4.5, -4.5, -6.75)
     """
@@ -360,30 +361,26 @@ class Energy:
             >>> import magnopy
             >>> cell = np.eye(3)
             >>> atoms = dict(
-            ... names = ["Fe"],
-            ... spins = [1.5],
-            ... g_factors = [2],
-            ... positions = [[0, 0, 0]])
+            ...     names=["Fe"], spins=[1.5], g_factors=[2], positions=[[0, 0, 0]]
+            ... )
             >>> convention = magnopy.Convention(
-            ... multiple_counting=True,
-            ... spin_normalized=False,
-            ... c21=1,
-            ... c22=-1)
+            ...     multiple_counting=True, spin_normalized=False, c21=1, c22=-1
+            ... )
             >>> spinham = magnopy.SpinHamiltonian(
-            ... cell=cell,
-            ... atoms=atoms,
-            ... convention=convention)
+            ...     cell=cell, atoms=atoms, convention=convention
+            ... )
 
         Then, add some parameters to the Hamiltonian
 
         .. doctest::
 
-            >>> spinham.add_21(alpha=0, parameter = np.diag([0, 0, -1]))
+            >>> spinham.add_21(alpha=0, parameter=np.diag([0, 0, -1]))
             >>> spinham.add_22(
-            ... alpha=0,
-            ... beta=0,
-            ... nu=(1,0,0),
-            ... parameter = magnopy.converter22.from_iso(iso=1))
+            ...     alpha=0,
+            ...     beta=0,
+            ...     nu=(1, 0, 0),
+            ...     parameter=magnopy.converter22.from_iso(iso=1),
+            ... )
 
         Now everything is ready to create an instance of the Energy class
 
@@ -396,9 +393,9 @@ class Energy:
 
         .. doctest::
 
-            >>> sd1 = [[1,0,0]]
-            >>> sd2 = [[0,1,0]]
-            >>> sd3 = [[0,0,1]]
+            >>> sd1 = [[1, 0, 0]]
+            >>> sd2 = [[0, 1, 0]]
+            >>> sd3 = [[0, 0, 1]]
             >>> energy.E_0(sd1), energy.E_0(sd2), energy.E_0(sd3)
             (-4.5, -4.5, -6.75)
             >>> # The command above is equivalent to
@@ -513,10 +510,9 @@ class Energy:
             .. code-block:: python
 
                 [
-                    [ dE/dz1x, dE/dz1y, dE/dz1z ],
-                    [ dE/dz2x, dE/dz2y, dE/dz2z ],
-                    ...
-                    [ dE/dzMx, dE/dzMy, dE/dzMz ]
+                    [dE / dz1x, dE / dz1y, dE / dz1z],
+                    [dE / dz2x, dE / dz2y, dE / dz2z],
+                    ...[dE / dzMx, dE / dzMy, dE / dzMz],
                 ]
         """
 
@@ -663,12 +659,7 @@ class Energy:
 
             .. code-block:: python
 
-                [
-                    [ t1x, t1y, t1z ],
-                    [ t2x, t2y, t2z ],
-                    ...
-                    [ tMx, tMy, tMz ]
-                ]
+                [[t1x, t1y, t1z], [t2x, t2y, t2z], ...[tMx, tMy, tMz]]
         """
         return np.cross(
             spin_directions,
@@ -720,11 +711,9 @@ class Energy:
             # Safeguard
             if phi_min is None:
                 phi_min = phi_j
-                alpha_min = alpha_j
             else:
                 if phi_j < phi_min:
                     phi_min = phi_j
-                    alpha_min = alpha_j
                     trial_steps = 0
             trial_steps += 1
             if trial_steps > 10:
@@ -867,12 +856,44 @@ class Energy:
         -------
         optimized_directions : (M, 3) :numpy:`ndarray`
             Optimized direction of the spin vectors.
+
+        See Also
+        --------
+        optimize_generator
         """
 
         if initial_guess is None:
             initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
 
         sd_k = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
+
+        if not quiet:
+            n_energy = max(-(int(log10(energy_tolerance)) - 2), 6)
+            n_torque = max(-(int(log10(torque_tolerance)) - 2), 6)
+            print(
+                "─" * 5
+                + "┬"
+                + "─" * 13
+                + "┬"
+                + "─" * (6 + n_energy)
+                + "┬"
+                + "─" * (6 + n_torque)
+            )
+            print(
+                f"{'step':^4} │ "
+                f"{'E_0':^11} │ "
+                f"{'delta E_0':^{n_energy + 4}} │ "
+                f"{'max torque':^{n_torque + 4}}"
+            )
+            print(
+                "─" * 5
+                + "┴"
+                + "─" * 13
+                + "┴"
+                + "─" * (6 + n_energy)
+                + "┴"
+                + "─" * (6 + n_torque)
+            )
 
         tolerance = np.array([energy_tolerance, torque_tolerance], dtype=float)
 
@@ -918,16 +939,11 @@ class Energy:
             )
             # print(f"deltas: {delta[0]:11.7f} {delta[1]:11.7f}")
             if not quiet:
-                from math import log10
-
-                n_energy = max(-(int(log10(energy_tolerance)) - 2), 0)
-                n_torque = max(-(int(log10(torque_tolerance)) - 2), 0)
                 print(
-                    f"step {step_counter:<4} | "
-                    f"energy = {energy_next:11.7f} | "
-                    f"deltas: {delta[0]:{n_energy+4}.{n_energy}f} "
-                    f"{delta[1]:{n_torque+4}.{n_torque}f} | "
-                    f"alpha_k = {alpha_k}"
+                    f"{step_counter:<4}   "
+                    f"{energy_next:>11.7f}   "
+                    f"{delta[0]:>{n_energy + 4}.{n_energy}f}   "
+                    f"{delta[1]:>{n_torque + 4}.{n_torque}f}"
                 )
 
             if (delta < tolerance).all():
@@ -957,6 +973,116 @@ class Energy:
             step_counter += 1
             # print("=" * 40)
 
+        if not quiet:
+            print("─" * (33 + n_energy + n_torque))
+        return sd_next
+
+    def optimize_generator(
+        self,
+        initial_guess=None,
+        energy_tolerance=1e-5,
+        torque_tolerance=1e-5,
+    ):
+        r"""
+        Optimize classical energy by varying the directions of spins in the unit cell.
+
+        .. versionadded:: 0.2.0
+
+        Parameters
+        ----------
+        initial_guess : (M, 3) or (3,) |array-like|_, optional
+            Initial guess for the direction of the spin vectors.
+        energy_tolerance : float, default 1e-5
+            Energy tolerance for the two consecutive steps of the optimization.
+        torque_tolerance : float, default 1e-5
+            Torque tolerance for the two consecutive steps of the optimization.
+
+        Yields
+        ------
+        energy : float
+            Classical energy of the iteration step
+        gradient : (M, 3) :numpy:`ndarray`
+            Gradient vectors for each spin of the iteration step.
+        spin_directions : (M, 3) :numpy:`ndarray`
+            Directions of the spin vectors of the iteration step.
+
+        See Also
+        --------
+        optimize
+        """
+
+        if initial_guess is None:
+            initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
+
+        sd_k = initial_guess / np.linalg.norm(initial_guess, axis=1)[:, np.newaxis]
+
+        tolerance = np.array([energy_tolerance, torque_tolerance], dtype=float)
+
+        delta = 2 * tolerance
+
+        hessinv_k = np.eye(3 * self.M, dtype=float)
+
+        energy_k = self.E_0(spin_directions=sd_k)
+        gradient_k = self.torque(spin_directions=sd_k).flatten()
+
+        first_iteration = True
+        step_counter = 1
+
+        yield (energy_k, gradient_k, sd_k)
+
+        while (delta >= tolerance).any():
+            search_direction = -hessinv_k @ gradient_k
+
+            alpha_k = self._line_search(
+                reference_sd=sd_k,
+                search_direction=search_direction,
+                phi_0=energy_k,
+                der_0=gradient_k @ search_direction,
+            )
+
+            s_k = alpha_k * search_direction
+
+            sd_next = _rotate_sd(reference_sd=sd_k, rotation=s_k)
+
+            energy_next = self.E_0(spin_directions=sd_next)
+            gradient_next = self.torque(spin_directions=sd_next).flatten()
+
+            yield (energy_next, gradient_next, sd_next)
+
+            delta = np.array(
+                [
+                    abs(energy_next - energy_k),
+                    # Pay attention to the np.reshape keywords
+                    np.linalg.norm(
+                        np.reshape(gradient_next, (self.M, 3)), axis=1
+                    ).max(),
+                ]
+            )
+
+            if (delta < tolerance).all():
+                break
+
+            y_k = gradient_next - gradient_k
+
+            rho_k = 1 / (y_k @ s_k)
+
+            EYE = np.eye(3 * self.M)
+            OUTER = np.outer(y_k, s_k)
+
+            if first_iteration:
+                first_iteration = False
+                hessinv_k = (y_k @ s_k) / (y_k @ y_k) * hessinv_k
+
+            hessinv_k = (EYE - rho_k * OUTER.T) @ hessinv_k @ (
+                EYE - rho_k * OUTER
+            ) + rho_k * s_k @ s_k
+
+            sd_k = sd_next
+            energy_k = energy_next
+            gradient_k = gradient_next
+
+            step_counter += 1
+
         return sd_next
 
 
@@ -965,73 +1091,3 @@ __all__ = list(set(dir()) - old_dir)
 # Remove all semi-private objects
 __all__ = [i for i in __all__ if not i.startswith("_")]
 del old_dir
-
-
-if __name__ == "__main__":
-    import magnopy.io as mio
-    from magnopy.examples import cubic_ferro_nn, ivuzjo
-
-    # spinham = cubic_ferro_nn(
-    #     a=1,
-    #     J_iso=1,
-    #     J_21=(-1, 0, 0),
-    #     S=0.5,
-    #     dimensions=3,
-    # )
-    # spinham.add_magnetic_field(h=[0, 1, 0])
-
-    spinham = ivuzjo(N=20)
-
-    energy = Energy(spinham=spinham)
-
-    optimized_sd = energy.optimize(torque_tolerance=1e-3)
-
-    print(optimized_sd)
-
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.axes_grid1 import make_axes_locatable
-
-    fig, axs = plt.subplots(2, 2, figsize=(9, 9))
-    fig.subplots_adjust(hspace=0.25, wspace=0.5)
-
-    axs = axs.flatten()
-
-    positions = np.array(spinham.atoms.positions)
-    for i in range(3):
-        im = axs[i].scatter(
-            positions[:, 0],
-            positions[:, 1],
-            c=optimized_sd[:, i],
-            vmin=-1,
-            vmax=1,
-            cmap="bwr",
-        )
-        divider = make_axes_locatable(axs[i])
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        axs[i].set_aspect(1)
-        axs[i].set_title(f"$S_{'xyz'[i]}$")
-        plt.colorbar(im, cax=cax)
-
-    im = axs[3].quiver(
-        positions[:, 0],
-        positions[:, 1],
-        0.5 * optimized_sd[:, 0] / np.linalg.norm(optimized_sd[:, :2], axis=1),
-        0.5 * optimized_sd[:, 1] / np.linalg.norm(optimized_sd[:, :2], axis=1),
-        optimized_sd[:, 2],
-        angles="xy",
-        scale_units="xy",
-        scale=1,
-        cmap="bwr",
-        headlength=8,
-        headaxislength=7,
-        headwidth=5,
-        vmin=-1,
-        vmax=1,
-    )
-    divider = make_axes_locatable(axs[3])
-    cax = divider.append_axes("right", size="5%", pad=0.05)
-    axs[3].set_aspect(1)
-    axs[3].set_title(f"Vectors")
-    plt.colorbar(im, cax=cax)
-
-    plt.savefig("test.png", dpi=400, bbox_inches="tight")

@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import numpy as np
@@ -103,11 +106,11 @@ def ivuzjo(N=10, J=10):
     atom_index = 0
     for i in range(0, N):
         for j in range(0, N):
-            atoms["names"].append(f"Fe_{i+1}_{j+1}")
+            atoms["names"].append(f"Fe_{i + 1}_{j + 1}")
             atoms["positions"].append([i + 0.5, j + 0.5, 0])
             atoms["spins"].append(1)
             atoms["g_factors"].append(2)
-            names_to_index[f"Fe_{i+1}_{j+1}"] = atom_index
+            names_to_index[f"Fe_{i + 1}_{j + 1}"] = atom_index
             atom_index += 1
 
     convention = Convention(
@@ -119,15 +122,15 @@ def ivuzjo(N=10, J=10):
     # For each atom add bonds
     for i in range(0, N):
         for j in range(0, N):
-            alpha = names_to_index[f"Fe_{i+1}_{j+1}"]
+            alpha = names_to_index[f"Fe_{i + 1}_{j + 1}"]
 
             # 1 0 0
             if i == N - 1:
                 nu = (1, 0, 0)
-                beta = names_to_index[f"Fe_1_{j+1}"]
+                beta = names_to_index[f"Fe_1_{j + 1}"]
             else:
                 nu = (0, 0, 0)
-                beta = names_to_index[f"Fe_{i+2}_{j+1}"]
+                beta = names_to_index[f"Fe_{i + 2}_{j + 1}"]
 
             parameter = from_iso(iso=J) + from_dmi(dmi=[D, 0, 0])
             spinham.add_22(alpha=alpha, beta=beta, nu=nu, parameter=parameter)
@@ -135,10 +138,10 @@ def ivuzjo(N=10, J=10):
             # 0 1 0
             if j == N - 1:
                 nu = (0, 1, 0)
-                beta = names_to_index[f"Fe_{i+1}_1"]
+                beta = names_to_index[f"Fe_{i + 1}_1"]
             else:
                 nu = (0, 0, 0)
-                beta = names_to_index[f"Fe_{i+1}_{j+2}"]
+                beta = names_to_index[f"Fe_{i + 1}_{j + 2}"]
             parameter = from_iso(iso=J) + from_dmi(dmi=[0, D, 0])
             spinham.add_22(alpha=alpha, beta=beta, nu=nu, parameter=parameter)
 

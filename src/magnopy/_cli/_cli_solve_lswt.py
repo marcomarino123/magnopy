@@ -1,7 +1,8 @@
-# MAGNOPY - Python package for magnons.
+# ================================== LICENSE ===================================
+# Magnopy - Python package for magnons.
 # Copyright (C) 2023-2025 Magnopy Team
 #
-# e-mail: anry@uv.es, web: magnopy.com
+# e-mail: anry@uv.es, web: magnopy.org
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,9 +16,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# ================================ END LICENSE =================================
 
 
 import os
+import warnings
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
@@ -34,6 +38,12 @@ def manager():
     parser = get_parser()
 
     args = parser.parse_args()
+
+    # Handle deprecations
+    if args.make_sd_image is not None:
+        warnings.warn(
+            "This argument was deprecated in the release v0.2.0. The spin direction image is now plotted by default, please use --no-html if you want to disable it. This argument will be removed from magnopy in March of 2026"
+        )
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -89,11 +99,14 @@ def manager():
             'Supported sources of spin Hamiltonian are "GROGU" and "TB2J", '
             f'got "{args.spinham_source}".'
         )
-
+    if args.hide_personal_data:
+        spinham_filename = args.spinham_filename
+    else:
+        spinham_filename = os.path.abspath(args.spinham_filename)
     comment = (
         f'Source of the parameters is "{args.spinham_source}".\n'
         f"Loaded parameters of the spin Hamiltonian from the file\n  "
-        f"{os.path.abspath(args.spinham_filename)}."
+        f"{spinham_filename}."
     )
 
     solve_lswt(
@@ -106,7 +119,9 @@ def manager():
         output_folder=args.output_folder,
         number_processors=args.number_processors,
         comment=comment,
-        make_sd_image=args.make_sd_image,
+        no_html=args.no_html,
+        hide_personal_data=args.hide_personal_data,
+        spglib_symprec=args.spglib_symprec,
     )
 
 
@@ -171,7 +186,7 @@ def get_parser():
         "-kp",
         "--k-path",
         default=None,
-        metavar="G-X-S|G-Y",
+        metavar="GAMMA-X-S|GAMMA-Y",
         type=str,
         help="Path of high symmetry k-points for the plots of dispersion and other "
         "quantities.",
@@ -217,15 +232,37 @@ def get_parser():
         "default. Pass 1 to run in serial.",
     )
     parser.add_argument(
+        "-no-html",
+        "--no-html",
+        action="store_true",
+        default=False,
+        help="html files are generally heavy (~> 5 Mb). This option allows to disable "
+        "their production to save disk space.",
+    )
+    parser.add_argument(
+        "-hpd",
+        "--hide-personal-data",
+        action="store_true",
+        default=False,
+        help="Whether to strip the parts of the paths as to hide the file structure of "
+        "you personal computer.",
+    )
+    parser.add_argument(
+        "-spg-s",
+        "--spglib-symprec",
+        type=float,
+        default=1e-5,
+        help="Tolerance parameter for the space group symmetry search by spglib.",
+    )
+
+    # Deprecated arguments
+    parser.add_argument(
         "-msdi",
         "--make-sd-image",
         nargs=3,
         type=int,
         default=None,
-        metavar="xa_1 xa_2 xa_3",
-        help="Plots optimized spin directions and saves it in .html file, that can be "
-        "viewed within any modern browser. Expects three integers as an input - the "
-        "supercell that will be plotted. Pass 1 1 1 to plot only the unit cell.",
+        help="make_sd_image is deprecated, use --no-html instead. This arguments will be removed from magnopy in March of 2026",
     )
 
     return parser

@@ -190,7 +190,7 @@ def plot_spinham(
     dmi_positions = np.array(dmi_positions)[indices]
     dmi_vectors = np.array(dmi_vectors)[indices]
 
-    dmi_max_length = np.linalg.norm(dmi_vectors, axis=1).max()
+    dmi_max_length = np.array([np.linalg.norm(_) for _ in dmi_vectors]).max()
 
     if dmi_max_length != 0:
         dmi_vectors = dmi_vectors / dmi_max_length * dmi_vectors_scale

@@ -20,7 +20,7 @@
 # ================================ END LICENSE =================================
 
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __doclink__ = "magnopy.org"
 __release_date__ = "10 September 2025"
 

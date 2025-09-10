@@ -122,7 +122,7 @@ def to_iso(parameter, matrix_form=False):
                [0., 0., 3.]])
     """
 
-    iso = np.linalg.trace(parameter) / 3
+    iso = (parameter[0][0] + parameter[1][1] + parameter[2][2]) / 3
 
     if matrix_form:
         return iso * np.eye(3, dtype=float)

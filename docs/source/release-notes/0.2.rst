@@ -7,6 +7,22 @@ Version 0.2
 0.2.0
 =====
 
+**Date** : 10 September 2025
+
+Bugfix
+------
+
+* Fix problem with ``np.linalg.trace`` and with ``np.linalm.norm(..., axis=1)`` in
+  ``magnopy.experimental``
+
+0.2.0
+=====
+
+.. warning::
+
+  We do not recommend to use ``magnopy.experimental.plot_spinham`` of this version with
+  old (<2.*) of |numpy|_.
+
 **Date**: 10 September 2025
 
 *   Make matplotlib and plotly optional dependencies. Use ``pip install "magnopy[visual]"``

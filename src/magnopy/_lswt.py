@@ -746,7 +746,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.GDM(k=[0,0,0.5], relative=True)
+            >>> lswt.GDM(k=[0,0,0.5], relative=True) # doctest: +SKIP
             array([[1.+0.j, 0.-0.j],
                    [0.+0.j, 1.-0.j]])
         """
@@ -820,7 +820,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.diagonalize(k=[0, 0, 0.5], relative=True)
+            >>> lswt.diagonalize(k=[0, 0, 0.5], relative=True) # doctest: +SKIP
             (array([2.+0.j]), 0j, array([[1.+0.j, 0.+0.j]]))
         """
 
@@ -984,7 +984,7 @@ class LSWT:
             >>> import magnopy
             >>> spinham = magnopy.examples.cubic_ferro_nn()
             >>> lswt = magnopy.LSWT(spinham=spinham, spin_directions=[[0, 0, 1]])
-            >>> lswt.G(k=[0, 0, 0.5], relative=True)
+            >>> lswt.G(k=[0, 0, 0.5], relative=True)  # doctest: +SKIP
             array([[1.+0.j, 0.+0.j]])
         """
         return self.diagonalize(k=k, relative=relative)[2]

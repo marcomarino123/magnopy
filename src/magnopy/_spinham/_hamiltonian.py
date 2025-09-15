@@ -489,9 +489,7 @@ class SpinHamiltonian:
 
         if self.convention.multiple_counting == multiple_counting:
             return
-
-        # For (two spins & two sites)
-
+            
         # It was absent before
         if multiple_counting:
             factor = 0.5
@@ -499,58 +497,21 @@ class SpinHamiltonian:
         else:
             factor = 2.0
 
+        # For (two spins & two sites)
         for index in range(len(self._22)):
             self._22[index][3] = self._22[index][3] * factor
 
         # For (three spins & two sites)
-
-        # It was absent before
-        if multiple_counting:
-            factor = 0.5
-        # It was present before
-        else:
-            factor = 2.0
-
         for index in range(len(self._32)):
             self._32[index][3] = self._32[index][3] * factor
 
-        # For (three spins & three sites)
-
-        # It was absent before
-        if multiple_counting:
-            factor = 1 / 6
-        # It was present before
-        else:
-            factor = 6
-
-        for index in range(len(self._33)):
-            self._33[index][5] = self._33[index][5] * factor
-
         # For (four spins & two sites (3+1))
-
-        # It was absent before
-        if multiple_counting:
-            factor = 0.5
-        # It was present before
-        else:
-            factor = 2.0
-
         for index in range(len(self._421)):
             self._421[index][3] = self._421[index][3] * factor
 
         # For (four spins & two sites (2+2))
-
-        # It was absent before
-        if multiple_counting:
-            factor = 0.5
-        # It was present before
-        else:
-            factor = 2.0
-
         for index in range(len(self._422)):
             self._422[index][3] = self._422[index][3] * factor
-
-        # For (four spins & three sites)
 
         # It was absent before
         if multiple_counting:
@@ -558,11 +519,14 @@ class SpinHamiltonian:
         # It was present before
         else:
             factor = 6
+            
+        # For (three spins & three sites)
+        for index in range(len(self._33)):
+            self._33[index][5] = self._33[index][5] * factor
 
+        # For (four spins & three sites)
         for index in range(len(self._43)):
             self._43[index][5] = self._43[index][5] * factor
-
-        # For (four spins & four sites)
 
         # It was absent before
         if multiple_counting:
@@ -571,6 +535,7 @@ class SpinHamiltonian:
         else:
             factor = 24
 
+        # For (four spins & four sites)
         for index in range(len(self._44)):
             self._44[index][7] = self._44[index][7] * factor
 

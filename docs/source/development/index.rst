@@ -56,7 +56,7 @@ Fork and clone
 
             git clone git@github.com:your-username/magnopy.git
 
-    -    If you are not using ssh-key
+    -   If you are not using ssh-key
 
         .. code-block:: bash
 

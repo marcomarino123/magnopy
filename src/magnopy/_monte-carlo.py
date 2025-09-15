@@ -26,7 +26,7 @@ class Energy_modified(Energy):
         super().__init__(spinham)
         self.beta = beta
 
-    def generate_possible_flippings(self, number_flippings=0, thetas_flag=False, phis_flag=False):
+    def generate_possible_flippings(self, number_flippings=0, collinear=False):
         r"""
         Generate random sites, and random versors (pointing to specific thetas and phis in polar coordinates),
             and random angles of rotation with respect to the random versors.
@@ -47,18 +47,17 @@ class Energy_modified(Energy):
         phis : (M, 1) |array_like|_
         alphas : (M, 1) |array_lie|_
         """
+
         sites = np.random.randint(0,self.M, number_flippings)
         
-        if phis_flag is False: 
-            thetas = np.random.choice([0,np.pi], size=number_flippings)
-            phis = np.zeros((number_flippings), dtype=float)
-        elif thetas_flag is False:
+        if collinear is False: 
+            alphas = np.random.uniform(0, 2*np.pi, number_flippings) 
+            thetas = np.random.uniform(0, np.pi, number_flippings)
             phis = np.random.uniform(0, 2*np.pi, number_flippings)
-            thetas = np.zeros((number_flippings), dtype=float)
         else:
-            raise ValueError(f"No angular degrees of freedom.")
-        
-        alphas = np.random.uniform(0, 2*np.pi, number_flippings)
+            alphas = np.random.choice([0, np.pi], size=number_flippings)
+            phis = np.zeros((number_flippings), dtype=float)
+            thetas = np.zeros((number_flippings), dtype=float)
 
         return sites, phis, thetas, alphas
 
@@ -117,7 +116,7 @@ class Energy_modified(Energy):
                 return new_spin_directions, new_E_0
         return spin_directions, old_E_0
 
-    def warming_up(self, initial_guess=None, number_flippings=0, thetas_flag=False, phis_flag=False):
+    def warming_up(self, initial_guess=None, number_flippings=0, collinear=False):
         r"""
         Warming up of the spin lattice, following Metropolis acceptance rules.
 
@@ -140,7 +139,7 @@ class Energy_modified(Energy):
         new_spin_directions : (M, 3) |array_like|_
             New spin configuration
         """
-        sites, phis, thetas, alphas=self.generate_possible_flippings(number_flippings, thetas_flag, phis_flag)
+        sites, phis, thetas, alphas=self.generate_possible_flippings(number_flippings, collinear)
         
         if initial_guess is None:
             initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
@@ -154,12 +153,12 @@ class Energy_modified(Energy):
 
         return initial_guess
 
-    def measuring(self, initial_guess, number_flippings, thetas_flag=False, phis_flag=False):
+    def measuring(self, initial_guess, number_flippings, collinear=False):
         data = {
             'E': np.zeros(number_flippings,dtype=float),
             'E2' : np.zeros(number_flippings,dtype=float)}
         
-        sites, phis, thetas, alphas=self.generate_possible_flippings(number_flippings, thetas_flag, phis_flag)
+        sites, phis, thetas, alphas=self.generate_possible_flippings(number_flippings, collinear)
         
         if initial_guess is None:
             initial_guess = np.random.uniform(low=-1, high=1, size=(self.M, 3))
